@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   layout "store"
   #...
   
-  before_filter :authorize, :except => :login
+  # before_filter :authorize, :except => :login
   helper :all # include all helpers, all the time
 
   # See ActionController::RequestForgeryProtection for details

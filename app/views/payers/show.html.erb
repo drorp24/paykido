@@ -1,0 +1,38 @@
+<p>
+  <b>Name:</b>
+  <%=h @payer.name %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%=h @payer.email %>
+</p>
+
+<p>
+  <b>Pay type:</b>
+  <%=h @payer.pay_type %>
+</p>
+
+<p>
+  <b>Username:</b>
+  <%=h @payer.username %>
+</p>
+
+<p>
+  <b>Hashed password:</b>
+  <%=h @payer.hashed_password %>
+</p>
+
+<p>
+  <b>Salt:</b>
+  <%=h @payer.salt %>
+</p>
+
+<p>
+  <b>Balance:</b>
+  <%=h @payer.balance %>
+</p>
+
+
+<%= link_to 'Edit', edit_payer_path(@payer) %> |
+<%= link_to 'Back', payers_path %>

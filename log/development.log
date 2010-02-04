@@ -4301,3 +4301,897 @@ Rendering template within layouts/store
 Rendering store/index
 Rendered store/_cart (0.0ms)
 Completed in 156ms (View: 125, DB: 0) | 200 OK [http://localhost/store]
+
+
+Processing StoreController#index (for 127.0.0.1 at 2010-02-04 17:47:30) [GET]
+  [4;36;1mProduct Load (31.0ms)[0m   [0;1mSELECT * FROM "products" ORDER BY title[0m
+Rendering template within layouts/store
+Rendering store/index
+Rendered store/_cart (0.0ms)
+Completed in 562ms (View: 140, DB: 31) | 200 OK [http://localhost/store]
+
+
+Processing StoreController#add_to_cart (for 127.0.0.1 at 2010-02-04 17:47:40) [POST]
+  Parameters: {"commit"=>"Add To Cart", "id"=>"1"}
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT * FROM "products" WHERE ("products"."id" = 1) [0m
+Rendering store/add_to_cart
+Rendered store/_cart_item (31.0ms)
+Rendered store/_cart (47.0ms)
+Completed in 125ms (View: 62, DB: 0) | 200 OK [http://localhost/store/add_to_cart/1]
+
+
+Processing StoreController#add_to_cart (for 127.0.0.1 at 2010-02-04 17:47:42) [POST]
+  Parameters: {"commit"=>"Add To Cart", "id"=>"3"}
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT * FROM "products" WHERE ("products"."id" = 3) [0m
+Rendering store/add_to_cart
+Rendered store/_cart_item (0.0ms)
+Rendered store/_cart_item (0.0ms)
+Rendered store/_cart (16.0ms)
+Completed in 141ms (View: 16, DB: 0) | 200 OK [http://localhost/store/add_to_cart/3]
+
+
+Processing StoreController#add_to_cart (for 127.0.0.1 at 2010-02-04 17:47:46) [POST]
+  Parameters: {"commit"=>"Add To Cart", "id"=>"1"}
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT * FROM "products" WHERE ("products"."id" = 1) [0m
+Rendering store/add_to_cart
+Rendered store/_cart_item (16.0ms)
+Rendered store/_cart_item (0.0ms)
+Rendered store/_cart (31.0ms)
+Completed in 62ms (View: 31, DB: 0) | 200 OK [http://localhost/store/add_to_cart/1]
+
+
+Processing StoreController#add_to_cart (for 127.0.0.1 at 2010-02-04 17:47:48) [POST]
+  Parameters: {"commit"=>"Add To Cart", "id"=>"2"}
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT * FROM "products" WHERE ("products"."id" = 2) [0m
+Rendering store/add_to_cart
+Rendered store/_cart_item (15.0ms)
+Rendered store/_cart_item (0.0ms)
+Rendered store/_cart_item (0.0ms)
+Rendered store/_cart (15.0ms)
+Completed in 62ms (View: 15, DB: 0) | 200 OK [http://localhost/store/add_to_cart/2]
+
+
+Processing StoreController#checkout (for 127.0.0.1 at 2010-02-04 17:47:53) [POST]
+Rendering template within layouts/store
+Rendering store/checkout
+Rendered store/_cart_item (0.0ms)
+Rendered store/_cart_item (0.0ms)
+Rendered store/_cart_item (0.0ms)
+Rendered store/_cart (15.0ms)
+Completed in 203ms (View: 47, DB: 0) | 200 OK [http://localhost/store/checkout]
+
+
+Processing StoreController#checkout (for 127.0.0.1 at 2010-02-04 18:53:00) [POST]
+Rendering template within layouts/store
+Rendering store/checkout
+Rendered store/_cart_item (16.0ms)
+Rendered store/_cart_item (0.0ms)
+Rendered store/_cart_item (0.0ms)
+Rendered store/_cart (16.0ms)
+Completed in 47ms (View: 31, DB: 0) | 200 OK [http://localhost/store/checkout]
+
+
+Processing StoreController#index (for 127.0.0.1 at 2010-02-04 18:53:06) [GET]
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT * FROM "products" ORDER BY title[0m
+Rendering template within layouts/store
+Rendering store/index
+Rendered store/_cart_item (0.0ms)
+Rendered store/_cart_item (0.0ms)
+Rendered store/_cart_item (0.0ms)
+Rendered store/_cart (0.0ms)
+Completed in 62ms (View: 31, DB: 0) | 200 OK [http://localhost/store]
+
+
+Processing PayersController#index (for 127.0.0.1 at 2010-02-04 18:53:25) [GET]
+  [4;36;1mUser Load (0.0ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" IS NULL) LIMIT 1[0m
+Redirected to http://localhost:3000/admin/login
+Filter chain halted as [:authorize] rendered_or_redirected.
+Completed in 203ms (DB: 0) | 302 Found [http://localhost/payers]
+
+
+Processing AdminController#login (for 127.0.0.1 at 2010-02-04 18:53:25) [GET]
+Rendering template within layouts/store
+Rendering admin/login
+Completed in 156ms (View: 141, DB: 0) | 200 OK [http://localhost/admin/login]
+/!\ FAILSAFE /!\  Thu Feb 04 18:54:30 +0200 2010
+  Status: 500 Internal Server Error
+  F:/InstantRails/rails_apps/work/depot/app/controllers/application_controller.rb:28: syntax error, unexpected $end, expecting kEND
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load_without_new_constant_marking'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load_file'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:521:in `new_constants_in'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:379:in `load_file'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:259:in `require_or_load'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:425:in `load_missing_constant'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:80:in `const_missing'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:92:in `const_missing'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:89:in `dispatch'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:121:in `_call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:130:in `build_middleware_stack'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/head.rb:9:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/methodoverride.rb:24:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/params_parser.rb:15:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/session/abstract_store.rb:122:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:29:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:9:in `cache'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:28:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/failsafe.rb:26:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `synchronize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:114:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/reloader.rb:34:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:108:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/rails/rack/static.rb:31:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:46:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `each'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/rails/rack/log_tailer.rb:17:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/content_length.rb:13:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/chunked.rb:15:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/handler/mongrel.rb:64:in `process'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:159:in `process_client'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:158:in `each'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:158:in `process_client'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `initialize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `new'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `initialize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `new'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/handler/mongrel.rb:34:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/commands/server.rb:111
+    F:/InstantRails/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+    F:/InstantRails/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+    script/server:3
+/!\ FAILSAFE /!\  Thu Feb 04 18:54:45 +0200 2010
+  Status: 500 Internal Server Error
+  F:/InstantRails/rails_apps/work/depot/app/controllers/application_controller.rb:28: syntax error, unexpected $end, expecting kEND
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load_without_new_constant_marking'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load_file'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:521:in `new_constants_in'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:379:in `load_file'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:259:in `require_or_load'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:425:in `load_missing_constant'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:80:in `const_missing'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:92:in `const_missing'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:89:in `dispatch'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:121:in `_call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:130:in `build_middleware_stack'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/head.rb:9:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/methodoverride.rb:24:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/params_parser.rb:15:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/session/abstract_store.rb:122:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:29:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:9:in `cache'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:28:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/failsafe.rb:26:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `synchronize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:114:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/reloader.rb:34:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:108:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/rails/rack/static.rb:31:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:46:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `each'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/rails/rack/log_tailer.rb:17:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/content_length.rb:13:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/chunked.rb:15:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/handler/mongrel.rb:64:in `process'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:159:in `process_client'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:158:in `each'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:158:in `process_client'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `initialize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `new'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `initialize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `new'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/handler/mongrel.rb:34:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/commands/server.rb:111
+    F:/InstantRails/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+    F:/InstantRails/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+    script/server:3
+/!\ FAILSAFE /!\  Thu Feb 04 18:54:48 +0200 2010
+  Status: 500 Internal Server Error
+  F:/InstantRails/rails_apps/work/depot/app/controllers/application_controller.rb:28: syntax error, unexpected $end, expecting kEND
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load_without_new_constant_marking'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load_file'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:521:in `new_constants_in'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:379:in `load_file'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:259:in `require_or_load'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:425:in `load_missing_constant'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:80:in `const_missing'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:92:in `const_missing'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:89:in `dispatch'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:121:in `_call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:130:in `build_middleware_stack'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/head.rb:9:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/methodoverride.rb:24:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/params_parser.rb:15:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/session/abstract_store.rb:122:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:29:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:9:in `cache'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:28:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/failsafe.rb:26:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `synchronize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:114:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/reloader.rb:34:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:108:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/rails/rack/static.rb:31:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:46:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `each'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/rails/rack/log_tailer.rb:17:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/content_length.rb:13:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/chunked.rb:15:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/handler/mongrel.rb:64:in `process'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:159:in `process_client'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:158:in `each'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:158:in `process_client'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `initialize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `new'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `initialize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `new'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/handler/mongrel.rb:34:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/commands/server.rb:111
+    F:/InstantRails/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+    F:/InstantRails/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+    script/server:3
+/!\ FAILSAFE /!\  Thu Feb 04 18:54:50 +0200 2010
+  Status: 500 Internal Server Error
+  F:/InstantRails/rails_apps/work/depot/app/controllers/application_controller.rb:28: syntax error, unexpected $end, expecting kEND
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load_without_new_constant_marking'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load_file'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:521:in `new_constants_in'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:379:in `load_file'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:259:in `require_or_load'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:425:in `load_missing_constant'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:80:in `const_missing'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:92:in `const_missing'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:89:in `dispatch'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:121:in `_call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:130:in `build_middleware_stack'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/head.rb:9:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/methodoverride.rb:24:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/params_parser.rb:15:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/session/abstract_store.rb:122:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:29:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:9:in `cache'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:28:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/failsafe.rb:26:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `synchronize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:114:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/reloader.rb:34:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:108:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/rails/rack/static.rb:31:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:46:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `each'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/rails/rack/log_tailer.rb:17:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/content_length.rb:13:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/chunked.rb:15:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/handler/mongrel.rb:64:in `process'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:159:in `process_client'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:158:in `each'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:158:in `process_client'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `initialize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `new'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `initialize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `new'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/handler/mongrel.rb:34:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/commands/server.rb:111
+    F:/InstantRails/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+    F:/InstantRails/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+    script/server:3
+/!\ FAILSAFE /!\  Thu Feb 04 18:54:51 +0200 2010
+  Status: 500 Internal Server Error
+  F:/InstantRails/rails_apps/work/depot/app/controllers/application_controller.rb:28: syntax error, unexpected $end, expecting kEND
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load_without_new_constant_marking'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load_file'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:521:in `new_constants_in'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:379:in `load_file'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:259:in `require_or_load'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:425:in `load_missing_constant'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:80:in `const_missing'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:92:in `const_missing'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:89:in `dispatch'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:121:in `_call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:130:in `build_middleware_stack'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/head.rb:9:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/methodoverride.rb:24:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/params_parser.rb:15:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/session/abstract_store.rb:122:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:29:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:9:in `cache'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:28:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/failsafe.rb:26:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `synchronize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:114:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/reloader.rb:34:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:108:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/rails/rack/static.rb:31:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:46:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `each'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/rails/rack/log_tailer.rb:17:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/content_length.rb:13:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/chunked.rb:15:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/handler/mongrel.rb:64:in `process'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:159:in `process_client'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:158:in `each'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:158:in `process_client'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `initialize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `new'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `initialize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `new'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/handler/mongrel.rb:34:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/commands/server.rb:111
+    F:/InstantRails/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+    F:/InstantRails/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+    script/server:3
+/!\ FAILSAFE /!\  Thu Feb 04 18:54:52 +0200 2010
+  Status: 500 Internal Server Error
+  F:/InstantRails/rails_apps/work/depot/app/controllers/application_controller.rb:28: syntax error, unexpected $end, expecting kEND
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load_without_new_constant_marking'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load_file'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:521:in `new_constants_in'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:379:in `load_file'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:259:in `require_or_load'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:425:in `load_missing_constant'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:80:in `const_missing'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:92:in `const_missing'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:89:in `dispatch'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:121:in `_call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:130:in `build_middleware_stack'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/head.rb:9:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/methodoverride.rb:24:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/params_parser.rb:15:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/session/abstract_store.rb:122:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:29:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:9:in `cache'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:28:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/failsafe.rb:26:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `synchronize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:114:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/reloader.rb:34:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:108:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/rails/rack/static.rb:31:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:46:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `each'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/rails/rack/log_tailer.rb:17:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/content_length.rb:13:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/chunked.rb:15:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/handler/mongrel.rb:64:in `process'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:159:in `process_client'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:158:in `each'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:158:in `process_client'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `initialize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `new'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `initialize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `new'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/handler/mongrel.rb:34:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/commands/server.rb:111
+    F:/InstantRails/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+    F:/InstantRails/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+    script/server:3
+  [4;36;1mSQL (172.0ms)[0m   [0;1mDELETE FROM sessions[0m
+/!\ FAILSAFE /!\  Thu Feb 04 18:55:53 +0200 2010
+  Status: 500 Internal Server Error
+  F:/InstantRails/rails_apps/work/depot/app/controllers/application_controller.rb:28: syntax error, unexpected $end, expecting kEND
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load_without_new_constant_marking'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load_file'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:521:in `new_constants_in'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:379:in `load_file'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:259:in `require_or_load'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:425:in `load_missing_constant'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:80:in `const_missing'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:92:in `const_missing'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:89:in `dispatch'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:121:in `_call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:130:in `build_middleware_stack'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/head.rb:9:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/methodoverride.rb:24:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/params_parser.rb:15:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/session/abstract_store.rb:122:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:29:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:9:in `cache'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:28:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/failsafe.rb:26:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `synchronize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:114:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/reloader.rb:34:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:108:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/rails/rack/static.rb:31:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:46:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `each'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/rails/rack/log_tailer.rb:17:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/content_length.rb:13:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/chunked.rb:15:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/handler/mongrel.rb:64:in `process'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:159:in `process_client'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:158:in `each'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:158:in `process_client'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `initialize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `new'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `initialize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `new'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/handler/mongrel.rb:34:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/commands/server.rb:111
+    F:/InstantRails/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+    F:/InstantRails/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+    script/server:3
+/!\ FAILSAFE /!\  Thu Feb 04 18:56:03 +0200 2010
+  Status: 500 Internal Server Error
+  F:/InstantRails/rails_apps/work/depot/app/controllers/application_controller.rb:28: syntax error, unexpected $end, expecting kEND
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load_without_new_constant_marking'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load_file'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:521:in `new_constants_in'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:379:in `load_file'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:259:in `require_or_load'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:425:in `load_missing_constant'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:80:in `const_missing'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:92:in `const_missing'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:89:in `dispatch'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:121:in `_call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:130:in `build_middleware_stack'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/head.rb:9:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/methodoverride.rb:24:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/params_parser.rb:15:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/session/abstract_store.rb:122:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:29:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:9:in `cache'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:28:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/failsafe.rb:26:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `synchronize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:114:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/reloader.rb:34:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:108:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/rails/rack/static.rb:31:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:46:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `each'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/rails/rack/log_tailer.rb:17:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/content_length.rb:13:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/chunked.rb:15:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/handler/mongrel.rb:64:in `process'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:159:in `process_client'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:158:in `each'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:158:in `process_client'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `initialize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `new'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `initialize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `new'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/handler/mongrel.rb:34:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/commands/server.rb:111
+    F:/InstantRails/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+    F:/InstantRails/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+    script/server:3
+/!\ FAILSAFE /!\  Thu Feb 04 18:56:08 +0200 2010
+  Status: 500 Internal Server Error
+  F:/InstantRails/rails_apps/work/depot/app/controllers/application_controller.rb:28: syntax error, unexpected $end, expecting kEND
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load_without_new_constant_marking'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:380:in `load_file'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:521:in `new_constants_in'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:379:in `load_file'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:259:in `require_or_load'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:425:in `load_missing_constant'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:80:in `const_missing'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activesupport-2.3.5/lib/active_support/dependencies.rb:92:in `const_missing'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:89:in `dispatch'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:121:in `_call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:130:in `build_middleware_stack'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/head.rb:9:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/methodoverride.rb:24:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/params_parser.rb:15:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/session/abstract_store.rb:122:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:29:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:9:in `cache'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:28:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/failsafe.rb:26:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `synchronize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:114:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/reloader.rb:34:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:108:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/rails/rack/static.rb:31:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:46:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `each'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/rails/rack/log_tailer.rb:17:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/content_length.rb:13:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/chunked.rb:15:in `call'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/handler/mongrel.rb:64:in `process'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:159:in `process_client'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:158:in `each'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:158:in `process_client'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `initialize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `new'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:285:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `initialize'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `new'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.2-x86-mswin32/lib/mongrel.rb:268:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rack-1.0.1/lib/rack/handler/mongrel.rb:34:in `run'
+    F:/InstantRails/ruby/lib/ruby/gems/1.8/gems/rails-2.3.5/lib/commands/server.rb:111
+    F:/InstantRails/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+    F:/InstantRails/ruby/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+    script/server:3
+
+
+Processing StoreController#index (for 127.0.0.1 at 2010-02-04 18:57:48) [GET]
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT * FROM "products" ORDER BY title[0m
+Rendering template within layouts/store
+Rendering store/index
+Rendered store/_cart (0.0ms)
+Completed in 62ms (View: 31, DB: 0) | 200 OK [http://localhost/store/]
+
+
+Processing ProductsController#index (for 127.0.0.1 at 2010-02-04 18:57:59) [GET]
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT * FROM "products" [0m
+Rendering template within layouts/store
+Rendering products/index
+Completed in 234ms (View: 219, DB: 0) | 200 OK [http://localhost/products]
+
+
+Processing PayersController#index (for 127.0.0.1 at 2010-02-04 18:58:08) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSQLite3::SQLException: no such table: payers: SELECT * FROM "payers" [0m
+
+ActiveRecord::StatementInvalid (SQLite3::SQLException: no such table: payers: SELECT * FROM "payers" ):
+  app/controllers/payers_controller.rb:5:in `index'
+
+Rendered rescues/_trace (156.0ms)
+Rendered rescues/_request_and_response (15.0ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateProducts (20100126133630)
+Migrating to AddPriceToProduct (20100126144200)
+Migrating to AddTestData (20100126153840)
+Migrating to CreateSessions (20100131120922)
+Migrating to CreateOrders (20100201143437)
+Migrating to CreateLineItems (20100201143919)
+Migrating to CreateUsers (20100201183446)
+Migrating to CreatePayers (20100204165247)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mCREATE TABLE "payers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "email" varchar(255), "pay_type" varchar(255), "username" varchar(255), "hashed_password" varchar(255), "salt" varchar(255), "balance" decimal, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100204165247')[0m
+  [4;35;1mSQL (0.0ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (16.0ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.0ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("line_items")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("orders")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("payers")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("products")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("sessions")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_info('index_sessions_on_updated_at')[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_info('index_sessions_on_session_id')[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("users")[0m
+
+
+Processing PayersController#index (for 127.0.0.1 at 2010-02-04 19:03:15) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/payers
+Rendering payers/index
+Completed in 140ms (View: 125, DB: 0) | 200 OK [http://localhost/payers]
+
+
+Processing PayersController#new (for 127.0.0.1 at 2010-02-04 19:03:21) [GET]
+Rendering template within layouts/payers
+Rendering payers/new
+Completed in 63ms (View: 47, DB: 0) | 200 OK [http://localhost/payers/new]
+
+
+Processing PayersController#create (for 127.0.0.1 at 2010-02-04 19:03:52) [POST]
+  Parameters: {"commit"=>"Create", "payer"=>{"salt"=>"", "name"=>"Dror Poliak", "hashed_password"=>"", "username"=>"drorp24", "pay_type"=>"mobile", "balance"=>"1", "email"=>"drorp24@yahoo.com"}}
+  [4;35;1mPayer Create (0.0ms)[0m   [0mINSERT INTO "payers" ("name", "salt", "updated_at", "hashed_password", "username", "pay_type", "email", "balance", "created_at") VALUES('Dror Poliak', '', '2010-02-04 17:03:52', '', 'drorp24', 'mobile', 'drorp24@yahoo.com', 1.0, '2010-02-04 17:03:52')[0m
+Redirected to http://localhost:3000/payers/1
+Completed in 328ms (DB: 0) | 302 Found [http://localhost/payers]
+
+
+Processing PayersController#show (for 127.0.0.1 at 2010-02-04 19:03:52) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+Rendering template within layouts/payers
+Rendering payers/show
+Completed in 62ms (View: 31, DB: 0) | 200 OK [http://localhost/payers/1]
+
+
+Processing PayersController#index (for 127.0.0.1 at 2010-02-04 19:03:57) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/payers
+Rendering payers/index
+Completed in 47ms (View: 31, DB: 0) | 200 OK [http://localhost/payers]
+
+
+Processing PayersController#new (for 127.0.0.1 at 2010-02-04 19:06:43) [GET]
+Rendering template within layouts/payers
+Rendering payers/new
+Completed in 47ms (View: 31, DB: 0) | 200 OK [http://localhost/payers/new]
+
+
+Processing PayersController#create (for 127.0.0.1 at 2010-02-04 19:06:45) [POST]
+  Parameters: {"commit"=>"Create", "payer"=>{"salt"=>"", "name"=>"", "hashed_password"=>"", "username"=>"", "pay_type"=>"", "balance"=>"", "email"=>""}}
+Rendering template within layouts/payers
+Rendering payers/new
+Completed in 46ms (View: 31, DB: 0) | 200 OK [http://localhost/payers]
+
+
+Processing PayersController#index (for 127.0.0.1 at 2010-02-04 19:12:02) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/payers
+Rendering payers/index
+Completed in 63ms (View: 47, DB: 0) | 200 OK [http://localhost/payers]
+
+
+Processing PayersController#index (for 127.0.0.1 at 2010-02-04 19:12:04) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/payers
+Rendering payers/index
+Completed in 47ms (View: 31, DB: 0) | 200 OK [http://localhost/payers]
+
+
+Processing PayersController#index (for 127.0.0.1 at 2010-02-04 19:30:39) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/payers
+Rendering payers/index
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/payers]
+
+
+Processing PayersController#new (for 127.0.0.1 at 2010-02-04 19:30:44) [GET]
+Rendering template within layouts/payers
+Rendering payers/new
+Completed in 63ms (View: 16, DB: 0) | 200 OK [http://localhost/payers/new]
+
+
+Processing PayersController#create (for 127.0.0.1 at 2010-02-04 19:30:51) [POST]
+  Parameters: {"commit"=>"Create", "payer"=>{"salt"=>"", "name"=>"", "hashed_password"=>"", "username"=>"", "pay_type"=>"", "balance"=>"", "email"=>""}}
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."username" = '') LIMIT 1[0m
+Rendering template within layouts/payers
+Rendering payers/new
+Completed in 156ms (View: 109, DB: 0) | 200 OK [http://localhost/payers]
+
+
+Processing PayersController#create (for 127.0.0.1 at 2010-02-04 19:43:59) [POST]
+  Parameters: {"commit"=>"Create", "payer"=>{"salt"=>"", "name"=>"", "hashed_password"=>"", "username"=>"", "pay_type"=>"", "balance"=>"", "email"=>""}}
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT "payers".id FROM "payers" WHERE ("payers"."username" = '') LIMIT 1[0m
+Rendering template within layouts/payers
+Rendering payers/new
+Completed in 94ms (View: 47, DB: 0) | 200 OK [http://localhost/payers]
+
+
+Processing PayersController#index (for 127.0.0.1 at 2010-02-04 19:44:09) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/payers
+Rendering payers/index
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/payers]
+
+
+Processing PayersController#new (for 127.0.0.1 at 2010-02-04 19:44:11) [GET]
+Rendering template within layouts/payers
+Rendering payers/new
+Completed in 63ms (View: 16, DB: 0) | 200 OK [http://localhost/payers/new]
+
+
+Processing PayersController#new (for 127.0.0.1 at 2010-02-04 19:45:42) [GET]
+Rendering template within layouts/payers
+Rendering payers/new
+Completed in 63ms (View: 31, DB: 0) | 200 OK [http://localhost/payers/new]
+
+
+Processing PayersController#new (for 127.0.0.1 at 2010-02-04 19:45:44) [GET]
+Rendering template within layouts/payers
+Rendering payers/new
+Completed in 141ms (View: 16, DB: 0) | 200 OK [http://localhost/payers/new]
+
+
+Processing PayersController#show (for 127.0.0.1 at 2010-02-04 19:46:48) [GET]
+  Parameters: {"id"=>"users"}
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 0) [0m
+
+ActiveRecord::RecordNotFound (Couldn't find Payer with ID=users):
+  app/controllers/payers_controller.rb:16:in `show'
+
+Rendered rescues/_trace (62.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (not_found)
+
+
+Processing UsersController#index (for 127.0.0.1 at 2010-02-04 19:47:03) [GET]
+  [4;35;1mUser Load (16.0ms)[0m   [0mSELECT * FROM "users" ORDER BY name[0m
+Rendering template within layouts/store
+Rendering users/index
+Completed in 93ms (View: 62, DB: 16) | 200 OK [http://localhost/users]
+
+
+Processing StoreController#index (for 127.0.0.1 at 2010-02-04 19:47:17) [GET]
+  [4;36;1mProduct Load (16.0ms)[0m   [0;1mSELECT * FROM "products" ORDER BY title[0m
+Rendering template within layouts/store
+Rendering store/index
+Rendered store/_cart (0.0ms)
+Completed in 156ms (View: 125, DB: 16) | 200 OK [http://localhost/store]
+
+
+Processing PayersController#index (for 127.0.0.1 at 2010-02-04 19:48:50) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/payers
+Rendering payers/index
+Completed in 62ms (View: 31, DB: 0) | 200 OK [http://localhost/payers]
+
+
+Processing PayersController#new (for 127.0.0.1 at 2010-02-04 19:48:57) [GET]
+Rendering template within layouts/payers
+Rendering payers/new
+Completed in 62ms (View: 31, DB: 0) | 200 OK [http://localhost/payers/new]
+
+
+Processing PayersController#create (for 127.0.0.1 at 2010-02-04 19:49:16) [POST]
+  Parameters: {"commit"=>"Create", "payer"=>{"name"=>"", "password_confirmation"=>"", "username"=>"", "pay_type"=>"", "password"=>"", "balance"=>"", "email"=>""}}
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT "payers".id FROM "payers" WHERE ("payers"."username" = '') LIMIT 1[0m
+Rendering template within layouts/payers
+Rendering payers/new
+Completed in 78ms (View: 31, DB: 0) | 200 OK [http://localhost/payers]
+
+
+Processing PayersController#create (for 127.0.0.1 at 2010-02-04 19:49:30) [POST]
+  Parameters: {"commit"=>"Create", "payer"=>{"name"=>"Dror Poliak", "password_confirmation"=>"", "username"=>"", "pay_type"=>"", "password"=>"", "balance"=>"", "email"=>""}}
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."username" = '') LIMIT 1[0m
+Rendering template within layouts/payers
+Rendering payers/new
+Completed in 78ms (View: 31, DB: 0) | 200 OK [http://localhost/payers]
+
+
+Processing PayersController#create (for 127.0.0.1 at 2010-02-04 19:49:46) [POST]
+  Parameters: {"commit"=>"Create", "payer"=>{"name"=>"Dror Poliak", "password_confirmation"=>"", "username"=>"n", "pay_type"=>"n", "password"=>"n", "balance"=>"", "email"=>"nn"}}
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT "payers".id FROM "payers" WHERE ("payers"."username" = 'n') LIMIT 1[0m
+Rendering template within layouts/payers
+Rendering payers/new
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/payers]
+
+
+Processing PayersController#create (for 127.0.0.1 at 2010-02-04 19:49:50) [POST]
+  Parameters: {"commit"=>"Create", "payer"=>{"name"=>"Dror Poliak", "password_confirmation"=>"n", "username"=>"n", "pay_type"=>"n", "password"=>"n", "balance"=>"", "email"=>"nn"}}
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."username" = 'n') LIMIT 1[0m
+  [4;36;1mPayer Create (0.0ms)[0m   [0;1mINSERT INTO "payers" ("name", "salt", "updated_at", "hashed_password", "username", "pay_type", "email", "balance", "created_at") VALUES('Dror Poliak', '395936800.544667379817851', '2010-02-04 17:49:50', 'f00178ffe0e6e08829f44bedf54c1256c5bbf3ee', 'n', 'n', 'nn', NULL, '2010-02-04 17:49:50')[0m
+Redirected to http://localhost:3000/payers/2
+Completed in 219ms (DB: 0) | 302 Found [http://localhost/payers]
+
+
+Processing PayersController#show (for 127.0.0.1 at 2010-02-04 19:49:51) [GET]
+  Parameters: {"id"=>"2"}
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 2) [0m
+Rendering template within layouts/payers
+Rendering payers/show
+Completed in 46ms (View: 15, DB: 0) | 200 OK [http://localhost/payers/2]
+
+
+Processing PayersController#index (for 127.0.0.1 at 2010-02-04 19:49:56) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/payers
+Rendering payers/index
+Completed in 63ms (View: 32, DB: 0) | 200 OK [http://localhost/payers]
+
+
+Processing PayersController#index (for 127.0.0.1 at 2010-02-04 19:50:52) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/payers
+Rendering payers/index
+Completed in 62ms (View: 31, DB: 0) | 200 OK [http://localhost/payers]
+
+
+Processing PayersController#new (for 127.0.0.1 at 2010-02-04 19:50:56) [GET]
+Rendering template within layouts/payers
+Rendering payers/new
+Completed in 62ms (View: 16, DB: 15) | 200 OK [http://localhost/payers/new]
+
+
+Processing PayersController#create (for 127.0.0.1 at 2010-02-04 19:51:04) [POST]
+  Parameters: {"commit"=>"Create", "payer"=>{"name"=>"Dror Poliak", "password_confirmation"=>"n", "username"=>"n", "pay_type"=>"n", "password"=>"n", "balance"=>"", "email"=>"n"}}
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT "payers".id FROM "payers" WHERE ("payers"."username" = 'n') LIMIT 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."name" = 'Dror Poliak') LIMIT 1[0m
+Rendering template within layouts/payers
+Rendering payers/new
+Completed in 157ms (View: 16, DB: 0) | 200 OK [http://localhost/payers]
+
+
+Processing PayersController#index (for 127.0.0.1 at 2010-02-04 19:51:16) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/payers
+Rendering payers/index
+Completed in 63ms (View: 31, DB: 0) | 200 OK [http://localhost/payers]
+
+
+Processing PayersController#show (for 127.0.0.1 at 2010-02-04 19:51:42) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+Rendering template within layouts/payers
+Rendering payers/show
+Completed in 62ms (View: 15, DB: 0) | 200 OK [http://localhost/payers/1]
+
+
+Processing PayersController#index (for 127.0.0.1 at 2010-02-04 19:51:47) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/payers
+Rendering payers/index
+Completed in 63ms (View: 16, DB: 0) | 200 OK [http://localhost/payers]

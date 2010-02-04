@@ -1,0 +1,51 @@
+<div class="depot-form">
+
+<% form_for(@payer) do |f| %>
+  <%= f.error_messages %>
+
+<fieldset>
+  <legend>Enter User Details</legend>
+
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+ 
+  <div>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+ 
+  <div>
+    <%= f.label :pay_type %>
+    <%= f.text_field :pay_type %>
+  </div>
+ 
+  <div>
+    <%= f.label :username %>
+    <%= f.text_field :username %>
+  </div>
+ 
+  <div>
+    <%= f.label :password %>
+    <%= f.text_field :password %>
+  </div>
+ 
+  <div>
+    <%= f.label :password_confirmation %>
+    <%= f.text_field :password_confirmation %>
+  </div>
+ 
+  <div>
+    <%= f.label :balance %>
+    <%= f.text_field :balance %>
+  </div>
+ 
+  <div>
+    <%= f.submit 'Create', :class => "submit" %>
+  </div>
+ 
+  </fieldset>
+<% end %>
+<%= link_to 'Back', payers_path %>
+</div>
