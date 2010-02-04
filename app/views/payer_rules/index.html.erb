@@ -1,0 +1,36 @@
+<h1>Listing payer_rules</h1>
+
+<table>
+  <tr>
+    <th>Payer</th>
+    <th>Billing by</th>
+    <th>Billing phone number</th>
+    <th>Allowance</th>
+    <th>Rollover</th>
+    <th>Approval phone number</th>
+    <th>Pin</th>
+    <th>Auto approve under</th>
+    <th>Auto reject over</th>
+  </tr>
+
+<% @payer_rules.each do |payer_rule| %>
+  <tr>
+    <td><%=h payer_rule.payer_id %></td>
+    <td><%=h payer_rule.billing_by %></td>
+    <td><%=h payer_rule.billing_phone_number %></td>
+    <td><%=h payer_rule.allowance %></td>
+    <td><%=h payer_rule.rollover %></td>
+    <td><%=h payer_rule.approval_phone_number %></td>
+    <td><%=h payer_rule.pin %></td>
+    <td><%=h payer_rule.auto_approve_under %></td>
+    <td><%=h payer_rule.auto_reject_over %></td>
+    <td><%= link_to 'Show', payer_rule %></td>
+    <td><%= link_to 'Edit', edit_payer_rule_path(payer_rule) %></td>
+    <td><%= link_to 'Destroy', payer_rule, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New payer_rule', new_payer_rule_path %>

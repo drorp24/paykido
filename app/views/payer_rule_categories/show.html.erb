@@ -1,0 +1,18 @@
+<p>
+  <b>Payer rule:</b>
+  <%=h @payer_rule_category.payer_rule_id %>
+</p>
+
+<p>
+  <b>Category:</b>
+  <%=h @payer_rule_category.category_id %>
+</p>
+
+<p>
+  <b>Approved:</b>
+  <%=h @payer_rule_category.approved %>
+</p>
+
+
+<%= link_to 'Edit', edit_payer_rule_category_path(@payer_rule_category) %> |
+<%= link_to 'Back', payer_rule_categories_path %>

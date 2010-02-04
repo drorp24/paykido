@@ -5195,3 +5195,595 @@ Processing PayersController#index (for 127.0.0.1 at 2010-02-04 19:51:47) [GET]
 Rendering template within layouts/payers
 Rendering payers/index
 Completed in 63ms (View: 16, DB: 0) | 200 OK [http://localhost/payers]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-02-04 22:11:17) [GET]
+
+ActionController::RoutingError (No route matches "/payers%5C" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing PayersController#index (for 127.0.0.1 at 2010-02-04 22:11:23) [GET]
+  [4;36;1mPayer Load (31.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/payers
+Rendering payers/index
+Completed in 610ms (View: 438, DB: 31) | 200 OK [http://localhost/payers]
+
+
+Processing PayersController#show (for 127.0.0.1 at 2010-02-04 22:11:41) [GET]
+  Parameters: {"id"=>"2"}
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 2) [0m
+Rendering template within layouts/payers
+Rendering payers/show
+Completed in 63ms (View: 32, DB: 0) | 200 OK [http://localhost/payers/2]
+  [4;36;1mSQL (0.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateProducts (20100126133630)
+Migrating to AddPriceToProduct (20100126144200)
+Migrating to AddTestData (20100126153840)
+Migrating to CreateSessions (20100131120922)
+Migrating to CreateOrders (20100201143437)
+Migrating to CreateLineItems (20100201143919)
+Migrating to CreateUsers (20100201183446)
+Migrating to CreatePayers (20100204165247)
+Migrating to CreatePayerRules (20100204202420)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (15.0ms)[0m   [0mCREATE TABLE "payer_rules" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "payer_id" integer, "billing_by" integer, "billing_phone_number" integer, "allowance" decimal, "rollover" boolean, "approval_phone_number" integer, "pin" integer, "auto_approve_under" decimal, "auto_reject_over" decimal, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100204202420')[0m
+  [4;35;1mSQL (0.0ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.0ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("line_items")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("orders")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("payer_rules")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("payers")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("products")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("sessions")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_info('index_sessions_on_updated_at')[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_info('index_sessions_on_session_id')[0m
+  [4;36;1mSQL (16.0ms)[0m   [0;1mPRAGMA index_list("users")[0m
+
+
+Processing PayerRulesController#index (for 127.0.0.1 at 2010-02-04 22:24:50) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/payer_rules
+Rendering payer_rules/index
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/payer_rules]
+
+
+Processing PayerRulesController#new (for 127.0.0.1 at 2010-02-04 22:24:56) [GET]
+Rendering template within layouts/payer_rules
+Rendering payer_rules/new
+Completed in 47ms (View: 31, DB: 0) | 200 OK [http://localhost/payer_rules/new]
+
+
+Processing PayerRulesController#create (for 127.0.0.1 at 2010-02-04 22:36:51) [POST]
+  Parameters: {"commit"=>"Create", "payer_rule"=>{"allowance"=>"", "auto_approve_under"=>"", "approval_phone_number"=>"", "auto_reject_over"=>"", "billing_phone_number"=>"", "billing_by"=>"", "payer_id"=>"", "pin"=>"", "rollover"=>"0"}}
+  [4;35;1mPayerRule Create (0.0ms)[0m   [0mINSERT INTO "payer_rules" ("updated_at", "allowance", "approval_phone_number", "auto_approve_under", "billing_phone_number", "auto_reject_over", "payer_id", "billing_by", "rollover", "pin", "created_at") VALUES('2010-02-04 20:36:51', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'f', NULL, '2010-02-04 20:36:51')[0m
+Redirected to http://localhost:3000/payer_rules/1
+Completed in 203ms (DB: 0) | 302 Found [http://localhost/payer_rules]
+
+
+Processing PayerRulesController#show (for 127.0.0.1 at 2010-02-04 22:36:51) [GET]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 1) [0m
+Rendering template within layouts/payer_rules
+Rendering payer_rules/show
+Completed in 125ms (View: 110, DB: 0) | 200 OK [http://localhost/payer_rules/1]
+
+
+Processing PayerRulesController#index (for 127.0.0.1 at 2010-02-04 22:37:01) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/payer_rules
+Rendering payer_rules/index
+Completed in 31ms (View: 15, DB: 0) | 200 OK [http://localhost/payer_rules]
+
+
+Processing PayerRulesController#destroy (for 127.0.0.1 at 2010-02-04 22:37:10) [DELETE]
+  Parameters: {"id"=>"1"}
+  [4;36;1mPayerRule Load (16.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 1) [0m
+  [4;35;1mPayerRule Destroy (0.0ms)[0m   [0mDELETE FROM "payer_rules" WHERE "id" = 1[0m
+Redirected to http://localhost:3000/payer_rules
+Completed in 172ms (DB: 16) | 302 Found [http://localhost/payer_rules/1]
+
+
+Processing PayerRulesController#index (for 127.0.0.1 at 2010-02-04 22:37:10) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/payer_rules
+Rendering payer_rules/index
+Completed in 31ms (View: 15, DB: 0) | 200 OK [http://localhost/payer_rules]
+
+
+Processing PayerRulesController#index (for 127.0.0.1 at 2010-02-04 22:43:03) [GET]
+  [4;35;1mSQL (0.0ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+
+NoMethodError (undefined method `validates_existence_of' for #<Class:0x4a3e61c>):
+  app/models/payer_rule.rb:4
+  app/controllers/payer_rules_controller.rb:5:in `index'
+
+Rendered rescues/_trace (172.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing PayerRulesController#index (for 127.0.0.1 at 2010-02-04 22:43:47) [GET]
+  [4;35;1mPayerRule Load (16.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/payer_rules
+Rendering payer_rules/index
+Completed in 16ms (View: 0, DB: 16) | 200 OK [http://localhost/payer_rules]
+
+
+Processing PayerRulesController#new (for 127.0.0.1 at 2010-02-04 22:43:50) [GET]
+Rendering template within layouts/payer_rules
+Rendering payer_rules/new
+Completed in 47ms (View: 32, DB: 0) | 200 OK [http://localhost/payer_rules/new]
+
+
+Processing PayerRulesController#create (for 127.0.0.1 at 2010-02-04 22:43:52) [POST]
+  Parameters: {"commit"=>"Create", "payer_rule"=>{"allowance"=>"", "auto_approve_under"=>"", "approval_phone_number"=>"", "auto_reject_over"=>"", "billing_phone_number"=>"", "billing_by"=>"", "payer_id"=>"", "pin"=>"", "rollover"=>"0"}}
+Rendering template within layouts/payer_rules
+Rendering payer_rules/new
+Completed in 94ms (View: 63, DB: 0) | 200 OK [http://localhost/payer_rules]
+
+
+Processing PayerRulesController#create (for 127.0.0.1 at 2010-02-04 22:45:09) [POST]
+  Parameters: {"commit"=>"Create", "payer_rule"=>{"allowance"=>"", "auto_approve_under"=>"", "approval_phone_number"=>"", "auto_reject_over"=>"", "billing_phone_number"=>"", "billing_by"=>"", "payer_id"=>"", "pin"=>"", "rollover"=>"0"}}
+Rendering template within layouts/payer_rules
+Rendering payer_rules/new
+Completed in 109ms (View: 78, DB: 0) | 200 OK [http://localhost/payer_rules]
+
+
+Processing PayerRulesController#index (for 127.0.0.1 at 2010-02-04 22:45:13) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/payer_rules
+Rendering payer_rules/index
+Completed in 31ms (View: 15, DB: 0) | 200 OK [http://localhost/payer_rules]
+  [4;36;1mSQL (0.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateProducts (20100126133630)
+Migrating to AddPriceToProduct (20100126144200)
+Migrating to AddTestData (20100126153840)
+Migrating to CreateSessions (20100131120922)
+Migrating to CreateOrders (20100201143437)
+Migrating to CreateLineItems (20100201143919)
+Migrating to CreateUsers (20100201183446)
+Migrating to CreatePayers (20100204165247)
+Migrating to CreatePayerRules (20100204202420)
+Migrating to CreateCategories (20100204204727)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (78.0ms)[0m   [0mCREATE TABLE "categories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "category" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100204204727')[0m
+  [4;35;1mSQL (0.0ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.0ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("categories")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("line_items")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("orders")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("payer_rules")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("payers")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("products")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("sessions")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_info('index_sessions_on_updated_at')[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_info('index_sessions_on_session_id')[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("users")[0m
+
+
+Processing CategoriesController#index (for 127.0.0.1 at 2010-02-04 22:49:00) [GET]
+  [4;35;1mSQL (0.0ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+
+NoMethodError (undefined method `calidates_uniqueness_of' for #<Class:0x4b0c148>):
+  app/models/category.rb:3
+  app/controllers/categories_controller.rb:5:in `index'
+
+Rendered rescues/_trace (78.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing CategoriesController#index (for 127.0.0.1 at 2010-02-04 22:49:12) [GET]
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM "categories" [0m
+Rendering template within layouts/categories
+Rendering categories/index
+Completed in 172ms (View: 157, DB: 0) | 200 OK [http://localhost/categories]
+
+
+Processing CategoriesController#new (for 127.0.0.1 at 2010-02-04 22:49:15) [GET]
+Rendering template within layouts/categories
+Rendering categories/new
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/categories/new]
+
+
+Processing CategoriesController#create (for 127.0.0.1 at 2010-02-04 22:49:17) [POST]
+  Parameters: {"category"=>{"category"=>""}, "commit"=>"Create"}
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT "categories".id FROM "categories" WHERE ("categories"."category" = '') LIMIT 1[0m
+Rendering template within layouts/categories
+Rendering categories/new
+Completed in 62ms (View: 16, DB: 15) | 200 OK [http://localhost/categories]
+
+
+Processing CategoriesController#create (for 127.0.0.1 at 2010-02-04 22:49:27) [POST]
+  Parameters: {"category"=>{"category"=>"Gaming"}, "commit"=>"Create"}
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT "categories".id FROM "categories" WHERE ("categories"."category" = 'Gaming') LIMIT 1[0m
+  [4;36;1mCategory Create (0.0ms)[0m   [0;1mINSERT INTO "categories" ("category", "updated_at", "created_at") VALUES('Gaming', '2010-02-04 20:49:27', '2010-02-04 20:49:27')[0m
+Redirected to http://localhost:3000/categories/1
+Completed in 375ms (DB: 0) | 302 Found [http://localhost/categories]
+
+
+Processing CategoriesController#show (for 127.0.0.1 at 2010-02-04 22:49:28) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM "categories" WHERE ("categories"."id" = 1) [0m
+Rendering template within layouts/categories
+Rendering categories/show
+Completed in 47ms (View: 15, DB: 16) | 200 OK [http://localhost/categories/1]
+
+
+Processing CategoriesController#index (for 127.0.0.1 at 2010-02-04 22:49:31) [GET]
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM "categories" [0m
+Rendering template within layouts/categories
+Rendering categories/index
+Completed in 15ms (View: 0, DB: 0) | 200 OK [http://localhost/categories]
+
+
+Processing CategoriesController#new (for 127.0.0.1 at 2010-02-04 22:49:35) [GET]
+Rendering template within layouts/categories
+Rendering categories/new
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/categories/new]
+
+
+Processing CategoriesController#create (for 127.0.0.1 at 2010-02-04 22:49:40) [POST]
+  Parameters: {"category"=>{"category"=>"Gaming"}, "commit"=>"Create"}
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT "categories".id FROM "categories" WHERE ("categories"."category" = 'Gaming') LIMIT 1[0m
+Rendering template within layouts/categories
+Rendering categories/new
+Completed in 62ms (View: 31, DB: 0) | 200 OK [http://localhost/categories]
+
+
+Processing CategoriesController#create (for 127.0.0.1 at 2010-02-04 22:49:49) [POST]
+  Parameters: {"category"=>{"category"=>"Gambling"}, "commit"=>"Create"}
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT "categories".id FROM "categories" WHERE ("categories"."category" = 'Gambling') LIMIT 1[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO "categories" ("category", "updated_at", "created_at") VALUES('Gambling', '2010-02-04 20:49:49', '2010-02-04 20:49:49')[0m
+Redirected to http://localhost:3000/categories/2
+Completed in 312ms (DB: 0) | 302 Found [http://localhost/categories]
+
+
+Processing CategoriesController#show (for 127.0.0.1 at 2010-02-04 22:49:49) [GET]
+  Parameters: {"id"=>"2"}
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM "categories" WHERE ("categories"."id" = 2) [0m
+Rendering template within layouts/categories
+Rendering categories/show
+Completed in 15ms (View: 0, DB: 0) | 200 OK [http://localhost/categories/2]
+
+
+Processing CategoriesController#index (for 127.0.0.1 at 2010-02-04 22:49:53) [GET]
+  [4;35;1mCategory Load (0.0ms)[0m   [0mSELECT * FROM "categories" [0m
+Rendering template within layouts/categories
+Rendering categories/index
+Completed in 47ms (View: 31, DB: 0) | 200 OK [http://localhost/categories]
+
+
+Processing CategoriesController#new (for 127.0.0.1 at 2010-02-04 22:49:57) [GET]
+Rendering template within layouts/categories
+Rendering categories/new
+Completed in 32ms (View: 16, DB: 0) | 200 OK [http://localhost/categories/new]
+
+
+Processing CategoriesController#create (for 127.0.0.1 at 2010-02-04 22:50:21) [POST]
+  Parameters: {"category"=>{"category"=>"Virtual Goods"}, "commit"=>"Create"}
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT "categories".id FROM "categories" WHERE ("categories"."category" = 'Virtual Goods') LIMIT 1[0m
+  [4;35;1mCategory Create (0.0ms)[0m   [0mINSERT INTO "categories" ("category", "updated_at", "created_at") VALUES('Virtual Goods', '2010-02-04 20:50:21', '2010-02-04 20:50:21')[0m
+Redirected to http://localhost:3000/categories/3
+Completed in 187ms (DB: 0) | 302 Found [http://localhost/categories]
+
+
+Processing CategoriesController#show (for 127.0.0.1 at 2010-02-04 22:50:21) [GET]
+  Parameters: {"id"=>"3"}
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM "categories" WHERE ("categories"."id" = 3) [0m
+Rendering template within layouts/categories
+Rendering categories/show
+Completed in 15ms (View: 0, DB: 0) | 200 OK [http://localhost/categories/3]
+
+
+Processing CategoriesController#index (for 127.0.0.1 at 2010-02-04 22:50:23) [GET]
+  [4;35;1mCategory Load (15.0ms)[0m   [0mSELECT * FROM "categories" [0m
+Rendering template within layouts/categories
+Rendering categories/index
+Completed in 31ms (View: 16, DB: 15) | 200 OK [http://localhost/categories]
+  [4;36;1mSQL (0.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateProducts (20100126133630)
+Migrating to AddPriceToProduct (20100126144200)
+Migrating to AddTestData (20100126153840)
+Migrating to CreateSessions (20100131120922)
+Migrating to CreateOrders (20100201143437)
+Migrating to CreateLineItems (20100201143919)
+Migrating to CreateUsers (20100201183446)
+Migrating to CreatePayers (20100204165247)
+Migrating to CreatePayerRules (20100204202420)
+Migrating to CreateCategories (20100204204727)
+Migrating to CreatePayerRuleCategories (20100204205443)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mCREATE TABLE "payer_rule_categories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "payer_rule_id" integer, "category_id" integer, "approved" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100204205443')[0m
+  [4;35;1mSQL (0.0ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.0ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("categories")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("line_items")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("orders")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("payer_rule_categories")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("payer_rules")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("payers")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("products")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("sessions")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_info('index_sessions_on_updated_at')[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_info('index_sessions_on_session_id')[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("users")[0m
+
+
+Processing CategoriesController#index (for 127.0.0.1 at 2010-02-04 23:11:07) [GET]
+  [4;36;1mCategory Load (0.0ms)[0m   [0;1mSELECT * FROM "categories" [0m
+Rendering template within layouts/categories
+Rendering categories/index
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/categories]
+
+
+Processing PayerRulesController#index (for 127.0.0.1 at 2010-02-04 23:11:19) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/payer_rules
+Rendering payer_rules/index
+Completed in 204ms (View: 0, DB: 0) | 200 OK [http://localhost/payer_rules]
+
+
+Processing PayerRulesController#new (for 127.0.0.1 at 2010-02-04 23:11:23) [GET]
+Rendering template within layouts/payer_rules
+Rendering payer_rules/new
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/payer_rules/new]
+
+
+Processing PayerRulesController#create (for 127.0.0.1 at 2010-02-04 23:11:29) [POST]
+  Parameters: {"commit"=>"Create", "payer_rule"=>{"allowance"=>"", "auto_approve_under"=>"", "approval_phone_number"=>"", "auto_reject_over"=>"", "billing_phone_number"=>"", "billing_by"=>"", "payer_id"=>"", "pin"=>"", "rollover"=>"0"}}
+Rendering template within layouts/payer_rules
+Rendering payer_rules/new
+Completed in 94ms (View: 63, DB: 0) | 200 OK [http://localhost/payer_rules]
+
+
+Processing PayerRulesController#index (for 127.0.0.1 at 2010-02-04 23:11:33) [GET]
+  [4;36;1mPayerRule Load (16.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/payer_rules
+Rendering payer_rules/index
+Completed in 31ms (View: 0, DB: 16) | 200 OK [http://localhost/payer_rules]
+
+
+Processing PayerRuleCategoriesController#index (for 127.0.0.1 at 2010-02-04 23:11:40) [GET]
+  [4;35;1mPayerRuleCategory Load (0.0ms)[0m   [0mSELECT * FROM "payer_rule_categories" [0m
+Rendering template within layouts/payer_rule_categories
+Rendering payer_rule_categories/index
+Completed in 141ms (View: 125, DB: 0) | 200 OK [http://localhost/payer_rule_categories]
+
+
+Processing PayerRuleCategoriesController#new (for 127.0.0.1 at 2010-02-04 23:11:44) [GET]
+Rendering template within layouts/payer_rule_categories
+Rendering payer_rule_categories/new
+Completed in 47ms (View: 31, DB: 0) | 200 OK [http://localhost/payer_rule_categories/new]
+
+
+Processing PayerRuleCategoriesController#create (for 127.0.0.1 at 2010-02-04 23:11:46) [POST]
+  Parameters: {"payer_rule_category"=>{"approved"=>"", "category_id"=>"", "payer_rule_id"=>""}, "commit"=>"Create"}
+Rendering template within layouts/payer_rule_categories
+Rendering payer_rule_categories/new
+Completed in 47ms (View: 15, DB: 0) | 200 OK [http://localhost/payer_rule_categories]
+
+
+Processing PayerRuleCategoriesController#create (for 127.0.0.1 at 2010-02-04 23:12:02) [POST]
+  Parameters: {"payer_rule_category"=>{"approved"=>"n", "category_id"=>"", "payer_rule_id"=>""}, "commit"=>"Create"}
+  [4;36;1mPayerRuleCategory Create (0.0ms)[0m   [0;1mINSERT INTO "payer_rule_categories" ("updated_at", "approved", "category_id", "payer_rule_id", "created_at") VALUES('2010-02-04 21:12:02', 0, NULL, NULL, '2010-02-04 21:12:02')[0m
+Redirected to http://localhost:3000/payer_rule_categories/1
+Completed in 203ms (DB: 0) | 302 Found [http://localhost/payer_rule_categories]
+
+
+Processing PayerRuleCategoriesController#show (for 127.0.0.1 at 2010-02-04 23:12:02) [GET]
+  Parameters: {"id"=>"1"}
+  [4;35;1mPayerRuleCategory Load (16.0ms)[0m   [0mSELECT * FROM "payer_rule_categories" WHERE ("payer_rule_categories"."id" = 1) [0m
+Rendering template within layouts/payer_rule_categories
+Rendering payer_rule_categories/show
+Completed in 47ms (View: 16, DB: 16) | 200 OK [http://localhost/payer_rule_categories/1]
+
+
+Processing PayerRuleCategoriesController#index (for 127.0.0.1 at 2010-02-04 23:39:01) [GET]
+  [4;36;1mPayerRuleCategory Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rule_categories" [0m
+Rendering template within layouts/payer_rule_categories
+Rendering payer_rule_categories/index
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/payer_rule_categories]
+
+
+Processing PayerRuleCategoriesController#new (for 127.0.0.1 at 2010-02-04 23:39:04) [GET]
+Rendering template within layouts/payer_rule_categories
+Rendering payer_rule_categories/new
+Completed in 31ms (View: 15, DB: 0) | 200 OK [http://localhost/payer_rule_categories/new]
+
+
+Processing PayerRuleCategoriesController#create (for 127.0.0.1 at 2010-02-04 23:39:05) [POST]
+  Parameters: {"payer_rule_category"=>{"approved"=>"", "category_id"=>"", "payer_rule_id"=>""}, "commit"=>"Create"}
+Rendering template within layouts/payer_rule_categories
+Rendering payer_rule_categories/new
+Completed in 125ms (View: 16, DB: 0) | 200 OK [http://localhost/payer_rule_categories]
+  [4;36;1mSQL (0.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateProducts (20100126133630)
+Migrating to AddPriceToProduct (20100126144200)
+Migrating to AddTestData (20100126153840)
+Migrating to CreateSessions (20100131120922)
+Migrating to CreateOrders (20100201143437)
+Migrating to CreateLineItems (20100201143919)
+Migrating to CreateUsers (20100201183446)
+Migrating to CreatePayers (20100204165247)
+Migrating to CreatePayerRules (20100204202420)
+Migrating to CreateCategories (20100204204727)
+Migrating to CreatePayerRuleCategories (20100204205443)
+Migrating to CreatePurchases (20100204212915)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mCREATE TABLE "purchases" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "payer_id" integer, "retailer_id" integer, "product_id" integer, "amount" decimal, "purchase_date" date, "billing_date" date, "billing_by" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100204212915')[0m
+Migrating to CreateRetailers (20100204213044)
+  [4;35;1mSQL (0.0ms)[0m   [0mCREATE TABLE "retailers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "category_id" varchar(255), "collected" decimal, "billed" decimal, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100204213044')[0m
+  [4;35;1mSQL (0.0ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (16.0ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.0ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("categories")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("line_items")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("orders")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("payer_rule_categories")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("payer_rules")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("payers")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("products")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("purchases")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("retailers")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("sessions")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_info('index_sessions_on_updated_at')[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_info('index_sessions_on_session_id')[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("users")[0m
+
+
+Processing RetailersController#index (for 127.0.0.1 at 2010-02-04 23:46:02) [GET]
+  [4;35;1mRetailer Load (15.0ms)[0m   [0mSELECT * FROM "retailers" [0m
+Rendering template within layouts/retailers
+Rendering retailers/index
+Completed in 47ms (View: 16, DB: 15) | 200 OK [http://localhost/retailers]
+
+
+Processing RetailersController#new (for 127.0.0.1 at 2010-02-04 23:46:13) [GET]
+Rendering template within layouts/retailers
+Rendering retailers/new
+Completed in 47ms (View: 32, DB: 0) | 200 OK [http://localhost/retailers/new]
+
+
+Processing RetailersController#create (for 127.0.0.1 at 2010-02-04 23:46:15) [POST]
+  Parameters: {"commit"=>"Create", "retailer"=>{"name"=>"", "billed"=>"", "category_id"=>"", "collected"=>""}}
+Rendering template within layouts/retailers
+Rendering retailers/new
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/retailers]
+
+
+Processing RetailersController#index (for 127.0.0.1 at 2010-02-04 23:46:28) [GET]
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" [0m
+Rendering template within layouts/retailers
+Rendering retailers/index
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/retailers]
+
+
+Processing ProductsController#index (for 127.0.0.1 at 2010-02-04 23:46:36) [GET]
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT * FROM "products" [0m
+Rendering template within layouts/store
+Rendering products/index
+Completed in 109ms (View: 78, DB: 0) | 200 OK [http://localhost/products]
+
+
+Processing PurchasesController#index (for 127.0.0.1 at 2010-02-04 23:46:53) [GET]
+  [4;36;1mSQL (0.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.0ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+
+NoMethodError (undefined method `belong_to' for #<Class:0x49dd650>):
+  app/models/purchase.rb:2
+  app/controllers/purchases_controller.rb:5:in `index'
+
+Rendered rescues/_trace (141.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing PurchasesController#index (for 127.0.0.1 at 2010-02-04 23:47:18) [GET]
+  [4;36;1mSQL (0.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.0ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+
+NoMethodError (undefined method `belongs_ro' for #<Class:0x4a9a980>):
+  app/models/purchase.rb:3
+  app/controllers/purchases_controller.rb:5:in `index'
+
+Rendered rescues/_trace (79.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing PurchasesController#index (for 127.0.0.1 at 2010-02-04 23:47:30) [GET]
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" [0m
+Rendering template within layouts/purchases
+Rendering purchases/index
+Completed in 125ms (View: 109, DB: 0) | 200 OK [http://localhost/purchases]
+
+
+Processing PurchasesController#new (for 127.0.0.1 at 2010-02-04 23:47:33) [GET]
+Rendering template within layouts/purchases
+Rendering purchases/new
+Completed in 422ms (View: 391, DB: 0) | 200 OK [http://localhost/purchases/new]
+
+
+Processing PurchasesController#index (for 127.0.0.1 at 2010-02-04 23:48:10) [GET]
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" [0m
+Rendering template within layouts/purchases
+Rendering purchases/index
+Completed in 32ms (View: 16, DB: 0) | 200 OK [http://localhost/purchases]

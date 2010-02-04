@@ -1,0 +1,28 @@
+<h1>Editing retailer</h1>
+
+<% form_for(@retailer) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :category_id %><br />
+    <%= f.text_field :category_id %>
+  </p>
+  <p>
+    <%= f.label :collected %><br />
+    <%= f.text_field :collected %>
+  </p>
+  <p>
+    <%= f.label :billed %><br />
+    <%= f.text_field :billed %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @retailer %> |
+<%= link_to 'Back', retailers_path %>

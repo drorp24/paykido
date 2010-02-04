@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  category_id: MyString
+  collected: 9.99
+  billed: 9.99
+
+two:
+  name: MyString
+  category_id: MyString
+  collected: 9.99
+  billed: 9.99

@@ -1,6 +1,11 @@
 require 'digest/sha1'
 
 class Payer < ActiveRecord::Base
+  has_one :payer_rule
+  has_many :purchases
+  has_many :retailers, :through => :purchases
+  has_many :products, :through => :purchases
+  
   validates_presence_of :name, :email, :pay_type, :username
   validates_uniqueness_of :username, :name
 

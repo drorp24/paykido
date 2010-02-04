@@ -1,0 +1,24 @@
+<h1>Listing payer_rule_categories</h1>
+
+<table>
+  <tr>
+    <th>Payer rule</th>
+    <th>Category</th>
+    <th>Approved</th>
+  </tr>
+
+<% @payer_rule_categories.each do |payer_rule_category| %>
+  <tr>
+    <td><%=h payer_rule_category.payer_rule_id %></td>
+    <td><%=h payer_rule_category.category_id %></td>
+    <td><%=h payer_rule_category.approved %></td>
+    <td><%= link_to 'Show', payer_rule_category %></td>
+    <td><%= link_to 'Edit', edit_payer_rule_category_path(payer_rule_category) %></td>
+    <td><%= link_to 'Destroy', payer_rule_category, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New payer_rule_category', new_payer_rule_category_path %>

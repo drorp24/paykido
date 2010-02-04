@@ -1,0 +1,26 @@
+<h1>Listing retailers</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Category</th>
+    <th>Collected</th>
+    <th>Billed</th>
+  </tr>
+
+<% @retailers.each do |retailer| %>
+  <tr>
+    <td><%=h retailer.name %></td>
+    <td><%=h retailer.category_id %></td>
+    <td><%=h retailer.collected %></td>
+    <td><%=h retailer.billed %></td>
+    <td><%= link_to 'Show', retailer %></td>
+    <td><%= link_to 'Edit', edit_retailer_path(retailer) %></td>
+    <td><%= link_to 'Destroy', retailer, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New retailer', new_retailer_path %>

@@ -1,0 +1,2 @@
+module PayerRuleCategoriesHelper
+end

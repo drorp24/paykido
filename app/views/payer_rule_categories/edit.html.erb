@@ -1,0 +1,24 @@
+<h1>Editing payer_rule_category</h1>
+
+<% form_for(@payer_rule_category) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :payer_rule_id %><br />
+    <%= f.text_field :payer_rule_id %>
+  </p>
+  <p>
+    <%= f.label :category_id %><br />
+    <%= f.text_field :category_id %>
+  </p>
+  <p>
+    <%= f.label :approved %><br />
+    <%= f.text_field :approved %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @payer_rule_category %> |
+<%= link_to 'Back', payer_rule_categories_path %>

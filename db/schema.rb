@@ -9,7 +9,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100204165247) do
+ActiveRecord::Schema.define(:version => 20100204213044) do
+
+  create_table "categories", :force => true do |t|
+    t.string   "category"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "line_items", :force => true do |t|
     t.integer  "product_id",                                :null => false
@@ -25,6 +31,28 @@ ActiveRecord::Schema.define(:version => 20100204165247) do
     t.text     "address"
     t.string   "email"
     t.string   "pay_type",   :limit => 10
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payer_rule_categories", :force => true do |t|
+    t.integer  "payer_rule_id"
+    t.integer  "category_id"
+    t.integer  "approved"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payer_rules", :force => true do |t|
+    t.integer  "payer_id"
+    t.integer  "billing_by"
+    t.integer  "billing_phone_number"
+    t.decimal  "allowance"
+    t.boolean  "rollover"
+    t.integer  "approval_phone_number"
+    t.integer  "pin"
+    t.decimal  "auto_approve_under"
+    t.decimal  "auto_reject_over"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -48,6 +76,27 @@ ActiveRecord::Schema.define(:version => 20100204165247) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.decimal  "price",       :precision => 8, :scale => 2, :default => 0.0
+  end
+
+  create_table "purchases", :force => true do |t|
+    t.integer  "payer_id"
+    t.integer  "retailer_id"
+    t.integer  "product_id"
+    t.decimal  "amount"
+    t.date     "purchase_date"
+    t.date     "billing_date"
+    t.integer  "billing_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "retailers", :force => true do |t|
+    t.string   "name"
+    t.string   "category_id"
+    t.decimal  "collected"
+    t.decimal  "billed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "sessions", :force => true do |t|

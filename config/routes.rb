@@ -1,4 +1,14 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :retailers
+
+  map.resources :purchases
+
+  map.resources :payer_rule_categories
+
+  map.resources :categories
+
+  map.resources :payer_rules
+
   map.resources :payers
 
   map.resources :users
