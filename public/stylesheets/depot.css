@@ -10,7 +10,7 @@
 }
 /* END:notice */
 
-
+ 
 h1 {
         font:  150% sans-serif;
         color: #226;
@@ -114,6 +114,8 @@ h1 {
   overflow: auto;
   margin-top: 1em;
   border-bottom: 1px dotted #77d;
+}
+#store body {
 }
 
 #store  .title {
