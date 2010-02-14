@@ -1,0 +1,41 @@
+body {
+
+}
+
+#center_block {
+	height:475px;
+	width:750px;
+}
+
+#you_can_also_purchase {
+	padding-left:25px;
+}
+#missing_farm_cash {
+ 	margin-top:10px;
+	margin-bottom:10px;
+}
+
+.methods_box {
+
+}
+
+.method {
+	display:inline;
+	float:left;
+	width:190px;
+	height:70px;
+}
+
+#service_window, #help {
+	height:500px;
+	width:500px;
+	border-style:solid;
+	border-color:gray;
+	border-width:10px;
+}
+
+#window_place {
+	height:100px;
+	width:100px;
+	border: 5px solid red;
+}

@@ -1,0 +1,608 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+	<head>
+		<script type="text/javascript">
+				
+		
+		// This should hopefully take care of all "game within game" cases
+		// The try/catch block is for those times when parent is on a different domain
+		//   It will throw a permission error otherwise	
+		try {
+			if(window.parent.location.href && window.parent != self) {
+			
+				found = false;
+				newRefStr = 'ref=nestedframe';
+				
+				qStr = new String(location.search);
+				
+				if(qStr.indexOf('?') == 0) {
+					qStr = qStr.substr(1);
+				}
+				
+				qArr = qStr.split('&');
+			
+				for(var i in qArr) {
+					if(qArr[i].substr(0,4) == 'ref=') {
+						qArr[i] = newRefStr;
+						found = true;
+						break;
+					}
+				}
+				
+				if(!found) {
+					qArr.push(newRefStr);
+				}
+				
+				url = new String(location.href);
+				
+				qStart = url.indexOf('?');
+				
+				if(qStart > -1) {
+					url = url.substr(0, qStart);
+				}
+				
+				url += '?' + qArr.join('&');
+				
+				window.parent.location.href = url;
+			}
+
+		} catch(err) {
+			// do nothing
+		}		
+		
+		
+							</script>
+		
+				
+		<link rel="SHORTCUT ICON" href="favicon.ico">
+						<link href="http://static-www.farmville.com/css/main.css" rel="stylesheet" type="text/css"/>
+		<link href="http://static-www.farmville.com/css/fvdotcom_main_v3.css" rel="stylesheet" type="text/css"/>
+				<script type="text/javascript" src="http://static-www.farmville.com/js/jquery.tools.min.js"></script>
+		<title>FarmVille - Zynga</title>
+
+	</head>
+	
+	<body>
+		<script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
+		<div class="outer_wrapper">
+					<div class="header">
+				<a class="logo" href="http://www.farmville.com/index.php?ref=logo">Farmville</a>
+				<a class="zynga_logo" href="http://www.zynga.com/" target="_blank">Zynga</a>
+
+				<ul class="nav">
+					<li>
+<a href="/farmille/play" title="Play"
+class='play selected'>Play</a>
+</li>
+
+<li>
+<a href="http://www.farmville.com/gifts.php?ref=tab" title="Free Gifts"
+class='gifts'>Free Gifts</a>
+</li>
+
+<li>
+<a href="http://www.farmville.com/neighbors.php?ref=tab" title="My Neighbors"
+class='neighbors'>My Neighbors</a>
+</li>
+
+<li>
+<a href="http://www.farmville.com/invite.php?ref=tab" title="Invite Friends"
+class='invite'>Invite Friends</a>
+</li>
+
+<li>
+<a href="/farmville/money" title="Add Farm Coins & Cash"
+class='money'>Add Farm Coins & Cash</a>
+</li>
+
+<li>
+<a href="http://www.farmville.com/help.php?ref=tab" title="Help"
+class='help'>Help</a>
+</li>
+
+				</ul>
+			</div>
+			
+								
+								
+					
+								<div class="left_col">
+					<div class="left_col_box" id="zynga_games">
+						<h3>Zynga Games</h3>
+						<div class="box_content">
+							<ul>
+							
+
+<li>
+
+	<a target="_blank" href="http://apps.facebook.com/fishville/links.php?src=xpromo&aff=dotcommenu&crt=farmvilledotcom">
+		<img src="http://www.zynga.com/images/games/gameIcon_fishville.jpg" alt="FishVille"/>FishVille
+	</a>
+</li>
+
+<li>
+	<a target="_blank" href="http://apps.facebook.com/inthemafia/track.php?zy_track=xpromo&zy_link=dotcommenu&zy_creative=farmvilledotcom">
+		<img src="http://www.zynga.com/images/games/gameIcon_mafiawars.jpg" alt="Mafia Wars"/>Mafia Wars
+	</a>
+</li>
+
+<li>
+	<a target="_blank" href="http://apps.facebook.com/cafeworld/track.php?channel=xpromo&ref=xpromo&k=dotcommenu&p=farmvilledotcom">
+
+		<img src="http://www.zynga.com/images/games/gameIcon_cafeworld.jpg" alt="Cafe World"/>Café World
+	</a>
+</li>
+<li>
+	<a target="_blank" href="http://apps.facebook.com/coasterkingdom/index.php?src=xpromo&aff=dotcommenu&crt=farmvilledotcom">
+		<img src="http://www.zynga.com/images/games/gameIcon_rollercoaster.jpg" alt="Roller Coaster"/>Roller Coaster
+	</a>
+</li>
+<li>
+	<a target="_blank" href="http://apps.facebook.com/yoville/index.php?src=xpromo&aff=dotcommenu&crt=farmvilledotcom">
+		<img src="http://www.zynga.com/images/games/gameIcon_yoville.jpg" alt="YoVille!"/>YoVille!
+	</a>
+
+</li>
+<li>
+	<a target="_blank" href="http://facebook.poker.zynga.com/poker/dmz_link_landing.php?src_track_str=Poker+FB+xpromo+Unknown+%25ACTION%25+a:dotcommenu&src=xpromo&aff=dotcommenu&crt=farmvilledotcom">
+		<img src="http://www.zynga.com/images/games/gameIcon_zyngapoker.jpg" alt="Zynga Poker"/>Zynga Poker
+	</a>
+</li>
+<li>
+	<a target="_blank" href="http://apps.facebook.com/petvillegame/links.php?src=xpromo&aff=dotcommenu&crt=farmvilledotcom">
+		<img src="http://www.zynga.com/images/games/gameIcon_petville.jpg" alt="PetVille"/>PetVille
+	</a>
+</li>
+							</ul>
+
+						</div>
+					</div>
+					<div class="left_col_box" id="game_bar">
+						<h3>Game Bar</h3>
+						<div class="box_content">
+						<a href="http://toolbar.zynga.com/install/farmville/" target="_blank">Get time to your next harvest, collect bonuses, and find out about the next features.</a>
+						</div>
+					</div>
+
+					<div class="left_col_box" id="requests">
+						<h3>Requests</h3>
+						<div class="box_content">
+						<a href="http://www.facebook.com/home.php?#/reqs.php">Click here to see your FarmVille requests.</a>
+						</div>
+					</div>
+										<div class="left_col_box" id="new_features">
+						<h3>New Features</h3>
+
+						<div class="box_content">
+															<b><a href="http://blog.farmville.com/2010/02/all-you-need-is-love.html">All you need is love!</a></b><br/>
+								<p>Valentine's Day is right around the corner, and FarmVille is celebrating in...</p>
+															<b><a href="http://blog.farmville.com/2010/02/horse-stables-and-limited-edition-items.html">Horse Stables and Limited Edition Items!</a></b><br/>
+								<p>Evenin? Folks! Time to get you and your neighbors back in the saddle. You can...</p>
+															<b><a href="http://blog.farmville.com/2010/01/extension-of-the-super-pumpkin-event.html">Extension of the Super Pumpkin Event!</a></b><br/>
+
+								<p>Hey Farmers, Due to the various technical issues the past few days, the Super...</p>
+													<a id="more_button" href="http://blog.farmville.com">More >></a>
+						</div>
+					</div>
+										<div class="left_col_box" id="farmville_fan">
+						<h3>FarmVille Fan</h3>
+						<div class="box_content">
+
+							<fb:fan name="FarmVille" stream="1" connections="6" width="200"></fb:fan>
+						</div>
+					</div>
+			</div>	
+						<div class="main_col">
+				<div class="logout">
+						<script type="text/javascript">
+						
+						function logoutNext() {
+							parent.location.href='http://www.farmville.com/';
+						}
+						
+						</script>
+						<b>Welcome&nbsp;<fb:name class="name" uid="733552507" useyou="false" linked="false" firstnameonly="true"></fb:name></b> (<a href="#" onclick="javascript:FB.Connect.logout(logoutNext); return false;">Log out</a>)
+					
+										</div>
+
+		
+<style type="text/css">/**
+ * File Name: neighbor.css
+ *
+ * This file holds all of the global styles for neighbors and related requests
+ */
+
+.main_neighbor_cont *, .fv_main_body_cont * { margin: 0px; padding: 0px; }
+
+.fv_main_body_cont { width: 760px; margin: 0 auto; padding: 10px 0px; }
+
+.neighbor_tab_nav li a:link, .neighbor_tab_nav li a:visited { display: block; padding: 10px 15px 0px; float: left; color: #70461e; font-size: 12px; font-weight: bold; text-decoration: underline; outline: none; }
+.neighbor_tab_nav li a:hover, .neighbor_tab_nav li a:active { text-decoration: none; }
+.n_list_bttn div { padding-top: 10px; }
+.n_list_pict { float: left; width: 80px; padding-top: 14px; text-align:center; }
+.n_list_name { float: left; width:95px; padding-top: 20px; text-align: left; color: #8d3229; font-size: 14px; font-weight: bold; }
+.n_list_name  a:link, .n_list_name  a:visited { color: #8d3229; font-size: 14px; font-weight: bold; text-decoration: underline; display: block; width: 95px; }
+.n_list_name  a:hover, .n_list_name  a:active { text-decoration: none; }
+.n_list_info { float: left; margin-left: 15px; text-align:left; padding-top: 10px; }
+.n_list_info p { color:#392009; font-weight: bold; padding-bottom: 5px; }
+.n_list_info p  span { color:#4e9258; font-weight: bold; }
+.n_list_bttn { float: right; margin-right: 23px; text-align: right; }
+
+/*.inputbutton, .inputsubmit { background-color:#3B5998; border-color:#D9DFEA #0E1F5B #0E1F5B #D9DFEA; border-style:solid; border-width:1px; color:#FFFFFF; font-family:tahoma,verdana,arial,sans-serif; font-size:11px; padding:2px 15px 3px; text-align:center; }*/
+.list_pic { width: 50px; height: 50px; }
+input.request_form_submit { padding-left: 30px; padding-right: 5px; }
+.neighbor_header { font-size: 19px; font-family: tahoma; color: rgb(72, 128, 215); text-align: center; padding-bottom: 10px; }
+
+/* Add neighbor test v2 */
+.n_list_pict1 { float: left; width: 50px; padding-left: 10px; padding-top: 12px; text-align:center; }
+
+.n_list_info_yes { color:#603813; font-size: 22px; font-weight: bold; float: left; margin-left: 25px; text-align:left; padding-top: 18px; }
+.n_list_info_yes p { color:#A97C50; font-size: 12px; font-weight: bold; padding-top: 5px; }
+.n_list_info_yes p  span { color:#603813; font-size: 12px; font-weight: bold; }
+.n_list_info_yes a:link { color: #603813; }
+.n_list_info_yes a:visited { color: #603813; }
+.n_list_info_yes a:active { color: #603813; }
+.n_list_info_yes a:hover { text-decoration: underline; }
+
+.n_list_info_pend { color:#A97C50; font-size: 22px; font-weight: bold; float: left; margin-left: 25px; text-align:left; padding-top: 18px; }
+.n_list_info_pend p { color:#C49A6B; font-size: 12px; font-weight: bold; padding-top: 5px; }
+.n_list_info_pend p  span { color:#603813; font-size: 12px; font-weight: bold; }
+.n_list_info_pend a:link { color: #A97C50; } 
+.n_list_info_pend a:visited { color: #A97C50; } 
+.n_list_info_pend a:active { color: #A97C50; }
+.n_list_info_pend a:hover { text-decoration: underline; }
+
+.n_list_info_no { color:#A97C50; font-size: 22px; font-weight: bold; float: left; margin-left: 25px; text-align:left; padding-top: 18px; }
+.n_list_info_no p { color:#C49A6B; font-size: 14px; font-weight: bold; padding-top: 5px; }
+.n_list_info_no p  span { color:#603813; font-size: 12px; font-weight: bold; }
+.n_list_info_no a:link  { color: #A97C50; } 
+.n_list_info_no a:visited  { color: #A97C50; } 
+.n_list_info_no a:active { color: #A97C50; }
+.n_list_info_no a:hover { text-decoration: underline; }
+
+.n_list_bttn_yes div { padding-top: 2px; }
+.n_list_bttn_yes { padding-top: 15px; float: right; margin-right: 23px; text-align: right; }
+
+.n_list_bttn_pend div { padding-top: 2px; }
+.n_list_bttn_pend { padding-top: 26px; float: right; margin-right: 23px; text-align: right; }
+
+.n_list_bttn_no div { padding-top: 2px; }
+.n_list_bttn_no { padding-top: 15px; float: right; margin-right: 23px; text-align: right; }
+
+.n_list_bttn_div div { padding-top: 2px; }
+.n_list_bttn_div { padding-top: 15px; float: right; margin-right: 23px; text-align: right; }</style>
+
+<style type="text/css">
+.neighbor_friends_list	ul { list-style-type: none; padding: 20px 0 0 5px; }
+.neighbor_friends_list	li { width: 754px; height: 89px; background: transparent url('http://static-www.farmville.com/images/neighbors/neighborList_inv_bg.png') top left no-repeat; }
+.neighbor_friends_list	li.neighborList { background: transparent url('http://static-www.farmville.com/images/neighbors/neighborList_yes_bg.png') top left no-repeat; }
+.neighbor_friends_list	li.pendingList { background: transparent url('http://static-www.farmville.com/images/neighbors/neighborList_pend_bg.png') top left no-repeat; }
+.neighbor_friends_list	li.notList { background: transparent url('http://static-www.farmville.com/images/neighbors/neighborList_no_bg.png') top left no-repeat; }
+
+div .n_list_name { padding-top: 10px; width: 450px; }
+
+.n_list_bttn div.bttn_removeneighbor,
+.n_list_bttn div.bttn_inviteneighbor,
+.n_list_bttn div.bttn_remindthem,
+.n_list_bttn div.bttn_addasaneighbor { padding-top: 25px; }
+
+
+#game_feed {
+	width: auto;
+}
+
+#game_feed .feed_block .story_pic {
+	width: 90px;
+	margin-right: 15px;
+}
+
+#game_feed .feed_block .story_pic img {
+	width: 90px;
+	height: 90px;
+}
+
+#game_feed .feed_block .story_msg {
+	font-weight: 400;
+	color: #000;
+}
+
+.UIStoryAttachment_Title {
+	font-weight: bold;
+}
+
+.action_links {
+	margin-top: 8px;
+	font-size: .85em;
+}
+
+.action_links a {
+	color: #999;
+}
+
+
+
+</style>
+
+
+<iframe frameborder="0"
+	width="0"
+	height="0"
+	src="http://www.farmville.com/populateFbCache.php"></iframe>
+
+<iframe style="margin: 0; padding: 0;"
+	frameborder="0"	smartsize="false" scrolling = "no" height="612" width="760"
+	src="http://www.farmville.com/flash.php?&type="
+></iframe>
+
+
+
+
+<div id="game_feed_title"><a name="newsfeed_section"></a></div>
+<div id="game_feed">
+	<div id="game_feed_no_permission" style="display:none; text-align:center; margin-bottom: 200px;">
+		<button onclick="askForPermission()" style="font-size: 1.5em; width: 500px;">Click here to see what your friends are doing on FarmVille!</button><br/><br/>
+		
+		<p>It's the best way to make sure you hatch their mystery eggs, adopt their animals, and more!</p>
+		</div>
+</div>
+<br/><br/>
+
+<script type="text/javascript">
+
+	FB.ensureInit(function() {
+	
+		//this is the rewritten parse method. make sure it's already been loaded by putting it within the FB_RequreFeatures
+		FB.JSON.parse=function(text,reviver){
+			var j;
+			function walk(a,c)
+			{
+				var b,d,e=a[c];
+				if(e&&typeof e==='object')
+					for(b in e)
+						if(Object.hasOwnProperty.call(e,b))
+						{
+							d=walk(e,b);
+							if(d!==undefined){
+								e[b]=d;
+							}else delete e[b];
+						}
+					return reviver.call(a,c,e);
+			}
+			var cx=/[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g;
+			cx.lastIndex=0;
+			if(cx.test(text)){
+				text=text.replace(cx,function(a){ return '\\u'+('0000'+a.charCodeAt(0).toString(16)).slice(-4); });
+			}
+	
+			var replacedText = text.replace(/\\\'/g, '\'');
+			replacedText = replacedText.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,'@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,']').replace(/(?:^|:|,)(?:\s*\[)+/g,'');
+			if(/^[\],:{}\s]*$/.test(replacedText))
+			{
+				j=eval('('+text+')');
+				return typeof reviver==='function'?walk({'':j},''):j;
+			}
+			throw new SyntaxError('JSON.parse');
+		};
+		
+		FB.Connect.get_status().waitUntilReady(function(status) {
+			switch(status) {
+			case FB.ConnectState.connected:
+				FB.Facebook.apiClient.users_hasAppPermission('read_stream', function(result) {
+					if(result) {
+						// Fetch and display stream
+						fetchStream();
+					} else {
+						// Display a message to ask for permission
+						$('#game_feed_no_permission').show();
+					}
+				});
+				
+				break;
+			case FB.ConnectState.appNotAuthorized:
+			case FB.ConnectState.userNotLoggedIn:
+				break;
+			}
+		});
+		
+	});
+
+	function askForPermission() {
+		FB.Connect.showPermissionDialog('read_stream', function(perm) {
+			if(null != perm && perm == 'read_stream') {
+				// Fetch and display stream
+				fetchStream();
+			}
+		});
+	}
+	
+	function fetchStream() {
+		setTimeout(fetchStream, 60000);
+		
+		FB.Facebook.apiClient.stream_get('', '', '', '', 'app_102452128776', function(stream) {
+			wallHTML = '';
+			
+			if(stream && stream.posts) {
+				posts = stream.posts;
+				if(posts.length) {
+				
+					if(posts.length > 5 && $('#game_feed').height() == 0) {
+						$('#game_feed').height('645px');
+						$('#game_feed').css('overflow-y', 'scroll');
+					}
+					
+					profiles = new Array();
+					
+					$.each(stream.profiles, function() {
+						profiles[this.id] = {name:this.name, pic:this.pic_square};
+					});
+					
+					$.each(posts, function() {
+						wallHTML += formatPost(this, profiles);	
+					});
+				} else {
+					wallHTML += 'You currently do not have any posts in your game feed.';
+				}
+				
+				if(wallHTML) {
+					$('#game_feed').html(wallHTML);
+				}
+			}
+		});
+	}
+	
+	function formatPost(post, profiles) {
+		var toReturn = '<div class="feed_block">';
+		
+		toReturn += '<img class="profile_pic" src="'+profiles[post.source_id].pic+'"/>';
+		
+		toReturn += '<div class="story_desc">';
+		toReturn += '<h1>'+profiles[post.source_id].name+' <span class="story_msg">'+post.message+'</span></h1>';
+		
+		atmt = post.attachment;
+		
+		if(atmt.media && atmt.media.length > 0) {
+			href = convertUrlToDotCom(atmt.media[0].href);
+			target = '';
+			if(post.type == 247) { // FB photo
+				target = ' target="_blank"';
+			}
+			toReturn += '<a class="story_pic" href="'+href+'" '+target+'><img src="'+atmt.media[0].src+'"/></a>';
+		}
+		
+		if(post.attachment.name && post.attachment.caption) {
+			toReturn += '<div class="UIStoryAttachment_Title">' + post.attachment.name + '</div>';
+			toReturn += '<div class="UIStoryAttachment_Copy">' + post.attachment.caption + '</div>';
+		} else if(post.attachment.description) {
+			toReturn += post.attachment.description;
+		}
+		
+		toReturn += '<div class="action_links">'
+		toReturn += getTimeSince(post.created_time);
+		
+		if(post.action_links) {
+			for(var i=0; i<post.action_links.length; i++) {
+				href = convertUrlToDotCom(post.action_links[i].href);
+				toReturn += ' &#183; <a href="'+href+'">'+post.action_links[i].text+'</a>';
+			}
+		}
+		
+		toReturn += '</div>';
+		
+		toReturn += '<div class="clear"></div></div></div>';
+		return toReturn;	
+	}
+	
+	/**
+	 * Replace urls so that game feed on fv.com doesn't send users back to the FB app
+	 */	
+	function convertUrlToDotCom(url) {
+		var toReturn = url.replace('http://apps.facebook.com/onthefarm/','http://www.farmville.com/');
+		
+		
+		return toReturn;
+	}
+	
+
+	/**
+	 * This is a helper function to get "time ago" string
+	 */
+
+	function getTimeSince(create_time) {
+		var create_date = new Date( create_time * 1000 );
+		var present_date = new Date();
+		var since = present_date.getTime()-create_date.getTime();
+
+		var timeSpans = new Array();
+		timeSpans[0] = new Array(60 * 60 * 24 * 30,	'month');
+		timeSpans[1] = new Array(60 * 60 * 24 * 7,	'week');
+		timeSpans[2] = new Array(60 * 60 * 24,		'day');
+		timeSpans[3] = new Array(60 * 60,			'hour');
+		timeSpans[4] = new Array(60,				'minute');
+
+		for(var i=0; i < 5; i++) {
+			var timeSpan = timeSpans[i][0];
+			var count = Math.floor(since / (timeSpan*1000));
+			if(count != 0)
+				break;
+		}
+
+		//if(i==5) return 'seconds ago';	
+		if(i==5) return '1 minute ago';	
+
+		var ago = count + ' ' + timeSpans[i][1];
+		if(count > 1)	ago += 's';
+		return ago + ' ago';
+	}
+
+
+</script>
+
+							<div class="center">
+				If you are having trouble seeing FarmVille, please <a href="http://get.adobe.com/flashplayer/" target="_blank">update your flash player</a> by clicking <a href="http://get.adobe.com/flashplayer/" target="_blank">HERE</a>.
+			</div>
+			<div class="center" style="margin:15px 0px 0px 0px;">
+				All items including but not limited to user interface, design, game design, artwork and scoring system Copyright 2010 Zynga Game Network Inc. All rights reserved.
+			</div>
+					
+		<script type="text/javascript">
+		
+		FB_RequireFeatures(["XFBML"], function()
+		{
+
+			FB.init("80c6ec6628efd9a465dd223190a65bbc","./xd_receiver.htm",
+				{"ifUserConnected":onConnected,"ifUserNotConnected":onNotConnected,"doNotUseCachedConnectState":true});
+			
+			function onConnected(user_id) {
+			
+							
+			}
+			
+			function onNotConnected() {
+			
+								location.href='expire_session.php';
+							
+			}
+		});
+		
+		</script>
+
+			
+					</div>
+				
+			<div class="clear"></div>
+			
+			<div class="zynga_footer">
+				<a target="_blank" class="zynga_link" href="http://www.zynga.com" target="_blank"></a>
+				<a target="_blank" href="http://www.zynga.com/about/" target="_blank">About</a> | 
+				<a target="_blank" href="http://zynga.custhelp.com/app/home/gameid/63/sn/1">Support</a> |
+				<a target="_blank" href="http://forums.zynga.com/forumdisplay.php?f=91">Forums</a> |
+				<a target="_blank" href="http://twitter.com/zfarmville/" target="_blank">Twitter</a> |
+				<a target="_blank" href="http://www.zazzle.com/farmville/" target="_blank">Shop</a> |				<a target="_blank" href="http://www.zynga.com/privacyPolicy/" target="_blank">Privacy</a> | 
+				<a target="_blank" href="http://www.zynga.com/legal/terms_of_service.php" target="_blank">Terms of Service</a> 
+			</div>
+
+			
+			<div class="clear"></div>
+				</div>
+		<div class="cloud1"></div>
+		<div class="cloud2"></div>
+		
+		<script type="text/javascript">
+		
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		
+		</script>
+		<script type="text/javascript">
+		
+			try{
+			var pageTracker = _gat._getTracker("UA-9830736-2");
+			pageTracker._trackPageview();
+			} catch(err) {}
+		
+		</script>
+	
+		
+		
+		
+		</body>
+</html>&nbsp;&nbsp;

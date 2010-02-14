@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/jquery.fancybox-1.3.0.css" />
+<script type="text/javascript" src="/javascripts/jquery-1.4.1.js"></script>
+<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.0.js"></script>                
+ <script type="text/javascript">
+     $(document).ready(function(){
+	 	
+       $("a#pic").fancybox();
+	   
+	   $("a#win").fancybox();
+	      
+       $("a#lin").click(function(event){
+         alert("As you can see, the link no longer took you to jquery.com");
+         event.preventDefault();
+       });
+
+     });
+     
+   </script>
+
+  </head>	
+<body>
+  	<div id="main">
+      <!-- START:flash -->
+      <% if flash[:notice] -%>
+        <div id="notice"><%= flash[:notice] %></div>
+      <% end -%>
+      <!-- END:flash -->
+
+      <%= yield :layout %>
+    </div>
+</body>
+</html>

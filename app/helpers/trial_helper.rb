@@ -1,0 +1,2 @@
+module TrialHelper
+end
