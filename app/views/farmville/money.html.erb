@@ -217,16 +217,11 @@ class='help'>Help</a>
 	Please click the green "Missing Farm Cash" button if you are missing Farm Cash from completing a transaction via these services.
 	<div id="missing_farm_cash"><img src="/images/missing_farm_cash.png" alt="missing farm cash"/></div>
 </div>
-<div id="there">place for window</div>	
-<br />
-<br />
-<br />
-<%= link_to_remote "I'm link to remote", 
-					:url => {:action => 'servicewindow'},
-					:update => 'there' %>
 <div class="methods_box">
 	<div class="method">
-
+		<a id="servicewindow" href="/aaa/authenticate" title="pay with arca">
+		<img src="/images/arca.png" alt="amazon"/>
+		</a>
 	</div>
 	<div class="method">
 		<a href="/farmville/amazon">

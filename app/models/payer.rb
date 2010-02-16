@@ -1,21 +1,23 @@
 require 'digest/sha1'
 
 class Payer < ActiveRecord::Base
-  has_one :payer_rule
-  has_many :purchases
-  has_many :retailers, :through => :purchases
-  has_many :products, :through => :purchases
-  
-  validates_presence_of :name, :email, :pay_type, :username
-  validates_uniqueness_of :username, :name
+  has_one   :payer_rule
+  has_one   :billing, :through => :payer_rules
+  has_many  :purchases
+  has_many  :retailers, :through => :purchases
+  has_many  :products, :through => :purchases
+  has_many  :subscribers
+
+  validates_presence_of :username, :name, :email 
+  validates_uniqueness_of :username, :name, :email
 
   attr_accessor :password_confirmation
   validates_confirmation_of :password
 
   validate :password_non_blank
    
-  def self.authenticate(name, password)
-    payer = self.find_by_name(name)
+  def self.authenticate(username, password)
+    payer = self.find_by_name(username)
     if payer
       expected_password = encrypted_password(password, payer.salt)
       if payer.hashed_password != expected_password

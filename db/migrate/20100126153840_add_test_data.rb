@@ -6,7 +6,6 @@
 # We make no guarantees that this code is fit for any purpose. 
 # Visit http://www.pragmaticprogrammer.com/titles/rails3 for more book information.
 #---
-
 class AddTestData < ActiveRecord::Migration
   def self.up
     Product.delete_all

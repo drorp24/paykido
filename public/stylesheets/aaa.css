@@ -1,0 +1,35 @@
+body {
+
+}
+
+#payment_window {
+	background-color:#e8e8ff;
+	padding-top:30px;
+	height:300px;
+	width:400px;
+}
+
+label, #input {
+	float:left;
+	padding-left:20px;
+}
+
+#step_title {
+	height:20px;
+	padding:8px;
+	font:"Arial Rounded MT Bold";
+	font-size:11pt;
+	font-weight:600;
+}
+
+
+
+#save_colors {
+	background-color:#faf9c9;
+	background-color:#ecf1ff;
+	background-color:#fefac7;
+	background-color:#eefeb8;
+	background-color:#fef9bc;
+	background-color:#dddfff;
+	background-color:#e8e8ff;
+}

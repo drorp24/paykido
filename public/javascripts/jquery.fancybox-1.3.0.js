@@ -1,5 +1,5 @@
 /*
- * FancyBox - jQuery Plugin
+ * FancyBox - jQueryF Plugin
  * Simple and fancy lightbox alternative
  *
  * Copyright (c) 20010 Janis Skarnelis
