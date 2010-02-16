@@ -1,47 +1,65 @@
 <%= image_tag("arca_with_tagline.png" ) %>
 <div id="payment_window">
-	<h3>You have chosen to purchase (get from previous window...)</h3>
-	<br />
-	<p>To get instant cash please follow these two simple steps:</p>
-	<br />
-	<br />
-	<% remote_form_for :subscriber,
-		:url => { :action => :process_request },
-		:update => "status_line" do |form| %>
-		<div id="step_title">
-			<%= form.label :billing_phone, "Step 1: Fill-in your phone number:"%>
-		</div>
-		<span id="input">
-			<%= form.text_field :billing_phone, :size => 20, :maxlength =>10 %>
-		</span>
-		<span id="submit">
-			<%= submit_tag 'Click when ready'%>
-		</span>
-	<% end %>
 	
-	<br />
-	<% form_remote_tag do %>
-		<div id="step_title">
-			<label for="pin">Step 2: Fill-in the PIN we sent you:</label>
-		</div>
-		<span id="input">
-			<%= password_field_tag :pin, params[:pin] %>
-		</span>
-		<span id="submit">
-			<%= submit_tag "Click when ready" %>
-		</span>
+	<div id="message">
+		<p id="hidden_line" style="display:none">start</p>
+		<h2>Welcome to arca!</h2>
+		<br />
+		<p>You've just selected XXX</p>
+		<br />
+		<br />	
+	</div>
 
-	<% end %>
+	<div id="input">
+		<div id="product_selected">Follow these 2 simple steps and get it in seconds</div>
+		<% remote_form_for :subscriber,
+			:url => { :action => :process_request },
+			:update => "message" do |form| %>
+			<div id="step">
+				<div id="step_title">
+					<%= form.label :billing_phone, "Step 1 - Fill-in your mobile phone number"%>
+				</div>
+				<div id="step_input">
+				<span id="input_field">
+					<%= form.text_field :billing_phone, :size => 20, :maxlength =>10 %>
+				</span>
+				<span id="submit_button">
+					<%= submit_tag 'Click when done'%>
+				</span>	
+				</div>
+			</div>
+		<% end %>
+	
+		<% form_remote_tag do %>
+		<div id="step">
+			<div id="step_title">
+				<label for="pin">Step 2 - Fill-in the PIN code we've sent you</label>
+			</div>
+			<div id="step_input">
+			<span id="input_field">
+				<%= password_field_tag :pin, params[:pin] %>
+			</span>
+			<span id="submit_button">
+				<%= submit_tag "Click when done" %>
+			</span>	
+			</div>
+		</div>
+		<% end %>
+	</div>
 
 	
 	<%= periodically_call_remote :url => {:action => "check_status"},
-		:update => "status_line",
-		:condition => "$('status_line').innerHTML !== 'Unknown'" ,
+		:update => "message",
+		:condition => "$('hidden_line').innerHTML !== 'start'" ,
 		:frequency => 10 %>
 		
-	<br />
-	<h3>NEW! parents authorizations in a click!</h3>
-	<br />
-	<div id="status_line">Unknown</div>
+	<div id="marketing">
+		<div id="new">NEW!</div>
+		<div id="marketing_line">
+			<span>Get parents authorizations in one click!  </span>
+			<span><a href="/service/index">Tell me more</a></span>	
+		</div>
+	</div>
+
 
 </div>

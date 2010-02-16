@@ -1,28 +1,87 @@
 body {
-
+	color:white;
 }
 
 #payment_window {
-	background-color:#e8e8ff;
+	background-color:#6b727a;
 	padding-top:30px;
-	height:300px;
+	height:330px;
 	width:400px;
 }
 
-label, #input {
+#input {
+}
+
+
+#step {
 	float:left;
-	padding-left:20px;
+	margin-left:30px;
+
+}
+
+#input_field {
+	float:left;
+	margin-left:15px;
+}
+
+#product_selected {
+	float:left;
+	margin-left:40px;
+	font-size:10pt;
+}
+
+
+#step_input {
+
+
+}
+
+#submit_button {
+	width:30px;
+	margin-left:50px;
 }
 
 #step_title {
+	float:left;
 	height:20px;
-	padding:8px;
+	padding-top:20px;
+	padding-left:15px;
 	font:"Arial Rounded MT Bold";
 	font-size:11pt;
 	font-weight:600;
 }
 
 
+#message {
+
+	height:90px;
+}
+
+#marketing {
+	float:left;
+	height:50px
+	width:200px;
+	margin-left:10px;
+	margin-top:40px;
+	margin-bottom:20px;
+}
+
+#new {
+	color:red;
+	font-weight:bold;
+	font-size:12pt;
+	font-style:italic;
+}
+
+#marketing_line {
+	font-weight:bold;
+	font-size:11pt;	
+}
+
+a {
+/*	color:blue;*/
+/*	text-decoration:underline;*/
+}
 
 #save_colors {
 	background-color:#faf9c9;
