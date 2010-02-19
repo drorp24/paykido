@@ -1,6 +1,8 @@
 
 class Product < ActiveRecord::Base
-  belongs_to :category
+  belongs_to  :category
+  has_many    :retailers_products
+  has_many    :retailers, :through => :retailers_products
   
   def self.find_products_for_sale
     find(:all, :order => "title")

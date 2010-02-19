@@ -5,8 +5,8 @@ class Retailer < ActiveRecord::Base
   
   has_many :purchases
   has_many :products, :through => :purchases
-  has_many :retailer_products
-  has_many :products, :through => :retailer_products
+  has_many :retailers_products
+  has_many :products, :through => :retailers_products
   has_many :payers, :through => :purchases
 
   validates_presence_of :username, :name, :email 
