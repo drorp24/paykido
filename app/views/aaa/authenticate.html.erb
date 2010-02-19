@@ -12,7 +12,7 @@
 
 	<div id="input">
 		<div id="product_selected">Follow these 2 simple steps and get it in seconds</div>
-		<% remote_form_for :subscriber,
+		<% remote_form_for :consumer,
 			:url => { :action => :process_request },
 			:update => "message" do |form| %>
 			<div id="step">
@@ -48,16 +48,15 @@
 	</div>
 
 	
-	<%= periodically_call_remote :url => {:action => "check_status"},
-		:update => "message",
-		:condition => "$('hidden_line').innerHTML !== 'start'" ,
-		:frequency => 10 %>
+<!--	<%= periodically_call_remote :url => {:action => "check_status"}, 
+		:update => "message",										
+		:condition => "$('hidden_line').innerHTML !== 'start'" ,	
+		:frequency => 10 %>												-->
 		
 	<div id="marketing">
 		<div id="new">NEW!</div>
 		<div id="marketing_line">
-			<span>Get parents authorizations in one click!  </span>
-			<span><a href="/service/index">Tell me more</a></span>	
+			<span>Try our new one-click payments service. No SMS! <a id = "link_to_service" href="/service/index">How?</span>
 		</div>
 	</div>
 

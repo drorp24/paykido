@@ -2,23 +2,21 @@
 
 <table>
   <tr>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Pay type</th>
     <th>Username</th>
     <th>Hashed password</th>
     <th>Salt</th>
+    <th>Name</th>
+    <th>Email</th>
     <th>Balance</th>
   </tr>
 
 <% @payers.each do |payer| %>
   <tr>
-    <td><%=h payer.name %></td>
-    <td><%=h payer.email %></td>
-    <td><%=h payer.pay_type %></td>
     <td><%=h payer.username %></td>
     <td><%=h payer.hashed_password %></td>
     <td><%=h payer.salt %></td>
+    <td><%=h payer.name %></td>
+    <td><%=h payer.email %></td>
     <td><%=h payer.balance %></td>
     <td><%= link_to 'Show', payer %></td>
     <td><%= link_to 'Edit', edit_payer_path(payer) %></td>

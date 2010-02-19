@@ -1,0 +1,16 @@
+<h1>Editing billing</h1>
+
+<% form_for(@billing) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :method %><br />
+    <%= f.text_field :method %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @billing %> |
+<%= link_to 'Back', billings_path %>

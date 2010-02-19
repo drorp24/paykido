@@ -78,6 +78,11 @@ body {
 	font-size:11pt;	
 }
 
+#link_to_service {
+	color:red;
+	text-decoration:underline;
+}
+
 a {
 /*	color:blue;*/
 /*	text-decoration:underline;*/

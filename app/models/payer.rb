@@ -6,16 +6,23 @@ class Payer < ActiveRecord::Base
   has_many  :purchases
   has_many  :retailers, :through => :purchases
   has_many  :products, :through => :purchases
-  has_many  :subscribers
+  has_many  :consumers
 
-  validates_presence_of :username, :name, :email 
-  validates_uniqueness_of :username, :name, :email
+#  validates_presence_of :username, :name, :email if params?
+#  validates_uniqueness_of :username, :name, :email if params?
 
-  attr_accessor :password_confirmation
-  validates_confirmation_of :password
+   attr_accessor :password_confirmation
+#  validates_confirmation_of :password
 
-  validate :password_non_blank
-   
+#  validate :password_non_blank
+  
+#  attr_accessor :username,:id
+  
+#  def initialize(username)
+#    super()
+#    @username = username
+#  end
+ 
   def self.authenticate(username, password)
     payer = self.find_by_name(username)
     if payer
@@ -64,5 +71,3 @@ private
   
 
 end
-
-

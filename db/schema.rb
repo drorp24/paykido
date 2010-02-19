@@ -9,10 +9,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100204213045) do
+ActiveRecord::Schema.define(:version => 20100217235649) do
 
   create_table "billings", :force => true do |t|
-    t.string   "type",       :null => false
+    t.string   "method",     :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(:version => 20100204213045) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "consumers", :force => true do |t|
+    t.string   "payer_id",      :null => false
+    t.string   "billing_phone"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "consumers", ["billing_phone"], :name => "index_subscribers_on_billing_phone"
 
   create_table "line_items", :force => true do |t|
     t.integer  "product_id",                                :null => false
@@ -63,7 +72,7 @@ ActiveRecord::Schema.define(:version => 20100204213045) do
   end
 
   create_table "payers", :force => true do |t|
-    t.string   "username",        :null => false
+    t.string   "username"
     t.string   "hashed_password"
     t.string   "salt"
     t.string   "name"
@@ -74,12 +83,13 @@ ActiveRecord::Schema.define(:version => 20100204213045) do
   end
 
   create_table "products", :force => true do |t|
+    t.integer  "category_id",                                                :null => false
     t.string   "title"
     t.text     "description"
     t.string   "image_url"
+    t.decimal  "price",       :precision => 8, :scale => 2, :default => 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "price",       :precision => 8, :scale => 2, :default => 0.0
   end
 
   create_table "purchases", :force => true do |t|
@@ -124,15 +134,6 @@ ActiveRecord::Schema.define(:version => 20100204213045) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
-
-  create_table "subscribers", :force => true do |t|
-    t.string   "payer_id",      :null => false
-    t.string   "billing_phone", :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "subscribers", ["billing_phone"], :name => "index_subscribers_on_billing_phone"
 
   create_table "users", :force => true do |t|
     t.string   "name"
