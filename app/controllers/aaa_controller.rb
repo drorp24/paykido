@@ -1,4 +1,4 @@
-#require 'ruby-debug'
+require 'ruby-debug'
 class AaaController < ApplicationController
 
   def authenticate
@@ -6,11 +6,30 @@ class AaaController < ApplicationController
   end
 
   def process_request
-    check_for_payer
-    authorization
+    get_retailer_and_product
+    find_retailer_and_product
+    find_payer
+    create_purchase
+    authorize
+    authenticate
   end
   
-  def check_for_payer
+  def get_retailer_and_product
+    @retailer_name = "hula"
+    @product_title = "zmat"
+    @product_price = 199
+  end
+
+  def find_retailer_and_product
+    @retailer = Retailer.find_or_create_by_name(@retailer_name)
+    @product = @retailer.products.find(:first, 
+              :conditions => ["title = ? and price = ?", @product_title, @product_price])                                   
+    unless @product
+      @retailer.products.create(:category_id => 1, :title => @product_title, :price => @product_price)
+    end
+  end
+    
+  def find_payer
      unless Consumer.find_by_billing_phone(params[:consumer][:billing_phone])
       @consumer = Consumer.new(params[:consumer])
       @consumer.payer = Payer.new
@@ -18,7 +37,17 @@ class AaaController < ApplicationController
     end    
   end
   
-  def authorization
+  def create_purchase
+    
+  end
+  
+  def authorize
+#    if consumer.payer.username?
+      
+#    end
+  end
+  
+  def authenticate
     
   end
   

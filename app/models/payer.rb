@@ -1,7 +1,10 @@
 require 'digest/sha1'
 
 class Payer < ActiveRecord::Base
-  has_one   :payer_rule
+  has_many  :payer_rules
+  has_one :most_recent_payer_rule,
+    :class_name =>  'PayerRule' ,
+    :order =>       'created_at DESC'
   has_one   :billing, :through => :payer_rules
   has_many  :purchases
   has_many  :retailers, :through => :purchases

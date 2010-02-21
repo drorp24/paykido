@@ -1,5 +1,5 @@
 body {
-	background: #d0e7f5 url(../images/main_bg.png) repeat-y center center;
+	background: #d0e7f5 url(/images/main_bg.png) repeat-y center center;
 
 }
 
@@ -71,7 +71,7 @@ html, body {
 }
 
 body {
-	background: #d0e7f5 url(../images/main_bg.png) repeat-y center center;
+	background: #d0e7f5 url(/images/main_bg.png) repeat-y center center;
 }
 
 img {

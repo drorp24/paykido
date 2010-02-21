@@ -1,21 +1,23 @@
 require 'digest/sha1'
 
 class Retailer < ActiveRecord::Base
-  validates_presence_of :name, :category_id
+  validates_presence_of :name
   
   has_many :purchases
   has_many :products, :through => :purchases
-  has_many :retailers_products
-  has_many :products, :through => :retailers_products
   has_many :payers, :through => :purchases
+  
+  has_many :items
+  has_many :products, :through => :items
 
-  validates_presence_of :username, :name, :email 
-  validates_uniqueness_of :username, :name, :email
+
+#  validates_presence_of :username, :name, :email 
+#  validates_uniqueness_of :username, :name, :email
 
   attr_accessor :password_confirmation
-  validates_confirmation_of :password
+#  validates_confirmation_of :password
 
-  validate :password_non_blank
+#  validate :password_non_blank
    
   def self.authenticate(username, password)
     retailer = self.find_by_name(username)

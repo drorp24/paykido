@@ -2,7 +2,7 @@ class CreateRetailers < ActiveRecord::Migration
   def self.up
     create_table :retailers do |t|
       
-      t.string    :username, :null => false
+      t.string    :username
       t.string    :hashed_password
       t.string    :salt
       
@@ -14,6 +14,7 @@ class CreateRetailers < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :retailers, :username, :name
   end
 
   def self.down

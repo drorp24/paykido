@@ -4,10 +4,8 @@ class FarmvilleController < ApplicationController
   def play
   end
   def money
-end
-def money_page
+  end
 
-end
   def sparechange
   end
   def paybycash
@@ -16,12 +14,5 @@ end
   end
   def amazon
   end
-  def servicewindow
-end
-  def jswindow
-  end
-  def select_amount
-end
-def help
-end
+
 end
