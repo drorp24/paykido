@@ -62320,3 +62320,210 @@ Processing AaaController#process_request (for 127.0.0.1 at 2010-02-21 21:27:16) 
 Rendering template within layouts/aaa
 Rendering aaa/process_request
 Completed in 343ms (View: 15, DB: 78) | 200 OK [http://localhost/aaa/process_request]
+
+
+Processing FarmvilleController#money (for 127.0.0.1 at 2010-02-21 22:26:58) [GET]
+Rendering template within layouts/farmville
+Rendering farmville/money
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/farmville/money]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-02-21 22:27:02) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#process_request (for 127.0.0.1 at 2010-02-21 22:27:10) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;35;1mProduct Create (0.0ms)[0m   [0mINSERT INTO "products" ("image_url", "updated_at", "title", "price", "category_id", "description", "created_at") VALUES(NULL, '2010-02-21 20:27:10', 'zmat', 9.99, 1, NULL, '2010-02-21 20:27:10')[0m
+  [4;36;1mItem Create (0.0ms)[0m   [0;1mINSERT INTO "items" ("updated_at", "retailer_id", "product_id", "created_at") VALUES('2010-02-21 20:27:10', 4, 9, '2010-02-21 20:27:10')[0m
+
+NoMethodError (undefined method `product' for #<Retailer:0x4d0dd84>):
+  app/controllers/aaa_controller.rb:34:in `find_retailer_and_product'
+  app/controllers/aaa_controller.rb:14:in `process_request'
+
+Rendered rescues/_trace (78.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing FarmvilleController#money (for 127.0.0.1 at 2010-02-21 22:36:20) [GET]
+Rendering template within layouts/farmville
+Rendering farmville/money
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/farmville/money]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-02-21 22:36:24) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 109ms (View: 94, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#process_request (for 127.0.0.1 at 2010-02-21 22:36:28) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2222222222') LIMIT 1[0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 22) [0m
+  [4;35;1mPurchase Create (0.0ms)[0m   [0mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-02-21 20:42:33', NULL, 4, '2010-02-21 22:42:33', 9, NULL, 9.99, NULL, NULL, 22, '2010-02-21 20:42:33')[0m
+
+NoMethodError (undefined method `authorizatrion?' for #<AaaController:0x4c0511c>):
+  app/controllers/aaa_controller.rb:68:in `authorize'
+  app/controllers/aaa_controller.rb:17:in `process_request'
+
+Rendered rescues/_trace (156.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-02-21 22:46:20) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#process_request (for 127.0.0.1 at 2010-02-21 22:46:24) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2222222222') LIMIT 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 22) [0m
+  [4;36;1mPurchase Create (0.0ms)[0m   [0;1mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-02-21 20:46:24', NULL, 4, '2010-02-21 22:46:24', 9, NULL, 9.99, NULL, NULL, 22, '2010-02-21 20:46:24')[0m
+Rendering template within layouts/aaa
+Rendering aaa/process_request
+Completed in 265ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/process_request]
+
+
+Processing FarmvilleController#money (for 127.0.0.1 at 2010-02-21 22:48:22) [GET]
+Rendering template within layouts/farmville
+Rendering farmville/money
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/farmville/money]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-02-21 22:48:26) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#process_request (for 127.0.0.1 at 2010-02-21 22:48:30) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"3333333333"}, "commit"=>"Click when done"}
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '3333333333') LIMIT 1[0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 24) [0m
+  [4;35;1mPurchase Create (0.0ms)[0m   [0mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-02-21 20:48:31', NULL, 4, '2010-02-21 22:48:31', 9, NULL, 9.99, NULL, NULL, 24, '2010-02-21 20:48:31')[0m
+Rendering template within layouts/aaa
+Rendering aaa/process_request
+Completed in 867250ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/process_request]
+
+
+Processing FarmvilleController#money (for 127.0.0.1 at 2010-02-21 23:02:58) [GET]
+Rendering template within layouts/farmville
+Rendering farmville/money
+Completed in 16ms (View: 0, DB: 16) | 200 OK [http://localhost/farmville/money]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-02-21 23:02:58) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-02-21 23:03:10) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 31ms (View: 0, DB: 15) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#process_request (for 127.0.0.1 at 2010-02-21 23:03:14) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"3333333333"}, "commit"=>"Click when done"}
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '3333333333') LIMIT 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 24) [0m
+  [4;36;1mPurchase Create (0.0ms)[0m   [0;1mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-02-21 21:03:14', NULL, 4, '2010-02-21 23:03:14', 9, NULL, 9.99, NULL, NULL, 24, '2010-02-21 21:03:14')[0m
+Rendering template within layouts/aaa
+Rendering aaa/process_request
+Completed in 234ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/process_request]
+
+
+Processing AaaController#process_request (for 127.0.0.1 at 2010-02-21 23:03:33) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2222222222') LIMIT 1[0m
+  [4;36;1mPayer Load (16.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 22) [0m
+  [4;35;1mPurchase Create (0.0ms)[0m   [0mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-02-21 21:03:33', NULL, 4, '2010-02-21 23:03:33', 9, NULL, 9.99, NULL, NULL, 22, '2010-02-21 21:03:33')[0m
+Rendering template within layouts/aaa
+Rendering aaa/process_request
+Completed in 84016ms (View: 0, DB: 16) | 200 OK [http://localhost/aaa/process_request]
+
+
+Processing AaaController#process_request (for 127.0.0.1 at 2010-02-21 23:09:42) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;35;1mProduct Load (16.0ms)[0m   [0mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;36;1mProduct Create (0.0ms)[0m   [0;1mINSERT INTO "products" ("image_url", "updated_at", "title", "price", "category_id", "description", "created_at") VALUES(NULL, '2010-02-21 21:09:42', 'zmat', 9.99, 1, NULL, '2010-02-21 21:09:42')[0m
+  [4;35;1mItem Create (0.0ms)[0m   [0mINSERT INTO "items" ("updated_at", "retailer_id", "product_id", "created_at") VALUES('2010-02-21 21:09:42', 4, 10, '2010-02-21 21:09:42')[0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2222222222') LIMIT 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 22) [0m
+  [4;36;1mPurchase Create (0.0ms)[0m   [0;1mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-02-21 21:09:43', NULL, 4, '2010-02-21 23:09:43', 10, NULL, 9.99, NULL, NULL, 22, '2010-02-21 21:09:43')[0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 22) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/aaa
+Rendering aaa/process_request
+Completed in 469ms (View: 0, DB: 16) | 200 OK [http://localhost/aaa/process_request]
+
+
+Processing AaaController#process_request (for 127.0.0.1 at 2010-02-21 23:10:03) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"3333333333"}, "commit"=>"Click when done"}
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '3333333333') LIMIT 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 24) [0m
+  [4;36;1mPurchase Create (0.0ms)[0m   [0;1mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-02-21 21:10:04', NULL, 4, '2010-02-21 23:10:04', 10, NULL, 9.99, NULL, NULL, 24, '2010-02-21 21:10:04')[0m
+Rendering template within layouts/aaa
+Rendering aaa/process_request
+Completed in 266ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/process_request]
+
+
+Processing AaaController#process_request (for 127.0.0.1 at 2010-02-21 23:10:08) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2222222222') LIMIT 1[0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 22) [0m
+  [4;35;1mPurchase Create (0.0ms)[0m   [0mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-02-21 21:10:08', NULL, 4, '2010-02-21 23:10:08', 10, NULL, 9.99, NULL, NULL, 22, '2010-02-21 21:10:08')[0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 22) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/aaa
+Rendering aaa/process_request
+Completed in 281ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/process_request]
+
+
+Processing AaaController#process_request (for 127.0.0.1 at 2010-02-21 23:12:05) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2222222222') LIMIT 1[0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 22) [0m
+  [4;35;1mPurchase Create (0.0ms)[0m   [0mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-02-21 21:12:05', NULL, 4, '2010-02-21 23:12:05', 10, NULL, 9.99, NULL, NULL, 22, '2010-02-21 21:12:05')[0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 22) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/aaa
+Rendering aaa/process_request
+Completed in 250ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/process_request]
+
+
+Processing AaaController#process_request (for 127.0.0.1 at 2010-02-21 23:14:49) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2222222222') LIMIT 1[0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 22) [0m
+  [4;35;1mPurchase Create (0.0ms)[0m   [0mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-02-21 21:14:50', NULL, 4, '2010-02-21 23:14:50', 10, NULL, 9.99, NULL, NULL, 22, '2010-02-21 21:14:50')[0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 22) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/aaa
+Rendering aaa/process_request
+Completed in 281ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/process_request]
