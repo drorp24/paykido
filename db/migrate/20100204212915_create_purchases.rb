@@ -10,10 +10,10 @@ class CreatePurchases < ActiveRecord::Migration
         "CONSTRAINT fk_purchase_products REFERENCES products(id)"
         
       t.decimal   :amount,        :null => false
-      t.date      :purchase_date, :null => false
+      t.date      :date, :null => false
       
-      t.date      :approval_date
-      t.string    :approval_type
+      t.date      :authorization_date
+      t.string    :authorization_type
       
       t.date      :billing_date
       t.integer   :billing_type

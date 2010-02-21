@@ -10,10 +10,10 @@ class CreatePayerRules < ActiveRecord::Migration
       t.decimal :allowance
       t.boolean :rollover
 
-      t.decimal :auto_approve_under
-      t.decimal :auto_reject_over
+      t.decimal :auto_authorize_under
+      t.decimal :auto_deny_over
       
-      t.integer :approval_phone
+      t.integer :authorization_phone
       t.integer :pin
  
 
