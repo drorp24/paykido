@@ -11,16 +11,16 @@ class Retailer < ActiveRecord::Base
   has_many :products, :through => :items
 
 
-#  validates_presence_of :username, :name, :email 
-#  validates_uniqueness_of :username, :name, :email
+#  validates_presence_of :user, :name, :email 
+#  validates_uniqueness_of :user, :name, :email
 
   attr_accessor :password_confirmation
 #  validates_confirmation_of :password
 
 #  validate :password_non_blank
    
-  def self.authenticate(username, password)
-    retailer = self.find_by_name(username)
+  def self.authenticate(user, password)
+    retailer = self.find_by_name(user)
     if retailer
       expected_password = encrypted_password(password, retailer.salt)
       if retailer.hashed_password != expected_password

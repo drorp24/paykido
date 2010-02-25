@@ -11,23 +11,23 @@ class Payer < ActiveRecord::Base
   has_many  :products, :through => :purchases
   has_many  :consumers
 
-#  validates_presence_of :username, :name, :email if params?
-#  validates_uniqueness_of :username, :name, :email if params?
+#  validates_presence_of :user, :name, :email if params?
+#  validates_uniqueness_of :user, :name, :email if params?
 
    attr_accessor :password_confirmation
 #  validates_confirmation_of :password
 
 #  validate :password_non_blank
   
-#  attr_accessor :username,:id
+#  attr_accessor :user,:id
   
-#  def initialize(username)
+#  def initialize(user)
 #    super()
-#    @username = username
+#    @user = user
 #  end
  
-  def self.authenticate(username, password)
-    payer = self.find_by_name(username)
+  def self.authenticate(user, password)
+    payer = self.find_by_name(user)
     if payer
       expected_password = encrypted_password(password, payer.salt)
       if payer.hashed_password != expected_password

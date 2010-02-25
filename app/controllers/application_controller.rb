@@ -2,7 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  layout "store"
+  #layout "store"
   #...
   
   # before_filter :authorize, :except => :login

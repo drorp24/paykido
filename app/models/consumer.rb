@@ -9,8 +9,8 @@ class Consumer < ActiveRecord::Base
 #    @billing_phone = consumer[:billing_phone]
 #  end
   
-#  validates_presence_of :billing_phone
-#  validates_uniqueness_of :billing_phone
+  validates_presence_of :billing_phone
+  validates_uniqueness_of :billing_phone
 
    
    

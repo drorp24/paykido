@@ -2,7 +2,7 @@ class CreateRetailers < ActiveRecord::Migration
   def self.up
     create_table :retailers do |t|
       
-      t.string    :username
+      t.string    :user
       t.string    :hashed_password
       t.string    :salt
       

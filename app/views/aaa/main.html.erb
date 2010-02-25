@@ -1,0 +1,64 @@
+<%= image_tag("arca_with_tagline.png" ) %>
+<div id="payment_window">
+	
+	<div id="message">
+		<p id="hidden_line" style="display:none">start</p>
+		<h2>Welcome to arca!</h2>
+		<br />
+		<p>You've just selected XXX</p>
+		<br />
+		<br />	
+	</div>
+
+	<div id="input">
+		<div id="product_selected">Follow these 2 simple steps and get it in seconds</div>
+		<% remote_form_for :consumer,
+			:url => { :action => :authorize },
+			:update => "message" do |form| %>
+			<div id="step">
+				<div id="step_title">
+					<%= form.label :billing_phone, "Step 1 - Fill-in your mobile phone number"%>
+				</div>
+				<div id="step_input">
+				<span id="input_field">
+					<%= form.text_field :billing_phone, :size => 20, :maxlength =>10 %>
+				</span>
+				<span id="submit_button">
+					<%= submit_tag 'Click when done'%>
+				</span>	
+				</div>
+			</div>
+		<% end %>
+	
+		<% form_remote_tag(:url => {:action => :authenticate},:update => "message") do %>
+			<div id="step">
+				<div id="step_title">
+					<label for="pin">Step 2 - Fill-in the PIN code we've sent you</label>
+				</div>
+				<div id="step_input">
+				<span id="input_field">
+					<%= password_field_tag :pin, params[:pin] %>
+				</span>
+				<span id="submit_button">
+					<%= submit_tag "Click when done" %>
+				</span>	
+				</div>
+			</div>
+		<% end %>
+	</div>
+
+	
+<!--	<%= periodically_call_remote :url => {:action => "check_status"}, 
+		:update => "message",										
+		:condition => "$('hidden_line').innerHTML !== 'start'" ,	
+		:frequency => 10 %>												-->
+		
+	<div id="marketing">
+		<div id="new">NEW!</div>
+		<div id="marketing_line">
+			<span>Get parents authorization and pay with no SMS! <a id = "link_to_service" href="/service/index">How?</span>
+		</div>
+	</div>
+
+
+</div>
