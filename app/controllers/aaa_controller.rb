@@ -45,7 +45,7 @@ class AaaController < ApplicationController
           @message = "Or try anothr one in the mean time"
           true
         elsif !@purchase.authorization_date
-          @status = "I'm afraid this purchase is unauthorized"
+          @status = "No use pal... this purchase is unauthorized"
           @message = "How about trying any of the other items?"
           true
         else
@@ -85,7 +85,7 @@ end
 
   def write_message
     
-    if @purchase.authorization_type = "PendingPayer" 
+    if @purchase.authorization_type == "PendingPayer" 
       @status = "This purchase has to be manually authorized"
       @message = "We will send you an SMS as soon as it is approved"
     elsif !@purchase.authorization_date
@@ -128,7 +128,7 @@ end
      @consumer = Consumer.find_by_billing_phone(params[:consumer][:billing_phone])
      unless @consumer
         @consumer = Consumer.new(params[:consumer])
-        @consumer.payer = Payer.new
+        @consumer.payer = Payer.new(:balance => 0)
         @consumer.save!
      end
      @payer = @consumer.payer
@@ -217,7 +217,7 @@ end
     if @payer.user?
       session[:expected_pin] = @payer.pin
     else
-      session[:expected_pin] = rand.to_s.first(4)
+      session[:expected_pin] = rand.to_s.last(4)
     end 
  
   end
@@ -225,7 +225,7 @@ end
   def send_sms_to_consumer
     
       sms_phone = @consumer.billing_phone
-      sms_message = "your PIN code is: #{pin}"
+      sms_message = "your PIN code is: #{session[:expected_pin]}"
       sms(sms_phone,sms_message)
       
   end
@@ -254,7 +254,7 @@ end
     @payer = Payer.find(session[:payer_id])
     @retailer = Retailer.find(session[:retailer_id])
     @payer.balance -= amount
-    @retailer.collected += amount
+    @retailer.collected += amount if @retailer.collected
     @payer.save
     @retailer.save
   end
