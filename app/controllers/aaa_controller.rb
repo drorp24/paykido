@@ -1,30 +1,42 @@
-require 'ruby-debug'
+#require 'ruby-debug'
 class AaaController < ApplicationController
   
   def main
  
   end
   
-  def get_retailer_and_product
+  def get_context
+    
     @retailer_name = "hula"
     @product_title = "zmat"
-    @product_price = 9.99
-    
+    @product_price = 9.99  
+ 
+    begin
+      @billing_phone = params[:consumer][:billing_phone] 
+    rescue NoMethodError
+      @billing_phone = session[:billing_phone]
+    end 
+ 
   end
-  
-  def set_session
+
+  def set_session     
+
+# Purpose: decide if we're still in the same session:
+# - gets retailer/product/price from retailer page
+# - gets billing_phone from parameters (null handling later)
     
-    get_retailer_and_product
-    
-    unless  session[:billing_phone] == params[:consumer][:billing_phone]and
-            session[:retailer_name] == @retailer_name and
-            session[:product_title] == @product_title and
-            session[:product_price] == @product_price
-            
-       clear_session
+      get_context
+
+      unless  session[:billing_phone] == @billing_phone and
+              session[:retailer_name] == @retailer_name and
+              session[:product_title] == @product_title and
+              session[:product_price] == @product_price
+              
+         clear_session
+      end
+     
     end
-        
-  end
+         
   
   def clear_session
 # find a better command to clear out all session construct
@@ -36,7 +48,14 @@ class AaaController < ApplicationController
 
   def no_use_waiting
     
-    if session[:purchase_id]
+    @consumer = Consumer.new(:billing_phone => @billing_phone)
+    
+    if @consumer.invalid? 
+      @status = "Wrong phone number"
+      @message = "Please try again"
+      true
+      
+    elsif session[:purchase_id]
 
         @purchase = Purchase.find(session[:purchase_id]) 
         
@@ -103,7 +122,8 @@ end
 
   def authenticate
     
-
+  set_session
+  
   unless no_use_waiting
       
     @purchase = Purchase.find(session[:purchase_id])
@@ -127,9 +147,15 @@ end
 
      @consumer = Consumer.find_by_billing_phone(params[:consumer][:billing_phone])
      unless @consumer
+        begin
         @consumer = Consumer.new(params[:consumer])
         @consumer.payer = Payer.new(:balance => 0)
+#        debugger
         @consumer.save!
+        rescue #RecordInvalid => error
+#          flash[:now] = "hya" #error.message
+          raise
+        end 
      end
      @payer = @consumer.payer
      session[:consumer_id] = @consumer.id

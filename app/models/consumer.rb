@@ -10,8 +10,8 @@ class Consumer < ActiveRecord::Base
 #  end
   
   validates_presence_of :billing_phone
-  validates_uniqueness_of :billing_phone
+  validates_numericality_of :billing_phone
+  validates_length_of :billing_phone, :is => 10
 
-   
    
 end

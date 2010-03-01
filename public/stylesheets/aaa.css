@@ -97,3 +97,26 @@ a {
 	background-color:#dddfff;
 	background-color:#e8e8ff;
 }
+
+#notice {
+	border: 2px solid red;
+	padding: 1em;
+	margin-bottom: 2em;
+	background-color: #f0f0f0 ;
+	font: bold smaller sans-serif;
+}
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+.fieldWithErrors {
+padding: 2px;
+background-color: red;
+display: table;
+}
