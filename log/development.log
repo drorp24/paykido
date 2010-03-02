@@ -73569,3 +73569,320 @@ Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 11:51:08) [PO
 Rendering template within layouts/aaa
 Rendering aaa/authenticate
 Completed in 484ms (View: 0, DB: 15) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 11:58:42) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 32ms (View: 32, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 11:58:46) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '1111111111') LIMIT 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 21) [0m
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;36;1mPurchase Create (0.0ms)[0m   [0;1mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-02 09:58:46', NULL, 4, '2010-03-02 11:58:46', 10, NULL, 9.99, NULL, NULL, 21, '2010-03-02 09:58:46')[0m
+  [4;35;1mPurchase Update (0.0ms)[0m   [0mUPDATE "purchases" SET "authorization_date" = '2010-03-02 11:58:46', "authorization_type" = 'NoPayer', "updated_at" = '2010-03-02 09:58:46' WHERE "id" = 94[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 1610ms (View: 16, DB: 16) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 12:07:42) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"1781"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 94) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 94) [0m
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."id" = 4) [0m
+  [4;35;1mRetailer Update (16.0ms)[0m   [0mUPDATE "retailers" SET "collected" = 349.75, "updated_at" = '2010-03-02 10:07:42' WHERE "id" = 4[0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 21) [0m
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.-):
+  app/controllers/aaa_controller.rb:284:in `account'
+  app/controllers/aaa_controller.rb:137:in `authenticate'
+
+Rendered rescues/_trace (63.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 12:08:24) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 12:08:29) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 94) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 125ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 12:08:40) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"1781"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 94) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 94) [0m
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."id" = 4) [0m
+  [4;35;1mRetailer Update (0.0ms)[0m   [0mUPDATE "retailers" SET "collected" = 359.74, "updated_at" = '2010-03-02 10:08:40' WHERE "id" = 4[0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 21) [0m
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.-):
+  app/controllers/aaa_controller.rb:284:in `account'
+  app/controllers/aaa_controller.rb:137:in `authenticate'
+
+Rendered rescues/_trace (63.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 12:08:48) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 109ms (View: 109, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 12:08:55) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"3333333333"}, "commit"=>"Click when done"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '3333333333') LIMIT 1[0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 24) [0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;35;1mPurchase Create (16.0ms)[0m   [0mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-02 10:08:55', NULL, 4, '2010-03-02 12:08:55', 10, NULL, 9.99, NULL, NULL, 24, '2010-03-02 10:08:55')[0m
+  [4;36;1mPurchase Update (0.0ms)[0m   [0;1mUPDATE "purchases" SET "authorization_date" = '2010-03-02 12:08:55', "authorization_type" = 'NoPayer', "updated_at" = '2010-03-02 10:08:55' WHERE "id" = 95[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 1875ms (View: 15, DB: 16) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 12:09:21) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 12:09:25) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '1111111111') LIMIT 1[0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 21) [0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;35;1mPurchase Create (0.0ms)[0m   [0mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-02 10:09:25', NULL, 4, '2010-03-02 12:09:25', 10, NULL, 9.99, NULL, NULL, 21, '2010-03-02 10:09:25')[0m
+  [4;36;1mPurchase Update (0.0ms)[0m   [0;1mUPDATE "purchases" SET "authorization_date" = '2010-03-02 12:09:25', "authorization_type" = 'NoPayer', "updated_at" = '2010-03-02 10:09:25' WHERE "id" = 96[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 1515ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 12:09:51) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"8019"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."id" = 4) [0m
+  [4;36;1mRetailer Update (0.0ms)[0m   [0;1mUPDATE "retailers" SET "collected" = 369.73, "updated_at" = '2010-03-02 10:09:51' WHERE "id" = 4[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 21) [0m
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.-):
+  app/controllers/aaa_controller.rb:284:in `account'
+  app/controllers/aaa_controller.rb:137:in `authenticate'
+
+Rendered rescues/_trace (156.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 12:15:02) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 31ms (View: 0, DB: 15) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 12:15:07) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 12:15:15) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"8019"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."id" = 4) [0m
+  [4;36;1mRetailer Update (15.0ms)[0m   [0;1mUPDATE "retailers" SET "collected" = 379.72, "updated_at" = '2010-03-02 10:15:15' WHERE "id" = 4[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 21) [0m
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.-):
+  app/controllers/aaa_controller.rb:289:in `account'
+  app/controllers/aaa_controller.rb:142:in `authenticate'
+
+Rendered rescues/_trace (62.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 12:16:39) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 12:16:44) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 12:16:53) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"8019"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."id" = 4) [0m
+  [4;36;1mRetailer Update (0.0ms)[0m   [0;1mUPDATE "retailers" SET "collected" = 389.71, "updated_at" = '2010-03-02 10:16:53' WHERE "id" = 4[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 21) [0m
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.-):
+  app/controllers/aaa_controller.rb:289:in `account'
+  app/controllers/aaa_controller.rb:142:in `authenticate'
+
+Rendered rescues/_trace (63.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 12:19:22) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 12:19:26) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 12:19:36) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"8019"}
+  [4;35;1mPurchase Load (16.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."id" = 4) [0m
+  [4;36;1mRetailer Update (0.0ms)[0m   [0;1mUPDATE "retailers" SET "collected" = 399.7, "updated_at" = '2010-03-02 10:19:36' WHERE "id" = 4[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 21) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 234ms (View: 16, DB: 16) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 12:20:04) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 12:20:07) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 125ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 12:20:16) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"8019"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."id" = 4) [0m
+  [4;36;1mRetailer Update (0.0ms)[0m   [0;1mUPDATE "retailers" SET "collected" = 409.69, "updated_at" = '2010-03-02 10:20:16' WHERE "id" = 4[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 21) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 219ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 12:22:55) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 12:22:58) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 12:23:03) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"234234"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 32ms (View: 0, DB: 16) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 12:23:10) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"8019"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."id" = 4) [0m
+  [4;36;1mRetailer Update (0.0ms)[0m   [0;1mUPDATE "retailers" SET "collected" = 419.68, "updated_at" = '2010-03-02 10:23:10' WHERE "id" = 4[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 21) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 234ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 12:24:05) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 12:24:09) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 12:24:13) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"3245345"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 12:24:22) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"8019"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 96) [0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."id" = 4) [0m
+  [4;36;1mRetailer Update (0.0ms)[0m   [0;1mUPDATE "retailers" SET "collected" = 429.67, "updated_at" = '2010-03-02 10:24:22' WHERE "id" = 4[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 21) [0m
+  [4;36;1mPayer Update (0.0ms)[0m   [0;1mUPDATE "payers" SET "balance" = -9.99, "updated_at" = '2010-03-02 10:24:22' WHERE "id" = 21[0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 484ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/authenticate]

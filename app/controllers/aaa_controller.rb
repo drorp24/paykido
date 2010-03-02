@@ -85,6 +85,7 @@ class AaaController < ApplicationController
   set_session
 
   unless no_use_waiting
+    begin
 
     if session[:purchase_id] and @purchase.authorization_date?
       @status = "Welcome back"
@@ -100,7 +101,11 @@ class AaaController < ApplicationController
       send_sms_to_consumer if @purchase.authorization_date?
       write_message
     end
-    
+
+    rescue 
+    @status = "We're sorry. The service is temprarily down"
+    @message = "It will be up again in no time!"
+    end
   end
 
 end
@@ -128,6 +133,7 @@ end
   set_session
   
   unless no_use_waiting
+    begin
       
     @purchase = Purchase.find(session[:purchase_id])
     
@@ -141,6 +147,10 @@ end
       @message = "Please try again"
     end
 
+    rescue 
+    @status = "We're sorry. The service is temprarily down"
+    @message = "It will be up again in no time!"
+    end
   end
   
   end
