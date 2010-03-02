@@ -1,4 +1,7 @@
 #require 'ruby-debug'
+require 'rubygems'
+require 'clickatell'
+
 class AaaController < ApplicationController
   
   def main
@@ -259,30 +262,32 @@ end
   
   def sms(phone, message)
 
+    api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
+    api.send_message('0542343220', message)
+    
   end
   
   
-  def save_session
-#    session[:consumer] = @consumer
-#    session[:payer] = @payer
-#    session[:rule] = @payer.most_recent_rule
-#    session[:retailer]= @retailer
-#    session[:product] = @product
-  end
-  
-#
-# 2nd call - accepting pin from the user
-# need to _get things from the session
-#
-  
- 
   def account(amount)
-    @payer = Payer.find(session[:payer_id])
-    @retailer = Retailer.find(session[:retailer_id])
-    @payer.balance -= amount
-    @retailer.collected += amount if @retailer.collected
-    @payer.save
+# move to model, initialize etc
+
+    @retailer = Retailer.find(session[:retailer_id]) #ugly if because it is created without initial collected =0
+    if @retailer.collected
+        @retailer.collected += amount
+    else
+      @retailer.collected = amount
+    end    
     @retailer.save
+    
+    @payer = Payer.find(session[:payer_id])   #updated always - even if not a real payer
+    begin
+      @payer.balance -= amount
+    rescue NoMethodError                      #old test data didnt set initial balance to 0
+      @payer.balance = 0
+      retry
+    end
+    @payer.save
+
   end
   
   def get_status

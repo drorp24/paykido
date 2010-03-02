@@ -72452,3 +72452,1120 @@ Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:01:47) [POST]
 Rendering template within layouts/aaa
 Rendering aaa/authorize
 Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-01 15:07:14) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:07:20) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 79) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:08:05) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 79) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 47ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:10:36) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"6547654765"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '6547654765') LIMIT 1[0m
+  [4;35;1mPayer Create (0.0ms)[0m   [0mINSERT INTO "payers" ("salt", "name", "user", "updated_at", "hashed_password", "email", "balance", "created_at", "pin") VALUES(NULL, NULL, NULL, '2010-03-01 13:10:37', NULL, NULL, 0.0, '2010-03-01 13:10:37', NULL)[0m
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-01 13:10:37', '6547654765', 33, '2010-03-01 13:10:37')[0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;35;1mPurchase Create (0.0ms)[0m   [0mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-01 13:10:37', NULL, 4, '2010-03-01 15:10:37', 10, NULL, 9.99, NULL, NULL, 33, '2010-03-01 13:10:37')[0m
+  [4;36;1mPurchase Update (0.0ms)[0m   [0;1mUPDATE "purchases" SET "authorization_date" = '2010-03-01 15:10:37', "authorization_type" = 'NoPayer', "updated_at" = '2010-03-01 13:10:37' WHERE "id" = 80[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 828ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-01 15:10:46) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:10:52) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2222222222') LIMIT 1[0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 22) [0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;35;1mPurchase Create (0.0ms)[0m   [0mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-01 13:10:52', NULL, 4, '2010-03-01 15:10:52', 10, NULL, 9.99, NULL, NULL, 22, '2010-03-01 13:10:52')[0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 22) ORDER BY created_at DESC LIMIT 1[0m
+  [4;35;1mPurchase Update (0.0ms)[0m   [0mUPDATE "purchases" SET "authorization_type" = 'InsufficientBalance', "updated_at" = '2010-03-01 13:10:53' WHERE "id" = 81[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 484ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:14:33) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 81) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 31ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-01 15:14:37) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 47ms (View: 31, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:14:40) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 81) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 47ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:14:45) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '1111111111') LIMIT 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 21) [0m
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;36;1mPurchase Create (0.0ms)[0m   [0;1mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-01 13:14:45', NULL, 4, '2010-03-01 15:14:45', 10, NULL, 9.99, NULL, NULL, 21, '2010-03-01 13:14:45')[0m
+  [4;35;1mPurchase Update (0.0ms)[0m   [0mUPDATE "purchases" SET "authorization_date" = '2010-03-01 15:14:46', "authorization_type" = 'NoPayer', "updated_at" = '2010-03-01 13:14:46' WHERE "id" = 82[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 516ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:14:51) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2222222222') LIMIT 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 22) [0m
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;36;1mPurchase Create (0.0ms)[0m   [0;1mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-01 13:14:51', NULL, 4, '2010-03-01 15:14:51', 10, NULL, 9.99, NULL, NULL, 22, '2010-03-01 13:14:51')[0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 22) ORDER BY created_at DESC LIMIT 1[0m
+  [4;36;1mPurchase Update (0.0ms)[0m   [0;1mUPDATE "purchases" SET "authorization_type" = 'PendingPayer', "updated_at" = '2010-03-01 13:14:51' WHERE "id" = 83[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 515ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:15:12) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-01 15:15:18) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>""}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-01 15:15:18) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>""}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-01 15:15:18) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>""}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 32ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-01 15:15:18) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>""}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 32ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-01 15:15:18) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>""}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:15:19) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 62ms (View: 15, DB: 15) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:15:19) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 47ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:15:19) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 125ms (View: 94, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:16:24) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-01 15:16:42) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"3333"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 31ms (View: 0, DB: 15) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-01 15:16:43) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"3333"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 46ms (View: 15, DB: 15) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-01 15:16:44) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"3333"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 125ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-01 15:16:44) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"3333"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-01 15:16:44) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"3333"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 31ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:16:45) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 47ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-01 15:16:47) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"3333"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 140ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-01 15:16:50) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-01 15:16:55) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>""}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:16:57) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 31ms (View: 0, DB: 16) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:16:58) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 31ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:16:58) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-01 15:17:02) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>""}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 32ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:17:04) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 32ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:17:04) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 46ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-01 15:17:06) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>""}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-01 15:17:11) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"2412"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 83) [0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 22) [0m
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."id" = 4) [0m
+  [4;35;1mPayer Update (0.0ms)[0m   [0mUPDATE "payers" SET "balance" = 90.01, "updated_at" = '2010-03-01 13:17:11' WHERE "id" = 22[0m
+  [4;36;1mRetailer Update (0.0ms)[0m   [0;1mUPDATE "retailers" SET "collected" = 279.82, "updated_at" = '2010-03-01 13:17:11' WHERE "id" = 4[0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 469ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:17:15) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2222222222') LIMIT 1[0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 22) [0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;35;1mPurchase Create (0.0ms)[0m   [0mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-01 13:17:15', NULL, 4, '2010-03-01 15:17:15', 10, NULL, 9.99, NULL, NULL, 22, '2010-03-01 13:17:15')[0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 22) ORDER BY created_at DESC LIMIT 1[0m
+  [4;35;1mPurchase Update (0.0ms)[0m   [0mUPDATE "purchases" SET "authorization_type" = 'PendingPayer', "updated_at" = '2010-03-01 13:17:16' WHERE "id" = 84[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 500ms (View: 15, DB: 16) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-01 15:17:52) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:17:56) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 84) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 32ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:18:06) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"4444444444"}, "commit"=>"Click when done"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '4444444444') LIMIT 1[0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 26) [0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;35;1mPurchase Create (0.0ms)[0m   [0mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-01 13:18:06', NULL, 4, '2010-03-01 15:18:06', 10, NULL, 9.99, NULL, NULL, 26, '2010-03-01 13:18:06')[0m
+  [4;36;1mPurchase Update (0.0ms)[0m   [0;1mUPDATE "purchases" SET "authorization_date" = '2010-03-01 15:18:06', "authorization_type" = 'NoPayer', "updated_at" = '2010-03-01 13:18:06' WHERE "id" = 85[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 468ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:18:10) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2222222222') LIMIT 1[0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 22) [0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;35;1mPurchase Create (0.0ms)[0m   [0mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-01 13:18:10', NULL, 4, '2010-03-01 15:18:10', 10, NULL, 9.99, NULL, NULL, 22, '2010-03-01 13:18:10')[0m
+  [4;36;1mPayerRule Load (16.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 22) ORDER BY created_at DESC LIMIT 1[0m
+  [4;35;1mPurchase Update (0.0ms)[0m   [0mUPDATE "purchases" SET "authorization_date" = '2010-03-01 15:18:11', "authorization_type" = 'AutoUnder', "updated_at" = '2010-03-01 13:18:11' WHERE "id" = 86[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 406ms (View: 16, DB: 16) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-01 15:18:44) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"2412"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 86) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 86) [0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 22) [0m
+  [4;35;1mRetailer Load (16.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."id" = 4) [0m
+  [4;36;1mPayer Update (0.0ms)[0m   [0;1mUPDATE "payers" SET "balance" = 80.02, "updated_at" = '2010-03-01 13:18:44' WHERE "id" = 22[0m
+  [4;35;1mRetailer Update (0.0ms)[0m   [0mUPDATE "retailers" SET "collected" = 289.81, "updated_at" = '2010-03-01 13:18:44' WHERE "id" = 4[0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 656ms (View: 15, DB: 16) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-01 15:25:12) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-01 15:25:20) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2222222222') LIMIT 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 22) [0m
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;36;1mPurchase Create (0.0ms)[0m   [0;1mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-01 13:25:20', NULL, 4, '2010-03-01 15:25:20', 10, NULL, 9.99, NULL, NULL, 22, '2010-03-01 13:25:20')[0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 22) ORDER BY created_at DESC LIMIT 1[0m
+  [4;36;1mPurchase Update (0.0ms)[0m   [0;1mUPDATE "purchases" SET "authorization_date" = '2010-03-01 15:25:20', "authorization_type" = 'AutoUnder', "updated_at" = '2010-03-01 13:25:20' WHERE "id" = 87[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 484ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-01 16:57:09) [GET]
+
+ActionController::RoutingError (No route matches "/ola/manual_authorization" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 16:58:07) [GET]
+
+ActionView::MissingTemplate (Missing template ola/manual_authorization.erb in view path app/views):
+  
+
+Rendering rescues/layout (internal_server_error)
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 16:58:16) [GET]
+
+ActionView::MissingTemplate (Missing template ola/manual_authorization.erb in view path app/views):
+  
+
+Rendering rescues/layout (internal_server_error)
+
+
+Processing FarmvilleController#money (for 127.0.0.1 at 2010-03-01 16:58:30) [GET]
+Rendering template within layouts/farmville
+Rendering farmville/money
+Completed in 234ms (View: 219, DB: 0) | 200 OK [http://localhost/farmville/money]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-01 16:58:36) [GET]
+
+ActionController::RoutingError (No route matches "/images/top_nav_hover.png" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing OlaController#index (for 127.0.0.1 at 2010-03-01 16:58:44) [GET]
+
+ActionController::UnknownAction (No action responded to index. Actions: manual_authorization):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 16:58:56) [GET]
+
+ActionView::MissingTemplate (Missing template ola/manual_authorization.erb in view path app/views):
+  
+
+Rendering rescues/layout (internal_server_error)
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 17:00:00) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 31ms (View: 15, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 17:00:24) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 93ms (View: 15, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 17:00:36) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 17:03:10) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 31ms (View: 16, DB: 15) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 17:03:13) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 15ms (View: 0, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 17:03:24) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 17:03:58) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 17:03:58) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 17:20:44) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 31ms (View: 16, DB: 15) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 17:20:48) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 17:37:18) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 78ms (View: 78, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 17:37:46) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 31ms (View: 15, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 17:38:11) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 17:38:25) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 17:38:57) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 17:39:00) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 17:47:18) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 17:48:37) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 17:51:18) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 93ms (View: 78, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 18:02:39) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 22:28:09) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 2812ms (View: 2187, DB: 47) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 22:28:19) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 62ms (View: 31, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorizatiod (for 127.0.0.1 at 2010-03-01 22:28:36) [GET]
+
+ActionController::UnknownAction (No action responded to manual_authorizatiod. Actions: manual_authorization):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 22:28:42) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 110ms (View: 110, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 22:29:28) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 22:29:32) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 15ms (View: 0, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 22:29:58) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing OlaController#manual_authorization (for 127.0.0.1 at 2010-03-01 22:30:04) [GET]
+Rendering template within layouts/ola
+Rendering ola/manual_authorization
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/ola/manual_authorization]
+
+
+Processing FarmvilleController#money (for 127.0.0.1 at 2010-03-02 09:42:56) [GET]
+Rendering template within layouts/farmville
+Rendering farmville/money
+Completed in 625ms (View: 625, DB: 0) | 200 OK [http://localhost/farmville/money]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-02 09:43:03) [GET]
+
+ActionController::RoutingError (No route matches "/images/top_nav_hover.png" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-02 09:43:10) [GET]
+
+ActionController::RoutingError (No route matches "/send/sms" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing SendController#sms (for 127.0.0.1 at 2010-03-02 09:46:00) [GET]
+Rendering template within layouts/send
+Rendering send/sms
+Completed in 2109ms (View: 187, DB: 0) | 200 OK [http://localhost/send/sms]
+
+
+Processing ApplicationController#sms (for 127.0.0.1 at 2010-03-02 09:56:32) [GET]
+
+LoadError (Expected F:/InstantRails/rails_apps/work/depot/app/controllers/send_controller.rb to define SendController):
+  
+
+Rendered rescues/_trace (62.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing ApplicationController#sms (for 127.0.0.1 at 2010-03-02 09:58:19) [GET]
+
+LoadError (Expected F:/InstantRails/rails_apps/work/depot/app/controllers/send_controller.rb to define SendController):
+  
+
+Rendered rescues/_trace (141.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing ApplicationController#sms (for 127.0.0.1 at 2010-03-02 10:02:49) [GET]
+
+LoadError (Expected F:/InstantRails/rails_apps/work/depot/app/controllers/send_controller.rb to define SendController):
+  
+
+Rendered rescues/_trace (140.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing ApplicationController#sms (for 127.0.0.1 at 2010-03-02 10:02:58) [GET]
+
+LoadError (Expected F:/InstantRails/rails_apps/work/depot/app/controllers/send_controller.rb to define SendController):
+  
+
+Rendered rescues/_trace (47.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SendController#sms (for 127.0.0.1 at 2010-03-02 10:05:02) [GET]
+Rendering template within layouts/send
+Rendering send/sms
+Completed in 1672ms (View: 203, DB: 0) | 200 OK [http://localhost/send/sms]
+
+
+Processing FarmvilleController#money (for 127.0.0.1 at 2010-03-02 10:05:55) [GET]
+Rendering template within layouts/farmville
+Rendering farmville/money
+Completed in 63ms (View: 47, DB: 16) | 200 OK [http://localhost/farmville/money]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 10:06:00) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 94ms (View: 94, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 10:06:04) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (16.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2222222222') LIMIT 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 22) [0m
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;36;1mPurchase Create (0.0ms)[0m   [0;1mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-02 08:06:05', NULL, 4, '2010-03-02 10:06:05', 10, NULL, 9.99, NULL, NULL, 22, '2010-03-02 08:06:05')[0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 22) ORDER BY created_at DESC LIMIT 1[0m
+  [4;36;1mPurchase Update (0.0ms)[0m   [0;1mUPDATE "purchases" SET "authorization_date" = '2010-03-02 10:06:05', "authorization_type" = 'AutoUnder', "updated_at" = '2010-03-02 08:06:05' WHERE "id" = 88[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 641ms (View: 16, DB: 16) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 10:06:11) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"3333"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 88) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 88) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 125ms (View: 94, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 10:06:14) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 10:06:19) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>""}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 88) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 88) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 10:06:22) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 88) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 10:06:23) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;36;1mPurchase Load (15.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 88) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 31ms (View: 0, DB: 15) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 10:06:26) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 31ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 10:06:30) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 88) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 10:06:37) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"2412"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 88) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 88) [0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 22) [0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."id" = 4) [0m
+  [4;36;1mPayer Update (0.0ms)[0m   [0;1mUPDATE "payers" SET "balance" = 70.03, "updated_at" = '2010-03-02 08:06:37' WHERE "id" = 22[0m
+  [4;35;1mRetailer Update (0.0ms)[0m   [0mUPDATE "retailers" SET "collected" = 299.8, "updated_at" = '2010-03-02 08:06:37' WHERE "id" = 4[0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 422ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 10:06:41) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 10:06:45) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '1111111111') LIMIT 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 21) [0m
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;36;1mPurchase Create (0.0ms)[0m   [0;1mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-02 08:06:45', NULL, 4, '2010-03-02 10:06:45', 10, NULL, 9.99, NULL, NULL, 21, '2010-03-02 08:06:45')[0m
+  [4;35;1mPurchase Update (0.0ms)[0m   [0mUPDATE "purchases" SET "authorization_date" = '2010-03-02 10:06:45', "authorization_type" = 'NoPayer', "updated_at" = '2010-03-02 08:06:45' WHERE "id" = 89[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 437ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 10:06:50) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 10:06:58) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>""}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 89) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 89) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 32ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 10:07:09) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"564"}, "commit"=>"Click when done"}
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 10:07:11) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"564"}, "commit"=>"Click when done"}
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing FarmvilleController#money (for 127.0.0.1 at 2010-03-02 10:10:40) [GET]
+Rendering template within layouts/farmville
+Rendering farmville/money
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/farmville/money]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-02 10:10:43) [GET]
+
+ActionController::RoutingError (No route matches "/images/top_nav_hover.png" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 10:10:46) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 10:10:50) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2222222222') LIMIT 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 22) [0m
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;36;1mPurchase Create (0.0ms)[0m   [0;1mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-02 08:10:50', NULL, 4, '2010-03-02 10:10:50', 10, NULL, 9.99, NULL, NULL, 22, '2010-03-02 08:10:50')[0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 22) ORDER BY created_at DESC LIMIT 1[0m
+  [4;36;1mPurchase Update (0.0ms)[0m   [0;1mUPDATE "purchases" SET "authorization_date" = '2010-03-02 10:10:50', "authorization_type" = 'AutoUnder', "updated_at" = '2010-03-02 08:10:50' WHERE "id" = 90[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 1781ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 10:10:57) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>""}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 90) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 90) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 10:11:01) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 10:17:32) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 90) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 10:18:29) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"2412"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 90) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 90) [0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 22) [0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."id" = 4) [0m
+  [4;36;1mPayer Update (0.0ms)[0m   [0;1mUPDATE "payers" SET "balance" = 60.04, "updated_at" = '2010-03-02 08:18:29' WHERE "id" = 22[0m
+  [4;35;1mRetailer Update (0.0ms)[0m   [0mUPDATE "retailers" SET "collected" = 309.79, "updated_at" = '2010-03-02 08:18:29' WHERE "id" = 4[0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 454ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 10:22:30) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 10:22:36) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '1111111111') LIMIT 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 21) [0m
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;36;1mPurchase Create (0.0ms)[0m   [0;1mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-02 08:22:36', NULL, 4, '2010-03-02 10:22:36', 10, NULL, 9.99, NULL, NULL, 21, '2010-03-02 08:22:36')[0m
+  [4;35;1mPurchase Update (0.0ms)[0m   [0mUPDATE "purchases" SET "authorization_date" = '2010-03-02 10:22:36', "authorization_type" = 'NoPayer', "updated_at" = '2010-03-02 08:22:36' WHERE "id" = 91[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 1594ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 10:51:32) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 15ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 10:51:36) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"333"}, "commit"=>"Click when done"}
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 10:51:40) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"3333333333"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '3333333333') LIMIT 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 24) [0m
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;36;1mPurchase Create (0.0ms)[0m   [0;1mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-02 08:51:40', NULL, 4, '2010-03-02 10:51:40', 10, NULL, 9.99, NULL, NULL, 24, '2010-03-02 08:51:40')[0m
+  [4;35;1mPurchase Update (0.0ms)[0m   [0mUPDATE "purchases" SET "authorization_date" = '2010-03-02 10:51:40', "authorization_type" = 'NoPayer', "updated_at" = '2010-03-02 08:51:40' WHERE "id" = 92[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 1656ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 10:52:16) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"0451"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 92) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 92) [0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 24) [0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."id" = 4) [0m
+  [4;36;1mPayer Update (0.0ms)[0m   [0;1mUPDATE "payers" SET "balance" = -29.97, "updated_at" = '2010-03-02 08:52:16' WHERE "id" = 24[0m
+  [4;35;1mRetailer Update (0.0ms)[0m   [0mUPDATE "retailers" SET "collected" = 319.78, "updated_at" = '2010-03-02 08:52:16' WHERE "id" = 4[0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 437ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 11:29:34) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 11:29:42) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '1111111111') LIMIT 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 21) [0m
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 4) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;36;1mPurchase Create (0.0ms)[0m   [0;1mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-02 09:29:42', NULL, 4, '2010-03-02 11:29:42', 10, NULL, 9.99, NULL, NULL, 21, '2010-03-02 09:29:42')[0m
+  [4;35;1mPurchase Update (0.0ms)[0m   [0mUPDATE "purchases" SET "authorization_date" = '2010-03-02 11:29:42', "authorization_type" = 'NoPayer', "updated_at" = '2010-03-02 09:29:42' WHERE "id" = 93[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 1719ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 11:30:01) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"1234"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 93) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 93) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 11:30:10) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"1781"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 93) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 93) [0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 21) [0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."id" = 4) [0m
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.-):
+  app/controllers/aaa_controller.rb:274:in `account'
+  app/controllers/aaa_controller.rb:137:in `authenticate'
+
+Rendered rescues/_trace (156.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 11:48:49) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 0, DB: 16) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 11:48:53) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 93) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 32ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 11:49:02) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"456456"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 93) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 93) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 11:49:35) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 11:49:40) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 93) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 11:50:25) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"1781"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 93) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 93) [0m
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."id" = 4) [0m
+  [4;35;1mRetailer Update (0.0ms)[0m   [0mUPDATE "retailers" SET "collected" = 329.77, "updated_at" = '2010-03-02 09:50:25' WHERE "id" = 4[0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 21) [0m
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of Array.
+The error occurred while evaluating nil.-):
+  app/controllers/aaa_controller.rb:284:in `account'
+  app/controllers/aaa_controller.rb:137:in `authenticate'
+
+Rendered rescues/_trace (156.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-02 11:50:59) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-02 11:51:04) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;35;1mPurchase Load (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 93) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-02 11:51:08) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"1781"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 93) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 93) [0m
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."id" = 4) [0m
+  [4;35;1mRetailer Update (0.0ms)[0m   [0mUPDATE "retailers" SET "collected" = 339.76, "updated_at" = '2010-03-02 09:51:08' WHERE "id" = 4[0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 21) [0m
+  [4;35;1mPayer Update (0.0ms)[0m   [0mUPDATE "payers" SET "balance" = -9.99, "updated_at" = '2010-03-02 09:51:08' WHERE "id" = 21[0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 484ms (View: 0, DB: 15) | 200 OK [http://localhost/aaa/authenticate]
