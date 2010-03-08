@@ -1,4 +1,5 @@
 require 'digest/sha1'
+#require 'ruby-debug'
 
 class Payer < ActiveRecord::Base
   has_many  :payer_rules
@@ -10,15 +11,17 @@ class Payer < ActiveRecord::Base
   has_many  :retailers, :through => :purchases
   has_many  :products, :through => :purchases
   has_many  :consumers
-
-#  validates_presence_of :user, :name, :email if params?
-#  validates_uniqueness_of :user, :name, :email if params?
-
-   attr_accessor :password_confirmation
-#  validates_confirmation_of :password
-
-#  validate :password_non_blank
   
+  attr_accessor :password_confirmation
+  
+  
+  validates_presence_of :user    #, :name, :email 
+  validates_uniqueness_of :user  #, :name, :email 
+    
+  validate :password_non_blank 
+  validates_confirmation_of :password 
+    
+ 
 #  attr_accessor :user,:id
   
 #  def initialize(user)
@@ -27,7 +30,7 @@ class Payer < ActiveRecord::Base
 #  end
  
   def self.authenticate(user, password)
-    payer = self.find_by_name(user)
+    payer = self.find_by_user(user) if user
     if payer
       expected_password = encrypted_password(password, payer.salt)
       if payer.hashed_password != expected_password
@@ -35,8 +38,7 @@ class Payer < ActiveRecord::Base
       end
     end
     payer
-  end
-  
+  end  
   
 # 'password' is a virtual attribute
   

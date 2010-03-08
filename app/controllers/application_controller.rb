@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   #...
   
   # before_filter :authorize, :except => :login
+  helper :layout
   helper :all # include all helpers, all the time
 
   # See ActionController::RequestForgeryProtection for details

@@ -1,0 +1,16 @@
+<% title "Set Your Budget" %>
+
+<% form_for :rule, :url => { :action => :budget_update } do |f| %>
+  	<%= f.error_messages %>
+
+  	<ul class="rounded">
+    	<li>Monthly Allowance<%= f.text_field :allowance, :placeholder => "How much would you allocate?" %></li>
+	</ul>
+	
+	<ul class="rounded">
+		<li>Rollover <span class="toggle"><%= f.check_box :allowance %></span></li>
+  	</ul>
+	
+  	<%= link_to "Submit", nil, :class => "whiteButton submit" %>
+
+<% end %>

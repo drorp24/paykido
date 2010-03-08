@@ -63,10 +63,9 @@ ActiveRecord::Schema.define(:version => 20100217235649) do
     t.integer  "billing_id",         :null => false
     t.decimal  "allowance"
     t.boolean  "rollover"
-    t.decimal  "auto_approve_under"
-    t.decimal  "auto_reject_over"
-    t.integer  "approval_phone"
-    t.integer  "pin"
+    t.decimal  "auto_authorize_under"
+    t.decimal  "auto_deny_over"
+    t.integer  "authorization_phone"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -78,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20100217235649) do
     t.string   "name"
     t.string   "email"
     t.decimal  "balance"
+    t.integer  "pin"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

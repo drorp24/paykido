@@ -1,0 +1,18 @@
+<% title "Manage Your Account" %>
+
+<% form_for :payer, :url => { :action => :account_update } do |f| %>
+  <%= f.error_messages %>
+
+  <ul class="rounded">
+
+    <li><%= f.text_field :user, :placeholder => "User name" %></li>
+    <li><%= f.password_field :password, :placeholder => "Password" %></li>
+	<li><%= f.password_field :password_confirmation, :placeholder => "Confirm password" %></li>
+	<li><%= f.text_field :name, :placeholder => "Name" %></li>
+	<li><%= f.text_field :email, :placeholder => "Email" %></li>
+	<li><%= f.text_field :pin, :placeholder => "Permanent PIN code" %></li>
+  </ul>
+  <%= link_to "Submit", nil, :class => "whiteButton submit" %>
+
+
+<% end %>
