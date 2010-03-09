@@ -86873,3 +86873,3989 @@ Processing AolController#budget_update (for 127.0.0.1 at 2010-03-08 15:18:53) [P
   Parameters: {"rule"=>{"allowance"=>"1"}}
   [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 47) [0m
   [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 47) ORDER BY created_at DESC LIMIT 1[0m
+Redirected to http://localhost:3000/aol/rules_menu
+Completed in 212360ms (DB: 0) | 302 Found [http://localhost/aol/budget_update]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-08 15:22:26) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+  [4;36;1mSQL (0.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateConsumers (20100217235647)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mDROP TABLE "consumers"[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mDELETE FROM schema_migrations WHERE version = '20100217235647'[0m
+Migrating to CreateCategories (20100217235344)
+  [4;35;1mSQL (0.0ms)[0m   [0mDROP TABLE "categories"[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mDELETE FROM schema_migrations WHERE version = '20100217235344'[0m
+Migrating to CreateBillings (20100217235138)
+  [4;35;1mSQL (0.0ms)[0m   [0mDROP TABLE "billings"[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mDELETE FROM schema_migrations WHERE version = '20100217235138'[0m
+Migrating to CreatePayers (20100217233942)
+  [4;35;1mSQL (0.0ms)[0m   [0mDROP TABLE "payers"[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mDELETE FROM schema_migrations WHERE version = '20100217233942'[0m
+Migrating to CreateItems (20100204213044)
+  [4;35;1mSQL (0.0ms)[0m   [0mDROP TABLE "items"[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mDELETE FROM schema_migrations WHERE version = '20100204213044'[0m
+Migrating to CreateRetailers (20100204213043)
+  [4;35;1mSQL (0.0ms)[0m   [0mDROP TABLE "retailers"[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mDELETE FROM schema_migrations WHERE version = '20100204213043'[0m
+Migrating to CreatePurchases (20100204212915)
+  [4;35;1mSQL (0.0ms)[0m   [0mDROP TABLE "purchases"[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mDELETE FROM schema_migrations WHERE version = '20100204212915'[0m
+Migrating to CreatePayerRuleCategories (20100204205443)
+  [4;35;1mSQL (0.0ms)[0m   [0mDROP TABLE "payer_rule_categories"[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mDELETE FROM schema_migrations WHERE version = '20100204205443'[0m
+Migrating to CreatePayerRules (20100204202420)
+  [4;35;1mSQL (0.0ms)[0m   [0mDROP TABLE "payer_rules"[0m
+  [4;36;1mSQL (16.0ms)[0m   [0;1mDELETE FROM schema_migrations WHERE version = '20100204202420'[0m
+Migrating to CreateUsers (20100201183446)
+  [4;35;1mSQL (0.0ms)[0m   [0mDROP TABLE "users"[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mDELETE FROM schema_migrations WHERE version = '20100201183446'[0m
+Migrating to CreateLineItems (20100201143919)
+  [4;35;1mSQL (16.0ms)[0m   [0mDROP TABLE "line_items"[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mDELETE FROM schema_migrations WHERE version = '20100201143919'[0m
+Migrating to CreateOrders (20100201143437)
+  [4;35;1mSQL (0.0ms)[0m   [0mDROP TABLE "orders"[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mDELETE FROM schema_migrations WHERE version = '20100201143437'[0m
+Migrating to CreateSessions (20100131120922)
+  [4;35;1mSQL (16.0ms)[0m   [0mDROP TABLE "sessions"[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mDELETE FROM schema_migrations WHERE version = '20100131120922'[0m
+Migrating to CreateProducts (20100126133630)
+  [4;35;1mSQL (0.0ms)[0m   [0mDROP TABLE "products"[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mDELETE FROM schema_migrations WHERE version = '20100126133630'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.0ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateProducts (20100126133630)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mCREATE TABLE "products" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "category_id" integer NOT NULL, "title" varchar(255) NOT NULL, "description" text, "image_url" varchar(255), "price" decimal(8,2) DEFAULT 0, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mCREATE INDEX "index_products_on_title" ON "products" ("title")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100126133630')[0m
+Migrating to CreateSessions (20100131120922)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mCREATE TABLE "sessions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "session_id" varchar(255) NOT NULL, "data" text, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.0ms)[0m   [0mCREATE INDEX "index_sessions_on_session_id" ON "sessions" ("session_id")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mCREATE INDEX "index_sessions_on_updated_at" ON "sessions" ("updated_at")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100131120922')[0m
+Migrating to CreateOrders (20100201143437)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mCREATE TABLE "orders" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "address" text, "email" varchar(255), "pay_type" varchar(10), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.0ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100201143437')[0m
+Migrating to CreateLineItems (20100201143919)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mCREATE TABLE "line_items" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "product_id" integer NOT NULL, "order_id" integer NOT NULL, "quantity" integer NOT NULL, "total_price" decimal(8,2) NOT NULL, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.0ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100201143919')[0m
+Migrating to CreateUsers (20100201183446)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "hashed_password" varchar(255), "salt" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (16.0ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100201183446')[0m
+Migrating to CreatePayerRules (20100204202420)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mCREATE TABLE "payer_rules" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "payer_id" integer NOT NULL, "billing_id" integer NOT NULL, "allowance" decimal, "rollover" boolean, "auto_authorize_under" decimal, "auto_deny_over" decimal, "authorization_phone" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.0ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100204202420')[0m
+Migrating to CreatePayerRuleCategories (20100204205443)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mCREATE TABLE "payer_rule_categories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "payer_rule_id" integer NOT NULL, "category_id" integer NOT NULL, "approved" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.0ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100204205443')[0m
+Migrating to CreatePurchases (20100204212915)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mCREATE TABLE "purchases" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "payer_id" integer NOT NULL, "retailer_id" integer NOT NULL, "product_id" integer NOT NULL, "amount" decimal NOT NULL, "date" date NOT NULL, "authorization_date" date, "authorization_type" varchar(255), "billing_date" date, "billing_type" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.0ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100204212915')[0m
+Migrating to CreateRetailers (20100204213043)
+  [4;36;1mSQL (16.0ms)[0m   [0;1mCREATE TABLE "retailers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user" varchar(255), "hashed_password" varchar(255), "salt" varchar(255), "name" varchar(255), "email" varchar(255), "collected" decimal, "billed" decimal, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSQLite3::SQLException: near "name": syntax error: CREATE name INDEX "index_retailers_on_username" ON "retailers" ("username")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateProducts (20100126133630)
+Migrating to CreateSessions (20100131120922)
+Migrating to CreateOrders (20100201143437)
+Migrating to CreateLineItems (20100201143919)
+Migrating to CreateUsers (20100201183446)
+Migrating to CreatePayerRules (20100204202420)
+Migrating to CreatePayerRuleCategories (20100204205443)
+Migrating to CreatePurchases (20100204212915)
+Migrating to CreateRetailers (20100204213043)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mCREATE TABLE "retailers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user" varchar(255), "hashed_password" varchar(255), "salt" varchar(255), "name" varchar(255), "email" varchar(255), "collected" decimal, "billed" decimal, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSQLite3::SQLException: near "name": syntax error: CREATE name INDEX "index_retailers_on_user" ON "retailers" ("user")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateProducts (20100126133630)
+Migrating to CreateSessions (20100131120922)
+Migrating to CreateOrders (20100201143437)
+Migrating to CreateLineItems (20100201143919)
+Migrating to CreateUsers (20100201183446)
+Migrating to CreatePayerRules (20100204202420)
+Migrating to CreatePayerRuleCategories (20100204205443)
+Migrating to CreatePurchases (20100204212915)
+Migrating to CreateRetailers (20100204213043)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mCREATE TABLE "retailers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user" varchar(255), "hashed_password" varchar(255), "salt" varchar(255), "name" varchar(255), "email" varchar(255), "collected" decimal, "billed" decimal, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSQLite3::SQLException: near "name": syntax error: CREATE name INDEX "index_retailers_on_user" ON "retailers" ("user")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateProducts (20100126133630)
+Migrating to CreateSessions (20100131120922)
+Migrating to CreateOrders (20100201143437)
+Migrating to CreateLineItems (20100201143919)
+Migrating to CreateUsers (20100201183446)
+Migrating to CreatePayerRules (20100204202420)
+Migrating to CreatePayerRuleCategories (20100204205443)
+Migrating to CreatePurchases (20100204212915)
+Migrating to CreateRetailers (20100204213043)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mCREATE TABLE "retailers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user" varchar(255), "hashed_password" varchar(255), "salt" varchar(255), "name" varchar(255), "email" varchar(255), "collected" decimal, "billed" decimal, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100204213043')[0m
+Migrating to CreateItems (20100204213044)
+  [4;35;1mSQL (0.0ms)[0m   [0mSQLite3::SQLException: no such table: main.items: CREATE UNIQUE INDEX "index_items_on_product_id_and_retailer_id" ON "items" ("product_id", "retailer_id")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateProducts (20100126133630)
+Migrating to CreateSessions (20100131120922)
+Migrating to CreateOrders (20100201143437)
+Migrating to CreateLineItems (20100201143919)
+Migrating to CreateUsers (20100201183446)
+Migrating to CreatePayerRules (20100204202420)
+Migrating to CreatePayerRuleCategories (20100204205443)
+Migrating to CreatePurchases (20100204212915)
+Migrating to CreateRetailers (20100204213043)
+Migrating to CreateItems (20100204213044)
+  [4;36;1mSQL (0.0ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mCREATE TABLE "items" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "retailer_id" varchar(255) NOT NULL, "product_id" varchar(255) NOT NULL, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mCREATE UNIQUE INDEX "index_items_on_product_id_and_retailer_id" ON "items" ("product_id", "retailer_id")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mCREATE INDEX "index_items_on_retailer_id" ON "items" ("retailer_id")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100204213044')[0m
+Migrating to CreatePayers (20100217233942)
+  [4;35;1mSQL (0.0ms)[0m   [0mCREATE TABLE "payers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user" varchar(255), "hashed_password" varchar(255), "salt" varchar(255), "name" varchar(255), "email" varchar(255), "balance" decimal, "pin" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100217233942')[0m
+Migrating to CreateBillings (20100217235138)
+  [4;35;1mSQL (0.0ms)[0m   [0mCREATE TABLE "billings" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "method" varchar(255) NOT NULL, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100217235138')[0m
+Migrating to CreateCategories (20100217235344)
+  [4;35;1mSQL (0.0ms)[0m   [0mCREATE TABLE "categories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255) NOT NULL, "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20100217235344')[0m
+Migrating to CreateConsumers (20100217235647)
+  [4;35;1mSQL (0.0ms)[0m   [0mCREATE TABLE "consumers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "payer_id" varchar(255) NOT NULL, "billing_phone" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mCREATE INDEX "index_consumers_on_billing_phone" ON "consumers" ("billing_phone")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20100217235647')[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("billings")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("categories")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("consumers")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_info('index_consumers_on_billing_phone')[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("items")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_info('index_items_on_retailer_id')[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_info('index_items_on_product_id_and_retailer_id')[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("line_items")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("orders")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("payer_rule_categories")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("payer_rules")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("payers")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("products")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_info('index_products_on_title')[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("purchases")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("retailers")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("sessions")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_info('index_sessions_on_updated_at')[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_info('index_sessions_on_session_id')[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("users")[0m
+
+
+Processing AolController#joinin (for 127.0.0.1 at 2010-03-08 15:43:24) [GET]
+Rendering template within layouts/aol
+Rendering aol/joinin
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/joinin]
+
+
+Processing AolController#joinin (for 127.0.0.1 at 2010-03-08 15:43:25) [GET]
+Rendering template within layouts/aol
+Rendering aol/joinin
+Completed in 15ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/joinin]
+
+
+Processing AolController#create (for 127.0.0.1 at 2010-03-08 15:43:45) [POST]
+  Parameters: {"payer"=>{"user"=>"drorp25", "password_confirmation"=>"1", "password"=>"1"}}
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT "payers".id FROM "payers" WHERE ("payers"."user" = 'drorp25') LIMIT 1[0m
+  [4;35;1mPayer Create (0.0ms)[0m   [0mINSERT INTO "payers" ("user", "salt", "name", "updated_at", "hashed_password", "email", "balance", "pin", "created_at") VALUES('drorp25', '386713800.791523852471005', NULL, '2010-03-08 13:43:45', 'efa62ce904a390d3046dec44d572a212f76c5b9b', NULL, 0.0, NULL, '2010-03-08 13:43:45')[0m
+  [4;36;1mPayerRule Create (0.0ms)[0m   [0;1mINSERT INTO "payer_rules" ("auto_deny_over", "updated_at", "billing_id", "allowance", "auto_authorize_under", "authorization_phone", "payer_id", "rollover", "created_at") VALUES(NULL, '2010-03-08 13:43:45', 1, NULL, NULL, NULL, 1, 'f', '2010-03-08 13:43:45')[0m
+Redirected to http://localhost:3000/aol/welcome_signedin
+Completed in 422ms (DB: 0) | 302 Found [http://localhost/aol/create]
+
+
+Processing AolController#welcome_signedin (for 127.0.0.1 at 2010-03-08 15:43:45) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_signedin
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/welcome_signedin]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-08 15:44:10) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 15ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#budget_form (for 127.0.0.1 at 2010-03-08 15:44:13) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 1) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/aol
+Rendering aol/budget_form
+Completed in 47ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/budget_form]
+
+
+Processing AolController#budget_update (for 127.0.0.1 at 2010-03-08 15:44:21) [POST]
+  Parameters: {"rule"=>{"allowance"=>"1"}}
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 1) ORDER BY created_at DESC LIMIT 1[0m
+  [4;35;1mPayerRule Update (0.0ms)[0m   [0mUPDATE "payer_rules" SET "allowance" = 1.0, "updated_at" = '2010-03-08 13:44:22' WHERE "id" = 1[0m
+Redirected to http://localhost:3000/aol/rules_menu
+Completed in 573422ms (DB: 0) | 302 Found [http://localhost/aol/budget_update]
+
+
+Processing AolController#budget_update (for 127.0.0.1 at 2010-03-08 15:53:55) [POST]
+  Parameters: {"rule"=>{"allowance"=>"1"}}
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 1) ORDER BY created_at DESC LIMIT 1[0m
+Redirected to http://localhost:3000/aol/rules_menu
+Completed in 117031ms (DB: 0) | 302 Found [http://localhost/aol/budget_update]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-08 15:55:53) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#budget_form (for 127.0.0.1 at 2010-03-08 15:55:53) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 1) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/aol
+Rendering aol/budget_form
+Completed in 63ms (View: 32, DB: 0) | 200 OK [http://localhost/aol/budget_form]
+
+
+Processing AolController#budget_form (for 127.0.0.1 at 2010-03-08 15:55:54) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 1) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/aol
+Rendering aol/budget_form
+Completed in 63ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/budget_form]
+
+
+Processing AolController#budget_update (for 127.0.0.1 at 2010-03-08 15:56:31) [POST]
+  Parameters: {"rule"=>{"allowance"=>"501", "rollover"=>"1"}}
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 1) ORDER BY created_at DESC LIMIT 1[0m
+  [4;36;1mPayerRule Update (15.0ms)[0m   [0;1mUPDATE "payer_rules" SET "rollover" = 't', "allowance" = 501.0, "updated_at" = '2010-03-08 13:56:31' WHERE "id" = 1[0m
+Redirected to http://localhost:3000/aol/rules_menu
+Completed in 141ms (DB: 15) | 302 Found [http://localhost/aol/budget_update]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-08 15:56:32) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#budget_form (for 127.0.0.1 at 2010-03-08 15:56:50) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 1) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/aol
+Rendering aol/budget_form
+Completed in 62ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/budget_form]
+
+
+Processing AolController#budget_update (for 127.0.0.1 at 2010-03-08 15:56:59) [POST]
+  Parameters: {"rule"=>{"allowance"=>"1000", "rollover"=>"0"}}
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 1) ORDER BY created_at DESC LIMIT 1[0m
+  [4;35;1mPayerRule Update (0.0ms)[0m   [0mUPDATE "payer_rules" SET "rollover" = 'f', "allowance" = 1000.0, "updated_at" = '2010-03-08 13:56:59' WHERE "id" = 1[0m
+Redirected to http://localhost:3000/aol/rules_menu
+Completed in 203ms (DB: 0) | 302 Found [http://localhost/aol/budget_update]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-08 15:57:00) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#budget_form (for 127.0.0.1 at 2010-03-08 15:57:02) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 1) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/aol
+Rendering aol/budget_form
+Completed in 62ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/budget_form]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-08 16:20:06) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 31ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-08 16:20:06) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#budget_form (for 127.0.0.1 at 2010-03-08 16:20:09) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 1) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/aol
+Rendering aol/budget_form
+Completed in 47ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/budget_form]
+
+
+Processing AolController#amounts_form (for 127.0.0.1 at 2010-03-08 16:20:13) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+
+NameError (uninitialized constant AolController::Rule):
+  app/controllers/aol_controller.rb:120:in `amounts_form'
+
+Rendered rescues/_trace (78.0ms)
+Rendered rescues/_request_and_response (16.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#amounts_form (for 127.0.0.1 at 2010-03-08 16:20:23) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+
+NameError (uninitialized constant AolController::Rule):
+  app/controllers/aol_controller.rb:120:in `amounts_form'
+
+Rendered rescues/_trace (172.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-08 16:21:20) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-08 16:21:20) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#amounts_form (for 127.0.0.1 at 2010-03-08 16:21:22) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+
+NameError (uninitialized constant AolController::Rule):
+  app/controllers/aol_controller.rb:120:in `amounts_form'
+
+Rendered rescues/_trace (78.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-08 16:22:22) [GET]
+Rendering template within layouts/aol
+Rendering aol/signin
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/signin]
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-08 16:22:22) [GET]
+Rendering template within layouts/aol
+Rendering aol/signin
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/signin]
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-08 16:22:29) [POST]
+  Parameters: {"payer"=>{"user"=>"drorp25", "password"=>"1"}}
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."user" = 'drorp25') LIMIT 1[0m
+  [4;36;1mPayerRule Load (16.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 1) ORDER BY created_at DESC LIMIT 1[0m
+Redirected to http://localhost:3000/aol/welcome_signedin
+Completed in 47ms (DB: 16) | 302 Found [http://localhost/aol/signin]
+
+
+Processing AolController#welcome_signedin (for 127.0.0.1 at 2010-03-08 16:22:29) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_signedin
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/welcome_signedin]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-08 16:22:34) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 47ms (View: 31, DB: 16) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#amounts_form (for 127.0.0.1 at 2010-03-08 16:22:36) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+
+NameError (uninitialized constant AolController::Rule):
+  app/controllers/aol_controller.rb:120:in `amounts_form'
+
+Rendered rescues/_trace (172.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#amounts_form (for 127.0.0.1 at 2010-03-08 16:22:44) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+
+NameError (uninitialized constant AolController::Rule):
+  app/controllers/aol_controller.rb:120:in `amounts_form'
+
+Rendered rescues/_trace (62.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-08 16:24:58) [GET]
+Rendering template within layouts/aol
+Rendering aol/signin
+Completed in 140ms (View: 140, DB: 0) | 200 OK [http://localhost/aol/signin]
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-08 16:24:59) [GET]
+Rendering template within layouts/aol
+Rendering aol/signin
+Completed in 46ms (View: 46, DB: 0) | 200 OK [http://localhost/aol/signin]
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-08 16:25:07) [POST]
+  Parameters: {"payer"=>{"user"=>"drorp26", "password"=>"1"}}
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."user" = 'drorp26') LIMIT 1[0m
+Rendering template within layouts/aol
+Rendering aol/signin
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/signin]
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-08 16:25:16) [POST]
+  Parameters: {"payer"=>{"user"=>"drorp25", "password"=>"1"}}
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."user" = 'drorp25') LIMIT 1[0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 1) ORDER BY created_at DESC LIMIT 1[0m
+Redirected to http://localhost:3000/aol/welcome_signedin
+Completed in 47ms (DB: 0) | 302 Found [http://localhost/aol/signin]
+
+
+Processing AolController#welcome_signedin (for 127.0.0.1 at 2010-03-08 16:25:16) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_signedin
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/welcome_signedin]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-08 16:25:21) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#budget_form (for 127.0.0.1 at 2010-03-08 16:25:24) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 1) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/aol
+Rendering aol/budget_form
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/budget_form]
+
+
+Processing AolController#amounts_form (for 127.0.0.1 at 2010-03-08 16:25:30) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+
+NameError (uninitialized constant AolController::Rule):
+  app/controllers/aol_controller.rb:120:in `amounts_form'
+
+Rendered rescues/_trace (78.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-08 16:26:52) [GET]
+Rendering template within layouts/aol
+Rendering aol/signin
+Completed in 47ms (View: 32, DB: 15) | 200 OK [http://localhost/aol/signin]
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-08 16:26:52) [GET]
+Rendering template within layouts/aol
+Rendering aol/signin
+Completed in 47ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/signin]
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-08 16:26:59) [POST]
+  Parameters: {"payer"=>{"user"=>"drorp25", "password"=>"1"}}
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."user" = 'drorp25') LIMIT 1[0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 1) ORDER BY created_at DESC LIMIT 1[0m
+Redirected to http://localhost:3000/aol/welcome_signedin
+Completed in 31ms (DB: 0) | 302 Found [http://localhost/aol/signin]
+
+
+Processing AolController#welcome_signedin (for 127.0.0.1 at 2010-03-08 16:26:59) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_signedin
+Completed in 125ms (View: 125, DB: 0) | 200 OK [http://localhost/aol/welcome_signedin]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-08 16:27:01) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 47ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#amounts_form (for 127.0.0.1 at 2010-03-08 16:27:04) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 1) [0m
+Rendering template within layouts/aol
+Rendering aol/amounts_form
+
+ActionView::TemplateError (undefined method `autho_authorize_under' for #<PayerRule:0x4876a3c>) on line #7 of app/views/aol/amounts_form.html.erb:
+4:   	<%= f.error_messages %>
+5: 
+6:   	<ul class="rounded">
+7:     	<li>Automatically authorize anything under<%= f.text_field :autho_authorize_under, :placeholder => "this amount" %></li>
+8: 	</ul>
+9:   	<ul class="rounded">
+10:     	<li>Automatically deny anything above<%= f.text_field :autho_authorize_under, :placeholder => "that amount" %></li>
+
+    app/views/aol/amounts_form.html.erb:7
+    app/views/aol/amounts_form.html.erb:3
+
+Rendered rescues/_trace (109.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#amounts_form (for 127.0.0.1 at 2010-03-08 16:27:10) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 1) [0m
+Rendering template within layouts/aol
+Rendering aol/amounts_form
+
+ActionView::TemplateError (undefined method `autho_authorize_under' for #<PayerRule:0x4b9dee0>) on line #7 of app/views/aol/amounts_form.html.erb:
+4:   	<%= f.error_messages %>
+5: 
+6:   	<ul class="rounded">
+7:     	<li>Automatically authorize anything under<%= f.text_field :autho_authorize_under, :placeholder => "this amount" %></li>
+8: 	</ul>
+9:   	<ul class="rounded">
+10:     	<li>Automatically deny anything above<%= f.text_field :autho_authorize_under, :placeholder => "that amount" %></li>
+
+    app/views/aol/amounts_form.html.erb:7
+    app/views/aol/amounts_form.html.erb:3
+
+Rendered rescues/_trace (93.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-08 16:28:02) [GET]
+Rendering template within layouts/aol
+Rendering aol/signin
+Completed in 141ms (View: 125, DB: 0) | 200 OK [http://localhost/aol/signin]
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-08 16:28:02) [GET]
+Rendering template within layouts/aol
+Rendering aol/signin
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/signin]
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-08 16:28:10) [POST]
+  Parameters: {"payer"=>{"user"=>"drorp25", "password"=>"1"}}
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."user" = 'drorp25') LIMIT 1[0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 1) ORDER BY created_at DESC LIMIT 1[0m
+Redirected to http://localhost:3000/aol/welcome_signedin
+Completed in 47ms (DB: 0) | 302 Found [http://localhost/aol/signin]
+
+
+Processing AolController#welcome_signedin (for 127.0.0.1 at 2010-03-08 16:28:10) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_signedin
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/welcome_signedin]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-08 16:28:12) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 125ms (View: 110, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#amounts_form (for 127.0.0.1 at 2010-03-08 16:28:13) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 1) [0m
+Rendering template within layouts/aol
+Rendering aol/amounts_form
+Completed in 62ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/amounts_form]
+
+
+Processing AolController#amounts_update (for 127.0.0.1 at 2010-03-08 16:28:47) [POST]
+  Parameters: {"rule"=>{"auto_authorize_under"=>"100", "authorization_phone"=>"05423432203333"}}
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 1) [0m
+Redirected to http://localhost:3000/aol/joinin
+Completed in 31ms (DB: 16) | 302 Found [http://localhost/aol/amounts_update]
+
+
+Processing AolController#joinin (for 127.0.0.1 at 2010-03-08 16:28:47) [GET]
+Rendering template within layouts/aol
+Rendering aol/joinin
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/joinin]
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-08 16:31:31) [GET]
+Rendering template within layouts/aol
+Rendering aol/signin
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/signin]
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-08 16:31:31) [GET]
+Rendering template within layouts/aol
+Rendering aol/signin
+Completed in 140ms (View: 109, DB: 16) | 200 OK [http://localhost/aol/signin]
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-08 16:31:39) [POST]
+  Parameters: {"payer"=>{"user"=>"drorp25", "password"=>"1"}}
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."user" = 'drorp25') LIMIT 1[0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 1) ORDER BY created_at DESC LIMIT 1[0m
+Redirected to http://localhost:3000/aol/welcome_signedin
+Completed in 47ms (DB: 0) | 302 Found [http://localhost/aol/signin]
+
+
+Processing AolController#welcome_signedin (for 127.0.0.1 at 2010-03-08 16:31:39) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_signedin
+Completed in 125ms (View: 125, DB: 0) | 200 OK [http://localhost/aol/welcome_signedin]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-08 16:31:41) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 47ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#amounts_form (for 127.0.0.1 at 2010-03-08 16:31:42) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 1) [0m
+Rendering template within layouts/aol
+Rendering aol/amounts_form
+Completed in 63ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/amounts_form]
+
+
+Processing AolController#amounts_update (for 127.0.0.1 at 2010-03-08 16:31:55) [POST]
+  Parameters: {"rule"=>{"auto_deny_over"=>"100", "auto_authorize_under"=>"20", "authorization_phone"=>"054234322033333"}}
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 1) [0m
+  [4;36;1mPayerRule Update (0.0ms)[0m   [0;1mUPDATE "payer_rules" SET "auto_authorize_under" = 20.0, "updated_at" = '2010-03-08 14:31:56', "auto_deny_over" = 100.0, "authorization_phone" = 54234322033333 WHERE "id" = 1[0m
+Redirected to http://localhost:3000/aol/rules_menu
+Completed in 328ms (DB: 0) | 302 Found [http://localhost/aol/amounts_update]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-08 16:31:56) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 78ms (View: 62, DB: 16) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#amounts_form (for 127.0.0.1 at 2010-03-08 16:32:14) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 1) [0m
+Rendering template within layouts/aol
+Rendering aol/amounts_form
+Completed in 140ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/amounts_form]
+
+
+Processing AolController#amounts_form (for 127.0.0.1 at 2010-03-08 16:34:37) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 1) [0m
+Rendering template within layouts/aol
+Rendering aol/amounts_form
+Completed in 62ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/amounts_form]
+
+
+Processing AolController#amounts_form (for 127.0.0.1 at 2010-03-08 16:34:37) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 1) [0m
+Rendering template within layouts/aol
+Rendering aol/amounts_form
+Completed in 47ms (View: 0, DB: 16) | 200 OK [http://localhost/aol/amounts_form]
+
+
+Processing AolController#amounts_update (for 127.0.0.1 at 2010-03-08 16:35:13) [POST]
+  Parameters: {"rule"=>{"auto_deny_over"=>"30", "auto_authorize_under"=>"200", "authorization_phone"=>"54234322033333"}}
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 1) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 1) [0m
+  [4;35;1mPayerRule Update (0.0ms)[0m   [0mUPDATE "payer_rules" SET "auto_authorize_under" = 200.0, "updated_at" = '2010-03-08 14:35:13', "auto_deny_over" = 30.0 WHERE "id" = 1[0m
+Redirected to http://localhost:3000/aol/rules_menu
+Completed in 203ms (DB: 15) | 302 Found [http://localhost/aol/amounts_update]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-08 16:35:13) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#amounts_form (for 127.0.0.1 at 2010-03-08 16:35:17) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 1) [0m
+Rendering template within layouts/aol
+Rendering aol/amounts_form
+Completed in 140ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/amounts_form]
+
+
+Processing AolController#budget_form (for 127.0.0.1 at 2010-03-08 18:21:15) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 1) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/aol
+Rendering aol/budget_form
+Completed in 47ms (View: 16, DB: 15) | 200 OK [http://localhost/aol/budget_form]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 22:24:27) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph
+
+ActionView::TemplateError (uninitialized constant ActionView::Base::CompiledTemplates::Seer) on line #3 of app/views/aol/graph.html.erb:
+1: <div id="chart"></div>
+2: 
+3: <%= Seer::visualize(
+4:       @data, 
+5:       :as => :gauge,
+6:       :in_element => 'chart',
+
+    app/views/aol/graph.html.erb:3
+
+Rendered rescues/_trace (109.0ms)
+Rendered rescues/_request_and_response (16.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 22:24:31) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph
+
+ActionView::TemplateError (uninitialized constant ActionView::Base::CompiledTemplates::Seer) on line #3 of app/views/aol/graph.html.erb:
+1: <div id="chart"></div>
+2: 
+3: <%= Seer::visualize(
+4:       @data, 
+5:       :as => :gauge,
+6:       :in_element => 'chart',
+
+    app/views/aol/graph.html.erb:3
+
+Rendered rescues/_trace (188.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 22:26:40) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph
+
+ActionView::TemplateError (uninitialized constant ActionView::Base::CompiledTemplates::Seer) on line #3 of app/views/aol/graph.html.erb:
+1: <div id="chart"></div>
+2: 
+3: <%= Seer::visualize(
+4:       @data, 
+5:       :as => :gauge,
+6:       :in_element => 'chart',
+
+    app/views/aol/graph.html.erb:3
+
+Rendered rescues/_trace (78.0ms)
+Rendered rescues/_request_and_response (16.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 22:26:40) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph
+
+ActionView::TemplateError (uninitialized constant ActionView::Base::CompiledTemplates::Seer) on line #3 of app/views/aol/graph.html.erb:
+1: <div id="chart"></div>
+2: 
+3: <%= Seer::visualize(
+4:       @data, 
+5:       :as => :gauge,
+6:       :in_element => 'chart',
+
+    app/views/aol/graph.html.erb:3
+
+Rendered rescues/_trace (171.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 22:35:17) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph
+
+ActionView::TemplateError (uninitialized constant ActionView::Base::CompiledTemplates::Seer) on line #3 of app/views/aol/graph.html.erb:
+1: <div id="chart"></div>
+2: 
+3: <%= Seer::visualize(
+4:       @data, 
+5:       :as => :gauge,
+6:       :in_element => 'chart',
+
+    app/views/aol/graph.html.erb:3
+
+Rendered rescues/_trace (187.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 22:35:18) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph
+
+ActionView::TemplateError (uninitialized constant ActionView::Base::CompiledTemplates::Seer) on line #3 of app/views/aol/graph.html.erb:
+1: <div id="chart"></div>
+2: 
+3: <%= Seer::visualize(
+4:       @data, 
+5:       :as => :gauge,
+6:       :in_element => 'chart',
+
+    app/views/aol/graph.html.erb:3
+
+Rendered rescues/_trace (78.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 22:42:44) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph
+
+ActionView::TemplateError (undefined method `name' for [:c, 75]:Array) on line #3 of app/views/aol/graph.html.erb:
+1: <div id="chart"></div>
+2: 
+3: <%= Seer::visualize(
+4:       @data, 
+5:       :as => :gauge,
+6:       :in_element => 'chart',
+
+    seer (0.5.0) lib/seer/gauge.rb:67:in `send'
+    seer (0.5.0) lib/seer/gauge.rb:67:in `data_table'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `each'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `each_with_index'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `data_table'
+    seer (0.5.0) lib/seer/chart.rb:35:in `data_columns'
+    seer (0.5.0) lib/seer/gauge.rb:94:in `to_js'
+    seer (0.5.0) lib/seer/gauge.rb:114:in `render'
+    seer (0.5.0) lib/seer.rb:47:in `gauge'
+    seer (0.5.0) lib/seer.rb:29:in `send'
+    seer (0.5.0) lib/seer.rb:29:in `visualize'
+    app/views/aol/graph.html.erb:3
+
+Rendered rescues/_trace (93.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 22:42:45) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph
+
+ActionView::TemplateError (undefined method `name' for [:c, 75]:Array) on line #3 of app/views/aol/graph.html.erb:
+1: <div id="chart"></div>
+2: 
+3: <%= Seer::visualize(
+4:       @data, 
+5:       :as => :gauge,
+6:       :in_element => 'chart',
+
+    seer (0.5.0) lib/seer/gauge.rb:67:in `send'
+    seer (0.5.0) lib/seer/gauge.rb:67:in `data_table'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `each'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `each_with_index'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `data_table'
+    seer (0.5.0) lib/seer/chart.rb:35:in `data_columns'
+    seer (0.5.0) lib/seer/gauge.rb:94:in `to_js'
+    seer (0.5.0) lib/seer/gauge.rb:114:in `render'
+    seer (0.5.0) lib/seer.rb:47:in `gauge'
+    seer (0.5.0) lib/seer.rb:29:in `send'
+    seer (0.5.0) lib/seer.rb:29:in `visualize'
+    app/views/aol/graph.html.erb:3
+
+Rendered rescues/_trace (93.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 22:43:58) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph
+
+ActionView::TemplateError (uninitialized constant ActionView::Base::CompiledTemplates::Seer) on line #3 of app/views/aol/graph.html.erb:
+1: <div id="chart"></div>
+2: 
+3: <%= Seer::visualize(
+4:       @data, 
+5:       :as => :gauge,
+6:       :in_element => 'chart',
+
+    app/views/aol/graph.html.erb:3
+
+Rendered rescues/_trace (94.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 22:43:58) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph
+
+ActionView::TemplateError (uninitialized constant ActionView::Base::CompiledTemplates::Seer) on line #3 of app/views/aol/graph.html.erb:
+1: <div id="chart"></div>
+2: 
+3: <%= Seer::visualize(
+4:       @data, 
+5:       :as => :gauge,
+6:       :in_element => 'chart',
+
+    app/views/aol/graph.html.erb:3
+
+Rendered rescues/_trace (172.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 22:47:53) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph
+
+ActionView::TemplateError (undefined method `name' for [:c, 75]:Array) on line #3 of app/views/aol/graph.html.erb:
+1: <div id="chart"></div>
+2: 
+3: <%= Seer::visualize(
+4:       @data, 
+5:       :as => :gauge,
+6:       :in_element => 'chart',
+
+    seer (0.5.0) lib/seer/gauge.rb:67:in `send'
+    seer (0.5.0) lib/seer/gauge.rb:67:in `data_table'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `each'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `each_with_index'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `data_table'
+    seer (0.5.0) lib/seer/chart.rb:35:in `data_columns'
+    seer (0.5.0) lib/seer/gauge.rb:94:in `to_js'
+    seer (0.5.0) lib/seer/gauge.rb:114:in `render'
+    seer (0.5.0) lib/seer.rb:47:in `gauge'
+    seer (0.5.0) lib/seer.rb:29:in `send'
+    seer (0.5.0) lib/seer.rb:29:in `visualize'
+    app/views/aol/graph.html.erb:3
+
+Rendered rescues/_trace (172.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 22:47:53) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph
+
+ActionView::TemplateError (undefined method `name' for [:c, 75]:Array) on line #3 of app/views/aol/graph.html.erb:
+1: <div id="chart"></div>
+2: 
+3: <%= Seer::visualize(
+4:       @data, 
+5:       :as => :gauge,
+6:       :in_element => 'chart',
+
+    seer (0.5.0) lib/seer/gauge.rb:67:in `send'
+    seer (0.5.0) lib/seer/gauge.rb:67:in `data_table'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `each'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `each_with_index'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `data_table'
+    seer (0.5.0) lib/seer/chart.rb:35:in `data_columns'
+    seer (0.5.0) lib/seer/gauge.rb:94:in `to_js'
+    seer (0.5.0) lib/seer/gauge.rb:114:in `render'
+    seer (0.5.0) lib/seer.rb:47:in `gauge'
+    seer (0.5.0) lib/seer.rb:29:in `send'
+    seer (0.5.0) lib/seer.rb:29:in `visualize'
+    app/views/aol/graph.html.erb:3
+
+Rendered rescues/_trace (172.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 22:54:30) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph
+
+ActionView::TemplateError (undefined method `name' for [:name, "Dror"]:Array) on line #3 of app/views/aol/graph.html.erb:
+1: <div id="chart"></div>
+2: 
+3: <%= Seer::visualize(
+4:       @data, 
+5:       :as => :gauge,
+6:       :in_element => 'chart',
+
+    seer (0.5.0) lib/seer/gauge.rb:67:in `send'
+    seer (0.5.0) lib/seer/gauge.rb:67:in `data_table'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `each'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `each_with_index'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `data_table'
+    seer (0.5.0) lib/seer/chart.rb:35:in `data_columns'
+    seer (0.5.0) lib/seer/gauge.rb:94:in `to_js'
+    seer (0.5.0) lib/seer/gauge.rb:114:in `render'
+    seer (0.5.0) lib/seer.rb:47:in `gauge'
+    seer (0.5.0) lib/seer.rb:29:in `send'
+    seer (0.5.0) lib/seer.rb:29:in `visualize'
+    app/views/aol/graph.html.erb:3
+
+Rendered rescues/_trace (187.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 22:54:31) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph
+
+ActionView::TemplateError (undefined method `name' for [:name, "Dror"]:Array) on line #3 of app/views/aol/graph.html.erb:
+1: <div id="chart"></div>
+2: 
+3: <%= Seer::visualize(
+4:       @data, 
+5:       :as => :gauge,
+6:       :in_element => 'chart',
+
+    seer (0.5.0) lib/seer/gauge.rb:67:in `send'
+    seer (0.5.0) lib/seer/gauge.rb:67:in `data_table'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `each'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `each_with_index'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `data_table'
+    seer (0.5.0) lib/seer/chart.rb:35:in `data_columns'
+    seer (0.5.0) lib/seer/gauge.rb:94:in `to_js'
+    seer (0.5.0) lib/seer/gauge.rb:114:in `render'
+    seer (0.5.0) lib/seer.rb:47:in `gauge'
+    seer (0.5.0) lib/seer.rb:29:in `send'
+    seer (0.5.0) lib/seer.rb:29:in `visualize'
+    app/views/aol/graph.html.erb:3
+
+Rendered rescues/_trace (171.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 22:57:06) [GET]
+
+NameError (undefined local variable or method `a' for #<AolController:0x49faa48>):
+  app/controllers/aol_controller.rb:154:in `graph'
+
+Rendered rescues/_trace (62.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 22:57:07) [GET]
+
+NameError (undefined local variable or method `a' for #<AolController:0x4acf1d0>):
+  app/controllers/aol_controller.rb:154:in `graph'
+
+Rendered rescues/_trace (63.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 22:57:48) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph
+
+ActionView::TemplateError (undefined method `name' for [:a, {:name=>"Dror", :quantity=>50}]:Array) on line #3 of app/views/aol/graph.html.erb:
+1: <div id="chart"></div>
+2: 
+3: <%= Seer::visualize(
+4:       @data, 
+5:       :as => :gauge,
+6:       :in_element => 'chart',
+
+    seer (0.5.0) lib/seer/gauge.rb:67:in `send'
+    seer (0.5.0) lib/seer/gauge.rb:67:in `data_table'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `each'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `each_with_index'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `data_table'
+    seer (0.5.0) lib/seer/chart.rb:35:in `data_columns'
+    seer (0.5.0) lib/seer/gauge.rb:94:in `to_js'
+    seer (0.5.0) lib/seer/gauge.rb:114:in `render'
+    seer (0.5.0) lib/seer.rb:47:in `gauge'
+    seer (0.5.0) lib/seer.rb:29:in `send'
+    seer (0.5.0) lib/seer.rb:29:in `visualize'
+    app/views/aol/graph.html.erb:3
+
+Rendered rescues/_trace (78.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 22:57:48) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph
+
+ActionView::TemplateError (undefined method `name' for [:a, {:name=>"Dror", :quantity=>50}]:Array) on line #3 of app/views/aol/graph.html.erb:
+1: <div id="chart"></div>
+2: 
+3: <%= Seer::visualize(
+4:       @data, 
+5:       :as => :gauge,
+6:       :in_element => 'chart',
+
+    seer (0.5.0) lib/seer/gauge.rb:67:in `send'
+    seer (0.5.0) lib/seer/gauge.rb:67:in `data_table'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `each'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `each_with_index'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `data_table'
+    seer (0.5.0) lib/seer/chart.rb:35:in `data_columns'
+    seer (0.5.0) lib/seer/gauge.rb:94:in `to_js'
+    seer (0.5.0) lib/seer/gauge.rb:114:in `render'
+    seer (0.5.0) lib/seer.rb:47:in `gauge'
+    seer (0.5.0) lib/seer.rb:29:in `send'
+    seer (0.5.0) lib/seer.rb:29:in `visualize'
+    app/views/aol/graph.html.erb:3
+
+Rendered rescues/_trace (94.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:02:04) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+
+ActionView::TemplateError (undefined method `allowance' for #<Payer:0x486401c>) on line #3 of app/views/aol/graph.html.erb:
+1: <div id="chart"></div>
+2: 
+3: <%= Seer::visualize(
+4:       @payers, 
+5:       :as => :gauge,
+6:       :in_element => 'chart',
+
+    seer (0.5.0) lib/seer/gauge.rb:68:in `send'
+    seer (0.5.0) lib/seer/gauge.rb:68:in `data_table'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `each'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `each_with_index'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `data_table'
+    seer (0.5.0) lib/seer/chart.rb:35:in `data_columns'
+    seer (0.5.0) lib/seer/gauge.rb:94:in `to_js'
+    seer (0.5.0) lib/seer/gauge.rb:114:in `render'
+    seer (0.5.0) lib/seer.rb:47:in `gauge'
+    seer (0.5.0) lib/seer.rb:29:in `send'
+    seer (0.5.0) lib/seer.rb:29:in `visualize'
+    app/views/aol/graph.html.erb:3
+
+Rendered rescues/_trace (94.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:02:05) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+
+ActionView::TemplateError (undefined method `allowance' for #<Payer:0x482bfb4>) on line #3 of app/views/aol/graph.html.erb:
+1: <div id="chart"></div>
+2: 
+3: <%= Seer::visualize(
+4:       @payers, 
+5:       :as => :gauge,
+6:       :in_element => 'chart',
+
+    seer (0.5.0) lib/seer/gauge.rb:68:in `send'
+    seer (0.5.0) lib/seer/gauge.rb:68:in `data_table'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `each'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `each_with_index'
+    seer (0.5.0) lib/seer/gauge.rb:65:in `data_table'
+    seer (0.5.0) lib/seer/chart.rb:35:in `data_columns'
+    seer (0.5.0) lib/seer/gauge.rb:94:in `to_js'
+    seer (0.5.0) lib/seer/gauge.rb:114:in `render'
+    seer (0.5.0) lib/seer.rb:47:in `gauge'
+    seer (0.5.0) lib/seer.rb:29:in `send'
+    seer (0.5.0) lib/seer.rb:29:in `visualize'
+    app/views/aol/graph.html.erb:3
+
+Rendered rescues/_trace (93.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:03:17) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 157ms (View: 125, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:03:21) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:10:36) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:11:18) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 437ms (View: 406, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:11:52) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:11:53) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 46ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:13:42) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 47ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:14:24) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:14:26) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 125ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:16:16) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:16:18) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 32ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:16:32) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:16:34) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:17:19) [GET]
+  [4;35;1mPayer Load (16.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 125ms (View: 0, DB: 16) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:17:21) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 31ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:17:28) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 31ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:26:19) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:26:21) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 47ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:26:30) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-08 23:36:05) [GET]
+
+ActionController::RoutingError (No route matches "/try" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-08 23:36:06) [GET]
+
+ActionController::RoutingError (No route matches "/try" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing TryController#index (for 127.0.0.1 at 2010-03-08 23:36:49) [GET]
+Rendering template within layouts/try
+Rendering try/index
+Completed in 188ms (View: 172, DB: 0) | 200 OK [http://localhost/try]
+
+
+Processing TryController#index (for 127.0.0.1 at 2010-03-08 23:36:50) [GET]
+Rendering template within layouts/try
+Rendering try/index
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/try]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-08 23:36:53) [GET]
+
+ActionController::RoutingError (No route matches "/www.ynet.co.il" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing TryController#index (for 127.0.0.1 at 2010-03-08 23:37:23) [GET]
+Rendering template within layouts/try
+Rendering try/index
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/try]
+
+
+Processing TryController#index (for 127.0.0.1 at 2010-03-08 23:37:24) [GET]
+Rendering template within layouts/try
+Rendering try/index
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/try]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:39:50) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 109ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:39:52) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:40:34) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 46ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:40:35) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:41:00) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:41:02) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#welcome_new (for 127.0.0.1 at 2010-03-08 23:41:55) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_new
+Completed in 484ms (View: 484, DB: 0) | 200 OK [http://localhost/aol/welcome_new]
+
+
+Processing AolController#welcome_new (for 127.0.0.1 at 2010-03-08 23:41:57) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_new
+Completed in 31ms (View: 15, DB: 16) | 200 OK [http://localhost/aol/welcome_new]
+
+
+Processing AolController#joinin (for 127.0.0.1 at 2010-03-08 23:42:20) [GET]
+  Parameters: {"class"=>"whiteButton submit"}
+Rendering template within layouts/aol
+Rendering aol/joinin
+Completed in 157ms (View: 141, DB: 16) | 200 OK [http://localhost/aol/joinin?class=whiteButton+submit]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:46:24) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 141ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:46:26) [GET]
+  [4;35;1mPayer Load (15.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 31ms (View: 0, DB: 15) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:46:54) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 32ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:46:56) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 31ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#welcome_new (for 127.0.0.1 at 2010-03-08 23:48:11) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_new
+Completed in 16ms (View: 0, DB: 16) | 200 OK [http://localhost/aol/welcome_new]
+
+
+Processing AolController#welcome_new (for 127.0.0.1 at 2010-03-08 23:48:12) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_new
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/welcome_new]
+
+
+Processing AolController#joinin (for 127.0.0.1 at 2010-03-08 23:48:35) [GET]
+  Parameters: {"class"=>"whiteButton submit"}
+Rendering template within layouts/aol
+Rendering aol/joinin
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/joinin?class=whiteButton+submit]
+
+
+Processing AolController#create (for 127.0.0.1 at 2010-03-08 23:49:05) [POST]
+  Parameters: {"payer"=>{"user"=>"", "password_confirmation"=>"", "password"=>""}}
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT "payers".id FROM "payers" WHERE ("payers"."user" = '') LIMIT 1[0m
+Rendering template within layouts/aol
+Rendering aol/joinin
+Completed in 47ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/create]
+
+
+Processing AolController#create (for 127.0.0.1 at 2010-03-08 23:49:12) [POST]
+  Parameters: {"payer"=>{"user"=>"", "password_confirmation"=>"", "password"=>""}}
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."user" = '') LIMIT 1[0m
+Rendering template within layouts/aol
+Rendering aol/joinin
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/create]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:49:36) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:49:38) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 141ms (View: 110, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:50:33) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 188ms (View: 156, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:50:36) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 32ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:52:45) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 157ms (View: 125, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:52:47) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:53:04) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:53:51) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:53:54) [GET]
+  [4;36;1mPayer Load (16.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 32ms (View: 0, DB: 16) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:55:28) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 46ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-08 23:55:29) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 31ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 01:26:42) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 62ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#welcome_new (for 127.0.0.1 at 2010-03-09 01:32:26) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_new
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/welcome_new]
+
+
+Processing AolController#welcome_new (for 127.0.0.1 at 2010-03-09 01:32:27) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_new
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/welcome_new]
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-09 01:32:35) [GET]
+  Parameters: {"class"=>"whiteButton submit"}
+Rendering template within layouts/aol
+Rendering aol/signin
+Completed in 32ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/signin?class=whiteButton+submit]
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-09 01:32:44) [POST]
+  Parameters: {"payer"=>{"user"=>"drorp24", "password"=>"1"}}
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."user" = 'drorp24') LIMIT 1[0m
+Rendering template within layouts/aol
+Rendering aol/signin
+Completed in 32ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/signin]
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-09 01:32:53) [POST]
+  Parameters: {"payer"=>{"user"=>"drorp25", "password"=>"1"}}
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."user" = 'drorp25') LIMIT 1[0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 1) ORDER BY created_at DESC LIMIT 1[0m
+Redirected to http://localhost:3000/aol/welcome_signedin
+Completed in 141ms (DB: 0) | 302 Found [http://localhost/aol/signin]
+
+
+Processing AolController#welcome_signedin (for 127.0.0.1 at 2010-03-09 01:32:53) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_signedin
+Completed in 172ms (View: 172, DB: 0) | 200 OK [http://localhost/aol/welcome_signedin]
+
+
+Processing AolController#account_form (for 127.0.0.1 at 2010-03-09 01:32:59) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+Rendering template within layouts/aol
+Rendering aol/account_form
+Completed in 140ms (View: 94, DB: 0) | 200 OK [http://localhost/aol/account_form]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-09 01:33:18) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 109ms (View: 93, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#budget_form (for 127.0.0.1 at 2010-03-09 01:33:22) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 1) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/aol
+Rendering aol/budget_form
+Completed in 156ms (View: 109, DB: 0) | 200 OK [http://localhost/aol/budget_form]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 01:34:07) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 62ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 01:34:09) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 63ms (View: 32, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 01:37:17) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 156ms (View: 125, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 01:37:19) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 47ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 01:37:47) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 157ms (View: 125, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 01:37:49) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 63ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 01:41:48) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+
+ActionView::TemplateError (Seer: No data provided!) on line #5 of app/views/aol/graph.html.erb:
+2: 
+3: <a href="http://chart.apis.google.com/chart?cht=p3&chd=s:Uf9a&chs=250x100&%20chl=January|February|March|April">http://chart.apis.google.com/chart?cht=p3&chd=s:Uf9a&chs=250x100&%20chl=January|February|March|April</a>
+4: 
+5: <%= Seer::visualize(
+6:       @payers, 
+7:       :as => :gauge,
+8:       :in_element => 'chart',
+
+    seer (0.5.0) lib/seer.rb:28:in `visualize'
+    app/views/aol/graph.html.erb:5
+
+Rendered rescues/_trace (203.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 01:41:49) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+
+ActionView::TemplateError (Seer: No data provided!) on line #5 of app/views/aol/graph.html.erb:
+2: 
+3: <a href="http://chart.apis.google.com/chart?cht=p3&chd=s:Uf9a&chs=250x100&%20chl=January|February|March|April">http://chart.apis.google.com/chart?cht=p3&chd=s:Uf9a&chs=250x100&%20chl=January|February|March|April</a>
+4: 
+5: <%= Seer::visualize(
+6:       @payers, 
+7:       :as => :gauge,
+8:       :in_element => 'chart',
+
+    seer (0.5.0) lib/seer.rb:28:in `visualize'
+    app/views/aol/graph.html.erb:5
+
+Rendered rescues/_trace (94.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 01:42:28) [GET]
+  [4;36;1mPayerRule Load (16.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 63ms (View: 47, DB: 16) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 01:42:30) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 62ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 01:42:43) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 32ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 01:43:14) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 125ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 01:43:23) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 32ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 01:47:57) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 01:48:09) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 156ms (View: 140, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 01:48:14) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 62ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 01:49:49) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 156ms (View: 126, DB: 15) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 01:49:51) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 46ms (View: 46, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 01:54:43) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 125ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 01:59:38) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-09 02:10:42) [GET]
+
+ActionController::RoutingError (No route matches "/depot/store" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-09 02:10:42) [GET]
+
+ActionController::RoutingError (No route matches "/depot/store" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing StoreController#index (for 127.0.0.1 at 2010-03-09 02:10:55) [GET]
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT * FROM "products" ORDER BY title[0m
+Rendering template within layouts/store
+Rendering store/index
+Rendered store/_cart (16.0ms)
+Completed in 328ms (View: 203, DB: 0) | 200 OK [http://localhost/store]
+
+
+Processing StoreController#index (for 127.0.0.1 at 2010-03-09 02:10:56) [GET]
+  [4;35;1mProduct Load (15.0ms)[0m   [0mSELECT * FROM "products" ORDER BY title[0m
+Rendering template within layouts/store
+Rendering store/index
+Rendered store/_cart (16.0ms)
+Completed in 156ms (View: 16, DB: 15) | 200 OK [http://localhost/store]
+
+
+Processing StoreController#index (for 127.0.0.1 at 2010-03-09 02:15:55) [GET]
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT * FROM "products" ORDER BY title[0m
+Rendering template within layouts/store
+Rendering store/index
+Rendered store/_cart (15.0ms)
+Completed in 62ms (View: 15, DB: 0) | 200 OK [http://localhost/store]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-09 02:16:04) [GET]
+
+ActionController::RoutingError (No route matches "/depot/store" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing StoreController#index (for 127.0.0.1 at 2010-03-09 02:16:08) [GET]
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT * FROM "products" ORDER BY title[0m
+Rendering template within layouts/store
+Rendering store/index
+Rendered store/_cart (0.0ms)
+Completed in 94ms (View: 32, DB: 0) | 200 OK [http://localhost/store]
+
+
+Processing StoreController#index (for 127.0.0.1 at 2010-03-09 02:16:11) [GET]
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT * FROM "products" ORDER BY title[0m
+Rendering template within layouts/store
+Rendering store/index
+Rendered store/_cart (15.0ms)
+Completed in 78ms (View: 15, DB: 0) | 200 OK [http://localhost/store]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 02:16:28) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 172ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 02:16:30) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 62ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 02:22:08) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 172ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 02:22:28) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 32ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 02:22:40) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 31ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 02:22:49) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 32ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 02:35:05) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 266ms (View: 250, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 02:35:06) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 282ms (View: 250, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 02:35:29) [GET]
+  [4;35;1mPayerRule Load (16.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 125ms (View: 79, DB: 31) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 02:35:32) [GET]
+  [4;36;1mPayerRule Load (15.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 328ms (View: 281, DB: 15) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:12:42) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 78ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:13:05) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 141ms (View: 125, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:13:08) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 63ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 03:15:06) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 31ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:21:30) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 281ms (View: 266, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:24:05) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:24:44) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:24:46) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:25:29) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:25:30) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:26:23) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 125ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:26:26) [GET]
+  [4;36;1mPayerRule Load (16.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 0, DB: 16) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:28:32) [GET]
+  [4;35;1mPayerRule Load (16.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 0, DB: 16) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:28:35) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:28:45) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:31:05) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:31:07) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:32:46) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 125ms (View: 125, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:32:48) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:33:31) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:33:33) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:36:50) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:36:52) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:39:21) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:39:23) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:44:45) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:44:47) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:45:21) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:45:23) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:45:48) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:45:50) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:46:13) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:46:15) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:46:40) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:46:42) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:48:24) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:48:25) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:49:39) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:49:41) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:50:52) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:50:54) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:51:47) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:51:50) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:53:22) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:53:25) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:55:26) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:55:32) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:55:50) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:55:51) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:57:09) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 03:57:11) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:20:27) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:20:29) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:20:49) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 125ms (View: 125, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:20:51) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:21:24) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:21:26) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:21:48) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:21:49) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#welcome_new (for 127.0.0.1 at 2010-03-09 04:22:20) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_new
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/welcome_new]
+
+
+Processing AolController#welcome_new (for 127.0.0.1 at 2010-03-09 04:22:22) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_new
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/welcome_new]
+
+
+Processing AolController#joinin (for 127.0.0.1 at 2010-03-09 04:22:34) [GET]
+  Parameters: {"class"=>"whiteButton submit"}
+Rendering template within layouts/aol
+Rendering aol/joinin
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/joinin?class=whiteButton+submit]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:23:10) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:23:12) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:24:46) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 109ms (View: 109, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:24:48) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#welcome_new (for 127.0.0.1 at 2010-03-09 04:25:04) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_new
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/welcome_new]
+
+
+Processing AolController#welcome_new (for 127.0.0.1 at 2010-03-09 04:25:06) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_new
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/welcome_new]
+
+
+Processing AolController#welcome_new (for 127.0.0.1 at 2010-03-09 04:26:26) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_new
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/welcome_new]
+
+
+Processing AolController#welcome_new (for 127.0.0.1 at 2010-03-09 04:26:29) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_new
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/welcome_new]
+
+
+Processing AolController#welcome_new (for 127.0.0.1 at 2010-03-09 04:31:19) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_new
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/welcome_new]
+
+
+Processing AolController#welcome_new (for 127.0.0.1 at 2010-03-09 04:31:20) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_new
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/welcome_new]
+
+
+Processing AolController#welcome_new (for 127.0.0.1 at 2010-03-09 04:32:51) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_new
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/welcome_new]
+
+
+Processing AolController#welcome_new (for 127.0.0.1 at 2010-03-09 04:32:52) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_new
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/welcome_new]
+
+
+Processing AolController#joinin (for 127.0.0.1 at 2010-03-09 04:32:56) [GET]
+  Parameters: {"class"=>"whiteButton submit"}
+Rendering template within layouts/aol
+Rendering aol/joinin
+Completed in 125ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/joinin?class=whiteButton+submit]
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-09 04:33:01) [GET]
+  Parameters: {"class"=>"whiteButton submit"}
+Rendering template within layouts/aol
+Rendering aol/signin
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/signin?class=whiteButton+submit]
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-09 04:33:09) [POST]
+  Parameters: {"payer"=>{"user"=>"drorp25", "password"=>"1"}}
+  [4;36;1mPayer Load (32.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."user" = 'drorp25') LIMIT 1[0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 1) ORDER BY created_at DESC LIMIT 1[0m
+Redirected to http://localhost:3000/aol/welcome_signedin
+Completed in 109ms (DB: 32) | 302 Found [http://localhost/aol/signin]
+
+
+Processing AolController#welcome_signedin (for 127.0.0.1 at 2010-03-09 04:33:10) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_signedin
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/welcome_signedin]
+
+
+Processing AolController#account_form (for 127.0.0.1 at 2010-03-09 04:33:13) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+Rendering template within layouts/aol
+Rendering aol/account_form
+Completed in 46ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/account_form]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-09 04:33:17) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 109ms (View: 93, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#budget_form (for 127.0.0.1 at 2010-03-09 04:33:19) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 1) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/aol
+Rendering aol/budget_form
+Completed in 156ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/budget_form]
+
+
+Processing AolController#budget_update (for 127.0.0.1 at 2010-03-09 04:33:24) [POST]
+  Parameters: {"rule"=>{"allowance"=>"1000", "rollover"=>"1"}}
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 1) [0m
+  [4;35;1mPayerRule Update (15.0ms)[0m   [0mUPDATE "payer_rules" SET "rollover" = 't', "updated_at" = '2010-03-09 02:33:24' WHERE "id" = 1[0m
+Redirected to http://localhost:3000/aol/rules_menu
+Completed in 250ms (DB: 15) | 302 Found [http://localhost/aol/budget_update]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-09 04:33:24) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#amounts_form (for 127.0.0.1 at 2010-03-09 04:33:30) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 1) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 1) [0m
+Rendering template within layouts/aol
+Rendering aol/amounts_form
+Completed in 110ms (View: 63, DB: 0) | 200 OK [http://localhost/aol/amounts_form]
+
+
+Processing AolController#welcome_new (for 127.0.0.1 at 2010-03-09 04:35:50) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_new
+Completed in 140ms (View: 140, DB: 0) | 200 OK [http://localhost/aol/welcome_new]
+
+
+Processing AolController#welcome_new (for 127.0.0.1 at 2010-03-09 04:35:52) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_new
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/welcome_new]
+
+
+Processing AolController#joinin (for 127.0.0.1 at 2010-03-09 04:35:58) [GET]
+  Parameters: {"class"=>"whiteButton submit"}
+Rendering template within layouts/aol
+Rendering aol/joinin
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/joinin?class=whiteButton+submit]
+
+
+Processing AolController#create (for 127.0.0.1 at 2010-03-09 04:36:09) [POST]
+  Parameters: {"payer"=>{"user"=>"drorp26", "password_confirmation"=>"3", "password"=>"1"}}
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT "payers".id FROM "payers" WHERE ("payers"."user" = 'drorp26') LIMIT 1[0m
+Rendering template within layouts/aol
+Rendering aol/joinin
+Completed in 141ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/create]
+
+
+Processing AolController#create (for 127.0.0.1 at 2010-03-09 04:36:19) [POST]
+  Parameters: {"payer"=>{"user"=>"drorp26", "password_confirmation"=>"1", "password"=>"1"}}
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."user" = 'drorp26') LIMIT 1[0m
+  [4;36;1mPayer Create (0.0ms)[0m   [0;1mINSERT INTO "payers" ("user", "salt", "name", "updated_at", "hashed_password", "email", "balance", "pin", "created_at") VALUES('drorp26', '377054100.628733921431498', NULL, '2010-03-09 02:36:19', '8c8db93a0bc39b5ee8c2ede18ab6a7428a3be2b8', NULL, 0.0, NULL, '2010-03-09 02:36:19')[0m
+  [4;35;1mPayerRule Create (0.0ms)[0m   [0mINSERT INTO "payer_rules" ("auto_deny_over", "updated_at", "billing_id", "allowance", "auto_authorize_under", "authorization_phone", "payer_id", "rollover", "created_at") VALUES(NULL, '2010-03-09 02:36:20', 1, NULL, NULL, NULL, 2, 'f', '2010-03-09 02:36:20')[0m
+Redirected to http://localhost:3000/aol/welcome_signedin
+Completed in 1219ms (DB: 0) | 302 Found [http://localhost/aol/create]
+
+
+Processing AolController#welcome_signedin (for 127.0.0.1 at 2010-03-09 04:36:21) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_signedin
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/welcome_signedin]
+
+
+Processing AolController#account_form (for 127.0.0.1 at 2010-03-09 04:36:25) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 2) [0m
+Rendering template within layouts/aol
+Rendering aol/account_form
+Completed in 47ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/account_form]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-09 04:36:31) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#budget_form (for 127.0.0.1 at 2010-03-09 04:36:33) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 2) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 2) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/aol
+Rendering aol/budget_form
+Completed in 47ms (View: 15, DB: 16) | 200 OK [http://localhost/aol/budget_form]
+
+
+Processing AolController#budget_update (for 127.0.0.1 at 2010-03-09 04:36:44) [POST]
+  Parameters: {"rule"=>{"allowance"=>"300", "rollover"=>"1"}}
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 2) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 4) [0m
+  [4;35;1mPayerRule Update (0.0ms)[0m   [0mUPDATE "payer_rules" SET "rollover" = 't', "allowance" = 300.0, "updated_at" = '2010-03-09 02:36:44' WHERE "id" = 4[0m
+Redirected to http://localhost:3000/aol/rules_menu
+Completed in 312ms (DB: 0) | 302 Found [http://localhost/aol/budget_update]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-09 04:36:45) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 16ms (View: 0, DB: 16) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#budget_form (for 127.0.0.1 at 2010-03-09 04:36:48) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 2) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 2) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/aol
+Rendering aol/budget_form
+Completed in 78ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/budget_form]
+
+
+Processing AolController#amounts_form (for 127.0.0.1 at 2010-03-09 04:40:37) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 2) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 4) [0m
+Rendering template within layouts/aol
+Rendering aol/amounts_form
+Completed in 62ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/amounts_form]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:41:10) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:41:13) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 04:43:09) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 04:43:12) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 141ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:43:29) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:43:36) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 04:43:59) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 32ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:47:15) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:47:18) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:49:57) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 125ms (View: 125, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:50:00) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 0, DB: 15) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:52:43) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:52:46) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:54:27) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:54:30) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:56:59) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 04:57:02) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:03:37) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:03:42) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:06:07) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:06:12) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:07:25) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 15, DB: 16) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:07:27) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:08:14) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:08:16) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 0, DB: 16) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:08:38) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:08:40) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 0, DB: 15) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:09:06) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:09:10) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:10:48) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:10:51) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:11:25) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:11:28) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:12:33) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:13:16) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:16:08) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 140ms (View: 140, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 05:16:16) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 05:16:33) [GET]
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 32ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph (for 127.0.0.1 at 2010-03-09 05:16:36) [GET]
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" [0m
+Rendering template within layouts/aol
+Rendering aol/graph
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:17:52) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 32ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:17:54) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:18:07) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:18:45) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:21:19) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:21:22) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 05:21:45) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 11:52:49) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 62ms (View: 62, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 11:54:10) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 11:54:56) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 11:55:28) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 15, DB: 16) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 11:56:52) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 32ms (View: 32, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 11:57:05) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 11:57:08) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 0, DB: 16) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-09 11:57:32) [GET]
+
+ActionController::RoutingError (No route matches "/welcome_new" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2010-03-09 11:57:33) [GET]
+
+ActionController::RoutingError (No route matches "/welcome_new" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing AolController#welcome_new (for 127.0.0.1 at 2010-03-09 11:57:48) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_new
+Completed in 16ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/welcome_new]
+
+
+Processing AolController#welcome_new (for 127.0.0.1 at 2010-03-09 11:57:50) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_new
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/welcome_new]
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-09 11:57:54) [GET]
+  Parameters: {"class"=>"whiteButton submit"}
+Rendering template within layouts/aol
+Rendering aol/signin
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/signin?class=whiteButton+submit]
+
+
+Processing AolController#signin (for 127.0.0.1 at 2010-03-09 11:58:02) [POST]
+  Parameters: {"payer"=>{"user"=>"drorp26", "password"=>"1"}}
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."user" = 'drorp26') LIMIT 1[0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 2) ORDER BY created_at DESC LIMIT 1[0m
+Redirected to http://localhost:3000/aol/welcome_signedin
+Completed in 421ms (DB: 0) | 302 Found [http://localhost/aol/signin]
+
+
+Processing AolController#welcome_signedin (for 127.0.0.1 at 2010-03-09 11:58:03) [GET]
+Rendering template within layouts/aol
+Rendering aol/welcome_signedin
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/welcome_signedin]
+
+
+Processing AolController#account_form (for 127.0.0.1 at 2010-03-09 11:58:05) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 2) [0m
+Rendering template within layouts/aol
+Rendering aol/account_form
+Completed in 47ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/account_form]
+
+
+Processing AolController#account_update (for 127.0.0.1 at 2010-03-09 11:58:12) [POST]
+  Parameters: {"payer"=>{"name"=>"", "user"=>"drorp26", "password_confirmation"=>"", "password"=>"2", "pin"=>"", "email"=>""}}
+  [4;35;1mPayer Load (15.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 2) [0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT "payers".id FROM "payers" WHERE ("payers"."user" = 'drorp26' AND "payers".id <> 2) LIMIT 1[0m
+Rendering template within layouts/aol
+Rendering aol/account_form
+Completed in 47ms (View: 0, DB: 15) | 200 OK [http://localhost/aol/account_update]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-09 11:58:22) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 47ms (View: 32, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#budget_form (for 127.0.0.1 at 2010-03-09 11:58:24) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 2) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 2) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/aol
+Rendering aol/budget_form
+Completed in 62ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/budget_form]
+
+
+Processing AolController#budget_update (for 127.0.0.1 at 2010-03-09 11:58:29) [POST]
+  Parameters: {"rule"=>{"allowance"=>"300", "rollover"=>"0"}}
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 2) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 4) [0m
+  [4;35;1mPayerRule Update (0.0ms)[0m   [0mUPDATE "payer_rules" SET "rollover" = 'f', "updated_at" = '2010-03-09 09:58:29' WHERE "id" = 4[0m
+Redirected to http://localhost:3000/aol/rules_menu
+Completed in 187ms (DB: 0) | 302 Found [http://localhost/aol/budget_update]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-09 11:58:29) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 172ms (View: 172, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#budget_form (for 127.0.0.1 at 2010-03-09 11:58:31) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 2) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 2) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/aol
+Rendering aol/budget_form
+Completed in 62ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/budget_form]
+
+
+Processing AolController#amounts_form (for 127.0.0.1 at 2010-03-09 11:58:36) [GET]
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 2) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 4) [0m
+Rendering template within layouts/aol
+Rendering aol/amounts_form
+Completed in 62ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/amounts_form]
+
+
+Processing AolController#amounts_update (for 127.0.0.1 at 2010-03-09 11:58:41) [POST]
+  Parameters: {"rule"=>{"auto_deny_over"=>"", "auto_authorize_under"=>"20", "authorization_phone"=>""}}
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 4) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 4) [0m
+  [4;36;1mPayerRule Update (0.0ms)[0m   [0;1mUPDATE "payer_rules" SET "auto_authorize_under" = 20.0, "updated_at" = '2010-03-09 09:58:41' WHERE "id" = 4[0m
+Redirected to http://localhost:3000/aol/rules_menu
+Completed in 578ms (DB: 0) | 302 Found [http://localhost/aol/amounts_update]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-09 11:58:42) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#amounts_form (for 127.0.0.1 at 2010-03-09 11:58:46) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 2) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 4) [0m
+Rendering template within layouts/aol
+Rendering aol/amounts_form
+Completed in 63ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/amounts_form]
+
+
+Processing AolController#budget_form (for 127.0.0.1 at 2010-03-09 11:58:53) [GET]
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 2) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 2) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/aol
+Rendering aol/budget_form
+Completed in 62ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/budget_form]
+
+
+Processing AolController#budget_update (for 127.0.0.1 at 2010-03-09 11:58:56) [POST]
+  Parameters: {"rule"=>{"allowance"=>"300", "rollover"=>"1"}}
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 2) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules"."id" = 4) [0m
+  [4;35;1mPayerRule Update (0.0ms)[0m   [0mUPDATE "payer_rules" SET "rollover" = 't', "updated_at" = '2010-03-09 09:58:56' WHERE "id" = 4[0m
+Redirected to http://localhost:3000/aol/rules_menu
+Completed in 235ms (DB: 16) | 302 Found [http://localhost/aol/budget_update]
+
+
+Processing AolController#rules_menu (for 127.0.0.1 at 2010-03-09 11:58:56) [GET]
+Rendering template within layouts/aol
+Rendering aol/rules_menu
+Completed in 156ms (View: 156, DB: 0) | 200 OK [http://localhost/aol/rules_menu]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 11:59:21) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 11:59:23) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:00:14) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 93ms (View: 93, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:00:16) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 172ms (View: 156, DB: 16) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:00:29) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:02:54) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 32ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:03:15) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 141ms (View: 125, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:04:38) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:04:48) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 32ms (View: 32, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:06:05) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:10:56) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 63ms (View: 63, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:10:59) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 46ms (View: 46, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:14:38) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:15:49) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 125ms (View: 125, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:16:03) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 0ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:16:05) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:17:55) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 32ms (View: 32, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:19:33) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 32ms (View: 32, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:20:15) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:20:33) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:20:36) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:21:59) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:22:10) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 63ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:22:12) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:22:30) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 0, DB: 16) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:23:58) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:24:09) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:24:12) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:31:03) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 78ms (View: 78, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:31:06) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 157ms (View: 141, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:55:27) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:55:42) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 156ms (View: 140, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:55:45) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 46ms (View: 46, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:56:15) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 32ms (View: 16, DB: 16) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:56:28) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 32ms (View: 32, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 12:56:30) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:06:35) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:07:52) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:08:12) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 47ms (View: 32, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:08:15) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:10:06) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 32ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:10:16) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:10:19) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 63ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:13:45) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 63ms (View: 63, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:13:48) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 47ms (View: 32, DB: 15) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:26:14) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:29:02) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:30:08) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 32ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:30:48) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:31:29) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:32:23) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:34:53) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 15, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:39:41) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 0, DB: 15) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:40:54) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 140ms (View: 125, DB: 15) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:42:03) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 32ms (View: 32, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:43:07) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 32ms (View: 16, DB: 16) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:45:39) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 172ms (View: 172, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 13:45:42) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 62ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 14:20:40) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 14:21:33) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 14:21:51) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 14:21:53) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 14:23:08) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 14:23:10) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 31ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 14:24:49) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 62ms (View: 62, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 14:24:51) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 125ms (View: 125, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 14:25:30) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 62ms (View: 62, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 14:25:32) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 156ms (View: 141, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 14:26:47) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 15ms (View: 0, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 15:46:53) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 140ms (View: 140, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 15:46:56) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 47ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 15:47:20) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 141ms (View: 141, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 15:47:23) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 32ms (View: 32, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 15:47:51) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 15:47:54) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 15:48:46) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 47ms (View: 31, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 15:48:49) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 125ms (View: 125, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 16:02:52) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 47ms (View: 47, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AolController#graph1 (for 127.0.0.1 at 2010-03-09 16:02:54) [GET]
+Rendering template within layouts/aol
+Rendering aol/graph1
+Completed in 156ms (View: 156, DB: 0) | 200 OK [http://localhost/aol/graph1]
+
+
+Processing AaaController#farmville (for 127.0.0.1 at 2010-03-09 16:05:48) [GET]
+
+ActionController::UnknownAction (No action responded to farmville. Actions: account, authenticate, authorize, authorize_purchase, clear_session, find_consumer_and_payer, find_or_create_purchase, find_retailer_and_product, get_context, get_status, main, manually_authorize, no_use_waiting, send_sms_to_consumer, set_expected_pin, set_session, sms, and write_message):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing FarmvilleController#money (for 127.0.0.1 at 2010-03-09 16:05:59) [GET]
+Rendering template within layouts/farmville
+Rendering farmville/money
+Completed in 281ms (View: 250, DB: 15) | 200 OK [http://localhost/farmville/money]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-09 16:06:17) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 93ms (View: 78, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-09 16:06:27) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '1111111111') LIMIT 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."user" IS NULL) LIMIT 1[0m
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mSQLite3::SQLException: SQL logic error or missing database: INSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 14:06:27', '1111111111', NULL, '2010-03-09 14:06:27')[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 281ms (View: 31, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-09 16:10:54) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-09 16:10:59) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '1111111111') LIMIT 1[0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT "payers".id FROM "payers" WHERE ("payers"."user" IS NULL) LIMIT 1[0m
+  [4;35;1mConsumer Create (0.0ms)[0m   [0mSQLite3::SQLException: SQL logic error or missing database: INSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 14:10:59', '1111111111', NULL, '2010-03-09 14:10:59')[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 1576094ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-09 16:37:15) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-09 16:37:37) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-09 16:37:42) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '1111111111') LIMIT 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."user" IS NULL) LIMIT 1[0m
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mSQLite3::SQLException: SQL logic error or missing database: INSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 14:37:42', '1111111111', NULL, '2010-03-09 14:37:42')[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 47ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-09 16:40:42) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-09 16:40:46) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '1111111111') LIMIT 1[0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT "payers".id FROM "payers" WHERE ("payers"."user" IS NULL) LIMIT 1[0m
+  [4;35;1mConsumer Create (0.0ms)[0m   [0mSQLite3::SQLException: SQL logic error or missing database: INSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 14:40:46', '1111111111', NULL, '2010-03-09 14:40:46')[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 47ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-09 16:40:52) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 31ms (View: 0, DB: 15) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-09 16:40:55) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"111"}, "commit"=>"Click when done"}
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-09 16:41:01) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111"}, "commit"=>"Click when done"}
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 32ms (View: 16, DB: 16) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing ApplicationController#main (for 127.0.0.1 at 2010-03-09 16:44:00) [GET]
+
+SyntaxError (F:/InstantRails/rails_apps/work/depot/app/controllers/aaa_controller.rb:309: syntax error, unexpected $end, expecting kEND):
+  
+
+Rendered rescues/_trace (78.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-09 16:45:28) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-09 16:45:32) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '1111111111') LIMIT 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."user" IS NULL) LIMIT 1[0m
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mSQLite3::SQLException: SQL logic error or missing database: INSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 14:45:32', '1111111111', NULL, '2010-03-09 14:45:32')[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 47ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-09 16:46:28) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 15ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-09 16:46:33) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '1111111111') LIMIT 1[0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT "payers".id FROM "payers" WHERE ("payers"."user" IS NULL) LIMIT 1[0m
+  [4;35;1mConsumer Create (0.0ms)[0m   [0mSQLite3::SQLException: SQL logic error or missing database: INSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 14:47:13', '1111111111', NULL, '2010-03-09 14:47:13')[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 40828ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-09 16:54:02) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-09 16:54:06) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '1111111111') LIMIT 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."user" IS NULL) LIMIT 1[0m
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mSQLite3::SQLException: SQL logic error or missing database: INSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 15:00:07', '1111111111', NULL, '2010-03-09 15:00:07')[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 2177735ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-09 17:32:19) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 203ms (View: 172, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-09 17:32:24) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"1111111111"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '1111111111') LIMIT 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."user" IS NULL) LIMIT 1[0m
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mSQLite3::SQLException: SQL logic error or missing database: INSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 15:36:45', '1111111111', NULL, '2010-03-09 15:36:45')[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."user" IS NULL) LIMIT 1[0m
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mSQLite3::SQLException: SQL logic error or missing database: INSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 15:36:45', '1111111111', NULL, '2010-03-09 15:36:45')[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."user" IS NULL) LIMIT 1[0m
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mSQLite3::SQLException: SQL logic error or missing database: INSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 15:36:45', '1111111111', NULL, '2010-03-09 15:36:45')[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."user" IS NULL) LIMIT 1[0m
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mSQLite3::SQLException: SQL logic error or missing database: INSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 15:36:45', '1111111111', NULL, '2010-03-09 15:36:45')[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."user" IS NULL) LIMIT 1[0m
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mSQLite3::SQLException: SQL logic error or missing database: INSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 15:36:45', '1111111111', NULL, '2010-03-09 15:36:45')[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."user" IS NULL) LIMIT 1[0m
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mSQLite3::SQLException: SQL logic error or missing database: INSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 15:36:45', '1111111111', NULL, '2010-03-09 15:36:45')[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."user" IS NULL) LIMIT 1[0m
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mSQLite3::SQLException: SQL logic error or missing database: INSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 15:44:44', '1111111111', NULL, '2010-03-09 15:44:44')[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."user" IS NULL) LIMIT 1[0m
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mSQLite3::SQLException: SQL logic error or missing database: INSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 15:44:44', '1111111111', NULL, '2010-03-09 15:44:44')[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."user" IS NULL) LIMIT 1[0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT "payers".id FROM "payers" WHERE ("payers"."user" IS NULL) LIMIT 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."user" = 'drorp') LIMIT 1[0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT "payers".id FROM "payers" WHERE ("payers"."user" = 'drorp') LIMIT 1[0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."user" = 'drorp') LIMIT 1[0m
+  [4;36;1mPayer Create (0.0ms)[0m   [0;1mINSERT INTO "payers" ("user", "salt", "name", "updated_at", "hashed_password", "email", "balance", "pin", "created_at") VALUES('drorp', NULL, NULL, '2010-03-09 15:50:16', 'dfg', NULL, 5.0, NULL, '2010-03-09 15:50:16')[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT "payers".id FROM "payers" WHERE ("payers"."user" = 'drorp' AND "payers".id <> 3) LIMIT 1[0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT "payers".id FROM "payers" WHERE ("payers"."user" IS NULL) LIMIT 1[0m
+  [4;35;1mConsumer Create (0.0ms)[0m   [0mSQLite3::SQLException: SQL logic error or missing database: INSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 15:44:44', '1111111111', NULL, '2010-03-09 15:44:44')[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 1280125ms (View: 16, DB: 16) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-09 17:53:44) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-09 17:54:08) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2222222222"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2222222222') LIMIT 1[0m
+  [4;35;1mPayer Create (0.0ms)[0m   [0mINSERT INTO "payers" ("user", "salt", "name", "updated_at", "hashed_password", "email", "balance", "pin", "created_at") VALUES(NULL, NULL, NULL, '2010-03-09 15:54:08', NULL, NULL, 0.0, NULL, '2010-03-09 15:54:08')[0m
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 15:54:08', '2222222222', 4, '2010-03-09 15:54:08')[0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;36;1mRetailer Create (0.0ms)[0m   [0;1mINSERT INTO "retailers" ("user", "salt", "name", "updated_at", "hashed_password", "billed", "collected", "email", "created_at") VALUES(NULL, NULL, 'hula', '2010-03-09 15:54:08', NULL, NULL, NULL, NULL, '2010-03-09 15:54:08')[0m
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 1) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;36;1mProduct Create (0.0ms)[0m   [0;1mINSERT INTO "products" ("image_url", "updated_at", "title", "price", "category_id", "description", "created_at") VALUES(NULL, '2010-03-09 15:54:08', 'zmat', 9.99, 1, NULL, '2010-03-09 15:54:08')[0m
+  [4;35;1mItem Create (0.0ms)[0m   [0mINSERT INTO "items" ("updated_at", "retailer_id", "product_id", "created_at") VALUES('2010-03-09 15:54:09', 1, 1, '2010-03-09 15:54:09')[0m
+  [4;36;1mPurchase Create (0.0ms)[0m   [0;1mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-09 15:54:09', NULL, 1, '2010-03-09 17:54:09', 1, NULL, 9.99, NULL, NULL, 4, '2010-03-09 15:54:09')[0m
+  [4;35;1mPurchase Update (0.0ms)[0m   [0mUPDATE "purchases" SET "authorization_date" = '2010-03-09 17:54:09', "authorization_type" = 'NoPayer', "updated_at" = '2010-03-09 15:54:09' WHERE "id" = 1[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 2531ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-09 17:54:58) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"234234"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 1) [0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 250ms (View: 219, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-09 17:55:05) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"9162"}
+  [4;36;1mPurchase Load (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 1) [0m
+  [4;35;1mCACHE (0.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 1) [0m
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."id" = 1) [0m
+  [4;35;1mRetailer Update (0.0ms)[0m   [0mUPDATE "retailers" SET "collected" = 9.99, "updated_at" = '2010-03-09 15:55:06' WHERE "id" = 1[0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT * FROM "payers" WHERE ("payers"."id" = 4) [0m
+  [4;35;1mPayer Update (0.0ms)[0m   [0mUPDATE "payers" SET "balance" = -9.99, "updated_at" = '2010-03-09 15:55:06' WHERE "id" = 4[0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 422ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-09 21:48:28) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-09 21:48:33) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"4444444444"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '4444444444') LIMIT 1[0m
+  [4;35;1mPayer Create (0.0ms)[0m   [0mINSERT INTO "payers" ("user", "salt", "name", "updated_at", "hashed_password", "email", "balance", "pin", "created_at") VALUES(NULL, NULL, NULL, '2010-03-09 19:48:34', NULL, NULL, 0.0, NULL, '2010-03-09 19:48:34')[0m
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 19:48:34', '4444444444', 5, '2010-03-09 19:48:34')[0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 1) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;35;1mPurchase Create (0.0ms)[0m   [0mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-09 19:48:34', NULL, 1, '2010-03-09 21:48:34', 1, NULL, 9.99, NULL, NULL, 5, '2010-03-09 19:48:34')[0m
+  [4;36;1mPurchase Update (0.0ms)[0m   [0;1mUPDATE "purchases" SET "authorization_date" = '2010-03-09 21:48:34', "authorization_type" = 'NoPayer', "updated_at" = '2010-03-09 19:48:34' WHERE "id" = 2[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 2063ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-09 21:59:23) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-09 21:59:27) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"5555555555"}, "commit"=>"Click when done"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '5555555555') LIMIT 1[0m
+  [4;36;1mPayer Load (0.0ms)[0m   [0;1mSELECT "payers".id FROM "payers" WHERE ("payers"."user" = 'stub') LIMIT 1[0m
+  [4;35;1mPayer Create (0.0ms)[0m   [0mINSERT INTO "payers" ("user", "salt", "name", "updated_at", "hashed_password", "email", "balance", "pin", "created_at") VALUES('stub', NULL, NULL, '2010-03-09 19:59:27', 'stub', NULL, 0.0, NULL, '2010-03-09 19:59:27')[0m
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 19:59:27', '5555555555', 6, '2010-03-09 19:59:27')[0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 1) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;35;1mPurchase Create (0.0ms)[0m   [0mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-09 19:59:27', NULL, 1, '2010-03-09 21:59:27', 1, NULL, 9.99, NULL, NULL, 6, '2010-03-09 19:59:27')[0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 6) ORDER BY created_at DESC LIMIT 1[0m
+  [4;35;1mPurchase Update (0.0ms)[0m   [0mUPDATE "purchases" SET "authorization_type" = 'ZeroBalance', "updated_at" = '2010-03-09 19:59:27' WHERE "id" = 3[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 843ms (View: 15, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-09 22:26:56) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"6666666666"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '6666666666') LIMIT 1[0m
+  [4;35;1mPayer Create (0.0ms)[0m   [0mINSERT INTO "payers" ("user", "salt", "name", "updated_at", "hashed_password", "email", "balance", "pin", "created_at") VALUES(NULL, NULL, NULL, '2010-03-09 20:26:56', NULL, NULL, 0.0, NULL, '2010-03-09 20:26:56')[0m
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 20:26:56', '6666666666', 7, '2010-03-09 20:26:56')[0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;36;1mProduct Load (0.0ms)[0m   [0;1mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 1) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;35;1mPurchase Create (0.0ms)[0m   [0mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-09 20:26:56', NULL, 1, '2010-03-09 22:26:56', 1, NULL, 9.99, NULL, NULL, 7, '2010-03-09 20:26:56')[0m
+  [4;36;1mPurchase Update (0.0ms)[0m   [0;1mUPDATE "purchases" SET "authorization_date" = '2010-03-09 22:26:57', "authorization_type" = 'NoPayer', "updated_at" = '2010-03-09 20:26:57' WHERE "id" = 4[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 1719ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authenticate (for 127.0.0.1 at 2010-03-09 22:27:14) [POST]
+  Parameters: {"commit"=>"Click when done", "pin"=>"8376"}
+  [4;35;1mPurchase Load (15.0ms)[0m   [0mSELECT * FROM "purchases" WHERE ("purchases"."id" = 4) [0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM "purchases" WHERE ("purchases"."id" = 4) [0m
+  [4;35;1mRetailer Load (0.0ms)[0m   [0mSELECT * FROM "retailers" WHERE ("retailers"."id" = 1) [0m
+  [4;36;1mRetailer Update (0.0ms)[0m   [0;1mUPDATE "retailers" SET "collected" = 19.98, "updated_at" = '2010-03-09 20:27:14' WHERE "id" = 1[0m
+  [4;35;1mPayer Load (0.0ms)[0m   [0mSELECT * FROM "payers" WHERE ("payers"."id" = 7) [0m
+  [4;36;1mPayer Update (0.0ms)[0m   [0;1mUPDATE "payers" SET "balance" = -9.99, "updated_at" = '2010-03-09 20:27:14' WHERE "id" = 7[0m
+Rendering template within layouts/aaa
+Rendering aaa/authenticate
+Completed in 469ms (View: 16, DB: 15) | 200 OK [http://localhost/aaa/authenticate]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-09 22:40:49) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-09 22:40:55) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"7777777777"}, "commit"=>"Click when done"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '7777777777') LIMIT 1[0m
+  [4;36;1mPayer Create (0.0ms)[0m   [0;1mINSERT INTO "payers" ("user", "salt", "name", "updated_at", "hashed_password", "email", "balance", "pin", "created_at") VALUES(NULL, NULL, NULL, '2010-03-09 20:40:55', NULL, NULL, NULL, NULL, '2010-03-09 20:40:55')[0m
+  [4;35;1mConsumer Create (0.0ms)[0m   [0mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 20:40:55', '7777777777', 8, '2010-03-09 20:40:55')[0m
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 1) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;36;1mPurchase Create (0.0ms)[0m   [0;1mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-09 20:40:56', NULL, 1, '2010-03-09 22:40:56', 1, NULL, 9.99, NULL, NULL, 8, '2010-03-09 20:40:56')[0m
+  [4;35;1mPurchase Update (0.0ms)[0m   [0mUPDATE "purchases" SET "authorization_date" = '2010-03-09 22:40:56', "authorization_type" = 'NoPayer', "updated_at" = '2010-03-09 20:40:56' WHERE "id" = 5[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 2078ms (View: 93, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-09 22:42:14) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-09 22:42:20) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"8888888888"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '8888888888') LIMIT 1[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 63ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-09 22:44:30) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"8888888888"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '8888888888') LIMIT 1[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 375ms (View: 141, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-09 22:44:36) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 125ms (View: 125, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-09 22:44:41) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"8888888888"}, "commit"=>"Click when done"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '8888888888') LIMIT 1[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 47ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/authorize]
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-09 22:46:52) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 16ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-09 22:46:56) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"8888888888"}, "commit"=>"Click when done"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '8888888888') LIMIT 1[0m
+
+NameError (undefined local variable or method `error' for #<AaaController:0x498e5f0>):
+  app/controllers/aaa_controller.rb:170:in `find_consumer_and_payer'
+  app/controllers/aaa_controller.rb:96:in `authorize'
+
+Rendered rescues/_trace (141.0ms)
+Rendered rescues/_request_and_response (16.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing AaaController#main (for 127.0.0.1 at 2010-03-09 22:50:41) [GET]
+Rendering template within layouts/aaa
+Rendering aaa/main
+Completed in 31ms (View: 16, DB: 0) | 200 OK [http://localhost/aaa/main]
+
+
+Processing AaaController#authorize (for 127.0.0.1 at 2010-03-09 22:50:46) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"8888888888"}, "commit"=>"Click when done"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '8888888888') LIMIT 1[0m
+  [4;36;1mPayer Create (0.0ms)[0m   [0;1mINSERT INTO "payers" ("user", "salt", "name", "updated_at", "hashed_password", "email", "balance", "pin", "created_at") VALUES('0.959106167671874', NULL, NULL, '2010-03-09 20:50:46', '0.25265542743929', NULL, 0.0, NULL, '2010-03-09 20:50:46')[0m
+  [4;35;1mConsumer Create (0.0ms)[0m   [0mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at") VALUES('2010-03-09 20:50:46', '8888888888', 9, '2010-03-09 20:50:46')[0m
+  [4;36;1mRetailer Load (0.0ms)[0m   [0;1mSELECT * FROM "retailers" WHERE ("retailers"."name" = 'hula') LIMIT 1[0m
+  [4;35;1mProduct Load (0.0ms)[0m   [0mSELECT "products".* FROM "products" INNER JOIN "items" ON "products".id = "items".product_id WHERE (("items".retailer_id = 1) AND (title = 'zmat' and price = 9.99)) LIMIT 1[0m
+  [4;36;1mPurchase Create (0.0ms)[0m   [0;1mINSERT INTO "purchases" ("updated_at", "authorization_date", "retailer_id", "date", "product_id", "authorization_type", "amount", "billing_date", "billing_type", "payer_id", "created_at") VALUES('2010-03-09 20:50:46', NULL, 1, '2010-03-09 22:50:46', 1, NULL, 9.99, NULL, NULL, 9, '2010-03-09 20:50:46')[0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".payer_id = 9) ORDER BY created_at DESC LIMIT 1[0m
+  [4;36;1mPurchase Update (0.0ms)[0m   [0;1mUPDATE "purchases" SET "authorization_type" = 'ZeroBalance', "updated_at" = '2010-03-09 20:50:47' WHERE "id" = 6[0m
+Rendering template within layouts/aaa
+Rendering aaa/authorize
+Completed in 485ms (View: 0, DB: 0) | 200 OK [http://localhost/aaa/authorize]

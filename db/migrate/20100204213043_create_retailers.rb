@@ -14,7 +14,7 @@ class CreateRetailers < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :retailers, :username, :name
+
   end
 
   def self.down

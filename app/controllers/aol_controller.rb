@@ -1,4 +1,6 @@
 require 'ruby-debug'
+require 'rubygems'
+require 'seer'
 class AolController < ApplicationController
   
   def main
@@ -96,7 +98,7 @@ class AolController < ApplicationController
   def budget_update
     
     @payer = Payer.find(session[:payer_id])
-    @rule = @payer.most_recent_payer_rule
+    @rule = PayerRule.find(session[:rule_id])
     unless @rule
       flash[:notice] = "No rule set for this payer"
       redirect_to :action => :joinin
@@ -104,7 +106,7 @@ class AolController < ApplicationController
     end
     
     if @rule.update_attributes(params[:rule])
-      debugger
+
       flash[:notice] = "Rule updated!"
       redirect_to :action => :rules_menu
     else
@@ -113,6 +115,33 @@ class AolController < ApplicationController
     end
     
   end
+  
+  def amounts_form                        # make it graphical one day
+    
+    @payer = Payer.find(session[:payer_id])
+    @rule = PayerRule.find(session[:rule_id])
+    
+  end
+  
+  def amounts_update                      # identicai to budget_update and possible others too - create method
+    @payer =PayerRule.find(session[:rule_id])
+    @rule = PayerRule.find(session[:rule_id])
+    unless @rule
+      flash[:notice] = "No rule set for this payer"
+      redirect_to :action => :joinin
+      return
+    end
+    
+    if @rule.update_attributes(params[:rule])
+
+      flash[:notice] = "Rule updated!"
+      redirect_to :action => :rules_menu
+    else
+      flash[:notice] = "Something wrong happened"
+      render :action => :rules_menu
+    end
+ 
+  end
 
  
    def logout
@@ -120,5 +149,17 @@ class AolController < ApplicationController
     flash[:notice] = "Logged out"
     redirect_to(:action => "login")
   end
- 
+  
+  def graph
+    @rules = PayerRule.all
+  end
+
+   def graph1
+    @value = '4000'
+  end
+  
+  def purchase_report
+    @purchases = Purchase.all
+  end
+
  end

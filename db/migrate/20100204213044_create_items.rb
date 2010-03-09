@@ -8,9 +8,10 @@ class CreateItems < ActiveRecord::Migration
         "CONSTRAINT fk_retailer_product_products REFERENCES products(id)"
       
         t.timestamps
+        end
         add_index :items, [:product_id, :retailer_id], :unique => true
         add_index :items, :retailer_id, :unique => false
-    end
+
   end
 
   def self.down

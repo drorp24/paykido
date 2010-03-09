@@ -1,0 +1,25 @@
+<div id="chart" class="current">here</div>
+
+<%= Seer::visualize(
+      @rules, 
+      :as => :gauge,
+      :in_element => 'chart',
+      :series => {
+        :series_label => 'billing_id',
+        :data_method => 'allowance'
+      },
+      :chart_options => {
+        :green_from => 0,
+        :green_to => 50,
+        :height => 300,
+        :max => 100,
+        :min => 0,
+        :minor_ticks => 5,
+        :red_from => 76,
+        :red_to => 100,
+        :width => 600,
+        :yellow_from => 51,
+        :yellow_to => 75
+      }
+    )
+ -%>

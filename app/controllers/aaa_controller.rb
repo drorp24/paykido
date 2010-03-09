@@ -87,25 +87,26 @@ class AaaController < ApplicationController
   unless no_use_waiting
     begin
 
-    if session[:purchase_id] and @purchase.authorization_date?
-      @status = "Welcome back"
-      @message = "Go ahead and enter the PIN code now"
-# manual authorization updates: 1. purchase record (2 fields) 2. sends the sms to the consumer
-# if he's here then we can assume that an SMS has been sent and accepted by the consumer
-    else
-      find_consumer_and_payer
-      find_retailer_and_product
-      find_or_create_purchase
-      authorize_purchase
-      set_expected_pin
-      send_sms_to_consumer if @purchase.authorization_date?
-      write_message
-    end
+      if session[:purchase_id] and @purchase.authorization_date?
+        @status = "Welcome back"
+        @message = "Go ahead and enter the PIN code now"
+  # manual authorization updates: 1. purchase record (2 fields) 2. sends the sms to the consumer
+  # if he's here then we can assume that an SMS has been sent and accepted by the consumer
+      else
+        find_consumer_and_payer
+        find_retailer_and_product
+        find_or_create_purchase
+        authorize_purchase
+        set_expected_pin
+        send_sms_to_consumer if @purchase.authorization_date?
+        write_message
+      end
 
-    rescue 
-    @status = "We're sorry. The service is temprarily down"
-    @message = "It will be up again in no time!"
+    rescue
+        @status = "We're sorry. The service is temprarily down"
+        @message = flash[:notice]
     end
+    
   end
 
 end
@@ -161,12 +162,11 @@ end
      @consumer = Consumer.find_by_billing_phone(params[:consumer][:billing_phone])
      unless @consumer
         begin
-        @consumer = Consumer.new(params[:consumer])
-        @consumer.payer = Payer.new(:balance => 0)
-#        debugger
-        @consumer.save!
-        rescue #RecordInvalid => error
-#          flash[:now] = "hya" #error.message
+          @consumer = Consumer.new(params[:consumer])
+          @consumer.payer = Payer.new(:balance => 0, :user => rand.to_s, :hashed_password => rand.to_s)
+          @consumer.save!
+        rescue #RecordInvalid 
+          flash[:notice] = "Consumer and/or payer didn't pass validation"
           raise
         end 
      end

@@ -1,0 +1,18 @@
+<% title "Authorization Rules" %>
+
+<% form_for :rule, :url => { :action => :amounts_update } do |f| %>
+  	<%= f.error_messages %>
+
+  	<ul class="rounded">
+    	<li>Authorize anything under<%= f.text_field :auto_authorize_under, :placeholder => "this amount" %></li>
+	</ul>
+  	<ul class="rounded">
+    	<li>Deny anything above<%= f.text_field :auto_deny_over, :placeholder => "that amount" %></li>
+	</ul>
+  	<ul class="rounded">
+    	<li>Ask me for anything in between<%= f.text_field :authorization_phone, :placeholder => "using this phone number" %></li>
+	</ul>
+
+  	<%= link_to "Submit", nil, :class => "whiteButton submit" %>
+
+<% end %>

@@ -30,7 +30,17 @@ ActiveRecord::Schema.define(:version => 20100217235649) do
     t.datetime "updated_at"
   end
 
-  add_index "consumers", ["billing_phone"], :name => "index_subscribers_on_billing_phone"
+  add_index "consumers", ["billing_phone"], :name => "index_consumers_on_billing_phone"
+
+  create_table "items", :force => true do |t|
+    t.string   "retailer_id", :null => false
+    t.string   "product_id",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "items", ["product_id", "retailer_id"], :name => "index_items_on_product_id_and_retailer_id", :unique => true
+  add_index "items", ["retailer_id"], :name => "index_items_on_retailer_id"
 
   create_table "line_items", :force => true do |t|
     t.integer  "product_id",                                :null => false
@@ -59,8 +69,8 @@ ActiveRecord::Schema.define(:version => 20100217235649) do
   end
 
   create_table "payer_rules", :force => true do |t|
-    t.integer  "payer_id",           :null => false
-    t.integer  "billing_id",         :null => false
+    t.integer  "payer_id",             :null => false
+    t.integer  "billing_id",           :null => false
     t.decimal  "allowance"
     t.boolean  "rollover"
     t.decimal  "auto_authorize_under"
@@ -71,20 +81,20 @@ ActiveRecord::Schema.define(:version => 20100217235649) do
   end
 
   create_table "payers", :force => true do |t|
-    t.string   "username"
+    t.string   "user"
     t.string   "hashed_password"
     t.string   "salt"
     t.string   "name"
     t.string   "email"
     t.decimal  "balance"
-    t.integer  "pin"
+    t.string   "pin"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "products", :force => true do |t|
     t.integer  "category_id",                                                :null => false
-    t.string   "title"
+    t.string   "title",                                                      :null => false
     t.text     "description"
     t.string   "image_url"
     t.decimal  "price",       :precision => 8, :scale => 2, :default => 0.0
@@ -92,29 +102,24 @@ ActiveRecord::Schema.define(:version => 20100217235649) do
     t.datetime "updated_at"
   end
 
+  add_index "products", ["title"], :name => "index_products_on_title"
+
   create_table "purchases", :force => true do |t|
-    t.integer  "payer_id",      :null => false
-    t.integer  "retailer_id",   :null => false
-    t.integer  "product_id",    :null => false
-    t.decimal  "amount",        :null => false
-    t.date     "purchase_date", :null => false
-    t.date     "approval_date"
-    t.string   "approval_type"
+    t.integer  "payer_id",           :null => false
+    t.integer  "retailer_id",        :null => false
+    t.integer  "product_id",         :null => false
+    t.decimal  "amount",             :null => false
+    t.date     "date",               :null => false
+    t.date     "authorization_date"
+    t.string   "authorization_type"
     t.date     "billing_date"
     t.integer  "billing_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "retailer_products", :force => true do |t|
-    t.string   "retailer_id", :null => false
-    t.string   "product_id",  :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "retailers", :force => true do |t|
-    t.string   "username",        :null => false
+    t.string   "user"
     t.string   "hashed_password"
     t.string   "salt"
     t.string   "name"
