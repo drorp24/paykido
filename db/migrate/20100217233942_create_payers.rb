@@ -1,6 +1,7 @@
 class CreatePayers < ActiveRecord::Migration
   def self.up
     create_table :payers do |t|
+      t.boolean :exists
       t.string :user
       t.string :hashed_password
       t.string :salt

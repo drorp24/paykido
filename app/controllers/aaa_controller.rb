@@ -1,4 +1,4 @@
-#require 'ruby-debug'
+require 'ruby-debug'
 require 'rubygems'
 require 'clickatell'
 
@@ -97,19 +97,36 @@ class AaaController < ApplicationController
         find_retailer_and_product
         find_or_create_purchase
         authorize_purchase
-        set_expected_pin
-        send_sms_to_consumer if @purchase.authorization_date?
+        authenticate_consumer
+        save_purchase
         write_message
       end
 
     rescue
         @status = "We're sorry. The service is temprarily down"
-        @message = flash[:notice]
+        @message = "Please retry in a few moments"
+        raise
     end
     
   end
 
 end
+
+  def authenticate_consumer
+    
+    if @payer.exists? and @payer.pin?
+      
+      @purchase.authentication_type = "PIN"
+      session[:expected_pin] = @payer.pin
+      
+    elsif @purchase.authorization_date?
+      
+      @purchase.authentication_type = "SMS"
+      session[:expected_pin] = rand.to_s.last(4)
+      send_sms_to_consumer
+    end 
+
+  end
 
   def write_message
     
@@ -119,9 +136,12 @@ end
     elsif !@purchase.authorization_date
       @status = "We're sorry. This purchase was unauthorized (#{@purchase.authorization_type})"
       @message = "Would you like to try buying any other item?"
-    elsif @payer.user?
+    elsif @payer.exists? and @payer.pin?
       @status = "Welcome back!"
       @message = "Go ahead and key in your permanent PIN"
+    elsif @payer.exists?
+      @status = "Welcome back. An SMS is on its way."
+      @message = "Make yourself a premanent PIN!"
     else
       @status = "Thank you"
       @message = "an SMS with the PIN code is on its way!"
@@ -141,6 +161,8 @@ end
     if @purchase.authorization_date? and params[:pin]== session[:expected_pin]
       @status = "That's it. You're done."
       @message = "Enjoy the game!"
+      @purchase.authentication_date = Time.now
+      @purchase.save
       account(@purchase.amount)
       clear_session
     else
@@ -150,7 +172,7 @@ end
 
     rescue 
     @status = "We're sorry. The service is temprarily down"
-    @message = "It will be up again in no time!"
+    @message = "Please retry in a few moments"
     end
   end
   
@@ -205,8 +227,10 @@ end
   end
   
   def authorize_purchase
+    
+    debugger
 
-    if @payer.user?
+    if @payer.exists?
       @rule = @payer.most_recent_payer_rule
       
       if @payer.balance <= 0
@@ -240,9 +264,13 @@ end
       @purchase.authorization_date = Time.now
     end   
     
+  end
+  
+  def save_purchase
+    
     @purchase.save
     session[:purchase_id] = @purchase.id
-
+    
   end
   
   def manually_authorize(phone, retailer, product, price)
@@ -250,16 +278,7 @@ end
     sms_message = "need your approval for #{retailer} #{product} #{price}"
     sms(phone, sms_message)if authorization_method == "sms"
   end
-  
-  def set_expected_pin
     
-    if @payer.user?
-      session[:expected_pin] = @payer.pin
-    else
-      session[:expected_pin] = rand.to_s.last(4)
-    end 
- 
-  end
   
   def send_sms_to_consumer
     
@@ -272,8 +291,8 @@ end
   
   def sms(phone, message)
 
-    api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
-    api.send_message('0542343220', message)
+#    api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
+#    api.send_message('0542343220', message)
     
   end
   

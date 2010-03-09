@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(:version => 20100217235649) do
   end
 
   create_table "payers", :force => true do |t|
+    t.boolean   "exists"
     t.string   "user"
     t.string   "hashed_password"
     t.string   "salt"

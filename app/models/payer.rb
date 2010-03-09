@@ -14,13 +14,14 @@ class Payer < ActiveRecord::Base
   
   attr_accessor :password_confirmation
 
-#  no validity checks - until I change the data model (linking purchase to consumers vs. payers)
-#  validates_presence_of :user    
-#  validates_uniqueness_of :user      
-#  validate :password_non_blank 
-#  validates_confirmation_of :password
+#  consider linking purchase to consumers vs. payers
+  validates_presence_of :user    
+  validates_uniqueness_of :user      
+  validate :password_non_blank 
+  validates_confirmation_of :password
   
  
+  attr_accessor :exists
 #  attr_accessor :balance, :user,:hashed_password
   
 #  def initialize

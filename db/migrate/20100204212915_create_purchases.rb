@@ -15,6 +15,9 @@ class CreatePurchases < ActiveRecord::Migration
       t.date      :authorization_date
       t.string    :authorization_type
       
+      t.date      :authentication_date
+      t.string    :authentication_type
+      
       t.date      :billing_date
       t.integer   :billing_type
 

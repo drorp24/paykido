@@ -43,12 +43,13 @@ class AolController < ApplicationController
   end
   
   def joinin
+    @payer = Payer.new(:exists => true, :balance => 0)
     
   end
   
   def create
     payer = Payer.new(params[:payer])
-    payer.balance = 0
+#    payer.balance = 0                    # should be set to 0 already by joinin. Also check exists is set.
 
     if payer.save
       session[:payer_id] = payer.id
