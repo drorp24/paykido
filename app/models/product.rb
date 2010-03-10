@@ -4,6 +4,7 @@ class Product < ActiveRecord::Base
   
   has_many    :items
   has_many    :retailers, :through => :items
+  has_many    :purchases
   
 #  validates_presence_of :title, :description, :image_url
 

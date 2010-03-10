@@ -156,11 +156,8 @@ class AolController < ApplicationController
   end
 
    def graph1
-    @value = '4000'
+
+    @categories = Category.all
   end
   
-  def purchase_report
-    @purchases = Purchase.all
-  end
-
  end
