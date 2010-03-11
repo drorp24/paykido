@@ -30,7 +30,7 @@ class Payer < ActiveRecord::Base
 #    @user = rand.to_s
 #    @hashed_password = rand.to_s
 #  end
- 
+   
   def self.authenticate(user, password)
     payer = self.find_by_user(user) if user
     if payer

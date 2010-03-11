@@ -1,4 +1,4 @@
-
+require 'ruby-debug'
 class Product < ActiveRecord::Base
   belongs_to  :category
   
@@ -21,6 +21,20 @@ class Product < ActiveRecord::Base
 #                      :message => 'must be a URL for GIF, JPG ' +
 #                                  'or PNG image.'
 
+  def quantity
+    purchases.sum(:amount)
+  end
+
+  def self.top(num)
+ 
+    products = {}
+    all.each do |product|
+      products[product.title] = product.quantity
+    end
+    products.sort{|a,b| b[1]<=>a[1]}
+  
+  end
+  
   def self.find_products_for_sale
     find(:all, :order => "title")
   end

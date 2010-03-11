@@ -8,8 +8,8 @@ class Category < ActiveRecord::Base
   
 #  attr_accessor :name
   
-  def quantitty
-    self.purchases.sum(:amount)
+  def quantity
+       purchases.sum(:amount)
   end
 
 end

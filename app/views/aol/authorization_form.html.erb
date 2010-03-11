@@ -1,0 +1,31 @@
+<% title "Authorization" %>
+
+
+<ul class="rounded">
+	<li>
+		<span class="item">Retailer</span>
+		<span class="value"><%=@retailer%></span>
+	</li>
+</ul>
+<ul class="rounded">
+	<li>
+		<span class="item">Product</span>
+		<span class="value"><%=@product%></span>
+	</li>
+</ul>
+<ul class="rounded">
+	<li>
+		<span class="item">Price</span>
+		<span class="value"><%= number_to_currency(@amount) %></span>
+	</li>
+</ul>
+<ul class="rounded">
+	<li>
+		<span class="item">Date</span>
+		<span class="value"><%=@date%></span>
+	</li>
+</ul>
+<%= link_to "Authorize", :action => :authorization_update, :class => "whiteButton submit"  %>
+
+
+

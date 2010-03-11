@@ -1,8 +1,148 @@
+#pending {
+	color:#cc4200;
+	position:absolute;
+	top:108px;
+	right:43px;
+
+}
+
+#info {
+	position:absolute;
+	height:250px;
+	width:320px;
+	/*
+border:1px solid red;
+*/
+}
+
+#info h4 {
+	font-size:0.9em;
+	font-stretch:condensed;
+	color:white;
+	text-shadow: #666 1px 1px 3px;
+	padding:0;
+	margin:0;
+
+}
+
+/*
+.whiteButton  {
+	width: 300px;
+	height:50px;
+	margin:10px;
+	margin-top:30px;
+	padding:0;
+}
+*/
+
+#balance_line,  #authorization_line  {
+	margin:1px;
+	margin-right:5px;
+	padding:0;
+
+}
+
+#balance_line {
+	margin-top:7px;
+}
+
+#balance {
+	color:#51b30d;
+	margin-right:25px;
+}
+
+
+
+#Pie_chart {
+	margin-left:3px;
+}
+
+#Pie_chart h4 {
+	margin-bottom:2px;
+}
+
+#top_products {
+	position: absolute;
+	right:3px;
+	top:0;
+	height:120px;
+	overflow:hidden;
+
+}
+
+#top_retailers {
+	position: absolute;
+	right:3px;
+	bottom: 10px;
+	height:120px;
+	overflow:hidden;
+
+}
 
 li {
 	font-size:1em;
 }
 
+/*
+ul li.greenarrow{
+	background:none;
+	background-repeat:no-repeat;
+	float: right;
+	background-image: url(/themes/jqt/img/chevron_circle.png);
+}
+
+*/
+
+.value {
+	float: right;
+}
+
+
+
+#lists  {
+
+	margin:0;
+	padding:0;
+	width:380px;
+	height:270px;
+	overflow:hidden;
+
+}
+
+#lists ul li {
+	margin:3px;
+	margin-right:1px;
+	padding:5px;
+}
+
+#lists li {
+	font-size:0.9emt;
+	width: 140px;
+}
+
+#lists li:hover {
+	background-color:#008000;
+	color:white;
+}
+
+#lists ul {
+	height:175px;
+	margin:0;
+
+#top_products ul {
+	margin:5px 0 0 5px;
+
+}
+
+#top_retailers ul {
+	margin:20px 0 2px 2px;
+}
+
+
+#Pie_chart {
+	float:left;
+
+}
 
 #logo {
 	margin-bottom:2px;
