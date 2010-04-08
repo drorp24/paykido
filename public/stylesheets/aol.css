@@ -6,6 +6,14 @@
 
 }
 
+.greendollar {
+	color: #666666;
+}
+
+.greendollar {
+	color: #51b30d;
+}
+
 #info {
 	position:absolute;
 	height:250px;
@@ -95,6 +103,16 @@ ul li.greenarrow{
 
 .value {
 	float: right;
+	display:inline;
+	width:40px;
+}
+
+.item {
+	display:inline;
+	width:150px;
+/*
+	border:1px solid blue;
+*/
 }
 
 

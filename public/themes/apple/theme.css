@@ -52,7 +52,7 @@ body.landscape .toolbar > h1 {
     width: 250px;
 }
 
-.button, .back, .cancel, .add {
+.button, .back, .like_back, .cancel, .add {
     position: absolute;
     overflow: hidden;
     top: 8px;
@@ -75,7 +75,7 @@ body.landscape .toolbar > h1 {
     -webkit-border-image: url(/themes/apple/img/toolButton.png) 0 5 0 5;
 }
 
-.button.active, .back.active, .cancel.active, .add.active {
+.button.active, .back.active, .cancel.active, .add.active, .like_back.active {
     -webkit-border-image: url(/themes/apple/img/toolButton.png) 0 5 0 5;	
 }
 
@@ -84,7 +84,7 @@ body.landscape .toolbar > h1 {
     border-width: 0 5px;
 }
 
-.back {
+.back, .like_back {
     left: 6px;
     right: auto;
     padding: 0;

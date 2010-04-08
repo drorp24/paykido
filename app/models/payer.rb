@@ -21,7 +21,7 @@ class Payer < ActiveRecord::Base
   validates_confirmation_of :password
   
  
-  attr_accessor :exists
+#  attr_accessor :exists
 #  attr_accessor :balance, :user,:hashed_password
   
 #  def initialize

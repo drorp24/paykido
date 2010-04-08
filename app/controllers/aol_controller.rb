@@ -3,7 +3,8 @@ require 'rubygems'
 require 'seer'
 class AolController < ApplicationController
   
-  before_filter :authorize, :except => [:signin, :welcome_new, :joinin]
+  before_filter :assignments, :except => :amounts_update
+  before_filter :authorize, :except => [:signin, :create, :welcome_new, :joinin]
   def main
     
   end
@@ -41,23 +42,23 @@ class AolController < ApplicationController
   end
   
   def joinin
-    @payer = Payer.new(:exists => true, :balance => 0)
     
   end
   
   def create
     payer = Payer.new(params[:payer])
-#    payer.balance = 0                    # should be set to 0 already by joinin. Also check exists is set.
+    payer.balance = 0
+    payer.exists = true
 
     if payer.save
       session[:payer_id] = payer.id
       session[:payer_user] = payer.user                            # do I use it?
-      rule = payer.payer_rules.create(:rollover => 0, :billing_id => 1)
+      rule = payer.payer_rules.create(:rollover => 0, :billing_id => 1, :auto_authorize_under => 10, :auto_deny_over => 100)
       session[:rule_id] = rule.id
       flash[:notice] = "Thank you. You may define your rules now"
       redirect_to :action => :welcome_signedin
     else
-      render :action => "joinin"
+      redirect_to :action => "joinin"
     end
 
   end
@@ -87,6 +88,13 @@ class AolController < ApplicationController
   
   def rules_menu
     
+    @payer = Payer.find(session[:payer_id])
+    @rule = PayerRule.find(session[:rule_id])
+    @auto_authorize_under = @rule.auto_authorize_under
+    @auto_deny_over = @rule.auto_deny_over
+    @manual_zone = @auto_deny_over - @auto_authorize_under
+    @deny_zone = @auto_authorize_under * 1.5
+    
   end
   
   def budget_form
@@ -115,10 +123,19 @@ class AolController < ApplicationController
     
   end
   
-  def amounts_form                        # make it graphical one day
+  def amounts_form                        
     
     @payer = Payer.find(session[:payer_id])
     @rule = PayerRule.find(session[:rule_id])
+    @auto_authorize_under = @rule.auto_authorize_under
+    @auto_deny_over = @rule.auto_deny_over
+    
+    @back_to = "rules_menu"
+    @back_class = "like_back"
+
+  end
+  
+  def fresh_amounts_form
     
   end
   
@@ -134,13 +151,20 @@ class AolController < ApplicationController
     if @rule.update_attributes(params[:rule])
 
       flash[:notice] = "Rule updated!"
-      redirect_to :action => :rules_menu
+#      render :action => :rules_menu, :target => "_webapp"
+      @back_to = "rules_menu"
+      @back_class = "like_back"
+#      render :action => :amounts_form
     else
-      flash[:notice] = "Something wrong happened"
-      render :action => :rules_menu
+      flash[:notice] = "That doesn't make sense. Please check again!"
+      render :action => :amounts_form
     end
  
-  end
+end
+
+def redirect_to_rules_menu
+  
+end
 
   def beinformed
 
@@ -215,6 +239,10 @@ class AolController < ApplicationController
       redirect_to :controller => 'aol' , :action => 'signin'
     end
     
+  end
+  
+  def assignments
+    @back_class = "back"
   end
   
  end

@@ -4,11 +4,17 @@
   	<%= f.error_messages %>
 
   	<ul class="rounded">
-    	<li>Monthly Allowance<%= f.text_field :allowance, :placeholder => "How much would you allocate?" %></li>
+     	<li>
+    		<span class="item">Monthly Allowance</span>
+			<span class="value"><%= f.text_field :allowance%></span>
+		</li>
 	</ul>
 	
 	<ul class="rounded">
-		<li>Rollover <span class="toggle"><%= f.check_box :rollover %></span></li>
+		<li>
+			<span class-"item">Rollover to next month</span>
+		 	<span class="toggle"><%= f.check_box :rollover %></span>
+		</li>
   	</ul>
 	
   	<%= link_to "Submit", nil, :class => "whiteButton submit" %>

@@ -13,7 +13,7 @@ class CreatePayerRules < ActiveRecord::Migration
       t.decimal :auto_authorize_under
       t.decimal :auto_deny_over
       
-      t.integer :authorization_phone
+      t.string :authorization_phone
   
 
       t.timestamps

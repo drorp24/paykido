@@ -226,9 +226,7 @@ end
    
   end
   
-  def authorize_purchase
-    
-    debugger
+  def authorize_purchase    
 
     if @payer.exists?
       @rule = @payer.most_recent_payer_rule

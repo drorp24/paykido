@@ -7,9 +7,33 @@
 			
 <h2>Authorization Rules</h2>
 	<ul class="rounded">
-		<li class="arrow"><a href="amounts_form">By amounts</a></li>
+		<li class="arrow"><a href="amounts_form" class="btn2 slideup">By amounts</a></li>
 		<li class="arrow"><a href="#categories">By categories</a></li>
 	</ul>			
+
+	<ul id="chart"  style="padding-left:7px; padding-top:15px; padding-bottom: 10px"></ul>
+	    <script type="text/javascript">
+	      google.load("visualization", "1", {packages:["barchart"]});
+	      google.setOnLoadCallback(drawChart);
+	      function drawChart() {
+	        var data = new google.visualization.DataTable();
+	        data.addColumn('string', 'Year');
+	        data.addColumn('number', 'Automatically Authorize');
+	        data.addColumn('number', 'Ask me');
+			data.addColumn('number', 'Automatically Deny');
+	        data.addRows(1);
+	        data.setValue(0, 0, '');
+	        <%= "data.setValue(0, 1, #{@auto_authorize_under}" %>);
+			<%= "data.setValue(0, 2, #{@manual_zone}" %>);
+			<%= "data.setValue(0, 3, #{@deny_zone}" %>);
+			var options = {};
+	        options['colors'] = ['4684ee','ff9900','dc3912'];	 
+	        var chart = new google.visualization.BarChart(document.getElementById('chart'));
+	        chart.draw(data, {width: 295, height: 60, is3D: false, tooltipHeight:500, tooltipFontSize: 45, legend: 'none', titleFontSize: 15, colors: ['#666666','ff9900','dc3912'],isStacked: true, title: 'My Authorization Policy'});
+	      }
+	    </script>
+
+
 
 <h2>Alerts & Reports</h2>
 	<ul class="rounded">
