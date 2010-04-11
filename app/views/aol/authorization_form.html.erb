@@ -1,28 +1,25 @@
 <% title "Authorization" %>
 
 
-<ul class="rounded">
+<ul class="rounded" id="authorization_form">
 	<li>
-		<span class="item">Retailer</span>
-		<span class="value"><%=@retailer%></span>
+		<span class="short_item">Retailer</span>
+		<span class="short_value_long_width"><%=@retailer%></span>
 	</li>
-</ul>
-<ul class="rounded">
+
 	<li>
-		<span class="item">Product</span>
-		<span class="value"><%=@product%></span>
+		<span class="short_item">Product</span>
+		<span class="short_value_long_width"><%=@product%></span>
 	</li>
-</ul>
-<ul class="rounded">
+
 	<li>
-		<span class="item">Price</span>
-		<span class="value"><%= number_to_currency(@amount) %></span>
+		<span class="short_item">Price</span>
+		<span class="red_value_long_width"><%= number_to_currency(@amount) %></span>
 	</li>
-</ul>
-<ul class="rounded">
+
 	<li>
-		<span class="item">Date</span>
-		<span class="value"><%=@date%></span>
+		<span class="short_item">Date</span>
+		<span class="short_value_long_width"><%=@date%></span>
 	</li>
 </ul>
 <%= link_to "Authorize", :action => :authorization_update, :class => "whiteButton submit"  %>

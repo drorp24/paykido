@@ -1,45 +1,40 @@
-<% title "Make The Rules" %>
+<% title "Authorization Policy" %>
 
-<h2>Monthly Budget</h2>
-	<ul class="rounded">
-    	<li class="arrow"><a href="budget_form">Set budget rules</a></li>
-	</ul>		
-			
-<h2>Authorization Rules</h2>
-	<ul class="rounded">
-		<li class="arrow"><a href="amounts_form" class="btn2 slideup">By amounts</a></li>
-		<li class="arrow"><a href="#categories">By categories</a></li>
-	</ul>			
 
-	<ul id="chart"  style="padding-left:7px; padding-top:15px; padding-bottom: 5px">
-
-	</ul>
-	    <script type="text/javascript">
+	<%= image_tag('/images/not_sure_lilach2.png')%>
+	<ul id="chart"  style="padding-left:7px; padding-top:15px; padding-bottom: 5px"></ul>
+	
+	<script type="text/javascript">
 	      google.load("visualization", "1", {packages:["barchart"]});
-	      google.setOnLoadCallback(drawChart);
-	      function drawChart() {
-	        var data = new google.visualization.DataTable();
-	        data.addColumn('string', 'Year');
-	        data.addColumn('number', 'Always');
-	        data.addColumn('number', 'Let me decide');
+	</script>
+	
+	<script type="text/javascript">
+
+		  var chart;
+			
+		  var data = new google.visualization.DataTable();
+		  	data.addColumn('string', 'Year');
+		    data.addColumn('number', 'Always');
+		    data.addColumn('number', 'Let me decide');
 			data.addColumn('number', 'Never');
-	        data.addRows(1);
-	        data.setValue(0, 0, '');
-	        <%= "data.setValue(0, 1, #{@auto_authorize_under}" %>);
+		    data.addRows(1);
+		    data.setValue(0, 0, '');
+		    <%= "data.setValue(0, 1, #{@auto_authorize_under}" %>);
 			<%= "data.setValue(0, 2, #{@manual_zone}" %>);
 			<%= "data.setValue(0, 3, #{@deny_zone}" %>);
-			var options = {};
-	        options['colors'] = ['4684ee','ff9900','dc3912'];	 
-	        var chart = new google.visualization.BarChart(document.getElementById('chart'));
-	        chart.draw(data, {width: 295, height: 80, is3D: false, legend: 'bottom', legendFontSize: 11, titleFontSize: 15, colors: ['#666666','ff9900','dc3912'],isStacked: true, title: 'My Authorization Policy'});
-	      }
-	    </script>
 
+		  function drawChart(){
+			chart = new google.visualization.BarChart(document.getElementById('chart'));
+			chart.draw(data, {width: 295, height: 80, is3D: false, enableTooltip: false, legend: 'bottom', legendFontSize: 11, titleFontSize: 15, colors: ['#666666', 'ff9900', 'dc3912'], isStacked: true, title: 'My Authorization Policy'});			  	
+			google.visualization.events.addListener(chart, 'select', selectHandler);
+		  }
 
+		  function selectHandler(){
+			var selection = chart.getSelection();
+			window.location = '/aol/amounts_form';
+		  }
+		
+		google.setOnLoadCallback(drawChart);
 
-<h2>Alerts & Reports</h2>
-	<ul class="rounded">
-		<li class="arrow"><a href="#alerts">Select Alerts</a></li>
-		<li class="arrow"><a href="#reports">Authorize Manually</a></li>
-	</ul>			
+    </script>
 

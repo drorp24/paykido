@@ -5,26 +5,44 @@
 
   	<ul class="rounded">
     	<li>
-    		<span class="item">Authorize anything under</span>
-			<span class="value"><class="greendollar"><%= f.text_field :auto_authorize_under, :placeholder => "this amount" %></class></span>
+    		<span class="item" style="display:inline; width:150px">Always authorize if under</span>
+			<span class="green_value">
+				<span>
+					<%= f.text_field :auto_authorize_under, 
+					:placeholder => "this amount", 
+					:style => "color:#51b30d; font-weight: bold;display:inline; float:right; width:20px", 
+					:class => "right_indented" %>
+				</span>
+			</span>
 		</li>
 	</ul>
   	<ul class="rounded">
     	<li>
-    		<span class="item"></span>Don't approve anything over</span>
-			<span class="value"><%= f.text_field :auto_deny_over, :placeholder => "that amount" %></span>
+    		<span class="item" style="display:inline; width:100px"></span>Never authorize if over</span>
+			<span class="green_value">
+				<span>
+					<%= f.text_field :auto_deny_over, 
+					:placeholder => "this amount", 
+					:style => "color:#cc4200; font-weight: bold; display:inline; float:right; width:30px", 
+					:class => "right_indented" %>
+				</span>
+			</span>
 		</li>
 	</ul>
   	<ul class="rounded">
 		<li>
-			<span class="item" style="width:100px">Otherwise call me at</span>
-			<span class="value" style="width:100px"><%= f.text_field :authorization_phone, :maxlength =>10, :placeholder => "this number" %></span>
+			<span class="item" style="width:70px; display:inline">Otherwise reach me at</span>
+			<span class="value">
+				<%= f.text_field :authorization_phone, 
+				:maxlength =>10, 
+				:placeholder => "this number",
+				:style => "color:blue; font-weight:bold; width:85px; display:inline;float:right" %>
+			</span>
 		</li>
 	</ul>
 
 
   	<%= link_to "Submit", nil, :class => "whiteButton submit" %>
-	<a href="rules_menu">back</a>
 
 <% end %>
 

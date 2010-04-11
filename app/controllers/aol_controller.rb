@@ -8,6 +8,9 @@ class AolController < ApplicationController
   def main
     
   end
+  def empty
+    
+  end
     
   def welcome_new
 
@@ -95,6 +98,10 @@ class AolController < ApplicationController
     @manual_zone = @auto_deny_over - @auto_authorize_under
     @deny_zone = @auto_authorize_under * 1.5
     
+    @back_to = "welcome_signedin"
+    @back_class = "like_back"
+
+    
   end
   
   def budget_form
@@ -115,10 +122,10 @@ class AolController < ApplicationController
     if @rule.update_attributes(params[:rule])
 
       flash[:notice] = "Rule updated!"
-      redirect_to :action => :rules_menu
+      redirect_to :action => :welcome_signedin
     else
       flash[:notice] = "Something wrong happened"
-      render :action => :rules_menu
+      render :action => :welcome_signedin
     end
     
   end
@@ -129,6 +136,7 @@ class AolController < ApplicationController
     @rule = PayerRule.find(session[:rule_id])
     @auto_authorize_under = @rule.auto_authorize_under
     @auto_deny_over = @rule.auto_deny_over
+    @authorization_phone = @rule.authorization_phone
     
     @back_to = "rules_menu"
     @back_class = "like_back"
@@ -148,12 +156,12 @@ class AolController < ApplicationController
       return
     end
     
-    if @rule.update_attributes(params[:rule])
+    @back_to = "rules_menu"
+    @back_class = "like_back"
 
+    if @rule.update_attributes(params[:rule])
       flash[:notice] = "Rule updated!"
 #      render :action => :rules_menu, :target => "_webapp"
-      @back_to = "rules_menu"
-      @back_class = "like_back"
 #      render :action => :amounts_form
     else
       flash[:notice] = "That doesn't make sense. Please check again!"
@@ -180,6 +188,9 @@ end
 
 
   def authorization_form
+    
+    @back_to = "beinformed"
+    @back_class = "like_back"
     
     @purchase = Purchase.pending_trx(@payer.id)
     if @purchase

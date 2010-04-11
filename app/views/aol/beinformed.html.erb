@@ -1,20 +1,23 @@
-<% title "Be Informed" %>
+<% title "What did I buy" %>
 
 <ul class="rounded" id ="balance_line">
-	<li class = "arrow">
-		<span class="item">Current Balance:</span>
-		<span class="value" id="balance"><%= number_to_currency(@balance) %></span>
+	<li>
+		<span class="item">My Current Balance:</span>
+		<span class="green_value">
+			<span class="right_indented"><%= number_to_currency(@balance) %></span>
+		</span>
 	</li>
 </ul>
 
 <ul class="rounded" id ="authorization_line">
-	<li class="arrow">
-		<span class="item"><a href="authorization_form" class="btn2 slideup" style="color:#666666">Pending Authorization:</a></span>
-		<span class="value" id="pending"><%= number_to_currency(@pending) %></span>
+	<li>
+		<a href="authorization_form" class="btn2 slideup" style="color:#666666">Pending Authorization:</a>
+		<span class="red_value">
+			<span class="right_indented"><%= number_to_currency(@pending) %></span>
+		</span>
 	</li>
 </ul>
 <div id="info">
-	<h4>What did I spend on?</h4>
 	<div id="Pie_chart">
 		<h4></h4>
 		<div id="purchases_by_category"></div>
@@ -28,11 +31,11 @@
 		      :data_method => 'quantity'
 		    },
 		    :chart_options => { 
-		      :height => 222,
+		      :height => 190,
 		      :width => 152,
 		      :axis_font_size => 13,
-		      :title => "Categories",
-			  :title_font_size => 16,
+		      :title => "Purchases by Category",
+			  :title_font_size => 13,
 			  :title_color => '#666666',
 		      :point_size => 10,
 		      :is_3_d => true,
@@ -51,19 +54,29 @@
 	<div id="lists">
 		
 		<div id="top_products">
-			<h4>What did I buy?</h4>
+			<%= image_tag('/images/top_3_products.png') %>
 			<ul class="rounded">
 			<% Product.top(3).each do |title, quantity|%>
-				<li><span class="item"><%= title%></span><span class="value"><%= number_to_currency(quantity) %></span></li>
+				<li>
+					<span class="short_item"><%= title%></span>
+					<span class="short_value">
+						<span class="right_indented"><%= number_to_currency(quantity) %></span>
+					</span>
+				</li>
 			<% end %>
 			</ul>
 		</div>
 
 		<div id="top_retailers">
-			<h4>Where did I shop?</h4>
+			<%= image_tag('/images/top_3_shops.png') %>
 			<ul class="rounded">
 			<% Retailer.top(3).each do |name, quantity|%>
-				<li><span class="item"><%= name%></span><span class="value"><%= number_to_currency(quantity) %></span></li>
+				<li>
+					<span class="short_item"><%= name%></span>
+					<span class="short_value">
+						<span class="right_indented"><%= number_to_currency(quantity) %></span>
+					</span>
+				</li>
 			<% end %>
 			</ul>
 		</div>

@@ -1,38 +1,23 @@
 #pending {
 	color:#cc4200;
 	position:absolute;
-	top:108px;
+	top:120px;
 	right:43px;
 
 }
 
-.greendollar {
-	color: #666666;
-}
-
-.greendollar {
-	color: #51b30d;
-}
 
 #info {
 	position:absolute;
 	height:250px;
 	width:320px;
-	/*
-border:1px solid red;
-*/
-}
-
-#info h4 {
-	font-size:0.9em;
-	font-stretch:condensed;
-	color:white;
-	text-shadow: #666 1px 1px 3px;
-	padding:0;
-	margin:0;
 
 }
 
+
+#info li {
+	height:17px;
+}
 /*
 .whiteButton  {
 	width: 300px;
@@ -47,6 +32,7 @@ border:1px solid red;
 	margin:1px;
 	margin-right:5px;
 	padding:0;
+	margin-top:7px;
 
 }
 
@@ -54,35 +40,29 @@ border:1px solid red;
 	margin-top:7px;
 }
 
-#balance {
-	color:#51b30d;
-	margin-right:25px;
-}
-
-
-
 #Pie_chart {
 	margin-left:3px;
 }
 
 #Pie_chart h4 {
 	margin-bottom:2px;
+	margin-top:25px;
 }
 
 #top_products {
 	position: absolute;
 	right:3px;
 	top:0;
-	height:120px;
+	height:105px;
 	overflow:hidden;
-
+	margin-top:0px;
 }
 
 #top_retailers {
 	position: absolute;
 	right:3px;
-	bottom: 10px;
-	height:120px;
+	top: 110px;
+	height:105px;
 	overflow:hidden;
 
 }
@@ -101,34 +81,82 @@ ul li.greenarrow{
 
 */
 
-.value {
-	float: right;
+.item, .short_item {
 	display:inline;
-	width:40px;
+	width:200px;
+
 }
 
-.item {
+.short_item {
+	width:50px;
+	font-size:11pt;
+	width:50px;
+}
+
+.value, .green_value, .red_value, .short_value, .short_value_long_width, .red_value_long_width {
 	display:inline;
-	width:150px;
+	float: right;
+	width:70px;
+	margin-right:0px;
+
+}
+
+.short_value {
+	font-size:11pt;
+	width:50px;
+}
+
+.short_value_long_width, .red_value_long_width {
+	font-size:11pt;
+	width:110px;
+}
+
+.red_value_long_width {
+	color: #cc4200;
+}
+
+
+.right_indented {
+	float:right;
+}
+
+.green_value {
+	color:#51b30d;
+
+}
+
+
+.red_value {
+	color:#cc4200;
 /*
-	border:1px solid blue;
+		border:1px solid red;
+
 */
 }
 
+.rounded a {
 
+		display:inline;
+
+}
+
+.rounded a:active {
+	background-color:transparent;
+}
 
 #lists  {
 
 	margin:0;
 	padding:0;
 	width:380px;
-	height:270px;
+	height:30px;
 	overflow:hidden;
-
 }
 
 #lists ul li {
+/*
 	margin:3px;
+*/
 	margin-right:1px;
 	padding:5px;
 }
@@ -149,11 +177,13 @@ ul li.greenarrow{
 
 #top_products ul {
 	margin:5px 0 0 5px;
+	height:70px;
 
 }
 
 #top_retailers ul {
 	margin:20px 0 2px 2px;
+	height:70px;
 }
 
 
