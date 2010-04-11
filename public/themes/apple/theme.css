@@ -114,6 +114,8 @@ body.landscape .toolbar > h1 {
     font-weight: bold;
     text-decoration: inherit;
     color: inherit;
+	margin-right:10px;
+	margin-left:10px;
 }
 
 .whiteButton {

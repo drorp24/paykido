@@ -63,11 +63,11 @@ class AolController < ApplicationController
 
   end
 
-  def account_form        # decide if I want a rescue like this in other activities or assume you never start here
+  def account_form        
     
     begin
     @payer = Payer.find(session[:payer_id])
-    rescue #RecordNotFound
+    rescue #RecordNotFound            # non needed, once i added the before_filter
     redirect_to :action => :welcome_new
     else
     flash.now[:notice] = "You can change any of the following:"
@@ -171,6 +171,10 @@ end
     @categories = Category.all
     @balance = @payer.balance
     @pending = Purchase.pending_amt(@payer.id)
+    
+    @back_to = "welcome_signedin"
+    @back_class = "like_back"
+
 
   end
 
