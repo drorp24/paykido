@@ -93,7 +93,7 @@ ul li.greenarrow{
 	width:50px;
 }
 
-.value, .green_value, .red_value, .short_value, .short_value_long_width, .red_value_long_width {
+.value, .green_value, .red_value, .short_value, .short_value_long_width, .red_value_long_width, .long_value {
 	display:inline;
 	float: right;
 	width:70px;
@@ -109,6 +109,26 @@ ul li.greenarrow{
 .short_value_long_width, .red_value_long_width {
 	font-size:11pt;
 	width:110px;
+}
+
+.long_value {
+	font_size:9pt;
+	width:160px;
+}
+
+ul#authorization_form  {
+	margin-top:5px;
+	margin-bottom:0px;
+
+}
+
+#purchase_authorization_type {
+	font-size:12pt;
+	font-weight:bold;
+	background-image: url();
+	margin:0;
+	padding:0;
+
 }
 
 .red_value_long_width {

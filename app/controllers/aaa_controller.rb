@@ -245,7 +245,7 @@ end
         @purchase.authorization_type = "AutoOver"
         @purchase_authorized = nil
         
-      elsif @purchase.authorization_type == "ManuallyAuthorized"
+      elsif @purchase.authorization_type == ("ManuallyAuthorized" || "AlwaysAuthorized")
         @purchase_authorized = true
       else
         @purchase.authorization_type = "PendingPayer"

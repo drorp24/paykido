@@ -9,7 +9,12 @@
 
 	<li>
 		<span class="short_item">Product</span>
-		<span class="short_value_long_width"><%=@product%></span>
+		<span class="short_value_long_width"><%=@product_title%></span>
+	</li>
+
+	<li>
+		<span class="short_item">Category</span>
+		<span class="short_value_long_width"><%=@category%></span>
 	</li>
 
 	<li>
@@ -22,7 +27,24 @@
 		<span class="short_value_long_width"><%=@date%></span>
 	</li>
 </ul>
-<%= link_to "Authorize", :action => :authorization_update, :class => "whiteButton submit"  %>
+
+<% form_for :purchase, :url => { :action => :authorization_update} do |form| %>
+<ul >
+	<li>
+
+			<%= form.select(:authorization_type, 
+				{"Authorize this purchase" => "ManuallyAuthorized",
+				 "Don't authorize this purchase" => "NotAuthorized",
+				 "Always authorize #{@product_title} by #{@retailer}" => "AlwaysAuthorized",
+		 		"Never authorize #{@product_title} by #{@retailer}" => "NeverAuthorized"}
+			)%>
+	</li>
+
+</ul>	
+<%= link_to "Submit", nil, :class => "whiteButton submit" %>
+<% end %>
+
+	
 
 
 

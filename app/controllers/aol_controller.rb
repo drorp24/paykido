@@ -72,8 +72,6 @@ class AolController < ApplicationController
     @payer = Payer.find(session[:payer_id])
     rescue #RecordNotFound            # non needed, once i added the before_filter
     redirect_to :action => :welcome_new
-    else
-    flash.now[:notice] = "You can change any of the following:"
     end
   
   end 
@@ -196,12 +194,14 @@ end
     if @purchase
       session[:purchase_id] = @purchase.id
       @retailer = Retailer.find(@purchase.retailer_id).name
-      @product = Product.find(@purchase.product_id).title
+      @product = Product.find(@purchase.product_id)
+      @product_title = @product.title
+      @category = @product.category.name
       @amount = @purchase.amount
       @date = @purchase.date.to_s(:long)
     else
       flash[:notice] = "There's nothing to authorize at this time"
-      redirect_to :action => :beinformed
+      redirect_to :action => :welcome_signedin
     end
     
   end
@@ -209,15 +209,15 @@ end
   def authorization_update
     
     @purchase = Purchase.find(session[:purchase_id])
-    @purchase.authorization_date = Time.now
-    @purchase.authorization_type = "ManuallyAuthorized"
+    @purchase.authorization_type = params[:purchase][:authorization_type]
+    @purchase.authorization_date = Time.now if @purchase.authorization_type == ("ManuallyAuthorized" || "AlwaysAuthorized")
     @purchase.save
     # need to 
     # 1. move sms handling to an sms model
     # 2. put expected sms in the db, not in the session - so aaa will know what to expect
     # 3. send an sms either way, but include in it a rand number or not according to whether perm pin exists or not
-    flash[:notice] = "Purchase authorized. Thank you!"
-    redirect_to :action => :beinformed
+    flash[:notice] = "Thank you!"
+    redirect_to :action => :welcome_signedin
   end
   
     def send_sms_to_consumer

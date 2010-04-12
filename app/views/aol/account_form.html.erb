@@ -5,12 +5,30 @@
 
   <ul class="rounded">
 
-    <li><%= f.text_field :user, :placeholder => "User name" %></li>
-    <li><%= f.password_field :password, :placeholder => "Password" %></li>
-	<li><%= f.password_field :password_confirmation, :placeholder => "Confirm password" %></li>
-	<li><%= f.text_field :name, :placeholder => "Name" %></li>
-	<li><%= f.text_field :email, :placeholder => "Email" %></li>
-	<li><%= f.text_field :pin, :placeholder => "Permanent PIN code" %></li>
+    <li>
+    	<span class="short_item" >User</span>
+		<span class="long_value"><%= f.text_field :user %></span>
+	</li>
+    <li>
+    	<span class="short_item" >Password</span>
+		<span class="long_value"><%= f.password_field :password %></span>
+	</li>
+	<li>
+		<span class="short_item" >Confirmation</span>
+		<span class="long_value"><%= f.password_field :password_confirmation %></span>
+	</li>
+	<li>
+		<span class="short_item" >Name</span>
+		<span class="long_value"><%= f.text_field :name %></span>
+	</li>
+	<li>
+		<span class="short_item" >Email</span>
+		<span class="long_value"><%= f.text_field :email %></span>
+	</li>
+	<li>
+		<span class="short_item" >Permanent PIN</span>
+		<span class="long_value"><%= f.text_field :pin %></span>
+	</li>
   </ul>
   <%= link_to "Submit", nil, :class => "whiteButton submit" %>
 
