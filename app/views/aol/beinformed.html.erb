@@ -58,7 +58,7 @@
 			<ul class="rounded">
 			<% Product.top(3).each do |title, quantity|%>
 				<li>
-					<span class="short_item"><%= title%></span>
+					<a href="purchases/1" class="short_item"><%= title%></a>
 					<span class="short_value">
 						<span class="right_indented"><%= number_to_currency(quantity) %></span>
 					</span>
@@ -83,4 +83,3 @@
 		
 	</div>	
 </div>
-	

@@ -2,7 +2,7 @@
 
 
 	<%= image_tag('/images/not_sure_lilach2.png')%>
-	<ul id="chart"  style="padding-left:7px; padding-top:15px; padding-bottom: 5px"></ul>
+	<ul id="chart"  style="padding-left:7px; padding-top:0px; padding-bottom: 0px"></ul>
 	
 	<script type="text/javascript">
 	      google.load("visualization", "1", {packages:["barchart"]});
@@ -14,9 +14,9 @@
 			
 		  var data = new google.visualization.DataTable();
 		  	data.addColumn('string', 'Year');
-		    data.addColumn('number', 'Always');
+		    data.addColumn('number', 'Always Approve');
 		    data.addColumn('number', 'Let me decide');
-			data.addColumn('number', 'Never');
+			data.addColumn('number', 'Never Approve');
 		    data.addRows(1);
 		    data.setValue(0, 0, '');
 		    <%= "data.setValue(0, 1, #{@auto_authorize_under}" %>);
@@ -25,7 +25,7 @@
 
 		  function drawChart(){
 			chart = new google.visualization.BarChart(document.getElementById('chart'));
-			chart.draw(data, {width: 295, height: 80, is3D: false, enableTooltip: false, legend: 'bottom', legendFontSize: 11, titleFontSize: 15, colors: ['#666666', 'ff9900', 'dc3912'], isStacked: true, title: 'My Authorization Policy'});			  	
+			chart.draw(data, {width: 290, height: 70, is3D: false, enableTooltip: false, legend: 'bottom', legendFontSize: 11, titleFontSize: 12, colors: ['#666666', 'ff9900', 'dc3912'], isStacked: true, title: 'Purchase Amount'});			  	
 			google.visualization.events.addListener(chart, 'select', selectHandler);
 		  }
 
@@ -37,4 +37,9 @@
 		google.setOnLoadCallback(drawChart);
 
     </script>
+
+<ul class="rounded">
+    <li class="arrow"><a href="blacklist" target="_webapp">My Black List</a></li>
+	<li class="arrow"><a href="whitelist" target="_webapp">My White List</a></li>
+</ul>
 

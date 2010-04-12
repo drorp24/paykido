@@ -1,3 +1,19 @@
+.retailer {
+	
+}
+
+.product {
+	
+}
+
+.amount {
+	
+}
+
+.date {
+	
+}
+
 #pending {
 	color:#cc4200;
 	position:absolute;
@@ -93,7 +109,7 @@ ul li.greenarrow{
 	width:50px;
 }
 
-.value, .green_value, .red_value, .short_value, .short_value_long_width, .red_value_long_width, .long_value {
+.value, .green_value, .red_value, .short_value, .short_value_long_width, .red_value_long_width, .long_value, .blue_value_long_width {
 	display:inline;
 	float: right;
 	width:70px;
@@ -106,7 +122,7 @@ ul li.greenarrow{
 	width:50px;
 }
 
-.short_value_long_width, .red_value_long_width {
+.short_value_long_width, .red_value_long_width, .blue_value_long_width {
 	font-size:11pt;
 	width:110px;
 }
@@ -114,6 +130,10 @@ ul li.greenarrow{
 .long_value {
 	font_size:9pt;
 	width:160px;
+}
+
+.blue_value_long_width {
+	color:#1B7BDD;
 }
 
 ul#authorization_form  {
@@ -189,6 +209,10 @@ ul#authorization_form  {
 #lists li:hover {
 	background-color:#008000;
 	color:white;
+}
+
+#lists a {
+	color:#666666;
 }
 
 #lists ul {

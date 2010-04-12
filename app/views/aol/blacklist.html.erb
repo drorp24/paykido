@@ -1,0 +1,27 @@
+<% title "My Black List" %>
+
+<ul id="table"></ul>
+
+	<script type="text/javascript">
+	      google.load("visualization", "1", {packages:["table"]});
+		  google.setOnLoadCallback(drawTable);
+
+		  function drawTable(){
+			
+		  var data = new google.visualization.DataTable();
+		  	data.addColumn('string', 'Retailer');
+		    data.addColumn('string', 'Product');
+		    data.addColumn('string', 'Category');
+		    <%= "data.addRows(#{@blacklist.size});" %>
+			<% @blacklist.each do |b| -%>
+		    	<%= "data.setCell(#{@i}, 0, '#{b.retailer.name}');" %>
+				<%= "data.setCell(#{@i}, 1, '#{b.product.title}');" %>
+				<%= "data.setCell(#{@i}, 2, '#{b.product.category.name}');" %>
+				<% @i += 1 %>
+			<% end %>
+
+			var table = new google.visualization.Table(document.getElementById('table'));
+			table.draw(data);			  	
+		  }		
+
+    </script>

@@ -219,14 +219,45 @@ end
     flash[:notice] = "Thank you!"
     redirect_to :action => :welcome_signedin
   end
+
+  def blacklist
+
+    @blacklist = Purchase.never_authorized(@payer.id)
+    @i = 0
+     
+    @back_to = "rules_menu"
+    @back_class = "like_back"
+
+  end
+
+  def whitelist
+
+    @whitelist = Purchase.always_authorized(@payer.id)
+    @i = 0
+    
+    @back_to = "rules_menu"
+    @back_class = "like_back"
+
+  end
+
+  def purchases
+    
+    @back_to = "beinformed"
+    @back_class = "like_back"
+    
+    @purchases = Purchase.all
+    @i = 0
+    
+  end
   
-    def send_sms_to_consumer
+  def send_sms_to_consumer
     
       sms_phone = @consumer.billing_phone
       sms_message = "your PIN code is: #{session[:expected_pin]}"
       sms(sms_phone,sms_message)
       
   end
+  
         
   
   def sms(phone, message)
