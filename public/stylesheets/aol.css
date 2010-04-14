@@ -1,3 +1,14 @@
+.purchasesCell {
+	font-size:16px;
+	height:30px;
+	width:5px;
+
+}
+
+.purchases_date {
+	color: red;
+}
+
 .retailer {
 	
 }

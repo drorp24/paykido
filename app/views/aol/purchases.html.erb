@@ -8,22 +8,30 @@
 
 		  function drawTable(){
 			
+		  var cssClassNames = {'tableCell': 'purchasesCell'};
+		  
 		  var data = new google.visualization.DataTable();
 		  	data.addColumn('string', 'Retailer');
 		    data.addColumn('string', 'Product');
-			data.addColumn('number', 'Amount');
+/*
+			data.addColumn('string', 'Category');
+*/
+			data.addColumn('string', 'Amount');
 			data.addColumn('string', 'Date');
 		    <%= "data.addRows(#{@purchases.size});" %>
 			<% @purchases.each do |p| -%>
 		    	<%= "data.setCell(#{@i}, 0, '#{p.retailer.name}');" %>
 				<%= "data.setCell(#{@i}, 1, '#{p.product.title}');" %>
-				<%= "data.setCell(#{@i}, 2,  #{p.amount});" %>
-				<%= "data.setCell(#{@i}, 3, '#{p.date.to_s}');" %>
+				/*
+				<%= "data.setCell(#{@i}, 2, '#{p.product.category.name}');" %>
+*/
+				<%= "data.setCell(#{@i}, 2, '#{number_to_currency(p.amount)}');" %>
+				<%= "data.setCell(#{@i}, 3, '#{p.date.to_s.last(5)}');" %>
 				<% @i += 1 %>
 			<% end %>
 
 			var table = new google.visualization.Table(document.getElementById('table'));
-			<%= "table.draw(data, {sortColumn: #{params[:id]}, sortAscending: false, allowHtml: true, alternatingRowStyle: true});" %>			  	
+			<%= "table.draw(data, {'cssClassNames': cssClassNames, sortColumn: #{params[:id]}, sortAscending: false, allowHtml: true, alternatingRowStyle: true});" %>			  	
 		  }		
 
     </script>

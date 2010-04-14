@@ -187,7 +187,7 @@ end
 
   def authorization_form
     
-    @back_to = "beinformed"
+    @back_to = "/aol/beinformed"
     @back_class = "like_back"
     
     @purchase = Purchase.pending_trx(@payer.id)
@@ -242,7 +242,7 @@ end
 
   def purchases
     
-    @back_to = "beinformed"
+    @back_to = "/aol/beinformed"
     @back_class = "like_back"
     
     @purchases = Purchase.all
