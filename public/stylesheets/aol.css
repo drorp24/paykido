@@ -1,3 +1,26 @@
+#purchase_header li {
+	height:20px;
+	font-size:14px;
+	padding:5px;
+}
+
+
+#purchase_header .item {
+	padding:5px;	
+}
+
+#purchase_header .value {
+	width: 110px;
+}
+
+#purchase_header .red_value {
+	width: 110px;
+}
+
+#purchase_header .blue_value {
+	width: 110px;
+}
+
 #table td {
 	padding:2px;
 	margin:0;
@@ -117,7 +140,7 @@ ul li.greenarrow{
 	width:50px;
 }
 
-.value, .green_value, .red_value, .short_value, .short_value_long_width, .red_value_long_width, .long_value, .blue_value_long_width {
+.value, .blue_value, .green_value, .red_value, .short_value, .short_value_long_width, .red_value_long_width, .long_value, .blue_value_long_width {
 	display:inline;
 	float: right;
 	width:70px;
@@ -138,6 +161,10 @@ ul li.greenarrow{
 .long_value {
 	font_size:9pt;
 	width:160px;
+}
+
+.blue_value {
+	color:#1B7BDD;	
 }
 
 .blue_value_long_width {

@@ -1,0 +1,54 @@
+<% title "Purchase Details" %>
+
+<div id="purchase_header">	
+
+<ul class="rounded">
+	<li>
+		<span class="item">Retailer:</span>
+		<span class="blue_value"><%= @purchase.retailer.name %></span>
+	</li>
+	<li>
+		<span class="item">Product:</span>
+		<span class="value"><%= @purchase.product.title %></span>
+	</li>
+	<li>
+		<span class="item">Date:</span>
+		<span class="value"><%= @purchase.date.to_s.first(10) %></span>
+	</li>
+	<li>
+		<span class="item">Amount:</span>
+		<span class="red_value"><%= number_to_currency(@purchase.amount) %></span>
+	</li>
+</ul>
+<ul class="rounded">
+	<li>
+		<span class="item">Authentication Date:</span>
+		<span class="value"><%= @purchase.authentication_date.to_s.first(10) %></span>
+	</li>
+	<li>
+		<span class="item">Authentication Method:</span>
+		<span class="value"><%= @purchase.authentication_type %></span>
+	</li>	
+</ul>
+<ul class="rounded">
+	<li>
+		<span class="item">Authorization Date:</span>
+		<span class="value"><%= @purchase.authorization_date.to_s.first(10) %></span>
+	</li>
+	<li>
+		<span class="item">Authorization Method:</span>
+		<span class="value"><%= @purchase.authorization_type.first(15) %></span>
+	</li>	
+</ul>
+<ul class="rounded">
+	<li>
+		<span class="item">Billing Date:</span>
+		<span class="value"><%= @purchase.billing_date.to_s.first(10) %></span>
+	</li>
+	<li>
+		<span class="item">Billing Method:</span>
+		<span class="value"><%= @purchase.billing_type %></span>
+	</li>	
+</ul>
+
+</div>

@@ -272,7 +272,16 @@ end
 
      
   end
+  
+  def purchase
+    
+    @back_to = "/aol/beinformed"
+    @back_class = "like_back"
 
+    @purchase = Purchase.find(params[:id])  
+    
+  end
+  
   def send_sms_to_consumer
     
       sms_phone = @consumer.billing_phone
