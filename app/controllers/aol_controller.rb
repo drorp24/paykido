@@ -250,6 +250,29 @@ end
     
   end
   
+  def purchases_by_product
+    
+    @back_to = "/aol/beinformed"
+    @back_class = "like_back"
+    
+    @purchases = Purchase.by_product_title(params[:id])
+    @i = 0
+    render :action => :purchases
+    
+  end 
+
+  def purchases_by_retailer
+    
+    @back_to = "/aol/beinformed"
+    @back_class = "like_back"
+    
+    @purchases = Purchase.by_retailer_name(params[:id])
+    @i = 0
+    render :action => :purchases
+
+     
+  end
+
   def send_sms_to_consumer
     
       sms_phone = @consumer.billing_phone

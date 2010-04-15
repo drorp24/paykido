@@ -1,28 +1,25 @@
+#table td {
+	padding:2px;
+	margin:0;
+	height:30px;
+}
+
+
 .purchasesCell {
-	font-size:16px;
+	font-size:13px;
 	height:30px;
 	width:5px;
-
+	color: #666666;
 }
 
-.purchases_date {
-	color: red;
-}
-
-.retailer {
-	
-}
-
-.product {
-	
-}
-
-.amount {
-	
-}
-
-.date {
-	
+.purchasesOddRow {
+	background-color:#D0E7F5;
+	background-color:#EEFEB8;
+	background-color:#FFFFDD;
+	background-color:#EEEEEE;
+	background-color:#f4f0ff;
+	background-image:url("/images/purchases_gradient1.png");
+	#f4f0ff;	
 }
 
 #pending {

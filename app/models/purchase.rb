@@ -25,4 +25,14 @@ class Purchase < ActiveRecord::Base
     self.find_all_by_payer_id(payer_id, :conditions => ["authorization_type = ?", "AlwaysAuthorized"],:select => "retailer_id, product_id, updated_at")
   end
  
+  def self.by_product_title(product_title)
+    product = Product.find_by_title(product_title)
+    self.find_all_by_product_id(product.id,:select => "retailer_id, product_id, amount, date")
+  end
+  
+  def self.by_retailer_name(retailer_name)
+    retailer = Retailer.find_by_name(retailer_name)
+    self.find_all_by_retailer_id(retailer.id,:select => "retailer_id, product_id, amount, date")
+  end
+
 end
