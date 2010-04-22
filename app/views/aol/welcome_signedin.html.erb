@@ -1,11 +1,14 @@
-<% title "Welcome, #{session[:payer_user]}" %>
+<% title "Hi #{session[:payer_user]}" %>
 
 <ul class="rounded">
-    <li class="arrow"><a href="beinformed" target="_webapp">My Purchases</a></li>
-	<li class="arrow"><a href="budget_form">My Budget</a></li>
-    <li class="arrow"><a href="rules_menu" target="_webapp">My Authorization Policy</a></li>
-    <li class="arrow"><a href="empty">My Bills</a></li>
-	<li class="arrow"><a href="account_form">My account</a></li>
+	<li class="arrow"><a href="authorization_form" >My Inbox</a><small class="counter"><%= @pending_counter %></small></li>
+</ul>
+<ul class="rounded">
+	<li class="arrow"><a href="account_form">My Account</a></li>
+    <li class="arrow"><a href="bills_form">My Bills</a></li>
+	<li class="arrow"><a href="budget_form" >My Budget</a></li>
+    <li class="arrow"><a href="rules_menu" target="_webapp">My Rules</a></li>
+	<li class="arrow"><a href="beinformed" target="_webapp">My Purchases</a></li>
 </ul>
 
  

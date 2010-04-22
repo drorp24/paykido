@@ -39,8 +39,7 @@ h1, h2 {
     height: 40px;
     font-size: 20px;
     width: 200px;
-    font-weight: 100;
-    text-shadow: rgba(0, 0, 0, 0.4) 0px -2.5px 0;
+    text-shadow: rgba(0, 0, 0, 0.4) 0px -2px 0;
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -407,7 +406,7 @@ ul li small.counter {
     padding: 4px 10px 5px 10px;
     display: inline !important;
     width: auto;
-    margin-top: -22px;
+    margin-right: 10px;
 }
 
 ul li.arrow small.counter {

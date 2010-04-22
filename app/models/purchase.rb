@@ -17,6 +17,11 @@ class Purchase < ActiveRecord::Base
     self.find_by_payer_id(payer_id, :conditions => ["authorization_type = ?", "PendingPayer"])
   end
   
+  def self.pending_cnt(payer_id)
+    self.find_all_by_payer_id(payer_id, :conditions => ["authorization_type = ?", "PendingPayer"]).size
+  end
+
+  
   def self.never_authorized(payer_id)
     self.find_all_by_payer_id(payer_id, :conditions => ["authorization_type = ?", "NeverAuthorized"],:select => "retailer_id, product_id, updated_at")
   end

@@ -17,7 +17,7 @@ class AolController < ApplicationController
   end
 
   def welcome_signedin
-    
+     @pending_counter = Purchase.pending_cnt(@payer.id)
   end
   
   def signin
@@ -34,7 +34,7 @@ class AolController < ApplicationController
         session[:payer_id] = payer.id
         session[:payer_user] = payer.user                         # do I use it?
         session[:rule_id] = rule
-        flash[:notice] = "Hi There!"
+#        flash[:notice] = "Hi There!"
         redirect_to :action => :welcome_signedin
       else
         flash[:notice] = "No rule set for this payer"
@@ -103,8 +103,14 @@ class AolController < ApplicationController
   end
   
   def budget_form
-    @payer = Payer.find(session[:payer_id])
+
     @rule = @payer.most_recent_payer_rule
+    allowance = @rule.allowance
+    balance = @payer.balance
+    balance_position = (balance / allowance)*100
+    tick = ((allowance / 40).floor)*10
+    
+    @uri = "http://chart.apis.google.com/chart?cht=gom&chs=300x120&chxt=y&chd=t:#{balance_position}&chl=Balance&chxr=0,0,#{allowance},#{tick}"
   end
   
   def budget_update
@@ -123,7 +129,7 @@ class AolController < ApplicationController
       redirect_to :action => :welcome_signedin
     else
       flash[:notice] = "Something wrong happened"
-      render :action => :welcome_signedin
+      redirect_to :action => :welcome_signedin
     end
     
   end
@@ -279,6 +285,10 @@ end
     @back_class = "like_back"
 
     @purchase = Purchase.find(params[:id])  
+    
+  end
+  
+  def bills_form
     
   end
   

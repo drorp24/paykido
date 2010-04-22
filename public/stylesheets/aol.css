@@ -1,3 +1,21 @@
+.small {
+	margin-top:0;
+}
+
+.title > h1 {
+	font-size:6px;
+}
+
+.iphone_strip {
+
+
+}
+
+.toolbar {
+
+	margin:-5px;
+
+}
 #purchase_header li {
 	height:20px;
 	font-size:14px;

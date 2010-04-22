@@ -1,0 +1,46 @@
+<% title "Monthly Budget" %>
+
+
+    <ul class="rounded" id="chartdiv"></ul>
+    <script type="text/javascript">
+      google.load("visualization", "1");
+      google.setOnLoadCallback(drawChart);
+      var chart;
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Label');
+        data.addColumn('number', 'Value');
+        data.addRows(2);
+        data.setCell(0, 0, 'Monthly Budget');
+        data.setCell(1, 0, 'Current Balance');
+        data.setCell(0, 1, 100, '$100');
+        data.setCell(1, 1, 20, '$20');
+        var chartDiv = document.getElementById('chartdiv');
+        var options = {title: 'Current Status'};
+        chart = new PilesOfMoney(chartDiv);
+        chart.draw(data, options);
+        //google.visualization.events.addListener(chart, 'select', handleSelect);
+      }
+    </script>
+
+
+<% form_for :rule, :url => { :action => :budget_update } do |f| %>
+  	<%= f.error_messages %>
+
+  	<ul class="rounded">
+     	<li>
+    		<span class="item">Monthly Budget</span>
+			<span class="value"><%= f.text_field :allowance%></span>
+		</li>
+	</ul>
+	
+	<ul class="rounded">
+		<li>
+			<span class-"item">Rollover to next month</span>
+		 	<span class="toggle"><%= f.check_box :rollover %></span>
+		</li>
+  	</ul>
+	
+  	<%= link_to "Submit", nil, :class => "whiteButton submit" %>
+
+<% end %>
