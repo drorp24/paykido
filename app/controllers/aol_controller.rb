@@ -67,8 +67,8 @@ class AolController < ApplicationController
   end
 
   def account_form        
-    
-    begin
+ 
+     begin
     @payer = Payer.find(session[:payer_id])
     rescue #RecordNotFound            # non needed, once i added the before_filter
     redirect_to :action => :welcome_new

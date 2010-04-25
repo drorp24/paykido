@@ -1,14 +1,33 @@
 <% title "Hi #{session[:payer_user]}" %>
 
-<ul class="rounded">
-	<li class="arrow"><a href="authorization_form" >My Inbox</a><small class="counter"><%= @pending_counter %></small></li>
-</ul>
-<ul class="rounded">
-	<li class="arrow"><a href="account_form">My Account</a></li>
-    <li class="arrow"><a href="bills_form">My Bills</a></li>
-	<li class="arrow"><a href="budget_form" >My Budget</a></li>
-    <li class="arrow"><a href="rules_menu" target="_webapp">My Rules</a></li>
-	<li class="arrow"><a href="beinformed" target="_webapp">My Purchases</a></li>
-</ul>
+
+	<ul class="rounded" id="iconized_menu">
+		<li class="arrow">
+			<%= image_tag 'person.png', :class => "icon" %>
+			<a href="authorization_form"  class="item_by_icon">My Inbox</a>
+			<small class="counter"><%= @pending_counter %></small>
+		</li>
+	</ul>
+	<ul class="rounded" id="iconized_menu1">
+		<li class="arrow">
+			<%= image_tag 'person.png', :class => "icon" %>
+			<a href="account_form" class="item_by_icon">My Account</a>
+		</li>
+	    <li class="arrow">
+	    	<%= image_tag 'check-icon.png', :class => "icon"%>
+			<a href="bills_form" class="item_by_icon">My Payments</a>
+		</li>
+		<li class="arrow">
+			<%= image_tag 'piggy_bank.png', :class => "icon"%>
+			<a href="budget_form"  class="item_by_icon">My Budget</a></li>
+	    <li class="arrow">
+	    	<%= image_tag 'finger.png', :class => "icon"%>
+			<a href="rules_menu" target="_webapp" class="item_by_icon">My Rules</a>
+		</li>
+		<li class="arrow">
+			<%= image_tag 'statistics.png', :class => "icon"%>
+			<a href="beinformed" target="_webapp" class="item_by_icon">My Purchases</a>
+		</li>
+	</ul>
 
  
