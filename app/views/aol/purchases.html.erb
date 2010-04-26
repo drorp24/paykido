@@ -52,15 +52,15 @@
 		  }		
 		  
 		  function selectHandler(){
-		  	
-			var selection = table.getSelection();
-			var row = selection[0].row;
-			var purchase_amt = data.getValue(row, 2);
-			var purchase_amt_s = purchase_amt.toString();
-			var amt_fraction = purchase_amt_s.split('.')
-			var purchase_id = amt_fraction[1].substring(2)
+		  
+		  	var selection = table.getSelection();
+		  	var row = selection[0].row;
+		  	var purchase_amt = data.getValue(row, 2).toFixed(4);
+		  	var purchase_amt_s = purchase_amt.toString();
+		  	var amt_fraction = purchase_amt_s.split('.');
+		  	var purchase_id = amt_fraction[1].substring(2);
 			window.location = '/aol/purchase/' + purchase_id;
-		  }
+		  }		
 		  
 
     </script>

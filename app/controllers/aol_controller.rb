@@ -18,6 +18,7 @@ class AolController < ApplicationController
 
   def welcome_signedin
      @pending_counter = Purchase.pending_cnt(@payer.id)
+     params = nil
   end
   
   def signin
@@ -65,6 +66,7 @@ class AolController < ApplicationController
     end
 
   end
+
 
   def account_form        
  
@@ -193,10 +195,10 @@ end
 
   def authorization_form
     
-    @back_to = "/aol/beinformed"
+    @back_to = "/aol/purchases_pending_authorization"
     @back_class = "like_back"
     
-    @purchase = Purchase.pending_trx(@payer.id)
+    @purchase = Purchase.find(params[:id])
     if @purchase
       session[:purchase_id] = @purchase.id
       @retailer = Retailer.find(@purchase.retailer_id).name
@@ -223,7 +225,8 @@ end
     # 2. put expected sms in the db, not in the session - so aaa will know what to expect
     # 3. send an sms either way, but include in it a rand number or not according to whether perm pin exists or not
     flash[:notice] = "Thank you!"
-    redirect_to :action => :welcome_signedin
+    params = nil
+    redirect_to :action => :purchases_pending_authorization
   end
 
   def blacklist
@@ -248,7 +251,7 @@ end
 
   def purchases
     
-    @back_to = "/aol/beinformed"
+    @back_to = params[:id]
     @back_class = "like_back"
     
     @purchases = Purchase.all
@@ -263,7 +266,7 @@ end
     
     @purchases = Purchase.by_product_title(params[:id])
     @i = 0
-    render :action => :purchases
+    render :action => :purchases, :id => @back_to
     
   end 
 
@@ -274,14 +277,53 @@ end
     
     @purchases = Purchase.by_retailer_name(params[:id])
     @i = 0
-    render :action => :purchases
-
+    render :action => :purchases, :id => @back_to
      
+  end
+  
+  def purchases_pending_authorization_keep
+
+    @back_to = "/aol/welcome_signedin"
+    @back_class = "like_back"
+    
+    @purchases = Purchase.pending_trxs(@payer.id)
+    
+    @i = 0
+    render :action => :purchases, :id => @back_to
+
+  end
+
+  def purchases_pending_authorization
+    
+    @back_to = "/aol/welcome_signedin"
+    @back_class = "like_back"
+    
+    
+    @pending = Purchase.pending_trxs(@payer.id)
+    
+    if request.post?
+
+      # RAILS BUG MITIGATION - the returned params contain only those purchases that were NOT authorized
+      @pending.each do |purchase|
+        purchase.update_attributes(:authorization_type => "ManuallyAuthorized")
+      end
+      Purchase.update(params[:purchase].keys, params[:purchase].values) if params[:purchase]
+
+      render :action => :welcome_signedin 
+ 
+    end
+    
+  end
+  
+  def purchases_update
+    
+    render :action => :welcome_signedin
+    
   end
   
   def purchase
     
-    @back_to = "/aol/beinformed"
+    @back_to = "/aol/welcome_signedin"
     @back_class = "like_back"
 
     @purchase = Purchase.find(params[:id])  

@@ -1,0 +1,49 @@
+<script type="text/javascript" charset="utf-8">
+	$(function(){
+    	function submitForm(){
+                    $el = $('#add form');
+                    if ($('#todo', $el).val().length > 1) {
+                        var itemid = $('#home ul li').length + 1;
+                        $('#home .incomplete').append($('<li><input type="checkbox" /> <span>' + $('#todo', $el).val() + '</span></li>'));
+                    }
+                    jQT.goBack();
+                    $el.get(0).reset();
+                    return false;
+                }
+                $('#add form').submit(submitForm);
+                $('#add .whiteButton').click(submitForm);
+                $('.complete li, .incomplete li').bind('swipe', function(){
+                   $(this).toggleClass('editingmode');
+                });
+                $('input[type="checkbox"]').live('change', function(){
+                    var $el = $(this);
+                    if ($el.attr('checked')) {
+                        $el.parent().prependTo('.complete');
+                    } else {
+                        $el.parent().appendTo('.incomplete');
+                    }
+                });
+            });
+</script>
+
+
+<% form_tag  do %>
+	<h1>Pending Approval</h1>
+		<ul class="incomplete"> 
+		<% for @purchase in @pending %>
+			<li>
+		 		<%= check_box("purchase[]" , 'authorization_type', {}, "ManuallyAuthorized", "PendingPayer") %>
+				<span ><%= link_to @purchase.retailer.name, "/aol/authorization_form/#{@purchase.id}", :class =>"retailer_name" %></span>
+				<span><%= @purchase.product.title %></span>
+				<span><%= @purchase.date %></span>
+				<span class="price"><%= number_to_currency(@purchase.amount) %></span>		
+			</li>
+		<% end %>
+    	</ul>
+	<h1>Approved</h1>
+		<ul class="complete"></ul>
+	<%= link_to "Submit", nil, :class => "whiteButton submit" %>		   
+<% end %>
+			
+
+   

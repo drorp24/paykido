@@ -13,8 +13,8 @@ class Purchase < ActiveRecord::Base
     self.sum(:amount, :conditions => ["payer_id = ? and authorization_type = ?", payer_id, "PendingPayer"]) 
   end
   
-  def self.pending_trx(payer_id)
-    self.find_by_payer_id(payer_id, :conditions => ["authorization_type = ?", "PendingPayer"])
+  def self.pending_trxs(payer_id)
+    self.find_all_by_payer_id(payer_id, :conditions => ["authorization_type = ?", "PendingPayer"])
   end
   
   def self.pending_cnt(payer_id)

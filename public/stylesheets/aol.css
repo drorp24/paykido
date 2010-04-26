@@ -1,11 +1,40 @@
-#iconized_menu li.arrow  {
-	height:37px;
-	padding-top:0px;;
+h1 {
+	color:white;
+	    text-shadow: rgba(0,0,0,.2) 0 1.5px 1px;
+}
 
+.complete li {
+	color: #51b30d;       
+   
+}
+.complete .price {
+	color: #51b30d;       
+   
+}
+
+.complete .retailer_name{
+	color: #51b30d;   
+
+   
+}
+#iconized_menu li.arrow  {
+	height:39px;
+	padding-top:0px;
+	font-size:18px;
+
+
+}
+#iconized_menu a {
+		color:#666666;
+}
+
+#iconized_menu1 a {
+		color:#666666;
 }
 #iconized_menu1 li.arrow  {
 	height:37px;
 	padding-top:0px;;
+	font-size:18px;
 
 }
 
@@ -26,9 +55,12 @@
 
 }
 
-.counter {
-	margin-top:12px;
-	margin-right:30px;
+ul li small.counter {
+	margin-top:14px;
+	margin-right:50px;
+	background-color: #51b30d;
+	display:inline;
+	right:50px;
 }
 
 .title > h1 {
@@ -210,6 +242,12 @@ ul li.greenarrow{
 	width:160px;
 }
 
+.retailer_name {
+	color:#1B7BDD;
+		display:inline;
+  		
+}
+
 .blue_value {
 	color:#1B7BDD;	
 }
@@ -233,6 +271,11 @@ ul#authorization_form  {
 
 }
 
+.price {
+	color: #cc4200;
+	float:right;	
+}
+
 .red_value_long_width {
 	color: #cc4200;
 }
@@ -240,6 +283,7 @@ ul#authorization_form  {
 
 .right_indented {
 	float:right;
+	
 }
 
 .green_value {
