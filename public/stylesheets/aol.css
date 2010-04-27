@@ -1,6 +1,31 @@
+#balance {
+	color:#51b30d;
+
+}
+
+.toggle  {
+	display:inline;
+	float: right;
+	margin-top:-3px;
+}
+
+
+#blacklist a {
+	color: #cc4200;	
+}
+
+#whitelist a {
+	color:#51b30d;	
+}
+
 h1 {
 	color:white;
+	font-family:"Bookman Old Style";
+	font-family:"Bradley Hand ITC";
+	font-family:"Eras Medium ITC";
+
 	    text-shadow: rgba(0,0,0,.2) 0 1.5px 1px;
+
 }
 
 .complete li {
@@ -84,10 +109,13 @@ ul li small.counter {
 }
 
 
-#purchase_header .item {
+.thin_lines .item {
 	padding:5px;	
 }
 
+.thin_lines li {
+	padding:5px;	
+}
 #purchase_header .value {
 	width: 110px;
 }

@@ -34,7 +34,7 @@
 			<li>
 		 		<%= check_box("purchase[]" , 'authorization_type', {}, "ManuallyAuthorized", "PendingPayer") %>
 				<span ><%= link_to @purchase.retailer.name, "/aol/authorization_form/#{@purchase.id}", :class =>"retailer_name" %></span>
-				<span><%= @purchase.product.title %></span>
+				<span><%= @purchase.product.title %></span> 
 				<span><%= @purchase.date %></span>
 				<span class="price"><%= number_to_currency(@purchase.amount) %></span>		
 			</li>

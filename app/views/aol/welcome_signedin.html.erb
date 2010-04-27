@@ -4,7 +4,7 @@
 	<ul class="rounded" id="iconized_menu">
 		<li class="arrow">
 			<%= image_tag 'inbox.png', :class => "icon" %>
-			<a href="purchases_pending_authorization"  class="item_by_icon" target="_webapp">My Inbox</a>
+			<a href="pending_authorization"  class="item_by_icon" >My Inbox</a>
 			<small class="counter"><%= @pending_counter %></small>
 		</li>
 	</ul>
@@ -19,7 +19,7 @@
 		</li>
 		<li class="arrow">
 			<%= image_tag 'piggy_bank.png', :class => "icon"%>
-			<a href="budget_form"  class="item_by_icon">My Budget</a></li>
+			<a href="budget_form" target="_webapp" class="item_by_icon" >My Budget</a></li>
 	    <li class="arrow">
 	    	<%= image_tag 'finger.png', :class => "icon"%>
 			<a href="rules_menu" target="_webapp" class="item_by_icon">My Rules</a>

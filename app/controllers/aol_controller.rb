@@ -106,13 +106,11 @@ class AolController < ApplicationController
   
   def budget_form
 
-    @rule = @payer.most_recent_payer_rule
-    allowance = @rule.allowance
-    balance = @payer.balance
-    balance_position = (balance / allowance)*100
-    tick = ((allowance / 40).floor)*10
+    @back_to = "welcome_signedin"
+    @back_class = "like_back"
     
-    @uri = "http://chart.apis.google.com/chart?cht=gom&chs=300x120&chxt=y&chd=t:#{balance_position}&chl=Balance&chxr=0,0,#{allowance},#{tick}"
+    @rule = @payer.most_recent_payer_rule
+
   end
   
   def budget_update
@@ -123,16 +121,13 @@ class AolController < ApplicationController
       flash[:notice] = "No rule set for this payer"
       redirect_to :action => :joinin
       return
-    end
+    end    
     
-    if @rule.update_attributes(params[:rule])
+    @rule.update_attributes(params[:rule])
+    @payer.update_attributes(params[:payer])
+    
 
-      flash[:notice] = "Rule updated!"
-      redirect_to :action => :welcome_signedin
-    else
-      flash[:notice] = "Something wrong happened"
-      redirect_to :action => :welcome_signedin
-    end
+    redirect_to :action => :welcome_signedin
     
   end
   
