@@ -1,3 +1,27 @@
+li {
+	background-image:url('/images/li_bg.png');
+}
+
+.bordered {
+	border:1px solid green;
+	z-index:102;
+	
+}
+
+li.bordered {
+	margin:0;
+	padding:0;
+	height:115px;
+}
+
+#chartdiv {
+	width:285px;
+	height:90px;
+	margin-left:10px;
+}
+
+
+
 #balance {
 	color:#51b30d;
 
@@ -11,7 +35,8 @@
 
 
 #blacklist a {
-	color: #cc4200;	
+	color: #cc4200;
+	color:black;	
 }
 
 #whitelist a {

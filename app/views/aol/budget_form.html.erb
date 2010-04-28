@@ -5,18 +5,18 @@
 
 	function drawChart()
 	  {
-	  	var budget = document.getElementById("budget").value;
-		var balance = document.getElementById("balance").value;
+	  	var budget = document.getElementById("budget").value / 1;
+		var balance = document.getElementById("balance").value / 1;
 		if (balance>budget) {balance=budget; document.getElementById("balance").value = budget;}				
 		var balance_position = (balance / budget)*100;
 		var tick = ((budget / 40).toFixed(0))*10;		
-		var uri = "http://chart.apis.google.com/chart?cht=gom&chs=285x100&chxt=y&chd=t:"+ balance_position+"&chl=Balance&chxr=0,0," + budget + "," + tick;
+		var uri = "http://chart.apis.google.com/chart?cht=gom&chs=280x100&chxt=y&chd=t:"+ balance_position+"&chl=Balance&chxr=0,0," + budget + "," + tick;
 	  	document.getElementById("chartdiv").src=uri;
 	  }
 </script>
 
 <ul class="rounded" >
-	<li style="border:1px solid green"><%= "<img id='chartdiv' />" %></li>
+	<li class="bordered"><%= "<img id='chartdiv' />" %></li>
 </ul>
 
 
