@@ -1,42 +1,40 @@
 <div id="here"></div>
 <% title "Authorization Rules" %>
 
+
+
 <% form_for :rule, :url => { :action => :amounts_update } do |f| %>
 
   	<ul class="rounded">
     	<li>
-    		<span class="item" style="display:inline; width:150px">Always authorize if under</span>
-			<span class="green_value">
-				<span>
-					<%= f.text_field :auto_authorize_under, 
-					:placeholder => "this amount", 
-					:style => "color:#51b30d; font-weight: bold;display:inline; float:right; width:20px", 
-					:class => "right_indented" %>
+    		<span class="item" >Authorizeed under</span>
+				<span class="value">
+						<%= f.text_field :edited_auto_authorize_under, 
+						:placeholder => "this amount",  
+						:class => "right_indented green" %>
 				</span>
-			</span>
 		</li>
 	</ul>
   	<ul class="rounded">
     	<li>
-    		<span class="item" style="display:inline; width:100px"></span>Never authorize if over</span>
-			<span class="green_value">
-				<span>
-					<%= f.text_field :auto_deny_over, 
-					:placeholder => "this amount", 
-					:style => "color:#cc4200; font-weight: bold; display:inline; float:right; width:30px", 
-					:class => "right_indented" %>
-				</span>
+    		<span class="item"></span>Never over</span>
+			<span class="value">
+				<%= f.text_field :edited_auto_deny_over, 
+				:placeholder => "this amount",  
+				:class => "right_indented red" %>
 			</span>
 		</li>
 	</ul>
   	<ul class="rounded">
 		<li>
-			<span class="item" style="width:70px; display:inline">Otherwise reach me at</span>
+			<span class="item">Otherwise call me at</span>
 			<span class="value">
-				<%= f.text_field :authorization_phone, 
-				:maxlength =>10, 
+				<%= f.text_field (
+				:edited_authorization_phone, 
+				:maxlength =>15, 
 				:placeholder => "this number",
-				:style => "color:blue; font-weight:bold; width:85px; display:inline;float:right" %>
+				:class => "phone blue",
+				:id => "phone") %>
 			</span>
 		</li>
 	</ul>

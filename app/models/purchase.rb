@@ -1,8 +1,9 @@
 class Purchase < ActiveRecord::Base
+  versioned
+  
   belongs_to :payer
   belongs_to :retailer
   belongs_to :product
- 
   
   validates_presence_of :payer_id, :retailer_id, :product_id, :amount, :date
   validates_numericality_of :amount
@@ -38,6 +39,12 @@ class Purchase < ActiveRecord::Base
   def self.by_retailer_name(retailer_name)
     retailer = Retailer.find_by_name(retailer_name)
     self.find_all_by_retailer_id(retailer.id,:select => "id, retailer_id, product_id, amount, date")
+  end
+  
+  def self.revert
+    self.each do |p| 
+      p.revert_to(60.seconds.ago)
+    end
   end
 
 end

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100217235649) do
+ActiveRecord::Schema.define(:version => 20100428214655) do
 
   create_table "billings", :force => true do |t|
     t.string   "method",     :null => false
@@ -69,29 +69,19 @@ ActiveRecord::Schema.define(:version => 20100217235649) do
   end
 
   create_table "payer_rules", :force => true do |t|
-    t.integer  "payer_id",             :null => false
-    t.integer  "billing_id",           :null => false
+    t.integer  "payer_id",                            :null => false
+    t.integer  "billing_id",                          :null => false
     t.decimal  "allowance"
     t.boolean  "rollover"
     t.decimal  "auto_authorize_under"
     t.decimal  "auto_deny_over"
-    t.integer  "authorization_phone"
+    t.string   "authorization_phone",  :limit => nil
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "payers", :force => true do |t|
-    t.boolean   "exists"
-    t.string   "user"
-    t.string   "hashed_password"
-    t.string   "salt"
-    t.string   "name"
-    t.string   "email"
-    t.decimal  "balance"
-    t.string   "pin"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+# Could not dump table "payers" because of following StandardError
+#   Unknown type 'BOOL' for column 'exists'
 
   create_table "products", :force => true do |t|
     t.integer  "category_id",                                                :null => false
@@ -106,17 +96,19 @@ ActiveRecord::Schema.define(:version => 20100217235649) do
   add_index "products", ["title"], :name => "index_products_on_title"
 
   create_table "purchases", :force => true do |t|
-    t.integer  "payer_id",           :null => false
-    t.integer  "retailer_id",        :null => false
-    t.integer  "product_id",         :null => false
-    t.decimal  "amount",             :null => false
-    t.date     "date",               :null => false
+    t.integer  "payer_id",                           :null => false
+    t.integer  "retailer_id",                        :null => false
+    t.integer  "product_id",                         :null => false
+    t.decimal  "amount",                             :null => false
+    t.date     "date",                               :null => false
     t.date     "authorization_date"
     t.string   "authorization_type"
     t.date     "billing_date"
     t.integer  "billing_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "authentication_date"
+    t.string   "authentication_type", :limit => nil
   end
 
   create_table "retailers", :force => true do |t|
@@ -148,5 +140,25 @@ ActiveRecord::Schema.define(:version => 20100217235649) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "versions", :force => true do |t|
+    t.integer  "versioned_id"
+    t.string   "versioned_type"
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.string   "user_name"
+    t.text     "changes"
+    t.integer  "number"
+    t.string   "tag"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "versions", ["created_at"], :name => "index_versions_on_created_at"
+  add_index "versions", ["number"], :name => "index_versions_on_number"
+  add_index "versions", ["tag"], :name => "index_versions_on_tag"
+  add_index "versions", ["user_id", "user_type"], :name => "index_versions_on_user_id_and_user_type"
+  add_index "versions", ["user_name"], :name => "index_versions_on_user_name"
+  add_index "versions", ["versioned_id", "versioned_type"], :name => "index_versions_on_versioned_id_and_versioned_type"
 
 end

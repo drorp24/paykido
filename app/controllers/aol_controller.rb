@@ -1,10 +1,14 @@
 require 'ruby-debug'
 require 'rubygems'
 require 'seer'
+
+include ActionView::Helpers::NumberHelper
+
 class AolController < ApplicationController
   
   before_filter :assignments, :except => :amounts_update
   before_filter :authorize, :except => [:signin, :create, :welcome_new, :joinin]
+ 
   def main
     
   end
@@ -123,8 +127,8 @@ class AolController < ApplicationController
       return
     end    
     
-    @rule.update_attributes(params[:rule])
-    @payer.update_attributes(params[:payer])
+    @rule.update_attributes!(params[:rule])
+    @payer.update_attributes!(params[:payer])
     
 
     redirect_to :action => :welcome_signedin
@@ -161,12 +165,10 @@ class AolController < ApplicationController
     @back_class = "like_back"
 
     if @rule.update_attributes(params[:rule])
-      flash[:notice] = "Rule updated!"
-#      render :action => :rules_menu, :target => "_webapp"
-#      render :action => :amounts_form
+      redirect_to :action => :welcome_signedin
     else
       flash[:notice] = "That doesn't make sense. Please check again!"
-      render :action => :amounts_form
+      redirect_to :action => :amounts_form
     end
  
 end

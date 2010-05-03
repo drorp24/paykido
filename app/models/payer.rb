@@ -20,6 +20,14 @@ class Payer < ActiveRecord::Base
   validate :password_non_blank 
   validates_confirmation_of :password
   
+
+  def edited_balance
+    number_to_currency(self.balance)
+  end
+  
+  def edited_balance=(edited)
+    self.balance = edited.delete "$"
+  end
  
 #  attr_accessor :exists
 #  attr_accessor :balance, :user,:hashed_password

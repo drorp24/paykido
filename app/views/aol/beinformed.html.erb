@@ -17,40 +17,30 @@
 		</span>
 	</li>
 </ul>
-<div id="info">
-	<div id="Pie_chart">
-		<h4></h4>
-		<div id="purchases_by_category"></div>
-		
-		<%= Seer::visualize(
-		    @categories, 
-		    :as => :pie_chart,
-		    :in_element => 'purchases_by_category',
-		    :series => {
-		      :series_label => 'name',
-		      :data_method => 'quantity'
-		    },
-		    :chart_options => { 
-		      :height => 190,
-		      :width => 152,
-		      :axis_font_size => 13,
-		      :title => "Purchases by Category",
-			  :title_font_size => 13,
-			  :title_color => '#666666',
-		      :point_size => 10,
-		      :is_3_d => true,
-			  :colors => ['#666666','#4684ee', '#ff9900', '#dc3912'],
-			  :background_color => '#e1e1ff',
-			  :background_color => 'white',
-			  :legend_font_size => 13
-		    }
-		   )
-		-%>
-	
-		
-	</div>
 
-		
+<div id="info">
+
+<div id="chart" >
+<h4></h4>
+<div id="purchases_by_category" ></div>
+<%= Seer::visualize(
+      @categories, 
+      :as => :column_chart,
+      :in_element =>'chart', 
+      :series => {:series_label => 'name', :data_method => 'quantity'},
+      :chart_options => {
+        :height => 210,
+        :width => 152,
+		:legend => 'none',
+        :is_3_d => true,
+        :colors => "[{color:'#990000', darker:'#660000'},{color:'blue', darker:'black'}, ]",
+        :title => "Purchases by Category",
+      }
+    )
+ -%>
+
+</div>
+	
 	<div id="lists">
 		
 		<div id="top_products">

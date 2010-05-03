@@ -7,11 +7,11 @@ class CreatePayerRules < ActiveRecord::Migration
       t.integer :billing_id, :null => false, :options =>
         "CONSTRAINT fk_payer_rule_billings REFERENCES billings(id)"
       
-      t.decimal :allowance
+      t.decimal :allowance, :precision => 8, :scale => 2, :default => 0
       t.boolean :rollover
 
-      t.decimal :auto_authorize_under
-      t.decimal :auto_deny_over
+      t.decimal :auto_authorize_under, :precision => 8, :scale => 2, :default => 0
+      t.decimal :auto_deny_over, :precision => 8, :scale => 2, :default => 0
       
       t.string :authorization_phone
   

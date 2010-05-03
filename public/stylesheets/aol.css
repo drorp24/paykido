@@ -1,7 +1,18 @@
+/*
 li {
 	background-image:url('/images/li_bg.png');
 }
+*/
 
+ul li span .phone {
+	width: 150px;
+	text-align:left;
+	margin:-50px;
+}
+#budget:before {
+	content:"$";
+	border: 2px solid red;
+}
 .bordered {
 	border:1px solid green;
 	z-index:102;
@@ -272,10 +283,16 @@ ul li.greenarrow{
 	width:50px;
 }
 
+.medium_item {
+	width:90px;
+	font-size:11pt;
+	width:50px;
+}
 .value, .blue_value, .green_value, .red_value, .short_value, .short_value_long_width, .red_value_long_width, .long_value, .blue_value_long_width {
 	display:inline;
+	text-align:right;
 	float: right;
-	width:70px;
+	width:80px;
 	margin-right:0px;
 
 }
@@ -334,14 +351,39 @@ ul#authorization_form  {
 }
 
 
-.right_indented {
-	float:right;
+ul li span .right_indented {
+	text-align:right;
+
+
+	margin:0;
+	padding:0;
 	
+}
+
+.flushed_right {
+	position:absolute;
+	right:0;
+
 }
 
 .green_value {
 	color:#51b30d;
 
+}
+
+ul li span .green {
+	color:#51b30d;
+	font-weight:bold;
+}
+
+ul li span .red {
+	color:#cc4200;	
+	font-weight:bold;
+}
+
+ul li span .blue {
+	color:#1B7BDD;
+	font-weight:bold;	
 }
 
 
