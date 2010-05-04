@@ -5,9 +5,10 @@ li {
 */
 
 ul li span .phone {
-	width: 150px;
+	width: 100px;
 	text-align:left;
-	margin:-50px;
+	margin-left:-10px;
+
 }
 #budget:before {
 	content:"$";
@@ -45,13 +46,14 @@ li.bordered {
 }
 
 
-#blacklist a {
+.blacklist a {
 	color: #cc4200;
-	color:black;	
+	color:#dc3912;	
 }
 
-#whitelist a {
+.whitelist a {
 	color:#51b30d;	
+	color:#537c4c;
 }
 
 h1 {
@@ -368,11 +370,12 @@ ul li span .right_indented {
 
 .green_value {
 	color:#51b30d;
+	color:#537c4c;
 
 }
 
 ul li span .green {
-	color:#51b30d;
+	color: #537c4c;
 	font-weight:bold;
 }
 

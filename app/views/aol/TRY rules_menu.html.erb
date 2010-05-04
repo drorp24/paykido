@@ -1,0 +1,81 @@
+<% title "My Rules" %>
+
+
+	
+	<script type="text/javascript">
+	      google.load("visualization", "1", {packages:["barchart"]});
+	</script>
+	
+	<script type="text/javascript">
+
+		  var chart;
+			
+		  var data = new google.visualization.DataTable();
+		  	data.addColumn('string', 'Year');
+		    data.addColumn('number', 'Always Approve');
+		    data.addColumn('number', 'Let me decide');
+			data.addColumn('number', 'Never Approve');
+		    data.addRows(1);
+		    data.setValue(0, 0, '');
+		    <%= "data.setValue(0, 1, #{@auto_authorize_under}" %>);
+			<%= "data.setValue(0, 2, #{@manual_zone}" %>);
+			<%= "data.setValue(0, 3, #{@deny_zone}" %>);
+
+		  function drawChart(){
+			chart = new google.visualization.BarChart(document.getElementById('chart'));
+			chart.draw(data, {width: 290, height: 70, is3D: false, enableTooltip: false, legend: 'bottom', legendFontSize: 11, titleFontSize: 12, colors: ['#666666', 'ff9900', 'dc3912'], isStacked: true, title: 'Purchase Amount'});			  	
+			google.visualization.events.addListener(chart, 'select', selectHandler);
+		  }
+
+		  function selectHandler(){
+			var selection = chart.getSelection();
+			window.location = '/aol/amounts_form';
+		  }
+		
+		google.setOnLoadCallback(drawChart);
+
+    </script>
+	
+<% form_for :rule, :url => { :action => :amounts_update } do |f| %>
+
+	<ul id="chart"  style="padding-left:7px; padding-top:0px; padding-bottom: 0px"></ul>
+  	<ul class="rounded">
+    	<li>
+    		<span class="item" >Authorizeed under</span>
+				<span class="value">
+						<%= f.text_field :edited_auto_authorize_under, 
+						:placeholder => "this amount",  
+						:class => "right_indented green" %>
+				</span>
+		</li>
+    	<li>
+    		<span class="item"></span>Never over</span>
+			<span class="value">
+				<%= f.text_field :edited_auto_deny_over, 
+				:placeholder => "this amount",  
+				:class => "right_indented red" %>
+			</span>
+		</li>
+		<li>
+			<span class="item">Otherwise call me at</span>
+			<span class="value">
+				<%= f.text_field (
+				:edited_authorization_phone, 
+				:maxlength =>15, 
+				:placeholder => "this number",
+				:class => "phone blue",
+				:id => "phone") %>
+			</span>
+		</li>
+	</ul>
+
+
+  	<%= link_to "Submit", nil, :class => "whiteButton submit" %>
+
+<% end %>
+
+<ul class="rounded">
+    <li class="arrow" id="blacklist"><a href="blacklist" target="_webapp">My Black List</a></li>
+	<li class="arrow" id="whitelist"><a href="whitelist" target="_webapp">My Safe List</a></li>
+</ul>
+

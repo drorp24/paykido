@@ -39,7 +39,7 @@ class PayerRule < ActiveRecord::Base
   end
   
   def edited_authorization_phone
-    number_to_phone(self.authorization_phone, :area_code => true, :delimiter => " ")
+    number_to_phone(self.authorization_phone, :area_code => true)
 #    self.authorization_phone.to_s
   end
   

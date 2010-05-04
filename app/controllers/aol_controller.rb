@@ -95,16 +95,40 @@ class AolController < ApplicationController
   
   def rules_menu
     
-    @payer = Payer.find(session[:payer_id])
     @rule = PayerRule.find(session[:rule_id])
-    @auto_authorize_under = @rule.auto_authorize_under
-    @auto_deny_over = @rule.auto_deny_over
-    @manual_zone = @auto_deny_over - @auto_authorize_under
-    @deny_zone = @auto_authorize_under * 1.5
     
     @back_to = "welcome_signedin"
     @back_class = "like_back"
+    @help_to = "rules_help"
+    
+  end
+  
+  def rules_update                      # identicai to budget_update and possible others too - create method
+    @payer =PayerRule.find(session[:rule_id])
+    @rule = PayerRule.find(session[:rule_id])
+    unless @rule
+      flash[:notice] = "No rule set for this payer"
+      redirect_to :action => :joinin
+      return
+    end
+    
+    @back_to = "rules_menu"
+    @back_class = "like_back"
 
+    if @rule.update_attributes(params[:rule])
+      redirect_to :action => :welcome_signedin
+    else
+      flash[:notice] = "That doesn't make sense. Please check again!"
+      redirect_to :action => :amounts_form
+    end
+ 
+end
+  
+  def rules_help
+    
+  end
+  
+  def content_menu
     
   end
   
@@ -135,43 +159,7 @@ class AolController < ApplicationController
     
   end
   
-  def amounts_form                        
-    
-    @payer = Payer.find(session[:payer_id])
-    @rule = PayerRule.find(session[:rule_id])
-    @auto_authorize_under = @rule.auto_authorize_under
-    @auto_deny_over = @rule.auto_deny_over
-    @authorization_phone = @rule.authorization_phone
-    
-    @back_to = "rules_menu"
-    @back_class = "like_back"
-
-  end
   
-  def fresh_amounts_form
-    
-  end
-  
-  def amounts_update                      # identicai to budget_update and possible others too - create method
-    @payer =PayerRule.find(session[:rule_id])
-    @rule = PayerRule.find(session[:rule_id])
-    unless @rule
-      flash[:notice] = "No rule set for this payer"
-      redirect_to :action => :joinin
-      return
-    end
-    
-    @back_to = "rules_menu"
-    @back_class = "like_back"
-
-    if @rule.update_attributes(params[:rule])
-      redirect_to :action => :welcome_signedin
-    else
-      flash[:notice] = "That doesn't make sense. Please check again!"
-      redirect_to :action => :amounts_form
-    end
- 
-end
 
 def redirect_to_rules_menu
   
@@ -349,6 +337,10 @@ end
   end
 
  
+  def help
+    
+  end
+   
    def logout
     session[:payer_id] = nil
     flash[:notice] = "Logged out"
@@ -370,6 +362,7 @@ end
   
   def assignments
     @back_class = "back"
+    @help_to = "/aol/help"
   end
   
  end
