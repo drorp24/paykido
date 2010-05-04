@@ -1,13 +1,21 @@
 /*
 li {
-	background-image:url('/images/li_bg.png');
+	background-image:url('/images/li_bg.png')
 }
 */
 
-ul li span .phone {
-	width: 100px;
-	text-align:left;
-	margin-left:-10px;
+#rule_authorization_channel {
+	display:inline;
+	width:65px;
+	background:none;
+	margin-left:10px;
+
+}
+
+ul li span #phone {
+	width: 170px;
+	margin-bottom:-5px;
+	display:inline;
 
 }
 #budget:before {

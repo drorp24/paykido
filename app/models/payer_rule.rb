@@ -10,8 +10,16 @@ class PayerRule < ActiveRecord::Base
   
   def before_save
     if self.authorization_phone.length < 10
-      self.authorization_phone << "w"
+      
     end
+  end
+  
+  def authorization_channel   # a pseudo attribute at that stage - to be added to the model whenever
+    @authorization_channel
+  end
+  
+  def authorization_channel=(ac)
+    
   end
   
   def edited_budget
@@ -39,7 +47,7 @@ class PayerRule < ActiveRecord::Base
   end
   
   def edited_authorization_phone
-    number_to_phone(self.authorization_phone, :area_code => true)
+    number_to_phone(self.authorization_phone, :area_code => true, :country_code => 972)
 #    self.authorization_phone.to_s
   end
   
