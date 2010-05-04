@@ -4,6 +4,12 @@ li {
 }
 */
 
+.transparent {
+	color:transparent;
+}
+#manual_involvement_help {
+	z-index:102;
+}
 #rule_authorization_channel {
 	display:inline;
 	width:65px;

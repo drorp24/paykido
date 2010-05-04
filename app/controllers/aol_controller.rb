@@ -128,6 +128,10 @@ end
     
   end
   
+  def involved_help
+    
+  end
+  
   def content_menu
     
   end
