@@ -104,23 +104,14 @@ class AolController < ApplicationController
   end
   
   def rules_update                      # identicai to budget_update and possible others too - create method
-    @payer =PayerRule.find(session[:rule_id])
+
     @rule = PayerRule.find(session[:rule_id])
-    unless @rule
-      flash[:notice] = "No rule set for this payer"
-      redirect_to :action => :joinin
-      return
-    end
+   
+    flash[:notice] = "That doesn't make sense. Please check again!" unless @rule.update_attributes(params[:rule])
+    redirect_to :action => :welcome_signedin
     
     @back_to = "rules_menu"
     @back_class = "like_back"
-
-    if @rule.update_attributes(params[:rule])
-      redirect_to :action => :welcome_signedin
-    else
-      flash[:notice] = "That doesn't make sense. Please check again!"
-      redirect_to :action => :amounts_form
-    end
  
 end
   

@@ -4,6 +4,23 @@ li {
 }
 */
 
+#GChart_Frame_0 {
+
+}
+.framed {
+
+}
+#beinformed_heading {
+
+}
+#categoryChart {
+
+	margin-left:5px;
+}
+
+#purchases_by_category {
+
+}
 .transparent {
 	color:transparent;
 }
@@ -12,16 +29,21 @@ li {
 }
 #rule_authorization_channel {
 	display:inline;
-	width:65px;
+	width:70px;
 	background:none;
 	margin-left:10px;
 
 }
 
 ul li span #phone {
-	width: 170px;
-	margin-bottom:-5px;
+	width: 160px;
+	margin-bottom:5px;
+	margin-left:10px;
+	margin-right:0;
+	margin-top:-20px;
+	padding:0;
 	display:inline;
+	text-align:right;
 
 }
 #budget:before {
@@ -222,7 +244,7 @@ ul li small.counter {
 
 
 #info li {
-	height:17px;
+	height:20px;
 }
 /*
 .whiteButton  {
@@ -234,11 +256,11 @@ ul li small.counter {
 }
 */
 
-#balance_line,  #authorization_line  {
-	margin:1px;
+.wide  {
+	margin-left:2px;
 	margin-right:5px;
-	padding:0;
-	margin-top:7px;
+	margin-top:10px;
+	margin-bottom:5px;
 
 }
 
@@ -259,7 +281,7 @@ ul li small.counter {
 	position: absolute;
 	right:3px;
 	top:0;
-	height:105px;
+	height:127px;
 	overflow:hidden;
 	margin-top:0px;
 }
@@ -267,8 +289,8 @@ ul li small.counter {
 #top_retailers {
 	position: absolute;
 	right:3px;
-	top: 110px;
-	height:105px;
+	top: 136px;
+	height:127px;
 	overflow:hidden;
 
 }
@@ -442,6 +464,10 @@ ul li span .blue {
 #lists li {
 	font-size:0.9emt;
 	width: 140px;
+	background-color:#fffbb0;
+	background-color:#fffdcd;
+	background-color:#f2faeb;
+	background-color:white;
 }
 
 #lists li:hover {
@@ -454,18 +480,18 @@ ul li span .blue {
 }
 
 #lists ul {
-	height:175px;
+	height:200px;
 	margin:0;
 
 #top_products ul {
 	margin:5px 0 0 5px;
-	height:70px;
+	height:120px;
 
 }
 
 #top_retailers ul {
 	margin:20px 0 2px 2px;
-	height:70px;
+	height:120px;
 }
 
 

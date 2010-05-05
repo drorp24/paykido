@@ -1,6 +1,6 @@
 <% title "My Rules" %>
 
-	<ul  style="background-image:url('/images/heading_bg1.png');color:white;text-align:center;text-shadow: rgba(0,0,0,.2) 0 5px 3px;font-weight:100;">Automatically handle purchases</ul>
+	<ul  style="background-image:url('/images/heading_bg1.png');color:white;text-align:left;text-shadow: rgba(0,0,0,.2) 0 5px 3px;font-weight:100;">Automatically handle purchases:</ul>
 	
 	
 <% form_for :rule, :url => { :action => :rules_update } do |f| %>
@@ -31,10 +31,10 @@
 	<ul id="chart"  style="padding-left:7px; padding-top:0px; padding-bottom: 0px"></ul>
 
 	<ul  style="height:25px;padding-top:10px;margin-top:-10px;margin-bottom:-10px;background-image:url('/images/heading_bg_with_question_mark.png');background-repeat:no-repeat;color:white;text-align:center;text-shadow: rgba(0,0,0,.2) 3px 3px 3px;font-weight:100;">
-		<span style="display:inline;">When I need to be involved</span>
+		<span style="display:inline;">When I need to be involved:</span>
 		<span><%= link_to "shalommm", "involved_help", :class => "slideup transparent" %> </span>
 	</ul>
-  	<ul class="rounded" style = "height:30px">
+  	<ul class="rounded" style = "height:35px">
 		<li>
 			<span class="item">
 				<%= f.select(:authorization_channel, 
@@ -71,8 +71,9 @@
 		  var under = Number(under_with_currency.replace(/[^0-9\.]+/g,""));
 		  var over_with_currency = document.getElementById("over").value;
 		  var over = Number(over_with_currency.replace(/[^0-9\.]+/g,""));
+		  if (over < under) {over=under;document.getElementById("over").value = under;}
 		  var manual_zone = over - under;
-		  var deny_zone = under * 2;		
+		  if (under != 0) {var deny_zone = under * 2;} else {var deny_zone = manual_zone * 0.5;}		
 			
 		  var data = new google.visualization.DataTable();
 		  	data.addColumn('string', 'Year');
