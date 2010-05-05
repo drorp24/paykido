@@ -1,6 +1,5 @@
 require 'ruby-debug'
-require 'rubygems'
-require 'seer'
+
 
 include ActionView::Helpers::NumberHelper
 
@@ -162,12 +161,12 @@ end
 
   def beinformed
 
-    @categories = Category.all
-    @balance = @payer.balance
-    @pending = Purchase.pending_amt(@payer.id)
+    @categories = Purchase.payer_top_categories(@payer.id)
+    @i = 0
     
     @back_to = "welcome_signedin"
     @back_class = "like_back"
+    
 
 
   end
@@ -231,22 +230,35 @@ end
 
   def purchases
     
-    @back_to = params[:id]
+    @back_to = "/aol/beinformed"
     @back_class = "like_back"
     
     @purchases = Purchase.all
     @i = 0
+
     
   end
+  
+   def purchases_all
+    
+    @back_to = "/aol/beinformed"
+    @back_class = "like_back"
+    
+    @purchases = Purchase.full_list(@payer.id)
+
+    @i = 0
+    render :action => :purchases
+    
+  end 
   
   def purchases_by_product
     
     @back_to = "/aol/beinformed"
     @back_class = "like_back"
     
-    @purchases = Purchase.by_product_title(params[:id])
+    @purchases = Purchase.by_product_id(@payer.id, params[:id])
     @i = 0
-    render :action => :purchases, :id => @back_to
+    render :action => :purchases
     
   end 
 
@@ -255,9 +267,9 @@ end
     @back_to = "/aol/beinformed"
     @back_class = "like_back"
     
-    @purchases = Purchase.by_retailer_name(params[:id])
+    @purchases = Purchase.by_retailer_id(@payer.id, params[:id])
     @i = 0
-    render :action => :purchases, :id => @back_to
+    render :action => :purchases
      
   end
   
@@ -269,7 +281,7 @@ end
     @purchases = Purchase.pending_trxs(@payer.id)
     
     @i = 0
-    render :action => :purchases, :id => @back_to
+    render :action => :purchases
 
   end
 

@@ -259,8 +259,11 @@ ul li small.counter {
 .wide  {
 	margin-left:2px;
 	margin-right:5px;
-	margin-top:10px;
+	margin-top:5px;
 	margin-bottom:5px;
+	position:absolute;
+	top:365px;
+	width:315px;
 
 }
 
@@ -279,19 +282,21 @@ ul li small.counter {
 
 #top_products {
 	position: absolute;
-	right:3px;
+	left:182px;
 	top:0;
 	height:127px;
 	overflow:hidden;
 	margin-top:0px;
+	width:132px;
 }
 
 #top_retailers {
 	position: absolute;
-	right:3px;
+	left:182px;
 	top: 136px;
 	height:127px;
 	overflow:hidden;
+	width:132px;
 
 }
 
@@ -316,9 +321,12 @@ ul li.greenarrow{
 }
 
 .short_item {
-	width:50px;
+	width:40px;
 	font-size:11pt;
 	width:50px;
+	padding:0;
+	padding-left:7px;
+
 }
 
 .medium_item {
@@ -463,16 +471,30 @@ ul li span .blue {
 
 #lists li {
 	font-size:0.9emt;
-	width: 140px;
+	width: 125px;
 	background-color:#fffbb0;
 	background-color:#fffdcd;
 	background-color:#f2faeb;
 	background-color:white;
+		background-color:#fffdcd;
+		background-color:#f7ffd4;
+		background-color:#eef0ff;
+
+}
+
+#top_retailers li {
+	background-color:#fff7bc;
 }
 
 #lists li:hover {
-	background-color:#008000;
-	color:white;
+}
+
+#top_products a:hover {
+	color:#cc4200;
+}
+
+#top_retailers a:hover {
+	color: #1B7BDD;
 }
 
 #lists a {
@@ -484,7 +506,7 @@ ul li span .blue {
 	margin:0;
 
 #top_products ul {
-	margin:5px 0 0 5px;
+	margin:5px -2px 0 5px;
 	height:120px;
 
 }

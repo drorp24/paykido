@@ -19,22 +19,7 @@ class Retailer < ActiveRecord::Base
 
 #  validate :password_non_blank
    
-  def quantity
-    purchases.sum(:amount)
-  end
-  
-  def self.top(num)
- 
-    retailers = {}
-    all.each do |retailer|
-      retailers[retailer.name] = retailer.quantity
-    end
-    retailers.sort{|a,b| b[1]<=>a[1]}
-  
-  end
-
-
-  
+   
   def self.authenticate(user, password)
     retailer = self.find_by_name(user)
     if retailer

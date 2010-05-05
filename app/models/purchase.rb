@@ -21,7 +21,6 @@ class Purchase < ActiveRecord::Base
   def self.pending_cnt(payer_id)
     self.find_all_by_payer_id(payer_id, :conditions => ["authorization_type = ?", "PendingPayer"]).size
   end
-
   
   def self.never_authorized(payer_id)
     self.find_all_by_payer_id(payer_id, :conditions => ["authorization_type = ?", "NeverAuthorized"],:select => "retailer_id, product_id, updated_at")
@@ -31,14 +30,45 @@ class Purchase < ActiveRecord::Base
     self.find_all_by_payer_id(payer_id, :conditions => ["authorization_type = ?", "AlwaysAuthorized"],:select => "retailer_id, product_id, updated_at")
   end
  
-  def self.by_product_title(product_title)
-    product = Product.find_by_title(product_title)
-    self.find_all_by_product_id(product.id,:select => "id, retailer_id, product_id, amount, date")
+  def self.by_product_id(payer_id, product_id)
+    self.find_all_by_product_id(product_id, :conditions => ["payer_id = ?", payer_id],:select => "id, retailer_id, product_id, amount, date")
   end
   
-  def self.by_retailer_name(retailer_name)
-    retailer = Retailer.find_by_name(retailer_name)
-    self.find_all_by_retailer_id(retailer.id,:select => "id, retailer_id, product_id, amount, date")
+  def self.by_retailer_id(payer_id, retailer_id)
+    self.find_all_by_retailer_id(retailer_id, :conditions => ["payer_id = ?", payer_id],:select => "id, retailer_id, product_id, amount, date")
+  end
+    
+  def self.payer_top_products(payer_id, limit)
+    self.sum   :amount,
+               :conditions => ["payer_id = ? and authorization_date != '' and authorization_type not in ('PendingPayer', 'NotAuthorized', 'NeverAuthorized')", payer_id], 
+               :group => "product_id" ,
+               :order => "amount desc",
+               :limit => limit
+
+  end
+
+   def self.payer_top_retailers(payer_id, limit)
+    self.sum   :amount,
+               :conditions => ["payer_id = ? and authorization_date != '' and authorization_type not in ('PendingPayer', 'NotAuthorized', 'NeverAuthorized')", payer_id], 
+               :group => "retailer_id" ,
+               :order => "amount desc", 
+               :limit => limit
+  end
+  
+  def self.payer_top_categories(payer_id)
+    self.sum   :amount,
+               :conditions => ["payer_id = ? and authorization_date != '' and authorization_type not in ('PendingPayer', 'NotAuthorized', 'NeverAuthorized')", payer_id],
+               :joins => "inner join products on purchases.product_id = products.id",
+               :group => "category_id",
+               :order => "amount desc"
+  end
+  
+  
+  
+  def self.full_list(payer_id)
+    self.find_all_by_payer_id(payer_id,
+              :conditions => ["authorization_date != '' and authorization_type not in ('PendingPayer', 'NotAuthorized', 'NeverAuthorized')"],
+              :select => "id, retailer_id, product_id, amount, date, authorization_date")
   end
   
   def self.revert

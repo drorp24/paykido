@@ -36,7 +36,7 @@
 
 		    var cssClassNames = {'tableCell': 'purchasesCell', 'oddTableRow' : 'purchasesOddRow'};
 
-			var formatter = new google.visualization.NumberFormat({prefix: '$' , fractionDigits: 2});
+			var formatter = new google.visualization.NumberFormat({prefix: '$' , fractionDigits: 6});
   			formatter.format(data, 2); // Apply formatter to third column
   			
 			var formatter_short = new google.visualization.DateFormat({formatType: 'short'});
