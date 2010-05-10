@@ -9,6 +9,54 @@ class Retailer < ActiveRecord::Base
   
   has_many :items
   has_many :products, :through => :items
+  
+  has_many :rlists
+  has_many :payers, :through => :rlists    # to be used for queries such as "who blacklists me" (not likely)
+
+ 
+  def rlist(payer_id)
+    
+    rlist = Rlist.find_or_initialize_by_retailer_id_and_payer_id(self.id, payer_id)
+    
+  end
+  
+  def status(payer_id)
+
+    self.rlist(payer_id).status
+    
+  end
+  
+  def update(payer_id, status)
+    
+    self.rlist(payer_id).update_attributes!(:status => status)
+    
+  end
+  
+  def is_blacklisted(payer_id)
+    
+    self.status == "blacklisted" 
+    
+  end
+
+  def is_whitelisted(payer_id)
+    
+    self.status == "whitelisted" 
+ 
+  end
+
+  def blacklist(payer_id)
+    
+    self.update(payer_id, "blacklisted")
+    
+  end
+ 
+  def whitelist(payer_id)
+    
+   self.update(payer_id, "whitelisted")
+    
+  end
+ 
+
 
 
 #  validates_presence_of :user, :name, :email 

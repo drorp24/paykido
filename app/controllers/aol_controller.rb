@@ -319,6 +319,14 @@ end
     @back_class = "like_back"
 
     @purchase = Purchase.find(params[:id]) 
+    session[:purchase_id] = @purchase.id
+    @retailer = @purchase.retailer
+    @product = @purchase.product
+    @category = @purchase.product.category
+    
+    @rlist = @retailer.rlist(@payer.id)
+    @plist = @product.plist(@payer.id)
+    @clist = @category.clist(@payer.id)
     
     if @purchase.authorization_type == "ManuallyAuthorized"
       @authorization_text = "You approved it on " + @purchase.authorization_date.to_s(:long)
@@ -344,6 +352,45 @@ end
       @autentication_text = "Consumer authenticated by " + @purchase.authentication_type + " on " + @purchase.authentication_date.to_s(:long) 
     end
     
+    
+  end
+  
+  def rlist_update
+     
+    @purchase = Purchase.find(session[:purchase_id])
+    @retailer = @purchase.retailer
+    
+    if params[:rlist] and (params[:rlist] != @retailer.status(@payer.id))
+      @retailer.update(@payer.id, params[:rlist][:status])
+    end 
+
+    redirect_to :action => "purchase", :id => @purchase.id
+    
+  end
+  
+  def plist_update
+    
+    @purchase = Purchase.find(session[:purchase_id])
+    @product = @purchase.product
+ 
+    if params[:plist] and (params[:plist] != @product.status(@payer.id))
+      @product.update(@payer.id, params[:plist][:status])
+    end 
+
+    redirect_to :action => "purchase", :id => @purchase.id
+    
+  end
+  
+  def clist_update
+    
+    @purchase = Purchase.find(session[:purchase_id])
+    @category = @purchase.product.category
+
+    if params[:clist] and (params[:clist] != @category.status(@payer.id))
+      @category.update(@payer.id, params[:clist][:status])
+    end 
+
+    redirect_to :action => "purchase", :id => @purchase.id
     
   end
   

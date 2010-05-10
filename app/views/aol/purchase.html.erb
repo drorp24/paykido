@@ -45,11 +45,18 @@
 </ul>
 </div>
 
-<% form_for :retailer, :url => { :action => :retailer_lists_update } do |f| %>
- 		<%= f.text_field (:edited_budget, :id => "retailer_lists") %>
+<% form_for :rlist, :url => { :action => :rlist_update } do |f| %>
+ 		<span><%= f.text_field(:status, :id => "rlist") %></span>
+		<span><%= link_to "Submit", nil, :class => "whiteButton submit" %></span>
 <% end %>
-	
-
+<% form_for :plist, :url => { :action => :plist_update } do |f| %>
+ 		<span><%= f.text_field(:status, :id => "plist") %></span>
+		<span><%= link_to "Submit", nil, :class => "whiteButton submit" %></span>
+<% end %>	
+<% form_for :clist, :url => { :action => :clist_update } do |f| %>
+ 		<span><%= f.text_field(:status, :id => "clist") %></span>
+		<span><%= link_to "Submit", nil, :class => "whiteButton submit" %></span>
+<% end %>
 <script type="text/javascript">
 
 var retailer_like = "unlit"
