@@ -1,7 +1,7 @@
 <% title "My Information" %>
 
 <div id="info" style="margin-top:10px">
-	<ul  style="height:15px;width:169px;margin:5px;margin-left:0;padding:3px;text-align:center;background-image:url('/images/heading_bg1.png');color:white;text-align:left;text-shadow: rgba(0,0,0,.2) 0 5px 3px;font-weight:100;font-size:14px;">Top Categories</ul>
+	<ul class="edgetoedge" style="height:15px;width:169px;margin:5px;margin-left:0;padding:3px;text-align:center;background-image:url('/images/heading_bg1.png');color:white;text-align:left;text-shadow: rgba(0,0,0,.2) 0 5px 3px;font-weight:100;font-size:14px;">Top Categories</ul>
 	<div id="categoryChart">
 		<div id="purchases_by_category"></div>
 	</div>
@@ -9,8 +9,9 @@
 	<div id="lists" >
 		
 		<div id="top_products" >
-			<ul  id="beinformed_heading" style="height:22px;width:140px;margin:5px;margin-left:0;padding-left:5px;text-align:center;background-image:url('/images/heading_bg1.png');color:white;text-align:left;text-shadow: rgba(0,0,0,.2) 0 5px 3px;font-weight:100;font-size:14px">Top Products</ul>
-			<ul class="rounded">
+			<ul class="edgetoedge" id="beinformed_heading" style="height:22px;width:140px;margin:5px;margin-left:0;padding-left:5px;text-align:center;background-image:url('/images/heading_bg1.png');color:white;text-align:left;text-shadow: rgba(0,0,0,.2) 0 5px 3px;font-weight:100;font-size:14px">Top Products</ul>
+			<ul class="edgetoedge">
+			<% i = 1 %>
 			<% Purchase.payer_top_products(@payer.id, 3).each do |product_id, total|%>
 				<li>
 					<%= link_to Product.find(product_id).title, "purchases_by_product/#{product_id}", :class => "short_item" %>
@@ -18,13 +19,18 @@
 						<span class="right_indented"><%= number_to_currency(total) %></span>
 					</span>
 				</li>
+			<% i += 1 %>
 			<% end %>
+			<%  i.upto(3) do %>
+				<li></li>
+			<% end %>			
 			</ul>
 		</div>
 
 		<div id="top_retailers">
-			<ul  id="beinformed_heading" style="height:22px;width:140px;margin:5px;margin-left:0;padding-left:5px;text-align:center;background-image:url('/images/heading_bg1.png');color:white;text-align:left;text-shadow: rgba(0,0,0,.2) 0 5px 3px;font-weight:100;font-size:14px;">Top Merchants</ul>
-			<ul class="rounded framed">
+			<ul class="edgetoedge" id="beinformed_heading" style="height:22px;width:140px;margin:5px;margin-left:0;padding-left:5px;text-align:center;background-image:url('/images/heading_bg1.png');color:white;text-align:left;text-shadow: rgba(0,0,0,.2) 0 5px 3px;font-weight:100;font-size:14px;">Top Merchants</ul>
+			<ul class="edgetoedge">
+			<% i = 1 %>
 			<% Purchase.payer_top_retailers(@payer.id, 3).each do |retailer_id, total|%>
 				<li>
 					<%= link_to Retailer.find(retailer_id).name, "purchases_by_retailer/#{retailer_id}", :class => "short_item" %>
@@ -32,7 +38,12 @@
 						<span class="right_indented"><%= number_to_currency(total) %></span>
 					</span>
 				</li>
+			<% i += 1 %>
 			<% end %>
+			<%  i.upto(3) do %>
+				<li></li>
+			<% end %>
+
 			</ul>
 		</div>
 		
@@ -64,7 +75,7 @@
 					backgroundColor: '#ccebd2', 
 					legend: 'bottom', 
 					is3D: true, 
-					title: 'My Daily Activities',
+					title: 'Purchases by Category',
 					colors: [{color:'orange', darker:'#680000'}, {color:'#1B7BDD', darker:'black'},{color:'#666666', darker:'black'}, {color:'#dc3912', darker:'black'}]
       });
 	  }

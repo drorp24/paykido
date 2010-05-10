@@ -9,7 +9,7 @@ class Purchase < ActiveRecord::Base
   validates_numericality_of :amount
   
 #  attr_accessor :authorization_date, :authorization_type
-  
+    
   def self.pending_amt(payer_id)
     self.sum(:amount, :conditions => ["payer_id = ? and authorization_type = ?", payer_id, "PendingPayer"]) 
   end

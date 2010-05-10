@@ -1,9 +1,60 @@
 /*
 li {
-	background-image:url('/images/li_bg.png')
+	-image:url('/images/li_bg.png')
 }
 */
 
+.purchase_update {
+	position:absolute;
+	bottom:15px;
+	left:1px;
+	width:260px;
+	height:15px;
+}
+
+.dark li {
+	background-color:#444444;
+	background-image:url("/images/purchases_gradient1.png");
+	color: #666666;
+/*
+	text-shadow: rgba(0,0,0,.2) 0 1.5px 1px;
+*/
+	font-size:1.1em;
+	height:25px;
+	padding:10px;
+}
+.red {
+	color: #cc4200;
+}
+
+.small {
+	font-size:0.85em;
+}
+
+.big {
+	font-size:1.2em;
+}
+.date.value {
+	width:120px;
+}
+
+ul li a, li.img a + a  {
+	color: #666666;
+}
+
+.middle {
+	margin-left: 7%;
+}
+
+.right_float {
+	float: right;
+}
+
+#purchase_list_request span {
+	display:inline;
+	float:left;
+	margin:5px;
+}
 #GChart_Frame_0 {
 
 }
@@ -148,6 +199,10 @@ h1 {
 
 }
 
+.like {
+	width:70px;
+}
+
 .icon {
 
 
@@ -189,6 +244,9 @@ ul li small.counter {
 
 .thin_lines li {
 	padding:5px;	
+}
+.super_thin_lines li {
+	padding:1px;	
 }
 #purchase_header .value {
 	width: 110px;
@@ -288,6 +346,8 @@ ul li small.counter {
 	overflow:hidden;
 	margin-top:0px;
 	width:132px;
+
+
 }
 
 #top_retailers {
@@ -509,6 +569,10 @@ ul li span .blue {
 	margin:5px -2px 0 5px;
 	height:120px;
 
+}
+
+$top_products ul.rounded {
+		background-color:#eef0ff;
 }
 
 #top_retailers ul {

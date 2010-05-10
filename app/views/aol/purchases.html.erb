@@ -26,7 +26,7 @@
 		    	<%= "data.setCell(#{@i}, 0, '#{p.retailer.name}');" %>
 				<%= "data.setCell(#{@i}, 1, '#{p.product.title}');" %>
 			/*	<%= "data.setCell(#{@i}, 2, '#{p.product.category.name}');" %>    */
-				<%= "data.setCell(#{@i}, 2,  #{p.amount}#{(p.id/10)}#{(p.id%10)});" %>
+				<%= "data.setCell(#{@i}, 2,  #{number_with_precision(p.amount, :precision => 2)}#{(p.id/10)}#{(p.id%10)});" %>
 				<%= "data.setCell(#{@i}, 3, '#{p.date.to_s.last(5)}');" %>
 				<% @i += 1 %>
 			<% end %>
@@ -36,7 +36,7 @@
 
 		    var cssClassNames = {'tableCell': 'purchasesCell', 'oddTableRow' : 'purchasesOddRow'};
 
-			var formatter = new google.visualization.NumberFormat({prefix: '$' , fractionDigits: 6});
+			var formatter = new google.visualization.NumberFormat({prefix: '$' , fractionDigits: 2});
   			formatter.format(data, 2); // Apply formatter to third column
   			
 			var formatter_short = new google.visualization.DateFormat({formatType: 'short'});

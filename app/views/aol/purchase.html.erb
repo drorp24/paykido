@@ -1,54 +1,159 @@
-<% title "Purchase Details" %>
+<% title "Purchase" %>
 
 <div class="thin_lines">	
 
-<ul class="rounded">
+<ul class="rounded dark">
 	<li>
-		<span class="item">Retailer:</span>
-		<span class="blue_value"><%= @purchase.retailer.name %></span>
-	</li>
-	<li>
-		<span class="item">Product:</span>
-		<span class="value"><%= @purchase.product.title %></span>
-	</li>
-	<li>
-		<span class="item">Date:</span>
-		<span class="value"><%= @purchase.date.to_s.first(10) %></span>
-	</li>
-	<li>
-		<span class="item">Amount:</span>
-		<span class="red_value"><%= number_to_currency(@purchase.amount) %></span>
+		<span class="item"><%= @purchase.date.to_s(:long) %></span>
+		<span class="red_value" ><%= number_to_currency(@purchase.amount) %></span>
 	</li>
 </ul>
 <ul class="rounded">
 	<li>
-		<span class="item">Authentication Date:</span>
-		<span class="value"><%= @purchase.authentication_date.to_s.first(10) %></span>
+		<span><%= image_tag 'fb_like_small.png', :class => "like", :id => "retailer_like", :onclick => "retailerLikeToggle()" %>
+				<%= image_tag 'zynga logo.png', :class => "icon middle" %>
+		<span><%= image_tag 'fb_dont_small.png', :class => "like right_float", :id => "retailer_dislike", :onclick => "retailerDislikeToggle()", :style => "float:right"%>
 	</li>
 	<li>
-		<span class="item">Authentication Method:</span>
-		<span class="value"><%= @purchase.authentication_type %></span>
-	</li>	
+		<span><%= image_tag 'fb_like_small.png', :class => "like", :id => "product_like", :onclick => "productLikeToggle()" %>
+		<span class="item middle"><%= @purchase.product.title %></span>
+		<span><%= image_tag 'fb_dont_small.png', :class => "like right_float", :id => "product_dislike", :onclick => "productDislikeToggle()" %>
+	</li>
+	<li>
+		<span><%= image_tag 'fb_like_small.png', :class => "like", :id => "category_like", :onclick => "categoryLikeToggle()" %>
+		<span class="item middle"><%= @purchase.product.category.name %></span>
+		<span><%= image_tag 'fb_dont_small.png', :class => "like right_float", :id => "category_dislike", :onclick => "categoryDislikeToggle()" %>
+	</li>
 </ul>
 <ul class="rounded">
 	<li>
-		<span class="item">Authorization Date:</span>
-		<span class="value"><%= @purchase.authorization_date.to_s.first(10) %></span>
+		<%= @authentication_text %>
 	</li>
 	<li>
-		<span class="item">Authorization Type:</span>
-		<span class="value"><%= @purchase.authorization_type.first(15) %></span>
-	</li>	
-</ul>
-<ul class="rounded">
-	<li>
-		<span class="item">Billing Date:</span>
-		<span class="value"><%= @purchase.billing_date.to_s.first(10) %></span>
+		<% if @purchase.authorization_type == "PendingPayer" %>
+			<% form_for :purchase, :url => { :action => :authorization_update} do |form| %>
+				<%= form.select(:authorization_type, 
+					[["Approve this purchase","ManuallyAuthorized"],
+					 ["Don't approve this purchase" , "NotAuthorized"]]	
+				)%>
+				<%= link_to "Submit", nil, :class => "whiteButton submit purchase_update" %>
+			<% end %>
+		<% else %>
+			<%= @authorization_text %>
+		<% end %>		 	
 	</li>
-	<li>
-		<span class="item">Billing Method:</span>
-		<span class="value"><%= @purchase.billing_type %></span>
-	</li>	
 </ul>
-
 </div>
+
+<% form_for :retailer, :url => { :action => :retailer_lists_update } do |f| %>
+ 		<%= f.text_field (:edited_budget, :id => "retailer_lists") %>
+<% end %>
+	
+
+<script type="text/javascript">
+
+var retailer_like = "unlit"
+var retailer_dislike = "unlit"
+var product_like = "unlit"
+var product_dislike = "unlit"
+var category_like = "unlit"
+var category_dislike = "unlit"
+	
+function retailerLikeToggle()
+{
+
+	if (retailer_like == "unlit") {
+		document.getElementById("retailer_like").src = "/images/fb_like_lit_small.png";
+		retailer_like = "lit";
+		if (retailer_dislike == "lit") {
+			document.getElementById("retailer_dislike").src = "/images/fb_dont_small.png";
+			retailer_dislike = "unlit";	
+		}
+	}
+	else {
+		document.getElementById("retailer_like").src = "/images/fb_like_small.png";
+		retailer_like = "unlit";
+	}
+}
+function retailerDislikeToggle()
+{
+
+	if (retailer_dislike == "unlit") {
+		document.getElementById("retailer_dislike").src = "/images/fb_dont_lit_small.png";
+		retailer_dislike = "lit";
+		if (retailer_like == "lit") {
+			document.getElementById("retailer_like").src = "/images/fb_like_small.png";
+			retailer_like = "unlit";	
+		}
+	}
+	else {
+		document.getElementById("retailer_dislike").src = "/images/fb_dont_small.png";
+		retailer_dislike = "unlit";
+	}
+}
+function productLikeToggle()
+{
+
+	if (product_like == "unlit") {
+		document.getElementById("product_like").src = "/images/fb_like_lit_small.png";
+		product_like = "lit";
+		if (product_dislike == "lit") {
+			document.getElementById("product_dislike").src = "/images/fb_dont_small.png";
+			product_dislike = "unlit";	
+		}
+	}
+	else {
+		document.getElementById("product_like").src = "/images/fb_like_small.png";
+		product_like = "unlit";
+	}
+}
+function productDislikeToggle()
+{
+
+	if (product_dislike == "unlit") {
+		document.getElementById("product_dislike").src = "/images/fb_dont_lit_small.png";
+		product_dislike = "lit";
+		if (product_like == "lit") {
+			document.getElementById("product_like").src = "/images/fb_like_small.png";
+			product_like = "unlit";	
+		}
+	}
+	else {
+		document.getElementById("product_dislike").src = "/images/fb_dont_small.png";
+		product_dislike = "unlit";
+	}
+}
+function categoryLikeToggle()
+{
+
+	if (category_like == "unlit") {
+		document.getElementById("category_like").src = "/images/fb_like_lit_small.png";
+		category_like = "lit";
+		if (category_dislike == "lit") {
+			document.getElementById("category_dislike").src = "/images/fb_dont_small.png";
+			category_dislike = "unlit";	
+		}
+	}
+	else {
+		document.getElementById("category_like").src = "/images/fb_like_small.png";
+		category_like = "unlit";
+	}
+}
+function categoryDislikeToggle()
+{
+
+	if (category_dislike == "unlit") {
+		document.getElementById("category_dislike").src = "/images/fb_dont_lit_small.png";
+		category_dislike = "lit";
+		if (category_like == "lit") {
+			document.getElementById("category_like").src = "/images/fb_like_small.png";
+			category_like = "unlit";	
+		}
+	}
+	else {
+		document.getElementById("category_dislike").src = "/images/fb_dont_small.png";
+		category_dislike = "unlit";
+	}
+}
+
+</script>

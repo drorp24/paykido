@@ -315,10 +315,35 @@ end
   
   def purchase
     
-    @back_to = "/aol/welcome_signedin"
+    @back_to = "/aol/beinformed"
     @back_class = "like_back"
 
-    @purchase = Purchase.find(params[:id])  
+    @purchase = Purchase.find(params[:id]) 
+    
+    if @purchase.authorization_type == "ManuallyAuthorized"
+      @authorization_text = "You approved it on " + @purchase.authorization_date.to_s(:long)
+    elsif @purchase.authorization_type == "NotAuthorized" 
+      @authorization_text = "You unapproved it on " + @purchase.authorization_date.to_s(:long)
+    elsif @purchase.authorization_type == "ZeroBalance"
+      @authorization_text = "Unapproved (Zero Balance)"
+    elsif @purchase.authorization_type == "InsufficientBalance"
+      @authorization_text = "Unapproved (Insufficient Balance)"
+    elsif @purchase.authorization_type == "AutoUnder"
+      @authorization_text = "Approved (Below Threshold)"
+    elsif @purchase.authorization_type == "AutoOver"  
+      @authorization_text = "Unapproved (Above Limit)"
+    elsif @purchase.authorization_type == "NoPayer"
+      @authorization_text = "Approved (No payer at the time)"
+    else
+      @authorization_text = "Approved"        # bug...
+    end
+   
+    if @purchase.authentication_date.blank? or @purchase.authentication_type.blank? #just a case of incomplete test data
+      @authentication_text = "Consumer was authenticated"
+    else
+      @autentication_text = "Consumer authenticated by " + @purchase.authentication_type + " on " + @purchase.authentication_date.to_s(:long) 
+    end
+    
     
   end
   
