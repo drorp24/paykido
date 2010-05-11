@@ -226,7 +226,9 @@ end
    
   end
   
-  def authorize_purchase    
+  def authorize_purchase  
+    
+    #check for and indicate: "Blacklisted" "Whitelisted"
 
     if @payer.exists?
       @rule = @payer.most_recent_payer_rule

@@ -171,43 +171,7 @@ end
 
   end
 
-
-  def authorization_form
-    
-    @back_to = "/aol/purchases_pending_authorization"
-    @back_class = "like_back"
-    
-    @purchase = Purchase.find(params[:id])
-    if @purchase
-      session[:purchase_id] = @purchase.id
-      @retailer = Retailer.find(@purchase.retailer_id).name
-      @product = Product.find(@purchase.product_id)
-      @product_title = @product.title
-      @category = @product.category.name
-      @amount = @purchase.amount
-      @date = @purchase.date.to_s(:long)
-    else
-      flash[:notice] = "There's nothing to authorize at this time"
-      redirect_to :action => :welcome_signedin
-    end
-    
-  end
   
-  def authorization_update
-    
-    @purchase = Purchase.find(session[:purchase_id])
-    @purchase.authorization_type = params[:purchase][:authorization_type]
-    @purchase.authorization_date = Time.now if @purchase.authorization_type == ("ManuallyAuthorized" || "AlwaysAuthorized")
-    @purchase.save
-    # need to 
-    # 1. move sms handling to an sms model
-    # 2. put expected sms in the db, not in the session - so aaa will know what to expect
-    # 3. send an sms either way, but include in it a rand number or not according to whether perm pin exists or not
-    flash[:notice] = "Thank you!"
-    params = nil
-    redirect_to :action => :purchases_pending_authorization
-  end
-
   def blacklist
 
     @blacklist = Purchase.never_authorized(@payer.id)
@@ -320,6 +284,7 @@ end
 
     @purchase = Purchase.find(params[:id]) 
     session[:purchase_id] = @purchase.id
+
     @retailer = @purchase.retailer
     @product = @purchase.product
     @category = @purchase.product.category
@@ -328,69 +293,91 @@ end
     @plist = @product.plist(@payer.id)
     @clist = @category.clist(@payer.id)
     
-    if @purchase.authorization_type == "ManuallyAuthorized"
-      @authorization_text = "You approved it on " + @purchase.authorization_date.to_s(:long)
-    elsif @purchase.authorization_type == "NotAuthorized" 
-      @authorization_text = "You unapproved it on " + @purchase.authorization_date.to_s(:long)
-    elsif @purchase.authorization_type == "ZeroBalance"
-      @authorization_text = "Unapproved (Zero Balance)"
-    elsif @purchase.authorization_type == "InsufficientBalance"
-      @authorization_text = "Unapproved (Insufficient Balance)"
-    elsif @purchase.authorization_type == "AutoUnder"
-      @authorization_text = "Approved (Below Threshold)"
-    elsif @purchase.authorization_type == "AutoOver"  
-      @authorization_text = "Unapproved (Above Limit)"
-    elsif @purchase.authorization_type == "NoPayer"
-      @authorization_text = "Approved (No payer at the time)"
+    if @purchase.authorization_type == "PendingPayer"
+      @authorization_text = 
+            [["Authorize this","ManuallyAuthorized"],
+             ["Unauthorize this " , "Unauthorized"]]
+    elsif @purchase.authorization_type == "ManuallyAuthorized"
+      @authorization_text = ["You authorized it on #{@purchase.authorization_date.to_s(:long)}"]
+    elsif @purchase.authorization_type == "Unauthorized" 
+      @authorization_text = ["You unauthorized it on #{@purchase.authorization_date.to_s(:long)}"]
     else
-      @authorization_text = "Approved"        # bug...
-    end
-   
-    if @purchase.authentication_date.blank? or @purchase.authentication_type.blank? #just a case of incomplete test data
-      @authentication_text = "Consumer was authenticated"
-    else
-      @autentication_text = "Consumer authenticated by " + @purchase.authentication_type + " on " + @purchase.authentication_date.to_s(:long) 
+      @authorization = "by arca"
     end
     
     
   end
   
-  def rlist_update
-     
+  def purchase_update
+    
+    # need to 
+    # 1. move sms handling to an sms model
+    # 2. put expected sms in the db, not in the session - so aaa will know what to expect
+    # 3. send an sms either way, but include in it a rand number or not according to whether perm pin exists or not
+    
     @purchase = Purchase.find(session[:purchase_id])
     @retailer = @purchase.retailer
+    @product = @purchase.product
+    @category = @purchase.product.category
     
+        
+    if params[:purchase][:authorization_type] != @purchase.authorization_type and
+      (params[:purchase][:authorization_type] == "ManuallyAuthorized" or 
+      params[:purchase][:authorization_type] == "Unauthorized")
+      @purchase.authorization_type = params[:purchase][:authorization_type]
+      @purchase.authorization_date = Time.now 
+      @purchase.save      
+    end
+    
+
     if params[:rlist] and (params[:rlist] != @retailer.status(@payer.id))
       @retailer.update(@payer.id, params[:rlist][:status])
     end 
-
-    redirect_to :action => "purchase", :id => @purchase.id
-    
-  end
-  
-  def plist_update
-    
-    @purchase = Purchase.find(session[:purchase_id])
-    @product = @purchase.product
- 
     if params[:plist] and (params[:plist] != @product.status(@payer.id))
       @product.update(@payer.id, params[:plist][:status])
     end 
+    if params[:clist] and (params[:clist] != @category.status(@payer.id))
+      @category.update(@payer.id, params[:clist][:status])
+    end 
+    
 
     redirect_to :action => "purchase", :id => @purchase.id
     
   end
   
-  def clist_update
+  def arca_auth_help
     
     @purchase = Purchase.find(session[:purchase_id])
-    @category = @purchase.product.category
+    @rule = PayerRule.find(session[:rule_id])
+    
+    @rule_left = "blah blah "
+    @rule_right = "blah blah "
+    @variable = "blah blah "
+    @auth_ind = "blah blah "
 
-    if params[:clist] and (params[:clist] != @category.status(@payer.id))
-      @category.update(@payer.id, params[:clist][:status])
-    end 
-
-    redirect_to :action => "purchase", :id => @purchase.id
+    
+    if @purchase.authorization_type == "ZeroBalance"
+      @authorization_text = "Unauthorized: Zero Balance"
+    elsif @purchase.authorization_type == "InsufficientBalance"
+      @authorization_text = "Unauthorized: Insufficient Balance"
+    elsif @purchase.authorization_type == "AutoUnder"
+      @authorization_text = "Authorized: Below Threshold"
+      @rule_left = "anything under "
+      @rule_right = "can be authorized"
+      @variable = "the purchase price was "
+      @auth_ind = "authorized"
+    elsif @purchase.authorization_type == "AutoOver"  
+      @authorization_text = "Unauthorized: Above Limit"
+    elsif @purchase.authorization_type == "NoPayer"
+      @authorization_text = "Authorized: No payer"
+    elsif @purchase.authorization_type == "Blacklisted"
+      @authorization_text = "Unauthorized: Blacklisted"
+    elsif @purchase.authorization_type == "Whitelisted"
+      @authorization_text = "Authorized: Whitelisted"
+    else
+      @authorization_text = "Authorized: Other"
+    end
+ 
     
   end
   

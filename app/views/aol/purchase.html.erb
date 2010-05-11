@@ -2,9 +2,9 @@
 
 <div class="thin_lines">	
 
-<ul class="rounded dark">
+<ul class="rounded light_bg" ">
 	<li>
-		<span class="item"><%= @purchase.date.to_s(:long) %></span>
+		<span class="item black"><%= @purchase.date.to_formatted_s(:long) %></span>
 		<span class="red_value" ><%= number_to_currency(@purchase.amount) %></span>
 	</li>
 </ul>
@@ -25,38 +25,25 @@
 		<span><%= image_tag 'fb_dont_small.png', :class => "like right_float", :id => "category_dislike", :onclick => "categoryDislikeToggle()" %>
 	</li>
 </ul>
-<ul class="rounded">
+<ul class="rounded dark_bg">
 	<li>
-		<%= @authentication_text %>
-	</li>
-	<li>
-		<% if @purchase.authorization_type == "PendingPayer" %>
-			<% form_for :purchase, :url => { :action => :authorization_update} do |form| %>
-				<%= form.select(:authorization_type, 
-					[["Approve this purchase","ManuallyAuthorized"],
-					 ["Don't approve this purchase" , "NotAuthorized"]]	
-				)%>
-				<%= link_to "Submit", nil, :class => "whiteButton submit purchase_update" %>
+		<% form_for :purchase, :url => { :action => :purchase_update} do |form| %>
+			<% if @authorization == "by arca" %>
+				<%= image_tag 'authorized_by_arca2.png', :class => "authorized_by_arca" %>
+				<%= link_to "shal", "/aol/arca_auth_help", :class => "slideup transparent", :id => "arca_auth_help" %>
+			<% else %>
+				<%= form.select(:authorization_type, @authorization_text )%>
 			<% end %>
-		<% else %>
-			<%= @authorization_text %>
-		<% end %>		 	
+			<%= hidden_field(:rlist, :status, :id => "rlist")  %>
+			<%= hidden_field(:plist, :status, :id => "plist")  %>
+			<%= hidden_field(:clist, :status, :id => "clist")  %>
+			<%= submit_tag "Submit", :class => "whiteButton submit purchase_update" %>
+		<% end %>
 	</li>
 </ul>
 </div>
 
-<% form_for :rlist, :url => { :action => :rlist_update } do |f| %>
- 		<span><%= f.text_field(:status, :id => "rlist") %></span>
-		<span><%= link_to "Submit", nil, :class => "whiteButton submit" %></span>
-<% end %>
-<% form_for :plist, :url => { :action => :plist_update } do |f| %>
- 		<span><%= f.text_field(:status, :id => "plist") %></span>
-		<span><%= link_to "Submit", nil, :class => "whiteButton submit" %></span>
-<% end %>	
-<% form_for :clist, :url => { :action => :clist_update } do |f| %>
- 		<span><%= f.text_field(:status, :id => "clist") %></span>
-		<span><%= link_to "Submit", nil, :class => "whiteButton submit" %></span>
-<% end %>
+
 <script type="text/javascript">
 
 var retailer_like = "unlit"
@@ -66,11 +53,46 @@ var product_dislike = "unlit"
 var category_like = "unlit"
 var category_dislike = "unlit"
 	
+
+
+	if (document.getElementById("rlist").value == "whitelisted") {
+		document.getElementById("retailer_like").src = "/images/fb_like_lit_small.png";
+		var retailer_like = "lit";
+	}
+	
+	if (document.getElementById("rlist").value == "blacklisted") {
+		document.getElementById("retailer_dislike").src = "/images/fb_dont_lit_small.png";
+		var retailer_dislike = "lit";
+	}
+
+	if (document.getElementById("plist").value == "whitelisted") {
+		document.getElementById("product_like").src = "/images/fb_like_lit_small.png";
+		var product_like = "lit";
+	}
+	
+	if (document.getElementById("plist").value == "blacklisted") {
+		document.getElementById("product_dislike").src = "/images/fb_dont_lit_small.png";
+		var product_dislike = "lit";
+	}
+	
+	if (document.getElementById("clist").value == "whitelisted") {
+		document.getElementById("category_like").src = "/images/fb_like_lit_small.png";
+		var category_like = "lit";
+	}
+	
+	if (document.getElementById("clist").value == "blacklisted") {
+		document.getElementById("category_dislike").src = "/images/fb_dont_lit_small.png";
+		var category_dislike = "lit";
+	}	
+	
+
+
 function retailerLikeToggle()
 {
 
 	if (retailer_like == "unlit") {
 		document.getElementById("retailer_like").src = "/images/fb_like_lit_small.png";
+		document.getElementById("rlist").value = "whitelisted";
 		retailer_like = "lit";
 		if (retailer_dislike == "lit") {
 			document.getElementById("retailer_dislike").src = "/images/fb_dont_small.png";
@@ -79,14 +101,17 @@ function retailerLikeToggle()
 	}
 	else {
 		document.getElementById("retailer_like").src = "/images/fb_like_small.png";
+		document.getElementById("rlist").value = "";
 		retailer_like = "unlit";
 	}
+
 }
 function retailerDislikeToggle()
 {
 
 	if (retailer_dislike == "unlit") {
 		document.getElementById("retailer_dislike").src = "/images/fb_dont_lit_small.png";
+		document.getElementById("rlist").value = "blacklisted";
 		retailer_dislike = "lit";
 		if (retailer_like == "lit") {
 			document.getElementById("retailer_like").src = "/images/fb_like_small.png";
@@ -95,6 +120,7 @@ function retailerDislikeToggle()
 	}
 	else {
 		document.getElementById("retailer_dislike").src = "/images/fb_dont_small.png";
+		document.getElementById("rlist").value = "";
 		retailer_dislike = "unlit";
 	}
 }
@@ -103,6 +129,7 @@ function productLikeToggle()
 
 	if (product_like == "unlit") {
 		document.getElementById("product_like").src = "/images/fb_like_lit_small.png";
+		document.getElementById("plist").value = "whitelisted";
 		product_like = "lit";
 		if (product_dislike == "lit") {
 			document.getElementById("product_dislike").src = "/images/fb_dont_small.png";
@@ -111,6 +138,7 @@ function productLikeToggle()
 	}
 	else {
 		document.getElementById("product_like").src = "/images/fb_like_small.png";
+		document.getElementById("plist").value = "";
 		product_like = "unlit";
 	}
 }
@@ -119,6 +147,7 @@ function productDislikeToggle()
 
 	if (product_dislike == "unlit") {
 		document.getElementById("product_dislike").src = "/images/fb_dont_lit_small.png";
+		document.getElementById("plist").value = "blacklisted";
 		product_dislike = "lit";
 		if (product_like == "lit") {
 			document.getElementById("product_like").src = "/images/fb_like_small.png";
@@ -127,6 +156,7 @@ function productDislikeToggle()
 	}
 	else {
 		document.getElementById("product_dislike").src = "/images/fb_dont_small.png";
+		document.getElementById("plist").value = "";
 		product_dislike = "unlit";
 	}
 }
@@ -135,6 +165,7 @@ function categoryLikeToggle()
 
 	if (category_like == "unlit") {
 		document.getElementById("category_like").src = "/images/fb_like_lit_small.png";
+		document.getElementById("clist").value = "whitelisted";
 		category_like = "lit";
 		if (category_dislike == "lit") {
 			document.getElementById("category_dislike").src = "/images/fb_dont_small.png";
@@ -143,6 +174,7 @@ function categoryLikeToggle()
 	}
 	else {
 		document.getElementById("category_like").src = "/images/fb_like_small.png";
+		document.getElementById("clist").value = "";
 		category_like = "unlit";
 	}
 }
@@ -151,6 +183,7 @@ function categoryDislikeToggle()
 
 	if (category_dislike == "unlit") {
 		document.getElementById("category_dislike").src = "/images/fb_dont_lit_small.png";
+		document.getElementById("clist").value = "blacklisted";
 		category_dislike = "lit";
 		if (category_like == "lit") {
 			document.getElementById("category_like").src = "/images/fb_like_small.png";
@@ -159,8 +192,14 @@ function categoryDislikeToggle()
 	}
 	else {
 		document.getElementById("category_dislike").src = "/images/fb_dont_small.png";
+		document.getElementById("clist").value = "";
 		category_dislike = "unlit";
 	}
 }
+
+function formSubmit(id)
+	{
+	document.getElementById(id).submit();
+	}
 
 </script>
