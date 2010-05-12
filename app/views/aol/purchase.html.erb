@@ -11,17 +11,21 @@
 <ul class="rounded">
 	<li>
 		<span><%= image_tag 'fb_like_small.png', :class => "like", :id => "retailer_like", :onclick => "retailerLikeToggle()" %>
-				<%= image_tag 'zynga logo.png', :class => "icon middle" %>
+		<% if @retailer.logo %>
+			<%= image_tag @retailer.logo, :class => "logo" %>
+		<% else %>
+			<span class="middle"><%= @retailer.name %></span>
+		<% end %>
 		<span><%= image_tag 'fb_dont_small.png', :class => "like right_float", :id => "retailer_dislike", :onclick => "retailerDislikeToggle()", :style => "float:right"%>
 	</li>
 	<li>
 		<span><%= image_tag 'fb_like_small.png', :class => "like", :id => "product_like", :onclick => "productLikeToggle()" %>
-		<span class="item middle"><%= @purchase.product.title %></span>
+		<span class="middle" ><%= @purchase.product.title %></span>
 		<span><%= image_tag 'fb_dont_small.png', :class => "like right_float", :id => "product_dislike", :onclick => "productDislikeToggle()" %>
 	</li>
 	<li>
 		<span><%= image_tag 'fb_like_small.png', :class => "like", :id => "category_like", :onclick => "categoryLikeToggle()" %>
-		<span class="item middle"><%= @purchase.product.category.name %></span>
+		<span class="middle"><%= @purchase.product.category.name %></span>
 		<span><%= image_tag 'fb_dont_small.png', :class => "like right_float", :id => "category_dislike", :onclick => "categoryDislikeToggle()" %>
 	</li>
 </ul>
@@ -29,7 +33,11 @@
 	<li>
 		<% form_for :purchase, :url => { :action => :purchase_update} do |form| %>
 			<% if @authorization == "by arca" %>
-				<%= image_tag 'authorized_by_arca2.png', :class => "authorized_by_arca" %>
+				<% if @purchase.authorized %>
+					<%= image_tag 'authorized_by_arca2.png', :class => "authorized_by_arca" %>
+				<% else %>
+					<%= image_tag 'unauthorized_by_arca.png', :class => "authorized_by_arca" %>
+				<% end %>
 				<%= link_to "shal", "/aol/arca_auth_help", :class => "slideup transparent", :id => "arca_auth_help" %>
 			<% else %>
 				<%= form.select(:authorization_type, @authorization_text )%>

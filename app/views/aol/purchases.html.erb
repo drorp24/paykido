@@ -1,6 +1,6 @@
 <% title "Purchases" %>
 
-<ul id="table"></ul>
+<ul id="table" class="edgetoedge"></ul>
 
 	<script type="text/javascript">
 	      google.load("visualization", "1", {packages:["table"]});
@@ -15,19 +15,17 @@
 		  var data = new google.visualization.DataTable();
 		  	data.addColumn('string', 'Retailer');
 		    data.addColumn('string', 'Product');
-/*
-			data.addColumn('string', 'Category');
-*/
 			data.addColumn('number', 'Amount');
 			data.addColumn('string', 'Date');
+			data.addColumn('boolean', '');
 			
 		    <%= "data.addRows(#{@purchases.size});" %>
 			<% @purchases.each do |p| -%>
 		    	<%= "data.setCell(#{@i}, 0, '#{p.retailer.name}');" %>
 				<%= "data.setCell(#{@i}, 1, '#{p.product.title}');" %>
-			/*	<%= "data.setCell(#{@i}, 2, '#{p.product.category.name}');" %>    */
 				<%= "data.setCell(#{@i}, 2,  #{number_with_precision(p.amount, :precision => 2)}#{(p.id/10)}#{(p.id%10)});" %>
 				<%= "data.setCell(#{@i}, 3, '#{p.date.to_s.last(5)}');" %>
+				<%= "data.setCell(#{@i}, 4, #{p.authorized});" %>
 				<% @i += 1 %>
 			<% end %>
 

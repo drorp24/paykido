@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100510113900) do
+ActiveRecord::Schema.define(:version => 20100511155446) do
 
   create_table "billings", :force => true do |t|
     t.string   "method",     :null => false
@@ -125,6 +125,7 @@ ActiveRecord::Schema.define(:version => 20100510113900) do
     t.datetime "updated_at"
     t.datetime "authentication_date"
     t.string   "authentication_type", :limit => nil
+    t.boolean  "authorized"
   end
 
   create_table "retailers", :force => true do |t|
@@ -137,6 +138,7 @@ ActiveRecord::Schema.define(:version => 20100510113900) do
     t.decimal  "billed"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "logo"
   end
 
   create_table "rlists", :force => true do |t|

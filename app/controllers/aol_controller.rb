@@ -20,8 +20,16 @@ class AolController < ApplicationController
   end
 
   def welcome_signedin
-     @pending_counter = Purchase.pending_cnt(@payer.id)
-     params = nil
+    
+     @pending = Purchase.pending_cnt(@payer.id)
+     @pending_counter = @pending[0]
+     @purchase_id = @pending[1]
+     
+     if @pending_counter == 1
+       session[:prev_action] = nil
+       session[:prev_id] = nil
+     end
+ 
   end
   
   def signin
@@ -160,6 +168,8 @@ def redirect_to_rules_menu
 end
 
   def beinformed
+    
+    @use_jqt = "no"
 
     @categories = Purchase.payer_top_categories(@payer.id)
     @i = 0
@@ -172,41 +182,29 @@ end
   end
 
   
-  def blacklist
-
-    @blacklist = Purchase.never_authorized(@payer.id)
-    @i = 0
-     
-    @back_to = "rules_menu"
-    @back_class = "like_back"
-
-  end
-
-  def whitelist
-
-    @whitelist = Purchase.always_authorized(@payer.id)
-    @i = 0
-    
-    @back_to = "rules_menu"
-    @back_class = "like_back"
-
-  end
-
   def purchases
     
-    @back_to = "/aol/beinformed"
-    @back_class = "like_back"
+   @use_jqt = "no"
     
-    @purchases = Purchase.all
-    @i = 0
+#    @back_to = "/aol/beinformed"
+#    @back_class = "like_back"
+    
+#    @purchases = Purchase.all
+#    @i = 0
 
     
   end
   
    def purchases_all
+     
+    @use_jqt = "no"    
     
     @back_to = "/aol/beinformed"
     @back_class = "like_back"
+    
+    session[:prev_action] = "/aol/purchases_all"
+    session[:prev_id] = nil
+
     
     @purchases = Purchase.full_list(@payer.id)
 
@@ -217,8 +215,13 @@ end
   
   def purchases_by_product
     
+    @use_jqt = "no"
+    
     @back_to = "/aol/beinformed"
     @back_class = "like_back"
+    
+    session[:prev_action] = "/aol/purchases_by_product"
+    session[:prev_id] = params[:id]
     
     @purchases = Purchase.by_product_id(@payer.id, params[:id])
     @i = 0
@@ -228,8 +231,14 @@ end
 
   def purchases_by_retailer
     
+    @use_jqt = "no"
+    
     @back_to = "/aol/beinformed"
     @back_class = "like_back"
+    
+    session[:prev_action] = "/aol/purchases_by_retailer"
+    session[:prev_id] = params[:id]
+
     
     @purchases = Purchase.by_retailer_id(@payer.id, params[:id])
     @i = 0
@@ -237,27 +246,21 @@ end
      
   end
   
-  def purchases_pending_authorization_keep
-
-    @back_to = "/aol/welcome_signedin"
-    @back_class = "like_back"
-    
-    @purchases = Purchase.pending_trxs(@payer.id)
-    
-    @i = 0
-    render :action => :purchases
-
-  end
 
   def purchases_pending_authorization
     
+    @use_jqt = "no"
+    
     @back_to = "/aol/welcome_signedin"
     @back_class = "like_back"
     
+    session[:prev_action] = "/aol/purchases_pending_authorization"
+    session[:prev_id] = nil    
     
     @pending = Purchase.pending_trxs(@payer.id)
-    
+   
     if request.post?
+      
 
       # RAILS BUG MITIGATION - the returned params contain only those purchases that were NOT authorized
       @pending.each do |purchase|
@@ -265,7 +268,7 @@ end
       end
       Purchase.update(params[:purchase].keys, params[:purchase].values) if params[:purchase]
 
-      render :action => :welcome_signedin 
+      redirect_to :action => :welcome_signedin 
  
     end
     
@@ -279,9 +282,16 @@ end
   
   def purchase
     
-    @back_to = "/aol/beinformed"
-    @back_class = "like_back"
-
+    @use_jqt = "no"
+    
+    if session[:prev_id]                              
+      @back_to = session[:prev_action] + '/' +  session[:prev_id]
+      @back_class = "like_back"      
+    elsif session[:prev_action]      
+        @back_to = session[:prev_action]
+        @back_class = "like_back"        
+    end
+ 
     @purchase = Purchase.find(params[:id]) 
     session[:purchase_id] = @purchase.id
 
@@ -293,14 +303,21 @@ end
     @plist = @product.plist(@payer.id)
     @clist = @category.clist(@payer.id)
     
+    session[:retailer_status] = @rlist.status
+    session[:product_status] = @plist.status
+    session[:category_status] = @clist.status
+    
+    @authorization = nil
     if @purchase.authorization_type == "PendingPayer"
       @authorization_text = 
             [["Authorize this","ManuallyAuthorized"],
              ["Unauthorize this " , "Unauthorized"]]
     elsif @purchase.authorization_type == "ManuallyAuthorized"
-      @authorization_text = ["You authorized it on #{@purchase.authorization_date.to_s(:long)}"]
+      @purchase.authorization_date ||= Time.now.to_date
+      @authorization_text = ["Authorized by you on #{@purchase.authorization_date.to_s(:long)}"]
     elsif @purchase.authorization_type == "Unauthorized" 
-      @authorization_text = ["You unauthorized it on #{@purchase.authorization_date.to_s(:long)}"]
+      @purchase.authorization_date ||= Time.now.to_date
+      @authorization_text = ["Unauthorized by you #{@purchase.authorization_date.to_s(:long)}"]
     else
       @authorization = "by arca"
     end
@@ -309,39 +326,43 @@ end
   end
   
   def purchase_update
-    
+        
     # need to 
     # 1. move sms handling to an sms model
     # 2. put expected sms in the db, not in the session - so aaa will know what to expect
     # 3. send an sms either way, but include in it a rand number or not according to whether perm pin exists or not
     
     @purchase = Purchase.find(session[:purchase_id])
-    @retailer = @purchase.retailer
-    @product = @purchase.product
-    @category = @purchase.product.category
-    
-        
-    if params[:purchase][:authorization_type] != @purchase.authorization_type and
+            
+    if params[:purchase] and 
+       params[:purchase][:authorization_type] != @purchase.authorization_type and
       (params[:purchase][:authorization_type] == "ManuallyAuthorized" or 
       params[:purchase][:authorization_type] == "Unauthorized")
       @purchase.authorization_type = params[:purchase][:authorization_type]
       @purchase.authorization_date = Time.now 
+      @purchase.authorized = true if params[:purchase][:authorization_type] == "ManuallyAuthorized"
       @purchase.save      
     end
     
-
-    if params[:rlist] and (params[:rlist] != @retailer.status(@payer.id))
-      @retailer.update(@payer.id, params[:rlist][:status])
+    if (params[:rlist][:status] != session[:retailer_status])
+      @purchase.retailer.update(@payer.id, params[:rlist][:status])
     end 
-    if params[:plist] and (params[:plist] != @product.status(@payer.id))
-      @product.update(@payer.id, params[:plist][:status])
+    if (params[:plist][:status] != session[:product_status])
+      @purchase.product.update(@payer.id, params[:plist][:status])
     end 
-    if params[:clist] and (params[:clist] != @category.status(@payer.id))
-      @category.update(@payer.id, params[:clist][:status])
+    if (params[:clist][:status] != session[:category_status])
+      @purchase.product.category.update(@payer.id, params[:clist][:status])
     end 
     
-
-    redirect_to :action => "purchase", :id => @purchase.id
+    
+    if session[:prev_id]
+      @back_to = session[:prev_action] + '/' +  session[:prev_id]
+    elsif session[:prev_action]
+      @back_to = session[:prev_action]
+    else
+      @back_to = "/aol/welcome_signedin"
+    end
+    redirect_to @back_to
     
   end
   
@@ -349,6 +370,10 @@ end
     
     @purchase = Purchase.find(session[:purchase_id])
     @rule = PayerRule.find(session[:rule_id])
+    
+    @back_to = "/aol/purchase/#{@purchase.id}"
+    @back_class = "like_back"
+
     
     @rule_left = "blah blah "
     @rule_right = "blah blah "

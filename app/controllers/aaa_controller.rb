@@ -261,6 +261,7 @@ end
     end
     
     if @purchase_authorized
+      @purchase.authorized = true
       @purchase.authorization_date = Time.now
     end   
     

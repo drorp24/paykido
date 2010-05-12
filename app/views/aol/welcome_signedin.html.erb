@@ -4,7 +4,13 @@
 	<ul class="rounded" id="iconized_menu">
 		<li class="arrow">
 			<%= image_tag 'inbox.png', :class => "icon" %>
-			<a href="purchases_pending_authorization"  class="item_by_icon" >My Inbox</a>
+			<% if @pending_counter > 1 %>
+				<a href="purchases_pending_authorization"  class="item_by_icon" target ="_webapp">My Inbox</a>
+			<% elsif @pending_counter == 1 %>
+				<%= link_to "My Inbox", "purchase/#{@purchase_id}", :class => "item_by_icon" %> 
+			<% else %>
+				<a href="" class="item_by_icon">My Inbox</a>
+			<% end %>
 			<small class="counter"><%= @pending_counter %></small>
 		</li>
 	</ul>

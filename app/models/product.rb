@@ -52,13 +52,13 @@ class Product < ActiveRecord::Base
 
   def blacklist(payer_id)
     
-    self.update (payer_id, "blacklisted")
+    self.update(payer_id, "blacklisted")
     
   end
  
   def whitelist(payer_id)
     
-   self.update (payer_id, "whitelisted")
+   self.update(payer_id, "whitelisted")
     
   end
   
