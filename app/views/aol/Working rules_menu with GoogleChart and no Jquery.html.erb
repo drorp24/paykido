@@ -1,0 +1,106 @@
+<% title "My Rules" %>
+
+
+<ul  style="background-image:url('/images/heading_bg1.png');color:white;text-align:left;text-shadow: rgba(0,0,0,.2) 0 5px 3px;font-weight:100;">Automatically handle purchases:</ul>
+
+	
+<% form_for :rule, :url => { :action => :rules_update } do |f| %>
+
+  	<ul class="individual" style ="height:35px">
+    	<li style="text-align:left">
+    		<span class="item" style="text-align:left">Under</span>
+				<span class="short_value">
+						<%= f.text_field(:edited_auto_authorize_under, 
+						:placeholder => "this amount",  
+						:class => "right_indented green",
+						:id => "under",
+						:onchange => "drawChart()",
+						:style => "text-align:left") %>
+				</span>
+		</li>
+   	<li style="text-align:left">
+    		<span class="item" style="text-align:left">Over</span>
+			<span class="short_value">
+				<%= f.text_field(:edited_auto_deny_over, 
+				:placeholder => "this amount",  
+				:class => "right_indented red",
+				:id => "over",
+				:onchange => "drawChart()") %>
+			</span>
+		</li>
+	</ul>
+	<ul id="chart"  style="padding-left:7px; padding-top:0px; padding-bottom: 0px"></ul>
+
+	<ul  style="height:25px;padding-top:10px;margin-top:-10px;margin-bottom:-10px;background-image:url('/images/heading_bg_with_question_mark.png');background-repeat:no-repeat;color:white;text-align:center;text-shadow: rgba(0,0,0,.2) 3px 3px 3px;font-weight:100;">
+		<span style="display:inline;">When I need to be involved:</span>
+		<span><%= link_to "shalommm", "involved_help", :class => "slideup transparent" %> </span>
+	</ul>
+  	<ul class="rounded" style = "height:35px">
+		<li>
+			<span class="item">
+				<%= f.select(:authorization_channel, 
+					{"Text me" => "SMS",
+					 "Email me" => "Email"},
+					:style => "display:inline;color:black"
+				)%>				
+			</span>
+			<span class="item" style="color:#666666;font-size:18px">at</span>
+			<span>
+				<%= f.text_field(
+				:edited_authorization_phone,
+				:placeholder => "this place",
+				:id => "phone") %>
+			</span>
+		</li>
+	</ul>
+	
+	
+  	<%= link_to "Submit", nil, :class => "whiteButton submit" %>
+
+<% end %>
+
+	<script type="text/javascript">
+	      google.load("visualization", "1", {packages:["barchart"]});
+	</script>
+	
+	<script type="text/javascript">
+		
+		  function drawChart(){
+		  var chart;
+		  
+		  var under_with_currency = document.getElementById("under").value;
+		  var under = Number(under_with_currency.replace(/[^0-9\.]+/g,""));
+		  var over_with_currency = document.getElementById("over").value;
+		  var over = Number(over_with_currency.replace(/[^0-9\.]+/g,""));
+		  if (over < under) {over=under;document.getElementById("over").value = under;}
+		  var manual_zone = over - under;
+		  if (under != 0) {var deny_zone = under * 2;} else {var deny_zone = manual_zone * 0.5;}		
+			
+		  var data = new google.visualization.DataTable();
+		  	data.addColumn('string', 'Year');
+		    data.addColumn('number', 'Always Approve');
+		    data.addColumn('number', 'Let me decide');
+			data.addColumn('number', 'Never Approve');
+		    data.addRows(1);
+		    data.setValue(0, 0, '');
+		    data.setValue(0, 1, under);
+			data.setValue(0, 2, manual_zone);
+			data.setValue(0, 3, deny_zone);
+
+
+			chart = new google.visualization.BarChart(document.getElementById('chart'));
+			chart.draw(data, {width: 290, height: 70, is3D: false, enableTooltip: false, legend: 'bottom', legendFontSize: 11, titleFontSize: 12, colors: ['#537c4c', 'ff9900', 'dc3912'], isStacked: true, title: 'Purchase Amount'});			  	
+			google.visualization.events.addListener(chart, 'select', selectHandler);
+		  }
+
+		  function selectHandler(){
+			var selection = chart.getSelection();
+			window.location = '/aol/amounts_form';
+		  }
+		
+		google.setOnLoadCallback(drawChart);
+		
+		
+
+    </script>
+

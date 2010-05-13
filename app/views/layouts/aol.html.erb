@@ -5,20 +5,22 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 		<link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/jqtouch.min.css" />
 		<link rel="stylesheet" type="text/css" media="screen" href="/themes/apple/theme.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/jquery-ui-1.8.1.custom.css" />
 		<link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/aol.css" />
  	
 		<script type="text/javascript" src="/javascripts/jquery-1.4.1.js"></script>
-	<% unless @use_jqt == "no" %>
+		<script type="text/javascript" src="/javascripts/jquery-ui-1.8.1.custom.min.js"></script>
+<!--	<% unless @use_jqt == "no" %>
  		<script type="text/javascript" src="/javascripts/jqtouch.js"></script>   	
 		<script type="text/javascript" charset="utf-8">  $.jQTouch({});</script> 
-	<% end %>
+	<% end %>-->
 		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 
   </head>
 	
   <body style="font-family: Arial;border: 0 none;">
     <div class="current">
-      <%= image_tag'/images/iphone_strip_tagline1.png', :class => 'iphone_strip' %> 
+      <%= image_tag'/images/iphone_strip_tagline2.png', :class => 'iphone_strip' %> 
       <div class="toolbar">
 
         <%= link_to "Back", @back_to, :class => @back_class %>

@@ -21,8 +21,8 @@ class Retailer < ActiveRecord::Base
   end
   
   def status(payer_id)
-
-    self.rlist(payer_id).status
+    rlist = Rlist.find_by_retailer_id_and_payer_id(self.id, payer_id)
+    rlist.status if rlist
     
   end
   
@@ -55,8 +55,7 @@ class Retailer < ActiveRecord::Base
    self.update(payer_id, "whitelisted")
     
   end
- 
-
+  
 
 
 #  validates_presence_of :user, :name, :email 

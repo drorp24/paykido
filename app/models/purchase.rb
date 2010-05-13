@@ -70,5 +70,22 @@ class Purchase < ActiveRecord::Base
                :order => "amount desc"
   end
   
+  def self.payer_retailers(payer_id)
+    self.find_all_by_payer_id(payer_id, :select => "DISTINCT retailer_id")
+  end
+
+  def self.payer_products(payer_id)
+    self.find_all_by_payer_id(payer_id, :select => "DISTINCT product_id")
+  end
+  
+  def self.payer_categories(payer_id)
+    self.find_all_by_payer_id(payer_id, 
+        :joins  => "inner join products on purchases.product_id = products.id",
+        :group  => "category_id",
+        :select => "DISTINCT category_id")
+  end
+ 
+
+  
   
 end

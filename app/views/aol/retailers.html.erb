@@ -1,0 +1,32 @@
+<% title "Retailers" %>
+
+
+
+<ul class="rounded">
+	<% @retailers.each do |r|%>
+		<% retailer = Retailer.find(r.retailer_id) %>
+		<% status = retailer.status(@payer.id) %>
+		<li>
+			<span class="icon">
+				<% if    status == "whitelisted" %>
+					<%= image_tag "/images/fb_like_lit_small.png", :class => "like" %>
+				<% else %>
+					<%= image_tag "/images/fb_like_small.png", :class => "like" %>
+				<% end %>
+			</span>	
+			<% if retailer.logo %>
+				<%= image_tag retailer.logo, :class => "logo" %>
+			<% else %>
+				<span class="middle"><%= retailer.name %></span>
+			<% end %>
+			<span class="icon">
+				<% if    status == "blacklisted" %>
+					<%= image_tag "/images/fb_dont_lit_small.png", :class => "like right_float" %>
+				<% else %>
+					<%= image_tag "/images/fb_dont_small.png", :class => "like right_float" %>
+				<% end %>
+			</span>									
+		</li>
+	<% end %>
+</ul>
+

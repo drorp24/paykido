@@ -1,0 +1,32 @@
+<% title "Categories" %>
+
+
+
+<ul class="rounded">
+	<% @categories.each do |c|%>
+		<% category = Category.find(c.category_id) %>
+		<% status = category.status(@payer.id) %>
+		<li>
+			<span class="icon">
+				<% if    status == "whitelisted" %>
+					<%= image_tag "/images/fb_like_lit_small.png", :class => "like" %>
+				<% else %>
+					<%= image_tag "/images/fb_like_small.png", :class => "like" %>
+				<% end %>
+			</span>	
+			<% if category.logo %>
+				<%= image_tag category.logo, :class => "logo" %>
+			<% else %>
+				<span class="middle"><%= category.name %></span>
+			<% end %>
+			<span class="icon">
+				<% if    status == "blacklisted" %>
+					<%= image_tag "/images/fb_dont_lit_small.png", :class => "like right_float" %>
+				<% else %>
+					<%= image_tag "/images/fb_dont_small.png", :class => "like right_float" %>
+				<% end %>
+			</span>									
+		</li>
+	<% end %>
+</ul>
+

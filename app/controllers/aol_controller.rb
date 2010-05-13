@@ -102,6 +102,7 @@ class AolController < ApplicationController
   
   def rules_menu
     
+    
     @rule = PayerRule.find(session[:rule_id])
     
     @back_to = "welcome_signedin"
@@ -114,12 +115,20 @@ class AolController < ApplicationController
 
     @rule = PayerRule.find(session[:rule_id])
    
-    flash[:notice] = "That doesn't make sense. Please check again!" unless @rule.update_attributes(params[:rule])
+    unless @rule.update_attributes(params[:rule])
+      flash[:notice] = "That doesn't make sense. Please check again!"
+      redirect_to :action => :rules_menu
+      return
+    end
+        
+    unless @payer.update_attributes(params[:payer])
+      flash[:notice] = "That doesn't make sense. Please check again!"
+      redirect_to :action => :rules_menu
+      return
+    end
+  
     redirect_to :action => :welcome_signedin
-    
-    @back_to = "rules_menu"
-    @back_class = "like_back"
- 
+  
 end
   
   def rules_help
@@ -131,6 +140,24 @@ end
   end
   
   def content_menu
+    
+  end
+  
+  def retailers
+    
+    @retailers = Purchase.payer_retailers(@payer.id)
+    
+  end
+  
+  def products
+    
+    @products = Purchase.payer_products(@payer.id)
+    
+  end
+  
+  def categories
+    
+    @categories = Purchase.payer_categories(@payer.id)
     
   end
   
@@ -258,9 +285,8 @@ end
     session[:prev_id] = nil    
     
     @pending = Purchase.pending_trxs(@payer.id)
-   
+    
     if request.post?
-      
 
       # RAILS BUG MITIGATION - the returned params contain only those purchases that were NOT authorized
       @pending.each do |purchase|
@@ -282,7 +308,7 @@ end
   
   def purchase
     
-    @use_jqt = "no"
+#    @use_jqt = "no"
     
     if session[:prev_id]                              
       @back_to = session[:prev_action] + '/' +  session[:prev_id]
@@ -443,7 +469,8 @@ end
   
   def authorize
     
-    @payer = Payer.find_by_id(session[:payer_id])
+
+    @payer = Payer.find_by_id(session[:payer_id]) if session[:payer_id]
     unless @payer
       flash[:notice] = "Please log in"
       redirect_to :controller => 'aol' , :action => 'signin'

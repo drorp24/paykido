@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100511155446) do
+ActiveRecord::Schema.define(:version => 20100513162523) do
 
   create_table "billings", :force => true do |t|
     t.string   "method",     :null => false
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20100511155446) do
     t.string   "name",       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "logo"
   end
 
   create_table "clists", :force => true do |t|
@@ -77,13 +78,12 @@ ActiveRecord::Schema.define(:version => 20100511155446) do
   end
 
   create_table "payer_rules", :force => true do |t|
-    t.integer  "payer_id",                            :null => false
-    t.integer  "billing_id",                          :null => false
+    t.integer  "payer_id",             :null => false
+    t.integer  "billing_id",           :null => false
     t.decimal  "allowance"
     t.boolean  "rollover"
     t.decimal  "auto_authorize_under"
     t.decimal  "auto_deny_over"
-    t.string   "authorization_phone",  :limit => nil
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(:version => 20100511155446) do
     t.decimal  "price",       :precision => 8, :scale => 2, :default => 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "logo"
   end
 
   add_index "products", ["title"], :name => "index_products_on_title"
@@ -126,6 +127,7 @@ ActiveRecord::Schema.define(:version => 20100511155446) do
     t.datetime "authentication_date"
     t.string   "authentication_type", :limit => nil
     t.boolean  "authorized"
+    t.string   "expected_pin"
   end
 
   create_table "retailers", :force => true do |t|

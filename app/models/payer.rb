@@ -1,5 +1,5 @@
 require 'digest/sha1'
-#require 'ruby-debug'
+require 'ruby-debug'
 
 class Payer < ActiveRecord::Base
   has_many  :payer_rules
@@ -15,10 +15,13 @@ class Payer < ActiveRecord::Base
   attr_accessor :password_confirmation
 
 #  consider linking purchase to consumers vs. payers
-  validates_presence_of :user    
-  validates_uniqueness_of :user      
+
+ validates_presence_of :user    
+  validates_uniqueness_of :user     
   validate :password_non_blank 
   validates_confirmation_of :password
+  validates_numericality_of :phone
+  validates_length_of :phone, :is => 10
   
 
   def edited_balance
@@ -28,6 +31,15 @@ class Payer < ActiveRecord::Base
   def edited_balance=(edited)
     self.balance = edited.delete "$"
   end
+  
+  def edited_phone
+      number_to_phone(self.phone, :area_code => true)
+  end
+  
+  def edited_phone=(edited)
+    self.phone = edited.gsub(/[^0-9]/,"")
+  end
+
  
 #  attr_accessor :exists
 #  attr_accessor :balance, :user,:hashed_password
@@ -62,8 +74,7 @@ class Payer < ActiveRecord::Base
     create_new_salt
     self.hashed_password = Payer.encrypted_password(self.password, self.salt)
   end
-  
-  
+    
 
 private
 

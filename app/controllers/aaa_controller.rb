@@ -251,7 +251,7 @@ end
         @purchase_authorized = true
       else
         @purchase.authorization_type = "PendingPayer"
-        manually_authorize(@rule.authorization_phone, @retailer.name, @product.title, @product.price)
+        manually_authorize(@payer.phone, @retailer.name, @product.title, @product.price)
         @purchase_authorized = nil
       end
 
