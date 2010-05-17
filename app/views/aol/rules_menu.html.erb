@@ -33,67 +33,55 @@
 
 </script>
 
-<ul class="title_banner">Automatically handle purchases:</ul>
-<ul class="blue_bg">
+
+<ul class="blue_bg engrave">
 	<ul id="slider-range"></ul>
 </ul>
-	
-	
 <% form_for :rule, :url => { :action => :rules_update } do |f| %>
 
-  	<ul class="individual blue_bg" style="height:30px">
-    	<li style="text-align:left">
-			<span >
+  	<ul class="thin_lines" style="margin-top:-10px">
+    	<li >
+    		<span class="item gray small_font" >Approve any purchase under</span>
+			<span class="short_value">
 				<%= f.text_field(:edited_auto_authorize_under, 
 					:placeholder => "this amount",  
-					:class => "green",
+					:class => "value green",
 					:id => "under",
-					:onchange => "updateSlider()",
-					:style => "width:30px") %>
+					:onchange => "updateSlider()") %>
 			</span>
-    		<span class="item black" style="font-size:18px">or under</span>
 		</li>
-   	<li style="text-align:left">
-    		<span class="item black" style="text-align:left;font-size:18px">over</span>
+   	<li>
+    		<span class="item gray small_font" >Unapprove any purchase over</span>
 			<span class="short_value">
 				<%= f.text_field(:edited_auto_deny_over, 
 				:placeholder => "this amount",  
-				:class => "right_indented red",
+				:class => "value red",
 				:id => "over",
 				:onchange => "updateSlider()") %>
 			</span>
 		</li>
 	</ul>
 
-	<ul class="banner_question_mark">
-		<span style="display:inline;">When I need to be involved:</span>
-		<span><%= link_to "shalommm", "involved_help", :class => "slideup transparent" %> </span>
-	</ul>
-  	<ul class="rounded">
-		<li class="contact">
-			<span><%= image_tag 'iPhone SMS 48.png', :class => "smsEmail"%><span>
-			<span>
-				<%= text_field(
-				:payer, 
-				:phone,
-				:id => "phone") %>
-			</span>
-			<span class="toggle"><%= check_box :payer, :phone_alert %></span>
-		</li>
-		<li class="contact">
-			<span><%= image_tag 'iPhone eMail 48.png', :class => "smsEmail" %><span>
-			<span>
-				<%= text_field(
-				:payer, 
-				:email,
-				:id => "email") %>
-			</span>
-			<span class="toggle"><%= check_box :payer, :email_alert %></span>	
-		</li>
-	</ul>
 	
-	
-  	<%= link_to "Submit", nil, :class => "whiteButton submit" %>
 
+<ul class="banner_question_mark">
+		<span style="position:absolute;left:12px;font-size:14px">If I do need to be involved, reach me by</span>
+		<span><%= link_to "shal", "involved_help", :class => "slideup transparent question_mark" %> </span>
+</ul>
+	<%if @payer.phone_alert %>
+		<a href="sms_prefs" class="contact"><img src="/images/iPhone SMS 64.png" border="0"></a> 
+	<% else %>
+		<a href="/aol/sms_prefs" class="contact"><img src="/images/iPhone SMS 64 bw.png" border="0"></a> 
+	<% end %>
+	<% if @payer.email_alert %>
+		<a href="/aol/email_prefs" class="contact"><img src="/images/iPhone email 64.png" border="0"></a> 
+	<% else %>
+		<a href="/aol/email_prefs" class="contact"><img src="/images/iPhone email 64 bw.png" border="0"></a> 
+	<% end %>
+		<%= image_tag 'Skype 64 bw 1.png', :class => "contact" , :id => "skype" %>
+		<%= image_tag 'aol aim bw.png', :class => "contact", :id => "aim"%>
+
+  	<%= submit_tag "Submit", :class => "whiteButton submit bottom_submit_tag" %>
 <% end %>
+
 

@@ -93,7 +93,6 @@ class AolController < ApplicationController
     payer = Payer.find(session[:payer_id])
     
     if payer.update_attributes(params[:payer]) 
-      flash[:notice] = "Thank you"
       redirect_to :action => :welcome_signedin
     else
       render :action => "account_form"
@@ -129,7 +128,7 @@ class AolController < ApplicationController
   
     redirect_to :action => :welcome_signedin
   
-end
+  end
   
   def rules_help
     
@@ -139,6 +138,63 @@ end
     
   end
   
+  def sms_prefs
+    
+  @back_to = "rules_menu"
+  @back_class = "like_back"
+  
+  @phone_frequencies =
+            [["as the event occurs","as it occurs"],
+             ["once an hour" , "once an hour"],
+             ["twice a day", "twice a day"]]
+   @phone_events =
+            [["any purchase request" , "any purchase request"],
+             ["manual authorization", "manual authorization"]]            
+    
+  end
+  
+  def sms_update
+    
+    unless @payer.update_attributes(params[:payer])
+      flash[:notice] = "That doesn't make sense. Please check again!"
+      redirect_to :action => :sms_prefs
+      return
+    end
+  
+    redirect_to :action => :rules_menu
+ 
+  end
+  
+  def email_prefs
+    
+  @back_to = "rules_menu"
+  @back_class = "like_back"
+  
+  @email_frequencies =
+            [["as the event occurs","as it occurs"],
+             ["once a day" , "once a day"],
+             ["on a weekly basis", "on a weekly basis"],
+             ["once a month", "once a month"]]
+   @email_events =
+            [["manual authorization" , "manual authorization"],
+             ["periodical activity digests" , "periodical digests"],
+             ["reports & statistics" , "reports and stats"],
+             ["offers & promotions", "offers and promos"]]            
+    
+  end
+  
+  def email_update
+    
+    unless @payer.update_attributes(params[:payer])
+      flash[:notice] = "That doesn't make sense. Please check again!"
+      redirect_to :action => :email_prefs
+      return
+    end
+  
+    redirect_to :action => :rules_menu
+ 
+  end   
+
   def content_menu
     
   end

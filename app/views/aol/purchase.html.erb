@@ -8,7 +8,7 @@
 		<span class="red_value" ><%= number_to_currency(@purchase.amount) %></span>
 	</li>
 </ul>
-<ul class="rounded">
+<ul class="rounded engrave">
 	<li>
 		<span><%= image_tag 'fb_like_small.png', :class => "like", :id => "retailer_like", :onclick => "retailerLikeToggle()" %>
 		<% if @retailer.logo %>
@@ -45,7 +45,7 @@
 			<%= hidden_field(:rlist, :status, :id => "rlist")  %>
 			<%= hidden_field(:plist, :status, :id => "plist")  %>
 			<%= hidden_field(:clist, :status, :id => "clist")  %>
-			<%= submit_tag "Submit", :class => "whiteButton submit purchase_update" %>
+			<%= submit_tag "Submit", :class => "whiteButton submit bottom_submit_tag" %>
 		<% end %>
 	</li>
 </ul>

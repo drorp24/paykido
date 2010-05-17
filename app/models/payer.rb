@@ -13,6 +13,7 @@ class Payer < ActiveRecord::Base
   has_many  :consumers
   
   attr_accessor :password_confirmation
+  
 
 #  consider linking purchase to consumers vs. payers
 

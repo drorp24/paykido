@@ -1,0 +1,53 @@
+<script type="text/javascript">
+
+	function chngClass () {
+		if (document.getElementById('onoff').className=='blue_bg engrave')
+			{document.getElementById('onoff').setAttribute("class","engrave");}
+		else
+			{document.getElementById('onoff').setAttribute("class","blue_bg engrave");}
+	}	
+	
+</script>
+
+<% title "Email Preferences" %>
+
+<% form_for :payer, :url => { :action => :email_update } do |f| %>
+
+	<br />
+	<% if @payer.email_alert %>
+		<ul class="blue_bg engrave" id="onoff">
+	<% else %>
+		<ul class="engrave" id="onoff">
+	<% end %>
+		<li style="height:26px">
+			<span id="alert_me" class="item gray small_font" style="font-weight:100">Alert me by Email</span>
+	 		<span class="toggle">
+	  			<%= f.check_box :email_alert, :onchange => "chngClass()" %>
+			</span>
+		</li>
+	</ul>
+	<ul >
+		<li class="noarrow">
+			<span class="item gray small_font" style="font-weight:100">Notify me for</span>
+			<span class="longer_value">
+				<%= f.select(:email_events, @email_events )%>
+			</span>
+		</li>
+		<li class="noarrow">
+			<span class=class="item gray small_font" style="font-weight:100">Contact me</span>
+			<span class="longer_value">
+				<%= f.select(:email_alert_frequency, @email_frequencies )%>
+			</span>
+		</li>
+		<li>
+			<span class="item gray small_font" style="font-weight:100">Email me at</span>
+			<span class="longer_value">
+				<%= f.text_field(
+				:email) %>
+			</span>
+		</li>
+	</ul>
+
+	<%= submit_tag "Submit", :class => "whiteButton submit bottom_submit_tag" %>
+
+<% end %>

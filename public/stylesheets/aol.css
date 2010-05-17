@@ -4,6 +4,63 @@ li {
 }
 */
 
+li.noarrow span select {
+		background-image:url("");
+			background-color:white;
+}
+
+#alert_me {
+	margin-bottom:5px;
+	padding-top:15px;
+	font-size:18px;
+	font-weight:bold;
+}
+
+.bottom_link_to {
+	position:absolute;
+	bottom:5px;
+	left:1px;
+	width:255px;
+	height:10px;
+}
+
+.engrave {
+		border:2px solid white;
+	border-right-color:#EFEFEF;
+	border-bottom-color:#EFEFEF;
+	border-style:inset;
+
+}
+.long {
+	width:250px;
+}
+
+.question_mark {
+	position:absolute;
+	left:280px;
+	top:240px;
+
+/*
+#header_on_banner {
+	position:absolute;
+	left:12px;
+	font-size:14px;
+}
+*/
+
+.small_font {
+	font-size:16px;
+}
+
+	height:10px;
+}
+
+ul.individual li.thin {
+	padding:0;
+	margin:0;
+	text-align:left
+}
+
 .title_banner {
 	background-image:url('/images/heading_bg1.png');
 	color:white;
@@ -13,6 +70,7 @@ li {
 	margin-bottom:-10px;
 	margin-left:5px;
 	padding-left:10px;
+	font-size:16px;
 }
 
 .banner_question_mark {
@@ -28,6 +86,11 @@ li {
 	font-weight:100;
 }
 
+.question_mark {
+	position:absolute;
+	top:257px;
+}
+
 .thresholds {
 	background-color:#ececf5;
 	height:35px;
@@ -36,9 +99,19 @@ li {
 .header {
 	color:brown;
 	font-family:"Eras Demi ITC";
-	font-size:18px;
+	font-size:13px;
 	text-shadow: rgba(0,0,0,.2) 0 2px 2px;
 	margin-left:12px;
+	font-weight:100;
+
+}
+
+.left {
+	float:left;
+}
+
+.right {
+	float:right;
 }
 
 img.smsEmail {
@@ -47,34 +120,30 @@ img.smsEmail {
 }
 
 
+/*
 #phone, #email {
-	width:150px;
+	width:220px;
 	font-size:16px;
 	margin:0;
-	padding-bottom:15px;
-	background-color:#F6F6F6;
+	margin-top:-3px;
+	padding-bottom:10px;
 	background-color:#ececf5;
+	background-color:#F6F6F6;
+	background-color:white;
 
 }
 
-
-.contact .toggle {
-	height:30px;
-	width:90px;
-	margin-top:5px;
-	padding:0;
-}
+*/
 
 .contact {
-	padding:3px;
-	height:40px;
-	padding-top:5px;
-	background-color:#F6F6F6;
-	background-color:#e4ecff;
-	background-color:#ececf5;
+	padding:6px;
+	margin-top: 15px;
+
 }
 
-
+#skype, #aim {
+	margin-bottom:-4px;
+}
 
 #demo-frame > div.demo { 
 	padding: 10px !important; 
@@ -111,9 +180,9 @@ img.smsEmail {
 	font-weight:500;
 }
 
-.purchase_update {
+.bottom_submit_tag {
 	position:absolute;
-	bottom:15px;
+	bottom:5px;
 	left:1px;
 	width:303px;
 	height:35px;
@@ -216,9 +285,11 @@ ul li a, li.img a + a  {
 #purchases_by_category {
 
 }
+
 .transparent {
 	color:transparent;
 }
+
 #manual_involvement_help {
 	z-index:102;
 }
@@ -236,6 +307,10 @@ ul li a, li.img a + a  {
 	content:"$";
 	border: 2px solid red;
 }
+
+#budget {
+	font-weight:bold;
+}
 .bordered {
 	border:1px solid green;
 	z-index:102;
@@ -249,23 +324,22 @@ li.bordered {
 }
 
 #chartdiv {
-	width:285px;
-	height:90px;
 	margin-left:10px;
+	margin-top:20px;
+	margin-bottom:0;
+	width:300px;
+	height:110px;
+
 }
 
 
 
 #balance {
 	color:#51b30d;
+	font-weight:bold;
 
 }
 
-.toggle  {
-	display:inline;
-	float: right;
-	margin-top:-3px;
-}
 
 
 .blacklist a {
@@ -397,6 +471,13 @@ ul li small.counter {
 .super_thin_lines li {
 	padding:1px;	
 }
+
+.very_thin_lines li {
+	padding:5px;
+
+}
+
+
 #purchase_header .value {
 	width: 110px;
 }
@@ -543,13 +624,25 @@ ul li.greenarrow{
 	font-size:11pt;
 	width:50px;
 }
-.value, .blue_value, .green_value, .red_value, .short_value, .short_value_long_width, .red_value_long_width, .long_value, .blue_value_long_width {
+.value, .blue_value, .green_value, .red_value, .short_value, .short_value_long_width, .red_value_long_width, .long_value, .longer_value, .blue_value_long_width {
 	display:inline;
 	text-align:right;
 	float: right;
 	width:80px;
 	margin-right:0px;
 
+}
+
+.value input[type="text"] {
+	text-align:right;
+}
+
+.green_value input[type="text"] {
+	text-align:right;
+}
+
+.red_value input[type="text"] {
+	text-align:right;
 }
 
 .short_value {
@@ -565,6 +658,11 @@ ul li.greenarrow{
 .long_value {
 	font_size:9pt;
 	width:160px;
+}
+
+.longer_value {
+	font_size:9pt;
+	width:175px;
 }
 
 .retailer_name {
@@ -687,6 +785,15 @@ ul li span .blue {
 
 #top_retailers li {
 	background-color:#fff7bc;
+
+}
+
+.white {
+	color:white;
+}
+
+a.white {
+	color:white;
 }
 
 #lists li:hover {

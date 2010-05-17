@@ -2,7 +2,7 @@
 
 
 
-<ul class="rounded">
+<ul class="rounded ">
 	<% @retailers.each do |r|%>
 		<% retailer = Retailer.find(r.retailer_id) %>
 		<% status = retailer.status(@payer.id) %>

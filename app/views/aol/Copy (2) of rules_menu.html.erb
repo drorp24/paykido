@@ -1,0 +1,98 @@
+<% title "My Rules" %>
+
+<script type="text/javascript">
+	$(function() {
+		under = document.getElementById("under").value;
+		over = document.getElementById("over").value;
+		if (under.charAt(0) == '$') {under = under.slice(1)}
+		if (over.charAt(0) == '$') {over = over.slice(1)}
+		$("#slider-range").slider({
+			range: true,
+			min: 0,
+			max: 100,
+			values: [under, over],
+			slide: function(event, ui) {
+				$("#under").val('$' + ui.values[0]);
+				$("#over").val('$' + ui.values[1]);
+			}
+		});
+		$("#under").val('$' + $("#slider-range").slider("values", 0));
+		$("#over").val('$' + $("#slider-range").slider("values", 1));
+	});
+	
+	function updateSlider() {
+		
+		under = document.getElementById("under").value;
+		over = document.getElementById("over").value;
+		if (under.charAt(0) == '$') {under = under.slice(1)}
+		if (over.charAt(0) == '$') {over = over.slice(1)}
+
+		$("#slider-range").slider("values", 0, under);
+		$("#slider-range").slider("values", 1, over);	
+	}
+
+</script>
+
+
+<ul class="blue_bg">
+	<ul id="slider-range"></ul>
+</ul>
+<% form_for :rule, :url => { :action => :rules_update } do |f| %>
+
+  	<ul class="very_thin_lines" style="margin-top:-10px">
+    	<li >
+    		<span class="item gray small_font" style="font-weight:100">Approve any purchase under</span>
+			<span class="short_value">
+				<%= f.text_field(:edited_auto_authorize_under, 
+					:placeholder => "this amount",  
+					:class => "value green",
+					:id => "under",
+					:onchange => "updateSlider()") %>
+			</span>
+		</li>
+   	<li>
+    		<span class="item gray small_font" style="font-weight:100">Unapprove any purchase over</span>
+			<span class="short_value">
+				<%= f.text_field(:edited_auto_deny_over, 
+				:placeholder => "this amount",  
+				:class => "value red",
+				:id => "over",
+				:onchange => "updateSlider()") %>
+			</span>
+		</li>
+	</ul>
+
+	
+
+	<ul class="banner_question_mark">
+		<span style="position:absolute;left:12px;font-size:14px">If I do need to be involved...</span>
+		<span><%= link_to "shal", "involved_help", :class => "slideup transparent question_mark" %> </span>
+	</ul>
+  	<ul class="very_thin_lines" >
+		<li class="contact" style ="margin:0;padding:0">
+			<span><%= image_tag 'iPhone SMS 48.png', :class => "smsEmail"%><span>
+			<span>
+				<%= text_field(
+				:payer, 
+				:edited_phone,
+				:id => "phone") %>
+			</span>
+			<span class="toggle" ><%= check_box :payer, :phone_alert %></span>
+		</li>
+		<li class="contact" style ="margin:0;padding:0">
+			<span><%= image_tag 'iPhone eMail 48.png', :class => "smsEmail" %><span>
+			<span>
+				<%= text_field(
+				:payer, 
+				:email,
+				:id => "email") %>
+			</span>
+			<span class="toggle"><%= check_box :payer, :email_alert %></span>	
+		</li>
+	</ul>
+	
+	
+  	<%= link_to "Submit", nil, :class => "whiteButton submit" %>
+
+<% end %>
+
