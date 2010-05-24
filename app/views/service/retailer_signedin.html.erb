@@ -1,0 +1,91 @@
+
+<div id="tabs">
+	<ul>
+		<li><a href="#tabs-1">Sales vs. Denials</a></li>
+		<li><a href="#tabs-2">Best Sellers</a></li>
+		<li><a href="#tabs-3">Are we Blacklisted</a></li>
+		<li><a href="#tabs-4">Collected / Billed</a></li>
+		<li><a href="#tabs-5">Account Settings</a></li>
+	</ul>
+
+	<div id="tabs-1">
+	    <script type="text/javascript">
+	      google.load('visualization', '1', {'packages':['motionchart']});
+	      google.setOnLoadCallback(drawChart);
+	      function drawChart() {
+	        var data = new google.visualization.DataTable();
+	        data.addColumn('string', 'Product');
+	        data.addColumn('date', 'Date');
+			data.addColumn('number', 'Denials');
+	        data.addColumn('number', 'Sales');
+	        data.addColumn('string', 'Location');
+			data.addColumn('string', 'Category');
+				
+			data.addRows([		
+				<% @sales.each do |s| -%>
+			          ['<%= s.title %>',new Date(<%= s.date.strftime('%Y, %m, %d')%>),
+					  <%= if s.authorized then 0 else s.amount end %>,
+					  <%= if s.authorized then s.amount else 0 end %>,
+					  '<%= s.payer.location %>', '<%= s.product.category.name %>'],
+				<% end %>		
+		    ]);
+			
+		    var chart = new google.visualization.MotionChart(document.getElementById('chart_div'));
+	        chart.draw(data, {width: 600, height:300});
+	      }
+	
+	    </script>
+	
+	    <br />
+		<div id="chart_div" class="chart"></div>
+		<div id="tabs-1-explain"></div>
+	</div>
+
+
+
+	<div id="tabs-2">
+	    <script type="text/javascript">
+	      google.load("visualization", "1", {packages:["piechart"]});
+	      google.setOnLoadCallback(drawChart);
+	      function drawChart() {
+	        var data = new google.visualization.DataTable();
+	        data.addColumn('string', 'Category');
+	        data.addColumn('number', 'Total');
+	        data.addRows(<%= @categories.size %>);
+			<% @categories.each do |category_id, amount| -%>
+				data.setValue(<%= @i %>, 0, '<%= Category.find(category_id).name %>');
+				data.setValue(<%= @i %>, 1, <%= amount %>);
+				<% @i += 1 %>
+			<% end %>
+	 
+	        var chart = new google.visualization.PieChart(document.getElementById('purchases_by_category'));
+	        chart.draw(data, 
+					   {width: 600,
+					    height: 300, 
+						titleFontSize: 22, 
+						legendFontSize: 18,
+						backgroundColor: 'white', 
+						legend: 'left', 
+						is3D: true, 
+						title: 'Sales by Category',
+						colors: [{color:'orange', darker:'#680000'}, {color:'#1B7BDD', darker:'black'},{color:'#666666', darker:'black'}, {color:'#dc3912', darker:'black'}]
+	      });
+		  }
+	    </script>
+	
+		<div id="purchases_by_category" class="chart"></div>
+	</div>
+
+	<div id="tabs-3">
+		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+	</div>
+
+	<div id="tabs-4">
+		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+	</div>
+
+	<div id="tabs-5">
+		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+	</div>
+	
+</div>

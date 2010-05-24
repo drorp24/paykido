@@ -1,8 +1,52 @@
+input {
+	display:block;
+}
+
+.chart {
+	width: 600px; 
+	height: 300px; 
+	display:inline;
+	margin-top:10px;
+}
+
+#notice {
+	position:absolute;
+	top:55px;
+	left:480px;
+	color:red;
+}
+
+#tabs {
+	width:1157px;
+	height:400px;
+}
+
+#tabs-1 {
+	width:600px;
+	display:inline;
+}
+
+#tabs-1-explain {
+	width: 460px;
+	display:inline;
+	height: 300px;
+	float:right;
+	text-align:center;
+	font-size:22px;
+	font-weight:bold;
+	font-family:Tahoma;
+}
+
 .methods_box {
 
 }
 
-    
+#login {
+	z-index:100;
+	position:absolute;
+	top:35px;
+	left:480px;		
+}    
 
 .method {
 	display:inline;
@@ -21,21 +65,20 @@ body {
 }
 .container {
 	position:absolute;
-	margin-left:100px;
-	margin-right:100px;
-	width:1160px;
+	left:125px;
+	width:1165px;
 }
 
 #head {
-	background-image:url("/images/service_head.png");
+	background-image:url("/images/service_head1.png");
 	background-repeat:no-repeat;
 	height:200px;
+	margin:0;
 }
 
 #remainder {
-	background-image:url("/images/service_content.png");
+	background-image:url("/images/service_content1.png");
 	background-repeat:no-repeat; 
-	width:1160px;
 	height:450px;
 }
 
@@ -141,3 +184,75 @@ text-transform:uppercase;
 {
 background-color:#7A991A;
 }
+
+
+.fg-toolbar { padding: .5em; margin: 0; width:50%; }
+.fg-toolbar .fg-buttonset { margin-right:1.5em; padding-left: 1px; }
+.fg-toolbar .fg-button { font-size: 1em;  }
+
+.fg-button { outline: 0; margin:0 4px 0 0; padding: .4em 1em; text-decoration:none !important; cursor:pointer; position: relative; text-align: center; zoom: 1; }
+.fg-button .ui-icon { position: absolute; top: 50%; margin-top: -8px; left: 50%; margin-left: -8px; }
+	
+a.fg-button { float:left; }
+	
+/* remove extra button width in IE */
+button.fg-button { width:auto; overflow:visible; }
+	
+.fg-button-icon-left { padding-left: 2.1em; }
+.fg-button-icon-right { padding-right: 2.1em; }
+.fg-button-icon-left .ui-icon { right: auto; left: .2em; margin-left: 0; }
+.fg-button-icon-right .ui-icon { left: auto; right: .2em; margin-left: 0; }
+	
+.fg-button-icon-solo { display:block; width:8px; text-indent: -9999px; }	 /* solo icon buttons must have block properties for the text-indent to work */	
+	
+.fg-buttonset { float:left; }
+.fg-buttonset .fg-button { float: left; }
+.fg-buttonset-single .fg-button, 
+.fg-buttonset-multi .fg-button { margin-right: -1px;}
+	
+.fg-toolbar { padding: .5em; margin: 0;  }
+.fg-toolbar .fg-buttonset { margin-right:1.5em; padding-left: 1px; }
+.fg-toolbar .fg-button { font-size: 1em;  }
+
+/*demo page css*/
+h2 { clear: both; padding-top:1.5em; margin-top:0; } 
+.strike { text-decoration: line-through; }
+
+.fieldWithErrors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+
+

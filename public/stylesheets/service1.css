@@ -1,0 +1,148 @@
+.methods_box {
+
+}
+
+#login {
+	z-index:100;
+	position:absolute;
+	top:20px;
+	left:450px;		
+}    
+
+.method {
+	display:inline;
+	float:left;
+	width:190px;
+	height:70px;
+}
+
+#servicewindow {
+
+}
+
+body {
+	background-image:url("/images/gradient.png");
+	background-repeat:repeat-x;
+}
+.container {
+	position:absolute;
+	margin-left:100px;
+	margin-right:100px;
+	width:1160px;
+}
+
+#head {
+	background-image:url("/images/service_head.png");
+	background-repeat:no-repeat;
+	height:200px;
+}
+
+#remainder {
+	background-image:url("/images/service_content.png");
+	background-repeat:no-repeat; 
+	width:1160px;
+	height:450px;
+}
+
+#learn1 a{
+	z-index:100;
+	font-size:18pt;
+	opacity:0.0; 
+	position:absolute;
+	top:420px;
+	left:25px;		
+}
+
+#learn2 a{
+	z-index:100;
+	font-size:18pt;
+	opacity:0.0; 
+	position:absolute;
+	top:583px;
+	left:30px;		
+}
+
+#learn3 a{
+	z-index:100;
+	font-size:18pt;
+	opacity:0.0; 
+	position:absolute;
+	top:583px;
+	left:660px;			
+}
+
+#get_started_today a {
+	z-index:100;
+	font-size:45pt;
+	opacity:0.0;
+	position:absolute;
+	top:7px;
+	right:120px;
+	}
+
+
+#teens {
+	float:left;
+	width:555px;
+	border-style:solid;
+	border-width:7px;
+	border-color:#558ed5;
+	z-index:-2;
+}
+
+#parents {
+	float:right;
+	width:555px;
+	border-style:solid;
+	border-color:#e46c0a;
+	border-width:7px;
+	z-index:-2;
+}
+.promise {
+	background-color:white;
+}
+
+.box_title {
+	font-size:20pt;
+	font-weight:bold;
+}
+
+#start_today {
+	position:absolute;
+	right:0px;
+}
+
+#register {
+	position:absolute;
+	right:0px;
+}
+#menu ul
+{
+position:relative;
+left:300px;	
+top:20px;
+list-style-type:none;
+margin:0;
+padding:0;
+overflow:hidden;
+}
+#menu li
+{
+float:left;
+}
+#menu a:link,a:visited
+{
+display:block;
+width:120px;
+font-weight:bold;
+color:#FFFFFF;
+background-color:#17375e;
+text-align:center;
+padding:4px;
+text-decoration:none;
+text-transform:uppercase;
+}
+#menu a:hover,a:active
+{
+background-color:#7A991A;
+}

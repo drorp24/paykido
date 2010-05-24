@@ -1,0 +1,26 @@
+    <script type="text/javascript">
+      google.load('visualization', '1', {'packages':['motionchart']});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Product');
+        data.addColumn('date', 'Date');
+		data.addColumn('number', 'Denials');
+        data.addColumn('number', 'Sales');
+        data.addColumn('string', 'Location');
+		data.addColumn('string', 'Category');
+        data.addRows([
+          ['Currency',new Date (2009,0,1),1000,300,'East', 'Virtual Goods'],
+          ['Gifts',new Date (2009,0,1),1150,200,'West', 'Game Supplies'],
+          ['Points',new Date (2009,0,1),300,250,'West', 'Media'],
+          ['Currency',new Date (2010,6,1),1200,400,'East', 'Virtual Goods'],
+          ['Gifts',new Date (2010,6,1),750,150,'West', 'Game Supplies'],
+          ['Points',new Date (2010,6,1),788,617,'East', 'Media']
+          ]);
+        var chart = new google.visualization.MotionChart(document.getElementById('chart_div'));
+        chart.draw(data, {width: 600, height:300});
+      }
+    </script>
+
+    <div id="chart_div" style="width: 600px; height: 300px;"></div>
+

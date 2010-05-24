@@ -228,40 +228,44 @@ end
   
   def authorize_purchase  
     
-    #check for and indicate: "Blacklisted" "Whitelisted"
-
+    @purchase.authorized = false                        
+    
     if @payer.exists?
       @rule = @payer.most_recent_payer_rule
       
       if @payer.balance <= 0
         @purchase.authorization_type = "ZeroBalance"
-        @purchase_authorized = nil      
+        @purchase.authorized = false      
       elsif @payer.balance < @purchase.amount
         @purchase.authorization_type = "InsufficientBalance"
-        @purchase_authorized = nil
+        @purchase.authorized = false
         
       elsif @purchase.amount <= @rule.auto_authorize_under
         @purchase.authorization_type = "AutoUnder"
-        @purchase_authorized = true
+        @purchase.authorized = true
       elsif @purchase.amount > @rule.auto_deny_over
         @purchase.authorization_type = "AutoOver"
-        @purchase_authorized = nil
+        @purchase.authorized = false
         
-      elsif @purchase.authorization_type == ("ManuallyAuthorized" || "AlwaysAuthorized")
-        @purchase_authorized = true
+
+#
+#     BLACK/WHITELIST HANDLING ADD HERE
+#      
+      
+      elsif @purchase.authorization_type == "ManuallyAuthorized"
+        @purchase.authorized = true
       else
         @purchase.authorization_type = "PendingPayer"
         manually_authorize(@payer.phone, @retailer.name, @product.title, @product.price)
-        @purchase_authorized = nil
+        @purchase.authorized = false
       end
 
     else
       @purchase.authorization_type = "NoPayer"
-      @purchase_authorized = true
+      @purchase.authorized = true
     end
     
-    if @purchase_authorized
-      @purchase.authorized = true
+    if @purchase.authorized
       @purchase.authorization_date = Time.now
     end   
     

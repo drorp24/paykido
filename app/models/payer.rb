@@ -17,14 +17,19 @@ class Payer < ActiveRecord::Base
 
 #  consider linking purchase to consumers vs. payers
 
- validates_presence_of :user    
-  validates_uniqueness_of :user     
+  validates_presence_of :user    
+  validates_uniqueness_of :user 
+  validate :user_global_uniqueness
   validate :password_non_blank 
   validates_confirmation_of :password
   validates_numericality_of :phone
   validates_length_of :phone, :is => 10
   
 
+  def user_global_uniqueness
+    errors.add(:user, "name exists already") if Retailer.find_by_user(self.user)
+  end
+  
   def edited_balance
     number_to_currency(self.balance)
   end

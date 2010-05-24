@@ -84,7 +84,20 @@ class Purchase < ActiveRecord::Base
         :group  => "category_id",
         :select => "DISTINCT category_id")
   end
+
+  def self.retailer_sales(retailer_id)
+    self.find_all_by_retailer_id(retailer_id, 
+        :joins  => "inner join products on purchases.product_id = products.id",
+        :select => "products.title, date, amount, authorized, payer_id, product_id")
+  end
  
+  def self.retailer_top_categories(retailer_id)
+    self.sum   :amount,
+               :conditions => ["retailer_id = ? and authorized = ?", retailer_id, true],
+               :joins => "inner join products on purchases.product_id = products.id",
+               :group => "category_id",
+               :order => "amount desc"
+  end 
 
   
   
