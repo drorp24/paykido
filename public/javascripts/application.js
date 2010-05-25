@@ -7,11 +7,13 @@ jQuery.ajaxSetup({
 
 $(document).ready(function (){  
 		 
-	$('#new_retailer').submit(function (){  
+/*
+	$('#new_payer').submit(function (){  
    		$.post($(this).attr('action'), $(this).serialize(), null, "script");  
     	return false;  
    });  
-		 
+
+*/		 
 	$(function(){
 	//all hover and click logic for buttons
 		$(".fg-button:not(.ui-state-disabled)")

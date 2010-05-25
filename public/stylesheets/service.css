@@ -1,3 +1,20 @@
+.left_content {
+	display:inline;
+	float:left;
+}
+
+.right_content {
+	display:inline;
+	float:right;
+	background-image:url("/images/thanks_for_joining2.png") ;
+	margin-top:15px;
+	margin-right:10px;
+	background-repeat:no-repeat;
+	width: 492px; 
+	height: 370px; 
+
+}
+
 input {
 	display:block;
 }

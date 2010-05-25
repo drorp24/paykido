@@ -11,6 +11,7 @@ class Payer < ActiveRecord::Base
   has_many  :retailers, :through => :purchases
   has_many  :products, :through => :purchases
   has_many  :consumers
+  has_many  :users
   
   attr_accessor :password_confirmation
   
@@ -27,7 +28,7 @@ class Payer < ActiveRecord::Base
   
 
   def user_global_uniqueness
-    errors.add(:user, "name exists already") if Retailer.find_by_user(self.user)
+    errors.add(:user, "name exists already") if !self.user.blank? and User.find_by_name(self.user)
   end
   
   def edited_balance
@@ -85,7 +86,7 @@ class Payer < ActiveRecord::Base
 private
 
   def password_non_blank
-    errors.add(:password, "Missing password") if hashed_password.blank?
+    errors.add(:password, "is missing") if hashed_password.blank?
   end
 
   

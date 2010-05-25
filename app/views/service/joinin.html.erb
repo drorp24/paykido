@@ -1,13 +1,12 @@
-<div class=".ui-dialog">
-<% form_for(:retailer, :url => { :action => :create_retailer }, :html => {:id => "new_retailer"}) do |f| %>
-	<%= f.error_messages %>
-	<%= error_messages_for :retailer %>
 
-   	<%= f.text_field :name, :placeholder => "Merchant's name" %>
+<%= error_messages_for 'payer', :class => "ui-widget-content ui-corner-all", :header_message => "Oops...", :message => "Please note, and try again:", :header_tag => "h1" %>
+<% form_for(:payer, :url => { :action => :create_payer }, :html => {:id => "new_payer"}) do |f| %>
+
+	<%= f.text_field :phone, :placeholder => "Enter your phone number" %>
    	<%= f.text_field :user, :placeholder => "Select a user name" %>
    	<%= f.password_field :password, :placeholder => "Select a password" %>
 	<%= f.password_field :password_confirmation, :placeholder => "Confirm password" %>
 
 	<%= submit_tag "Join in" %>
 <% end %>
-</div>
+

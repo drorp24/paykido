@@ -69,9 +69,9 @@
 ----------------------------------*/
 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {border: 1px solid #fcd113; background: #f8da4e url(images/ui-bg_glass_55_f8da4e_1x400.png) 50% 50% repeat-x; color: #915608; }
 .ui-state-highlight a, .ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a { color: #915608; }
-.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {border: 1px solid #cd0a0a; background: #e14f1c url(images/ui-bg_gloss-wave_45_e14f1c_500x100.png) 50% top repeat-x; color: #ffffff; }
+.ui-state-error, .ui-state-error h2, .ui-state-error h1,.ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {border: 1px solid #cd0a0a; background: #e14f1c url(images/ui-bg_gloss-wave_45_e14f1c_500x100.png) 50% top repeat-x; color: #ffffff; }
 .ui-state-error a, .ui-widget-content .ui-state-error a, .ui-widget-header .ui-state-error a { color: #ffffff; }
-.ui-state-error-text, .ui-widget-content .ui-state-error-text, .ui-widget-header .ui-state-error-text { color: #ffffff; }
+.ui-state-error-text, #fieldWithErrors , .ui-widget-content .ui-state-error-text, .ui-widget-header .ui-state-error-text { color: #ffffff; }
 .ui-priority-primary, .ui-widget-content .ui-priority-primary, .ui-widget-header .ui-priority-primary { font-weight: bold; }
 .ui-priority-secondary, .ui-widget-content .ui-priority-secondary,  .ui-widget-header .ui-priority-secondary { opacity: .7; filter:Alpha(Opacity=70); font-weight: normal; }
 .ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled { opacity: .35; filter:Alpha(Opacity=35); background-image: none; }

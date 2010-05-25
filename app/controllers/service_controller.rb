@@ -5,27 +5,26 @@ class ServiceController < ApplicationController
   end
   
   def joinin
-    
-
+    @payer = find_payer    
   end
   
-  def create_retailer
+  def create_payer
+ 
+    @payer = Payer.new(params[:payer])
+    @payer.balance = 0
+    @payer.exists = true
+     session[:payer] = @payer
 
-    @retailer = Retailer.new(params[:retailer])
-    if @retailer.save
-      session[:retailer_id] = @retailer.id
-      flash[:notice] = "Thanks for joining us!"  
+    if @payer.save
+      rule = @payer.payer_rules.create(:rollover => 0, :billing_id => 1, :auto_authorize_under => 10, :auto_deny_over => 100)
+      session[:rule] = rule
+      flash[:notice] = "Thanks for joining us!"
       respond_to do |format|  
-        format.html { redirect_to :action => :retailer_signedin }  
+        format.html { redirect_to :action => :payer_signedin }  
         format.js 
       end
     else
-      msg = ""
-
-      msg += "name " + @retailer.errors.on(:name) if @retailer.errors.on(:name)
-      msg += " user " + @retailer.errors.on(:user) if @retailer.errors.on(:user)
-      msg += " password " + @retailer.errors.on(:password)if @retailer.errors.on(:password)
-      flash[:notice] = msg
+      flash[:notice] = "We have some trouble getting this in... Please try again!"
       redirect_to :action => :joinin
     end 
 
@@ -60,6 +59,9 @@ class ServiceController < ApplicationController
 
   def payer_signedin
     
+    @payer = find_payer
+    @rule =  find_rule 
+    
   end
   
   def retailer_signedin
@@ -74,8 +76,22 @@ class ServiceController < ApplicationController
     
   end
 
+ 
+  def payer_signedin
+    
+  end
   
   def jquery
     
+  end
+  
+  def find_payer
+    
+    session[:payer]||=Payer.new
+  end
+  
+  def find_rule
+    
+    @payer.most_recent_payer_rule
   end
 end

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100523085649) do
+ActiveRecord::Schema.define(:version => 20100525093331) do
 
   create_table "billings", :force => true do |t|
     t.string   "method",     :null => false
@@ -131,9 +131,6 @@ ActiveRecord::Schema.define(:version => 20100523085649) do
   end
 
   create_table "retailers", :force => true do |t|
-    t.string   "user"
-    t.string   "hashed_password"
-    t.string   "salt"
     t.string   "name"
     t.string   "email"
     t.decimal  "collected"
@@ -167,6 +164,10 @@ ActiveRecord::Schema.define(:version => 20100523085649) do
     t.string   "salt"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "retailer_id"
+    t.integer  "payer_id"
+    t.string   "affiliation"
+    t.string   "type"
   end
 
   create_table "versions", :force => true do |t|
