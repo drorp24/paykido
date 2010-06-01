@@ -36,43 +36,61 @@ class AolController < ApplicationController
     
    if request.post?
 
-      payer = Payer.authenticate(params[:payer][:user], params[:payer][:password])
-      unless payer
-        flash[:notice] = "Invalid user/password combination"
+      user = User.authenticate(params[:user][:name], params[:user][:password])
+      unless user
+        flash[:notice] = "Invalid user/password combination. Try again!"
         return
       end
+      unless user.is_payer
+        flash[:notice] = "Invalid user/password combination [no payer]"
+        return
+      end
+      payer = user.payer
       rule = payer.most_recent_payer_rule
       if rule
         session[:payer_id] = payer.id
-        session[:payer_user] = payer.user                         # do I use it?
-        session[:rule_id] = rule
+        session[:rule_id] = rule.id
+        session[:user] = user
 #        flash[:notice] = "Hi There!"
         redirect_to :action => :welcome_signedin
       else
         flash[:notice] = "No rule set for this payer"
         redirect_to :action => :joinin
       end
+    
    end
    
   end
   
   def joinin
+
+    @user = find_user
     
   end
   
   def create
-    payer = Payer.new(params[:payer])
-    payer.balance = 0
-    payer.exists = true
 
-    if payer.save
-      session[:payer_id] = payer.id
-      session[:payer_user] = payer.user                            # do I use it?
-      rule = payer.payer_rules.create(:rollover => 0, :billing_id => 1, :auto_authorize_under => 10, :auto_deny_over => 100)
+    user = User.new(params[:user])
+    user.affiliation = "payer"
+    user.kind = "primary"
+    user.payer = Payer.new(:balance => 0, :exists => true) 
+    session[:user] = user     
+    
+    if user.save
+      payer = user.payer
+      session[:payer_id] = payer.id                  
+      rule = payer.payer_rules.create!(:rollover => false, :billing_id => 1, :auto_authorize_under => 10, :auto_deny_over => 50)
       session[:rule_id] = rule.id
-      flash[:notice] = "Thank you. You may define your rules now"
+      flash[:notice] = "Thanks for joining us. Enjoy!"
       redirect_to :action => :welcome_signedin
     else
+      if user.errors.on(:name) == "has already been taken"
+          flash[:notice] = "Sorry... name is taken. Try a differet one!"
+      elsif user.errors.on(:password) == "doesn't match confirmation"
+          flash[:notice] = "Oops... password doesn't match its confirmation. Please try again!"
+      else
+          flash[:notice] = "Oops... something's missing. Try again!"
+      end
       redirect_to :action => "joinin"
     end
 
@@ -81,11 +99,8 @@ class AolController < ApplicationController
 
   def account_form        
  
-     begin
+    @user = find_user
     @payer = Payer.find(session[:payer_id])
-    rescue #RecordNotFound            # non needed, once i added the before_filter
-    redirect_to :action => :welcome_new
-    end
   
   end 
  
@@ -512,6 +527,10 @@ end
  
   def help
     
+  end
+  
+  def find_user
+    session[:user]||= User.new
   end
    
    def logout

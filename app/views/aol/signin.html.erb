@@ -1,9 +1,9 @@
 <% title "Sign In" %>
 
-<% form_for :payer, :url => { :action => :signin } do |form| %>
+<% form_for :user, :url => { :action => :signin } do |form| %>
   <%= form.error_messages %>
 	<ul class="rounded">
-		<li><%= form.text_field :user, :placeholder => "user"%></li>
+		<li><%= form.text_field :name, :placeholder => "user"%></li>
 		<li><%= form.password_field :password, :placeholder => "password" %></li>
 	</ul>
     <%= link_to "Submit", nil, :class => "whiteButton submit" %>

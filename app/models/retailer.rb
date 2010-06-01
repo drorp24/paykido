@@ -12,13 +12,6 @@ class Retailer < ActiveRecord::Base
   
   has_many :users
 
- def existing_retailer_name
-    errors.add(:name, "is not defined yet as retailer") unless Retailer.find_by_name(self.name)
-  end
-  
-  def user_global_uniqueness
-    errors.add(:user, "name exists already") if Payer.find_by_user(self.user)
-  end
 
   def rlist(payer_id)
     

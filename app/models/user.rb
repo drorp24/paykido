@@ -14,6 +14,19 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
 
  
+  def is_payer    
+    self.affiliation == "payer" and self.payer_id
+  end
+  
+  def is_retailer   
+    self.affiliation == "retailer" and self.retailer_id
+  end
+  
+  def is_general   
+    self.affiliation == "general" 
+  end
+
+  
   def self.authenticate(name, password)
     user = self.find_by_name(name)
     if user
@@ -44,7 +57,7 @@ class User < ActiveRecord::Base
 private
 
   def password_non_blank
-    errors.add(:password, "Missing password") if hashed_password.blank?
+    errors.add(:password, "is missing") if hashed_password.blank?
   end
 
   

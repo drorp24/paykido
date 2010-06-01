@@ -10,7 +10,7 @@ class AaaController < ApplicationController
   
   def get_context
     
-    @retailer_name = "hula"
+    @retailer_name = "jula"
     @product_title = "zmat"
     @product_price = 9.99  
  
@@ -63,7 +63,7 @@ class AaaController < ApplicationController
         @purchase = Purchase.find(session[:purchase_id]) 
         
         if @purchase.authorization_type == "PendingPayer"
-          @status = "Please hold while this purchase is getting approved"
+          @status = "Please hold while this purchase is being approved"
           @message = "Or try anothr one in the mean time"
           true
         elsif !@purchase.authorization_date
@@ -160,7 +160,7 @@ end
     
     if @purchase.authorization_date? and params[:pin]== session[:expected_pin]
       @status = "That's it. You're done."
-      @message = "Enjoy the game!"
+      @message = ""
       @purchase.authentication_date = Time.now
       @purchase.save
       account(@purchase.amount)
@@ -185,7 +185,7 @@ end
      unless @consumer
         begin
           @consumer = Consumer.new(params[:consumer])
-          @consumer.payer = Payer.new(:balance => 0, :user => rand.to_s, :hashed_password => rand.to_s)
+          @consumer.payer = Payer.new(:balance => 0, :exists => false)
           @consumer.save!
         rescue #RecordInvalid 
           flash[:notice] = "Consumer and/or payer didn't pass validation"
@@ -305,13 +305,18 @@ end
   def account(amount)
 # move to model, initialize etc
 
-    @retailer = Retailer.find(session[:retailer_id]) #ugly if because it is created without initial collected =0
-    if @retailer.collected
-        @retailer.collected += amount
-    else
-      @retailer.collected = amount
-    end    
-    @retailer.save
+    @retailer = Retailer.find(session[:retailer_id]) 
+    collected = @retailer.collected || 0 
+    collected += amount
+    
+#    @retailer.update_attribute(:collected, collected)              # this doesnt work nor simple save!
+#### WACKO CODE
+    retailer_clone = @retailer.clone
+    retailer_clone.id = @retailer.id
+    retailer_clone.collected = collected
+    @retailer.delete
+    retailer_clone.save
+#### WACKO CODE
     
     @payer = Payer.find(session[:payer_id])   #updated always - even if not a real payer
     begin

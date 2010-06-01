@@ -15,21 +15,9 @@ class Payer < ActiveRecord::Base
   
   attr_accessor :password_confirmation
   
-
-#  consider linking purchase to consumers vs. payers
-
-  validates_presence_of :user    
-  validates_uniqueness_of :user 
-  validate :user_global_uniqueness
-  validate :password_non_blank 
-  validates_confirmation_of :password
-  validates_numericality_of :phone
-  validates_length_of :phone, :is => 10
+  validates_numericality_of :phone, :allow_nil => true
+  validates_length_of :phone, :is => 10, :allow_nil => true
   
-
-  def user_global_uniqueness
-    errors.add(:user, "name exists already") if !self.user.blank? and User.find_by_name(self.user)
-  end
   
   def edited_balance
     number_to_currency(self.balance)
@@ -58,49 +46,4 @@ class Payer < ActiveRecord::Base
 #    @hashed_password = rand.to_s
 #  end
    
-  def self.authenticate(user, password)
-    payer = self.find_by_user(user) if user
-    if payer
-      expected_password = encrypted_password(password, payer.salt)
-      if payer.hashed_password != expected_password
-        payer = nil
-      end
-    end
-    payer
-  end  
-  
-# 'password' is a virtual attribute
-  
-  def password
-    @password
-  end
-  
-  def password=(pwd)
-    @password = pwd
-    return if pwd.blank?
-    create_new_salt
-    self.hashed_password = Payer.encrypted_password(self.password, self.salt)
-  end
-    
-
-private
-
-  def password_non_blank
-    errors.add(:password, "is missing") if hashed_password.blank?
-  end
-
-  
-  
-  def create_new_salt
-    self.salt = self.object_id.to_s + rand.to_s
-  end
-  
-  
-  
-  def self.encrypted_password(password, salt)
-    string_to_hash = password + "wibble" + salt
-    Digest::SHA1.hexdigest(string_to_hash)
-  end
-  
-
 end

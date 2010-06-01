@@ -1,9 +1,8 @@
 
-<%= error_messages_for 'payer', :class => "ui-widget-content ui-corner-all", :header_message => "Oops...", :message => "Please note, and try again:", :header_tag => "h1" %>
-<% form_for(:payer, :url => { :action => :create_payer }, :html => {:id => "new_payer"}) do |f| %>
+<%= error_messages_for 'user', :class => "ui-widget-content ui-corner-all", :header_message => "Oops...", :message => "Please note, and try again:", :header_tag => "h1" %>
+<% form_for(:user, :url => { :action => :create }, :html => {:id => "new_payer"}) do |f| %>
 
-	<%= f.text_field :phone, :placeholder => "Enter your phone number" %>
-   	<%= f.text_field :user, :placeholder => "Select a user name" %>
+   	<%= f.text_field :name, :placeholder => "Select a user name" %>
    	<%= f.password_field :password, :placeholder => "Select a password" %>
 	<%= f.password_field :password_confirmation, :placeholder => "Confirm password" %>
 

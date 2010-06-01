@@ -4,6 +4,10 @@ li {
 }
 */
 
+#flash_notice {
+	font-size:14px;
+}
+
 li.noarrow span select {
 		background-image:url("");
 			background-color:white;

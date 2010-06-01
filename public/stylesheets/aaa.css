@@ -1,12 +1,36 @@
+h2 {
+	font-family:"Arial Rounded MT Bold";
+}
+
 body {
 	color:white;
 }
 
+a#link_to_how {
+	position:absolute;
+	top:425px;
+	left:282px;
+	color:transparent;
+}
+
+img#no_sms_service {
+	position:absolute;
+	top:390px;
+	left:45px;
+	width:280px;
+	height:60px;
+}
+
+/*
+This is what determines the modal window size
+*/
 #payment_window {
 	background-color:#6b727a;
+	background-image:url(/images/payment_window_background1.png);
+	background-color:black;
 	padding-top:30px;
-	height:330px;
-	width:400px;
+	height:365px;
+	width:385px;
 }
 
 #input {
@@ -58,10 +82,8 @@ body {
 }
 
 #marketing {
-	float:left;
 	height:50px
 	width:200px;
-	margin-left:10px;
 	margin-top:40px;
 	margin-bottom:20px;
 }
@@ -78,9 +100,13 @@ body {
 	font-size:11pt;	
 }
 
+#marketing_line p span a{
+	text-align:center;
+}
+
 #link_to_service {
 	color:red;
-	text-decoration:underline;
+	text-decoration:none;
 }
 
 a {

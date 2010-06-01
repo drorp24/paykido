@@ -88,8 +88,24 @@ ActiveRecord::Schema.define(:version => 20100525093331) do
     t.datetime "updated_at"
   end
 
-# Could not dump table "payers" because of following StandardError
-#   Unknown type 'BOOL' for column 'exists'
+
+   create_table "payers", :force => true do |t|
+      t.boolean "exists"
+      t.string  "name"
+      t.string  "email"
+      t.string  "phone"
+      t.boolean  "phone_alert"
+      t.boolean  "email_alert"
+      t.string  "phone_alert_frequency"
+      t.string  "email_alert_frequency"
+      t.string  "phone_events"
+      t.string  "email_events"
+      t.string  "location"
+      t.decimal "balance"
+      t.string  "pin"
+      t.datetime "created_at"
+      t.datetime "updated_at"
+  end 
 
   create_table "plists", :force => true do |t|
     t.integer  "payer_id",   :null => false
@@ -167,7 +183,7 @@ ActiveRecord::Schema.define(:version => 20100525093331) do
     t.integer  "retailer_id"
     t.integer  "payer_id"
     t.string   "affiliation"
-    t.string   "type"
+    t.string   "kind"
   end
 
   create_table "versions", :force => true do |t|

@@ -2,16 +2,12 @@
 <div id="payment_window">
 	
 	<div id="message">
-		<p id="hidden_line" style="display:none">start</p>
-		<h2>Welcome to arca!</h2>
-		<p>(add loading sign etc?)</p>
-		<p>You've just selected XXX</p>
+		<h2>Welcome to arca</h2>
 		<br />
 		<br />	
 	</div>
 
 	<div id="input">
-		<div id="product_selected">Follow these 2 simple steps and get it in seconds</div>
 		<% remote_form_for :consumer,
 			:url => { :action => :authorize },
 			:update => "message" do |form| %>
@@ -33,7 +29,7 @@
 		<% form_remote_tag(:url => {:action => :authenticate},:update => "message") do %>
 			<div id="step">
 				<div id="step_title">
-					<label for="pin">Step 2 - Fill-in the PIN code we've sent you</label>
+					<label for="pin">Step 2 - Fill-in PIN code or use your own</label>
 				</div>
 				<div id="step_input">
 				<span id="input_field">
@@ -53,12 +49,7 @@
 		:condition => "$('hidden_line').innerHTML !== 'start'" ,	
 		:frequency => 10 %>												-->
 		
-	<div id="marketing">
-		<div id="new">NEW!</div>
-		<div id="marketing_line">
-			<span>Get parents authorization and pay with no SMS! <a id = "link_to_service" href="/service/index">How?</span>
-		</div>
-	</div>
 
 
+	<a href="/service/registration" id="link_to_how" >shalom</a>
 </div>

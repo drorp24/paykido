@@ -7,15 +7,15 @@
 
     <li>
     	<span class="short_item" >User</span>
-		<span class="long_value"><%= f.text_field :user %></span>
+		<span class="long_value"><%= text_field :user, :name %></span>
 	</li>
     <li>
     	<span class="short_item" >Password</span>
-		<span class="long_value"><%= f.password_field :password %></span>
+		<span class="long_value"><%= password_field :user, :password %></span>
 	</li>
 	<li>
 		<span class="short_item" >Confirmation</span>
-		<span class="long_value"><%= f.password_field :password_confirmation %></span>
+		<span class="long_value"><%= password_field :user, :password_confirmation %></span>
 	</li>
 	<li>
 		<span class="short_item" >Name</span>

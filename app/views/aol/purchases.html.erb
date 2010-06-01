@@ -25,7 +25,7 @@
 				<%= "data.setCell(#{@i}, 1, '#{p.product.title}');" %>
 				<%= "data.setCell(#{@i}, 2,  #{number_with_precision(p.amount, :precision => 2)}#{(p.id/10)}#{(p.id%10)});" %>
 				<%= "data.setCell(#{@i}, 3, '#{p.date.to_s.last(5)}');" %>
-				<%= "data.setCell(#{@i}, 4, #{p.authorized});" %>
+				<%= "data.setCell(#{@i}, 4, #{p.authorized || false});" %>
 				<% @i += 1 %>
 			<% end %>
 
