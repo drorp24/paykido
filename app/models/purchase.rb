@@ -6,6 +6,7 @@ class Purchase < ActiveRecord::Base
   belongs_to :payer
   belongs_to :retailer
   belongs_to :product
+  has_one :category, :through => :product
   
   validates_presence_of :payer_id, :retailer_id, :product_id, :amount, :date
   validates_numericality_of :amount
@@ -87,15 +88,15 @@ class Purchase < ActiveRecord::Base
 
   def self.retailer_sales(retailer_id)
     self.find_all_by_retailer_id(retailer_id, 
-        :joins  => "inner join products on purchases.product_id = products.id",
-        :select => "products.title, date, amount, authorized, payer_id, product_id")
+        :joins  =>      "inner join products on purchases.product_id = products.id inner join categories on products.category_id = categories.id",
+        :select =>      "products.title, categories.name, location, date, amount, authorized, payer_id, product_id")
   end
  
   def self.retailer_top_categories(retailer_id)
     self.sum   :amount,
                :conditions => ["retailer_id = ? and authorized = ?", retailer_id, true],
-               :joins => "inner join products on purchases.product_id = products.id",
-               :group => "category_id",
+               :joins => "inner join products on purchases.product_id = products.id inner join categories on products.category_id = categories.id",
+               :group => "categories.name",
                :order => "amount desc"
   end 
 

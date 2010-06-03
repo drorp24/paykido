@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100525093331) do
+ActiveRecord::Schema.define(:version => 20100602171702) do
 
   create_table "billings", :force => true do |t|
     t.string   "method",     :null => false
@@ -88,24 +88,22 @@ ActiveRecord::Schema.define(:version => 20100525093331) do
     t.datetime "updated_at"
   end
 
-
-   create_table "payers", :force => true do |t|
-      t.boolean "exists"
-      t.string  "name"
-      t.string  "email"
-      t.string  "phone"
-      t.boolean  "phone_alert"
-      t.boolean  "email_alert"
-      t.string  "phone_alert_frequency"
-      t.string  "email_alert_frequency"
-      t.string  "phone_events"
-      t.string  "email_events"
-      t.string  "location"
-      t.decimal "balance"
-      t.string  "pin"
-      t.datetime "created_at"
-      t.datetime "updated_at"
-  end 
+  create_table "payers", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.decimal  "balance"
+    t.string   "pin"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "phone"
+    t.boolean  "phone_alert"
+    t.boolean  "email_alert"
+    t.string   "phone_alert_frequency"
+    t.string   "email_alert_frequency"
+    t.string   "phone_events"
+    t.string   "email_events"
+    t.boolean  "exists"
+  end
 
   create_table "plists", :force => true do |t|
     t.integer  "payer_id",   :null => false
@@ -144,6 +142,7 @@ ActiveRecord::Schema.define(:version => 20100525093331) do
     t.string   "authentication_type", :limit => nil
     t.boolean  "authorized"
     t.string   "expected_pin"
+    t.string   "location"
   end
 
   create_table "retailers", :force => true do |t|
@@ -183,7 +182,7 @@ ActiveRecord::Schema.define(:version => 20100525093331) do
     t.integer  "retailer_id"
     t.integer  "payer_id"
     t.string   "affiliation"
-    t.string   "kind"
+    t.string   "role"
   end
 
   create_table "versions", :force => true do |t|

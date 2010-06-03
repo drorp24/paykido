@@ -220,11 +220,25 @@ end
      if session[:purchase_id]
        @purchase = Purchase.find(session[:purchase_id])
      else
-       @purchase = @payer.purchases.create(:payer_id => @payer.id, :retailer_id => @retailer.id, :product_id => @product.id, :amount => @product.price, :date => Time.now)
+       @purchase = @payer.purchases.create(:payer_id => @payer.id, :retailer_id => @retailer.id, :product_id => @product.id, :amount => @product.price, :date => Time.now, :location => generate_location)
        session[:purchase_id] = @purchase.id       
      end
    
   end
+ 
+  def generate_location
+    
+    r = rand
+    if r < 0.33
+      location = "China"
+    elsif r < 0.66
+      location = "Israel"
+    else
+      location = "US"
+    end
+    
+  end
+  
   
   def authorize_purchase  
     
@@ -314,6 +328,7 @@ end
     retailer_clone = @retailer.clone
     retailer_clone.id = @retailer.id
     retailer_clone.collected = collected
+    retailer_clone.updated_at = Time.now
     @retailer.delete
     retailer_clone.save
 #### WACKO CODE

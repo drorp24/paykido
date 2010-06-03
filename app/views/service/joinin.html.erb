@@ -1,11 +1,22 @@
+	
+<div id="tabs">	
+	<div class="left_content">
+		<div class="inner_content">	
+			<p class="inner_content_title">Join In</p>
+			<div class="inner_content_indented">
+				<% form_for(:user, :url => { :action => :joinin }, :html => {:id => "new_payer"}) do |f| %>
+				
+				   	<%= f.text_field :name, :size => 20, :placeholder => "Select a user name", :class => "formfield" %>
+				   	<%= f.password_field :password, :size => 20, :placeholder => "Select a password", :class => "formfield" %>
+					<%= f.password_field :password_confirmation, :size => 20, :placeholder => "Confirm password" , :class => "formfield"%>				
+					<%= button_to "Join in now", "/service/joinin", :class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
+				<% end %>			
+			</div>
+		</div>
+	</div>
+	<div class="right_content">
+		<%= image_tag "/images/get_all_the_benefits.png", :class => "righthandside_marketial" %>
+	</div>
+</div>
 
-<%= error_messages_for 'user', :class => "ui-widget-content ui-corner-all", :header_message => "Oops...", :message => "Please note, and try again:", :header_tag => "h1" %>
-<% form_for(:user, :url => { :action => :create }, :html => {:id => "new_payer"}) do |f| %>
-
-   	<%= f.text_field :name, :placeholder => "Select a user name" %>
-   	<%= f.password_field :password, :placeholder => "Select a password" %>
-	<%= f.password_field :password_confirmation, :placeholder => "Confirm password" %>
-
-	<%= submit_tag "Join in" %>
-<% end %>
 

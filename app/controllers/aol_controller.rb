@@ -38,11 +38,11 @@ class AolController < ApplicationController
 
       user = User.authenticate(params[:user][:name], params[:user][:password])
       unless user
-        flash[:notice] = "Invalid user/password combination. Try again!"
+        flash.now[:notice] = "Invalid user/password combination. Try again!"
         return
       end
       unless user.is_payer
-        flash[:notice] = "Invalid user/password combination [no payer]"
+        flash.now[:notice] = "Invalid user/password combination. Try again!"
         return
       end
       payer = user.payer
@@ -72,7 +72,7 @@ class AolController < ApplicationController
 
     user = User.new(params[:user])
     user.affiliation = "payer"
-    user.kind = "primary"
+    user.role = "primary"
     user.payer = Payer.new(:balance => 0, :exists => true) 
     session[:user] = user     
     

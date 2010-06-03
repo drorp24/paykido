@@ -1,32 +1,34 @@
+include ActionView::Helpers::NumberHelper
 class ServiceController < ApplicationController
 
-  def hello
-    
-  end
-  
   def joinin
-    @payer = find_payer    
-  end
-  
-  def create_payer
- 
-    @payer = Payer.new(params[:payer])
-    @payer.balance = 0
-    @payer.exists = true
-     session[:payer] = @payer
 
-    if @payer.save
-      rule = @payer.payer_rules.create(:rollover => 0, :billing_id => 1, :auto_authorize_under => 10, :auto_deny_over => 100)
-      session[:rule] = rule
-      flash[:notice] = "Thanks for joining us!"
-      respond_to do |format|  
-        format.html { redirect_to :action => :payer_signedin }  
-        format.js 
+    if request.post?
+      
+      @user = User.new(params[:user])
+      @user.affiliation = "payer"
+      @user.role = "primary"
+      @user.payer = Payer.new(:balance => 0, :exists => true) 
+     
+      if @user.save
+        session[:user] = @user     
+        payer = @user.payer
+        session[:payer] = payer                  
+        rule = payer.payer_rules.create!(:rollover => false, :billing_id => 1, :auto_authorize_under => 10, :auto_deny_over => 50)
+        session[:rule] = rule
+        session[:payers_first_time] = true
+        redirect_to :action => "payer_signedin"
+      else
+        if @user.errors.on(:name) == "has already been taken"
+            flash.now[:notice] = "name is taken. Try a differet one!"
+        elsif @user.errors.on(:password) == "doesn't match confirmation"
+            flash.now[:notice] = "password/confirmation mismatch. Try again!"
+        else
+            flash.now[:notice] = "something's missing. Please try again!"
+        end
       end
-    else
-      flash[:notice] = "We have some trouble getting this in... Please try again!"
-      redirect_to :action => :joinin
-    end 
+      
+    end
 
   end
   
@@ -34,64 +36,92 @@ class ServiceController < ApplicationController
     
    if request.post?
      
-      payer = Payer.authenticate(params[:usr], params[:pwd])
-      if payer
-        session[:payer_id] = payer.id
-        session[:retailer_id] = nil
-        redirect_to :action => :payer_signedin
-        return
-      end
-      
-      retailer = Retailer.authenticate(params[:usr], params[:pwd])
-      if retailer 
-        session[:retailer_id] = retailer.id
-        session[:payer_id] = nil
-        redirect_to :action => :retailer_signedin
+      @user = User.authenticate(params[:user][:name], params[:user][:password])
+      unless @user
+        flash.now[:notice] = "user or password are wrong. Please try again!"
         return
       end
 
-      flash[:notice] = "Invalid user/password combination"
-      redirect_to :action => :index
+      if @user.is_payer
+        payer = @user.payer
+        rule = payer.most_recent_payer_rule
+        session[:payer] = payer
+        session[:rule] = rule
+        session[:user] = @user
+        redirect_to :action => :payer_signedin
+      elsif @user.is_retailer
+        retailer = @user.retailer
+        session[:retailer] = retailer
+        session[:user] = @user
+        redirect_to :action => :retailer_signedin
+      elsif @user.is_administrator
+        session[:user] = @user
+        redirect_to :action => :administrator_signedin
+      elsif @user.is_general
+        session[:user] = @user
+        redirect_to :action => :general_signedin
+      else
+        flash.now[:notice] = "User's type is unclear"      
+     end
       
    end
    
   end
+ 
+  def signout
+    
+    clear_session
+    redirect_to :action => :index
+    
+  end
 
   def payer_signedin
     
+    @user = find_user
     @payer = find_payer
     @rule =  find_rule 
+    
+    if session[:payers_first_time]        #reset it only after he's actually updated anything
+      @message = "Thanks for joining us, #{@user.name}!\r\nSee how easy it is to define your rules:"
+    else
+      @message = ""
+    end
     
   end
   
   def retailer_signedin
 
-    retailer_id = 1                # GET FROM SESSION (LOGGED IN)
+    retailer = find_retailer
      
-    @sales = Purchase.retailer_sales(retailer_id)
+    @sales = Purchase.retailer_sales(retailer.id)
     
-    @categories = Purchase.retailer_top_categories(retailer_id)
+    @categories = Purchase.retailer_top_categories(retailer.id)
     @i = 0
- 
-    
+     
   end
 
- 
-  def payer_signedin
+ def jquery
     
   end
   
-  def jquery
-    
+  def find_user
+    session[:user]||= User.new
   end
   
-  def find_payer
-    
+  def find_payer   
     session[:payer]||=Payer.new
   end
   
-  def find_rule
-    
-    @payer.most_recent_payer_rule
+  def find_rule    
+    session[:rule] ||= @payer.most_recent_payer_rule
   end
+  
+  def find_retailer    
+    session[:retailer]||=Retailer.new
+  end
+  
+  def clear_session
+    session[:user] = session[:payer] = session[:rule] = session[:retailer] = nil
+  end
+  
 end

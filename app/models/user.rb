@@ -14,6 +14,14 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
 
  
+  def remember_me
+    @remember_me
+  end
+  
+  def remember_me=(rm)
+    
+  end
+  
   def is_payer    
     self.affiliation == "payer" and self.payer_id
   end
@@ -21,7 +29,11 @@ class User < ActiveRecord::Base
   def is_retailer   
     self.affiliation == "retailer" and self.retailer_id
   end
-  
+
+  def is_administrator   
+    self.affiliation == "administrator" 
+  end
+
   def is_general   
     self.affiliation == "general" 
   end

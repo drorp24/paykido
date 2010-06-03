@@ -7,18 +7,51 @@
 	<script type="text/javascript" src="/javascripts/jquery-1.4.2.min.js"></script>
 	<script type="text/javascript" src="/javascripts/jquery-ui-1.8.1.custom3.min.js"></script>
 	<script type="text/javascript" src="/javascripts/application.js"></script>
+		<script type="text/javascript" src="/javascripts/prototype.js"></script>
+		 <script type="text/javascript">
+ 	jQuery.noConflict();
+
+    </script>
+
 </head>	
 <body>
   <div class="container">	
 	<div id="head">
-		<span id="get_started_today"><a href="/service1/registration">shalom</a></span>
+		<span id="get_started_today"><a href="/service/joinin">shalom</a></span>
 	</div>
 	<br />
 	<br />
 	
 	<% if flash[:notice] -%>
-    	<div id="notice"><%= flash[:notice] %></div>
+		<div class="ui-widget error_message">
+	    	<div id="notice" class="ui-state-error ui-corner-all">
+	    		<p>
+	    			<span style="float: left; margin-right: 0.3em;" class="ui-icon ui-icon-alert"></span>
+					<strong>Oops...</strong>
+					<span><%= flash[:notice] %></span>
+	    		</p>
+			</div>
+		</div>
 	<% end -%>
+	<% if flash[:message] -%>
+		<div class="ui-widget just_message">
+	    	<div id="notice" class="ui-state-highlight ui-corner-all">
+	    		<p>
+	    			<span style="float: left; margin-right: 0.3em;" class="ui-icon ui-icon-info"></span>
+					<span><%= flash[:message] %></span>
+	    		</p>
+			</div>
+		</div>
+	<% end -%>
+	
+	<% if session[:user] and session[:user].name %>
+		<span class="login" id="signedin">Welcome <%= session[:user].name %></span>
+		<%= link_to "Sign Out", "/service/signout", :class => "login", :id => "signout" %>
+	<% else %>		
+		<%= link_to "Sign In", "/service/signin", :class => "login", :id => "signin" %>
+		<%= link_to "Join In", "/service/joinin", :class => "login", :id => "joinin" %>
+	<% end %>
+
 
     <%= yield :layout %>
 	

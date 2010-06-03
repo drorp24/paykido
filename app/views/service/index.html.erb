@@ -1,20 +1,5 @@
 <div id="remainder">
-	<span id="learn1"><a href="/service/registration">shalom shalom shalom shalom shalom</a></span>
-	<span id="learn2"><a href="/service/registration">shalom shalom shalom shalom shalom</a></span>
-	<span id="learn3"><a href="/service/registration">shalom shalom shalom shalom shalom</a></span>
+	<span id="learn1"><a href="/service/joinin">shalom shalom shalom shalom shalom</a></span>
+	<span id="learn2"><a href="/service/joinin">shalom shalom shalom shalom shalom</a></span>
+	<span id="learn3"><a href="/service/joinin">shalom shalom shalom shalom shalom</a></span>
 </div>
-	
-<% unless @errors.blank? %>
-  <ul>
-  <% for error in @errors %>
-    <li><p class=".ui-state-error-text"><%= h(error) %></p></li>
-  <% end %>
-  </ul>
-<% end %>
-
-<% form_tag({:action => :signin}, {:id => "login"}) do %>
-  <%= text_field_tag(:usr, params[:usr], :size=>18) %>
-  <%= text_field_tag(:pwd, params[:pwd], :size=>18) %>
-  <%= submit_tag "Log in" , :class => "fg-button ui-state-default", :style=>"height:24px;bottom:1px;padding:5px;padding-top:1px" %>
-<% end %>
-

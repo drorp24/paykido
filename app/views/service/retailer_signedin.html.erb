@@ -23,10 +23,10 @@
 				
 			data.addRows([		
 				<% @sales.each do |s| -%>
-			          ['<%= s.title %>',new Date(<%= s.date.strftime('%Y, %m, %d')%>),
+			          ['<%= s.title %>',new Date(<%= s.date.strftime('%Y, %m-1, %d')%>),
 					  <%= if s.authorized then 0 else s.amount end %>,
 					  <%= if s.authorized then s.amount else 0 end %>,
-					  '<%= s.payer.location %>', '<%= s.product.category.name %>'],
+					  '<%= s.location %>', '<%= s.name %>'],
 				<% end %>		
 		    ]);
 			
@@ -52,8 +52,8 @@
 	        data.addColumn('string', 'Category');
 	        data.addColumn('number', 'Total');
 	        data.addRows(<%= @categories.size %>);
-			<% @categories.each do |category_id, amount| -%>
-				data.setValue(<%= @i %>, 0, '<%= Category.find(category_id).name %>');
+			<% @categories.each do |name, amount| -%>
+				data.setValue(<%= @i %>, 0, '<%= name %>');
 				data.setValue(<%= @i %>, 1, <%= amount %>);
 				<% @i += 1 %>
 			<% end %>

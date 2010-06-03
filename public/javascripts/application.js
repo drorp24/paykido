@@ -5,7 +5,7 @@ jQuery.ajaxSetup({
      'beforeSend': function (xhr) {xhr.setRequestHeader("Accept", "text/javascript")}  
 });
 
-$(document).ready(function (){  
+jQuery(document).ready(function (){  
 		 
 /*
 	$('#new_payer').submit(function (){  
@@ -14,35 +14,30 @@ $(document).ready(function (){
    });  
 
 */		 
-	$(function(){
+	jQuery(function(){
 	//all hover and click logic for buttons
-		$(".fg-button:not(.ui-state-disabled)")
+		jQuery(".fg-button:not(.ui-state-disabled)")
 			.hover(
 				function(){ 
-					$(this).addClass("ui-state-hover"); 
+					jQuery(this).addClass("ui-state-hover"); 
 				},
 				function(){ 
-					$(this).removeClass("ui-state-hover"); 
+					jQuery(this).removeClass("ui-state-hover"); 
 				}
 			 )
 			.mousedown(function(){
-					$(this).parents('.fg-buttonset-single:first').find(".fg-button.ui-state-active").removeClass("ui-state-active");
-						if( $(this).is('.ui-state-active.fg-button-toggleable, .fg-buttonset-multi .ui-state-active') ){ $(this).removeClass("ui-state-active"); }
-						else { $(this).addClass("ui-state-active"); }	
+					jQuery(this).parents('.fg-buttonset-single:first').find(".fg-button.ui-state-active").removeClass("ui-state-active");
+						if( jQuery(this).is('.ui-state-active.fg-button-toggleable, .fg-buttonset-multi .ui-state-active') ){ $(this).removeClass("ui-state-active"); }
+						else { jQuery(this).addClass("ui-state-active"); }	
 			 })
 			.mouseup(function(){
-						if(! $(this).is('.fg-button-toggleable, .fg-buttonset-single .fg-button,  .fg-buttonset-multi .fg-button') ){
-							$(this).removeClass("ui-state-active");
+						if(! jQuery(this).is('.fg-button-toggleable, .fg-buttonset-single .fg-button,  .fg-buttonset-multi .fg-button') ){
+							jQuery(this).removeClass("ui-state-active");
 						}
 			});
 		});
-		$(function() {
-			$("#tabs").tabs({
-				ajaxOptions: {
-					error: function(xhr, status, index, anchor) {
-					$(anchor.hash).html("Couldn't load this tab. We'll try to fix this as soon as possible. If this wouldn't be a demo.");
-				}
-			}
-		});
-		});
+		jQuery(function() {
+			jQuery("#tabs").tabs().find(".ui-tabs-nav").sortable({axis:'x'});
+	});
+
 });
