@@ -13,5 +13,13 @@ class Consumer < ActiveRecord::Base
   validates_numericality_of :billing_phone
   validates_length_of :billing_phone, :is => 10
 
+  def pin
+    @pin
+  end
+  
+  def pin=(val)
+    
+  end
+   
    
 end

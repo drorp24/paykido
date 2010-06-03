@@ -7,13 +7,7 @@
 	<script type="text/javascript" src="/javascripts/jquery-1.4.2.min.js"></script>
 	<script type="text/javascript" src="/javascripts/jquery-ui-1.8.1.custom3.min.js"></script>
 	<script type="text/javascript" src="/javascripts/application.js"></script>
-		<script type="text/javascript" src="/javascripts/prototype.js"></script>
-		 <script type="text/javascript">
- 	jQuery.noConflict();
 
-    </script>
-
-</head>	
 <body>
   <div class="container">	
 	<div id="head">
@@ -35,7 +29,7 @@
 	<% end -%>
 	<% if flash[:message] -%>
 		<div class="ui-widget just_message">
-	    	<div id="notice" class="ui-state-highlight ui-corner-all">
+	    	<div id="notice" class="ui-state-highlight">
 	    		<p>
 	    			<span style="float: left; margin-right: 0.3em;" class="ui-icon ui-icon-info"></span>
 					<span><%= flash[:message] %></span>

@@ -9,32 +9,34 @@
 	</ul>
 
 	<div id="tabs-1">
-	    <script type="text/javascript">
-	      google.load('visualization', '1', {'packages':['motionchart']});
-	      google.setOnLoadCallback(drawChart);
-	      function drawChart() {
-	        var data = new google.visualization.DataTable();
-	        data.addColumn('string', 'Product');
-	        data.addColumn('date', 'Date');
-			data.addColumn('number', 'Denials');
-	        data.addColumn('number', 'Sales');
-	        data.addColumn('string', 'Location');
-			data.addColumn('string', 'Category');
+		<% if @sales.size > 0 %>
+		    <script type="text/javascript">
+		      google.load('visualization', '1', {'packages':['motionchart']});
+		      google.setOnLoadCallback(drawChart);
+		      function drawChart() {
+		        var data = new google.visualization.DataTable();
+		        data.addColumn('string', 'Product');
+		        data.addColumn('date', 'Date');
+				data.addColumn('number', 'Denials');
+		        data.addColumn('number', 'Sales');
+		        data.addColumn('string', 'Location');
+				data.addColumn('string', 'Category');
+					
+				data.addRows([		
+					<% @sales.each do |s| -%>
+				          ['<%= s.title %>',new Date(<%= s.date.strftime('%Y, %m-1, %d')%>),
+						  <%= if s.authorized then 0 else s.amount end %>,
+						  <%= if s.authorized then s.amount else 0 end %>,
+						  '<%= s.location %>', '<%= s.name %>'],
+					<% end %>		
+			    ]);
 				
-			data.addRows([		
-				<% @sales.each do |s| -%>
-			          ['<%= s.title %>',new Date(<%= s.date.strftime('%Y, %m-1, %d')%>),
-					  <%= if s.authorized then 0 else s.amount end %>,
-					  <%= if s.authorized then s.amount else 0 end %>,
-					  '<%= s.location %>', '<%= s.name %>'],
-				<% end %>		
-		    ]);
-			
-		    var chart = new google.visualization.MotionChart(document.getElementById('chart_div'));
-	        chart.draw(data, {width: 600, height:300});
-	      }
-	
-	    </script>
+			    var chart = new google.visualization.MotionChart(document.getElementById('chart_div'));
+		        chart.draw(data, {width: 600, height:300});
+		      }
+		
+		    </script>
+		<% end %>
 	
 	    <br />
 		<div id="chart_div" class="chart"></div>

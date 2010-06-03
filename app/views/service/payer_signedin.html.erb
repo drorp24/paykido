@@ -1,6 +1,6 @@
 <div id="tabs">
 	<ul>
-		<li><a href="#tabs-1">Subscribers</a></li>
+		<li><a href="#tabs-1">Consumers</a></li>
 		<li><a href="#tabs-2">Inbox</a></li>
 		<li><a href="#tabs-3">Budget</a></li>
 		<li><a href="#tabs-4">Content</a></li>
@@ -12,10 +12,24 @@
 
 	<div id="tabs-1">
 		<div class="left_content">
-		<div class="plain_message"><%= @message%></div>
+			<div class="plain_message"><%= @message%></div>
+			<br />
+			<p class="inner_content_title">Who are you going to take care for?</p>
+			<p class="inner_content_text">Define here who gets a one-click shopping experience (as long as your rules are met!)</p>
+			<p class="inner_content_text">To add a consumer, key-in his or her phone number and wait for the text message.</p>
+			<br />
+			<% form_for :consumer, :action => "add_subscriber", :html => {:id => "phone_form"} do |f| %>
+				<%= f.text_field :billing_phone, :size => 20, :placeholder => "Phone number", :class => "formfield" %>
+				<%= submit_tag "Click when done",:class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
+			<% end %>
+			<p class="inner_content_text">Once you got the PIN code, key it in here:</p>  
+			<% form_for :consumer, :action => "authenticate_subscriber" do |f| %>
+				<%= f.text_field :pin, :size => 20, :placeholder => "Received PIN", :class => "formfield"  %>
+				<%= submit_tag "Click when done", :class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
+			<% end %>
 		</div>
 		<div class="right_content">
-			<%= image_tag "/images/thanks_for_joining3.png", :class => "righthandside_marketial" %>
+			<%= image_tag "/images/thanks_for_joining4.png", :class => "righthandside_marketial" %>
 		</div>
 	</div>
 
@@ -129,7 +143,90 @@
 	</div>
 
 	<div id="tabs-5">
-		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+<script type="text/javascript">
+	$(function() {
+		under = document.getElementById("under").value;
+		over = document.getElementById("over").value;
+		if (under.charAt(0) == '$') {under = under.slice(1)}
+		if (over.charAt(0) == '$') {over = over.slice(1)}
+		$("#slider-range").slider({
+			range: true,
+			min: 0,
+			max: 100,
+			values: [under, over],
+			slide: function(event, ui) {
+				$("#under").val('$' + ui.values[0]);
+				$("#over").val('$' + ui.values[1]);
+			}
+		});
+		$("#under").val('$' + $("#slider-range").slider("values", 0));
+		$("#over").val('$' + $("#slider-range").slider("values", 1));
+	});
+	
+	function updateSlider() {
+		
+		under = document.getElementById("under").value;
+		over = document.getElementById("over").value;
+		if (under.charAt(0) == '$') {under = under.slice(1)}
+		if (over.charAt(0) == '$') {over = over.slice(1)}
+
+		$("#slider-range").slider("values", 0, under);
+		$("#slider-range").slider("values", 1, over);	
+	}
+
+</script>
+
+
+<ul class="blue_bg engrave">
+	<ul id="slider-range"></ul>
+</ul>
+<% form_for :rule, :url => { :action => :rules_update } do |f| %>
+
+  	<ul class="thin_lines" style="margin-top:-10px">
+    	<li >
+    		<span class="item gray small_font" >Approve any purchase under</span>
+			<span class="short_value">
+				<%= f.text_field(:edited_auto_authorize_under, 
+					:placeholder => "this amount",  
+					:class => "value green",
+					:id => "under",
+					:onchange => "updateSlider()") %>
+			</span>
+		</li>
+   	<li>
+    		<span class="item gray small_font" >Unapprove any purchase over</span>
+			<span class="short_value">
+				<%= f.text_field(:edited_auto_deny_over, 
+				:placeholder => "this amount",  
+				:class => "value red",
+				:id => "over",
+				:onchange => "updateSlider()") %>
+			</span>
+		</li>
+	</ul>
+
+	
+
+<ul class="banner_question_mark">
+		<span style="position:absolute;left:12px;font-size:14px">If I do need to be involved, reach me by</span>
+		<span><%= link_to "shal", "involved_help", :class => "slideup transparent question_mark" %> </span>
+</ul>
+	<%if @payer.phone_alert %>
+		<a href="sms_prefs" class="contact"><img src="/images/iPhone SMS 64.png" border="0"></a> 
+	<% else %>
+		<a href="/aol/sms_prefs" class="contact"><img src="/images/iPhone SMS 64 bw.png" border="0"></a> 
+	<% end %>
+	<% if @payer.email_alert %>
+		<a href="/aol/email_prefs" class="contact"><img src="/images/iPhone email 64.png" border="0"></a> 
+	<% else %>
+		<a href="/aol/email_prefs" class="contact"><img src="/images/iPhone email 64 bw.png" border="0"></a> 
+	<% end %>
+		<%= image_tag 'Skype 64 bw 1.png', :class => "contact" , :id => "skype" %>
+		<%= image_tag 'aol aim bw.png', :class => "contact", :id => "aim"%>
+
+  	<%= submit_tag "Submit", :class => "whiteButton submit bottom_submit_tag" %>
+<% end %>
+
 	</div>
 
 	<div id="tabs-6">

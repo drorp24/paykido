@@ -1,6 +1,12 @@
 include ActionView::Helpers::NumberHelper
 class ServiceController < ApplicationController
 
+  before_filter :check_payer_is_signedin, :only => :payer_signedin
+  before_filter :check_retailer_is_signedin, :only => :retailer_signedin
+  before_filter :check_administrator_is_signedin, :only => :administrator_signedin
+  before_filter :check_general_is_signedin, :only => :general_signedin
+  before_filter :set_environment, :except => [:index, :signin, :joinin, :signout]
+
   def joinin
 
     if request.post?
@@ -76,11 +82,7 @@ class ServiceController < ApplicationController
   end
 
   def payer_signedin
-    
-    @user = find_user
-    @payer = find_payer
-    @rule =  find_rule 
-    
+        
     if session[:payers_first_time]        #reset it only after he's actually updated anything
       @message = "Thanks for joining us, #{@user.name}!\r\nSee how easy it is to define your rules:"
     else
@@ -90,38 +92,103 @@ class ServiceController < ApplicationController
   end
   
   def retailer_signedin
-
-    retailer = find_retailer
      
-    @sales = Purchase.retailer_sales(retailer.id)
-    
-    @categories = Purchase.retailer_top_categories(retailer.id)
+    @sales = Purchase.retailer_sales(@retailer.id)
+        
+    @categories = Purchase.retailer_top_categories(@retailer.id)
     @i = 0
      
   end
-
- def jquery
+  
+  def add_subscriber
+    
+    
     
   end
   
-  def find_user
-    session[:user]||= User.new
+  def authenticate_subscriber
+    
+    #if provided the expected pin:
+    
+    consumer = Consumer.find_by_billing_phone(params[:consumer][billing_phone])
+    if consumer
+      consumer.update_attribtues()
+    end
+    
+  end
+
+
+
+  protected
+  
+  def check_payer_is_signedin
+    
+    unless session[:payer]
+      flash[:message] = "Please sign in with payer credentials"
+      clear_session
+      redirect_to  :action => 'index'
+    end
+    
+  end
+
+  def check_retailer_is_signedin
+    
+    unless session[:retailer]
+      flash[:message] = "Please sign in with retailer credentials"
+      clear_session
+      redirect_to  :action => 'index'
+    end
+    
   end
   
-  def find_payer   
-    session[:payer]||=Payer.new
+  def check_admininstrator_is_signedin
+    
+    unless session[:user] and session[:user].is_administrator
+      flash[:message] = "Please sign in with administrator credentials"
+      clear_session
+      redirect_to  :action => 'index'
+    end
+    
   end
   
-  def find_rule    
-    session[:rule] ||= @payer.most_recent_payer_rule
+  def check_general_is_signedin
+    
+    unless session[:user] and session[:user].is_general
+      flash[:message] = "Please sign in with general credentials"
+      clear_session
+      redirect_to :action => 'index'
+    end
+    
   end
+ 
   
-  def find_retailer    
-    session[:retailer]||=Retailer.new
+  def set_environment
+    @user =   session[:user]
+    @payer =  session[:payer]
+    @rule =   session[:rule]
+    @retailer=session[:retailer]
   end
+
+
+# delete this section after i tested i dont need them  
+#  def find_user
+#    session[:user]||= User.new
+#  end
+  
+#  def find_payer   
+#    session[:payer]||=Payer.new
+#  end
+  
+#  def find_rule    
+#    session[:rule] ||= @payer.most_recent_payer_rule
+#  end
+  
+#  def find_retailer    
+#    session[:retailer]||=Retailer.new
+#  end
   
   def clear_session
-    session[:user] = session[:payer] = session[:rule] = session[:retailer] = nil
+    session[:user] = session[:payer] = session[:rule] = session[:retailer] = session[:payers_first_time] = nil
   end
   
 end
