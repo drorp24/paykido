@@ -220,7 +220,7 @@ end
      if session[:purchase_id]
        @purchase = Purchase.find(session[:purchase_id])
      else
-       @purchase = @payer.purchases.create(:payer_id => @payer.id, :retailer_id => @retailer.id, :product_id => @product.id, :amount => @product.price, :date => Time.now, :location => generate_location)
+       @purchase = @payer.purchases.create(:consumer_id => @consumer.id, :payer_id => @payer.id, :retailer_id => @retailer.id, :product_id => @product.id, :amount => @product.price, :date => Time.now, :location => generate_location)
        session[:purchase_id] = @purchase.id       
      end
    

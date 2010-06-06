@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100602171702) do
+ActiveRecord::Schema.define(:version => 20100606084701) do
 
   create_table "billings", :force => true do |t|
     t.string   "method",     :null => false
@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(:version => 20100602171702) do
     t.boolean  "authorized"
     t.string   "expected_pin"
     t.string   "location"
+    t.integer  "consumer_id"
   end
 
   create_table "retailers", :force => true do |t|

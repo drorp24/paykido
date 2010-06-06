@@ -3,12 +3,13 @@ require 'ruby-debug'
 class Purchase < ActiveRecord::Base
 #  versioned
   
+  belongs_to :consumer
   belongs_to :payer
   belongs_to :retailer
   belongs_to :product
   has_one :category, :through => :product
   
-  validates_presence_of :payer_id, :retailer_id, :product_id, :amount, :date
+  validates_presence_of :consumer_id, :payer_id, :retailer_id, :product_id, :amount, :date
   validates_numericality_of :amount
   
 #  attr_accessor :authorization_date, :authorization_type

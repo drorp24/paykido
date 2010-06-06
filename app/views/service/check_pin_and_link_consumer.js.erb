@@ -1,0 +1,19 @@
+$('#phone_notice').remove();
+$('#pin_notice').remove(); 
+$('#cheerful_message').remove(); 
+
+$('#pin_form').after('<div id ="pin_notice" class="field_notice small_note red" ><%= escape_javascript(flash.delete(:notice)) %></div>');
+
+var consumers_counter = <%= @consumers_counter %>
+var phone = "<%= @phone %>" ;
+
+if (consumers_counter == 1 && phone != "")
+	{$('.right_content').html('<p class="inner_content_title">Already in my account:</p><div class="inner_content_indented"><ul id="selectable"></ul></div>');}			
+if (phone != "")
+	{$('#selectable').append('<li class="ui-widget-content"><%= number_to_phone(@phone, :area_code => true) %></li>');}
+
+<% if flash[:message] %>
+	$('#tabs').before('<div class="ui-widget message" id="cheerful_message"><div id="notice" class="ui-state-highlight ui-corner-all"><p><span style="float: left; margin-right: 0.3em;" class="ui-icon ui-icon-info"></span><span><%= escape_javascript(flash.delete(:message)) %></span></p></div></div>');
+<% end %>
+
+  

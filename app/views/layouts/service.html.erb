@@ -17,7 +17,7 @@
 	<br />
 	
 	<% if flash[:notice] -%>
-		<div class="ui-widget error_message">
+		<div class="ui-widget message">
 	    	<div id="notice" class="ui-state-error ui-corner-all">
 	    		<p>
 	    			<span style="float: left; margin-right: 0.3em;" class="ui-icon ui-icon-alert"></span>
@@ -28,8 +28,8 @@
 		</div>
 	<% end -%>
 	<% if flash[:message] -%>
-		<div class="ui-widget just_message">
-	    	<div id="notice" class="ui-state-highlight">
+		<div class="ui-widget message">
+	    	<div id="notice" class="ui-state-highlight ui-corner-all">
 	    		<p>
 	    			<span style="float: left; margin-right: 0.3em;" class="ui-icon ui-icon-info"></span>
 					<span><%= flash[:message] %></span>

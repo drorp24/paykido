@@ -1,0 +1,5 @@
+$('#cheerful_message').remove();
+$('#phone_notice').remove();
+$('#pin_notice').remove();
+  
+$('#phone_form').after('<div id ="phone_notice" class="field_notice small_note red" ><%= escape_javascript(flash.delete(:notice)) %></div>');

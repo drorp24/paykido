@@ -1,6 +1,7 @@
 class Consumer < ActiveRecord::Base
   
   belongs_to :payer
+  has_many :purchases
   
 #  attr_accessor :billing_phone, :payer_id
   
