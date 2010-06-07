@@ -1,14 +1,52 @@
 
 <div id="tabs">
 	<ul>
-		<li><a href="#tabs-1">Sales vs. Denials</a></li>
-		<li><a href="#tabs-2">Best Sellers</a></li>
+		<li><a href="#tabs-1">Best Sellers</a></li>
+		<li><a href="#tabs-2">Sales vs. Denials</a></li>
 		<li><a href="#tabs-3">Are we Blacklisted</a></li>
 		<li><a href="#tabs-4">Collected / Billed</a></li>
 		<li><a href="#tabs-5">Account Settings</a></li>
 	</ul>
 
 	<div id="tabs-1">
+
+
+	    <script type="text/javascript">
+	      google.load("visualization", "1", {packages:["piechart"]});
+	      google.setOnLoadCallback(drawChart);
+	      function drawChart() {
+	        var data = new google.visualization.DataTable();
+	        data.addColumn('string', 'Category');
+	        data.addColumn('number', 'Total');
+	        data.addRows(<%= @categories.size %>);
+			<% @categories.each do |name, amount| -%>
+				data.setValue(<%= @i %>, 0, '<%= name %>');
+				data.setValue(<%= @i %>, 1, <%= amount %>);
+				<% @i += 1 %>
+			<% end %>
+	 
+	        var chart = new google.visualization.PieChart(document.getElementById('purchases_by_category'));
+	        chart.draw(data, 
+					   {width: 600,
+					    height: 300, 
+						titleFontSize: 22, 
+						legendFontSize: 18,
+						backgroundColor: 'white', 
+						legend: 'left', 
+						is3D: true, 
+						title: 'Sales by Category',
+						colors: [{color:'orange', darker:'#680000'}, {color:'#1B7BDD', darker:'black'},{color:'#666666', darker:'black'}, {color:'#dc3912', darker:'black'}]
+	      });
+		  }
+	    </script>
+	
+		<div id="purchases_by_category" class="chart"></div>
+
+	</div>
+
+
+
+	<div id="tabs-2">
 		<% if @sales.size > 0 %>
 		    <script type="text/javascript">
 		      google.load('visualization', '1', {'packages':['motionchart']});
@@ -41,41 +79,6 @@
 	    <br />
 		<div id="chart_div" class="chart"></div>
 		<div id="tabs-1-explain"></div>
-	</div>
-
-
-
-	<div id="tabs-2">
-	    <script type="text/javascript">
-	      google.load("visualization", "1", {packages:["piechart"]});
-	      google.setOnLoadCallback(drawChart);
-	      function drawChart() {
-	        var data = new google.visualization.DataTable();
-	        data.addColumn('string', 'Category');
-	        data.addColumn('number', 'Total');
-	        data.addRows(<%= @categories.size %>);
-			<% @categories.each do |name, amount| -%>
-				data.setValue(<%= @i %>, 0, '<%= name %>');
-				data.setValue(<%= @i %>, 1, <%= amount %>);
-				<% @i += 1 %>
-			<% end %>
-	 
-	        var chart = new google.visualization.PieChart(document.getElementById('purchases_by_category'));
-	        chart.draw(data, 
-					   {width: 600,
-					    height: 300, 
-						titleFontSize: 22, 
-						legendFontSize: 18,
-						backgroundColor: 'white', 
-						legend: 'left', 
-						is3D: true, 
-						title: 'Sales by Category',
-						colors: [{color:'orange', darker:'#680000'}, {color:'#1B7BDD', darker:'black'},{color:'#666666', darker:'black'}, {color:'#dc3912', darker:'black'}]
-	      });
-		  }
-	    </script>
-	
-		<div id="purchases_by_category" class="chart"></div>
 	</div>
 
 	<div id="tabs-3">

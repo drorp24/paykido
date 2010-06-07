@@ -25,7 +25,6 @@ class ServiceController < ApplicationController
         session[:payer] = payer                  
         rule = payer.payer_rules.create!(:rollover => false, :billing_id => 1, :auto_authorize_under => 10, :auto_deny_over => 50)
         session[:rule] = rule
-        session[:payers_first_time] = true
         redirect_to :action => "payer_signedin"
       else
         if @user.errors.on(:name) == "has already been taken"
@@ -88,6 +87,8 @@ class ServiceController < ApplicationController
         
     @consumers = Consumer.find_all_by_payer_id(@payer.id)
     session[:consumers_counter] = @consumers.size
+    flash[:message] = "Welcome to arca!" if @consumers.empty?
+
    
   end
   
@@ -154,7 +155,7 @@ class ServiceController < ApplicationController
     @consumers_counter = session[:consumers_counter]
     
     unless session[:phone_is_ok]
-      flash[:notice] = "Please key-in proper phone number and wait for the text message"
+      flash[:notice] = "Please handle the phone number first"
       @phone = nil
       respond_to do |format|  
           format.html { redirect_to :action => 'payer_signedin' }  

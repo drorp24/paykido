@@ -12,12 +12,10 @@
 
 	<div id="tabs-1">
 		<div class="left_content">
-			<% unless @consumers %>
-				<div class="plain_message"><%= @message%></div>
-			<% end %>
-			<p class="inner_content_title">Who are you going to take care of?</p>
+			<div class="inner_content_title plain_message"><%= @message%></div>
+			<p class="inner_content_title">Who would you like to take care for?</p>
 			<div class="inner_content_indented">
-				<p class="inner_content_text">Define here who gets a one-click shopping experience (once your rules are met!)</p>
+				<p class="inner_content_text">Define here who gets a one-click shopping experience (provided your rules are met).</p>
 				<p class="inner_content_text">To add a consumer, key-in his or her phone number and wait for the text message.</p>
 				<br />
 				<% form_for(:consumer, :url => {:action => "sms_consumer"}, :html => {:id => "phone_form"}) do |f| %>
@@ -25,7 +23,7 @@
 					<%= submit_tag "Click when done",:class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
 				<% end %>
 				<br />
-				<p class="inner_content_text">Once you got the PIN code, key it in here:</p>  
+				<p class="inner_content_text">Once you got the text message, key-in the PIN code here:</p>  
 				<% form_for(:consumer, :url => {:action => "check_pin_and_link_consumer"}, :html => {:id => "pin_form"}) do |f| %>
 					<%= f.text_field :pin, :size => 20, :placeholder => "Received PIN", :class => "formfield"  %>
 					<%= submit_tag "Click when done", :class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
@@ -33,20 +31,31 @@
 			</div>
 		</div>
 		<div class="right_content">
+			<div class="inner_content_title plain_message"></div>
 			<% if @consumers.empty? %>				
-				<%= image_tag "/images/thanks_for_joining4.png", :class => "righthandside_marketial" %>
+				<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>
 			<% else %>
-				<p class="inner_content_title">Already in my account:</p>
-				<div class="inner_content_indented">
-					<ul id="selectable">
-						<% for consumer in @consumers %>
-							<li class="ui-widget-content"><%= number_to_phone(consumer.billing_phone, :area_code => true) %></li>
-						<% end %>
-					</ul>
-				</div>			
+				<p class="inner_content_title" id="consumers">Existing Subscribers</p>
+					<div class="column" id="column1">
+					</div>
+					<div class="column" id="column2">
+					</div>
 			<% end %>
 		</div>
 	</div>
+
+<script type="text/javascript">
+	<% i = 1 %>
+	<% for consumer in @consumers %>
+		<% rem = i % 2 %>
+		<% if rem == 1 %>
+			$('#column1').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(consumer.billing_phone, :area_code => true)) %></div><div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
+		<% else %>
+			$('#column2').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(consumer.billing_phone, :area_code => true)) %></div><div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
+		<% end %>
+		<% i += 1 %>
+	<% end %>
+</script>
 
 	<div id="tabs-2">
 		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
