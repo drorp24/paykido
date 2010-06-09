@@ -10,6 +10,7 @@ class AaaController < ApplicationController
   
   def get_context
     
+    @consumer = session[:consumer]
     @retailer_name = "jula"
     @product_title = "zmat"
     @product_price = 9.99  
@@ -43,7 +44,7 @@ class AaaController < ApplicationController
   
   def clear_session
 # find a better command to clear out all session construct
-    session[:consumer_id]=session[:payer_id]=session[:retailer_id]=session[:product_id]=session[:purchase_id]=nil
+    session[:consumer]=session[:payer_id]=session[:retailer_id]=session[:product_id]=session[:purchase_id]=nil
     session[:expected_pin]=nil
     session[:billing_phone]=session[:retailer_name]=session[:product_title]=session[:product_price]=nil
   end
@@ -185,7 +186,7 @@ end
      unless @consumer
         begin
           @consumer = Consumer.new(params[:consumer])
-          @consumer.payer = Payer.new(:balance => 0, :exists => false)
+          @consumer.payer = Payer.new(:exists => false)
           @consumer.save!
         rescue #RecordInvalid 
           flash[:notice] = "Consumer and/or payer didn't pass validation"
@@ -193,7 +194,9 @@ end
         end 
      end
      @payer = @consumer.payer
-     session[:consumer_id] = @consumer.id
+     @consumer_rule = @consumer.most_recent_payer_rule if @payer.exists
+     session[:consumer] = @consumer
+     session[:consumer_rule] = @consumer_rule 
      session[:billing_phone] = @consumer.billing_phone
      session[:payer_id] = @payer.id
      
@@ -245,12 +248,13 @@ end
     @purchase.authorized = false                        
     
     if @payer.exists?
-      @rule = @payer.most_recent_payer_rule
+      @consumer = session[:consumer]
+      @rule = session[:consumer_rule]
       
-      if @payer.balance <= 0
+      if @consumer.balance <= 0
         @purchase.authorization_type = "ZeroBalance"
         @purchase.authorized = false      
-      elsif @payer.balance < @purchase.amount
+      elsif @consumer.balance < @purchase.amount
         @purchase.authorization_type = "InsufficientBalance"
         @purchase.authorized = false
         
@@ -333,14 +337,14 @@ end
     retailer_clone.save
 #### WACKO CODE
     
-    @payer = Payer.find(session[:payer_id])   #updated always - even if not a real payer
+    @consumer = session[:consumer]
     begin
-      @payer.balance -= amount
+      @consumer.balance -= amount
     rescue NoMethodError                      #old test data didnt set initial balance to 0
-      @payer.balance = 0
+      @consumer.balance = 0
       retry
     end
-    @payer.save
+    @consumer.save
 
   end
   

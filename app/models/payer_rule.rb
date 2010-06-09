@@ -1,9 +1,7 @@
 class PayerRule < ActiveRecord::Base
   belongs_to :payer
-  has_many :payer_rule_categories
-  has_many :categories, :through => :payer_rule_categories
+  belongs_to :consumer
   
-  validates_presence_of :payer_id, :billing_id
   validates_numericality_of :auto_authorize_under, :greater_than_or_equal_to => 0
   validates_numericality_of :auto_deny_over, :greater_than_or_equal_to => 1
  

@@ -1,0 +1,12 @@
+<% title "Allowance" %>
+
+<% for consumer in @consumers %>
+
+<ul class="rounded">
+	<li class="arrow">
+		<%= link_to number_to_phone(consumer.billing_phone, :area_code => true), "/aol/budget_form/#{consumer.id}", :target => "_webapp" %>
+	</li>
+</ul>
+
+<% end %>
+

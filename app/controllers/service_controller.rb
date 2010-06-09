@@ -17,14 +17,14 @@ class ServiceController < ApplicationController
       @user = User.new(params[:user])
       @user.affiliation = "payer"
       @user.role = "primary"
-      @user.payer = Payer.new(:balance => 0, :exists => true) 
+      @user.payer = Payer.new(:balance => 0, :exists => true, :billing_id => 1) 
      
       if @user.save
         session[:user] = @user     
         payer = @user.payer
         session[:payer] = payer                  
-        rule = payer.payer_rules.create!(:rollover => false, :billing_id => 1, :auto_authorize_under => 10, :auto_deny_over => 50)
-        session[:rule] = rule
+        payer_rule = payer.payer_rules.create!(:allowance => 0, :rollover => false, :billing_id => 1, :auto_authorize_under => 10, :auto_deny_over => 25)
+        session[:payer_rule] = payer_rule
         redirect_to :action => "payer_signedin"
       else
         if @user.errors.on(:name) == "has already been taken"
@@ -45,31 +45,26 @@ class ServiceController < ApplicationController
    if request.post?
      
       @user = User.authenticate(params[:user][:name], params[:user][:password])
-      unless @user
+      if @user
+        session[:user] = @user
+      else
         flash.now[:notice] = "user or password are incorrect. Please try again!"
         return
       end
 
       if @user.is_payer
-        payer = @user.payer
-        rule = payer.most_recent_payer_rule
-        session[:payer] = payer
-        session[:rule] = rule
-        session[:user] = @user
+        session[:payer] = @user.payer
+        session[:payer_rule] = @user.payer.most_recent_payer_rule
         redirect_to :action => :payer_signedin
       elsif @user.is_retailer
-        retailer = @user.retailer
-        session[:retailer] = retailer
-        session[:user] = @user
+        session[:retailer] = @user.retailer
         redirect_to :action => :retailer_signedin
       elsif @user.is_administrator
-        session[:user] = @user
         redirect_to :action => :administrator_signedin
       elsif @user.is_general
-        session[:user] = @user
         redirect_to :action => :general_signedin
       else
-        flash.now[:notice] = "User's type is unclear"      
+        flash.now[:notice] = "User's type is not clear"      
      end
       
    end
@@ -127,6 +122,7 @@ class ServiceController < ApplicationController
           format.js  
       end
     else
+      @consumer.balance = @payer_rule.allowance
       session[:phone_is_ok] = true
       session[:consumer] = @consumer
       session[:expected_pin] = rand.to_s.last(4)
@@ -186,7 +182,10 @@ class ServiceController < ApplicationController
           format.js  
         end         
     else
-        @consumer.update_attributes!(:payer_id => @payer.id)
+        @consumer.update_attributes!(:payer_id => @payer.id, :balance => @payer_rule.allowance)
+        @consumer.payer_rules.create!(:allowance => @payer_rule.allowance, :rollover => @payer_rule.rollover, :auto_authorize_under => @payer_rule.auto_authorize_under, :auto_deny_over => @payer_rule.auto_deny_over)
+        session[:consumer] = @consumer
+        session[:consumer_rules] = @consumer.most_recent_payer_rule
         @consumers_counter += 1
         session[:consumers_counter] = @consumers_counter   
         @phone = @consumer.billing_phone
@@ -245,32 +244,19 @@ class ServiceController < ApplicationController
  
   
   def set_environment
+    
     @user =   session[:user]
     @payer =  session[:payer]
-    @rule =   session[:rule]
-    @retailer=session[:retailer]
+    @payer_rule =   session[:payer_rule]
+    @retailer = session[:retailer]
+    @consumer = session[:consumer]
+    @consumer_rule =  session[:consumer_rule]
+
   end
 
 
-# delete this section after i tested i dont need them  
-#  def find_user
-#    session[:user]||= User.new
-#  end
-  
-#  def find_payer   
-#    session[:payer]||=Payer.new
-#  end
-  
-#  def find_rule    
-#    session[:rule] ||= @payer.most_recent_payer_rule
-#  end
-  
-#  def find_retailer    
-#    session[:retailer]||=Retailer.new
-#  end
-  
   def clear_session
-    session[:user] = session[:payer] = session[:rule] = session[:consumer] = session[:retailer] = 
+    session[:user] = session[:payer] = session[:payer_rule] = session[:consumer] = session[:consumer_rule]  = session[:retailer] = 
     session[:expected_pin] = session[:consumers_counter] = nil
   end
   

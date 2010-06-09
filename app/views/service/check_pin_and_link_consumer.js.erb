@@ -8,7 +8,7 @@ var consumers_counter = <%= @consumers_counter %>
 var phone = "<%= @phone %>" ;
 
 if (consumers_counter == 1 && phone != "")
-	{$('.right_content').html('<div class="inner_content_title plain_message"></div><p class="inner_content_title" id="consumers">Existing Subscribers</p><div class="column" id="column1"></div><div class="column" id="column2"></div>');}			
+	{$('.right_content').html('<div class="inner_content_title plain_message"></div><p class="inner_content_title" id="consumers">Existing Consumers</p><div class="column" id="column1"></div><div class="column" id="column2"></div>');}			
 if (phone != "") {
 	rem = consumers_counter % 2;
 	if 		(rem == 1)

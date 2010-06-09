@@ -79,7 +79,7 @@ class AolController < ApplicationController
     if user.save
       payer = user.payer
       session[:payer_id] = payer.id                  
-      rule = payer.payer_rules.create!(:rollover => false, :billing_id => 1, :auto_authorize_under => 10, :auto_deny_over => 50)
+      rule = payer.payer_rules.create!(:rollover => false, :auto_authorize_under => 10, :auto_deny_over => 50)
       session[:rule_id] = rule.id
       flash[:notice] = "Thanks for joining us. Enjoy!"
       redirect_to :action => :welcome_signedin
@@ -232,30 +232,45 @@ class AolController < ApplicationController
     
   end
   
+  def select_consumer
+    
+    @back_to = "/aol/welcome_signedin"
+    @back_class = "like_back"    
+    
+    @consumers = Consumer.find_all_by_payer_id(@payer.id)
+    
+  end
+  
   def budget_form
 
-    @back_to = "welcome_signedin"
-    @back_class = "like_back"
+    @use_jqt = "no"
+    @back_to = "/aol/select_consumer"
+    @back_class = "like_back"    
+
     
-    @rule = @payer.most_recent_payer_rule
+    @consumer = Consumer.find(params[:id])
+    session[:consumer] = @consumer
+    @rule = @consumer.most_recent_payer_rule
+    session[:rule] = @rule
 
   end
   
   def budget_update
+  
+    @use_jqt = "no"
     
-    @payer = Payer.find(session[:payer_id])
-    @rule = PayerRule.find(session[:rule_id])
+    @consumer = session[:consumer]
+    @rule = session[:rule]
     unless @rule
-      flash[:notice] = "No rule set for this payer"
+      flash[:notice] = "No rule set for this consumer"
       redirect_to :action => :joinin
       return
     end    
     
     @rule.update_attributes!(params[:rule])
-    @payer.update_attributes!(params[:payer])
-    
+    @consumer.update_attributes!(params[:consumer])   
 
-    redirect_to :action => :welcome_signedin
+    redirect_to :action => :select_consumer, :id => ""
     
   end
   

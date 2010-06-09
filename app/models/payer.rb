@@ -18,15 +18,7 @@ class Payer < ActiveRecord::Base
   validates_numericality_of :phone, :allow_nil => true
   validates_length_of :phone, :is => 10, :allow_nil => true
   
-  
-  def edited_balance
-    number_to_currency(self.balance)
-  end
-  
-  def edited_balance=(edited)
-    self.balance = edited.delete "$"
-  end
-  
+    
   def edited_phone
       number_to_phone(self.phone, :area_code => true)
   end

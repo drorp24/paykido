@@ -9,7 +9,7 @@
 			<% elsif @pending_counter == 1 %>
 				<%= link_to "My Inbox", "purchase/#{@purchase_id}", :class => "item_by_icon" %> 
 			<% else %>
-				<a href="welcome_signedin" class="item_by_icon">My Inbox</a>
+				<a href="welcome_signedin" class="item_by_icon">Inbox</a>
 			<% end %>
 			<small class="counter"><%= @pending_counter %></small>
 		</li>
@@ -17,22 +17,22 @@
 	<ul class="rounded" id="iconized_menu1">
 		<li class="arrow">
 			<%= image_tag 'accounting1.png', :class => "icon"%>
-			<a href="budget_form" target="_webapp" class="item_by_icon" >My Budget</a></li>
+			<a href="/aol/select_consumer" class="item_by_icon" >Allowance</a></li>
 	    <li class="arrow">
 	    	<%= image_tag 'movies1.png', :class => "icon"%>
-			<a href="content_menu" class="item_by_icon">My Content</a>
+			<a href="content_menu" class="item_by_icon">Content</a>
 		</li>
 			    <li class="arrow">
 	    	<%= image_tag 'finger.png', :class => "icon"%>
-			<a href="rules_menu" target="_webapp" class="item_by_icon">My Rules</a>
+			<a href="rules_menu" target="_webapp" class="item_by_icon">Authorization</a>
 		</li>
 		<li class="arrow">
 			<%= image_tag 'statistics1.png', :class => "icon"%>
-			<a href="beinformed" target="_webapp" class="item_by_icon">My Information</a>
+			<a href="beinformed" target="_webapp" class="item_by_icon">Information</a>
 		</li>
 		<li class="arrow">
 			<%= image_tag 'person.png', :class => "icon" %>
-			<a href="account_form" class="item_by_icon">My Account</a>
+			<a href="account_form" class="item_by_icon">Account</a>
 		</li>
 
 	</ul>
