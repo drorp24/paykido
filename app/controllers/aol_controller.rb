@@ -46,10 +46,10 @@ class AolController < ApplicationController
         return
       end
       payer = user.payer
-      rule = payer.most_recent_payer_rule
-      if rule
-        session[:payer_id] = payer.id
-        session[:rule_id] = rule.id
+      payer_rule = payer.most_recent_payer_rule
+      if payer_rule
+        session[:payer] = payer
+        session[:payer_rule] = payer_rule
         session[:user] = user
 #        flash[:notice] = "Hi There!"
         redirect_to :action => :welcome_signedin
@@ -78,9 +78,9 @@ class AolController < ApplicationController
     
     if user.save
       payer = user.payer
-      session[:payer_id] = payer.id                  
-      rule = payer.payer_rules.create!(:rollover => false, :auto_authorize_under => 10, :auto_deny_over => 50)
-      session[:rule_id] = rule.id
+      session[:payer] = payer                  
+      payer_rule = payer.payer_rules.create!(:rollover => false, :auto_authorize_under => 10, :auto_deny_over => 50)
+      session[:payer_rule] = payer_rule
       flash[:notice] = "Thanks for joining us. Enjoy!"
       redirect_to :action => :welcome_signedin
     else
@@ -100,12 +100,12 @@ class AolController < ApplicationController
   def account_form        
  
     @user = find_user
-    @payer = Payer.find(session[:payer_id])
+    @payer = session[:payer]
   
   end 
  
   def account_update
-    payer = Payer.find(session[:payer_id])
+    payer = session[:payer]
     
     if payer.update_attributes(params[:payer]) 
       redirect_to :action => :welcome_signedin
@@ -117,7 +117,7 @@ class AolController < ApplicationController
   def rules_menu
     
     
-    @rule = PayerRule.find(session[:rule_id])
+    @payer_rule = session[:payer_rule]
     
     @back_to = "welcome_signedin"
     @back_class = "like_back"
@@ -127,9 +127,9 @@ class AolController < ApplicationController
   
   def rules_update                      # identicai to budget_update and possible others too - create method
 
-    @rule = PayerRule.find(session[:rule_id])
+    @payer_rule = session[:payer_rule]
    
-    unless @rule.update_attributes(params[:rule])
+    unless @payer_rule.update_attributes(params[:payer_rule])
       flash[:notice] = "That doesn't make sense. Please check again!"
       redirect_to :action => :rules_menu
       return
@@ -200,7 +200,7 @@ class AolController < ApplicationController
   
   def email_update
     
-    unless @payer.update_attributes(params[:payer])
+     unless @payer.update_attributes(params[:payer])
       flash[:notice] = "That doesn't make sense. Please check again!"
       redirect_to :action => :email_prefs
       return
@@ -250,8 +250,8 @@ class AolController < ApplicationController
     
     @consumer = Consumer.find(params[:id])
     session[:consumer] = @consumer
-    @rule = @consumer.most_recent_payer_rule
-    session[:rule] = @rule
+    @consumer_rule = @consumer.most_recent_payer_rule
+    session[:consumer_rule] = @consumer_rule
 
   end
   
@@ -260,14 +260,14 @@ class AolController < ApplicationController
     @use_jqt = "no"
     
     @consumer = session[:consumer]
-    @rule = session[:rule]
-    unless @rule
+    @consumer_rule = session[:consumer_rule]
+    unless @consumer_rule
       flash[:notice] = "No rule set for this consumer"
       redirect_to :action => :joinin
       return
     end    
     
-    @rule.update_attributes!(params[:rule])
+    @consumer_rule.update_attributes!(params[:consumer_rule])
     @consumer.update_attributes!(params[:consumer])   
 
     redirect_to :action => :select_consumer, :id => ""
@@ -405,7 +405,7 @@ end
     end
  
     @purchase = Purchase.find(params[:id]) 
-    session[:purchase_id] = @purchase.id
+    session[:purchase] = @purchase
 
     @retailer = @purchase.retailer
     @product = @purchase.product
@@ -444,7 +444,7 @@ end
     # 2. put expected sms in the db, not in the session - so aaa will know what to expect
     # 3. send an sms either way, but include in it a rand number or not according to whether perm pin exists or not
     
-    @purchase = Purchase.find(session[:purchase_id])
+    @purchase = session[:purchase]
             
     if params[:purchase] and 
        params[:purchase][:authorization_type] != @purchase.authorization_type and
@@ -480,8 +480,8 @@ end
   
   def arca_auth_help
     
-    @purchase = Purchase.find(session[:purchase_id])
-    @rule = PayerRule.find(session[:rule_id])
+    @purchase = session[:purchase]
+    @payer_rule = session[:payer_rule]
     
     @back_to = "/aol/purchase/#{@purchase.id}"
     @back_class = "like_back"
@@ -549,7 +549,7 @@ end
   end
    
    def logout
-    session[:payer_id] = nil
+    session[:payer] = nil
     flash[:notice] = "Logged out"
     redirect_to(:action => "login")
   end
@@ -560,7 +560,7 @@ end
   def authorize
     
 
-    @payer = Payer.find_by_id(session[:payer_id]) if session[:payer_id]
+    @payer = session[:payer]
     unless @payer
       flash[:notice] = "Please log in"
       redirect_to :controller => 'aol' , :action => 'signin'

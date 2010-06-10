@@ -6,7 +6,6 @@ class CreatePayers < ActiveRecord::Migration
 
       t.string  :name
       t.string  :email
-      t.decimal :balance, :precision => 8, :scale => 2, :default => 0
       t.string  :pin
 
       t.timestamps

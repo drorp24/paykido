@@ -93,7 +93,6 @@ ActiveRecord::Schema.define(:version => 20100609094127) do
   create_table "payers", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.decimal  "balance"
     t.string   "pin"
     t.datetime "created_at"
     t.datetime "updated_at"

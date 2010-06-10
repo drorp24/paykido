@@ -1,0 +1,40 @@
+<% title "Welcome Aboard" %>
+
+
+	<ul class="rounded" id="iconized_menu">
+		<li class="arrow">
+			<%= image_tag 'email.png', :class => "icon" %>
+			<% if @pending_counter > 1 %>
+				<a href="purchases_pending_authorization"  class="item_by_icon" target ="_webapp">My Inbox</a>
+			<% elsif @pending_counter == 1 %>
+				<%= link_to "My Inbox", "purchase/#{@purchase_id}", :class => "item_by_icon" %> 
+			<% else %>
+				<a href="welcome_signedin" class="item_by_icon">Inbox</a>
+			<% end %>
+			<small class="counter"><%= @pending_counter %></small>
+		</li>
+	</ul>
+	<ul class="rounded" id="iconized_menu1">
+		<li class="arrow">
+			<%= image_tag 'accounting1.png', :class => "icon"%>
+			<a href="/aol/select_consumer" class="item_by_icon" >Consumers</a>
+		</li>
+		<li class="arrow">
+			<%= image_tag 'accounting1.png', :class => "icon"%>
+			<a href="retailers" class="item_by_icon" >Retailers</a>
+		</li>
+    	<li class="arrow">
+			<%= image_tag 'accounting1.png', :class => "icon"%>
+    		<a href="products" class="item_by_icon" >Products</a>
+		</li>
+    	<li class="arrow">
+			<%= image_tag 'accounting1.png', :class => "icon"%>
+    		<a href="categories" class="item_by_icon" >Categories</a>
+		</li>
+		<li class="arrow">
+			<%= image_tag 'statistics1.png', :class => "icon"%>
+			<a href="beinformed" target="_webapp" class="item_by_icon">Purchases</a>
+		</li>
+	</ul>
+
+ 
