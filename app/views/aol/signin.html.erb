@@ -1,4 +1,4 @@
-<% title "Sign In" %>
+<% title "Welcome" %>
 
 <% form_for :user, :url => { :action => :signin } do |form| %>
   <%= form.error_messages %>
@@ -6,5 +6,5 @@
 		<li><%= form.text_field :name, :placeholder => "user"%></li>
 		<li><%= form.password_field :password, :placeholder => "password" %></li>
 	</ul>
-    <%= link_to "Submit", nil, :class => "whiteButton submit" %>
+    <%= link_to "Sign In", nil, :class => "whiteButton submit" %>
 <% end %>

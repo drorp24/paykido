@@ -79,17 +79,17 @@
   	<%= f.error_messages %>
 
   	<ul class="very_thin_lines engrave">
+    	<li>
+    		<span class="long item" id="budget_slider" onclick="modifyBudget()">Monthly Allowance</span>
+			<span class="value"><%= f.text_field(:edited_budget, :onchange => "drawChart()", :id => "budget") %></span>
+		</li>
 		<li>
     		<span class="long item" id="balance_slider" onclick="modifyBalance()">Current Balance</span>
 			<span class="green_value"><%= text_field(:consumer, :edited_balance, :onchange => "drawChart()", :id => "balance", :class => "dollar_amount") %>
 			</span>
 		</li>
-     	<li>
-    		<span class="long item" id="budget_slider" onclick="modifyBudget()">Monthly Allowance</span>
-			<span class="value"><%= f.text_field(:edited_budget, :onchange => "drawChart()", :id => "budget") %></span>
-		</li>
 		<li>
-			<span class="item">Rollover Policy</span>
+			<span class="item">Rollover to next month</span>
 		 	<span class="toggle"><%= f.check_box :rollover %></span>
 		</li>
   	</ul>

@@ -46,55 +46,47 @@ class AolController < ApplicationController
         return
       end
       payer = user.payer
-      payer_rule = payer.most_recent_payer_rule
-      if payer_rule
-        session[:payer] = payer
-        session[:payer_rule] = payer_rule
-        session[:user] = user
-#        flash[:notice] = "Hi There!"
-        redirect_to :action => :welcome_signedin
-      else
-        flash[:notice] = "No rule set for this payer"
-        redirect_to :action => :joinin
-      end
+      session[:payer] = payer
+      session[:user] = user
+      redirect_to :action => :welcome_signedin
     
    end
    
   end
   
-  def joinin
+#  def joinin
 
-    @user = find_user
+#    @user = find_user
     
-  end
+#  end
   
-  def create
+#  def create
 
-    user = User.new(params[:user])
-    user.affiliation = "payer"
-    user.role = "primary"
-    user.payer = Payer.new(:balance => 0, :exists => true) 
-    session[:user] = user     
+#    user = User.new(params[:user])
+#    user.affiliation = "payer"
+#    user.role = "primary"
+#    user.payer = Payer.new(:balance => 0, :exists => true) 
+#    session[:user] = user     
     
-    if user.save
-      payer = user.payer
-      session[:payer] = payer                  
-      payer_rule = payer.payer_rules.create!(:rollover => false, :auto_authorize_under => 10, :auto_deny_over => 50)
-      session[:payer_rule] = payer_rule
-      flash[:notice] = "Thanks for joining us. Enjoy!"
-      redirect_to :action => :welcome_signedin
-    else
-      if user.errors.on(:name) == "has already been taken"
-          flash[:notice] = "Sorry... name is taken. Try a differet one!"
-      elsif user.errors.on(:password) == "doesn't match confirmation"
-          flash[:notice] = "Oops... password doesn't match its confirmation. Please try again!"
-      else
-          flash[:notice] = "Oops... something's missing. Try again!"
-      end
-      redirect_to :action => "joinin"
-    end
+#    if user.save
+#      payer = user.payer
+#      session[:payer] = payer                  
+#      payer_rule = payer.payer_rules.create!(:rollover => false, :auto_authorize_under => 10, :auto_deny_over => 50)
+#      session[:payer_rule] = payer_rule
+#      flash[:notice] = "Thanks for joining us. Enjoy!"
+#      redirect_to :action => :welcome_signedin
+#    else
+#      if user.errors.on(:name) == "has already been taken"
+#          flash[:notice] = "Sorry... name is taken. Try a differet one!"
+#      elsif user.errors.on(:password) == "doesn't match confirmation"
+#          flash[:notice] = "Oops... password doesn't match its confirmation. Please try again!"
+#      else
+#          flash[:notice] = "Oops... something's missing. Try again!"
+#      end
+#      redirect_to :action => "joinin"
+#    end
 
-  end
+#  end
 
 
   def account_form        
@@ -116,32 +108,29 @@ class AolController < ApplicationController
   
   def rules_menu
     
-    
-    @payer_rule = session[:payer_rule]
-    
-    @back_to = "welcome_signedin"
-    @back_class = "like_back"
+    @use_jqt = "no"
+    @back_to = "/aol/select_consumer/rules_menu"
+    @back_class = "like_back"    
     @help_to = "rules_help"
     
+    @consumer = Consumer.find(params[:id])
+    session[:consumer] = @consumer
+    @consumer_rule = @consumer.most_recent_payer_rule
+    session[:consumer_rule] = @consumer_rule
+      
   end
   
   def rules_update                      # identicai to budget_update and possible others too - create method
 
-    @payer_rule = session[:payer_rule]
+    @consumer_rule = session[:consumer_rule]
    
-    unless @payer_rule.update_attributes(params[:payer_rule])
+    unless @consumer_rule.update_attributes(params[:consumer_rule])
       flash[:notice] = "That doesn't make sense. Please check again!"
       redirect_to :action => :rules_menu
       return
     end
         
-    unless @payer.update_attributes(params[:payer])
-      flash[:notice] = "That doesn't make sense. Please check again!"
-      redirect_to :action => :rules_menu
-      return
-    end
-  
-    redirect_to :action => :welcome_signedin
+    redirect_to :action => :select_consumer, :id => "rules_menu"
   
   end
   
@@ -235,7 +224,10 @@ class AolController < ApplicationController
   def select_consumer
     
     @back_to = "/aol/welcome_signedin"
-    @back_class = "like_back"    
+    @back_class = "like_back"
+    
+    @action = params[:id]
+    @title = (@action == 'budget_form') ?"Allowance":"Authorization" 
     
     @consumers = Consumer.find_all_by_payer_id(@payer.id)
     
@@ -244,7 +236,7 @@ class AolController < ApplicationController
   def budget_form
 
     @use_jqt = "no"
-    @back_to = "/aol/select_consumer"
+    @back_to = "/aol/select_consumer/budget_form"
     @back_class = "like_back"    
 
     
@@ -270,7 +262,7 @@ class AolController < ApplicationController
     @consumer_rule.update_attributes!(params[:consumer_rule])
     @consumer.update_attributes!(params[:consumer])   
 
-    redirect_to :action => :select_consumer, :id => ""
+    redirect_to :action => :select_consumer, :id => "budget_form"
     
   end
   
@@ -481,7 +473,6 @@ end
   def arca_auth_help
     
     @purchase = session[:purchase]
-    @payer_rule = session[:payer_rule]
     
     @back_to = "/aol/purchase/#{@purchase.id}"
     @back_class = "like_back"
@@ -561,6 +552,7 @@ end
     
 
     @payer = session[:payer]
+    @user =  session[:user]
     unless @payer
       flash[:notice] = "Please log in"
       redirect_to :controller => 'aol' , :action => 'signin'

@@ -1,4 +1,4 @@
-<% title "Welcome Aboard" %>
+<% title "Hi #{@user.name}" %>
 
 
 	<ul class="rounded" id="iconized_menu">
@@ -17,14 +17,14 @@
 	<ul class="rounded" id="iconized_menu1">
 		<li class="arrow">
 			<%= image_tag 'accounting1.png', :class => "icon"%>
-			<a href="/aol/select_consumer" class="item_by_icon" >Allowance</a></li>
+			<a href="/aol/select_consumer/budget_form" class="item_by_icon" >Allowance</a></li>
+		<li class="arrow">
+	    	<%= image_tag 'finger.png', :class => "icon"%>
+			<a href="/aol/select_consumer/rules_menu" class="item_by_icon" >Authorization</a></li>
+		</li>
 	    <li class="arrow">
 	    	<%= image_tag 'movies1.png', :class => "icon"%>
 			<a href="content_menu" class="item_by_icon">Content</a>
-		</li>
-			    <li class="arrow">
-	    	<%= image_tag 'finger.png', :class => "icon"%>
-			<a href="rules_menu" target="_webapp" class="item_by_icon">Authorization</a>
 		</li>
 		<li class="arrow">
 			<%= image_tag 'statistics1.png', :class => "icon"%>
