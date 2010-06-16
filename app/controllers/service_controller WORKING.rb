@@ -90,23 +90,15 @@ class ServiceController < ApplicationController
   def payer_signedin
         
     @consumers = Consumer.find_all_by_payer_id(@payer.id)
-    if @consumers.empty?
-      flash[:message] = "Welcome to arca!" 
-      @consumer = Consumer.new
-      session[:consumers] = nil
-      session[:consumers_counter] = 0
-    else
-      @consumer = @consumers[0] 
-      session[:consumers] = @consumers    
-      session[:consumers_counter] = @consumers.size
-    end
-    session[:consumer] = @consumer
+    flash[:message] = "Welcome to arca!" if @consumers.empty?
+    session[:consumers] = @consumers
+    session[:consumers_counter] = @consumers.size
     
   end
  
   def allowance
 
-    if session[:consumer] and session[:consumer].id == params[:id]
+    if session[:consumer].id == params[:id]
       @consumer = session[:consumer]
       @consumer_rules = session[:consumer_rules]
     else
@@ -219,8 +211,7 @@ class ServiceController < ApplicationController
           format.js  
         end         
     else
-        @consumer.update_attributes!(:payer_id => @payer.id, :balance => @payer_rule.allowance)
-        session[:consumer] = @consumer
+        session[:consumer] = @consumer.update_attributes!(:payer_id => @payer.id, :balance => @payer_rule.allowance)
         session[:consumer_rules] = @consumer.payer_rules.create!(:allowance => @payer_rule.allowance, :rollover => @payer_rule.rollover, :auto_authorize_under => @payer_rule.auto_authorize_under, :auto_deny_over => @payer_rule.auto_deny_over)
         session[:consumers] = session[:consumers] << @consumer
         @consumers = session[:consumers]

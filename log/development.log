@@ -10150,3 +10150,2732 @@ Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 15:45:47) [G
   [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
 Rendered service/_allowance (16.0ms)
 Completed in 250ms (View: 31, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 15:59:45) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 188ms (View: 78, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 16:00:03) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 140ms (View: 46, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 16:02:23) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 375ms (View: 109, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:02:24) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendered service/_allowance (15.0ms)
+Completed in 297ms (View: 31, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 16:24:58) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 203ms (View: 94, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:24:59) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+
+ActionView::TemplateError (undefined method `allowance' for nil:NilClass) on line #2 of app/views/service/allowance.js.erb:
+1: document.getElementById("balance").value = <%= @consumer.balance %>;
+2: document.getElementById("budget").value = <%= @consumer_rules.allowance %>;
+3: drawChart();
+4: modifyBudget();
+5: modifyBalance();
+
+    app/views/service/allowance.js.erb:2
+    app/controllers/service_controller.rb:117:in `allowance'
+
+Rendered rescues/_trace (203.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 16:26:16) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 141ms (View: 47, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:26:17) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (16.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 16) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:27:27) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:27:30) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:28:13) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 796ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:28:15) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:28:19) [GET]
+  Parameters: {"id"=>"168"}
+  [4;36;1mConsumer Load (15.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 168) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 168) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 313ms (View: 16, DB: 31) | 200 OK [http://localhost/service/allowance/168]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:28:21) [GET]
+  Parameters: {"id"=>"167"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 167) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 167) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 0, DB: 0) | 200 OK [http://localhost/service/allowance/167]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 16:30:27) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 297ms (View: 31, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:30:28) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 125ms (View: 31, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:30:44) [GET]
+  Parameters: {"id"=>"144"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:30:46) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:30:48) [GET]
+  Parameters: {"id"=>"168"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 168) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 168) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/168]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:30:50) [GET]
+  Parameters: {"id"=>"167"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 167) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 167) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 328ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/167]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 16:35:22) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 156ms (View: 63, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:35:24) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 328ms (View: 31, DB: 15) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:36:21) [GET]
+  Parameters: {"id"=>"167"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 167) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 167) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/167]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:36:23) [GET]
+  Parameters: {"id"=>"168"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 168) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 168) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/168]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:36:24) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:36:26) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 93ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:38:21) [GET]
+  Parameters: {"id"=>"168"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 168) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 168) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 250ms (View: 172, DB: 0) | 200 OK [http://localhost/service/allowance/168]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:38:23) [GET]
+  Parameters: {"id"=>"167"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 167) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 167) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 16) | 200 OK [http://localhost/service/allowance/167]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:38:24) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (16.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 422ms (View: 15, DB: 16) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:38:25) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 0, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:38:27) [GET]
+  Parameters: {"id"=>"167"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 167) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 167) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 266ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/167]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 16:42:49) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 203ms (View: 94, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:42:50) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:46:38) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 219ms (View: 0, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:46:40) [GET]
+  Parameters: {"id"=>"168"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 168) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 168) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/168]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:46:41) [GET]
+  Parameters: {"id"=>"167"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 167) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 167) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 250ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/167]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:46:42) [GET]
+  Parameters: {"id"=>"144"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 16) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 16:48:06) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 343ms (View: 93, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:48:08) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (16.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 125ms (View: 15, DB: 16) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:49:43) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:50:03) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (16.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 266ms (View: 16, DB: 32) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:50:18) [GET]
+  Parameters: {"id"=>"167"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 167) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 167) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/167]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 16:51:03) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 312ms (View: 47, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:51:05) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 140ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:51:09) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:51:11) [GET]
+  Parameters: {"id"=>"168"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 168) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 168) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/168]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 16:51:46) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 141ms (View: 47, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:51:47) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 297ms (View: 15, DB: 16) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 16:51:55) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (16.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 156ms (View: 47, DB: 31) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:51:56) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 16:52:13) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (16.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 282ms (View: 47, DB: 16) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:52:14) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 125ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 16:52:54) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 141ms (View: 47, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:52:56) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 328ms (View: 31, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 16:54:04) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 531ms (View: 422, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 16:54:18) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 187ms (View: 94, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:54:19) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (16.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 125ms (View: 15, DB: 32) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 16:54:38) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;36;1mConsumer Load (15.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 313ms (View: 79, DB: 15) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:54:40) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 140ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 16:54:55) [GET]
+  [4;36;1mConsumer Load (15.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 187ms (View: 94, DB: 15) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:54:56) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 16:55:07) [GET]
+  [4;35;1mConsumer Load (16.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 375ms (View: 266, DB: 16) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 16:55:08) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 16:56:03) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+
+ActionView::TemplateError (undefined method `allowance' for nil:NilClass) on line #135 of app/views/service/payer_signedin.html.erb:
+132: 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+133: 			{
+134: document.getElementById("balance").value = <%= @consumer.balance %>;
+135: document.getElementById("budget").value = <%= @consumer_rules.allowance %>;
+136: 
+137: 				drawChart();
+138: 				modifyBudget();
+
+    app/views/service/payer_signedin.html.erb:135
+
+Rendered rescues/_trace (250.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 17:28:01) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 172ms (View: 78, DB: 15) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 17:28:15) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;35;1mConsumer Load (16.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 172ms (View: 78, DB: 16) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:28:16) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 125ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 17:29:25) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 360ms (View: 250, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 17:29:32) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 141ms (View: 47, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 17:30:40) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 125ms (View: 47, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 17:31:06) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 328ms (View: 94, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:31:07) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 17:32:19) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 172ms (View: 78, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#service (for 127.0.0.1 at 2010-06-16 17:32:21) [GET]
+  Parameters: {"id"=>"allowance"}
+
+ActionController::UnknownAction (No action responded to service. Actions: allowance, check_pin_and_link_consumer, consumers, joinin, payer_signedin, retailer_signedin, signin, signout, sms, and sms_consumer):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 17:32:50) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 296ms (View: 218, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:32:51) [GET]
+
+ActiveRecord::RecordNotFound (Couldn't find Consumer without an ID):
+  app/controllers/service_controller.rb:111:in `allowance'
+
+Rendered rescues/_trace (250.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (not_found)
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 17:33:24) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 641ms (View: 563, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:33:26) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (15.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 0, DB: 15) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 17:35:11) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 328ms (View: 94, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:35:13) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 17:47:08) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 187ms (View: 94, DB: 15) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:47:09) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 125ms (View: 31, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:47:23) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 93ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:47:27) [GET]
+  Parameters: {"id"=>"168"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 168) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 168) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/168]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:47:33) [GET]
+  Parameters: {"id"=>"167"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 167) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 167) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 235ms (View: 157, DB: 16) | 200 OK [http://localhost/service/allowance/167]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:47:37) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 93ms (View: 0, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:47:46) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 485ms (View: 0, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:47:48) [GET]
+  Parameters: {"id"=>"168"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 168) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 168) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 93ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/168]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:47:50) [GET]
+  Parameters: {"id"=>"167"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 167) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 167) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 250ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/167]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:47:52) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:47:55) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 359ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:47:57) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:47:58) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 250ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:47:59) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (16.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 16) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:48:01) [GET]
+  Parameters: {"id"=>"168"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 168) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 168) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 250ms (View: 16, DB: 156) | 200 OK [http://localhost/service/allowance/168]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:48:03) [GET]
+  Parameters: {"id"=>"167"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 167) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 167) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/167]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:48:05) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:48:17) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:48:25) [GET]
+  Parameters: {"id"=>"168"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 168) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 168) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/168]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:48:29) [GET]
+  Parameters: {"id"=>"167"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 167) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 167) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/167]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:48:32) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:48:37) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 141ms (View: 16, DB: 16) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:48:41) [GET]
+  Parameters: {"id"=>"167"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 167) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 167) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/167]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:48:45) [GET]
+  Parameters: {"id"=>"168"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 168) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 168) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/168]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:48:48) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 93ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 17:48:51) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (15.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 578ms (View: 16, DB: 30) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:09:40) [GET]
+  Parameters: {"id"=>"167"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 167) [0m
+  [4;35;1mPayerRule Load (16.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 167) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 0, DB: 16) | 200 OK [http://localhost/service/allowance/167]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:09:42) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 360ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:09:44) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 16) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:09:44) [GET]
+  Parameters: {"id"=>"168"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 168) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 168) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 312ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/168]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:38:32) [GET]
+  Parameters: {"id"=>"167"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 167) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 167) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/167]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:38:34) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (15.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 234ms (View: 0, DB: 15) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:38:36) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 16, DB: 15) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:38:38) [GET]
+  Parameters: {"id"=>"168"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 168) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 168) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 250ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/168]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:38:40) [GET]
+  Parameters: {"id"=>"167"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 167) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 167) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/167]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:38:42) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:38:43) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:38:55) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:38:57) [GET]
+  Parameters: {"id"=>"167"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 167) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 167) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/167]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:39:02) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:39:04) [GET]
+  Parameters: {"id"=>"168"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 168) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 168) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 93ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/168]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:39:06) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 16) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:39:07) [GET]
+  Parameters: {"id"=>"167"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 167) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 167) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 93ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/167]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:39:08) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:39:10) [GET]
+  Parameters: {"id"=>"168"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 168) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 168) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 312ms (View: 234, DB: 0) | 200 OK [http://localhost/service/allowance/168]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:39:11) [GET]
+  Parameters: {"id"=>"168"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 168) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 168) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/168]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 18:39:18) [POST]
+  Parameters: {"consumer"=>{"pin"=>"3272"}}
+Rendering service/check_pin_and_link_consumer
+Completed in 359ms (View: 15, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#sms_consumer (for 127.0.0.1 at 2010-06-16 18:39:20) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2346834576"}}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2346834576') LIMIT 1[0m
+Rendering service/sms_consumer
+Completed in 94ms (View: 0, DB: 0) | 200 OK [http://localhost/service/sms_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 18:39:22) [POST]
+  Parameters: {"consumer"=>{"pin"=>"3272"}}
+Rendering service/check_pin_and_link_consumer
+Completed in 265ms (View: 15, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 18:39:26) [POST]
+  Parameters: {"consumer"=>{"pin"=>"2256"}}
+  [4;35;1mConsumer Create (0.0ms)[0m   [0mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at", "balance", "pin") VALUES('2010-06-16 15:39:26', '2346834576', 102, '2010-06-16 15:39:26', 69.0, NULL)[0m
+  [4;36;1mPayerRule Create (0.0ms)[0m   [0;1mINSERT INTO "payer_rules" ("auto_deny_over", "updated_at", "allowance", "auto_authorize_under", "consumer_id", "payer_id", "rollover", "created_at") VALUES(84.0, '2010-06-16 15:39:26', 69.0, 10.0, 169, NULL, 't', '2010-06-16 15:39:26')[0m
+Rendering service/check_pin_and_link_consumer
+Completed in 344ms (View: 16, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:39:32) [GET]
+  Parameters: {"id"=>"169"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 169) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 169) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 328ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/169]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:39:35) [GET]
+  Parameters: {"id"=>"167"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 167) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 167) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/167]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:39:37) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 250ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#sms_consumer (for 127.0.0.1 at 2010-06-16 18:40:31) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2346834577"}}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2346834577') LIMIT 1[0m
+Rendering service/sms_consumer
+Completed in 93ms (View: 0, DB: 0) | 200 OK [http://localhost/service/sms_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 18:40:34) [POST]
+  Parameters: {"consumer"=>{"pin"=>"2256"}}
+Rendering service/check_pin_and_link_consumer
+Completed in 94ms (View: 0, DB: 15) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 18:40:38) [POST]
+  Parameters: {"consumer"=>{"pin"=>"0997"}}
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at", "balance", "pin") VALUES('2010-06-16 15:40:38', '2346834577', 102, '2010-06-16 15:40:38', 69.0, NULL)[0m
+  [4;35;1mPayerRule Create (0.0ms)[0m   [0mINSERT INTO "payer_rules" ("auto_deny_over", "updated_at", "allowance", "auto_authorize_under", "consumer_id", "payer_id", "rollover", "created_at") VALUES(84.0, '2010-06-16 15:40:39', 69.0, 10.0, 170, NULL, 't', '2010-06-16 15:40:39')[0m
+Rendering service/check_pin_and_link_consumer
+Completed in 360ms (View: 0, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:40:48) [GET]
+  Parameters: {"id"=>"170"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 170) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 170) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 32, DB: 0) | 200 OK [http://localhost/service/allowance/170]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 18:49:18) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 438ms (View: 110, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 18:50:04) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 500ms (View: 406, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:50:05) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 18:50:16) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 593ms (View: 78, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 18:50:18) [GET]
+  Parameters: {"id"=>"144"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 297ms (View: 31, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 18:51:20) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 172ms (View: 78, DB: 16) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 18:53:14) [GET]
+  [4;36;1mConsumer Load (16.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 140ms (View: 46, DB: 16) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 18:54:54) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (16.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 281ms (View: 31, DB: 32) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:10:20) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 172ms (View: 78, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:10:27) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 125ms (View: 47, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:10:48) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 313ms (View: 78, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:10:49) [GET]
+  Parameters: {"id"=>"144"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 266ms (View: 172, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#consumers (for 127.0.0.1 at 2010-06-16 19:10:50) [GET]
+  Parameters: {"id"=>"2"}
+Rendering service/consumers
+
+ActionView::TemplateError (undefined local variable or method `param' for #<ActionView::Base:0x82b5ef0>) on line #5 of app/views/service/consumers.js.erb:
+2: <% for consumer in @consumers %>
+3: 	<% rem = i % 2 %>
+4: 	<% if rem == 1 %>
+5: 		$(<%= (param[:id]==1) ? '#column1':'#column21' %>).append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div onclick = "viewAllowance(<%= consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(consumer.billing_phone, :area_code => true)) %></div><div class="portlet-content" >Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
+6: 	<% else %>
+7: 		$((<%= (param[:id]==1) ? '#column1':'#column21' %>)).append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div onclick = "viewAllowance(<%= consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(consumer.billing_phone, :area_code => true)) %></div><div class="portlet-content" >Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
+8: 	<% end %>
+
+    app/views/service/consumers.js.erb:5
+    app/views/service/consumers.js.erb:2:in `each'
+    app/views/service/consumers.js.erb:2
+    app/controllers/service_controller.rb:87:in `consumers'
+
+Rendered rescues/_trace (109.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:11:41) [GET]
+  [4;35;1mConsumer Load (16.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 1015ms (View: 312, DB: 16) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:12:19) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 172ms (View: 78, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:13:07) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 141ms (View: 47, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:14:29) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 125ms (View: 31, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:14:48) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 313ms (View: 79, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:14:49) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 125ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:14:57) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:14:58) [GET]
+  Parameters: {"id"=>"168"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 168) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 168) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 93ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/168]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:15:00) [GET]
+  Parameters: {"id"=>"167"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 167) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 167) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 93ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/167]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:15:02) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 234ms (View: 156, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:15:03) [GET]
+  Parameters: {"id"=>"170"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 170) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 170) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 93ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/170]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:15:05) [GET]
+  Parameters: {"id"=>"169"}
+  [4;36;1mConsumer Load (15.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 169) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 169) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 719ms (View: 16, DB: 15) | 200 OK [http://localhost/service/allowance/169]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:15:07) [GET]
+  Parameters: {"id"=>"167"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 167) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 167) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/167]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:15:09) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (15.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 344ms (View: 16, DB: 15) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:18:43) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 125ms (View: 31, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:18:45) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:18:52) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:18:54) [GET]
+  Parameters: {"id"=>"144"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:18:55) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:18:57) [GET]
+  Parameters: {"id"=>"144"}
+  [4;35;1mConsumer Load (16.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 16) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:19:59) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:20:00) [GET]
+  Parameters: {"id"=>"144"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 93ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:20:01) [GET]
+  Parameters: {"id"=>"144"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 93ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:20:03) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:20:05) [GET]
+  Parameters: {"id"=>"144"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 875ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:20:07) [GET]
+  Parameters: {"id"=>"144"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:20:08) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 250ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:20:10) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 93ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:20:11) [GET]
+  Parameters: {"id"=>"144"}
+  [4;35;1mConsumer Load (15.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 266ms (View: 16, DB: 31) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:20:18) [GET]
+  Parameters: {"id"=>"144"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:20:20) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 265ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#sms_consumer (for 127.0.0.1 at 2010-06-16 19:20:27) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2346834574"}}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2346834574') LIMIT 1[0m
+Rendering service/sms_consumer
+Completed in 94ms (View: 0, DB: 0) | 200 OK [http://localhost/service/sms_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 19:20:29) [POST]
+  Parameters: {"consumer"=>{"pin"=>"0997"}}
+Rendering service/check_pin_and_link_consumer
+Completed in 250ms (View: 16, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 19:20:33) [POST]
+  Parameters: {"consumer"=>{"pin"=>"2807"}}
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at", "balance", "pin") VALUES('2010-06-16 16:20:33', '2346834574', 102, '2010-06-16 16:20:33', 69.0, NULL)[0m
+  [4;35;1mPayerRule Create (0.0ms)[0m   [0mINSERT INTO "payer_rules" ("auto_deny_over", "updated_at", "allowance", "auto_authorize_under", "consumer_id", "payer_id", "rollover", "created_at") VALUES(84.0, '2010-06-16 16:20:33', 69.0, 10.0, 171, NULL, 't', '2010-06-16 16:20:33')[0m
+Rendering service/check_pin_and_link_consumer
+Completed in 360ms (View: 0, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:20:45) [GET]
+  Parameters: {"id"=>"171"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 171) [0m
+  [4;35;1mPayerRule Load (16.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 171) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 16) | 200 OK [http://localhost/service/allowance/171]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:22:10) [GET]
+  [4;36;1mConsumer Load (15.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 312ms (View: 219, DB: 15) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:22:11) [GET]
+  Parameters: {"id"=>"171"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 171) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 171) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/171]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:22:28) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 297ms (View: 47, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:22:29) [GET]
+  Parameters: {"id"=>"171"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 171) [0m
+
+ActiveRecord::RecordNotFound (Couldn't find Consumer with ID=171):
+  app/controllers/service_controller.rb:105:in `allowance'
+
+Rendered rescues/_trace (219.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (not_found)
+
+
+Processing ServiceController#sms_consumer (for 127.0.0.1 at 2010-06-16 19:22:31) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2346834574"}}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2346834574') LIMIT 1[0m
+Rendering service/sms_consumer
+Completed in 109ms (View: 15, DB: 16) | 200 OK [http://localhost/service/sms_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 19:22:33) [POST]
+  Parameters: {"consumer"=>{"pin"=>"2807"}}
+Rendering service/check_pin_and_link_consumer
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 19:22:39) [POST]
+  Parameters: {"consumer"=>{"pin"=>"2835"}}
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at", "balance", "pin") VALUES('2010-06-16 16:22:39', '2346834574', 102, '2010-06-16 16:22:39', 69.0, NULL)[0m
+  [4;35;1mPayerRule Create (0.0ms)[0m   [0mINSERT INTO "payer_rules" ("auto_deny_over", "updated_at", "allowance", "auto_authorize_under", "consumer_id", "payer_id", "rollover", "created_at") VALUES(84.0, '2010-06-16 16:22:39', 69.0, 10.0, 172, NULL, 't', '2010-06-16 16:22:39')[0m
+Rendering service/check_pin_and_link_consumer
+Completed in 375ms (View: 16, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:22:51) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:22:53) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:22:54) [GET]
+  Parameters: {"id"=>"172"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 172) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 172) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/172]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:23:54) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 266ms (View: 172, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:23:55) [GET]
+  Parameters: {"id"=>"172"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 172) [0m
+
+ActiveRecord::RecordNotFound (Couldn't find Consumer with ID=172):
+  app/controllers/service_controller.rb:105:in `allowance'
+
+Rendered rescues/_trace (234.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (not_found)
+
+
+Processing ServiceController#sms_consumer (for 127.0.0.1 at 2010-06-16 19:23:57) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2346834574"}}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2346834574') LIMIT 1[0m
+Rendering service/sms_consumer
+Completed in 110ms (View: 16, DB: 0) | 200 OK [http://localhost/service/sms_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 19:23:59) [POST]
+  Parameters: {"consumer"=>{"pin"=>"2835"}}
+Rendering service/check_pin_and_link_consumer
+Completed in 1000ms (View: 0, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 19:24:05) [POST]
+  Parameters: {"consumer"=>{"pin"=>"6038"}}
+  [4;35;1mConsumer Create (0.0ms)[0m   [0mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at", "balance", "pin") VALUES('2010-06-16 16:24:05', '2346834574', 102, '2010-06-16 16:24:05', 69.0, NULL)[0m
+  [4;36;1mPayerRule Create (0.0ms)[0m   [0;1mINSERT INTO "payer_rules" ("auto_deny_over", "updated_at", "allowance", "auto_authorize_under", "consumer_id", "payer_id", "rollover", "created_at") VALUES(84.0, '2010-06-16 16:24:05', 69.0, 10.0, 173, NULL, 't', '2010-06-16 16:24:05')[0m
+Rendering service/check_pin_and_link_consumer
+Completed in 359ms (View: 15, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:24:40) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+
+ActionView::TemplateError (undefined method `billing_phone' for true:TrueClass) on line #22 of app/views/service/payer_signedin.html.erb:
+19: 				<p class="inner_content_text">To add a consumer, key-in his or her phone number and wait for the text message.</p>
+20: 				<br />
+21: 				<% form_for(:consumer, :url => {:action => "sms_consumer"}, :html => {:id => "phone_form"}) do |f| %>
+22: 					<%= f.text_field :billing_phone, :size => 20, :placeholder => "Phone number", :class => "formfield" %>
+23: 					<%= submit_tag "Click when done",:class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
+24: 				<% end %>
+25: 				<br />
+
+    app/views/service/payer_signedin.html.erb:22
+    app/views/service/payer_signedin.html.erb:21
+
+Rendered rescues/_trace (172.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:26:58) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+
+ActionView::TemplateError (undefined method `billing_phone' for true:TrueClass) on line #22 of app/views/service/payer_signedin.html.erb:
+19: 				<p class="inner_content_text">To add a consumer, key-in his or her phone number and wait for the text message.</p>
+20: 				<br />
+21: 				<% form_for(:consumer, :url => {:action => "sms_consumer"}, :html => {:id => "phone_form"}) do |f| %>
+22: 					<%= f.text_field :billing_phone, :size => 20, :placeholder => "Phone number", :class => "formfield" %>
+23: 					<%= submit_tag "Click when done",:class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
+24: 				<% end %>
+25: 				<br />
+
+    app/views/service/payer_signedin.html.erb:22
+    app/views/service/payer_signedin.html.erb:21
+
+Rendered rescues/_trace (438.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:27:35) [GET]
+  [4;35;1mConsumer Load (16.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 141ms (View: 31, DB: 16) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:27:36) [GET]
+  Parameters: {"id"=>"2"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 2) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 2) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/2]
+
+
+Processing ServiceController#sms_consumer (for 127.0.0.1 at 2010-06-16 19:27:45) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2346834574"}}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2346834574') LIMIT 1[0m
+Rendering service/sms_consumer
+Completed in 94ms (View: 0, DB: 0) | 200 OK [http://localhost/service/sms_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 19:27:46) [POST]
+  Parameters: {"consumer"=>{"pin"=>"6038"}}
+Rendering service/check_pin_and_link_consumer
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 19:27:57) [POST]
+  Parameters: {"consumer"=>{"pin"=>"3685"}}
+  [4;35;1mConsumer Create (0.0ms)[0m   [0mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at", "balance", "pin") VALUES('2010-06-16 16:27:57', '2346834574', 102, '2010-06-16 16:27:57', 69.0, NULL)[0m
+  [4;36;1mPayerRule Create (16.0ms)[0m   [0;1mINSERT INTO "payer_rules" ("auto_deny_over", "updated_at", "allowance", "auto_authorize_under", "consumer_id", "payer_id", "rollover", "created_at") VALUES(84.0, '2010-06-16 16:27:57', 69.0, 10.0, 174, NULL, 't', '2010-06-16 16:27:57')[0m
+Rendering service/check_pin_and_link_consumer
+Completed in 438ms (View: 16, DB: 16) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:32:08) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 141ms (View: 31, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:32:10) [GET]
+  Parameters: {"id"=>"2"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 2) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 2) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 313ms (View: 16, DB: 16) | 200 OK [http://localhost/service/allowance/2]
+
+
+Processing ServiceController#sms_consumer (for 127.0.0.1 at 2010-06-16 19:32:14) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2346834574"}}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2346834574') LIMIT 1[0m
+Rendering service/sms_consumer
+Completed in 94ms (View: 0, DB: 0) | 200 OK [http://localhost/service/sms_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 19:32:15) [POST]
+  Parameters: {"consumer"=>{"pin"=>"3685"}}
+Rendering service/check_pin_and_link_consumer
+Completed in 250ms (View: 15, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 19:32:19) [POST]
+  Parameters: {"consumer"=>{"pin"=>"3907"}}
+  [4;35;1mConsumer Create (0.0ms)[0m   [0mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at", "balance", "pin") VALUES('2010-06-16 16:32:19', '2346834574', 102, '2010-06-16 16:32:19', 69.0, NULL)[0m
+  [4;36;1mPayerRule Create (0.0ms)[0m   [0;1mINSERT INTO "payer_rules" ("auto_deny_over", "updated_at", "allowance", "auto_authorize_under", "consumer_id", "payer_id", "rollover", "created_at") VALUES(84.0, '2010-06-16 16:33:54', 69.0, 10.0, 175, NULL, 't', '2010-06-16 16:33:54')[0m
+Rendering service/check_pin_and_link_consumer
+Completed in 94750ms (View: 0, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:34:11) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 156ms (View: 47, DB: 16) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:34:12) [GET]
+  Parameters: {"id"=>"2"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 2) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 2) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 297ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/2]
+
+
+Processing ServiceController#sms_consumer (for 127.0.0.1 at 2010-06-16 19:34:14) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2346834574"}}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2346834574') LIMIT 1[0m
+Rendering service/sms_consumer
+Completed in 109ms (View: 0, DB: 0) | 200 OK [http://localhost/service/sms_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 19:34:16) [POST]
+  Parameters: {"consumer"=>{"pin"=>"3907"}}
+Rendering service/check_pin_and_link_consumer
+Completed in 266ms (View: 16, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 19:34:21) [POST]
+  Parameters: {"consumer"=>{"pin"=>"9556"}}
+  [4;35;1mConsumer Create (0.0ms)[0m   [0mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at", "balance", "pin") VALUES('2010-06-16 16:34:21', '2346834574', 102, '2010-06-16 16:34:21', 69.0, NULL)[0m
+  [4;36;1mPayerRule Create (0.0ms)[0m   [0;1mINSERT INTO "payer_rules" ("auto_deny_over", "updated_at", "allowance", "auto_authorize_under", "consumer_id", "payer_id", "rollover", "created_at") VALUES(84.0, '2010-06-16 16:34:47', 69.0, 10.0, 176, NULL, 't', '2010-06-16 16:34:47')[0m
+Rendering service/check_pin_and_link_consumer
+Completed in 25718ms (View: 0, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 19:34:47) [POST]
+  Parameters: {"consumer"=>{"pin"=>"9556"}}
+Rendering service/check_pin_and_link_consumer
+Completed in 265ms (View: 0, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 19:34:48) [POST]
+  Parameters: {"consumer"=>{"pin"=>"9556"}}
+Rendering service/check_pin_and_link_consumer
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 19:34:48) [POST]
+  Parameters: {"consumer"=>{"pin"=>"9556"}}
+Rendering service/check_pin_and_link_consumer
+Completed in 94ms (View: 0, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:35:16) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 140ms (View: 47, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:35:17) [GET]
+  Parameters: {"id"=>"176"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 176) [0m
+  [4;35;1mPayerRule Load (15.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 176) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 125ms (View: 16, DB: 15) | 200 OK [http://localhost/service/allowance/176]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:35:29) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 281ms (View: 31, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:35:30) [GET]
+  Parameters: {"id"=>"176"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 176) [0m
+
+ActiveRecord::RecordNotFound (Couldn't find Consumer with ID=176):
+  app/controllers/service_controller.rb:107:in `allowance'
+
+Rendered rescues/_trace (281.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (not_found)
+
+
+Processing ServiceController#sms_consumer (for 127.0.0.1 at 2010-06-16 19:35:31) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2346834574"}}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2346834574') LIMIT 1[0m
+Rendering service/sms_consumer
+Completed in 109ms (View: 0, DB: 0) | 200 OK [http://localhost/service/sms_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 19:35:33) [POST]
+  Parameters: {"consumer"=>{"pin"=>"9556"}}
+Rendering service/check_pin_and_link_consumer
+Completed in 360ms (View: 16, DB: 16) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 19:35:38) [POST]
+  Parameters: {"consumer"=>{"pin"=>"6586"}}
+  [4;35;1mConsumer Create (0.0ms)[0m   [0mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at", "balance", "pin") VALUES('2010-06-16 16:35:38', '2346834574', 102, '2010-06-16 16:35:38', 69.0, NULL)[0m
+  [4;36;1mPayerRule Create (0.0ms)[0m   [0;1mINSERT INTO "payer_rules" ("auto_deny_over", "updated_at", "allowance", "auto_authorize_under", "consumer_id", "payer_id", "rollover", "created_at") VALUES(84.0, '2010-06-16 16:35:38', 69.0, 10.0, 177, NULL, 't', '2010-06-16 16:35:38')[0m
+Rendering service/check_pin_and_link_consumer
+Completed in 359ms (View: 16, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:39:21) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 156ms (View: 47, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:39:22) [GET]
+  Parameters: {"id"=>"177"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 177) [0m
+
+ActiveRecord::RecordNotFound (Couldn't find Consumer with ID=177):
+  app/controllers/service_controller.rb:107:in `allowance'
+
+Rendered rescues/_trace (110.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (not_found)
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:46:56) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+
+ActionView::TemplateError (Called id for nil, which would mistakenly be 4 -- if you really wanted the id of nil, use object_id) on line #116 of app/views/service/payer_signedin.html.erb:
+113: 	
+114: 
+115: 
+116: 		viewAllowance (<%= session[:consumer].id %>);
+117: 
+118: 		viewConsumers2 ();	
+119: 
+
+    app/views/service/payer_signedin.html.erb:116
+
+Rendered rescues/_trace (125.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:56:49) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+
+NameError (uninitialized constant ServiceController::Consumers):
+  app/controllers/service_controller.rb:99:in `payer_signedin'
+
+Rendered rescues/_trace (93.0ms)
+Rendered rescues/_request_and_response (0.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 19:57:52) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 344ms (View: 250, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:57:53) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 140ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:58:00) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 16) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 19:58:02) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 93ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#sms_consumer (for 127.0.0.1 at 2010-06-16 19:58:07) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2346834574"}}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2346834574') LIMIT 1[0m
+Rendering service/sms_consumer
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/sms_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 19:58:08) [POST]
+  Parameters: {"consumer"=>{"pin"=>"6586"}}
+Rendering service/check_pin_and_link_consumer
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 19:58:13) [POST]
+  Parameters: {"consumer"=>{"pin"=>"4234"}}
+  [4;35;1mConsumer Create (0.0ms)[0m   [0mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at", "balance", "pin") VALUES('2010-06-16 16:58:13', '2346834574', 102, '2010-06-16 16:58:13', 69.0, NULL)[0m
+  [4;36;1mPayerRule Create (0.0ms)[0m   [0;1mINSERT INTO "payer_rules" ("auto_deny_over", "updated_at", "allowance", "auto_authorize_under", "consumer_id", "payer_id", "rollover", "created_at") VALUES(84.0, '2010-06-16 16:58:13', 69.0, 10.0, 178, NULL, 't', '2010-06-16 16:58:13')[0m
+Rendering service/check_pin_and_link_consumer
+Completed in 375ms (View: 0, DB: 16) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 20:00:12) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 296ms (View: 203, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 20:00:13) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 125ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#sms_consumer (for 127.0.0.1 at 2010-06-16 20:00:15) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2346834574"}}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2346834574') LIMIT 1[0m
+Rendering service/sms_consumer
+Completed in 282ms (View: 16, DB: 0) | 200 OK [http://localhost/service/sms_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 20:00:16) [POST]
+  Parameters: {"consumer"=>{"pin"=>"4234"}}
+Rendering service/check_pin_and_link_consumer
+Completed in 94ms (View: 0, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 20:00:27) [POST]
+  Parameters: {"consumer"=>{"pin"=>"7648"}}
+  [4;35;1mConsumer Create (0.0ms)[0m   [0mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at", "balance", "pin") VALUES('2010-06-16 17:00:28', '2346834574', 102, '2010-06-16 17:00:28', 69.0, NULL)[0m
+  [4;36;1mPayerRule Create (0.0ms)[0m   [0;1mINSERT INTO "payer_rules" ("auto_deny_over", "updated_at", "allowance", "auto_authorize_under", "consumer_id", "payer_id", "rollover", "created_at") VALUES(84.0, '2010-06-16 17:05:12', 69.0, 10.0, 179, NULL, 't', '2010-06-16 17:05:12')[0m
+Rendering service/check_pin_and_link_consumer
+Completed in 285157ms (View: 16, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 20:05:13) [GET]
+  Parameters: {"id"=>"179"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 179) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 179) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 125ms (View: 15, DB: 16) | 200 OK [http://localhost/service/allowance/179]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 20:05:59) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 171ms (View: 62, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 20:06:01) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 297ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#sms_consumer (for 127.0.0.1 at 2010-06-16 20:06:03) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2346834574"}}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2346834574') LIMIT 1[0m
+Rendering service/sms_consumer
+Completed in 109ms (View: 0, DB: 0) | 200 OK [http://localhost/service/sms_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 20:06:04) [POST]
+  Parameters: {"consumer"=>{"pin"=>"7648"}}
+Rendering service/check_pin_and_link_consumer
+Completed in 266ms (View: 16, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 20:06:08) [POST]
+  Parameters: {"consumer"=>{"pin"=>"6731"}}
+  [4;35;1mConsumer Create (0.0ms)[0m   [0mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at", "balance", "pin") VALUES('2010-06-16 17:06:08', '2346834574', 102, '2010-06-16 17:06:08', 69.0, NULL)[0m
+  [4;36;1mPayerRule Create (0.0ms)[0m   [0;1mINSERT INTO "payer_rules" ("auto_deny_over", "updated_at", "allowance", "auto_authorize_under", "consumer_id", "payer_id", "rollover", "created_at") VALUES(84.0, '2010-06-16 17:06:09', 69.0, 10.0, 180, NULL, 't', '2010-06-16 17:06:09')[0m
+Rendering service/check_pin_and_link_consumer
+Completed in 360ms (View: 0, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 20:06:09) [GET]
+  Parameters: {"id"=>"180"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 180) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 180) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 125ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/180]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 20:06:39) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 141ms (View: 47, DB: 16) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 20:06:40) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 141ms (View: 31, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#sms_consumer (for 127.0.0.1 at 2010-06-16 20:06:48) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2346834575"}}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2346834575') LIMIT 1[0m
+Rendering service/sms_consumer
+Completed in 265ms (View: 15, DB: 0) | 200 OK [http://localhost/service/sms_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 20:06:50) [POST]
+  Parameters: {"consumer"=>{"pin"=>"6731"}}
+Rendering service/check_pin_and_link_consumer
+Completed in 78ms (View: 0, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 20:06:54) [POST]
+  Parameters: {"consumer"=>{"pin"=>"2548"}}
+  [4;35;1mConsumer Create (0.0ms)[0m   [0mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at", "balance", "pin") VALUES('2010-06-16 17:06:54', '2346834575', 102, '2010-06-16 17:06:54', 69.0, NULL)[0m
+  [4;36;1mPayerRule Create (0.0ms)[0m   [0;1mINSERT INTO "payer_rules" ("auto_deny_over", "updated_at", "allowance", "auto_authorize_under", "consumer_id", "payer_id", "rollover", "created_at") VALUES(84.0, '2010-06-16 17:06:55', 69.0, 10.0, 181, NULL, 't', '2010-06-16 17:06:55')[0m
+Rendering service/check_pin_and_link_consumer
+Completed in 375ms (View: 16, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 20:06:55) [GET]
+  Parameters: {"id"=>"181"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 181) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 181) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/181]
+
+
+Processing ServiceController#budget_update (for 127.0.0.1 at 2010-06-16 20:07:20) [POST]
+  Parameters: {"consumer"=>{"edited_balance"=>"$49.00"}, "commit"=>"Submit", "consumer_rule"=>{"rollover_human"=>"On", "edited_budget"=>"$69.00"}}
+
+ActionController::UnknownAction (No action responded to budget_update. Actions: allowance, check_pin_and_link_consumer, consumers, joinin, payer_signedin, retailer_signedin, signin, signout, sms, and sms_consumer):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:15:49) [GET]
+  Parameters: {"id"=>"144"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 375ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:15:51) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:15:56) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 297ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:15:58) [GET]
+  Parameters: {"id"=>"180"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 180) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 180) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/180]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:15:59) [GET]
+  Parameters: {"id"=>"180"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 180) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 180) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 266ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/180]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:16:00) [GET]
+  Parameters: {"id"=>"144"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:16:03) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (15.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 281ms (View: 16, DB: 15) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 21:16:04) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 172ms (View: 78, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:16:05) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:16:11) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 250ms (View: 172, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:16:13) [GET]
+  Parameters: {"id"=>"181"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 181) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 181) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/181]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:16:14) [GET]
+  Parameters: {"id"=>"180"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 180) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 180) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 281ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/180]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:16:15) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:16:17) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 281ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:16:44) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:16:45) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 266ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:17:31) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 125ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:17:34) [GET]
+  Parameters: {"id"=>"181"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 181) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 181) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 282ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/181]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:17:36) [GET]
+  Parameters: {"id"=>"180"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 180) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 180) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 125ms (View: 31, DB: 16) | 200 OK [http://localhost/service/allowance/180]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:17:44) [GET]
+  Parameters: {"id"=>"181"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 181) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 181) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 282ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/181]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:18:04) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 16) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:18:06) [GET]
+  Parameters: {"id"=>"181"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 181) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 181) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/181]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:18:07) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 93ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:18:09) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (16.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 125ms (View: 15, DB: 32) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:18:09) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 125ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:18:12) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:18:13) [GET]
+  Parameters: {"id"=>"181"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 181) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 181) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/181]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:18:14) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:18:16) [GET]
+  Parameters: {"id"=>"180"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 180) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 180) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 0, DB: 0) | 200 OK [http://localhost/service/allowance/180]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 21:18:59) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 140ms (View: 47, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 21:19:04) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 312ms (View: 47, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 21:19:10) [GET]
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 125ms (View: 31, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:19:12) [GET]
+  Parameters: {"id"=>"144"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 125ms (View: 31, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:19:22) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 266ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:19:24) [GET]
+  Parameters: {"id"=>"144"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:19:27) [GET]
+  Parameters: {"id"=>"181"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 181) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 181) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 282ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/181]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:19:28) [GET]
+  Parameters: {"id"=>"180"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 180) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 180) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/180]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:19:42) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 281ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:19:45) [GET]
+  Parameters: {"id"=>"144"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:19:47) [GET]
+  Parameters: {"id"=>"180"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 180) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 180) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 281ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/180]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:19:49) [GET]
+  Parameters: {"id"=>"181"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 181) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 181) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 16) | 200 OK [http://localhost/service/allowance/181]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:19:51) [GET]
+  Parameters: {"id"=>"145"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#sms_consumer (for 127.0.0.1 at 2010-06-16 21:21:05) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2346834576"}}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2346834576') LIMIT 1[0m
+Rendering service/sms_consumer
+Completed in 109ms (View: 16, DB: 0) | 200 OK [http://localhost/service/sms_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 21:21:07) [POST]
+  Parameters: {"consumer"=>{"pin"=>"2548"}}
+Rendering service/check_pin_and_link_consumer
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 21:21:12) [POST]
+  Parameters: {"consumer"=>{"pin"=>"6633"}}
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at", "balance", "pin") VALUES('2010-06-16 18:21:12', '2346834576', 102, '2010-06-16 18:21:12', 69.0, NULL)[0m
+  [4;35;1mPayerRule Create (0.0ms)[0m   [0mINSERT INTO "payer_rules" ("auto_deny_over", "updated_at", "allowance", "auto_authorize_under", "consumer_id", "payer_id", "rollover", "created_at") VALUES(84.0, '2010-06-16 18:21:12', 69.0, 10.0, 182, NULL, 't', '2010-06-16 18:21:12')[0m
+Rendering service/check_pin_and_link_consumer
+Completed in 375ms (View: 0, DB: 15) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:21:13) [GET]
+  Parameters: {"id"=>"182"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 182) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 182) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/182]
+
+
+Processing ServiceController#sms_consumer (for 127.0.0.1 at 2010-06-16 21:23:17) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2346834577"}}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2346834577') LIMIT 1[0m
+Rendering service/sms_consumer
+Completed in 297ms (View: 0, DB: 0) | 200 OK [http://localhost/service/sms_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 21:23:18) [POST]
+  Parameters: {"consumer"=>{"pin"=>"6633"}}
+Rendering service/check_pin_and_link_consumer
+Completed in 94ms (View: 15, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 21:23:23) [POST]
+  Parameters: {"consumer"=>{"pin"=>"4066"}}
+  [4;35;1mConsumer Create (16.0ms)[0m   [0mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at", "balance", "pin") VALUES('2010-06-16 18:23:23', '2346834577', 102, '2010-06-16 18:23:23', 69.0, NULL)[0m
+  [4;36;1mPayerRule Create (0.0ms)[0m   [0;1mINSERT INTO "payer_rules" ("auto_deny_over", "updated_at", "allowance", "auto_authorize_under", "consumer_id", "payer_id", "rollover", "created_at") VALUES(84.0, '2010-06-16 18:23:23', 69.0, 10.0, 183, NULL, 't', '2010-06-16 18:23:23')[0m
+Rendering service/check_pin_and_link_consumer
+Completed in 593ms (View: 15, DB: 16) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:23:24) [GET]
+  Parameters: {"id"=>"183"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 183) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 183) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 187ms (View: 93, DB: 0) | 200 OK [http://localhost/service/allowance/183]
+
+
+Processing ServiceController#payer_signedin (for 127.0.0.1 at 2010-06-16 21:23:53) [GET]
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."payer_id" = 102) [0m
+Rendering template within layouts/service
+Rendering service/payer_signedin
+Completed in 140ms (View: 47, DB: 0) | 200 OK [http://localhost/service/payer_signedin]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:23:56) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 329ms (View: 32, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#sms_consumer (for 127.0.0.1 at 2010-06-16 21:24:01) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2346834574"}}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2346834574') LIMIT 1[0m
+Rendering service/sms_consumer
+Completed in 125ms (View: 16, DB: 15) | 200 OK [http://localhost/service/sms_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 21:24:02) [POST]
+  Parameters: {"consumer"=>{"pin"=>"4066"}}
+Rendering service/check_pin_and_link_consumer
+Completed in 281ms (View: 16, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 21:24:06) [POST]
+  Parameters: {"consumer"=>{"pin"=>"8041"}}
+  [4;35;1mConsumer Create (0.0ms)[0m   [0mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at", "balance", "pin") VALUES('2010-06-16 18:24:06', '2346834574', 102, '2010-06-16 18:24:06', 69.0, NULL)[0m
+  [4;36;1mPayerRule Create (0.0ms)[0m   [0;1mINSERT INTO "payer_rules" ("auto_deny_over", "updated_at", "allowance", "auto_authorize_under", "consumer_id", "payer_id", "rollover", "created_at") VALUES(84.0, '2010-06-16 18:24:06', 69.0, 10.0, 184, NULL, 't', '2010-06-16 18:24:06')[0m
+Rendering service/check_pin_and_link_consumer
+Completed in 391ms (View: 0, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:24:07) [GET]
+  Parameters: {"id"=>"184"}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."id" = 184) [0m
+  [4;36;1mPayerRule Load (0.0ms)[0m   [0;1mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 184) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/184]
+
+
+Processing ServiceController#sms_consumer (for 127.0.0.1 at 2010-06-16 21:24:34) [POST]
+  Parameters: {"consumer"=>{"billing_phone"=>"2346834575"}}
+  [4;35;1mConsumer Load (0.0ms)[0m   [0mSELECT * FROM "consumers" WHERE ("consumers"."billing_phone" = '2346834575') LIMIT 1[0m
+Rendering service/sms_consumer
+Completed in 125ms (View: 16, DB: 0) | 200 OK [http://localhost/service/sms_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 21:24:36) [POST]
+  Parameters: {"consumer"=>{"pin"=>"8041"}}
+Rendering service/check_pin_and_link_consumer
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#check_pin_and_link_consumer (for 127.0.0.1 at 2010-06-16 21:24:41) [POST]
+  Parameters: {"consumer"=>{"pin"=>"0234"}}
+  [4;36;1mConsumer Create (0.0ms)[0m   [0;1mINSERT INTO "consumers" ("updated_at", "billing_phone", "payer_id", "created_at", "balance", "pin") VALUES('2010-06-16 18:24:41', '2346834575', 102, '2010-06-16 18:24:41', 69.0, NULL)[0m
+  [4;35;1mPayerRule Create (0.0ms)[0m   [0mINSERT INTO "payer_rules" ("auto_deny_over", "updated_at", "allowance", "auto_authorize_under", "consumer_id", "payer_id", "rollover", "created_at") VALUES(84.0, '2010-06-16 18:24:41', 69.0, 10.0, 185, NULL, 't', '2010-06-16 18:24:41')[0m
+Rendering service/check_pin_and_link_consumer
+Completed in 328ms (View: 0, DB: 0) | 200 OK [http://localhost/service/check_pin_and_link_consumer]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:24:42) [GET]
+  Parameters: {"id"=>"185"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 185) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 185) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/185]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:26:10) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 328ms (View: 16, DB: 15) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:26:12) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:26:17) [GET]
+  Parameters: {"id"=>"185"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 185) [0m
+  [4;35;1mPayerRule Load (15.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 185) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 297ms (View: 16, DB: 15) | 200 OK [http://localhost/service/allowance/185]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:26:19) [GET]
+  Parameters: {"id"=>"184"}
+  [4;36;1mConsumer Load (16.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 184) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 184) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 16) | 200 OK [http://localhost/service/allowance/184]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:26:44) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 281ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:26:46) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 110ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:26:48) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 281ms (View: 0, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:26:53) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 16, DB: 15) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:26:54) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:26:56) [GET]
+  Parameters: {"id"=>"184"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 184) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 184) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/184]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:29:48) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 94ms (View: 16, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:29:49) [GET]
+  Parameters: {"id"=>"185"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 185) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 185) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 93ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/185]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:29:50) [GET]
+  Parameters: {"id"=>"184"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 184) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 184) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/184]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:29:52) [GET]
+  Parameters: {"id"=>"144"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 144) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 144) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 125ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/144]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:29:53) [GET]
+  Parameters: {"id"=>"145"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 145) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 145) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 125ms (View: 31, DB: 0) | 200 OK [http://localhost/service/allowance/145]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:29:55) [GET]
+  Parameters: {"id"=>"185"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 185) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 185) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 266ms (View: 172, DB: 0) | 200 OK [http://localhost/service/allowance/185]
+
+
+Processing ServiceController#allowance (for 127.0.0.1 at 2010-06-16 21:29:56) [GET]
+  Parameters: {"id"=>"184"}
+  [4;36;1mConsumer Load (0.0ms)[0m   [0;1mSELECT * FROM "consumers" WHERE ("consumers"."id" = 184) [0m
+  [4;35;1mPayerRule Load (0.0ms)[0m   [0mSELECT * FROM "payer_rules" WHERE ("payer_rules".consumer_id = 184) ORDER BY created_at DESC LIMIT 1[0m
+Rendering service/allowance
+Completed in 109ms (View: 15, DB: 0) | 200 OK [http://localhost/service/allowance/184]

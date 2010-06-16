@@ -112,11 +112,11 @@
 <script type="text/javascript">
 	
 
-		<% if session[:consumers_counter] > 0 %>
-			viewAllowance (<%= session[:consumer].id %>);
-			viewConsumers2 ();	
-		<% end %>
-		
+
+		viewAllowance (<%= @consumer.id %>);
+
+		viewConsumers2 ();	
+
 
 		function viewAllowance(consumer){
 		$.ajax({
