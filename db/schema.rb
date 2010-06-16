@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100609094127) do
+ActiveRecord::Schema.define(:version => 20100616195346) do
 
   create_table "billings", :force => true do |t|
     t.string   "method",     :null => false
@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(:version => 20100609094127) do
     t.datetime "updated_at"
     t.decimal  "balance"
     t.string   "pin"
+    t.string   "name"
+    t.string   "pic"
   end
 
   add_index "consumers", ["billing_phone"], :name => "index_consumers_on_billing_phone"
@@ -80,7 +82,6 @@ ActiveRecord::Schema.define(:version => 20100609094127) do
   end
 
   create_table "payer_rules", :force => true do |t|
-    t.integer  "payer_id"
     t.decimal  "allowance"
     t.boolean  "rollover"
     t.decimal  "auto_authorize_under"
@@ -88,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20100609094127) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "consumer_id"
+    t.integer  "payer_id"
   end
 
   create_table "payers", :force => true do |t|

@@ -12,7 +12,6 @@
 
 	<div id="tabs-1">
 		<div class="left_content">
-			<div class="inner_content_title plain_message"><%= @message%></div>
 			<p class="inner_content_title">Who would you like to take care for?</p>
 			<div class="inner_content_indented">
 				<p class="inner_content_text">Define here who gets a one-click shopping experience (provided your rules are met).</p>
@@ -34,16 +33,16 @@
 	<% if @consumers.empty? %>				
 		<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>
 	<% else %>
-		<p class="inner_content_title" id="consumers">Existing Consumers</p>
+		<p class="inner_content_title" id="consumers">My Close Circle</p>
 		<br />
 		<div class="column" id="column1">
 		</div>
 		<div class="column" id="column2">
 		</div>
 	<% end %>
-
-		</div>
+	<%= image_tag 'circle.png', :id => "circle" %>
 	</div>
+</div>
 
 <script type="text/javascript">
 	<% i = 1 %>
@@ -62,10 +61,10 @@
 <div id="tabs-2">
 
 	<div class="left_content" id="allowance_consumer">
-	<p class="inner_content_title">Who would you like to take care for?</p>
+	<p class="inner_content_title" id="consumer_name"><%= @consumer.name %></p>
 
 	<img id='chartdiv' class="engrave"/>
-	<br /><br /><br /><br />
+	<br /><br /><br />
 	<% form_for :consumer_rule, :url => { :action => :budget_update } do |f| %>
 	  	<%= f.error_messages %>
 	
@@ -76,8 +75,8 @@
 	    <span class="long item">Current Balance:</span>
 		<span class="green_value"><%= text_field(:consumer, :edited_balance, :onchange => "drawChart();modifyBalance()", :id => "balance", :class => "dollar_amount", :size => 10) %></span>
 	    <div id="balance_slider" onclick="modifyBalance()"></div>
-
-		<span class="item">Rollover to next month:</span>
+		<br />
+		<span class="item">Roll balance over</span>
 		<span id="radio">
 			<%= f.radio_button (:rollover_human, 'On') %><label for="consumer_rule_rollover_human_on">On</label>
 			<%= f.radio_button (:rollover_human, 'Off') %><label for="consumer_rule_rollover_human_off">Off</label>
@@ -95,17 +94,15 @@
 	<% if @consumers.empty? %>				
 		<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>
 	<% else %>
-		<p class="inner_content_title" id="consumers">Existing Consumers</p>
+		<p class="inner_content_title" id="consumers">My Close Circle</p>
 		<br />
 		<div class="column" id="column21">
 		</div>
 		<div class="column" id="column22">
 		</div>
 	<% end %>
-
-		</div>
-				
-	
+	<%= image_tag 'circle.png', :id => "circle" %>
+	</div>				
 </div>
 
 
@@ -122,13 +119,12 @@
 		$.ajax({
 			url: 'allowance/'+consumer,
 			success: function(data){
-
-			drawChart();		
-			modifyBudget();
-			modifyBalance();			
-			$(function() {
-				$("#radio").buttonset();
-				});
+				drawChart();
+				modifyBudget();
+				modifyBalance();			
+				$(function() {
+					$("#radio").buttonset();
+					});
 
 			}
 			})
@@ -163,6 +159,7 @@
 				});
 				$("#budget").val('$' + $("#budget_slider").slider("value")+'.00');
 				drawChart();
+
 			});
 		}	
 	
@@ -200,7 +197,7 @@
 			var balance_position = (balance / budget) * 100;
 			var tick = ((budget / 40).toFixed(1)) * 10;
 			var background = "chf=c,lg,90,FFE7C6,0,76A4FB,0.5"
-			var uri = "http://chart.apis.google.com/chart?cht=gom&chs=280x100&chf=bg,lg,90,EFEFEF,0,666666,0.75&chxt=y&chd=t:" + balance_position + "&chl=Balance&chxr=0,0," + budget + "," + tick;
+			var uri = "http://chart.apis.google.com/chart?cht=gom&chs=280x100&chf=bg,lg,90,EFEFEF,0.75,999999,0&chxt=y&chd=t:" + balance_position + "&chl=Balance&chxr=0,0," + budget + "," + tick;
 			document.getElementById("chartdiv").src = uri;
 		}
 	
