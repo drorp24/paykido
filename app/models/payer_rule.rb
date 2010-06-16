@@ -8,6 +8,18 @@ class PayerRule < ActiveRecord::Base
   validate :amounts_are_sensible
   
    
+  def rollover_human
+    (self.rollover) ?"On":"Off"
+  end
+  
+  def rollover_human=(rh)
+    if rh == "On"
+      self.rollover = true
+    else
+      self.rollover = false
+    end
+  end    
+  
   def edited_budget
     number_to_currency(self.allowance)
   end

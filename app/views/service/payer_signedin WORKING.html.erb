@@ -59,41 +59,12 @@
 
 </script>
 
-<div id="tabs-2">
-
-	<div class="left_content" id="allowance_consumer">
-		
-	</div>
-	<div class="right_content">
-	<% if @consumers.empty? %>				
-		<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>
-	<% else %>
-		<p class="inner_content_title" id="consumers">Existing Consumers</p>
-		<br />
-		<div class="column" id="column21">
-		</div>
-		<div class="column" id="column22">
-		</div>
-	<% end %>
-
-		</div>
-				
-	
-</div>
-
-
-<script type="text/javascript">
-	
-
-
-	viewAllowance (145);
-
-	viewConsumers2 ();	
+	<div id="tabs-2">
+	<script type="text/javascript">
 
 
 	
-	
-	function viewAllowance (consumer) {
+	function consumer_selected (consumer) {
 		xmlhttp=new XMLHttpRequest();
 		xmlhttp.open("GET","/service/allowance/"+consumer, true);
 		xmlhttp.send();
@@ -117,21 +88,34 @@
 
 	}
 	
-		function viewConsumers2 () {
+	
+	consumer_selected (144);
+</script>
+	<script type="text/javascript">	
 
-		<% i = 1 %>
-		<% for consumer in @consumers %>
-			<% rem = i % 2 %>
-			<% if rem == 1 %>
-				$('#column21').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div onclick = "viewAllowance(<%= consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(consumer.billing_phone, :area_code => true)) %></div><div class="portlet-content" >Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
-			<% else %>
-				$('#column22').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div onclick = "viewAllowance(<%= consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(consumer.billing_phone, :area_code => true)) %></div><div class="portlet-content" >Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
-			<% end %>
-			<% i += 1 %>
-		<% end %>
-		}
+	</script>
+
+	<div class="left_content" id="allowance_consumer">
+		
+	</div>
+	<div class="right_content">
+	<% if @consumers.empty? %>				
+		<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>
+	<% else %>
+		<p class="inner_content_title" id="consumers">Existing Consumers</p>
+		<br />
+		<div class="column" id="column21">
+		</div>
+		<div class="column" id="column22">
+		</div>
+	<% end %>
+
+		</div>
+				
 
 
+<script type="text/javascript">
+	
 $('#notice').remove(); 
 
 		function modifyBudget () {
@@ -196,6 +180,18 @@ $('#notice').remove();
 		}
 	
 	
+	<% i = 1 %>
+	<% for consumer in @consumers %>
+		<% rem = i % 2 %>
+		<% if rem == 1 %>
+			$('#column21').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div onclick = "consumer_selected(<%= consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(consumer.billing_phone, :area_code => true)) %></div><div class="portlet-content" >Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
+		<% else %>
+			$('#column22').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div onclick = "consumer_selected(<%= consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(consumer.billing_phone, :area_code => true)) %></div><div class="portlet-content" >Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
+		<% end %>
+		<% i += 1 %>
+	<% end %>
+
+
 
 /*
 	xmlhttp=new XMLHttpRequest();
@@ -222,13 +218,13 @@ $('#notice').remove();
 		}
 	}
 
-	document.onreadystatechange=function()
-	{
-			viewConsumers2 ();
-	}
 
+	
 
+	
 </script>
+	
+</div>
 
 
 <div id="tabs-3">

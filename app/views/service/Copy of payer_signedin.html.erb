@@ -5,7 +5,7 @@
 		<li><a href="#tabs-3">Inbox</a></li>
 		<li><a href="#tabs-4">Content</a></li>
 		<li><a href="#tabs-5">Rules</a></li>
-		<li><a href="#tabs-6">Purchases!</a></li>
+		<li><a href="#tabs-6">Information</a></li>
 		<li><a href="#tabs-7">Account</a></li>
 	</ul>
 
@@ -31,109 +31,42 @@
 			</div>
 		</div>
 		<div class="right_content">
-	<% if @consumers.empty? %>				
-		<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>
-	<% else %>
-		<p class="inner_content_title" id="consumers">Existing Consumers</p>
-		<br />
-		<div class="column" id="column1">
-		</div>
-		<div class="column" id="column2">
-		</div>
-	<% end %>
-
+			<div class="inner_content_title plain_message"></div>
+			<% if @consumers.empty? %>				
+				<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>
+			<% else %>
+				<p class="inner_content_title" id="consumers">Existing Consumers</p>
+				<br />
+					<div class="column" id="column1">
+					</div>
+					<div class="column" id="column2">
+					</div>
+			<% end %>
 		</div>
 	</div>
 
 <script type="text/javascript">
 	<% i = 1 %>
+	<% if @consumers.size > 6 then @display = 'none' else @display = 'block' end %>
 	<% for consumer in @consumers %>
 		<% rem = i % 2 %>
 		<% if rem == 1 %>
-			$('#column1').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(consumer.billing_phone, :area_code => true)) %></div><div class="portlet-content" >Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
+			$('#column1').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div onclick = "consumer_selected(<%= consumer.billing_phone %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(consumer.billing_phone, :area_code => true)) %></div><div class="portlet-content" >Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
 		<% else %>
 			$('#column2').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(consumer.billing_phone, :area_code => true)) %></div><div class="portlet-content" >Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
 		<% end %>
 		<% i += 1 %>
 	<% end %>
-
+	
+	function consumer_selected (consumer) {
+		alert(consumer);
+	}
 </script>
 
-<div id="tabs-2">
-
-	<div class="left_content" id="allowance_consumer">
-		
-	</div>
-	<div class="right_content">
-	<% if @consumers.empty? %>				
-		<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>
-	<% else %>
-		<p class="inner_content_title" id="consumers">Existing Consumers</p>
-		<br />
-		<div class="column" id="column21">
-		</div>
-		<div class="column" id="column22">
-		</div>
-	<% end %>
-
-		</div>
-				
+	<div id="tabs-2">
+	<script type="text/javascript">
 	
-</div>
-
-
-<script type="text/javascript">
-	
-
-
-	viewAllowance (145);
-
-	viewConsumers2 ();	
-
-
-	
-	
-	function viewAllowance (consumer) {
-		xmlhttp=new XMLHttpRequest();
-		xmlhttp.open("GET","/service/allowance/"+consumer, true);
-		xmlhttp.send();
-		xmlhttp.onreadystatechange=function()
-		  {
-		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-		    {
-		    document.getElementById("allowance_consumer").innerHTML=xmlhttp.responseText;
-			
-			drawChart();
-			
-			modifyBudget();
-			modifyBalance();
-			
-			$(function() {
-				$("#radio").buttonset();
-			});
-
-		    }
-		  } 
-
-	}
-	
-		function viewConsumers2 () {
-
-		<% i = 1 %>
-		<% for consumer in @consumers %>
-			<% rem = i % 2 %>
-			<% if rem == 1 %>
-				$('#column21').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div onclick = "viewAllowance(<%= consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(consumer.billing_phone, :area_code => true)) %></div><div class="portlet-content" >Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
-			<% else %>
-				$('#column22').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div onclick = "viewAllowance(<%= consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(consumer.billing_phone, :area_code => true)) %></div><div class="portlet-content" >Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
-			<% end %>
-			<% i += 1 %>
-		<% end %>
-		}
-
-
-$('#notice').remove(); 
-
+/*
 		function modifyBudget () {
 		
 			$(function () {
@@ -155,8 +88,6 @@ $('#notice').remove();
 		function modifyBalance () {
 		
 			$(function () {
-			  	var budget_with_currency = document.getElementById("budget").value;
-				var budget = Number(budget_with_currency.replace(/[^0-9\.]+/g,""));
 			  	var balance_with_currency = document.getElementById("balance").value;
 				var balance = Number(balance_with_currency.replace(/[^0-9\.]+/g,""));
 				$("#balance_slider").slider({
@@ -172,7 +103,7 @@ $('#notice').remove();
 			});
 		}	
 
-	
+*/	
 		function drawChart(){
 			var budget_with_currency = document.getElementById("budget").value;
 			var budget = Number(budget_with_currency.replace(/[^0-9\.]+/g, ""));
@@ -181,7 +112,6 @@ $('#notice').remove();
 			if (balance > budget) {
 				balance = budget;
 				document.getElementById("balance").value = '$' + budget + '.00';
-				modifyBalance ();
 			}
 			var balance_position = (balance / budget) * 100;
 			var tick = ((budget / 40).toFixed(1)) * 10;
@@ -196,39 +126,43 @@ $('#notice').remove();
 		}
 	
 	
+	
+	</script>
 
+
+	<img id='chartdiv' class="engrave"/>
+
+
+
+	<% form_for :consumer_rule, :url => { :action => :budget_update } do |f| %>
+	  	<%= f.error_messages %>
+	
+		<br /><br /><br />
+	    <span class="long item">Monthly Allowance:</span>
+		<span class="value"><%= f.text_field(:edited_budget, :onchange => "drawChart()", :id => "budget", :size => 10) %></span>
+	    <span class="long item" id="budget_slider" onclick="modifyBudget()">shvooooooooooooooooooong</span>
+		<br /><br /><br />
+	    <span id="balance_slider" onclick="modifyBalance()">Current Balance</span>
+		<span class="green_value"><%= text_field(:consumer, :edited_balance, :onchange => "drawChart()", :id => "balance", :class => "dollar_amount") %>
+		</span>
+
+		<span class="item">Rollover to next month</span>
+		<span class="toggle"><%= f.check_box :rollover %></span>
+	
+	   <%= submit_tag "Submit", :class => "whiteButton submit bottom_submit_tag" %>
+	
+	<% end %>
+
+	<script type="text/javascript">
+		  drawChart();
 /*
-	xmlhttp=new XMLHttpRequest();
-	xmlhttp.open("GET","/service/consumers",true);
-	xmlhttp.send();
-	xmlhttp.onreadystatechange=function()
-	{
-	if (xmlhttp.readyState==4 )
-		{
-		document.getElementById("js_populate_consumers").innerHTML=xmlhttp.responseText;
-		}
-	}
-*/ 
+		  modifyBudget();
+		  modifyBalance();
+
+*/	
+	</script>
 	
-
-	document.onreadystatechange=function()
-	{
-	if (document.readyState==4 )
-		{
-		drawChart();
-	
-		modifyBudget();
-		modifyBalance();		
-		}
-	}
-
-	document.onreadystatechange=function()
-	{
-			viewConsumers2 ();
-	}
-
-
-</script>
+</div>
 
 
 <div id="tabs-3">

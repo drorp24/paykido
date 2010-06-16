@@ -78,13 +78,34 @@ class ServiceController < ApplicationController
     
   end
 
+
+  def consumers
+    
+    @consumers = session[:consumers]
+    @consumers_counter = session[:consumers_counter]
+    render :partial => "consumers"
+    
+  end
+  
   def payer_signedin
         
     @consumers = Consumer.find_all_by_payer_id(@payer.id)
-    session[:consumers_counter] = @consumers.size
     flash[:message] = "Welcome to arca!" if @consumers.empty?
-
+    session[:consumers] = @consumers
+    session[:consumers_counter] = @consumers.size
+    
+    @consumer = Consumer.new
+    
+#   Allowance     
+    @consumer = Consumer.find(144)    # REMOVE LATER - THIS IS to be set dynamically in JS in the view
+    @consumer_rule = @consumer.most_recent_payer_rule
    
+  end
+ 
+  def allowance
+    @consumer = Consumer.find(params[:id])
+    @consumer_rule = @consumer.most_recent_payer_rule
+    render :partial => "allowance"
   end
   
   def retailer_signedin
@@ -149,6 +170,7 @@ class ServiceController < ApplicationController
   def check_pin_and_link_consumer
     
     @consumers_counter = session[:consumers_counter]
+    @consumer = session[:consumer]
     
     unless session[:phone_is_ok]
       flash[:notice] = "Please handle the phone number first"
@@ -182,10 +204,10 @@ class ServiceController < ApplicationController
           format.js  
         end         
     else
-        @consumer.update_attributes!(:payer_id => @payer.id, :balance => @payer_rule.allowance)
-        @consumer.payer_rules.create!(:allowance => @payer_rule.allowance, :rollover => @payer_rule.rollover, :auto_authorize_under => @payer_rule.auto_authorize_under, :auto_deny_over => @payer_rule.auto_deny_over)
-        session[:consumer] = @consumer
-        session[:consumer_rules] = @consumer.most_recent_payer_rule
+        session[:consumer] = @consumer.update_attributes!(:payer_id => @payer.id, :balance => @payer_rule.allowance)
+        session[:consumer_rules] = @consumer.payer_rules.create!(:allowance => @payer_rule.allowance, :rollover => @payer_rule.rollover, :auto_authorize_under => @payer_rule.auto_authorize_under, :auto_deny_over => @payer_rule.auto_deny_over)
+        session[:consumers] = session[:consumers] << @consumer
+        @consumers = session[:consumers]
         @consumers_counter += 1
         session[:consumers_counter] = @consumers_counter   
         @phone = @consumer.billing_phone

@@ -68,5 +68,12 @@ $(document).ready(function (){
 			$(".column").disableSelection();
 	});
 
+		$(function() {
+			$("#check").button();
+		});
+		$(function() {
+			$("#radio").buttonset();
+		});
+
 
 });

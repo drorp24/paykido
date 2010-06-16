@@ -12,9 +12,15 @@ if (consumers_counter == 1 && phone != "")
 if (phone != "") {
 	rem = consumers_counter % 2;
 	if 		(rem == 1)
-	{$('#column1').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(@phone, :area_code => true)) %></div><div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');}
+	{
+	$('#column1').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(@phone, :area_code => true)) %></div><div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
+	$('#column21').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div onclick = "viewAllowance(<%= @consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(@phone, :area_code => true)) %></div><div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
+	}
 	else 
-	{$('#column2').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(@phone, :area_code => true)) %></div><div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');}
+	{
+	$('#column2').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(@phone, :area_code => true)) %></div><div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
+	$('#column22').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div onclick = "viewAllowance(<%= @consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(@phone, :area_code => true)) %></div><div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
+	}
 	}
 		
 <% if flash[:message] %>
