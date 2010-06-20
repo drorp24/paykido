@@ -1,3 +1,12 @@
+<% form_for :purchase, :url => {:action => :update_purchase_dates} do  |f| %>
+
+	<p>Change all purchases of selected payer id to selected month</p>
+	<p>payer id: <%= f.text_field :payer_id %></p>
+	<p>month   : <%= f.text_field :month %></p>	
+	<p><%= submit_tag %></p>
+
+<% end %>
+
 <br /><br /><br /><br />
 
  <%= button_to "Populate locations", :action => 'locations' %>
@@ -11,3 +20,5 @@
  
 <br /><br /><br /><br /><br />
  <%= button_to "update_consumer_payer_rules", :action => 'update_consumer_payer_rules' %>
+ 
+<br /><br /><br /><br /><br />

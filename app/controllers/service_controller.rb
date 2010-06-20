@@ -89,7 +89,15 @@ class ServiceController < ApplicationController
   
   def payer_signedin
         
-    @consumers = Consumer.find_all_by_payer_id(@payer.id)
+    @consumers = all = []
+    
+    all = Consumer.who_purchased_or_not(@payer.id)
+    unless all.empty?
+      purchased = Consumer.who_purchased(@payer.id, Time.now.strftime('%m'))  
+      didnt_purchase = all - purchased
+      @consumers = purchased + didnt_purchase                                 
+    end
+    
     if @consumers.empty?
       flash[:message] = "Welcome to arca!" 
       @consumer = Consumer.new

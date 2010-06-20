@@ -1,5 +1,17 @@
 class DataController < ApplicationController
   
+def update_purchase_dates
+  
+  for purchase in Purchase.find_all_by_payer_id(params[:purchase][:payer_id]) do 
+    purchase.date = purchase.date.change(:month => params[:purchase][:month].to_i)
+    purchase.save!
+  end
+  
+  redirect_to :action => 'index'
+  
+end
+
+
 def update_consumer_payer_rules
   
   for consumer in Consumer.all do

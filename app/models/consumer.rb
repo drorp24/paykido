@@ -36,6 +36,25 @@ class Consumer < ActiveRecord::Base
   def pin=(val)
     
   end
+  
+  def self.who_purchased(payer_id, month)
+    
+    self.find_all_by_payer_id(payer_id,
+               :conditions => ["authorized = ? and strftime('%m', date) = ?", true, month],
+               :group => ("consumers.id"),
+               :select => "consumers.id, sum(amount) as sum_amount, balance, name, billing_phone, pic",
+               :joins => "LEFT OUTER JOIN purchases on consumers.id = purchases.consumer_id")
+
+    
+  end
+  
+  def self.who_purchased_or_not(payer_id)
+ 
+        self.find_all_by_payer_id(payer_id,
+               :select => "consumers.id, 0 as sum_amount, balance, name, billing_phone, pic")
+
+    
+  end
    
    
 end

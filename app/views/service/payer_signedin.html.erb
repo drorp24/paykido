@@ -7,6 +7,8 @@
 		<li><a href="#tabs-5">Rules</a></li>
 		<li><a href="#tabs-6">Purchases!</a></li>
 		<li><a href="#tabs-7">Account</a></li>
+				<li><a href="#tabs-8">Alerts!</a></li>
+
 	</ul>
 
 
@@ -49,9 +51,33 @@
 	<% for consumer in @consumers %>
 		<% rem = i % 2 %>
 		<% if rem == 1 %>
-			$('#column1').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(consumer.billing_phone, :area_code => true)) %></div><div class="portlet-content" >Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
+			$('#column1').append(
+				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
+					'<div class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript((consumer.name.blank?)?'(Please define name)':consumer.name) %></div>'+
+					'<div class="portlet-content" >'+
+						'<div class="portlet-content-left">'+
+							'<%= image_tag "face_placeholder_small.png" %>'+
+						'</div>'+
+						'<div class="portlet-content-right">'+
+							'<p><%= "Spent #{number_to_currency(consumer.sum_amount)} in #{Time.now.strftime('%B')}" %></p>'+
+							'<p><%= "Current Balance #{number_to_currency(consumer.balance)}" %></p>'+		
+						'</div>'+
+					'</div>'+
+				'</div>');
 		<% else %>
-			$('#column2').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(consumer.billing_phone, :area_code => true)) %></div><div class="portlet-content" >Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
+			$('#column2').append(
+				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
+					'<div class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript((consumer.name.blank?)?'(Please define name)':consumer.name) %></div>'+
+					'<div class="portlet-content" >'+
+						'<div class="portlet-content-left">'+
+							'<%= image_tag "face_placeholder_small.png" %>'+
+						'</div>'+
+						'<div class="portlet-content-right">'+
+							'<p><%= "Spent #{number_to_currency(consumer.sum_amount)} in #{Time.now.strftime('%B')}" %></p>'+
+							'<p><%= "Current Balance #{number_to_currency(consumer.balance)}" %></p>'+		
+						'</div>'+
+					'</div>'+
+				'</div>');
 		<% end %>
 		<% i += 1 %>
 	<% end %>
@@ -61,7 +87,7 @@
 <div id="tabs-2">
 
 	<div class="left_content" id="allowance_consumer">
-	<p class="inner_content_title" id="consumer_name"><%= @consumer.name %></p>
+	<p class="inner_content_title" id="consumer_name"></p>
 
 	<img id='chartdiv' class="engrave"/>
 	<br /><br /><br />
@@ -76,7 +102,7 @@
 		<span class="green_value"><%= text_field(:consumer, :edited_balance, :onchange => "drawChart();modifyBalance()", :id => "balance", :class => "dollar_amount", :size => 10) %></span>
 	    <div id="balance_slider" onclick="modifyBalance()"></div>
 		<br />
-		<span class="item">Roll balance over</span>
+		<span class="item">Balance rollover</span>
 		<span id="radio">
 			<%= f.radio_button (:rollover_human, 'On') %><label for="consumer_rule_rollover_human_on">On</label>
 			<%= f.radio_button (:rollover_human, 'Off') %><label for="consumer_rule_rollover_human_off">Off</label>
@@ -88,7 +114,7 @@
 		</div>
 	
 	<% end %>
-		
+	<%= image_tag "/images/face_placeholder.png", :id => "face" %>	
 	</div>
 	<div class="right_content">
 	<% if @consumers.empty? %>				
@@ -130,18 +156,58 @@
 			})
 		};
 	
+
 		function viewConsumers2 () {
 
+/*
 		<% i = 1 %>
 		<% for consumer in @consumers %>
 			<% rem = i % 2 %>
 			<% if rem == 1 %>
-				$('#column21').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div onclick = "viewAllowance(<%= consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(consumer.billing_phone, :area_code => true)) %></div><div class="portlet-content" >Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
+				$('#column21').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div onclick = "viewAllowance(<%= consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(consumer.name) %></div><div class="portlet-content" >Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
 			<% else %>
-				$('#column22').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div onclick = "viewAllowance(<%= consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(consumer.billing_phone, :area_code => true)) %></div><div class="portlet-content" >Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
+				$('#column22').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div onclick = "viewAllowance(<%= consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(consumer.name) %></div><div class="portlet-content" >Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
 			<% end %>
 			<% i += 1 %>
 		<% end %>
+
+
+*/		
+		<% i = 1 %>
+		<% for consumer in @consumers %>
+			<% rem = i % 2 %>
+			<% if rem == 1 %>
+				$('#column21').append(
+					'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
+						'<div onclick = "viewAllowance(<%= consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript((consumer.name.blank?)?'(Please define name)':consumer.name) %></div>'+
+						'<div class="portlet-content" >'+
+							'<div class="portlet-content-left">'+
+								'<%= image_tag "face_placeholder_small.png" %>'+
+							'</div>'+
+							'<div class="portlet-content-right">'+
+								'<p><%= "Spent #{number_to_currency(consumer.sum_amount)} in #{Time.now.strftime('%B')}" %></p>'+
+								'<p><%= "Current Balance #{number_to_currency(consumer.balance)}" %></p>'+		
+							'</div>'+
+						'</div>'+
+					'</div>');
+			<% else %>
+				$('#column22').append(
+					'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
+						'<div onclick = "viewAllowance(<%= consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript((consumer.name.blank?)?'(Please define name)':consumer.name) %></div>'+
+						'<div class="portlet-content" >'+
+							'<div class="portlet-content-left">'+
+								'<%= image_tag "face_placeholder_small.png" %>'+
+							'</div>'+
+							'<div class="portlet-content-right">'+
+								'<p><%= "Spent #{number_to_currency(consumer.sum_amount)} in #{Time.now.strftime('%B')}" %></p>'+
+								'<p><%= "Current Balance #{number_to_currency(consumer.balance)}" %></p>'+		
+							'</div>'+
+						'</div>'+
+					'</div>');
+			<% end %>
+			<% i += 1 %>
+		<% end %>
+		
 		}
 
 		function modifyBudget () {
@@ -184,7 +250,9 @@
 		}	
 
 	
+
 		function drawChart(){
+
 			var budget_with_currency = document.getElementById("budget").value;
 			var budget = Number(budget_with_currency.replace(/[^0-9\.]+/g, ""));
 			var balance_with_currency = document.getElementById("balance").value;
@@ -197,14 +265,17 @@
 			var balance_position = (balance / budget) * 100;
 			var tick = ((budget / 40).toFixed(1)) * 10;
 			var background = "chf=c,lg,90,FFE7C6,0,76A4FB,0.5"
-			var uri = "http://chart.apis.google.com/chart?cht=gom&chs=280x100&chf=bg,lg,90,EFEFEF,0.75,999999,0&chxt=y&chd=t:" + balance_position + "&chl=Balance&chxr=0,0," + budget + "," + tick;
+			var uri = "http://chart.apis.google.com/chart?cht=gom&chs=280x100&chf=bg,lg,90,F4F5F7,0.75,E3E4EA,0&chxt=y&chd=t:" + balance_position + "&chl=Balance&chxr=0,0," + budget + "," + tick;
 			document.getElementById("chartdiv").src = uri;
+
 		}
+
 	
 		function convertToCurrency(){
 			document.getElementById("budget").value = '$' + document.getElementById("budget").value;
 			document.getElementById("balance").value = '$' + document.getElementById("balance").value;
 		}
+
 	
 
 </script>
@@ -309,6 +380,9 @@
 		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
 	</div>
 	<div id="tabs-7">
+		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+	</div>
+	<div id="tabs-8">
 		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
 	</div>
 	

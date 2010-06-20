@@ -101,6 +101,15 @@ class Purchase < ActiveRecord::Base
                :order => "amount desc"
   end 
 
+  def self.payer_purchases_by_consumers(payer_id, month)
+    self.sum   :amount,
+               :conditions => ["payer_id = ? and date('%m') = ?", payer_id, month],
+               :joins => "inner join consumers on purchases.consumer_id = consumer.id",
+               :group => "purchases.consumer_id",
+               :select => ("consumer_id, consumers.name, amount")
+
+  
+  end
   
   
 end

@@ -1,19 +1,60 @@
+.portlet-content-left img  {
+	display:inline;
+	float:right;
+}
 
+.portlet-content-right {
+	display:inline;
+	float:left;
+}
+
+#face {
+	position:absolute;
+	top:58px;
+	left:383px;
+}
+
+#radio {
+	margin-left:11px;
+}
+
+#circle {
+	position:absolute;
+	top:-30px;
+	left:200px;
+}
+
+#budget, #balance {
+	border-width:0;
+	text-align:right;
+}
 
 #budget {
-	border-width:0;
+	width:100px;
+}
+
+#balance {
+	width:120px;
 }
 
 #budget_slider, #balance_slider {
-	width:550px;
+	width:280px;
+	background: #E3E4EA;
+	border: 1.5px inset #666666;
+
 }
 
 form {
 	width:550px;
 }
 
-#budget:hover, #budget:active {
+#budget:hover, #budget:active, #balance:hover, #balance:active {
 	background-color:#FFFDCD;
+}
+
+.engrave {
+	border:1px inset #666666;
+	border-left-color:#999999;
 }
 
 #consumers, #column1, #column21 {
@@ -22,12 +63,13 @@ form {
 
 .column {
 	overflow:auto;
-	height:280px;
+	width: 250px; 
+	height:267px;
 	font-size:14px;
-	
+	float: left;
 }
 
-.column { width: 250px; float: left; padding-bottom: 5px; }
+
 .portlet { margin: 0 1em 1em 0; }
 .portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em; }
 .portlet-header .ui-icon { float: right; }
@@ -268,7 +310,7 @@ a.login:hover {
     margin-right: 20px;
 }
 
-.inner_content_text {
+.inner_content_text, .portlet-content {
 	font-family:Tahoma;
 	font-size:14px;
 	
