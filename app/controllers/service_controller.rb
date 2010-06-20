@@ -81,9 +81,13 @@ class ServiceController < ApplicationController
 
   def consumers
     
+    @consumer = session[:consumer]
     @consumers = session[:consumers]
     @consumers_counter = session[:consumers_counter]
-    render :partial => "consumers"
+    respond_to do |format|  
+      format.html { redirect_to :action => 'JP' }  
+      format.js  
+    end
     
   end
   

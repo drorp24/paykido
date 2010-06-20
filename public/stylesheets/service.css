@@ -57,11 +57,11 @@ form {
 	border-left-color:#999999;
 }
 
-#consumers, #column1, #column21 {
+#consumers, .column1 {
 	margin-left:-15px;
 }
 
-.column {
+.column, .column1, .column2 {
 	overflow:auto;
 	width: 250px; 
 	height:267px;

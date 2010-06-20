@@ -1,12 +1,10 @@
 $('#cheerful_message').fadeOut(1200); 
 $('#balance').val(<%= @consumer.balance %>);
 $('#budget').val(<%= @consumer_rules.allowance %>);
-$('#consumer_name').html("<%= @consumer.name %>'s Allowance");
-$('.ui-widget-header-lightness').blur(function() {
-	$(this).removeClass('ui-widget-header-lightness').addClass('ui-widget-header');
-});
-$('.portlet-header').click(function() {
-	$(this).removeClass('ui-widget-header').addClass('ui-widget-header-lightness');
-});
+<% if @consumer.name.blank? %>
+	$('#consumer_name').html("Consumer's Allowance");
+<% else %>
+	$('#consumer_name').html("<%= @consumer.name %>'s Allowance");
+<% end %>
 
 	

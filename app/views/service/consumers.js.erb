@@ -1,10 +1,43 @@
-<% i = 1 %>
-<% for consumer in @consumers %>
-	<% rem = i % 2 %>
-	<% if rem == 1 %>
-		$(<%= (param[:id]==1) ? '#column1':'#column21' %>).append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div onclick = "viewAllowance(<%= consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(consumer.billing_phone, :area_code => true)) %></div><div class="portlet-content" >Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
-	<% else %>
-		$((<%= (param[:id]==1) ? '#column1':'#column21' %>)).append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div onclick = "viewAllowance(<%= consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(number_to_phone(consumer.billing_phone, :area_code => true)) %></div><div class="portlet-content" >Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
+	<% i = 1 %>
+	<% for consumer in @consumers %>
+		<% rem = i % 2 %>
+		<% if rem == 1 %>
+			$('.column1').append(
+				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
+					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=consumer.id%>><%= escape_javascript((consumer.name.blank?)?'(Please define name)':consumer.name) %></div>'+
+					'<div class="portlet-content" >'+
+						'<div class="portlet-content-left">'+
+							'<%= image_tag "face_placeholder_small.png" %>'+
+						'</div>'+
+						'<div class="portlet-content-right">'+
+							'<p><%= "Spent #{number_to_currency(consumer.sum_amount)} in #{Time.now.strftime('%B')}" %></p>'+
+							'<p><%= "Current Balance #{number_to_currency(consumer.balance)}" %></p>'+		
+						'</div>'+
+					'</div>'+
+				'</div>');
+		<% else %>
+			$('.column2').append(
+				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
+					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=consumer.id%>><%= escape_javascript((consumer.name.blank?)?'(Please define name)':consumer.name) %></div>'+
+					'<div class="portlet-content" >'+
+						'<div class="portlet-content-left">'+
+							'<%= image_tag "face_placeholder_small.png" %>'+
+						'</div>'+
+						'<div class="portlet-content-right">'+
+							'<p><%= "Spent #{number_to_currency(consumer.sum_amount)} in #{Time.now.strftime('%B')}" %></p>'+
+							'<p><%= "Current Balance #{number_to_currency(consumer.balance)}" %></p>'+		
+						'</div>'+
+					'</div>'+
+				'</div>');
+		<% end %>
+		<% i += 1 %>
 	<% end %>
-	<% i += 1 %>
-<% end %>
+	
+	$('.allowance .portlet-header').click(function () { 
+	  $('.portlet-header').removeClass('ui-widget-header-lightness');
+	  $(this).addClass('ui-widget-header-lightness');
+       viewAllowance($(this).attr('id'));
+    });
+
+
+	

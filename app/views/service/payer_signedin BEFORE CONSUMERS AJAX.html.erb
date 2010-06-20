@@ -1,96 +1,3 @@
-<script type="text/javascript">
-
-	function modifyBudget () {
-		
-		$(function () {
-			var budget_with_currency = document.getElementById("budget").value;
-			var budget = Number(budget_with_currency.replace(/[^0-9\.]+/g,""));
-			$("#budget_slider").slider({
-				value: budget,
-				min: 0,
-				max: 150,
-				slide: function(event, ui) {
-					$("#budget").val('$' + ui.value +'.00');
-				}
-			});
-			$("#budget").val('$' + $("#budget_slider").slider("value")+'.00');
-			drawChart();
-		});
-	}	
-	
-	function modifyBalance () {
-		
-		$(function () {
-			var budget_with_currency = document.getElementById("budget").value;
-			var budget = Number(budget_with_currency.replace(/[^0-9\.]+/g,""));
-			var balance_with_currency = document.getElementById("balance").value;
-			var balance = Number(balance_with_currency.replace(/[^0-9\.]+/g,""));
-			$("#balance_slider").slider({
-				value: balance,
-				min: 0,
-				max: 150,
-				slide: function(event, ui) {
-					$("#balance").val('$' + ui.value +'.00');
-				}
-			});
-			$("#balance").val('$' + $("#balance_slider").slider("value")+'.00');
-			drawChart();
-		});
-	}	
-
-	function drawChart(){
-
-		var budget_with_currency = document.getElementById("budget").value;
-		var budget = Number(budget_with_currency.replace(/[^0-9\.]+/g, ""));
-		var balance_with_currency = document.getElementById("balance").value;
-		var balance = Number(balance_with_currency.replace(/[^0-9\.]+/g, ""));
-		if (balance > budget) {
-			balance = budget;
-			document.getElementById("balance").value = '$' + budget + '.00';
-			modifyBalance ();
-		}
-		var balance_position = (balance / budget) * 100;
-		var tick = ((budget / 40).toFixed(1)) * 10;
-		var background = "chf=c,lg,90,FFE7C6,0,76A4FB,0.5"
-		var uri = "http://chart.apis.google.com/chart?cht=gom&chs=280x100&chf=bg,lg,90,F4F5F7,0.75,E3E4EA,0&chxt=y&chd=t:" + balance_position + "&chl=Balance&chxr=0,0," + budget + "," + tick;
-		document.getElementById("chartdiv").src = uri;
-
-	}
-
-	
-	function convertToCurrency(){
-		document.getElementById("budget").value = '$' + document.getElementById("budget").value;
-		document.getElementById("balance").value = '$' + document.getElementById("balance").value;
-	}
-
-
-	function viewAllowance(consumer){
-	$.ajax({
-		url: 'allowance/'+consumer,
-		success: function(data){
-			drawChart();
-			modifyBudget();
-			modifyBalance();			
-			$(function() {
-				$("#radio").buttonset();
-			});
-
-		}
-	})
-	};
-
-
-	function viewConsumers(){
-	$.ajax({url: 'consumers'})};
-
-	<% if session[:consumers_counter] > 0 %>
-		viewAllowance (<%= session[:consumer].id %>);
-		viewConsumers ();	
-	<% end %>
-
-</script>
-
-
 <div id="tabs">
 	<ul>
 		<li><a href="#tabs-1">Consumers</a></li>
@@ -125,20 +32,57 @@
 			</div>
 		</div>
 		<div class="right_content">
-			<% if @consumers.empty? %>				
-				<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>
-			<% else %>
-				<p class="inner_content_title" id="consumers">My Close Circle</p>
-				<br />
-				<div class="column1" >
-				</div>
-				<div class="column2" >
-				</div>
-			<% end %>
-		<%= image_tag 'circle.png', :id => "circle" %>
+	<% if @consumers.empty? %>				
+		<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>
+	<% else %>
+		<p class="inner_content_title" id="consumers">My Close Circle</p>
+		<br />
+		<div class="column" id="column1">
 		</div>
+		<div class="column" id="column2">
+		</div>
+	<% end %>
+	<%= image_tag 'circle.png', :id => "circle" %>
 	</div>
+</div>
 
+<script type="text/javascript">
+	<% i = 1 %>
+	<% for consumer in @consumers %>
+		<% rem = i % 2 %>
+		<% if rem == 1 %>
+			$('#column1').append(
+				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
+					'<div class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript((consumer.name.blank?)?'(Please define name)':consumer.name) %></div>'+
+					'<div class="portlet-content" >'+
+						'<div class="portlet-content-left">'+
+							'<%= image_tag "face_placeholder_small.png" %>'+
+						'</div>'+
+						'<div class="portlet-content-right">'+
+							'<p><%= "Spent #{number_to_currency(consumer.sum_amount)} in #{Time.now.strftime('%B')}" %></p>'+
+							'<p><%= "Current Balance #{number_to_currency(consumer.balance)}" %></p>'+		
+						'</div>'+
+					'</div>'+
+				'</div>');
+		<% else %>
+			$('#column2').append(
+				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
+					'<div class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript((consumer.name.blank?)?'(Please define name)':consumer.name) %></div>'+
+					'<div class="portlet-content" >'+
+						'<div class="portlet-content-left">'+
+							'<%= image_tag "face_placeholder_small.png" %>'+
+						'</div>'+
+						'<div class="portlet-content-right">'+
+							'<p><%= "Spent #{number_to_currency(consumer.sum_amount)} in #{Time.now.strftime('%B')}" %></p>'+
+							'<p><%= "Current Balance #{number_to_currency(consumer.balance)}" %></p>'+		
+						'</div>'+
+					'</div>'+
+				'</div>');
+		<% end %>
+		<% i += 1 %>
+	<% end %>
+
+</script>
 
 <div id="tabs-2">
 
@@ -178,15 +122,163 @@
 	<% else %>
 		<p class="inner_content_title" id="consumers">My Close Circle</p>
 		<br />
-		<div class="column1 allowance">
+		<div class="column" id="column21">
 		</div>
-		<div class="column2 allowance">
+		<div class="column" id="column22">
 		</div>
 	<% end %>
 	<%= image_tag 'circle.png', :id => "circle" %>
 	</div>				
 </div>
 
+
+<script type="text/javascript">
+	
+
+		<% if session[:consumers_counter] > 0 %>
+			viewAllowance (<%= session[:consumer].id %>);
+			viewConsumers2 ();	
+		<% end %>
+		
+
+		function viewAllowance(consumer){
+		$.ajax({
+			url: 'allowance/'+consumer,
+			success: function(data){
+				drawChart();
+				modifyBudget();
+				modifyBalance();			
+				$(function() {
+					$("#radio").buttonset();
+					});
+
+			}
+			})
+		};
+	
+
+		function viewConsumers2 () {
+
+/*
+		<% i = 1 %>
+		<% for consumer in @consumers %>
+			<% rem = i % 2 %>
+			<% if rem == 1 %>
+				$('#column21').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div onclick = "viewAllowance(<%= consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(consumer.name) %></div><div class="portlet-content" >Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
+			<% else %>
+				$('#column22').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div onclick = "viewAllowance(<%= consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(consumer.name) %></div><div class="portlet-content" >Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
+			<% end %>
+			<% i += 1 %>
+		<% end %>
+
+
+*/		
+		<% i = 1 %>
+		<% for consumer in @consumers %>
+			<% rem = i % 2 %>
+			<% if rem == 1 %>
+				$('#column21').append(
+					'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
+						'<div onclick = "viewAllowance(<%= consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript((consumer.name.blank?)?'(Please define name)':consumer.name) %></div>'+
+						'<div class="portlet-content" >'+
+							'<div class="portlet-content-left">'+
+								'<%= image_tag "face_placeholder_small.png" %>'+
+							'</div>'+
+							'<div class="portlet-content-right">'+
+								'<p><%= "Spent #{number_to_currency(consumer.sum_amount)} in #{Time.now.strftime('%B')}" %></p>'+
+								'<p><%= "Current Balance #{number_to_currency(consumer.balance)}" %></p>'+		
+							'</div>'+
+						'</div>'+
+					'</div>');
+			<% else %>
+				$('#column22').append(
+					'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
+						'<div onclick = "viewAllowance(<%= consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript((consumer.name.blank?)?'(Please define name)':consumer.name) %></div>'+
+						'<div class="portlet-content" >'+
+							'<div class="portlet-content-left">'+
+								'<%= image_tag "face_placeholder_small.png" %>'+
+							'</div>'+
+							'<div class="portlet-content-right">'+
+								'<p><%= "Spent #{number_to_currency(consumer.sum_amount)} in #{Time.now.strftime('%B')}" %></p>'+
+								'<p><%= "Current Balance #{number_to_currency(consumer.balance)}" %></p>'+		
+							'</div>'+
+						'</div>'+
+					'</div>');
+			<% end %>
+			<% i += 1 %>
+		<% end %>
+		
+		}
+
+		function modifyBudget () {
+		
+			$(function () {
+			  	var budget_with_currency = document.getElementById("budget").value;
+				var budget = Number(budget_with_currency.replace(/[^0-9\.]+/g,""));
+				$("#budget_slider").slider({
+					value: budget,
+					min: 0,
+					max: 150,
+					slide: function(event, ui) {
+						$("#budget").val('$' + ui.value +'.00');
+					}
+				});
+				$("#budget").val('$' + $("#budget_slider").slider("value")+'.00');
+				drawChart();
+
+			});
+		}	
+	
+		function modifyBalance () {
+		
+			$(function () {
+			  	var budget_with_currency = document.getElementById("budget").value;
+				var budget = Number(budget_with_currency.replace(/[^0-9\.]+/g,""));
+			  	var balance_with_currency = document.getElementById("balance").value;
+				var balance = Number(balance_with_currency.replace(/[^0-9\.]+/g,""));
+				$("#balance_slider").slider({
+					value: balance,
+					min: 0,
+					max: 150,
+					slide: function(event, ui) {
+						$("#balance").val('$' + ui.value +'.00');
+					}
+				});
+				$("#balance").val('$' + $("#balance_slider").slider("value")+'.00');
+				drawChart();
+			});
+		}	
+
+	
+
+		function drawChart(){
+
+			var budget_with_currency = document.getElementById("budget").value;
+			var budget = Number(budget_with_currency.replace(/[^0-9\.]+/g, ""));
+			var balance_with_currency = document.getElementById("balance").value;
+			var balance = Number(balance_with_currency.replace(/[^0-9\.]+/g, ""));
+			if (balance > budget) {
+				balance = budget;
+				document.getElementById("balance").value = '$' + budget + '.00';
+				modifyBalance ();
+			}
+			var balance_position = (balance / budget) * 100;
+			var tick = ((budget / 40).toFixed(1)) * 10;
+			var background = "chf=c,lg,90,FFE7C6,0,76A4FB,0.5"
+			var uri = "http://chart.apis.google.com/chart?cht=gom&chs=280x100&chf=bg,lg,90,F4F5F7,0.75,E3E4EA,0&chxt=y&chd=t:" + balance_position + "&chl=Balance&chxr=0,0," + budget + "," + tick;
+			document.getElementById("chartdiv").src = uri;
+
+		}
+
+	
+		function convertToCurrency(){
+			document.getElementById("budget").value = '$' + document.getElementById("budget").value;
+			document.getElementById("balance").value = '$' + document.getElementById("balance").value;
+		}
+
+	
+
+</script>
 
 
 <div id="tabs-3">
