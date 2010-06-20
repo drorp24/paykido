@@ -6,18 +6,18 @@ jQuery.ajaxSetup({
 });
 
 
-
+jQuery.fn.submitWithAjax = function () {  
+	this.submit(function () {  
+		$.post($(this).attr('action'), $(this).serialize(), null, "script");  
+	    return false;  
+	  });  
+	}; 
+	
 $(document).ready(function (){  
 		 
-
-	$('#phone_form').submit(function (){  
-   		$.post($(this).attr('action'), $(this).serialize(), null, "script");  
-    	return false;  
-   });  
-	$('#pin_form').submit(function (){  
-   		$.post($(this).attr('action'), $(this).serialize(), null, "script");  
-    	return false;  
-   });  
+	$('#phone_form').submitWithAjax(); 
+	$('#pin_form').submitWithAjax();
+	$('#allowance_form').submitWithAjax();
 
 		 
 		$(function(){
@@ -73,10 +73,13 @@ $(document).ready(function (){
 		$(function() {
 			$("#check").button();
 		});
+
+
 		$(function() {
 			$("#radio").buttonset();
 		});
-		
+
+	
 
 
 });

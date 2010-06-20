@@ -120,12 +120,12 @@ class ServiceController < ApplicationController
 
     if session[:consumer] and session[:consumer].id == params[:id]
       @consumer = session[:consumer]
-      @consumer_rules = session[:consumer_rules]
+      @payer_rule = session[:payer_rule]
     else
       @consumer = Consumer.find(params[:id])
-      @consumer_rules = @consumer.most_recent_payer_rule
+      @payer_rule = @consumer.most_recent_payer_rule
       session[:consumer] = @consumer
-      session[:consumer_rules] = @consumer_rules
+      session[:payer_rule] = @payer_rule
     end
     
     respond_to do |format|  
@@ -133,6 +133,21 @@ class ServiceController < ApplicationController
       format.js  
     end
 
+  end
+  
+  def allowance_update
+    
+    @consumer = session[:consumer]
+    @payer_rules = session[:payer_rules]
+    @consumer.update_attributes!(params[:consumer]) unless @consumer.balance == params[:consumer][:balance]
+    @payer_rule.update_attributes!(params[:payer_rule]) unless @payer_rule.allowance == params[:payer_rule][:allowance] and @payer_rule.rollover == params[:payer_rule][:rollover]
+    
+    respond_to do |format|  
+      format.html { redirect_to :action => 'JP' }  
+      format.js  
+    end
+
+    
   end
   
   def retailer_signedin
@@ -233,7 +248,7 @@ class ServiceController < ApplicationController
     else
         @consumer.update_attributes!(:payer_id => @payer.id, :balance => @payer_rule.allowance)
         session[:consumer] = @consumer
-        session[:consumer_rules] = @consumer.payer_rules.create!(:allowance => @payer_rule.allowance, :rollover => @payer_rule.rollover, :auto_authorize_under => @payer_rule.auto_authorize_under, :auto_deny_over => @payer_rule.auto_deny_over)
+        session[:payer_rule] = @consumer.payer_rules.create!(:allowance => @payer_rule.allowance, :rollover => @payer_rule.rollover, :auto_authorize_under => @payer_rule.auto_authorize_under, :auto_deny_over => @payer_rule.auto_deny_over)
         session[:consumers] = session[:consumers] << @consumer
         @consumers = session[:consumers]
         @consumers_counter += 1
@@ -300,13 +315,13 @@ class ServiceController < ApplicationController
     @payer_rule =   session[:payer_rule]
     @retailer = session[:retailer]
     @consumer = session[:consumer]
-    @consumer_rule =  session[:consumer_rule]
+    @payer_rule =  session[:payer_rule]
 
   end
 
 
   def clear_session
-    session[:user] = session[:payer] = session[:payer_rule] = session[:consumer] = session[:consumer_rule]  = session[:retailer] = 
+    session[:user] = session[:payer] = session[:payer_rule] = session[:consumer] = session[:payer_rule]  = session[:retailer] = 
     session[:expected_pin] = session[:consumers_counter] = nil
   end
   

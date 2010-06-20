@@ -1,10 +1,11 @@
 $('#cheerful_message').fadeOut(1200); 
 $('#balance').val(<%= @consumer.balance %>);
-$('#budget').val(<%= @consumer_rules.allowance %>);
+$('#budget').val(<%= @payer_rule.allowance %>);
+$('#payer_rule_rollover_human_on').attr('checked', "<%= (@payer_rule.rollover?) ?"checked":""  %>")
+$('#payer_rule_rollover_human_off').attr('checked', "<%= (@payer_rule.rollover?) ?"":"checked"  %>")
 <% if @consumer.name.blank? %>
 	$('#consumer_name').html("Consumer's Allowance");
 <% else %>
 	$('#consumer_name').html("<%= @consumer.name %>'s Allowance");
 <% end %>
-
 	

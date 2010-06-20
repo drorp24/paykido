@@ -20,7 +20,7 @@
 
 #circle {
 	position:absolute;
-	top:-30px;
+	top:-40px;
 	left:200px;
 }
 
@@ -89,15 +89,15 @@ form {
 
 #phone_notice {
 	position:absolute;
-	top:205px;
-	left:20px;
+	top:212px;
+	left:15px;
 
 }
 
 #pin_notice {
 	position:absolute;
-	top:305px;
-	left:20px;
+	top:312px;
+	left:15px;
 
 }
 .red {

@@ -4,7 +4,7 @@
 		<% if rem == 1 %>
 			$('.column1').append(
 				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
-					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=consumer.id%>><%= escape_javascript((consumer.name.blank?)?'(Please define name)':consumer.name) %></div>'+
+					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=consumer.id%>><%= escape_javascript((consumer.name.blank?)?'(Please specify name)':consumer.name) %></div>'+
 					'<div class="portlet-content" >'+
 						'<div class="portlet-content-left">'+
 							'<%= image_tag "face_placeholder_small.png" %>'+
@@ -18,7 +18,7 @@
 		<% else %>
 			$('.column2').append(
 				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
-					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=consumer.id%>><%= escape_javascript((consumer.name.blank?)?'(Please define name)':consumer.name) %></div>'+
+					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=consumer.id%>><%= escape_javascript((consumer.name.blank?)?'(Please specify name)':consumer.name) %></div>'+
 					'<div class="portlet-content" >'+
 						'<div class="portlet-content-left">'+
 							'<%= image_tag "face_placeholder_small.png" %>'+
