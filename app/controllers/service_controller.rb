@@ -54,7 +54,6 @@ class ServiceController < ApplicationController
 
       if @user.is_payer
         session[:payer] = @user.payer
-        session[:payer_rule] = @user.payer.most_recent_payer_rule
         redirect_to :action => :payer_signedin
       elsif @user.is_retailer
         session[:retailer] = @user.retailer
@@ -83,7 +82,12 @@ class ServiceController < ApplicationController
     
     @consumer = session[:consumer]
     @consumers = session[:consumers]
-    @consumers_counter = session[:consumers_counter]
+    if params[:id] != "0"
+      @consumer_added = Consumer.added(params[:id])
+      @consumers << @consumer_added
+      session[:consumers] = @consumers
+    end
+    
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
       format.js  
@@ -101,32 +105,16 @@ class ServiceController < ApplicationController
       didnt_purchase = all - purchased
       @consumers = purchased + didnt_purchase                                 
     end
-    
-    if @consumers.empty?
-      flash[:message] = "Welcome to arca!" 
-      @consumer = Consumer.new
-      session[:consumers] = nil
-      session[:consumers_counter] = 0
-    else
-      @consumer = @consumers[0] 
-      session[:consumers] = @consumers    
-      session[:consumers_counter] = @consumers.size
-    end
-    session[:consumer] = @consumer
+        
+    session[:consumers] = @consumers 
+
+    flash[:message] = "Welcome to arca!" if @consumers.empty?
     
   end
  
   def allowance
 
-    if session[:consumer] and session[:consumer].id == params[:id]
-      @consumer = session[:consumer]
-      @payer_rule = session[:payer_rule]
-    else
-      @consumer = Consumer.find(params[:id])
-      @payer_rule = @consumer.most_recent_payer_rule
-      session[:consumer] = @consumer
-      session[:payer_rule] = @payer_rule
-    end
+    find_consumer
     
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
@@ -135,12 +123,9 @@ class ServiceController < ApplicationController
 
   end
   
-  def allowance_update
+  def approvals
     
-    @consumer = session[:consumer]
-    @payer_rules = session[:payer_rules]
-    @consumer.update_attributes!(params[:consumer]) unless @consumer.balance == params[:consumer][:balance]
-    @payer_rule.update_attributes!(params[:payer_rule]) unless @payer_rule.allowance == params[:payer_rule][:allowance] and @payer_rule.rollover == params[:payer_rule][:rollover]
+    find_consumer
     
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
@@ -149,6 +134,21 @@ class ServiceController < ApplicationController
 
     
   end
+  
+  def consumer_rules_update
+    
+    @consumer = session[:consumer]
+    @payer_rule = session[:payer_rule]
+    @consumer.update_attributes!(params[:consumer]) if params[:consumer] and @consumer.balance != params[:consumer][:balance]
+    @payer_rule.update_attributes!(params[:payer_rule]) 
+    
+    respond_to do |format|  
+      format.html { redirect_to :action => 'JP' }  
+      format.js  
+    end
+    
+  end
+  
   
   def retailer_signedin
      
@@ -211,8 +211,6 @@ class ServiceController < ApplicationController
   
   def check_pin_and_link_consumer
     
-    @consumers_counter = session[:consumers_counter]
-    @consumer = session[:consumer]
     
     unless session[:phone_is_ok]
       flash[:notice] = "Please handle the phone number first"
@@ -223,8 +221,7 @@ class ServiceController < ApplicationController
       end 
       return
     end
-   
-       
+          
     if params[:consumer][:pin] != session[:expected_pin]
         flash[:notice] = "Incorrect PIN code [#{session[:expected_pin]}]. Please try again!"
         @phone = nil
@@ -233,10 +230,10 @@ class ServiceController < ApplicationController
           format.js  
         end
         return
-    end
-    
+    end    
         
     @consumer = session[:consumer]
+    @payer_rule = session[:payer_rule]
     
     if @consumer.payer_id                       # case of repeating the submit button after the consumer has been linked
         flash[:notice] = "Phone is already assigned to you!"
@@ -246,14 +243,11 @@ class ServiceController < ApplicationController
           format.js  
         end         
     else
-        @consumer.update_attributes!(:payer_id => @payer.id, :balance => @payer_rule.allowance)
-        session[:consumer] = @consumer
-        session[:payer_rule] = @consumer.payer_rules.create!(:allowance => @payer_rule.allowance, :rollover => @payer_rule.rollover, :auto_authorize_under => @payer_rule.auto_authorize_under, :auto_deny_over => @payer_rule.auto_deny_over)
-        session[:consumers] = session[:consumers] << @consumer
-        @consumers = session[:consumers]
-        @consumers_counter += 1
-        session[:consumers_counter] = @consumers_counter   
+        find_def_payer_rule
+        @consumer.update_attributes!(:payer_id => @payer.id, :balance => @def_payer_rule.allowance)
         @phone = @consumer.billing_phone
+        session[:consumer] = @consumer
+        session[:payer_rule] = @consumer.payer_rules.create!(:allowance => @def_payer_rule.allowance, :rollover => @def_payer_rule.rollover, :auto_authorize_under => @def_payer_rule.auto_authorize_under, :auto_deny_over => @def_payer_rule.auto_deny_over)
         flash[:message] = "Thank you. #{number_to_phone(@phone, :area_code => true)} is now assigned to you!"
  
         respond_to do |format|  
@@ -306,6 +300,41 @@ class ServiceController < ApplicationController
     end
     
   end
+  
+  def find_consumer
+    
+    if session[:consumer] and session[:consumer].id == params[:id]
+      @consumer = session[:consumer]
+      @payer_rule = session[:payer_rule]
+    elsif params[:id] and params[:id] != "0"
+      @consumer = Consumer.find(params[:id])
+      @payer_rule = @consumer.most_recent_payer_rule
+    else      # params[:id] == 999 (indicating a blank consumer)
+      @consumer = init_consumer
+      @payer_rule = init_payer_rule
+    end
+   
+    session[:consumer] = @consumer
+    session[:payer_rule] = @payer_rule
+    
+  end
+  
+  def init_consumer
+    Consumer.new(:balance => 0)
+  end
+  
+  def init_payer_rule
+    PayerRule.new(:allowance => 0, :rollover => false, :auto_authorize_under => 0, :auto_deny_over => 1)
+  end
+    
+  
+  def find_def_payer_rule
+    
+    @def_payer_rule = PayerRule.find_by_payer_id(@payer.id)
+    
+    @def_payer_rule ||= init_payer_rule 
+    
+  end
  
   
   def set_environment
@@ -315,14 +344,13 @@ class ServiceController < ApplicationController
     @payer_rule =   session[:payer_rule]
     @retailer = session[:retailer]
     @consumer = session[:consumer]
-    @payer_rule =  session[:payer_rule]
 
   end
 
 
   def clear_session
-    session[:user] = session[:payer] = session[:payer_rule] = session[:consumer] = session[:payer_rule]  = session[:retailer] = 
-    session[:expected_pin] = session[:consumers_counter] = nil
+    session[:user] = session[:payer] = session[:consumer] = session[:consumers] = session[:payer_rule]  = 
+    session[:retailer] = session[:expected_pin] = nil
   end
   
 end

@@ -24,7 +24,7 @@
 	left:200px;
 }
 
-#budget, #balance {
+#budget, #balance, #under, #over {
 	border-width:0;
 	text-align:right;
 }
@@ -37,7 +37,15 @@
 	width:120px;
 }
 
-#budget_slider, #balance_slider {
+#under {
+	width:143px;
+}
+
+#over {
+	width: 131px;
+}
+
+#budget_slider, #balance_slider, #slider-range {
 	width:280px;
 	background: #E3E4EA;
 	border: 1.5px inset #666666;
@@ -48,7 +56,7 @@ form {
 	width:550px;
 }
 
-#budget:hover, #budget:active, #balance:hover, #balance:active {
+#budget:hover, #budget:active, #balance:hover, #balance:active, #under:hover, #over:hover {
 	background-color:#FFFDCD;
 }
 

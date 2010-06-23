@@ -18,6 +18,7 @@ $(document).ready(function (){
 	$('#phone_form').submitWithAjax(); 
 	$('#pin_form').submitWithAjax();
 	$('#allowance_form').submitWithAjax();
+	$('#amounts_form').submitWithAjax();
 
 		 
 		$(function(){
@@ -44,7 +45,7 @@ $(document).ready(function (){
 		});
 		$(function() {
 			$("#tabs").tabs().find(".ui-tabs-nav").sortable({axis:'x'});
-	});
+		});
 	
 		$(function() {
 			$("#selectable").selectable();

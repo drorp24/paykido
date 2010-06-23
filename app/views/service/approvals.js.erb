@@ -1,0 +1,8 @@
+$('#under').val(<%= @payer_rule.auto_authorize_under %>);
+$('#over').val(<%= @payer_rule.auto_deny_over %>);
+<% if @consumer.name.blank? %>
+	$('#consumer_name_approvals').html("Consumer's Thresholds");
+<% else %>
+	$('#consumer_name_approvals').html("<%= @consumer.name %>'s Thresholds");
+<% end %>
+	

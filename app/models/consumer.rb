@@ -55,6 +55,13 @@ class Consumer < ActiveRecord::Base
 
     
   end
+  
+  def self.added(id)
+    
+        self.find(id,
+               :select => "consumers.id, 0 as sum_amount, balance, name, billing_phone, pic")
+
+  end
    
    
 end

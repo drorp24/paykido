@@ -1,10 +1,63 @@
+<% if @consumers.empty? %>
+
+	$('.consumers_list').append(	
+		'<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>');
+		
+	$(function() {
+		$('#tabs').tabs("option","disabled", [1, 2, 3, 4, 5]);
+	});
+		
+<% elsif @consumer_added %>
+
+	$('#cheerful_message').fadeOut(1200);
+	<% rem = @consumers.size % 2 %>
+	<% if rem == 1 %>
+			$('.column1').prepend(
+				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
+					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=@consumer_added.id%>><%= escape_javascript((@consumer_added.name.blank?)?'(new consumer)':@consumer_added.name) %></div>'+
+					'<div class="portlet-content" >'+
+						'<div class="portlet-content-left">'+
+							'<%= image_tag "face_placeholder_small.png" %>'+
+						'</div>'+
+						'<div class="portlet-content-right">'+
+							'<p><%= "Spent #{number_to_currency(@consumer_added.sum_amount)} in #{Time.now.strftime('%B')}" %></p>'+
+							'<p><%= "Current Balance #{number_to_currency(@consumer_added.balance)}" %></p>'+		
+						'</div>'+
+					'</div>'+
+				'</div>');
+	
+	<% else %>
+			$('.column2').prepend(
+				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
+					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=@consumer_added.id%>><%= escape_javascript((@consumer_added.name.blank?)?'(new consumer)':@consumer_added.name) %></div>'+
+					'<div class="portlet-content" >'+
+						'<div class="portlet-content-left">'+
+							'<%= image_tag "face_placeholder_small.png" %>'+
+						'</div>'+
+						'<div class="portlet-content-right">'+
+							'<p><%= "Spent #{number_to_currency(@consumer_added.sum_amount)} in #{Time.now.strftime('%B')}" %></p>'+
+							'<p><%= "Current Balance #{number_to_currency(@consumer_added.balance)}" %></p>'+		
+						'</div>'+
+					'</div>'+
+				'</div>');	
+	<% end %>
+	
+	consumer_info(<%= @consumer_added.id %>);
+	
+<% else %>
+	$('.consumers_list').append(	
+		'<p class="inner_content_title" id="consumers">My Close Circle</p>' +
+		'<div class="column1" ></div>' +
+		'<div class="column2" ></div>' +
+		'<%= image_tag 'circle.png', :id => "circle" %>');
+			
 	<% i = 1 %>
 	<% for consumer in @consumers %>
 		<% rem = i % 2 %>
 		<% if rem == 1 %>
 			$('.column1').append(
 				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
-					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=consumer.id%>><%= escape_javascript((consumer.name.blank?)?'(Please specify name)':consumer.name) %></div>'+
+					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=consumer.id%>><%= escape_javascript((consumer.name.blank?)?'(new consumer)':consumer.name) %></div>'+
 					'<div class="portlet-content" >'+
 						'<div class="portlet-content-left">'+
 							'<%= image_tag "face_placeholder_small.png" %>'+
@@ -18,7 +71,7 @@
 		<% else %>
 			$('.column2').append(
 				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
-					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=consumer.id%>><%= escape_javascript((consumer.name.blank?)?'(Please specify name)':consumer.name) %></div>'+
+					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=consumer.id%>><%= escape_javascript((consumer.name.blank?)?'(new consumer)':consumer.name) %></div>'+
 					'<div class="portlet-content" >'+
 						'<div class="portlet-content-left">'+
 							'<%= image_tag "face_placeholder_small.png" %>'+
@@ -32,12 +85,15 @@
 		<% end %>
 		<% i += 1 %>
 	<% end %>
-	
-	$('.allowance .portlet-header').click(function () { 
-	  $('.portlet-header').removeClass('ui-widget-header-lightness');
-	  $(this).addClass('ui-widget-header-lightness');
-       viewAllowance($(this).attr('id'));
-    });
 
-
+	if (!$('.portlet-header').hasClass('ui-widget-header-lightness'))
+		{consumer_info(<%= @consumers[0].id %>);}
 	
+<% end %>
+	
+
+	$('.portlet-header').click(function () { 
+		
+		consumer_info($(this).attr('id'));
+		
+	 });	

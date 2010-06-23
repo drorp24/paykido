@@ -1,29 +1,19 @@
 $('#phone_notice').remove();
 $('#pin_notice').remove(); 
 $('#cheerful_message').remove(); 
-
 $('#pin_form').after('<div id ="pin_notice" class="field_notice small_note red" ><%= escape_javascript(flash.delete(:notice)) %></div>');
 
-var consumers_counter = <%= @consumers_counter %>
 var phone = "<%= @phone %>" ;
 
-if (consumers_counter == 1 && phone != "")
-	{$('.right_content').html('<div class="inner_content_title plain_message"></div><p class="inner_content_title" id="consumers">Existing Consumers</p><div class="column" id="column1"></div><div class="column" id="column2"></div>');}			
 if (phone != "") {
-	rem = consumers_counter % 2;
-	viewAllowance(<%= session[:consumer].id %>);
-	if 		(rem == 1)
-	{
-	$('#column1').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(@consumer.name) %></div><div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
-	$('#column21').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div onclick = "viewAllowance(<%= @consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(@consumer.name) %></div><div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
-	}
-	else 
-	{
-	$('#column2').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(@consumer.name) %></div><div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
-	$('#column22').append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div onclick = "viewAllowance(<%= @consumer.id %>)" class="portlet-header ui-widget-header ui-corner-all"><%= escape_javascript(@consumer.name) %></div><div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div></div>');
-	}
-	}
-		
+	$('.righthandside_marketial').remove();
+	$('#notice').remove();
+	$(function() {
+		$('#tabs').tabs( "option", "disabled", false );
+	}); 
+	viewConsumers (<%= @consumer.id %>);
+}		
+
 <% if flash[:message] %>
 	$('#tabs').before('<div class="ui-widget message" id="cheerful_message"><div id="notice" class="ui-state-highlight ui-corner-all"><p><span style="float: left; margin-right: 0.3em;" class="ui-icon ui-icon-info"></span><span><%= escape_javascript(flash.delete(:message)) %></span></p></div></div>');
 <% end %>

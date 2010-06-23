@@ -95,51 +95,101 @@
 		document.getElementById("budget").value = '$' + document.getElementById("budget").value;
 		document.getElementById("balance").value = '$' + document.getElementById("balance").value;
 	}
+		
+	function modifyUnderOver(verb) {
+		
+		$(function () {
+		
+			under = document.getElementById("under").value;
+			over = document.getElementById("over").value;
+			if (under.charAt(0) == '$') {under = under.slice(1)}
+			if (over.charAt(0) == '$') {over = over.slice(1)}
+	
+			$("#slider-range").slider({
+				range: true,
+				min: 0,
+				max: 100,
+				values: [under, over],
+				slide: function(event, ui) {
+					$("#under").val('$' + ui.values[0] + '.00');
+					$("#over").val('$' + ui.values[1] + '.00');
+				}
+			});
+	
+			$("#under").val('$' + $("#slider-range").slider("values", 0) + '.00');
+			$("#over").val('$' + $("#slider-range").slider("values", 1) + '.00');
+			});
+
+		if (verb == "post") {
+			$('#amounts_form').submit();
+		}
+
+	}
+
+
+
+	function viewConsumers(new_id){
+		$.ajax({
+			url: 'consumers/'+new_id})};
 
 
 	function viewAllowance(consumer){
-	$.ajax({
-		url: 'allowance/'+consumer,
-		success: function(data){
-			drawChart();
-			modifyBudget('get');
-			modifyBalance('get');			
-
-			$(function() {
-				$("#radio").buttonset();
-			});
-
+		$.ajax({
+			url: 'allowance/'+consumer,
+			success: function(data){
+				drawChart();
+				modifyBudget('get');
+				modifyBalance('get');			
+				$(function() {$("#radio").buttonset();
+				});
 		}
 	})
 	};
 
+	function viewApprovals(consumer){
+		$.ajax({
+			url: 'approvals/'+consumer,
+			success: function(data){
+				modifyUnderOver('get');
+			}
+		})
+	};
 
-	function viewConsumers(){
-	$.ajax({url: 'consumers'})};
 
-	<% if session[:consumers_counter] > 0 %>
-		viewAllowance (<%= session[:consumer].id %>);
-		viewConsumers ();	
-	<% end %>
+
+	function consumer_info(id) {
+
+		var selector = "div[id = " + id.toString() + " ]"
+			
+		$('.portlet-header').removeClass('ui-widget-header-lightness');
+		$(selector).addClass('ui-widget-header-lightness');
+		viewAllowance(id);
+		viewApprovals(id);
+	}
+
+
+/*	Populate tabs by calling ajax  */
+
+		viewConsumers (0);	
 
 </script>
 
 
 <div id="tabs">
 	<ul>
-		<li><a href="#tabs-1">Consumers</a></li>
-		<li><a href="#tabs-2">Allowance</a></li>
-		<li><a href="#tabs-3">Inbox</a></li>
-		<li><a href="#tabs-4">Content</a></li>
-		<li><a href="#tabs-5">Rules</a></li>
-		<li><a href="#tabs-6">Purchases!</a></li>
-		<li><a href="#tabs-7">Account</a></li>
-				<li><a href="#tabs-8">Alerts!</a></li>
+		<li><a href="#consumers">Consumers</a></li>
+		<li><a href="#allowance">Allowance</a></li>
+		<li><a href="#approvals">Approvals</a></li>
+		<li><a href="#content">Content</a></li>
+		<li><a href="#inbox">Inbox</a></li>
+		<li><a href="#purchases">Purchases!</a></li>
+		<li><a href="#account">Account</a></li>
+				<li><a href="#alerts">Alerts!</a></li>
 
 	</ul>
 
 
-	<div id="tabs-1">
+	<div id="consumers">
 		<div class="left_content">
 			<p class="inner_content_title">Who would you like to take care for?</p>
 			<div class="inner_content_indented">
@@ -158,165 +208,95 @@
 				<% end %>
 			</div>
 		</div>
-		<div class="right_content">
+		<div class="right_content consumers_list">
+		</div>
+	</div>
+
+
+	<div id="allowance">
+		<div class="left_content" id="allowance_consumer">
+			<p class="inner_content_title" id="consumer_name_allowance"></p>		
+			<img id='chartdiv' class="engrave"/>
+			<br /><br /><br />
+			<% form_for :payer_rule, :url => { :action => :consumer_rules_update }, :html => {:id => "allowance_form"} do |f| %>			
+			    <span class="long item">Monthly Allowance:</span>
+				<span class="value"><%= f.text_field(:edited_budget, :onchange => "modifyBudget('post')", :id => "budget", :size => 10) %></span>
+			    <div class="long item" id="budget_slider" onclick="modifyBudget('post')"></div>
+				<br />
+			    <span class="long item">Current Balance:</span>
+				<span class="green_value"><%= text_field(:consumer, :edited_balance, :onchange => "modifyBalance('post')", :id => "balance", :class => "dollar_amount", :size => 10) %></span>
+			    <div id="balance_slider" onclick="modifyBalance('post')"></div>
+				<br />
+				<span class="item">Balance rollover</span>
+				<span id="radio">
+					<%= f.radio_button("rollover_human", "On", :onchange => "$('#allowance_form').submit();") %><label for="payer_rule_rollover_human_on">On</label>
+					<%= f.radio_button("rollover_human", "Off",:onchange => "$('#allowance_form').submit();")%><label for="payer_rule_rollover_human_off">Off</label>
+				</span>			
+			<% end %>
+			<%= image_tag "/images/face_placeholder.png", :id => "face" %>	
+		</div>
+			<div class="right_content">
 			<% if @consumers.empty? %>				
 				<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>
 			<% else %>
 				<p class="inner_content_title" id="consumers">My Close Circle</p>
-				<div class="column1" >
+				<div class="column1 allowance">
 				</div>
-				<div class="column2" >
+				<div class="column2 allowance">
 				</div>
 			<% end %>
-		<%= image_tag 'circle.png', :id => "circle" %>
-		</div>
+			<%= image_tag 'circle.png', :id => "circle" %>
+		</div>				
 	</div>
 
 
-<div id="tabs-2">
 
-	<div class="left_content" id="allowance_consumer">
-	<p class="inner_content_title" id="consumer_name"></p>
-
-	<img id='chartdiv' class="engrave"/>
-	<br /><br /><br />
-	<% form_for :payer_rule, :url => { :action => :allowance_update }, :html => {:id => "allowance_form"} do |f| %>
-	
-	    <span class="long item">Monthly Allowance:</span>
-		<span class="value"><%= f.text_field(:edited_budget, :onchange => "modifyBudget('post')", :id => "budget", :size => 10) %></span>
-	    <div class="long item" id="budget_slider" onclick="modifyBudget('post')"></div>
-		<br />
-	    <span class="long item">Current Balance:</span>
-		<span class="green_value"><%= text_field(:consumer, :edited_balance, :onchange => "modifyBalance('post')", :id => "balance", :class => "dollar_amount", :size => 10) %></span>
-	    <div id="balance_slider" onclick="modifyBalance('post')"></div>
-		<br />
-		<span class="item">Balance rollover</span>
-		<span id="radio">
-			<%= f.radio_button("rollover_human", "On", :onchange => "$('#allowance_form').submit();") %><label for="payer_rule_rollover_human_on">On</label>
-			<%= f.radio_button("rollover_human", "Off",:onchange => "$('#allowance_form').submit();")%><label for="payer_rule_rollover_human_off">Off</label>
-		</span>
-	
-	<% end %>
-	<%= image_tag "/images/face_placeholder.png", :id => "face" %>	
-	</div>
-	<div class="right_content">
-	<% if @consumers.empty? %>				
-		<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>
-	<% else %>
-		<p class="inner_content_title" id="consumers">My Close Circle</p>
-		<div class="column1 allowance">
+<div id="approvals">
+		<div class="left_content" id="allowance_consumer">
+			<p class="inner_content_title" id="consumer_name_approvals"></p>		
+			<p class="inner_content_text">Define here who gets a one-click shopping experience (provided your rules are met).</p>
+			<p class="inner_content_text">To add a consumer, key-in his or her phone number and wait for the text message.</p>
+			<% form_for :payer_rule, :url => { :action => :consumer_rules_update }, :html => {:id => "amounts_form"} do |f| %>			
+			    <span class="long item">Approve under</span>
+				<span class="value"><%= f.text_field(:edited_auto_authorize_under, :onchange => "modifyUnderOver('post')", :id => "under", :size => 10) %></span>
+				<br />
+			    <span class="long item">Unapprove over</span>
+				<span class="green_value"><%= f.text_field(:edited_auto_deny_over, :onchange => "modifyUnderOver('post')", :id => "over",  :size => 10) %></span>
+				<br />
+			<% end %>
+			<div id='slider-range' class="engrave" onclick="modifyUnderOver('post')"></div>
+			<%= image_tag "/images/face_placeholder.png", :id => "face" %>	
 		</div>
-		<div class="column2 allowance">
-		</div>
-	<% end %>
-	<%= image_tag 'circle.png', :id => "circle" %>
-	</div>				
+			<div class="right_content">
+			<% if @consumers.empty? %>				
+				<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>
+			<% else %>
+				<p class="inner_content_title" id="consumers">My Close Circle</p>
+				<div class="column1 allowance">
+				</div>
+				<div class="column2 allowance">
+				</div>
+			<% end %>
+			<%= image_tag 'circle.png', :id => "circle" %>
+		</div>	
 </div>
 
 
-
-<div id="tabs-3">
-
-		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
-	</div>
-	<div id="tabs-4">
+	<div id="content">
 		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
 	</div>
 
-	<div id="tabs-5">
-<script type="text/javascript">
-	$(function() {
-		under = document.getElementById("under").value;
-		over = document.getElementById("over").value;
-		if (under.charAt(0) == '$') {under = under.slice(1)}
-		if (over.charAt(0) == '$') {over = over.slice(1)}
-		$("#slider-range").slider({
-			range: true,
-			min: 0,
-			max: 100,
-			values: [under, over],
-			slide: function(event, ui) {
-				$("#under").val('$' + ui.values[0]);
-				$("#over").val('$' + ui.values[1]);
-			}
-		});
-		$("#under").val('$' + $("#slider-range").slider("values", 0));
-		$("#over").val('$' + $("#slider-range").slider("values", 1));
-	});
-	
-	function updateSlider() {
-		
-		under = document.getElementById("under").value;
-		over = document.getElementById("over").value;
-		if (under.charAt(0) == '$') {under = under.slice(1)}
-		if (over.charAt(0) == '$') {over = over.slice(1)}
-
-		$("#slider-range").slider("values", 0, under);
-		$("#slider-range").slider("values", 1, over);	
-	}
-
-</script>
-
-
-<ul class="blue_bg engrave">
-	<ul id="slider-range"></ul>
-</ul>
-<% form_for :consumer_rule, :url => { :action => :rules_update } do |f| %>
-
-  	<ul class="thin_lines" style="margin-top:-10px">
-    	<li >
-    		<span class="item gray small_font" >Approve any purchase under</span>
-			<span class="short_value">
-				<%= f.text_field(:edited_auto_authorize_under, 
-					:placeholder => "this amount",  
-					:class => "value green",
-					:id => "under",
-					:onchange => "updateSlider()") %>
-			</span>
-		</li>
-   	<li>
-    		<span class="item gray small_font" >Unapprove any purchase over</span>
-			<span class="short_value">
-				<%= f.text_field(:edited_auto_deny_over, 
-				:placeholder => "this amount",  
-				:class => "value red",
-				:id => "over",
-				:onchange => "updateSlider()") %>
-			</span>
-		</li>
-	</ul>
-
-	
-
-<ul class="banner_question_mark">
-		<span style="position:absolute;left:12px;font-size:14px">If I do need to be involved, reach me by</span>
-		<span><%= link_to "shal", "involved_help", :class => "slideup transparent question_mark" %> </span>
-</ul>
-	<%if @payer.phone_alert %>
-		<a href="sms_prefs" class="contact"><img src="/images/iPhone SMS 64.png" border="0"></a> 
-	<% else %>
-		<a href="/aol/sms_prefs" class="contact"><img src="/images/iPhone SMS 64 bw.png" border="0"></a> 
-	<% end %>
-	<% if @payer.email_alert %>
-		<a href="/aol/email_prefs" class="contact"><img src="/images/iPhone email 64.png" border="0"></a> 
-	<% else %>
-		<a href="/aol/email_prefs" class="contact"><img src="/images/iPhone email 64 bw.png" border="0"></a> 
-	<% end %>
-		<%= image_tag 'Skype 64 bw 1.png', :class => "contact" , :id => "skype" %>
-		<%= image_tag 'aol aim bw.png', :class => "contact", :id => "aim"%>
-
-  	<%= submit_tag "Submit", :class => "whiteButton submit bottom_submit_tag" %>
-<% end %>
+	<div id="inbox">
 
 	</div>
 
-	<div id="tabs-6">
+	<div id="purchases">
 		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
 	</div>
-	<div id="tabs-7">
+	<div id="account">
 		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
 	</div>
-	<div id="tabs-8">
+	<div id="alerts">
 		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
 	</div>
 	
