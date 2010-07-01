@@ -146,15 +146,7 @@ class AolController < ApplicationController
     
   @back_to = "rules_menu"
   @back_class = "like_back"
-  
-  @phone_frequencies =
-            [["as the event occurs","as it occurs"],
-             ["once an hour" , "once an hour"],
-             ["twice a day", "twice a day"]]
-   @phone_events =
-            [["any purchase request" , "any purchase request"],
-             ["manual authorization", "manual authorization"]]            
-    
+   
   end
   
   def sms_update

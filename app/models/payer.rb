@@ -15,10 +15,43 @@ class Payer < ActiveRecord::Base
   
   attr_accessor :password_confirmation
   
-  validates_numericality_of :phone, :allow_nil => true, :allow_blank => true
-  validates_length_of :phone, :is => 10, :allow_nil => true, :allow_blank => true
+  validates_numericality_of :phone, :allow_nil => true
+  validates_length_of :phone, :is => 10, :allow_nil => true
   
+  def phone_alert_human
+    (self.phone_alert) ?"Off":"On"                                        #reversed for color...
+  end
+  
+  def phone_alert_human=(value)
+    (value == "On") ?self.phone_alert = false :self.phone_alert = true    #reversed for color...
+  end    
     
+  def email_alert_human
+    (self.email_alert) ?"Off":"On"                                        #reversed for color...
+  end
+  
+  def email_alert_human=(value)
+    (value == "On") ?self.email_alert = false :self.email_alert = true    #reversed for color...
+  end    
+
+  def self.phone_alert_frequency
+    [["as soon as it happens ","as it occurs"],["once an hour " , "once an hour"],["twice a day ", "twice a day"]]
+  end
+  
+  def self.phone_events
+    [["of every purchase" , "any purchase"],["of each authorization request", "authorizations"]]            
+  end
+
+  def self.email_alert_frequency
+    [["twice weekly","twice weekly"], ["once a day" , "once a day"], ["on a weekly basis", "on a weekly basis"],
+     ["once a month", "once a month"]]
+
+  end
+  
+  def self.email_events
+    [["all purchases" , "purchases"], ["special activities" , "special activities"],["offers & promotions", "offers and promos"]]            
+  end
+
   def edited_phone
       number_to_phone(self.phone, :area_code => true)
   end

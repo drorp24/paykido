@@ -137,7 +137,7 @@ class ServiceController < ApplicationController
   
   def consumer_rules_update
     
-    @consumer = session[:consumer]
+    @consumer = session[:consumer]                  # check if this line and the next can be removed
     @payer_rule = session[:payer_rule]
     @consumer.update_attributes!(params[:consumer]) if params[:consumer] and @consumer.balance != params[:consumer][:balance]
     @payer_rule.update_attributes!(params[:payer_rule]) 
@@ -149,7 +149,19 @@ class ServiceController < ApplicationController
     
   end
   
-  
+  def payment_update
+    
+    unless @payer.update_attributes(params[:payer])
+      flash[:notice] = "Invalid phone number. Please try again!"
+    end
+    
+    respond_to do |format|  
+      format.html { redirect_to :action => 'index' }  
+      format.js  
+    end
+    
+  end
+ 
   def retailer_signedin
      
     @sales = Purchase.retailer_sales(@retailer.id)

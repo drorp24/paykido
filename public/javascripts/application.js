@@ -19,6 +19,8 @@ $(document).ready(function (){
 	$('#pin_form').submitWithAjax();
 	$('#allowance_form').submitWithAjax();
 	$('#amounts_form').submitWithAjax();
+	$('#phone_alert_form').submitWithAjax();
+	$('#email_alert_form').submitWithAjax();
 
 		 
 		$(function(){
@@ -77,7 +79,7 @@ $(document).ready(function (){
 
 
 		$(function() {
-			$("#radio").buttonset();
+			$(".buttonset").buttonset();
 		});
 
 	

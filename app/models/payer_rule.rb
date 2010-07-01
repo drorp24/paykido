@@ -9,15 +9,11 @@ class PayerRule < ActiveRecord::Base
   
    
   def rollover_human
-    (self.rollover) ?"On":"Off"
+    (self.rollover) ?"Off":"On"                                  #reversed for color...
   end
   
   def rollover_human=(rh)
-    if rh == "On"
-      self.rollover = true
-    else
-      self.rollover = false
-    end
+    (rh == "On") ?self.rollover = false :self.rollover = true    #reversed for color...
   end    
   
   def edited_budget

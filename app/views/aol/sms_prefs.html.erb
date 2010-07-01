@@ -29,19 +29,19 @@
 	<ul >
 		<li class="noarrow">
 			<span class="item gray small_font" style="font-weight:100">Notify me for</span>
-			<span class="longer_value">
-				<%= f.select(:phone_events, @phone_events )%>
+			<span class="borderless">
+				<%= f.select(:phone_events, Payer.phone_events )%>
 			</span>
 		</li>
 		<li class="noarrow">
 			<span class=class="item gray small_font" style="font-weight:100">Contact me</span>
-			<span class="longer_value">
-				<%= f.select(:phone_alert_frequency, @phone_frequencies )%>
+			<span class="borderless">
+				<%= f.select(:phone_alert_frequency, Payer.phone_alert_frequency )%>
 			</span>
 		</li>
 		<li>
 			<span class="item gray small_font" style="font-weight:100">Text me on</span>
-			<span class="longer_value">
+			<span class="borderless">
 				<%= f.text_field(
 				:edited_phone) %>
 			</span>
