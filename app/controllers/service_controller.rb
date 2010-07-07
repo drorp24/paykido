@@ -110,6 +110,8 @@ class ServiceController < ApplicationController
 
     flash[:message] = "Welcome to arca!" if @consumers.empty?
     
+    @retailers = Purchase.payer_retailers_with_retailer_info_and_status_info(@payer.id)
+6
   end
  
   def allowance
@@ -132,6 +134,18 @@ class ServiceController < ApplicationController
       format.js  
     end
 
+    
+  end
+  
+  def consumer_update
+    
+    consumer = session[:consumer]
+    consumer.update_attributes!(:name => params[:name])
+    
+    respond_to do |format|  
+      format.html { redirect_to :action => 'JP' }  
+      format.js  
+    end
     
   end
   
@@ -256,7 +270,7 @@ class ServiceController < ApplicationController
         end         
     else
         find_def_payer_rule
-        @consumer.update_attributes!(:payer_id => @payer.id, :balance => @def_payer_rule.allowance)
+        @consumer.update_attributes!(:payer_id => @payer.id, :balance => @def_payer_rule.allowance, :name => "(key name here)")
         @phone = @consumer.billing_phone
         session[:consumer] = @consumer
         session[:payer_rule] = @consumer.payer_rules.create!(:allowance => @def_payer_rule.allowance, :rollover => @def_payer_rule.rollover, :auto_authorize_under => @def_payer_rule.auto_authorize_under, :auto_deny_over => @def_payer_rule.auto_deny_over)

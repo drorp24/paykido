@@ -14,7 +14,9 @@
 	<% if rem == 1 %>
 			$('.column1').prepend(
 				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
-					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=@consumer_added.id%>><%= escape_javascript((@consumer_added.name.blank?)?'(new consumer)':@consumer_added.name) %></div>'+
+					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=@consumer_added.id%>>'+
+						'<%= text_field("consumer[]", 'name', :onchange => "rename_consumer(#{@consumer.id}, $(this).val())") %>'+
+					'</div>'+
 					'<div class="portlet-content" >'+
 						'<div class="portlet-content-left">'+
 							'<%= image_tag "face_placeholder_small.png" %>'+
@@ -29,7 +31,9 @@
 	<% else %>
 			$('.column2').prepend(
 				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
-					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=@consumer_added.id%>><%= escape_javascript((@consumer_added.name.blank?)?'(new consumer)':@consumer_added.name) %></div>'+
+					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=@consumer_added.id%>>'+
+						'<%= text_field("consumer[]", 'name', :onchange => "rename_consumer(#{@consumer.id}, $(this).val())") %>'+
+					'</div>'+
 					'<div class="portlet-content" >'+
 						'<div class="portlet-content-left">'+
 							'<%= image_tag "face_placeholder_small.png" %>'+
@@ -43,48 +47,56 @@
 	<% end %>
 	
 	consumer_info(<%= @consumer_added.id %>);
+	setTabHeight(<%= @consumers.size %>, 0);
 	
 <% else %>
 	$('.consumers_list').append(	
 		'<p class="inner_content_title" id="consumers">My Community</p>' +
-		'<div class="column1" ></div>' +
-		'<div class="column2" ></div>' +
+		'<% form_for :consumers, :url => { :action => :consumer_update }, :html => {:id => "consumer_form"}  do |f| %>'+
+		'<div class="column1 sortable ui-sortable" ></div>' +
+		'<div class="column2 sortable ui-sortable" ></div>' +
 		'<%= image_tag 'circle.png', :id => "circle" %>');
 			
 	<% i = 1 %>
-	<% for consumer in @consumers %>
+
+	<% for @consumer in @consumers %>
 		<% rem = i % 2 %>
 		<% if rem == 1 %>
 			$('.column1').append(
 				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
-					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=consumer.id%>><%= escape_javascript((consumer.name.blank?)?'(new consumer)':consumer.name) %></div>'+
+					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=@consumer.id%>>'+
+							'<%= text_field("consumer[]", 'name', :onchange => "rename_consumer(#{@consumer.id}, $(this).val())") %>'+
+					'</div>'+
 					'<div class="portlet-content" >'+
 						'<div class="portlet-content-left">'+
 							'<%= image_tag "face_placeholder_small.png" %>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
-							'<p><%= "Spent #{number_to_currency(consumer.sum_amount)} in #{Time.now.strftime('%B')}" %></p>'+
-							'<p><%= "Current Balance #{number_to_currency(consumer.balance)}" %></p>'+		
+							'<p><%= "Spent #{number_to_currency(@consumer.sum_amount)} in #{Time.now.strftime('%B')}" %></p>'+
+							'<p><%= "Current Balance #{number_to_currency(@consumer.balance)}" %></p>'+		
 						'</div>'+
 					'</div>'+
 				'</div>');
 		<% else %>
 			$('.column2').append(
-				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
-					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=consumer.id%>><%= escape_javascript((consumer.name.blank?)?'(new consumer)':consumer.name) %></div>'+
+				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+ 
+					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=@consumer.id%>>'+
+						'<%= text_field("consumer[]", 'name', :onchange => "rename_consumer(#{@consumer.id}, $(this).val())") %>'+
+			    	'</div>'+
 					'<div class="portlet-content" >'+
 						'<div class="portlet-content-left">'+
 							'<%= image_tag "face_placeholder_small.png" %>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
-							'<p><%= "Spent #{number_to_currency(consumer.sum_amount)} in #{Time.now.strftime('%B')}" %></p>'+
-							'<p><%= "Current Balance #{number_to_currency(consumer.balance)}" %></p>'+		
+							'<p><%= "Spent #{number_to_currency(@consumer.sum_amount)} in #{Time.now.strftime('%B')}" %></p>'+
+							'<p><%= "Current Balance #{number_to_currency(@consumer.balance)}" %></p>'+		
 						'</div>'+
 					'</div>'+
 				'</div>');
 		<% end %>
 		<% i += 1 %>
 	<% end %>
+	$('.consumers_list').append('<% end %>');
 
 	if (!$('.portlet-header').hasClass('ui-widget-header-lightness'))
 		{consumer_info(<%= @consumers[0].id %>);}
@@ -96,4 +108,6 @@
 		
 		consumer_info($(this).attr('id'));
 		
-	 });	
+	 });
+	 
+	$("input[value='']").val("(name here)");	

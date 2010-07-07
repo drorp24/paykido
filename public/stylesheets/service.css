@@ -1,3 +1,12 @@
+.portlet-header input {
+	background-color:transparent;
+	width:130px;
+	border: none;
+	color: white;
+	font-weight: bold;
+	font-family:"Arial Rounded MT Bold";
+}
+
 #alerts .right_content {
 	left:645px;
 }
@@ -7,12 +16,17 @@
 	border: 1px solid #0078AE;
 	-moz-border-radius:5px;
 	background-color: #FFFFF5;
+	background-color: #FFFEEE;
 	padding-left: 10px;
 	padding-top:5px;
 	border: 1px inset #FFFFF5;
 	border-right: 1px solid #EEEEEE;
 	border-bottom: 1px solid #DDDDDD;
 	width:488px;
+}
+
+#content_left_shade_area {
+	overflow: auto;
 }
 
 /*
@@ -24,10 +38,12 @@
 
 .item_by_icon select {
 	background-color: #FFFFF5;
+	background-color: #FFFEEE;
 
 }
 .item_by_icon input {
 	background-color: #FFFFF5;
+	background-color: #FFFEEE;
 }
 
 select:hover, input:hover {
@@ -53,6 +69,20 @@ select, input {
 
 .icon img {
 	height:40px;
+}
+
+.logo {
+	height: 37px;
+	margin-left: 5%;
+}
+
+.middle {
+	margin-left: 5%;
+}
+
+.right_float {
+	float:right;
+	margin-right: 100px;
 }
 .shaded {
 	opacity:0.4;
@@ -238,7 +268,9 @@ form {
 }
 
 .column, .column1, .column2 {
+/*
 	overflow:auto;
+*/
 	width: 250px; 
 	height:267px;
 	font-size:14px;

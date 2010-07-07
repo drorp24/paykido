@@ -21,6 +21,7 @@ $(document).ready(function (){
 	$('#amounts_form').submitWithAjax();
 	$('#phone_alert_form').submitWithAjax();
 	$('#email_alert_form').submitWithAjax();
+	$('#consumer_form').submitWithAjax();
 
 		 
 		$(function(){
@@ -54,8 +55,8 @@ $(document).ready(function (){
 		});
 		
 		$(function() {
-			$(".column").sortable({
-				connectWith: '.column'
+			$('.column1').sortable({
+				connectWith: '.column2'
 			});
 	
 			$(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
@@ -70,7 +71,7 @@ $(document).ready(function (){
 				$(this).parents(".portlet:first").find(".portlet-content").toggle();
 			});
 	
-			$(".column").disableSelection();
+			$(".column1").disableSelection();
 	});
 
 		$(function() {

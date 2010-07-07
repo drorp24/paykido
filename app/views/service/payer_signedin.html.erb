@@ -85,7 +85,7 @@
 		var balance_position = (balance / budget) * 100;
 		var tick = ((budget / 40).toFixed(1)) * 10;
 		var background = "chf=c,lg,90,FFE7C6,0,76A4FB,0.5"
-		var uri = "http://chart.apis.google.com/chart?cht=gom&chs=280x100&chf=bg,lg,90,FFFFFF,0.85,EEEFFF,0&chxt=y&chd=t:" + balance_position + "&chl=Balance&chxr=0,0," + budget + "," + tick;
+		var uri = "http://chart.apis.google.com/chart?cht=gom&chs=280x100&chf=bg,lg,90,FFFEE0,0,FFFFF5,0.75&chxt=y&chd=t:" + balance_position + "&chl=Balance&chxr=0,0," + budget + "," + tick;
 		document.getElementById("chartdiv").src = uri;
 
 	}
@@ -364,7 +364,37 @@
 	</div>
 
 	<div id="content">
-		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+		<div class="left_content">
+			<p class="inner_content_title">Retailers</p><br />
+				<div id="content_left_shade_area">
+				<% @retailers.each do |retailer|%>
+				<div class="form_line">
+					<span class="icon">
+						<% if    retailer.status == "whitelisted" %>
+							<%= image_tag "/images/fb_like_lit_small.png", :class => "like" %>
+						<% else %>
+							<%= image_tag "/images/fb_like_small.png", :class => "like" %>
+						<% end %>
+					</span>	
+					<% if retailer.logo %>
+						<%= image_tag retailer.logo, :class => "logo" %>
+					<% else %>
+						<span class="middle"><%= retailer.name %></span>
+					<% end %>
+					<span class="icon">
+						<% if    retailer.status == "blacklisted" %>
+							<%= image_tag "/images/fb_dont_lit_small.png", :class => "like right_float" %>
+						<% else %>
+							<%= image_tag "/images/fb_dont_small.png", :class => "like right_float" %>
+						<% end %>
+					</span>	
+				</div>								
+				<% end %>
+				</div>
+		</div>
+		<div class="right_content">
+			<p class="inner_content_title">&nbsp;</p><br />
+		</div>
 	</div>
 
 	<div id="inbox">
@@ -401,6 +431,7 @@
 			}
 		}
 	};
+	
 	function viewEmailAlert(email_alert){
 
 		$('#email_alert_notice').remove(); 
@@ -419,8 +450,48 @@
 			}
 		}
 	};
+	
+	function setTabHeight(consumers_size, retailers_size) {
+
+		var height = $('#tabs').css('height');
+		
+		if (retailers_size == 0) {
+			if (consumers_size%2 == 1) {
+				height = height.split('px');
+				height = +height[0] + 131;
+			}
+		}
+		else {
+			var consumer_lines = Math.round((consumers_size)/2);
+			var height_for_consumers = 150 + (consumer_lines *131);
+			var height_for_retailers = 200 + 42*retailers_size;
+			var height = Math.max(height_for_retailers, height_for_consumers);			
+		}
+		
+		if (height > 450) {
+			$('#tabs').css('height', height);
+		}
+		
+	};
+	
+	function rename_consumer(id, name) {
+		input_name = "consumer[" + id + "][name]";
+		selector = "input[name='" + input_name + "']";
+		$(selector).val(name);
+		$('#consumer_name_allowance').html(name + "\'s allowance");
+		$('#consumer_name_approvals').html(name + "\'s approval policy");		
+		$.ajax({
+			url: 'consumer_update/'+id + '?name=' + name,
+			success: function(data){
+
+			}
+		})
+	};
+	
 
 	viewPhoneAlert (<%= @payer.phone_alert %>);	
-	viewEmailAlert (<%= @payer.email_alert %>);	
+	viewEmailAlert (<%= @payer.email_alert %>);
+	setTabHeight(<%= @consumers.size %>, <%= @retailers.size %>);
+	
 	
 </script>

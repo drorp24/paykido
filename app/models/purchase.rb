@@ -75,6 +75,13 @@ class Purchase < ActiveRecord::Base
   def self.payer_retailers(payer_id)
     self.find_all_by_payer_id(payer_id, :select => "DISTINCT retailer_id")
   end
+  
+  def self.payer_retailers_with_retailer_info_and_status_info(payer_id)
+    self.find_all_by_payer_id(payer_id, 
+        :joins  =>      "inner join retailers on purchases.retailer_id = retailers.id left outer join rlists on purchases.retailer_id = rlists.retailer_id and purchases.payer_id = rlists.payer_id",
+        :select =>      "DISTINCT retailers.name, retailers.logo, rlists.status")
+
+  end
 
   def self.payer_products(payer_id)
     self.find_all_by_payer_id(payer_id, :select => "DISTINCT product_id")
