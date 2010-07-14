@@ -76,12 +76,6 @@ class Purchase < ActiveRecord::Base
     self.find_all_by_payer_id(payer_id, :select => "DISTINCT retailer_id")
   end
   
-  def self.payer_retailers_with_retailer_info_and_status_info(payer_id)
-    self.find_all_by_payer_id(payer_id, 
-        :joins  =>      "inner join retailers on purchases.retailer_id = retailers.id left outer join rlists on purchases.retailer_id = rlists.retailer_id and purchases.payer_id = rlists.payer_id",
-        :select =>      "DISTINCT retailers.name, retailers.logo, rlists.status")
-
-  end
 
   def self.payer_products(payer_id)
     self.find_all_by_payer_id(payer_id, :select => "DISTINCT product_id")
@@ -117,6 +111,38 @@ class Purchase < ActiveRecord::Base
 
   
   end
+
+  def self.SAVEby_payer_retailer_and_month(payer_id, retailer_id, month)
+    self.find_all_by_payer_id_and_retailer_id(payer_id, retailer_id,
+               :conditions => ["authorized = ?", true],
+               :group => "retailer_id",
+               :select => "retailer_id, sum(amount) as total_amount, count(*) as purchase_count, max(date) as most_recent")  
+    
+  end
   
-  
+  def self.SAVEpayer_retailers_with_retailer_info_and_status_info(payer_id)
+    self.find_all_by_payer_id(payer_id, 
+                :joins  =>      "inner join retailers on purchases.retailer_id = retailers.id left outer join rlists on purchases.retailer_id = rlists.retailer_id and purchases.payer_id = rlists.payer_id",
+                :select =>      "DISTINCT retailers.id, retailers.name, retailers.logo, rlists.status")
+
+  end
+
+  def self.payer_retailers_the_works(payer_id)
+    self.find_all_by_payer_id(payer_id, 
+              :conditions => ["authorized = ?", true],
+              :group =>       "purchases.retailer_id",
+              :joins  =>      "inner join retailers on purchases.retailer_id = retailers.id left outer join rlists on purchases.retailer_id = rlists.retailer_id and purchases.payer_id = rlists.payer_id",
+              :select =>      "retailers.id, retailers.name, retailers.logo, rlists.status, sum(amount) as total_amount, count(*) as purchase_count, max(date) as most_recent")
+
+  end
+
+
+  def self.SAVEby_payer_retailer_and_month(payer_id, retailer_id, month)
+    self.sum   :amount,
+               :conditions => ["payer_id =? and retailer_id = ? and authorized = ? and strftime('%m', date) = ?", payer_id, retailer_id, true, month],
+               :group => "retailer_id",
+               :select => "amount, count(*) as purchase_count, max(date) as most_recent"  
+    
+  end
+   
 end

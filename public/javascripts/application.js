@@ -65,7 +65,7 @@ $(document).ready(function (){
 					.prepend('<span class="ui-icon ui-icon-minusthick"></span>')
 					.end()
 				.find(".portlet-content");
-	
+
 			$(".portlet-header .ui-icon").click(function() {
 				$(this).toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick");
 				$(this).parents(".portlet:first").find(".portlet-content").toggle();
@@ -83,7 +83,6 @@ $(document).ready(function (){
 			$(".buttonset").buttonset();
 		});
 
-	
 
 
 });

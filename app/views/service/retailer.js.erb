@@ -1,0 +1,9 @@
+$('#retailers .left_content').html(
+	'<p class="inner_content_title"><%= @retailer.name %></p><br />'+
+	'<div class="inner_content_subtitle">Automatic Authorization</div>'+		
+	'<div class="inner_content_text"></div>'+
+	'<p><%= @retailer.purchase_count %>&nbsp;purchases all in all</p>' +
+	'<p>Total purchase amount: <%= @retailer.total_amount %></p>' +
+	'<p>Mots recent purchase from this retailer <%= @retailer.most_recent %></p>'+ 
+	'<p>Let me see more on this retailer</p>' 
+	);	

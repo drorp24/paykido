@@ -1,3 +1,9 @@
+.portlet-content-logo {
+	width: 100px;
+	height:25px;
+	margin-left: 3px;
+	margin-top: 5px;
+}
 .portlet-header input {
 	background-color:transparent;
 	width:130px;
@@ -61,19 +67,25 @@ select, input {
 }
 
 .item_by_icon  select{
-	padding-top:7px;
+	padding-top:13px;
 }
 .item_by_icon input {
 	padding-top:7px;
 }
 
-.icon img {
-	height:40px;
+.communication {
+	height:47px;
+}
+
+.like {
+	height:30px;
+	width: 75px;
+	padding-bottom: 1px;	
 }
 
 .logo {
-	height: 37px;
-	margin-left: 5%;
+	height: 27px;
+	margin-left: 15%;
 }
 
 .middle {
@@ -82,7 +94,7 @@ select, input {
 
 .right_float {
 	float:right;
-	margin-right: 100px;
+	margin-right: 123px;
 }
 .shaded {
 	opacity:0.4;
@@ -115,7 +127,7 @@ select, input {
 }
 
 .form_line {
-	height:45px;
+	height:60px;
 }
 
 .small_icon {
@@ -189,12 +201,12 @@ select, input {
 
 .portlet-content-left img  {
 	display:inline;
-	float:right;
+	float:left;
 }
 
 .portlet-content-right {
 	display:inline;
-	float:left;
+	float:right;
 }
 
 #face {

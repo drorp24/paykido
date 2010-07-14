@@ -95,6 +95,18 @@ class ServiceController < ApplicationController
     
   end
   
+  def retailers
+    
+    @retailers = session[:retailers]
+    
+    respond_to do |format|  
+      format.html { redirect_to :action => 'JP' }  
+      format.js  
+    end
+    
+  end
+
+  
   def payer_signedin
         
     @consumers = all = []
@@ -104,14 +116,14 @@ class ServiceController < ApplicationController
       purchased = Consumer.who_purchased(@payer.id, Time.now.strftime('%m'))  
       didnt_purchase = all - purchased
       @consumers = purchased + didnt_purchase                                 
-    end
-        
+    end        
     session[:consumers] = @consumers 
-
     flash[:message] = "Welcome to arca!" if @consumers.empty?
     
-    @retailers = Purchase.payer_retailers_with_retailer_info_and_status_info(@payer.id)
-6
+    @retailers = Purchase.payer_retailers_the_works(@payer.id)
+    session[:retailers] = @retailers
+    session[:retailer] = (@retailers.empty?) ?nil :@retailers[0]
+
   end
  
   def allowance
@@ -134,6 +146,17 @@ class ServiceController < ApplicationController
       format.js  
     end
 
+    
+  end
+  
+  def retailer
+    
+    @retailer = session[:retailers].select{|retailer| retailer.id == params[:id].to_i}[0]
+      
+    respond_to do |format|  
+      format.html { redirect_to :action => 'JP' }  
+      format.js  
+    end
     
   end
   
@@ -173,6 +196,22 @@ class ServiceController < ApplicationController
       format.html { redirect_to :action => 'index' }  
       format.js  
     end
+    
+  end
+  
+  def rlist_update
+    
+
+   @rlist = Rlist.find_or_initialize_by_payer_id_and_retailer_id(@payer.id, params[:id])
+    unless @rlist.update_attributes(:status => params[:new_status])
+      flash[:notice] = "Oops... server unavailble. Back in a few moments!"
+    end
+    
+    respond_to do |format|  
+      format.html { redirect_to :action => 'index' }  
+      format.js  
+    end
+    
     
   end
  
@@ -333,7 +372,7 @@ class ServiceController < ApplicationController
       @consumer = session[:consumer]
       @payer_rule = session[:payer_rule]
     elsif params[:id] and params[:id] != "0"
-      @consumer = Consumer.find(params[:id])
+      @consumer = Consumer.find(params[:id])            # CHANGE THIS to fetch from the array instead of DB (as in find_retailer)
       @payer_rule = @consumer.most_recent_payer_rule
     else      # params[:id] == 999 (indicating a blank consumer)
       @consumer = init_consumer

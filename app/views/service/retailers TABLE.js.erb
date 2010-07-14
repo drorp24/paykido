@@ -1,0 +1,115 @@
+<% if @retailers.empty? %>
+
+	$('.retailers_list').append(	
+		'<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>');
+		
+	$(function() {
+		$('#tabs').tabs("option","disabled", [1, 2, 3, 4, 5]);
+	});
+			
+<% else %>
+
+	$('.consumers_list').append(	
+		'<p class="inner_content_title" id="consumers">Retailers</p>' +
+		'<% form_for :consumers, :url => { :action => :consumer_update }, :html => {:id => "consumer_form"}  do |f| %>'+
+		'<div class="column1 sortable ui-sortable" ></div>' +
+		'<div class="column2 sortable ui-sortable" ></div>' +
+		'<%= image_tag 'circle.png', :id => "circle" %>');
+			
+	<% i = 1 %>
+
+	<% for @retailer in @retailers %>
+		<% rem = i % 2 %>
+		<% if rem == 1 %>
+			$('.column1').append(
+				'<div class="portlet">'+
+					'<div class="portlet-header" id=<%=@retailer.id%>><%= @retailer.name %></div>'+
+					'<div class="portlet-content" >'+
+						'<div class="portlet-content-left">'+
+							'<%= image_tag @retailer.logo %>'+
+						'</div>'+
+						'<div class="portlet-content-right">'+
+							'<p><%= "X purchases in #{Time.now.strftime('%B')}" %></p>'+
+						'</div>'+
+					'</div>'+
+				'</div>');
+		<% else %>
+			$('.column2').append(
+				'<div class="portlet">'+ 
+					'<div class="portlet-header" id=id=<%=@retailerr.id%>><%= @retailer.name %></div>'+
+					'<div class="portlet-content" >'+
+						'<div class="portlet-content-left">'+
+							'<%= image_tag @retailer.logo %>'+
+						'</div>'+
+						'<div class="portlet-content-right">'+
+							'<p><%= "X purchases in #{Time.now.strftime('%B')}" %></p>'+
+						'</div>'+
+					'</div>'+
+					'</div>'+
+				'</div>');
+		<% end %>
+		<% i += 1 %>
+	<% end %>
+
+	if (!$('.portlet-header').hasClass('ui-widget-header-lightness')) {
+	
+			$('.left_content').append(
+				'<p>Something to put when no retailer exists in payer's purchases</p>');
+
+	}	
+<% end %>
+	
+
+	$('.portlet-header').click(function () { 
+		
+		retailer_info($(this).attr('id'));
+		
+	 });
+	 
+
+
+
+
+
+
+
+
+
+
+			<p class="inner_content_title">Retailers</p><br />
+				<div id="content_left_shade_area">
+				<% @retailers.each do |retailer|%>
+				<div class="portlet">
+				<div class="portlet-header"><%= retailer.name %></div>
+				<div class="portlet-content">
+				<div class="form_line">
+					<span class="icon">
+						<% if    retailer.status == "whitelisted" %>
+							<%= image_tag "/images/fb_like_lit_small.png", :class => "like", :id => "like_lit_#{retailer.id}" %>
+						<% else %>
+							<%= image_tag "/images/fb_like_small.png", :class => "like", :id => "like_unlit_#{retailer.id}" %>
+						<% end %>
+					</span>	
+					<% if retailer.logo %>
+						<%= image_tag retailer.logo, :class => "logo" %>
+					<% else %>
+						<span class="middle"><%= retailer.name %></span>
+					<% end %>
+					<span class="icon">
+						<% if    retailer.status == "blacklisted" %>
+							<%= image_tag "/images/fb_dont_lit_small.png", :class => "like right_float", :id => "dislike_lit_#{retailer.id}" %>
+						<% else %>
+							<%= image_tag "/images/fb_dont_small.png", :class => "like right_float", :id => "dislike_unlit_#{retailer.id}" %>
+						<% end %>
+					</span>	
+					</div>
+				</div>								
+				</div>
+				<% end %>
+				</div>
+
+
+
+
+
+

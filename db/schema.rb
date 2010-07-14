@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100616195346) do
+ActiveRecord::Schema.define(:version => 20100711072443) do
 
   create_table "billings", :force => true do |t|
     t.string   "method",     :null => false
@@ -107,6 +107,8 @@ ActiveRecord::Schema.define(:version => 20100616195346) do
     t.string   "email_events"
     t.boolean  "exists"
     t.integer  "billing_id"
+    t.string   "skype"
+    t.string   "facebook"
   end
 
   create_table "plists", :force => true do |t|

@@ -1,4 +1,5 @@
 <script type="text/javascript">
+	
 
 	function modifyBudget (verb) {
 			var budget_with_currency = document.getElementById("budget").value;
@@ -168,12 +169,105 @@
 		$(selector).addClass('ui-widget-header-lightness');
 		viewAllowance(id);
 		viewApprovals(id);
-	}
+	};
+	
+
+
+	function retailer_info(id) {
+		var selector = "div[id = " + id.toString() + " ]"
+			
+		$('.portlet-header').removeClass('ui-widget-header-lightness');
+		$(selector).addClass('ui-widget-header-lightness');
+		$.ajax({
+			url: 'retailer/'+id,
+			success: function(data){
+			}
+		})
+	};
+
+	function viewRetailers(){
+		$.ajax({
+			url: 'retailers',
+			success: function(data){
+			}
+		})
+	};
+
+
+
+	function likeToggleSrc(id) {
+
+		var input = id.split('_');
+		var clicked_button = input[0];
+		var status = input[1];
+		var entity_id = input[2];
+		
+		
+		if (clicked_button == "like") {
+			button_selector = 			"#"+id;
+			lit_image =  				"/images/fb_like_lit_small.png";
+			unlit_image = 				"/images/fb_like_small.png";
+			other_button  = 			"dislike";
+			other_button_lit_image = 	"/images/fb_dont_lit_small.png";
+			other_button_unlit_image = 	"/images/fb_dont_small.png";
+		} 
+		else {
+			button_selector = 			"#"+id;
+			lit_image = 				"/images/fb_dont_lit_small.png";
+			unlit_image = 				"/images/fb_dont_small.png";
+			other_button = 				"like";
+			other_button_lit_image = 	"/images/fb_like_lit_small.png";
+			other_button_unlit_image = 	"/images/fb_like_small.png";
+		}
+		
+		if ($('#' + other_button + '_lit_' + entity_id).length) {
+			other_button_selector = '#' + other_button + '_lit_' + entity_id;
+		}
+		else {
+			other_button_selector = '#' + other_button + '_unlit_' + entity_id;			
+		}
+		
+		
+		if (status == "lit") {
+			$(button_selector).attr('src', unlit_image);
+			$(button_selector).attr('id', clicked_button + "_unlit_" + entity_id);
+		}
+		else {
+			$(button_selector).attr('src', lit_image);
+			$(other_button_selector).attr('src', other_button_unlit_image);
+			$(button_selector).attr('id', clicked_button + "_lit_" + entity_id);
+			$(other_button_selector).attr('id', other_button + "_unlit_" + entity_id);
+		}
+		
+		if (clicked_button == 'like' && status == 'unlit') {
+			return 'whitelisted';
+		}
+		else if (clicked_button == 'dislike' && status == 'unlit') {
+			return 'blacklisted';
+		}
+		else {
+			return '';
+		}
+	};
+
+	$('.like').click(function() {
+		selector_id = $(this).attr("id");
+		retailer_id = selector_id.split('_')[2];
+		new_status = likeToggleSrc(selector_id);
+		$.ajax({
+			url: 'rlist_update/' + retailer_id + '?new_status=' + new_status,
+			success: function(data){
+				
+			}
+		})
+
+	});
 	
 
 /*	Populate tabs by calling ajax  */
 
 		viewConsumers (0);
+		viewRetailers ();
 
 </script>
 
@@ -184,7 +278,7 @@
 		<li><a href="#allowance">Allowance</a></li>
 		<li><a href="#approvals">Approvals</a></li>
 		<li><a href="#alerts">Alerts</a></li>
-		<li><a href="#content">Content</a></li>
+		<li><a href="#retailers">Retailers</a></li>
 		<li><a href="#inbox">Inbox</a></li>
 		<li><a href="#purchases">Purchases!</a></li>
 		<li><a href="#account">Account</a></li>
@@ -273,7 +367,7 @@
 					<div class="inner_content_subtitle" id="extra_space2">Notify me</div>
 					<div class="form_line">
 						<span class="icon">
-							<img id="dial" src="/images/iPhone Dial.png" border="0">
+							<img class ="communication" id="dial" src="/images/iPhone Dial.png" border="0">
 						</span>
 						<span class ="item_by_icon">
 							<%= f.select(:phone_events, Payer.phone_events,{}, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless" )%>
@@ -281,7 +375,7 @@
 					</div>
 					<div class="form_line">
 						<span class="icon">
-							<img id="clock" src="/images/iPhone Clock.png" border="0">	
+							<img class ="communication" id="clock" src="/images/iPhone Clock.png" border="0">	
 						</span>
 						<span class ="item_by_icon">
 							<%= f.select(:phone_alert_frequency, Payer.phone_alert_frequency,{}, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless" )%>
@@ -290,7 +384,7 @@
 					<div class="inner_content_subtitle" id="extra_space2">On</div>
 					<div class="form_line">
 						<span class="icon">
-							<img id="sms" src="/images/iPhone SMS 64.png" border="0">							
+							<img class ="communication" id="sms" src="/images/iPhone SMS 64.png" border="0">							
 						</span>
 						<span class ="item_by_icon">
 							<%= f.text_field(:edited_phone, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless"  )%>
@@ -298,10 +392,10 @@
 					</div>
 					<div class="form_line">
 						<span class="icon">
-							<img id="sms" src="/images/Skype.png" border="0">							
+							<img class ="communication" id="sms" src="/images/Skype.png" border="0">							
 						</span>
 						<span class ="item_by_icon">
-							<%= f.text_field(:edited_phone, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless"  )%>
+							<%= f.text_field(:skype, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless"  )%>
 						</span>
 					</div>
 				</div>
@@ -321,7 +415,7 @@
 					<div class="inner_content_subtitle" id="extra_space3">Inform about</div>
 					<div class="form_line">
 						<span class="icon">
-							<img id="report" src="/images/iPhone Notes.png" border="0">							
+							<img class ="communication" id="report" src="/images/iPhone Notes.png" border="0">							
 						</span>
 						<span class ="item_by_icon">
 							<%= f.select(:email_events, Payer.email_events,{}, :onchange => "$('#email_alert_form').submit();", :class => "value borderless" )%>
@@ -329,7 +423,7 @@
 					</div>
 					<div class="form_line">
 						<span class="icon">
-							<img id="clock" src="/images/iPhone Clock.png" border="0">								
+							<img class ="communication" id="clock" src="/images/iPhone Clock.png" border="0">								
 						</span>
 						<span class ="item_by_icon">
 							<%= f.select(:email_alert_frequency, Payer.email_alert_frequency,{}, :onchange => "$('#email_alert_form').submit();", :class => "value borderless" )%>
@@ -338,7 +432,7 @@
 					<div class="inner_content_subtitle" id="extra_space2">On</div>
 					<div class="form_line">
 						<span class="icon">
-							<img id="email" src="/images/iphone eMail 64.png" border="0">							
+							<img class ="communication" id="email" src="/images/iphone eMail 64.png" border="0">							
 						</span>
 						<span class ="item_by_icon">
 							<%= f.text_field(:email, :onchange => "$('#email_alert_form').submit();", :class => "value borderless"  )%>
@@ -346,10 +440,10 @@
 					</div>
 					<div class="form_line">
 						<span class="icon">
-							<img id="sms" src="/images/facebook.png" border="0">							
+							<img class ="communication" id="sms" src="/images/facebook.png" border="0">							
 						</span>
 						<span class ="item_by_icon">
-							<%= f.text_field(:edited_phone, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless"  )%>
+							<%= f.text_field(:facebook, :onchange => "$('#email_alert_form').submit();", :class => "value borderless"  )%>
 						</span>
 					</div>
 				</div>
@@ -363,38 +457,9 @@
 		</div>
 	</div>
 
-	<div id="content">
-		<div class="left_content">
-			<p class="inner_content_title">Retailers</p><br />
-				<div id="content_left_shade_area">
-				<% @retailers.each do |retailer|%>
-				<div class="form_line">
-					<span class="icon">
-						<% if    retailer.status == "whitelisted" %>
-							<%= image_tag "/images/fb_like_lit_small.png", :class => "like" %>
-						<% else %>
-							<%= image_tag "/images/fb_like_small.png", :class => "like" %>
-						<% end %>
-					</span>	
-					<% if retailer.logo %>
-						<%= image_tag retailer.logo, :class => "logo" %>
-					<% else %>
-						<span class="middle"><%= retailer.name %></span>
-					<% end %>
-					<span class="icon">
-						<% if    retailer.status == "blacklisted" %>
-							<%= image_tag "/images/fb_dont_lit_small.png", :class => "like right_float" %>
-						<% else %>
-							<%= image_tag "/images/fb_dont_small.png", :class => "like right_float" %>
-						<% end %>
-					</span>	
-				</div>								
-				<% end %>
-				</div>
-		</div>
-		<div class="right_content">
-			<p class="inner_content_title">&nbsp;</p><br />
-		</div>
+	<div id="retailers">
+		<div class="left_content"></div>
+		<div class="right_content retailers_list"></div>
 	</div>
 
 	<div id="inbox">
@@ -412,6 +477,7 @@
 </div>
 
 <script type="text/javascript">
+
 	function viewPhoneAlert(phone_alert){
 
 		$('#phone_alert_notice').remove(); 
@@ -488,10 +554,10 @@
 		})
 	};
 	
-
 	viewPhoneAlert (<%= @payer.phone_alert %>);	
 	viewEmailAlert (<%= @payer.email_alert %>);
 	setTabHeight(<%= @consumers.size %>, <%= @retailers.size %>);
-	
-	
+
+
+
 </script>
