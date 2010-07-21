@@ -106,27 +106,74 @@ class ServiceController < ApplicationController
     
   end
 
+  def products
+    
+    @products = session[:products]
+    
+    respond_to do |format|  
+      format.html { redirect_to :action => 'JP' }  
+      format.js  
+    end
+    
+  end
   
   def payer_signedin
-        
-    @consumers = all = []
-    
-    all = Consumer.who_purchased_or_not(@payer.id)
-    unless all.empty?
-      purchased = Consumer.who_purchased(@payer.id, Time.now.strftime('%m'))  
-      didnt_purchase = all - purchased
-      @consumers = purchased + didnt_purchase                                 
-    end        
+            
+    @consumers = Consumer.payer_consumers_the_works(@payer.id)
+    get_rid_of_duplicates
     session[:consumers] = @consumers 
+    session[:consumer] = (@consumers.empty?) ?nil :@consumers[0]
     flash[:message] = "Welcome to arca!" if @consumers.empty?
     
     @retailers = Purchase.payer_retailers_the_works(@payer.id)
+    sort_retailers
     session[:retailers] = @retailers
     session[:retailer] = (@retailers.empty?) ?nil :@retailers[0]
 
+    @products = Purchase.payer_products_the_works(@payer.id)
+    session[:products] = @products
+    session[:product] = (@products.empty?) ?nil :@products[0]
+
   end
  
-  def allowance
+  def get_rid_of_duplicates
+    
+    to_delete = []
+    i = 0
+    while i < @consumers.size
+    
+      consumer = @consumers.at(i)      
+      next_one = @consumers.at(i + 1)
+      next_two = @consumers.at(i + 2)
+   
+      consumer.sum_amount = nil unless consumer.authorized?
+      
+      if next_one and next_one.id == consumer.id 
+        if next_one.authorized?
+          consumer.sum_amount = next_one.sum_amount
+        end
+        @consumers.delete_at(i)
+        if next_two and next_two.id == consumer.id 
+          if next_two.authorized?
+            consumer.sum_amount = next_two.sum_amount
+          end
+          @consumers.delete_at(i)
+         end        
+      end
+      i += 1
+ 
+    end
+
+end
+
+  def sort_retailers
+    
+    @retailers.sort! {|x,y| y.total_amount.to_i <=> x.total_amount.to_i }
+    
+  end
+  
+  
+  def consumer
 
     find_consumer
     
@@ -136,22 +183,10 @@ class ServiceController < ApplicationController
     end
 
   end
-  
-  def approvals
-    
-    find_consumer
-    
-    respond_to do |format|  
-      format.html { redirect_to :action => 'JP' }  
-      format.js  
-    end
-
-    
-  end
-  
+ 
   def retailer
     
-    @retailer = session[:retailers].select{|retailer| retailer.id == params[:id].to_i}[0]
+    find_retailer
       
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
@@ -160,6 +195,17 @@ class ServiceController < ApplicationController
     
   end
   
+  def product
+    
+    find_product
+      
+    respond_to do |format|  
+      format.html { redirect_to :action => 'JP' }  
+      format.js  
+    end
+    
+  end
+
   def consumer_update
     
     consumer = session[:consumer]
@@ -206,6 +252,7 @@ class ServiceController < ApplicationController
     unless @rlist.update_attributes(:status => params[:new_status])
       flash[:notice] = "Oops... server unavailble. Back in a few moments!"
     end
+    session[:retailer].status = params[:new_status]
     
     respond_to do |format|  
       format.html { redirect_to :action => 'index' }  
@@ -214,7 +261,22 @@ class ServiceController < ApplicationController
     
     
   end
- 
+
+   def plist_update
+    
+   @plist = Plist.find_or_initialize_by_payer_id_and_product_id(@payer.id, params[:id])
+    unless @plist.update_attributes(:status => params[:new_status])
+      flash[:notice] = "Oops... server unavailble. Back in a few moments!"
+    end
+    session[:product].status = params[:new_status]
+    
+    respond_to do |format|  
+      format.html { redirect_to :action => 'index' }  
+      format.js  
+    end    
+    
+  end
+  
   def retailer_signedin
      
     @sales = Purchase.retailer_sales(@retailer.id)
@@ -372,7 +434,7 @@ class ServiceController < ApplicationController
       @consumer = session[:consumer]
       @payer_rule = session[:payer_rule]
     elsif params[:id] and params[:id] != "0"
-      @consumer = Consumer.find(params[:id])            # CHANGE THIS to fetch from the array instead of DB (as in find_retailer)
+      @consumer = session[:consumers].select{|consumer| consumer.id == params[:id].to_i}[0]
       @payer_rule = @consumer.most_recent_payer_rule
     else      # params[:id] == 999 (indicating a blank consumer)
       @consumer = init_consumer
@@ -384,6 +446,30 @@ class ServiceController < ApplicationController
     
   end
   
+  def find_retailer
+
+    if session[:retailer] and session[:retailer].id == params[:id]
+      @retailer = session[:retailer]
+    elsif params[:id] and params[:id] != "0"
+      @retailer = session[:retailers].select{|retailer| retailer.id == params[:id].to_i}[0]
+    end
+
+    session[:retailer] = @retailer
+    
+  end
+
+  def find_product
+
+    if session[:product] and session[:product].id == params[:id]
+      @product = session[:product]
+    elsif params[:id] and params[:id] != "0"
+      @product = session[:products].select{|product| product.id == params[:id].to_i}[0]
+    end
+
+    session[:product] = @product
+    
+  end
+
   def init_consumer
     Consumer.new(:balance => 0)
   end
@@ -404,18 +490,23 @@ class ServiceController < ApplicationController
   
   def set_environment
     
-    @user =   session[:user]
-    @payer =  session[:payer]
-    @payer_rule =   session[:payer_rule]
-    @retailer = session[:retailer]
-    @consumer = session[:consumer]
+    @user =       session[:user]
+    @payer =      session[:payer]
+    @payer_rule = session[:payer_rule]
+    @retailers =  session[:retailers]
+    @retailer =   session[:retailer]
+    @products =  session[:products]
+    @product =   session[:product]
+    @consumers =  session[:consumers]
+    @consumer =   session[:consumer]
 
   end
 
 
   def clear_session
-    session[:user] = session[:payer] = session[:consumer] = session[:consumers] = session[:payer_rule]  = 
-    session[:retailer] = session[:expected_pin] = nil
+    session[:user] = session[:payer] = session[:payer_rule] = 
+    session[:retailers] = session[:retailer] = session[:products] = session[:product] =
+    session[:consumers] = session[:consumer] = session[:expected_pin] = nil
   end
   
 end

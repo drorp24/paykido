@@ -1,6 +1,6 @@
-<% if @retailers.empty? %>
+<% if @products.empty? %>
 
-	$('.retailers_list').append(	
+	$('.products_list').append(	
 		'<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>');
 		
 /*
@@ -11,37 +11,37 @@
 */			
 <% else %>
 
-	$('.retailers_list').append(	
-		'<p class="inner_content_title" id="retailers">Retailers you purchased from</p>' +
+	$('.products_list').append(	
+		'<p class="inner_content_title" id="products">products you purchased from</p>' +
 		'<div class="column1" ></div>' +
 		'<div class="column2" ></div>' +
 		'<%= image_tag 'shopping_cart.png', :id => "shopping_cart" %>');
 			
 	<% i = 1 %>
 
-	<% for @retailer in @retailers %>
+	<% for @product in @products %>
 		<% rem = i % 2 %>
 		<% if rem == 1 %>
-			$('.retailers_list .column1').append(
+			$('.products_list .column1').append(
 				'<div class="portlet">'+
-					'<div class="retailer portlet-header" id="retailer_<%= @retailer.id %>"><%= @retailer.name %></div>'+
+					'<div class="product portlet-header" id="product_<%= @product.id %>"><%= @product.title %></div>'+
 					'<div class="portlet-content" style="padding-bottom:0" >'+
 						'<div class="portlet-content-left">'+
-							'<%= (!@retailer.logo.blank?) ?image_tag(@retailer.logo, :class => "portlet-content-logo")  :"<p class=retailer-name>#{@retailer.name}</p>" %>'+
-							'<p class="retailer-info">Total purchases this month:&nbsp;<%= number_to_currency(@retailer.total_amount) %></p>'+
+							'<%= (!@product.logo.blank?) ?image_tag(@product.logo, :class => "portlet-content-logo")  :"<p class=product-name>#{@product.title}</p>" %>'+
+							'<p class="product-info">Total purchases this month:&nbsp;<%= number_to_currency(@product.total_amount) %></p>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
 						'</div>'+
 					'</div>'+
 				'</div>');
 		<% else %>
-			$('.retailers_list .column2').append(
+			$('.products_list .column2').append(
 				'<div class="portlet">'+ 
-					'<div class="retailer portlet-header" id="retailer_<%= @retailer.id %>"><%= @retailer.name %></div>'+
+					'<div class="product portlet-header" id="product_<%= @product.id %>"><%= @product.title %></div>'+
 					'<div class="portlet-content" style="padding-bottom:0" >'+
 						'<div class="portlet-content-left">'+
-							'<%= (!@retailer.logo.blank?) ?image_tag(@retailer.logo, :class => "portlet-content-logo")  :"<p class=retailer-name>#{@retailer.name}</p>" %>'+
-							'<p class="retailer-info">Total purchases this month:&nbsp;<%= number_to_currency(@retailer.total_amount) %></p>'+
+							'<%= (!@product.logo.blank?) ?image_tag(@product.logo, :class => "portlet-content-logo")  :"<p class=product-name>#{@product.title}</p>" %>'+
+							'<p class="product-info">Total purchases this month:&nbsp;<%= number_to_currency(@product.total_amount) %></p>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
 						'</div>'+
@@ -52,20 +52,20 @@
 		<% i += 1 %>
 	<% end %>
 
-	retailer_info(<%= @retailers[0].id %>);
+	product_info(<%= @products[0].id %>);
 
 	
 <% end %>
 
 
 
-	function retailer_info(id) {
-		var selector = "div[id = retailer_" + id.toString() + " ]"
+	function product_info(id) {
+		var selector = "div[id = product_" + id.toString() + " ]"
 			
-		$('.retailer.portlet-header').removeClass('ui-widget-header-lightness');
+		$('.product.portlet-header').removeClass('ui-widget-header-lightness');
 		$(selector).addClass('ui-widget-header-lightness');
 		$.ajax({
-			url: 'retailer/'+id,
+			url: 'product/'+id,
 			success: function(data){
 			}
 		})
@@ -96,9 +96,9 @@ $(function() {
 	$(".column1").disableSelection();
 	});
 
-	$('.retailer.portlet-header').click(function () { 
+	$('.product.portlet-header').click(function () { 
 		
-		retailer_info($(this).attr('id').split('_')[1]);
+		product_info($(this).attr('id').split('_')[1]);
 		
 	 });
 	 

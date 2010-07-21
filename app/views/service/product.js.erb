@@ -1,35 +1,36 @@
-$('#retailers .left_content').html(
-	'<p class="inner_content_title">Which retailers do you approve?</p>'+
-	'<%= (!@retailer.logo.blank?) ?image_tag(@retailer.logo, :class => "portlet-content-logo-left")  :"<p class=retailer-name-left>#{@retailer.name}</p>" %>'+		
+$('#products .left_content').html(
+	'<p class="inner_content_title">Which products do you approve?</p>'+
+	'<%= (!@product.logo.blank?) ?image_tag(@product.logo, :class => "portlet-content-logo-left")  :"<p class=product-name-left>#{@product.title}</p>" %>'+		
 	'<span class="icon">'+
 	'<div class="inner_content_text"></div>'+
 	'<p>'+
 		'<span class=item>Monthly purchase count:</span>'+			
-		'<span class=content-value><%= @retailer.purchase_count %></span>' +
+		'<span class=content-value><%= @product.purchase_count %></span>' +
 	'</p>'+
 	'<p>'+
 		'<span class=item>Monthly purchase total:</span>'+			
-		'<span class=content-value><%= number_to_currency(@retailer.total_amount) %></span>' +
+		'<span class=content-value><%= number_to_currency(@product.total_amount) %></span>' +
 	'</p>'+
 	'<p>'+
 		'<span class=item>Last purchase made:</span>'+			
-		'<span class=content-value><%= @retailer.most_recent.to_date.strftime("%B %d, %Y") %></span>' +
+		'<span class=content-value><%= @product.most_recent.to_date.strftime("%B %d, %Y") %></span>' +
 	'</p>'+
-	'<p>Show me all of <%= @retailer.name %> purchases</p>'+
-		'<% if    @retailer.status == "whitelisted" %>'+
-			'<%= image_tag "/images/fb_like_lit_small.png", :id => "like_lit_#{@retailer.id}", :class => "like" %>'+
+	'<p>Show me all of <%= @product.title %> purchases</p>'+
+		'<% if    @product.status == "whitelisted" %>'+
+			'<%= image_tag "/images/fb_like_lit_small.png", :id => "like_lit_#{@product.id}", :class => "like" %>'+
 		'<% else %>'+
-			'<%= image_tag "/images/fb_like_small.png", :id => "like_unlit_#{@retailer.id}",  :class => "like" %>'+
+			'<%= image_tag "/images/fb_like_small.png", :id => "like_unlit_#{@product.id}",  :class => "like" %>'+
 		'<% end %>'+
 	'</span>'+	
 	'<span class="icon">'+
-		'<% if    @retailer.status == "blacklisted" %>'+
-			'<%= image_tag "/images/fb_dont_lit_small.png", :id => "dislike_lit_#{@retailer.id}",  :class => "like dislike" %>'+
+		'<% if    @product.status == "blacklisted" %>'+
+			'<%= image_tag "/images/fb_dont_lit_small.png", :id => "dislike_lit_#{@product.id}",  :class => "like dislike" %>'+
 		'<% else %>'+
-			'<%= image_tag "/images/fb_dont_small.png", :id => "dislike_unlit_#{@retailer.id}",  :class => "like dislike" %>'+
+			'<%= image_tag "/images/fb_dont_small.png", :id => "dislike_unlit_#{@product.id}",  :class => "like dislike" %>'+
 		'<% end %>'+
 	'</span>'
 );	
+
 	function likeToggleSrc(id) {
 
 		var input = id.split('_');
@@ -88,10 +89,10 @@ $('#retailers .left_content').html(
 
 	$(".like").click(function() {
 		selector_id = $(this).attr("id");
-		retailer_id = selector_id.split('_')[2];
+		product_id = selector_id.split('_')[2];
 		new_status = likeToggleSrc(selector_id);
 		$.ajax({
-			url: 'rlist_update/' + retailer_id + '?new_status=' + new_status,
+			url: 'rlist_update/' + product_id + '?new_status=' + new_status,
 			success: function(data){
 				
 			}

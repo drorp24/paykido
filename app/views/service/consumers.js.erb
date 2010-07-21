@@ -12,35 +12,35 @@
 	$('#cheerful_message').fadeOut(1200);
 	<% rem = @consumers.size % 2 %>
 	<% if rem == 1 %>
-			$('.column1').prepend(
+			$('#consumer_form .column1').prepend(
 				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
-					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=@consumer_added.id%>>'+
+					'<div class="consumer portlet-header ui-widget-header ui-corner-all" id="consumer_<%= @consumer_added.id %>">'+
 						'<%= text_field("consumer[]", 'name', :onchange => "rename_consumer(#{@consumer.id}, $(this).val())") %>'+
 					'</div>'+
 					'<div class="portlet-content" >'+
 						'<div class="portlet-content-left">'+
-							'<%= image_tag "face_placeholder_small.png" %>'+
+							'<%= image_tag "face_placeholder_small.png", :class => "face-placeholder" %>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
-							'<p><%= "Spent #{number_to_currency(@consumer_added.sum_amount)} in #{Time.now.strftime('%B')}" %></p>'+
-							'<p><%= "Current Balance #{number_to_currency(@consumer_added.balance)}" %></p>'+		
+							'<p class="consumer-info">Spent nothing this month</p>'+
+							'<p class="consumer-info"><%= "Monthly balance:&nbsp #{number_to_currency(@consumer_added.balance)}" %></p>'+		
 						'</div>'+
 					'</div>'+
 				'</div>');
 	
 	<% else %>
-			$('.column2').prepend(
+			$('#consumer_form .column2').prepend(
 				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
-					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=@consumer_added.id%>>'+
+					'<div class="consumer portlet-header ui-widget-header ui-corner-all" id="consumer_<%= @consumer_added.id %>">'+
 						'<%= text_field("consumer[]", 'name', :onchange => "rename_consumer(#{@consumer.id}, $(this).val())") %>'+
 					'</div>'+
 					'<div class="portlet-content" >'+
 						'<div class="portlet-content-left">'+
-							'<%= image_tag "face_placeholder_small.png" %>'+
+							'<%= image_tag "face_placeholder_small.png", :class => "face-placeholder" %>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
-							'<p><%= "Spent #{number_to_currency(@consumer_added.sum_amount)} in #{Time.now.strftime('%B')}" %></p>'+
-							'<p><%= "Current Balance #{number_to_currency(@consumer_added.balance)}" %></p>'+		
+							'<p class="consumer-info">Spent nothing this month</p>'+
+							'<p class="consumer-info"><%= "Monthly balance:&nbsp  #{number_to_currency(@consumer_added.balance)}" %></p>'+		
 						'</div>'+
 					'</div>'+
 				'</div>');	
@@ -62,34 +62,34 @@
 	<% for @consumer in @consumers %>
 		<% rem = i % 2 %>
 		<% if rem == 1 %>
-			$('.column1').append(
+			$('#consumer_form .column1').append(
 				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
-					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=@consumer.id%>>'+
+					'<div class="consumer portlet-header ui-widget-header ui-corner-all" id="consumer_<%= @consumer.id %>">'+
 							'<%= text_field("consumer[]", 'name', :onchange => "rename_consumer(#{@consumer.id}, $(this).val())") %>'+
 					'</div>'+
 					'<div class="portlet-content" >'+
 						'<div class="portlet-content-left">'+
-							'<%= image_tag "face_placeholder_small.png" %>'+
+							'<%= image_tag "face_placeholder_small.png", :class => "face-placeholder" %>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
-							'<p><%= "Spent #{number_to_currency(@consumer.sum_amount)} in #{Time.now.strftime('%B')}" %></p>'+
-							'<p><%= "Current Balance #{number_to_currency(@consumer.balance)}" %></p>'+		
+							'<p class="consumer-info">Spent&nbsp;<%= (@consumer.sum_amount.blank?) ?"nothing" :number_to_currency(@consumer.sum_amount) %>&nbsp;this month</p>'+
+							'<p class="consumer-info"><%= "Monthly balance:&nbsp  #{number_to_currency(@consumer.balance)}" %></p>'+		
 						'</div>'+
 					'</div>'+
 				'</div>');
 		<% else %>
-			$('.column2').append(
+			$('#consumer_form .column2').append(
 				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+ 
-					'<div class="portlet-header ui-widget-header ui-corner-all" id=<%=@consumer.id%>>'+
+					'<div class="consumer portlet-header ui-widget-header ui-corner-all" id="consumer_<%= @consumer.id %>">'+
 						'<%= text_field("consumer[]", 'name', :onchange => "rename_consumer(#{@consumer.id}, $(this).val())") %>'+
 			    	'</div>'+
 					'<div class="portlet-content" >'+
 						'<div class="portlet-content-left">'+
-							'<%= image_tag "face_placeholder_small.png" %>'+
+							'<%= image_tag "face_placeholder_small.png", :class => "face-placeholder" %>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
-							'<p><%= "Spent #{number_to_currency(@consumer.sum_amount)} in #{Time.now.strftime('%B')}" %></p>'+
-							'<p><%= "Current Balance #{number_to_currency(@consumer.balance)}" %></p>'+		
+							'<p class="consumer-info">Spent&nbsp;<%= (@consumer.sum_amount.blank?) ?"nothing" :number_to_currency(@consumer.sum_amount) %>&nbsp;this month</p>'+
+							'<p class="consumer-info"><%= "Monthly balance:&nbsp  #{number_to_currency(@consumer.balance)}" %></p>'+		
 						'</div>'+
 					'</div>'+
 				'</div>');
@@ -98,15 +98,14 @@
 	<% end %>
 	$('.consumers_list').append('<% end %>');
 
-	if (!$('.portlet-header').hasClass('ui-widget-header-lightness'))
-		{consumer_info(<%= @consumers[0].id %>);}
+	consumer_info(<%= @consumers[0].id %>);
 	
 <% end %>
 	
 
-	$('.portlet-header').click(function () { 
+	$('.consumer.portlet-header').click(function () { 
 		
-		consumer_info($(this).attr('id'));
+		consumer_info($(this).attr('id').split('_')[1]);
 		
 	 });
 	 

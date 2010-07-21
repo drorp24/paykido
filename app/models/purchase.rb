@@ -136,6 +136,14 @@ class Purchase < ActiveRecord::Base
 
   end
 
+  def self.payer_products_the_works(payer_id)
+    self.find_all_by_payer_id(payer_id, 
+              :conditions => ["authorized = ?", true],
+              :group =>       "purchases.product_id",
+              :joins  =>      "inner join products on purchases.product_id = products.id left outer join plists on purchases.product_id = plists.product_id and purchases.payer_id = plists.payer_id",
+              :select =>      "products.id, products.title, products.logo, plists.status, sum(amount) as total_amount, count(*) as purchase_count, max(date) as most_recent")
+
+  end
 
   def self.SAVEby_payer_retailer_and_month(payer_id, retailer_id, month)
     self.sum   :amount,

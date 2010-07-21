@@ -1,7 +1,54 @@
+#shopping_cart {
+	height: 75px;
+	position:absolute;
+	top:-17px;
+	left:319px;
+}
+
+.retailer-name-left {
+	font-family:"Arial Rounded MT Bold";
+	margin-top:6px;
+	margin-bottom:27px;
+	margin-left: 94px;
+	font-size:20px;
+	height: 25px;
+}
+
+.portlet-content-logo-left {
+	width: 100px;
+	height:25px;
+	margin-top: 5px;
+	margin-left: 94px;	
+}
+
+.retailer-name {
+	margin-left: 70px;
+	font-family:"Arial Rounded MT Bold";
+	margin-top:6px;
+	margin-bottom:10px;
+	font-size:18px;
+}
+
+.face-placeholder {
+	display:inline;
+	float:left;
+	margin-left: 3px;
+}
+
+.retailer-info {
+	margin-top:5px;
+	margin-left: 5px;
+}
+
+.consumer-info {
+	margin-top:7px;
+	margin-right: 11px;
+}
+
 .portlet-content-logo {
 	width: 100px;
 	height:25px;
-	margin-left: 3px;
+	margin-left: 56px;
 	margin-top: 5px;
 }
 .portlet-header input {
@@ -83,9 +130,19 @@ select, input {
 	padding-bottom: 1px;	
 }
 
+.content-value {
+	display: inline;
+	float: right;
+	margin-right:267px;
+}
+
+.dislike {
+	margin-left:178px;
+}
+
 .logo {
 	height: 27px;
-	margin-left: 15%;
+	margin-left: 10%;
 }
 
 .middle {
@@ -94,7 +151,7 @@ select, input {
 
 .right_float {
 	float:right;
-	margin-right: 123px;
+	margin-right: 213px;
 }
 .shaded {
 	opacity:0.4;
@@ -199,10 +256,6 @@ select, input {
 	padding-bottom:8px;
 }
 
-.portlet-content-left img  {
-	display:inline;
-	float:left;
-}
 
 .portlet-content-right {
 	display:inline;
@@ -273,9 +326,13 @@ form {
 .engrave {
 	border:1px inset #EEEEEE;
 	border-left-color:#CCCCCC;
+/*
+		-moz-border-radius:5px;
+
+*/
 }
 
-#consumers, .column1 {
+#consumers, #retailers, .column1 {
 	margin-left:-15px;
 }
 
@@ -540,7 +597,6 @@ a.login:hover {
 .portlet-content {
 	font-family:Verdana,Arial,sans-serif;
 	font-size:14px;
-	margin-bottom:10px;	
 	padding-left:2px;
 }
 
