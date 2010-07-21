@@ -117,6 +117,17 @@ class ServiceController < ApplicationController
     
   end
   
+  def categories
+    
+    @categories = session[:categories]
+    
+    respond_to do |format|  
+      format.html { redirect_to :action => 'JP' }  
+      format.js  
+    end
+    
+  end
+  
   def payer_signedin
             
     @consumers = Consumer.payer_consumers_the_works(@payer.id)
@@ -134,6 +145,11 @@ class ServiceController < ApplicationController
     sort_products
     session[:products] = @products
     session[:product] = (@products.empty?) ?nil :@products[0]
+
+    @categories = Purchase.payer_categories_the_works(@payer.id)
+    sort_categories
+    session[:categories] = @categories
+    session[:category] = (@categories.empty?) ?nil :@categories[0]
 
   end
  
@@ -179,6 +195,12 @@ end
     
   end
   
+  def sort_categories
+    
+    @categories.sort! {|x,y| y.total_amount.to_i <=> x.total_amount.to_i }
+    
+  end
+
   def consumer
 
     find_consumer
@@ -204,6 +226,17 @@ end
   def product
     
     find_product
+      
+    respond_to do |format|  
+      format.html { redirect_to :action => 'JP' }  
+      format.js  
+    end
+    
+  end
+
+  def category
+    
+    find_category
       
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
@@ -275,6 +308,21 @@ end
       flash[:notice] = "Oops... server unavailble. Back in a few moments!"
     end
     session[:product].status = params[:new_status]
+    
+    respond_to do |format|  
+      format.html { redirect_to :action => 'index' }  
+      format.js  
+    end    
+    
+  end
+  
+   def clist_update
+    
+   @clist = Clist.find_or_initialize_by_payer_id_and_category_id(@payer.id, params[:id])
+    unless @clist.update_attributes(:status => params[:new_status])
+      flash[:notice] = "Oops... server unavailble. Back in a few moments!"
+    end
+    session[:category].status = params[:new_status]
     
     respond_to do |format|  
       format.html { redirect_to :action => 'index' }  
@@ -473,6 +521,18 @@ end
     end
 
     session[:product] = @product
+    
+  end
+
+  def find_category
+
+    if session[:category] and session[:category].id == params[:id]
+      @category = session[:category]
+    elsif params[:id] and params[:id] != "0"
+      @category = session[:categories].select{|category| category.id == params[:id].to_i}[0]
+    end
+
+    session[:category] = @category
     
   end
 

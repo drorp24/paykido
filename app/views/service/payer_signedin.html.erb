@@ -179,11 +179,19 @@
 		})
 	};
 
+	function viewCategories(){
+		$.ajax({
+			url: 'categories',
+			success: function(data){
+			}
+		})
+	};
 /*	Populate tabs by calling ajax  */
 
 		viewConsumers (0);
 		viewRetailers ();
 		viewProducts ();
+		viewCategories ();
 
 </script>
 
@@ -196,6 +204,7 @@
 		<li><a href="#alerts">Alerts</a></li>
 		<li><a href="#retailers">Retailers</a></li>
 		<li><a href="#products">Products</a></li>
+		<li><a href="#categories">Categories</a></li>
 		<li><a href="#inbox">Inbox</a></li>
 		<li><a href="#purchases">Purchases!</a></li>
 		<li><a href="#account">Account</a></li>
@@ -382,6 +391,11 @@
 	<div id="products">
 		<div class="left_content"></div>
 		<div class="right_content products_list"></div>
+	</div>
+
+	<div id="categories">
+		<div class="left_content"></div>
+		<div class="right_content categories_list"></div>
 	</div>
 
 	<div id="inbox">
