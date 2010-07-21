@@ -1,8 +1,7 @@
 $('#products .left_content').html(
 	'<p class="inner_content_title">Which products do you approve?</p>'+
-	'<%= (!@product.logo.blank?) ?image_tag(@product.logo, :class => "portlet-content-logo-left")  :"<p class=product-name-left>#{@product.title}</p>" %>'+		
-	'<span class="icon">'+
-	'<div class="inner_content_text"></div>'+
+	'<span class="content-name-left"><%= @product.title %></span>'+
+	'<%= if @product.logo? then image_tag(@product.logo, :class => "portlet-content-logo-left") end %>'+		
 	'<p>'+
 		'<span class=item>Monthly purchase count:</span>'+			
 		'<span class=content-value><%= @product.purchase_count %></span>' +
@@ -17,16 +16,16 @@ $('#products .left_content').html(
 	'</p>'+
 	'<p>Show me all of <%= @product.title %> purchases</p>'+
 		'<% if    @product.status == "whitelisted" %>'+
-			'<%= image_tag "/images/fb_like_lit_small.png", :id => "like_lit_#{@product.id}", :class => "like" %>'+
+			'<%= image_tag "/images/fb_like_lit_small.png", :id => "product_like_lit_#{@product.id}", :class => "product like" %>'+
 		'<% else %>'+
-			'<%= image_tag "/images/fb_like_small.png", :id => "like_unlit_#{@product.id}",  :class => "like" %>'+
+			'<%= image_tag "/images/fb_like_small.png", :id => "product_like_unlit_#{@product.id}",  :class => "product like" %>'+
 		'<% end %>'+
 	'</span>'+	
 	'<span class="icon">'+
 		'<% if    @product.status == "blacklisted" %>'+
-			'<%= image_tag "/images/fb_dont_lit_small.png", :id => "dislike_lit_#{@product.id}",  :class => "like dislike" %>'+
+			'<%= image_tag "/images/fb_dont_lit_small.png", :id => "product_dislike_lit_#{@product.id}",  :class => "product like dislike" %>'+
 		'<% else %>'+
-			'<%= image_tag "/images/fb_dont_small.png", :id => "dislike_unlit_#{@product.id}",  :class => "like dislike" %>'+
+			'<%= image_tag "/images/fb_dont_small.png", :id => "product_dislike_unlit_#{@product.id}",  :class => "product like dislike" %>'+
 		'<% end %>'+
 	'</span>'
 );	
@@ -34,9 +33,10 @@ $('#products .left_content').html(
 	function likeToggleSrc(id) {
 
 		var input = id.split('_');
-		var clicked_button = input[0];
-		var status = input[1];
-		var entity_id = input[2];
+		var entity_type = input[0];
+		var clicked_button = input[1];
+		var status = input[2];
+		var entity_id = input[3];
 		
 		
 		if (clicked_button == "like") {
@@ -56,23 +56,23 @@ $('#products .left_content').html(
 			other_button_unlit_image = 	"/images/fb_like_small.png";
 		}
 		
-		if ($('#' + other_button + '_lit_' + entity_id).length) {
-			other_button_selector = '#' + other_button + '_lit_' + entity_id;
+		if ($('#product_' + other_button + '_lit_' + entity_id).length) {
+			other_button_selector = '#product_' + other_button + '_lit_' + entity_id;
 		}
 		else {
-			other_button_selector = '#' + other_button + '_unlit_' + entity_id;			
+			other_button_selector = '#product_' + other_button + '_unlit_' + entity_id;			
 		}
 		
 		
 		if (status == "lit") {
 			$(button_selector).attr('src', unlit_image);
-			$(button_selector).attr('id', clicked_button + "_unlit_" + entity_id);
+			$(button_selector).attr('id', "product_" + clicked_button + "_unlit_" + entity_id);
 		}
 		else {
 			$(button_selector).attr('src', lit_image);
 			$(other_button_selector).attr('src', other_button_unlit_image);
-			$(button_selector).attr('id', clicked_button + "_lit_" + entity_id);
-			$(other_button_selector).attr('id', other_button + "_unlit_" + entity_id);
+			$(button_selector).attr('id', "product_" + clicked_button + "_lit_" + entity_id);
+			$(other_button_selector).attr('id', "product_" + other_button + "_unlit_" + entity_id);
 		}
 		
 		if (clicked_button == 'like' && status == 'unlit') {
@@ -87,12 +87,12 @@ $('#products .left_content').html(
 	};
 	
 
-	$(".like").click(function() {
+	$(".product.like").click(function() {
 		selector_id = $(this).attr("id");
-		product_id = selector_id.split('_')[2];
+		product_id = selector_id.split('_')[3];
 		new_status = likeToggleSrc(selector_id);
 		$.ajax({
-			url: 'rlist_update/' + product_id + '?new_status=' + new_status,
+			url: 'plist_update/' + product_id + '?new_status=' + new_status,
 			success: function(data){
 				
 			}

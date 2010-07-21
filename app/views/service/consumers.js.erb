@@ -102,6 +102,28 @@
 	
 <% end %>
 	
+$(function() {
+	$('#consumer_form .column1').sortable({
+		connectWith: '#consumer_form .column2'
+	});
+	$('#consumer_form .column2').sortable({
+		connectWith: '#consumer_form .column1'
+	});
+	
+	$(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
+		.find(".consumer.portlet-header")
+			.addClass("ui-widget-header ui-corner-all")
+			.prepend('<span class="ui-icon ui-icon-minusthick"></span>')
+			.end()
+		.find(".consumer.portlet-content");
+
+	$(".portlet-header .ui-icon").click(function() {
+		$(this).toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick");
+		$(this).parents(".portlet:first").find(".portlet-content").toggle();
+	});
+	
+	$("#consumer_form .column1").disableSelection();
+});
 
 	$('.consumer.portlet-header').click(function () { 
 		

@@ -1,6 +1,7 @@
 $('#retailers .left_content').html(
 	'<p class="inner_content_title">Which retailers do you approve?</p>'+
-	'<%= (!@retailer.logo.blank?) ?image_tag(@retailer.logo, :class => "portlet-content-logo-left")  :"<p class=retailer-name-left>#{@retailer.name}</p>" %>'+		
+	'<span class="content-name-left"><%= @retailer.name %></span>'+
+	'<%= if @retailer.logo? then image_tag(@retailer.logo, :class => "portlet-content-logo-left") end %>'+		
 	'<span class="icon">'+
 	'<div class="inner_content_text"></div>'+
 	'<p>'+
@@ -17,25 +18,26 @@ $('#retailers .left_content').html(
 	'</p>'+
 	'<p>Show me all of <%= @retailer.name %> purchases</p>'+
 		'<% if    @retailer.status == "whitelisted" %>'+
-			'<%= image_tag "/images/fb_like_lit_small.png", :id => "like_lit_#{@retailer.id}", :class => "like" %>'+
+			'<%= image_tag "/images/fb_like_lit_small.png", :id => "retailer_like_lit_#{@retailer.id}", :class => "retailer like" %>'+
 		'<% else %>'+
-			'<%= image_tag "/images/fb_like_small.png", :id => "like_unlit_#{@retailer.id}",  :class => "like" %>'+
+			'<%= image_tag "/images/fb_like_small.png", :id => "retailer_like_unlit_#{@retailer.id}",  :class => "retailer like" %>'+
 		'<% end %>'+
 	'</span>'+	
 	'<span class="icon">'+
 		'<% if    @retailer.status == "blacklisted" %>'+
-			'<%= image_tag "/images/fb_dont_lit_small.png", :id => "dislike_lit_#{@retailer.id}",  :class => "like dislike" %>'+
+			'<%= image_tag "/images/fb_dont_lit_small.png", :id => "retailer_dislike_lit_#{@retailer.id}",  :class => "retailer like dislike" %>'+
 		'<% else %>'+
-			'<%= image_tag "/images/fb_dont_small.png", :id => "dislike_unlit_#{@retailer.id}",  :class => "like dislike" %>'+
+			'<%= image_tag "/images/fb_dont_small.png", :id => "retailer_dislike_unlit_#{@retailer.id}",  :class => "retailer like dislike" %>'+
 		'<% end %>'+
 	'</span>'
 );	
 	function likeToggleSrc(id) {
 
 		var input = id.split('_');
-		var clicked_button = input[0];
-		var status = input[1];
-		var entity_id = input[2];
+		var entity_type = input[0];
+		var clicked_button = input[1];
+		var status = input[2];
+		var entity_id = input[3];
 		
 		
 		if (clicked_button == "like") {
@@ -55,23 +57,23 @@ $('#retailers .left_content').html(
 			other_button_unlit_image = 	"/images/fb_like_small.png";
 		}
 		
-		if ($('#' + other_button + '_lit_' + entity_id).length) {
-			other_button_selector = '#' + other_button + '_lit_' + entity_id;
+		if ($('#retailer_' + other_button + '_lit_' + entity_id).length) {
+			other_button_selector = '#retailer_' + other_button + '_lit_' + entity_id;
 		}
 		else {
-			other_button_selector = '#' + other_button + '_unlit_' + entity_id;			
+			other_button_selector = '#retailer_' + other_button + '_unlit_' + entity_id;			
 		}
 		
 		
 		if (status == "lit") {
 			$(button_selector).attr('src', unlit_image);
-			$(button_selector).attr('id', clicked_button + "_unlit_" + entity_id);
+			$(button_selector).attr('id', "retailer_" + clicked_button + "_unlit_" + entity_id);
 		}
 		else {
 			$(button_selector).attr('src', lit_image);
 			$(other_button_selector).attr('src', other_button_unlit_image);
-			$(button_selector).attr('id', clicked_button + "_lit_" + entity_id);
-			$(other_button_selector).attr('id', other_button + "_unlit_" + entity_id);
+			$(button_selector).attr('id', "retailer_" + clicked_button + "_lit_" + entity_id);
+			$(other_button_selector).attr('id', "retailer_"  + other_button + "_unlit_" + entity_id);
 		}
 		
 		if (clicked_button == 'like' && status == 'unlit') {
@@ -86,9 +88,9 @@ $('#retailers .left_content').html(
 	};
 	
 
-	$(".like").click(function() {
+	$(".retailer.like").click(function() {
 		selector_id = $(this).attr("id");
-		retailer_id = selector_id.split('_')[2];
+		retailer_id = selector_id.split('_')[3];
 		new_status = likeToggleSrc(selector_id);
 		$.ajax({
 			url: 'rlist_update/' + retailer_id + '?new_status=' + new_status,

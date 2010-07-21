@@ -12,7 +12,7 @@
 <% else %>
 
 	$('.products_list').append(	
-		'<p class="inner_content_title" id="products">products you purchased from</p>' +
+		'<p class="inner_content_title">Products purchased</p>' +
 		'<div class="column1" ></div>' +
 		'<div class="column2" ></div>' +
 		'<%= image_tag 'shopping_cart.png', :id => "shopping_cart" %>');
@@ -27,7 +27,7 @@
 					'<div class="product portlet-header" id="product_<%= @product.id %>"><%= @product.title %></div>'+
 					'<div class="portlet-content" style="padding-bottom:0" >'+
 						'<div class="portlet-content-left">'+
-							'<%= (!@product.logo.blank?) ?image_tag(@product.logo, :class => "portlet-content-logo")  :"<p class=product-name>#{@product.title}</p>" %>'+
+							'<%= (!@product.logo.blank?) ?image_tag(@product.logo, :class => "portlet-content-logo")  :"<p class=content-name>#{@product.title}</p>" %>'+
 							'<p class="product-info">Total purchases this month:&nbsp;<%= number_to_currency(@product.total_amount) %></p>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
@@ -40,7 +40,7 @@
 					'<div class="product portlet-header" id="product_<%= @product.id %>"><%= @product.title %></div>'+
 					'<div class="portlet-content" style="padding-bottom:0" >'+
 						'<div class="portlet-content-left">'+
-							'<%= (!@product.logo.blank?) ?image_tag(@product.logo, :class => "portlet-content-logo")  :"<p class=product-name>#{@product.title}</p>" %>'+
+							'<%= (!@product.logo.blank?) ?image_tag(@product.logo, :class => "portlet-content-logo")  :"<p class=content-name>#{@product.title}</p>" %>'+
 							'<p class="product-info">Total purchases this month:&nbsp;<%= number_to_currency(@product.total_amount) %></p>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
@@ -74,31 +74,30 @@
 
 
 $(function() {
-	$('.column1').sortable({
-		connectWith: '.column2'
+	$('.products_list .column1').sortable({
+		connectWith: '.products_list .column2'
 	});
-	$('.column2').sortable({
-		connectWith: '.column1'
+	$('.products_list .column2').sortable({
+		connectWith: '.products_list .column1'
 	});
 	
 	$(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
-		.find(".portlet-header")
+		.find(".product.portlet-header")
 			.addClass("ui-widget-header ui-corner-all")
 			.prepend('<span class="ui-icon ui-icon-minusthick"></span>')
 			.end()
-		.find(".portlet-content");
+		.find(".product.portlet-content");
 
 	$(".portlet-header .ui-icon").click(function() {
 		$(this).toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick");
 		$(this).parents(".portlet:first").find(".portlet-content").toggle();
 	});
 	
-	$(".column1").disableSelection();
-	});
+	$(".products_list .column1").disableSelection();
+});
 
 	$('.product.portlet-header').click(function () { 
 		
 		product_info($(this).attr('id').split('_')[1]);
 		
-	 });
-	 
+	 }); 

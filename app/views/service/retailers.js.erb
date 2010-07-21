@@ -27,7 +27,7 @@
 					'<div class="retailer portlet-header" id="retailer_<%= @retailer.id %>"><%= @retailer.name %></div>'+
 					'<div class="portlet-content" style="padding-bottom:0" >'+
 						'<div class="portlet-content-left">'+
-							'<%= (!@retailer.logo.blank?) ?image_tag(@retailer.logo, :class => "portlet-content-logo")  :"<p class=retailer-name>#{@retailer.name}</p>" %>'+
+							'<%= (!@retailer.logo.blank?) ?image_tag(@retailer.logo, :class => "portlet-content-logo")  :"<p class=content-name>#{@retailer.name}</p>" %>'+
 							'<p class="retailer-info">Total purchases this month:&nbsp;<%= number_to_currency(@retailer.total_amount) %></p>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
@@ -40,7 +40,7 @@
 					'<div class="retailer portlet-header" id="retailer_<%= @retailer.id %>"><%= @retailer.name %></div>'+
 					'<div class="portlet-content" style="padding-bottom:0" >'+
 						'<div class="portlet-content-left">'+
-							'<%= (!@retailer.logo.blank?) ?image_tag(@retailer.logo, :class => "portlet-content-logo")  :"<p class=retailer-name>#{@retailer.name}</p>" %>'+
+							'<%= (!@retailer.logo.blank?) ?image_tag(@retailer.logo, :class => "portlet-content-logo")  :"<p class=content-name>#{@retailer.name}</p>" %>'+
 							'<p class="retailer-info">Total purchases this month:&nbsp;<%= number_to_currency(@retailer.total_amount) %></p>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
@@ -74,19 +74,19 @@
 
 
 $(function() {
-	$('.column1').sortable({
-		connectWith: '.column2'
+	$('.retailers_list .column1').sortable({
+		connectWith: '.retailers_list .column2'
 	});
-	$('.column2').sortable({
-		connectWith: '.column1'
+	$('.retailers_list .column2').sortable({
+		connectWith: '.retailers_list .column1'
 	});
 	
 	$(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
-		.find(".portlet-header")
+		.find(".retailer.portlet-header")
 			.addClass("ui-widget-header ui-corner-all")
 			.prepend('<span class="ui-icon ui-icon-minusthick"></span>')
 			.end()
-		.find(".portlet-content");
+		.find(".retailer.portlet-content");
 
 	$(".portlet-header .ui-icon").click(function() {
 		$(this).toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick");
@@ -94,7 +94,7 @@ $(function() {
 	});
 	
 	$(".column1").disableSelection();
-	});
+});
 
 	$('.retailer.portlet-header').click(function () { 
 		

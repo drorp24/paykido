@@ -131,6 +131,7 @@ class ServiceController < ApplicationController
     session[:retailer] = (@retailers.empty?) ?nil :@retailers[0]
 
     @products = Purchase.payer_products_the_works(@payer.id)
+    sort_products
     session[:products] = @products
     session[:product] = (@products.empty?) ?nil :@products[0]
 
@@ -172,6 +173,11 @@ end
     
   end
   
+  def sort_products
+    
+    @products.sort! {|x,y| y.total_amount.to_i <=> x.total_amount.to_i }
+    
+  end
   
   def consumer
 
@@ -371,7 +377,7 @@ end
         end         
     else
         find_def_payer_rule
-        @consumer.update_attributes!(:payer_id => @payer.id, :balance => @def_payer_rule.allowance, :name => "(key name here)")
+        @consumer.update_attributes!(:payer_id => @payer.id, :balance => @def_payer_rule.allowance)
         @phone = @consumer.billing_phone
         session[:consumer] = @consumer
         session[:payer_rule] = @consumer.payer_rules.create!(:allowance => @def_payer_rule.allowance, :rollover => @def_payer_rule.rollover, :auto_authorize_under => @def_payer_rule.auto_authorize_under, :auto_deny_over => @def_payer_rule.auto_deny_over)

@@ -5,23 +5,23 @@
 	left:319px;
 }
 
-.retailer-name-left {
+.content-name-left {
 	font-family:"Arial Rounded MT Bold";
-	margin-top:6px;
-	margin-bottom:27px;
-	margin-left: 94px;
-	font-size:20px;
-	height: 25px;
+	color: orange;
+	margin-left: 3px;
+	font-size:25px;
 }
 
 .portlet-content-logo-left {
+	position:absolute;
+	top: 71px;
+	left:223px;
 	width: 100px;
 	height:25px;
-	margin-top: 5px;
-	margin-left: 94px;	
+
 }
 
-.retailer-name {
+.content-name {
 	margin-left: 70px;
 	font-family:"Arial Rounded MT Bold";
 	margin-top:6px;
@@ -332,8 +332,12 @@ form {
 */
 }
 
-#consumers, #retailers, .column1 {
+.column1 {
 	margin-left:-15px;
+}
+
+.right_content .inner_content_title{
+	margin-left:-10px;
 }
 
 .column, .column1, .column2 {
