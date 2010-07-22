@@ -47,7 +47,7 @@ $(document).ready(function (){
 			});
 		});
 		$(function() {
-			$("#tabs").tabs().find(".ui-tabs-nav").sortable({axis:'x'});
+			$("#tabs, #consumer_tabs").tabs().find(".ui-tabs-nav").sortable({axis:'x'});
 		});
 	
 		$(function() {

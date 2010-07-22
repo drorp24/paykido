@@ -90,7 +90,7 @@
 		var balance_position = (balance / budget) * 100;
 		var tick = ((budget / 40).toFixed(1)) * 10;
 		var background = "chf=c,lg,90,FFE7C6,0,76A4FB,0.5"
-		var uri = "http://chart.apis.google.com/chart?cht=gom&chs=300x100&chf=bg,lg,90,FFFEE0,0,FFFFF5,0.75&chxt=y&chd=t:" + balance_position + "&chl=Balance&chxr=0,0," + budget + "," + tick;
+		var uri = "http://chart.apis.google.com/chart?cht=gom&chs=280x100&chf=bg,lg,90,FFFEE0,0,FFFFF5,0.75&chxt=y&chd=t:" + balance_position + "&chl=Balance&chxr=0,0," + budget + "," + tick;
 		document.getElementById("chartdiv").src = uri;
 
 	}
@@ -199,127 +199,92 @@
 <div id="tabs">
 	<ul>
 		<li><a href="#consumers">Consumers</a></li>
+		<li><a href="#allowance">Allowance</a></li>
+		<li><a href="#approvals">Approvals</a></li>
+		<li><a href="#alerts">Alerts</a></li>
 		<li><a href="#retailers">Retailers</a></li>
 		<li><a href="#products">Products</a></li>
 		<li><a href="#categories">Categories</a></li>
 		<li><a href="#inbox">Inbox</a></li>
 		<li><a href="#purchases">Purchases!</a></li>
 		<li><a href="#account">Account</a></li>
-		<li><a href="#alerts">Alerts</a></li>
 	</ul>
 
 
 	<div id="consumers">
-		<div id="consumer_tabs">
-			<ul>
-				<li><a href="#addnew">New Consumer</a></li>
-				<li><a href="#allowance">Monthly Allowance</a></li>
-				<li><a href="#approvals">Purchase Amounts</a></li>				
-			</ul>
-			<div id="addnew">
-				<div class="left_content">
-					<p class="inner_content_title">Who would you like to cater for?</p>
-					<p class="inner_content_text">To add a new consumer, key-in his or her phone number and wait for</p>
-					<p class="inner_content_text">the text message. Once you get it, key-in the pin code and you're done.</p>
-					<br />
-					<p class="inner_content_text">Start by keying your consumer's phone number right here:</p>
-					<% form_for(:consumer, :url => {:action => "sms_consumer"}, :html => {:id => "phone_form"}) do |f| %>
-						<%= f.text_field :billing_phone, :size => 20, :placeholder => "Phone number", :class => "formfield" %>
-						<%= submit_tag "Click when done",:class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
-					<% end %>
-					<br />
-					<p class="inner_content_text">Once you get the text message, key-in the PIN code here:</p>  
-					<% form_for(:consumer, :url => {:action => "check_pin_and_link_consumer"}, :html => {:id => "pin_form"}) do |f| %>
-						<%= f.text_field :pin, :size => 20, :placeholder => "Received PIN", :class => "formfield"  %>
-						<%= submit_tag "Click when done", :class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
-					<% end %>
-				</div>
-				<div class="right_content consumers_list"></div>
-			</div>
-
-			<div id="allowance">
-				<div class="left_content" id="allowance_consumer">
-					<p class="inner_content_title">How much can each spend in one month?</p>
-					<p class="content-name-left" id="consumer_name_allowance"></p>		
-					<img id='chartdiv' class="engrave"/>
-					<br /><br />
-					<% form_for :payer_rule, :url => { :action => :consumer_rules_update }, :html => {:id => "allowance_form"} do |f| %>			
-					    <span class="long item">Monthly Allowance:</span>
-						<span class="value"><%= f.text_field(:edited_budget, :onchange => "modifyBudget('post')", :id => "budget", :size => 10) %></span>
-					    <div class="long item" id="budget_slider" onclick="modifyBudget('post')"></div>
-						<br />
-					    <span class="long item">Current Balance:</span>
-						<span class="green_value"><%= text_field(:consumer, :edited_balance, :onchange => "modifyBalance('post')", :id => "balance", :class => "dollar_amount", :size => 10) %></span>
-					    <div id="balance_slider" onclick="modifyBalance('post')"></div>
-						<br />
-						<span class="item">Balance rollover</span>
-						<span id="rollover" class="buttonset">
-							<%= f.radio_button("rollover_human", "On", :onchange => "$('#allowance_form').submit();") %><label for="payer_rule_rollover_human_on">On</label>
-							<%= f.radio_button("rollover_human", "Off",:onchange => "$('#allowance_form').submit();")%><label for="payer_rule_rollover_human_off">Off</label>
-						</span>			
-					<% end %>
-				</div>
-				<div class="right_content consumers_list"></div>
-			</div>
-
-			<div id="approvals">
-				<div class="left_content" id="approvals_consumer">
-					<p class="inner_content_title">What should be automatically approved/denied?</p>
-					<p class="content-name-left" id="consumer_name_approvals"></p>
-					<div class="inner_content_text" id="extra_space1">When a purchase othewise meets my rules</div>
-					<% form_for :payer_rule, :url => { :action => :consumer_rules_update }, :html => {:id => "amounts_form"} do |f| %>
-						<p>
-						    <span class="rule">Approve if under</span>
-							<span><%= f.text_field(:edited_auto_authorize_under, :onchange => "modifyUnderOver('post')", :id => "under", :size => 10) %></span>
-						</p>	
-						<p>
-						    <span class="rule">Deny if over</span>
-							<span><%= f.text_field(:edited_auto_deny_over, :onchange => "modifyUnderOver('post')", :id => "over",  :size => 10) %></span>							
-						</p>		
-					<% end %>
-					<div id='slider-range' class="engrave" onclick="modifyUnderOver('post')"></div>
-					<p id="extra_space4">&nbsp;</p>
-					<p class="inner_content_text">When purchase amount is in between then</p>
-					<p class="inner_content_text">I'd rather get notified and decide for myself</p>				
-					<a href="#" class="contact" onclick="$('#tabs').tabs('select', 'alerts');"><img src="<%= (@payer.phone_alert?) ?'/images/iPhone SMS 64.png' :'/images/iPhone SMS 64 bw.png' %>" border="0"></a> 
-					<a href="#" class="contact" onclick="$('#tabs').tabs('select', 'alerts');"><img src="<%= (@payer.email_alert?) ?'/images/iPhone email 64.png' :'/images/iPhone email 64 bw.png' %>" border="0"></a> 
-					<%= image_tag 'Skype 64 bw 1.png', :class => "contact" , :id => "skype" %>
-					<%= image_tag 'aol aim bw.png', :class => "contact", :id => "aim"%>
-				</div>
-				<div class="right_content consumers_list"></div>
-			</div>
+		<div class="left_content">
+			<p class="inner_content_title">Who would you like to take care for</p>
+			<div class="inner_content_text">Define here who gets a one-click shopping experience (provided your rules are met).</div>
+			<div class="inner_content_text">To add a consumer, key-in his or her phone number and wait for the text message.</div>
+			<br />
+			<% form_for(:consumer, :url => {:action => "sms_consumer"}, :html => {:id => "phone_form"}) do |f| %>
+				<%= f.text_field :billing_phone, :size => 20, :placeholder => "Phone number", :class => "formfield" %>
+				<%= submit_tag "Click when done",:class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
+			<% end %>
+			<br />
+			<p class="inner_content_text">Once you got the text message, key-in the PIN code here:</p>  
+			<% form_for(:consumer, :url => {:action => "check_pin_and_link_consumer"}, :html => {:id => "pin_form"}) do |f| %>
+				<%= f.text_field :pin, :size => 20, :placeholder => "Received PIN", :class => "formfield"  %>
+				<%= submit_tag "Click when done", :class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
+			<% end %>
 		</div>
+		<div class="right_content consumers_list"></div>
 	</div>
 
 
-
-	<div id="retailers">
-		<div class="left_content"></div>
-		<div class="right_content retailers_list"></div>
+	<div id="allowance">
+		<div class="left_content" id="allowance_consumer">
+			<p class="inner_content_title" id="consumer_name_allowance"></p>		
+			<img id='chartdiv' class="engrave"/>
+			<br /><br />
+			<% form_for :payer_rule, :url => { :action => :consumer_rules_update }, :html => {:id => "allowance_form"} do |f| %>			
+			    <span class="long item">Monthly Allowance:</span>
+				<span class="value"><%= f.text_field(:edited_budget, :onchange => "modifyBudget('post')", :id => "budget", :size => 10) %></span>
+			    <div class="long item" id="budget_slider" onclick="modifyBudget('post')"></div>
+				<br />
+			    <span class="long item">Current Balance:</span>
+				<span class="green_value"><%= text_field(:consumer, :edited_balance, :onchange => "modifyBalance('post')", :id => "balance", :class => "dollar_amount", :size => 10) %></span>
+			    <div id="balance_slider" onclick="modifyBalance('post')"></div>
+				<br />
+				<span class="item">Balance rollover</span>
+				<span id="rollover" class="buttonset">
+					<%= f.radio_button("rollover_human", "On", :onchange => "$('#allowance_form').submit();") %><label for="payer_rule_rollover_human_on">On</label>
+					<%= f.radio_button("rollover_human", "Off",:onchange => "$('#allowance_form').submit();")%><label for="payer_rule_rollover_human_off">Off</label>
+				</span>			
+			<% end %>
+		</div>
+		<div class="right_content consumers_list"></div>
 	</div>
 
-	<div id="products">
-		<div class="left_content"></div>
-		<div class="right_content products_list"></div>
+
+	<div id="approvals">
+		<div class="left_content" id="approvals_consumer">
+			<p class="inner_content_title" id="consumer_name_approvals"></p>
+			<div class="inner_content_subtitle">Automatic Authorization</div>		
+			<div class="inner_content_text" id="extra_space1">When purchase othewise meets my rules</div>
+			<% form_for :payer_rule, :url => { :action => :consumer_rules_update }, :html => {:id => "amounts_form"} do |f| %>
+				<div>
+				    <span class="rule">Approve if under</span>
+					<span><%= f.text_field(:edited_auto_authorize_under, :onchange => "modifyUnderOver('post')", :id => "under", :size => 10) %></span>
+					<br />					
+				</div>			
+			    <span class="rule">Deny if over</span>
+				<span><%= f.text_field(:edited_auto_deny_over, :onchange => "modifyUnderOver('post')", :id => "over",  :size => 10) %></span>
+				<br />
+			<% end %>
+			<div id='slider-range' class="engrave" onclick="modifyUnderOver('post')"></div>
+			<div class="inner_content_subtitle" id="personal">Personal Authorization</div>		
+			<div class="inner_content_text">When purchase amount is in between I'd</div>
+			<div class="inner_content_text">rather get notified and approve it myself </div>				
+			<a href="#" class="contact" onclick="$('#tabs').tabs('select', 'alerts');"><img src="<%= (@payer.phone_alert?) ?'/images/iPhone SMS 64.png' :'/images/iPhone SMS 64 bw.png' %>" border="0"></a> 
+			<a href="#" class="contact" onclick="$('#tabs').tabs('select', 'alerts');"><img src="<%= (@payer.email_alert?) ?'/images/iPhone email 64.png' :'/images/iPhone email 64 bw.png' %>" border="0"></a> 
+			<%= image_tag 'Skype 64 bw 1.png', :class => "contact" , :id => "skype" %>
+			<%= image_tag 'aol aim bw.png', :class => "contact", :id => "aim"%>
+		</div>
+		<div class="right_content consumers_list"></div>
 	</div>
 
-	<div id="categories">
-		<div class="left_content"></div>
-		<div class="right_content categories_list"></div>
-	</div>
 
-	<div id="inbox">
-
-	</div>
-
-	<div id="purchases">
-		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
-	</div>
-
-	<div id="account">
-		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
-	</div>
-	
 	<div id="alerts">
 		<div class="left_content">
 			<p class="inner_content_title">Alerts & Reports</p><br />
@@ -416,6 +381,33 @@
 				</div>
 			<% end %>
 		</div>
+	</div>
+
+	<div id="retailers">
+		<div class="left_content"></div>
+		<div class="right_content retailers_list"></div>
+	</div>
+
+	<div id="products">
+		<div class="left_content"></div>
+		<div class="right_content products_list"></div>
+	</div>
+
+	<div id="categories">
+		<div class="left_content"></div>
+		<div class="right_content categories_list"></div>
+	</div>
+
+	<div id="inbox">
+
+	</div>
+
+	<div id="purchases">
+		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+	</div>
+
+	<div id="account">
+		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
 	</div>
 	
 </div>

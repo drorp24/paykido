@@ -1,8 +1,41 @@
+#consumer_tabs .ui-tabs-nav {
+	height: 30px;
+	margin-top:0px;
+	margin-left: 18px;
+	background: none;
+	border: none;
+}
+
+#consumer_tabs .ui-tabs-nav li a {
+	height:15px;
+	padding-top: 4px;
+	font-size: 15px;
+}
+
+#consumers, #addnew, #allowance, #approvals {
+	padding: 0em 0em;
+}
+
+
+#consumer_tabs.ui-widget-content {
+	border: none;
+}
+
+#addnew, #allowance, #approvals {
+	position: absolute;
+	top:-56px;
+	
+}
+
 #shopping_cart {
 	height: 75px;
 	position:absolute;
 	top:-17px;
 	left:319px;
+}
+
+#consumer_name_allowance, #consumer_name_approvals {
+	margin-top:5px;
 }
 
 .content-name-left {
@@ -220,11 +253,15 @@ select, input {
 }
 
 #extra_space1 {
-	margin-bottom:21px;
+	margin-bottom:35px;
 }
 
 #extra_space2, #extra_space3 {
 	margin-bottom: 10px;
+}
+
+#extra_space4 {
+	margin-top: -24px;
 }
 
 .rule {
@@ -269,12 +306,12 @@ select, input {
 }
 
 #rollover {
-	margin-left:11px;
+	margin-left:28px;
 }
 
 #circle {
 	position:absolute;
-	top:-40px;
+	top:-49px;
 	left:200px;
 }
 
@@ -292,15 +329,17 @@ select, input {
 }
 
 #under {
-	width:136px;
+	float: right;
+	margin-right: 246px;
 }
 
 #over {
-	width: 175px;
+	float: right;
+	margin-right: 246px;
 }
 
 #budget_slider, #balance_slider {
-	width:280px;
+	width:300px;
 	background: #FFFEEE;
 	border: 1px inset #EEEEEE;
 
@@ -312,7 +351,7 @@ select, input {
 	
 } 
 #slider-range {
-	width:287px;
+	width:300px;
 	background: #FFFEEE;
 	border: 1px inset #EEEEEE;
 	margin-top:16px;
@@ -574,6 +613,7 @@ a.login:hover {
     color: #004488;
     font-size: 18px;
     font-weight: bold;
+	margin-left: 3px;
 }
 
 .inner_content_subtitle {

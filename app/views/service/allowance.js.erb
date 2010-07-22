@@ -6,5 +6,5 @@ $('#payer_rule_rollover_human_off').attr('checked', "<%= (@payer_rule.rollover?)
 <% if @consumer.name.blank? %>
 	$('#consumer_name_allowance').html("Consumer's allowance");
 <% else %>
-	$('#consumer_name_allowance').html("<%= @consumer.name %>'s allowance");
+	$('#consumer_name_allowance').html("<%= @consumer.name %>");
 <% end %>

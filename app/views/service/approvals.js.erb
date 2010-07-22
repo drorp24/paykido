@@ -3,6 +3,6 @@ $('#over').val(<%= @payer_rule.auto_deny_over %>);
 <% if @consumer.name.blank? %>
 	$('#consumer_name_approvals').html("Consumer's approval policy");
 <% else %>
-	$('#consumer_name_approvals').html("<%= @consumer.name %>'s approval policy");
+	$('#consumer_name_approvals').html("<%= @consumer.name %>");
 <% end %>
 	
