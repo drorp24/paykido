@@ -199,22 +199,22 @@
 <div id="tabs">
 	<ul>
 		<li><a href="#consumers">Consumers</a></li>
-		<li><a href="#allowance">Allowance</a></li>
-		<li><a href="#approvals">Approvals</a></li>
+		<li><a href="#amounts">Amounts</a></li>
 		<li><a href="#retailers">Retailers</a></li>
 		<li><a href="#products">Products</a></li>
 		<li><a href="#categories">Categories</a></li>
+		<li><a href="#inbox">Inbox</a></li>
 		<li><a href="#purchases">Purchases!</a></li>
 		<li><a href="#account">Account</a></li>
+		<li><a href="#alerts">Alerts</a></li>
 	</ul>
 
 
 	<div id="consumers">
 		<div class="left_content">
-			<p class="inner_content_title">Who would you like to take care for?</p>
-			<p class="content-name-left" id="consumers">Consumer community set-up</p>		
-			<div class="inner_content_text">Follow these two simple steps to get each member</div>
-			<div class="inner_content_text">of your community up and running within seconds.</div>
+			<p class="content-name-left">Set your community</p>
+			<p class="inner_content_text">Follow these two simple steps whenever you want</p>
+			<p class="inner_content_text">to join a new consumer into your community</p>
 			<br />
 			<p class="inner_content_text">Start by keying your consumer's phone number right here:</p>
 			<% form_for(:consumer, :url => {:action => "sms_consumer"}, :html => {:id => "phone_form"}) do |f| %>
@@ -222,7 +222,7 @@
 				<%= submit_tag "Click when done",:class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
 			<% end %>
 			<br />
-			<p class="inner_content_text">Once you got the text message, key-in the PIN code here:</p>  
+			<p class="inner_content_text">Once you get the text message, key-in the PIN code here:</p>  
 			<% form_for(:consumer, :url => {:action => "check_pin_and_link_consumer"}, :html => {:id => "pin_form"}) do |f| %>
 				<%= f.text_field :pin, :size => 20, :placeholder => "Received PIN", :class => "formfield"  %>
 				<%= submit_tag "Click when done", :class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
@@ -231,10 +231,8 @@
 		<div class="right_content consumers_list"></div>
 	</div>
 
-
-	<div id="allowance">
-		<div class="left_content">
-			<p class="inner_content_title" id="consumer-allowance-title">How much can each consumer spend?</p>
+	<div id="amounts">
+		<div class="left_content" id="allowance_consumer">
 			<p class="content-name-left" id="consumer_name_allowance"></p>		
 			<img id='chartdiv' class="engrave"/>
 			<br /><br />
@@ -253,30 +251,18 @@
 					<%= f.radio_button("rollover_human", "Off",:onchange => "$('#allowance_form').submit();")%><label for="payer_rule_rollover_human_off">Off</label>
 				</span>			
 			<% end %>
-		</div>
-		<div class="right_content consumers_list"></div>
-	</div>
-
-
-	<div id="approvals">
-		<div class="left_content">
-			<p class="inner_content_title">Are there amounts not worth dealing with?</p>
-			<p class="content-name-left" id="consumer_name_approvals"></p>
-			<div class="inner_content_text">Whenever your rules imply neither approval nor rejection,</div>
-			<div class="inner_content_text">arca informs you, letting you decide for yourslef.</div><br />
-			<div class="inner_content_text">If there are amounts you'd rather not be bothered with,</div>
-			<div class="inner_content_text">please specify them here and arca will act accordingly.</div><br />
-			<% form_for :payer_rule, :url => { :action => :consumer_rules_update }, :html => {:id => "amounts_form"} do |f| %>
-				<p>
-					<span class="rule">Approve anything under</span>
-					<span><%= f.text_field(:edited_auto_authorize_under, :onchange => "modifyUnderOver('post')", :id => "under", :size => 10) %></span>
-				</p>
-				<p>
-				    <span class="rule">Reject anything over</span>
-					<span><%= f.text_field(:edited_auto_deny_over, :onchange => "modifyUnderOver('post')", :id => "over",  :size => 10) %></span>					
-				</p>
-			<% end %>
-			<div id='slider-range' class="engrave" onclick="modifyUnderOver('post')"></div><br />
+				<div class="inner_content_text" id="extra_space1">When a purchase othewise meets my rules</div>
+				<% form_for :payer_rule, :url => { :action => :consumer_rules_update }, :html => {:id => "amounts_form"} do |f| %>
+					<p>
+					    <span class="rule">Approve if under</span>
+						<span><%= f.text_field(:edited_auto_authorize_under, :onchange => "modifyUnderOver('post')", :id => "under", :size => 10) %></span>
+					</p>	
+					<p>
+					    <span class="rule">Deny if over</span>
+						<span><%= f.text_field(:edited_auto_deny_over, :onchange => "modifyUnderOver('post')", :id => "over",  :size => 10) %></span>							
+					</p>		
+				<% end %>
+				<div id='slider-range' class="engrave" onclick="modifyUnderOver('post')"></div>		
 		</div>
 		<div class="right_content consumers_list"></div>
 	</div>
@@ -298,114 +284,113 @@
 		<div class="right_content categories_list"></div>
 	</div>
 
+	<div id="inbox">
+
+	</div>
+
 	<div id="purchases">
 		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
 	</div>
 
 	<div id="account">
-		<div id="account_tabs">
-			<ul>
-				<li><a href="#alerts">Alerts</a></li>
-				<li><a href="#other">Other</a></li>
-			</ul>
-			<div id="alerts">
-				<div class="left_content">
-					<p class="inner_content_title">Alerts & Reports</p><br />
-					<% form_for :payer, :url => { :action => :payment_update }, :html => {:id => "phone_alert_form"} do |f| %>
-						<div id="phone_alert_shade_area">
-							<div class="inner_content_subtitle" id="extra_space2">Notify me</div>
-							<div class="form_line">
-								<span class="icon">
-									<img class ="communication" id="dial" src="/images/iPhone Dial.png" border="0">
-								</span>
-								<span class ="item_by_icon">
-									<%= f.select(:phone_events, Payer.phone_events,{}, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless" )%>
-								</span>
-							</div>
-							<div class="form_line">
-								<span class="icon">
-									<img class ="communication" id="clock" src="/images/iPhone Clock.png" border="0">	
-								</span>
-								<span class ="item_by_icon">
-									<%= f.select(:phone_alert_frequency, Payer.phone_alert_frequency,{}, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless" )%>
-								</span>
-							</div><br />
-							<div class="inner_content_subtitle" id="extra_space2">On</div>
-							<div class="form_line">
-								<span class="icon">
-									<img class ="communication" id="sms" src="/images/iPhone SMS 64.png" border="0">							
-								</span>
-								<span class ="item_by_icon">
-									<%= f.text_field(:edited_phone, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless"  )%>
-								</span>
-							</div>
-							<div class="form_line">
-								<span class="icon">
-									<img class ="communication" id="sms" src="/images/Skype.png" border="0">							
-								</span>
-								<span class ="item_by_icon">
-									<%= f.text_field(:skype, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless"  )%>
-								</span>
-							</div>
-						</div>
-						<div class="form_line">
-							<span id="phone_alert" class="buttonset">
-								<%= f.radio_button("phone_alert_human", "On", :onchange => "viewPhoneAlert('toggle');$('#phone_alert_form').submit();") %><label for="payer_phone_alert_human_on">On</label>
-								<%= f.radio_button("phone_alert_human", "Off",:onchange => "viewPhoneAlert('toggle');$('#phone_alert_form').submit();") %><label for="payer_phone_alert_human_off">Off</label>
-							</span>
-						</div>
-					<% end %>
-					<br />
+		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+	</div>
+	
+	<div id="alerts">
+		<div class="left_content">
+			<p class="inner_content_title">Alerts & Reports</p><br />
+			<% form_for :payer, :url => { :action => :payment_update }, :html => {:id => "phone_alert_form"} do |f| %>
+				<div id="phone_alert_shade_area">
+					<div class="inner_content_subtitle" id="extra_space2">Notify me</div>
+					<div class="form_line">
+						<span class="icon">
+							<img class ="communication" id="dial" src="/images/iPhone Dial.png" border="0">
+						</span>
+						<span class ="item_by_icon">
+							<%= f.select(:phone_events, Payer.phone_events,{}, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless" )%>
+						</span>
+					</div>
+					<div class="form_line">
+						<span class="icon">
+							<img class ="communication" id="clock" src="/images/iPhone Clock.png" border="0">	
+						</span>
+						<span class ="item_by_icon">
+							<%= f.select(:phone_alert_frequency, Payer.phone_alert_frequency,{}, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless" )%>
+						</span>
+					</div><br />
+					<div class="inner_content_subtitle" id="extra_space2">On</div>
+					<div class="form_line">
+						<span class="icon">
+							<img class ="communication" id="sms" src="/images/iPhone SMS 64.png" border="0">							
+						</span>
+						<span class ="item_by_icon">
+							<%= f.text_field(:edited_phone, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless"  )%>
+						</span>
+					</div>
+					<div class="form_line">
+						<span class="icon">
+							<img class ="communication" id="sms" src="/images/Skype.png" border="0">							
+						</span>
+						<span class ="item_by_icon">
+							<%= f.text_field(:skype, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless"  )%>
+						</span>
+					</div>
 				</div>
-				<div class="right_content">
-					<p class="inner_content_title">&nbsp;</p><br />
-					<% form_for :payer, :url => { :action => :payment_update }, :html => {:id => "email_alert_form"} do |f| %>
-						<div id="email_alert_shade_area">
-							<div class="inner_content_subtitle" id="extra_space3">Inform about</div>
-							<div class="form_line">
-								<span class="icon">
-									<img class ="communication" id="report" src="/images/iPhone Notes.png" border="0">							
-								</span>
-								<span class ="item_by_icon">
-									<%= f.select(:email_events, Payer.email_events,{}, :onchange => "$('#email_alert_form').submit();", :class => "value borderless" )%>
-								</span>
-							</div>
-							<div class="form_line">
-								<span class="icon">
-									<img class ="communication" id="clock" src="/images/iPhone Clock.png" border="0">								
-								</span>
-								<span class ="item_by_icon">
-									<%= f.select(:email_alert_frequency, Payer.email_alert_frequency,{}, :onchange => "$('#email_alert_form').submit();", :class => "value borderless" )%>
-								</span>
-							</div><br />
-							<div class="inner_content_subtitle" id="extra_space2">On</div>
-							<div class="form_line">
-								<span class="icon">
-									<img class ="communication" id="email" src="/images/iphone eMail 64.png" border="0">							
-								</span>
-								<span class ="item_by_icon">
-									<%= f.text_field(:email, :onchange => "$('#email_alert_form').submit();", :class => "value borderless"  )%>
-								</span>
-							</div>
-							<div class="form_line">
-								<span class="icon">
-									<img class ="communication" id="sms" src="/images/facebook.png" border="0">							
-								</span>
-								<span class ="item_by_icon">
-									<%= f.text_field(:facebook, :onchange => "$('#email_alert_form').submit();", :class => "value borderless"  )%>
-								</span>
-							</div>
-						</div>
-						<div class="form_line">
-							<span id="email_alert" class="buttonset">
-								<%= f.radio_button("email_alert_human", "On", :onchange => "viewEmailAlert('toggle');$('#email_alert_form').submit();") %><label for="payer_email_alert_human_on">On</label>
-								<%= f.radio_button("email_alert_human", "Off",:onchange => "viewEmailAlert('toggle');$('#email_alert_form').submit();") %><label for="payer_email_alert_human_off">Off</label>
-							</span>
-						</div>
-					<% end %>
+				<div class="form_line">
+					<span id="phone_alert" class="buttonset">
+						<%= f.radio_button("phone_alert_human", "On", :onchange => "viewPhoneAlert('toggle');$('#phone_alert_form').submit();") %><label for="payer_phone_alert_human_on">On</label>
+						<%= f.radio_button("phone_alert_human", "Off",:onchange => "viewPhoneAlert('toggle');$('#phone_alert_form').submit();") %><label for="payer_phone_alert_human_off">Off</label>
+					</span>
 				</div>
-			</div>
-			<div id="other">shalom</div>
+			<% end %>
+			<br />
+		</div>
+		<div class="right_content">
+			<p class="inner_content_title">&nbsp;</p><br />
+			<% form_for :payer, :url => { :action => :payment_update }, :html => {:id => "email_alert_form"} do |f| %>
+				<div id="email_alert_shade_area">
+					<div class="inner_content_subtitle" id="extra_space3">Inform about</div>
+					<div class="form_line">
+						<span class="icon">
+							<img class ="communication" id="report" src="/images/iPhone Notes.png" border="0">							
+						</span>
+						<span class ="item_by_icon">
+							<%= f.select(:email_events, Payer.email_events,{}, :onchange => "$('#email_alert_form').submit();", :class => "value borderless" )%>
+						</span>
+					</div>
+					<div class="form_line">
+						<span class="icon">
+							<img class ="communication" id="clock" src="/images/iPhone Clock.png" border="0">								
+						</span>
+						<span class ="item_by_icon">
+							<%= f.select(:email_alert_frequency, Payer.email_alert_frequency,{}, :onchange => "$('#email_alert_form').submit();", :class => "value borderless" )%>
+						</span>
+					</div><br />
+					<div class="inner_content_subtitle" id="extra_space2">On</div>
+					<div class="form_line">
+						<span class="icon">
+							<img class ="communication" id="email" src="/images/iphone eMail 64.png" border="0">							
+						</span>
+						<span class ="item_by_icon">
+							<%= f.text_field(:email, :onchange => "$('#email_alert_form').submit();", :class => "value borderless"  )%>
+						</span>
+					</div>
+					<div class="form_line">
+						<span class="icon">
+							<img class ="communication" id="sms" src="/images/facebook.png" border="0">							
+						</span>
+						<span class ="item_by_icon">
+							<%= f.text_field(:facebook, :onchange => "$('#email_alert_form').submit();", :class => "value borderless"  )%>
+						</span>
+					</div>
+				</div>
+				<div class="form_line">
+					<span id="email_alert" class="buttonset">
+						<%= f.radio_button("email_alert_human", "On", :onchange => "viewEmailAlert('toggle');$('#email_alert_form').submit();") %><label for="payer_email_alert_human_on">On</label>
+						<%= f.radio_button("email_alert_human", "Off",:onchange => "viewEmailAlert('toggle');$('#email_alert_form').submit();") %><label for="payer_email_alert_human_off">Off</label>
+					</span>
+				</div>
+			<% end %>
 		</div>
 	</div>
 	

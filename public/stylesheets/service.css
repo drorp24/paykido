@@ -1,3 +1,11 @@
+#phone_form, #pin_form {
+	margin-top:-24px;
+}
+
+#extra_space4 {
+	margin-top: 10px;
+}
+
 #consumer_tabs .ui-tabs-nav {
 	height: 30px;
 	margin-top:0px;
@@ -12,30 +20,18 @@
 	font-size: 15px;
 }
 
-#consumers, #addnew, #allowance, #approvals {
-	padding: 0em 0em;
-}
 
 
 #consumer_tabs.ui-widget-content {
 	border: none;
 }
 
-#addnew, #allowance, #approvals {
-	position: absolute;
-	top:-56px;
-	
-}
 
 #shopping_cart {
 	height: 75px;
 	position:absolute;
 	top:-17px;
 	left:319px;
-}
-
-#consumer_name_allowance, #consumer_name_approvals {
-	margin-top:5px;
 }
 
 .content-name-left {
@@ -253,15 +249,11 @@ select, input {
 }
 
 #extra_space1 {
-	margin-bottom:35px;
+	margin-bottom:21px;
 }
 
 #extra_space2, #extra_space3 {
 	margin-bottom: 10px;
-}
-
-#extra_space4 {
-	margin-top: -24px;
 }
 
 .rule {
@@ -311,7 +303,7 @@ select, input {
 
 #circle {
 	position:absolute;
-	top:-49px;
+	top:-40px;
 	left:200px;
 }
 
@@ -330,12 +322,12 @@ select, input {
 
 #under {
 	float: right;
-	margin-right: 246px;
+	margin-right: 210px;
 }
 
 #over {
 	float: right;
-	margin-right: 246px;
+	margin-right: 210px;
 }
 
 #budget_slider, #balance_slider {
@@ -432,9 +424,6 @@ h4 {
 	font-family:"Arial Rounded MT Bold";
 }
 
-form {
-	margin-top:-13px;
-}
 
 
 #consumer_billing_phone, #consumer_pin {
@@ -609,10 +598,9 @@ a.login:hover {
 
 
 .inner_content_title, .inner_content_subtitle {
-    font-family: "Arial Rounded MT Bold";
+    font-family:"Arial Rounded MT Bold";
     color: #004488;
     font-size: 18px;
-    font-weight: bold;
 	margin-left: 3px;
 }
 

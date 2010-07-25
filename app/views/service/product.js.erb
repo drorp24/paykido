@@ -1,6 +1,6 @@
 $('#products .left_content').html(
 	'<p class="inner_content_title">Which products do you approve?</p>'+
-	'<span class="content-name-left"><%= @product.title %></span>'+
+	'<p class="content-name-left"><%= @product.title %></p>'+
 	'<%= if @product.logo? then image_tag(@product.logo, :class => "portlet-content-logo-left") end %>'+		
 	'<p>'+
 		'<span class=item>Monthly purchase count:</span>'+			
@@ -30,7 +30,7 @@ $('#products .left_content').html(
 	'</span>'
 );	
 
-	function likeToggleSrc(id) {
+	function ProductlikeToggleSrc(id) {
 
 		var input = id.split('_');
 		var entity_type = input[0];
@@ -90,7 +90,7 @@ $('#products .left_content').html(
 	$(".product.like").click(function() {
 		selector_id = $(this).attr("id");
 		product_id = selector_id.split('_')[3];
-		new_status = likeToggleSrc(selector_id);
+		new_status = ProductlikeToggleSrc(selector_id);
 		$.ajax({
 			url: 'plist_update/' + product_id + '?new_status=' + new_status,
 			success: function(data){
