@@ -482,7 +482,7 @@
 		$('#consumer_name_allowance').html(name + "\'s allowance");
 		$('#consumer_name_approvals').html(name + "\'s approval policy");		
 		$.ajax({
-			url: 'consumer_update/'+id + '?name=' + name,
+			url: 'rename_consumer/'+id + '?name=' + name,
 			success: function(data){
 
 			}

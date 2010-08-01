@@ -4,11 +4,16 @@ require 'clickatell'
 
 class ServiceController < ApplicationController
 
-  before_filter :check_payer_is_signedin, :only => :payer_signedin
-  before_filter :check_retailer_is_signedin, :only => :retailer_signedin
-  before_filter :check_administrator_is_signedin, :only => :administrator_signedin
-  before_filter :check_general_is_signedin, :only => :general_signedin
-  before_filter :set_environment, :except => [:index, :signin, :joinin, :signout]
+  before_filter :check_payer_and_set_variables, :except => [:index, :signin, :joinin, :signout]
+  
+  caches_page :consumers
+  caches_page :retailers
+  caches_page :products
+  caches_page :categories
+  caches_page :consumer
+  caches_page :retailer
+  caches_page :product
+  caches_page :category
 
   def joinin
 
@@ -53,10 +58,10 @@ class ServiceController < ApplicationController
       end
 
       if @user.is_payer
-        session[:payer] = @user.payer
+        set_payer_session_and_cache
         redirect_to :action => :payer_signedin
       elsif @user.is_retailer
-        session[:retailer] = @user.retailer
+        set_retailer_session_and_cache
         redirect_to :action => :retailer_signedin
       elsif @user.is_administrator
         redirect_to :action => :administrator_signedin
@@ -72,7 +77,7 @@ class ServiceController < ApplicationController
  
   def signout
     
-    clear_session
+    #session and cache will be cleared only upon next sign in (and provided it's not to the same user/payer)
     redirect_to :action => :index
     
   end
@@ -129,8 +134,8 @@ class ServiceController < ApplicationController
   end
   
   def payer_signedin
-            
-    @consumers = Consumer.payer_consumers_the_works(@payer.id)
+    
+   @consumers = Consumer.payer_consumers_the_works(@payer.id)
     get_rid_of_duplicates
     session[:consumers] = @consumers 
     session[:consumer] = (@consumers.empty?) ?nil :@consumers[0]
@@ -215,6 +220,7 @@ end
   def retailer
     
     find_retailer
+    expires_in 1.year
       
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
@@ -245,10 +251,12 @@ end
     
   end
 
-  def consumer_update
+  def rename_consumer
     
-    consumer = session[:consumer]
-    consumer.update_attributes!(:name => params[:name])
+    find_consumer
+    @consumer.update_attributes!(:name => params[:name])
+    expire_page :action => "consumer", :id => @consumer.id
+    expire_page :action => "consumers", :id => 0
     
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
@@ -259,10 +267,10 @@ end
   
   def consumer_rules_update
     
-    @consumer = session[:consumer]                  # check if this line and the next can be removed
-    @payer_rule = session[:payer_rule]
+    find_consumer 
     @consumer.update_attributes!(params[:consumer]) if params[:consumer] and @consumer.balance != params[:consumer][:balance]
     @payer_rule.update_attributes!(params[:payer_rule]) 
+    expire_page :action => "consumer", :id => @consumer.id
     
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
@@ -292,7 +300,8 @@ end
       flash[:notice] = "Oops... server unavailble. Back in a few moments!"
     end
     session[:retailer].status = params[:new_status]
-    
+    expire_page :action => "retailer"
+   
     respond_to do |format|  
       format.html { redirect_to :action => 'index' }  
       format.js  
@@ -308,6 +317,7 @@ end
       flash[:notice] = "Oops... server unavailble. Back in a few moments!"
     end
     session[:product].status = params[:new_status]
+    expire_page :action => "product"
     
     respond_to do |format|  
       format.html { redirect_to :action => 'index' }  
@@ -323,6 +333,7 @@ end
       flash[:notice] = "Oops... server unavailble. Back in a few moments!"
     end
     session[:category].status = params[:new_status]
+    expire_page :action => "category"
     
     respond_to do |format|  
       format.html { redirect_to :action => 'index' }  
@@ -442,16 +453,33 @@ end
 
   protected
   
-  def check_payer_is_signedin
+  def set_payer_session_and_cache
     
-    unless session[:payer]
-      flash[:message] = "Please sign in with payer credentials"
+   unless session[:user] and session[:user].id  == @user.id   # if it's the same user that just logged out don't clear payer session and cached pages
+      clear_cache
       clear_session
-      redirect_to  :action => 'index'
-    end
+      session[:payer] = @user.payer
+   end     
+   session[:payer] = @user.payer        # temporary - not needed soon   
+  end
+  
+  def check_payer_and_set_variables
+    
+   check_payer_is_signedin
+   refresh_variables_from_session
     
   end
 
+  def check_payer_is_signedin
+    
+    unless session[:payer]  # check that payer is signed in
+      flash[:message] = "Please sign in with payer credentials"
+      clear_session
+      redirect_to  :action => 'index'
+    end   
+    
+  end
+  
   def check_retailer_is_signedin
     
     unless session[:retailer]
@@ -554,7 +582,7 @@ end
   end
  
   
-  def set_environment
+  def refresh_variables_from_session
     
     @user =       session[:user]
     @payer =      session[:payer]
@@ -569,6 +597,19 @@ end
   end
 
 
+  def clear_cache
+    
+    expire_page :action => "consumers", :id => 0
+    expire_page :action => "retailers"
+    expire_page :action => "products"
+    expire_page :action => "categories"
+    session[:consumers].each{|consumer| expire_page :action => :consumer, :id => consumer.id} if session[:consumers] 
+    session[:retailers].each{|retailer| expire_page :action => :retailer, :id => retailer.id} if session[:retailers]
+    session[:products].each{|product| expire_page :action => :product, :id => product.id}     if session[:products]
+    session[:categories].each{|category| expire_page :action => :category, :id => category.id} if session[:categories] 
+   
+  end
+  
   def clear_session
     session[:user] = session[:payer] = session[:payer_rule] = 
     session[:retailers] = session[:retailer] = session[:products] = session[:product] =

@@ -1,17 +1,17 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-   	<%= stylesheet_link_tag  "service", :media => "all" %>
-	<link type="text/css" href="/stylesheets/custom-theme/jquery-ui-1.8.1.custom.css" rel="stylesheet" />
+   	<%= stylesheet_link_tag  "service","jquery-ui-1.8.1.custom.css", :cache => "service_unified", :media => "all" %>
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>	
 	<script type="text/javascript" src="/javascripts/jquery-1.4.2.min.js"></script>
-	<script type="text/javascript" src="/javascripts/jquery-ui-1.8.1.custom3.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery-ui-1.8.2.custom.min.js"></script>
 	<script type="text/javascript" src="/javascripts/application.js"></script>
 
 <body>
   <div class="container">	
 	<div id="head">
 		<span id="get_started_today"><a href="/service/joinin">shalom</a></span>
+		<%= image_tag "/images/service_head1.png", :id => "head_img" %>
 	</div>
 	<br />
 	
@@ -37,7 +37,7 @@
 		</div>
 	<% end -%>
 	
-	<% if session[:user] and session[:user].name %>
+	<% if params[:action] != 'index' and session[:user] and session[:user].name %>
 		<span class="login" id="signedin">Welcome <%= session[:user].name %></span>
 		<%= link_to "Sign Out", "/service/signout", :class => "login", :id => "signout" %>
 	<% else %>		

@@ -3,6 +3,7 @@ $('#balance').val(<%= @consumer.balance %>);
 $('#budget').val(<%= @payer_rule.allowance %>);
 $('#payer_rule_rollover_human_on').attr('checked', "<%= (@payer_rule.rollover?) ?"checked":""  %>")
 $('#payer_rule_rollover_human_off').attr('checked', "<%= (@payer_rule.rollover?) ?"":"checked"  %>")
+$('#allowance_form').attr('action', '<%= "/service/consumer_rules_update/#{@consumer.id}" %>');
 <% if @consumer.name.blank? %>
 	$('#consumer_name_allowance').html("Consumer's allowance");
 <% else %>
@@ -11,6 +12,7 @@ $('#payer_rule_rollover_human_off').attr('checked', "<%= (@payer_rule.rollover?)
 
 $('#under').val(<%= @payer_rule.auto_authorize_under %>);
 $('#over').val(<%= @payer_rule.auto_deny_over %>);
+$('#approvals_form').attr('action', '<%= "/service/consumer_rules_update/#{@consumer.id}" %>');
 <% if @consumer.name.blank? %>
 	$('#consumer_name_approvals').html("Consumer's approval policy");
 <% else %>

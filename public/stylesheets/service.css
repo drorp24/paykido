@@ -697,9 +697,7 @@ body {
     width: 1165px;
 }
 
-#head {
-    background-image: url("/images/service_head1.png");
-    background-repeat: no-repeat;
+#head_img {
     height: 200px;
     margin: 0;
 }
