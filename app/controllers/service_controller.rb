@@ -93,6 +93,8 @@ class ServiceController < ApplicationController
       session[:consumers] = @consumers
     end
     
+    expires_in 1.year
+   
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
       format.js  
@@ -101,9 +103,11 @@ class ServiceController < ApplicationController
   end
   
   def retailers
-    
+
     @retailers = session[:retailers]
     
+    expires_in 1.year
+
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
       format.js  
@@ -115,6 +119,8 @@ class ServiceController < ApplicationController
     
     @products = session[:products]
     
+    expires_in 1.year
+
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
       format.js  
@@ -126,6 +132,8 @@ class ServiceController < ApplicationController
     
     @categories = session[:categories]
     
+    expires_in 1.year
+
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
       format.js  
@@ -155,7 +163,7 @@ class ServiceController < ApplicationController
     sort_categories
     session[:categories] = @categories
     session[:category] = (@categories.empty?) ?nil :@categories[0]
-
+    
   end
  
   def get_rid_of_duplicates
@@ -209,6 +217,8 @@ end
   def consumer
 
     find_consumer
+    expires_in 1.year
+
     
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
@@ -232,6 +242,7 @@ end
   def product
     
     find_product
+    expires_in 1.year
       
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
@@ -243,6 +254,7 @@ end
   def category
     
     find_category
+    expires_in 1.year
       
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
@@ -300,7 +312,7 @@ end
       flash[:notice] = "Oops... server unavailble. Back in a few moments!"
     end
     session[:retailer].status = params[:new_status]
-    expire_page :action => "retailer"
+    expire_page :action => "retailer", :id => params[:id]
    
     respond_to do |format|  
       format.html { redirect_to :action => 'index' }  
@@ -317,7 +329,7 @@ end
       flash[:notice] = "Oops... server unavailble. Back in a few moments!"
     end
     session[:product].status = params[:new_status]
-    expire_page :action => "product"
+    expire_page :action => "product", :id => params[:id]
     
     respond_to do |format|  
       format.html { redirect_to :action => 'index' }  
@@ -333,7 +345,7 @@ end
       flash[:notice] = "Oops... server unavailble. Back in a few moments!"
     end
     session[:category].status = params[:new_status]
-    expire_page :action => "category"
+    expire_page :action => "category", :id => params[:id]
     
     respond_to do |format|  
       format.html { redirect_to :action => 'index' }  
@@ -455,13 +467,14 @@ end
   
   def set_payer_session_and_cache
     
-   unless session[:user] and session[:user].id  == @user.id   # if it's the same user that just logged out don't clear payer session and cached pages
+   unless session[:payer] and session[:payer].id  == @user.payer.id   # if it's the same user that just logged out don't clear payer session and cached pages
       clear_cache
       clear_session
-      session[:payer] = @user.payer
-   end     
-   session[:payer] = @user.payer        # temporary - not needed soon   
-  end
+   end 
+   session[:payer] = @user.payer
+   session[:user]  = @user
+
+ end
   
   def check_payer_and_set_variables
     
@@ -473,6 +486,7 @@ end
   def check_payer_is_signedin
     
     unless session[:payer]  # check that payer is signed in
+      debugger
       flash[:message] = "Please sign in with payer credentials"
       clear_session
       redirect_to  :action => 'index'
