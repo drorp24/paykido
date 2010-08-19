@@ -2,8 +2,8 @@
 
 
 	<ul class="rounded" id="iconized_menu">
-		<li class="arrow">
-			<%= image_tag 'email.png', :class => "icon" %>
+		<li class="arrow" id="pendings">
+			<%= image_tag 'email.png', :class => "icon", :title => "You have pending purchases" %>
 			<% if @pending_counter > 1 %>
 				<a href="purchases_pending_authorization"  class="item_by_icon" target ="_webapp">My Inbox</a>
 			<% elsif @pending_counter == 1 %>
@@ -20,7 +20,7 @@
 			<a href="/aol/select_consumer/budget_form" class="item_by_icon" >Allowance</a></li>
 		<li class="arrow">
 	    	<%= image_tag 'finger.png', :class => "icon"%>
-			<a href="/aol/select_consumer/rules_menu" class="item_by_icon" >Authorization</a></li>
+			<a href="/aol/select_consumer/rules_menu" class="item_by_icon" >Authorization</a>
 		</li>
 	    <li class="arrow">
 	    	<%= image_tag 'movies1.png', :class => "icon"%>
@@ -36,5 +36,45 @@
 		</li>
 
 	</ul>
+	
+	<div id = "new_pendings_alert">
+		<%= image_tag  "/images/new_purchase_requests.png", :display => "hidden" %>		
+	</div>
 
+    <script type="text/javascript" charset="utf-8">
+
+    function waitForMsg(){
+		
+        /* This requests the url "msgsrv.php"
+        When it complete (or errors)*/
+        $.ajax({
+            type: "GET",
+            url: "check_for_new_pendings",
+
+            async: true, /* If set to non-async, browser shows page as "Loading.."*/
+            cache: false,
+            timeout:50000, /* Timeout in ms */
+
+            success: function(data){ /* called when request to barge.php completes */
+                 setTimeout(
+                    'waitForMsg()', /* Request next message */
+                    5000 /* ..after 1 seconds */
+                );
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown){
+                addmsg("error", textStatus + " (" + errorThrown + ")");
+                setTimeout(
+                    'waitForMsg()', /* Try again after.. */
+                    "15000"); /* milliseconds (15seconds) */
+            },
+        });
+    };
+
+    $(document).ready(function(){
+        
+	   	waitForMsg(); /* Start the inital request */
+
+});
+	
+    </script>
  

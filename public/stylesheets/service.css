@@ -1,3 +1,29 @@
+#period {
+	margin-left:-13px;
+	font-size: 15px;
+	position: absolute;
+	top:-30px;
+}
+
+/*
+.purchasesCell {
+	font-size:13px;
+	height:30px;
+	width:5px;
+	color: #666666;
+}
+
+.purchasesOddRow {
+	background-color:#D0E7F5;
+	background-color:#EEFEB8;
+	background-color:#FFFFDD;
+	background-color:#EEEEEE;
+	background-color:#f4f0ff;
+	background-image:url("/images/purchases_gradient1.png");
+	#f4f0ff;	
+}
+*/
+
 #phone_form, #pin_form {
 	margin-top:-24px;
 }
@@ -28,9 +54,9 @@
 
 
 #shopping_cart {
-	height: 75px;
+	height: 67px;
 	position:absolute;
-	top:-17px;
+	top:-1px;
 	left:319px;
 }
 
@@ -38,7 +64,7 @@
 	font-family:"Arial Rounded MT Bold";
 	color: orange;
 	margin-left: 3px;
-	font-size:25px;
+	font-size:20px;
 }
 
 .portlet-content-logo-left {
@@ -302,8 +328,9 @@ select, input {
 }
 
 #circle {
+	height: 88px;
 	position:absolute;
-	top:-40px;
+	top:-18px;
 	left:200px;
 }
 
@@ -401,15 +428,15 @@ form {
 
 #phone_notice {
 	position:absolute;
-	top:212px;
-	left:15px;
+	top:246px;
+	left:-8px;
 
 }
 
 #pin_notice {
 	position:absolute;
-	top:312px;
-	left:15px;
+	top:346px;
+	left:-8px;
 
 }
 .red {
@@ -563,7 +590,7 @@ a.login:hover {
 */
 	position:absolute;
 	left:20px;
-	top:100px;
+	top:70px;
 	
     display: inline;
     float: left;
@@ -583,7 +610,7 @@ a.login:hover {
  
 */   
 	position:absolute;
-	top:100px;
+	top:70px;
 	left:650px;
 	background-repeat: no-repeat;
     width: 485px;
@@ -653,7 +680,7 @@ a.login:hover {
 
 #tabs {
     width: 1157px;
-    height: 450px;
+    height: 495px;
     margin-left: 3.5px;
 }
 
@@ -700,6 +727,7 @@ body {
 #head_img {
     height: 200px;
     margin: 0;
+	width: 1172px;
 }
 
 #remainder {

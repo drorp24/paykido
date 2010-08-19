@@ -5,15 +5,25 @@ require 'clickatell'
 class AaaController < ApplicationController
   
   def main
+    
+    @products = Product.find_product_options(1)
  
+  end
+
+  def select_product
+
+    session[:product] = Product.find(params[:id])
+    session[:retailer_name] = "Zynga"
+    @status = "You have selected " + session[:product].title
+    
   end
   
   def get_context
     
     @consumer = session[:consumer]
-    @retailer_name = "jula"
-    @product_title = "zmat"
-    @product_price = 9.99  
+    @retailer_name = "Zynga"
+     @product_title = session[:product].title if session[:product]
+    @product_price = session[:product].price if session[:product]
  
     begin
       @billing_phone = params[:consumer][:billing_phone] 
@@ -59,13 +69,18 @@ class AaaController < ApplicationController
       @message = "Please try again"
       true
       
+    elsif session[:product].nil?
+      @status = "Please select product first"
+      @message = "Then try again"
+      true
+
     elsif session[:purchase_id]
 
         @purchase = Purchase.find(session[:purchase_id]) 
         
         if @purchase.authorization_type == "PendingPayer"
           @status = "Please hold while this purchase is being approved"
-          @message = "Or try anothr one in the mean time"
+          @message = ""
           true
         elsif !@purchase.authorization_date
           @status = "No use pal... this purchase is unauthorized"
@@ -99,13 +114,13 @@ class AaaController < ApplicationController
         find_or_create_purchase
         authorize_purchase
         authenticate_consumer
-        save_purchase
-        write_message
+        unless @sms_failed
+          save_purchase
+          write_message
+        end
       end
 
     rescue
-        @status = "We're sorry. The service is temprarily down"
-        @message = "Please retry in a few moments"
         raise
     end
     
@@ -133,10 +148,10 @@ end
     
     if @purchase.authorization_type == "PendingPayer" 
       @status = "This purchase has to be manually authorized"
-      @message = "We will send you an SMS as soon as it is approved"
+      @message = "You'll get an SMS as soon as it is approved"
     elsif !@purchase.authorization_date
       @status = "We're sorry. This purchase was unauthorized (#{@purchase.authorization_type})"
-      @message = "Would you like to try buying any other item?"
+      @message = ""
     elsif @payer.exists? and @payer.pin?
       @status = "Welcome back!"
       @message = "Go ahead and key in your permanent PIN"
@@ -145,7 +160,7 @@ end
       @message = "Make yourself a premanent PIN!"
     else
       @status = "Thank you"
-      @message = "an SMS with the PIN code is on its way!"
+      @message = "An SMS with the PIN code is on its way!"
     end  
  
   end
@@ -159,15 +174,17 @@ end
       
     @purchase = Purchase.find(session[:purchase_id])
     
-    if @purchase.authorization_date? and params[:pin]== session[:expected_pin]
-      @status = "That's it. You're done."
-      @message = ""
+    expected_pin = @purchase.expected_pin || session[:expected_pin]
+    
+    if @purchase.authorization_date? and params[:pin]== expected_pin
+      @status = "Your purchase is approved."
+      @message = "Thanks for shopping with arca!"
       @purchase.authentication_date = Time.now
       @purchase.save
       account(@purchase.amount)
       clear_session
     else
-      @status = "Wrong PIN entered (#{session[:expected_pin]})"
+      @status = "Wrong PIN entered (#{expected_pin})"
       @message = "Please try again"
     end
 
@@ -297,16 +314,16 @@ end
   end
   
   def manually_authorize(phone, retailer, product, price)
-    authorization_method = "sms"
-    sms_message = "need your approval for #{retailer} #{product} #{price}"
-    sms(phone, sms_message)if authorization_method == "sms"
+#    authorization_method = "sms"
+#    sms_message = "need your approval for #{retailer} #{product} #{price}"
+#    sms(phone, sms_message)if authorization_method == "sms"
   end
     
   
   def send_sms_to_consumer
     
       sms_phone = @consumer.billing_phone
-      sms_message = "your PIN code is: #{session[:expected_pin]}"
+      sms_message = "Welcome to arca! your PIN code is: #{session[:expected_pin]}"
       sms(sms_phone,sms_message)
       
   end
@@ -314,8 +331,14 @@ end
   
   def sms(phone, message)
 
-#    api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
-#    api.send_message('0542343220', message)
+    api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
+    begin
+      api.send_message(phone, message)
+    rescue Clickatell::API::Error
+      @status = "Oops... can't locate that phone."
+      @message = "Would you check the number and try again"
+      @sms_failed = true
+    end
     
   end
   

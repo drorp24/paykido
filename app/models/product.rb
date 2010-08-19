@@ -1,4 +1,5 @@
 require 'ruby-debug'
+include ActionView::Helpers::NumberHelper
 class Product < ActiveRecord::Base
   belongs_to  :category
   
@@ -59,6 +60,15 @@ class Product < ActiveRecord::Base
   def whitelist(payer_id)
     
    self.update(payer_id, "whitelisted")
+    
+  end
+  
+  def self.find_product_options(retailer_id)
+    
+    Item.find_all_by_retailer_id(retailer_id,
+         :joins  =>  "inner join products on items.product_id = products.id",
+         :select =>  "products.id, products.title, products.price",
+         :order => "products.price DESC").map {|product| [product.title + " " + number_to_currency(product.price), product.id]}
     
   end
   

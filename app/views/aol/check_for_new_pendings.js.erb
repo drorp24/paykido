@@ -1,0 +1,6 @@
+$('#new_pendings_alert img').hide();
+$('small.counter').html('<%= @pending_count %>');
+<% if @new_pendings == true %>
+	$('#new_pendings_alert img').show();
+	$('#new_pendings_alert img').fadeOut(5000);
+<% end %>

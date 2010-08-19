@@ -22,6 +22,8 @@ $(document).ready(function (){
 	$('#phone_alert_form').submitWithAjax();
 	$('#email_alert_form').submitWithAjax();
 	$('#consumer_form').submitWithAjax();
+	
+
 
 		 
 		$(function(){
@@ -82,6 +84,7 @@ $(document).ready(function (){
 		$(function() {
 			$(".buttonset").buttonset();
 		});
+		
 
 
 

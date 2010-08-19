@@ -186,12 +186,22 @@
 			}
 		})
 	};
+	
+	function viewPendings(){
+		$.ajax({
+			url: 'pendings',
+			success: function(data){
+			}
+		})
+	};
+
 /*	Populate tabs by calling ajax  */
 
 		viewConsumers (0);
 		viewRetailers ();
 		viewProducts ();
 		viewCategories ();
+		viewPendings ();
 
 </script>
 
@@ -204,7 +214,8 @@
 		<li><a href="#retailers">Retailers</a></li>
 		<li><a href="#products">Products</a></li>
 		<li><a href="#categories">Categories</a></li>
-		<li><a href="#purchases">Purchases!</a></li>
+		<li><a href="#pendings">Pendings</a></li>
+		<li><a href="#purchases">Purchases</a></li>
 		<li><a href="#account">Account</a></li>
 	</ul>
 
@@ -298,8 +309,24 @@
 		<div class="right_content categories_list"></div>
 	</div>
 
+	<div id="pendings">
+		<div class="left_content"></div>
+		<div class="right_content pendings_list"></div>
+	</div>
+
 	<div id="purchases">
-		<p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+		<div id="table" display="hidden"></div>
+		<div class="left_content"></div>
+		<div class="right_content purchases_list">
+			<form>
+				<div id="period">
+					<input type="radio" id="radio1" name="radio" checked="checked" /><label for="radio1">Pending</label>
+					<input type="radio" id="radio2" name="radio" /><label for="radio2">Last week</label>
+					<input type="radio" id="radio3" name="radio" /><label for="radio3">Last month</label>
+					<input type="radio" id="radio4" name="radio" /><label for="radio4">Just show everything</label>
+				</div>
+		    </form>
+		</div>
 	</div>
 
 	<div id="account">
@@ -316,7 +343,7 @@
 							<div class="inner_content_subtitle" id="extra_space2">Notify me</div>
 							<div class="form_line">
 								<span class="icon">
-									<img class ="communication" id="dial" src="/images/iPhone Dial.png" border="0">
+									<%= image_tag("/images/iPhone Dial.png", :id => "dial", :class => "communication", :border => "0")%>
 								</span>
 								<span class ="item_by_icon">
 									<%= f.select(:phone_events, Payer.phone_events,{}, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless" )%>
@@ -324,7 +351,7 @@
 							</div>
 							<div class="form_line">
 								<span class="icon">
-									<img class ="communication" id="clock" src="/images/iPhone Clock.png" border="0">	
+									<%= image_tag("/images/iPhone Clock.png", :id => "clock", :class => "communication", :border => "0")%>
 								</span>
 								<span class ="item_by_icon">
 									<%= f.select(:phone_alert_frequency, Payer.phone_alert_frequency,{}, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless" )%>
@@ -333,7 +360,7 @@
 							<div class="inner_content_subtitle" id="extra_space2">On</div>
 							<div class="form_line">
 								<span class="icon">
-									<img class ="communication" id="sms" src="/images/iPhone SMS 64.png" border="0">							
+									<%= image_tag("/images/iPhone SMS 64.png", :id => "sms", :class => "communication", :border => "0")%>
 								</span>
 								<span class ="item_by_icon">
 									<%= f.text_field(:edited_phone, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless"  )%>
@@ -341,7 +368,7 @@
 							</div>
 							<div class="form_line">
 								<span class="icon">
-									<img class ="communication" id="sms" src="/images/Skype.png" border="0">							
+									<%= image_tag("/images/Skype.png", :id => "sms", :class => "communication", :border => "0")%>
 								</span>
 								<span class ="item_by_icon">
 									<%= f.text_field(:skype, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless"  )%>
@@ -364,7 +391,7 @@
 							<div class="inner_content_subtitle" id="extra_space3">Inform about</div>
 							<div class="form_line">
 								<span class="icon">
-									<img class ="communication" id="report" src="/images/iPhone Notes.png" border="0">							
+									<%= image_tag("/images/iPhone Notes.png", :id => "report", :class => "communication", :border => "0")%>
 								</span>
 								<span class ="item_by_icon">
 									<%= f.select(:email_events, Payer.email_events,{}, :onchange => "$('#email_alert_form').submit();", :class => "value borderless" )%>
@@ -372,7 +399,7 @@
 							</div>
 							<div class="form_line">
 								<span class="icon">
-									<img class ="communication" id="clock" src="/images/iPhone Clock.png" border="0">								
+									<%= image_tag("/images/iPhone Clock.png", :id => "clock", :class => "communication", :border => "0")%>
 								</span>
 								<span class ="item_by_icon">
 									<%= f.select(:email_alert_frequency, Payer.email_alert_frequency,{}, :onchange => "$('#email_alert_form').submit();", :class => "value borderless" )%>
@@ -381,7 +408,7 @@
 							<div class="inner_content_subtitle" id="extra_space2">On</div>
 							<div class="form_line">
 								<span class="icon">
-									<img class ="communication" id="email" src="/images/iphone eMail 64.png" border="0">							
+									<%= image_tag("/images/iPhone eMail 64.png", :id => "email", :class => "communication", :border => "0")%>
 								</span>
 								<span class ="item_by_icon">
 									<%= f.text_field(:email, :onchange => "$('#email_alert_form').submit();", :class => "value borderless"  )%>
@@ -389,7 +416,7 @@
 							</div>
 							<div class="form_line">
 								<span class="icon">
-									<img class ="communication" id="sms" src="/images/facebook.png" border="0">							
+									<%= image_tag("/images/facebook.png", :id => "sms", :class => "communication", :border => "0")%>
 								</span>
 								<span class ="item_by_icon">
 									<%= f.text_field(:facebook, :onchange => "$('#email_alert_form').submit();", :class => "value borderless"  )%>
@@ -459,7 +486,7 @@
 		if (retailers_size == 0) {
 			if (consumers_size%2 == 1) {
 				height = height.split('px');
-				height = +height[0] + 131;
+				height = +height[0] + 120;
 			}
 		}
 		else {
@@ -469,7 +496,7 @@
 			var height = Math.max(height_for_retailers, height_for_consumers);			
 		}
 		
-		if (height > 450) {
+		if (height > 470) {
 			$('#tabs').css('height', height);
 		}
 		
@@ -489,9 +516,25 @@
 		})
 	};
 	
+
+	function viewPurchases(id, ent, period){
+		$.ajax({
+			url: 'purchases/'+id + '?ent=' + ent + '&period=' + period,
+			success: function(data){
+			}
+		})
+	};
+	$('#period label').click(function () { 
+		viewPurchases(null, null, $(this).children().first().html());
+		
+	 }); 
+	
+	
+
+	viewPurchases(null, null, "Pending");
 	viewPhoneAlert (<%= @payer.phone_alert %>);	
 	viewEmailAlert (<%= @payer.email_alert %>);
-	setTabHeight(<%= @consumers.size %>, <%= @retailers.size %>);
+	setTabHeight(<%= @consumers_size %>, <%= @retailers_size %>);
 
 
 

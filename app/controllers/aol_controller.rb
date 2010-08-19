@@ -8,6 +8,21 @@ class AolController < ApplicationController
   before_filter :assignments, :except => :amounts_update
   before_filter :authorize, :except => [:signin, :create, :welcome_new, :joinin]
  
+  def check_for_new_pendings
+    
+    @pending_count = Purchase.pending_count(@payer.id)
+    if @pending_count != 0 and @pending_count != session[:pending_count]
+      session[:pending_count] = @pending_count
+      @new_pendings = true
+    end
+
+  respond_to do |format|  
+      format.html { redirect_to :action => 'index' }  
+      format.js  
+  end
+  
+  end
+  
   def main
     
   end
@@ -422,31 +437,42 @@ end
   end
   
   def purchase_update
-        
-    # need to 
-    # 1. move sms handling to an sms model
-    # 2. put expected sms in the db, not in the session - so aaa will know what to expect
-    # 3. send an sms either way, but include in it a rand number or not according to whether perm pin exists or not
-    
-    @purchase = session[:purchase]
             
+    @purchase = session[:purchase]
+ 
     if params[:purchase] and 
        params[:purchase][:authorization_type] != @purchase.authorization_type and
-      (params[:purchase][:authorization_type] == "ManuallyAuthorized" or 
-      params[:purchase][:authorization_type] == "Unauthorized")
+      (params[:purchase][:authorization_type] == "ManuallyAuthorized" or params[:purchase][:authorization_type] == "Unauthorized")
+
       @purchase.authorization_type = params[:purchase][:authorization_type]
       @purchase.authorization_date = Time.now 
-      @purchase.authorized = true if params[:purchase][:authorization_type] == "ManuallyAuthorized"
-      @purchase.save      
+
+      if params[:purchase][:authorization_type] == "ManuallyAuthorized"
+
+        @purchase.authorized = true
+        
+        if @payer.pin
+          @purchase.expected_pin = @payer.pin
+          @purchase.authentication_type = "PIN"
+        else
+          @purchase.expected_pin = rand.to_s.last(4)
+          @purchase.authentication_type = "SMS"
+        end
+        
+        send_sms_to_consumer(@purchase.consumer_id, @purchase.expected_pin)
+      end
+     
+     @purchase.save   
+
     end
     
-    if (params[:rlist][:status] != session[:retailer_status])
+    if params[:rlist][:status] and params[:rlist][:status] != session[:retailer_status]
       @purchase.retailer.update(@payer.id, params[:rlist][:status])
     end 
-    if (params[:plist][:status] != session[:product_status])
+    if params[:plist][:status] and params[:plist][:status] != session[:product_status]
       @purchase.product.update(@payer.id, params[:plist][:status])
     end 
-    if (params[:clist][:status] != session[:category_status])
+    if params[:clist][:status] and params[:clist][:status] != session[:category_status]
       @purchase.product.category.update(@payer.id, params[:clist][:status])
     end 
     
@@ -505,10 +531,11 @@ end
     
   end
   
-  def send_sms_to_consumer
+  def send_sms_to_consumer(consumer_id, expected_pin)
     
-      sms_phone = @consumer.billing_phone
-      sms_message = "your PIN code is: #{session[:expected_pin]}"
+      consumer = Consumer.find(consumer_id)
+      sms_phone = consumer.billing_phone
+      sms_message = "Your purchase request has been approved! Your PIN code is: #{expected_pin}"
       sms(sms_phone,sms_message)
       
   end
@@ -517,8 +544,8 @@ end
   
   def sms(phone, message)
 
-#    api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
-#    api.send_message('0542343220', message)
+    api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
+    api.send_message(phone, message)
     
   end
 
@@ -532,7 +559,7 @@ end
   end
    
    def logout
-    session[:payer] = nil
+    session[:payer] = session[:pending_count] = nil
     flash[:notice] = "Logged out"
     redirect_to(:action => "login")
   end

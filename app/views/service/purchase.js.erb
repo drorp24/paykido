@@ -1,0 +1,103 @@
+$('#purchases .left_content').html(
+	'<p class="inner_content_title"></p>'+
+	'<p>'+
+		'<span class=item>Consumer:</span>'+			
+		'<span class=content-value><%= @purchase.consumer_name %></span>' +
+	'</p>'+
+	'<p>'+
+		'<span class=item>Retailer:</span>'+			
+		'<span class=content-value><%= @purchase.retailer_name %></span>' +
+	'</p>'+
+	'<p>'+
+		'<span class=item>Product:</span>'+			
+		'<span class=content-value><%= @purchase.product_title %></span>' +
+	'</p>'+
+	'<p>'+
+		'<span class=item>Date:</span>'+			
+		'<span class=content-value><%= @purchase.date %></span>' +
+	'</p>'+
+	'<p>'+
+		'<span class=item>Amount:</span>'+			
+		'<span class=content-value><%= number_to_currency(@purchase.amount) %></span>' +
+	'</p>'+
+	'<p>' +
+		'<span class="icon">' +
+				'<%= image_tag "/images/fb_like_small.png", :id => "pending_like_unlit_#{@purchase.id}",  :class => "pending like" %>'+
+		'</span>'+	
+		'<span class="icon">'+
+			'<%= image_tag "/images/fb_dont_small.png", :id => "pending_dislike_unlit_#{@purchase.id}",  :class => "pending like dislike" %>'+
+		'</span>' +
+	'</p>'
+);	
+
+	function purchaselikeToggleSrc(id) {
+
+		var input = id.split('_');
+		var entity_type = input[0];
+		var clicked_button = input[1];
+		var status = input[2];
+		var entity_id = input[3];
+		
+		
+		if (clicked_button == "like") {
+			button_selector = 			"#"+id;
+			lit_image =  				"/images/fb_like_lit_small.png";
+			unlit_image = 				"/images/fb_like_small.png";
+			other_button  = 			"dislike";
+			other_button_lit_image = 	"/images/fb_dont_lit_small.png";
+			other_button_unlit_image = 	"/images/fb_dont_small.png";
+		} 
+		else {
+			button_selector = 			"#"+id;
+			lit_image = 				"/images/fb_dont_lit_small.png";
+			unlit_image = 				"/images/fb_dont_small.png";
+			other_button = 				"like";
+			other_button_lit_image = 	"/images/fb_like_lit_small.png";
+			other_button_unlit_image = 	"/images/fb_like_small.png";
+		}
+		
+		if ($('#purchase_' + other_button + '_lit_' + entity_id).length) {
+			other_button_selector = '#purchase_' + other_button + '_lit_' + entity_id;
+		}
+		else {
+			other_button_selector = '#purchase_' + other_button + '_unlit_' + entity_id;			
+		}
+		
+		
+		if (status == "lit") {
+			$(button_selector).attr('src', unlit_image);
+			$(button_selector).attr('id', "purchase_" + clicked_button + "_unlit_" + entity_id);
+		}
+		else {
+			$(button_selector).attr('src', lit_image);
+			$(other_button_selector).attr('src', other_button_unlit_image);
+			$(button_selector).attr('id', "purchase_" + clicked_button + "_lit_" + entity_id);
+			$(other_button_selector).attr('id', "purchase_" + other_button + "_unlit_" + entity_id);
+		}
+		
+		if (clicked_button == 'like' && status == 'unlit') {
+			return 'ManuallyAuthorized';
+		}
+		else if (clicked_button == 'dislike' && status == 'unlit') {
+			return 'Unauthorized';
+		}
+		else {
+			return 'purchasePayer';
+		}
+	};
+	
+
+	$(".purchase.like").click(function() {
+		selector_id = $(this).attr("id");
+		purchase_id = selector_id.split('_')[3];
+		new_status = purchaselikeToggleSrc(selector_id);
+		$.ajax({
+			url: 'purchase_update/' + purchase_id + '?new_status=' + new_status,
+			success: function(data){
+				
+			}
+		})
+
+	});
+	
+

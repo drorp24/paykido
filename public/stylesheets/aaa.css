@@ -1,3 +1,37 @@
+#fancybox-inner {
+	height:1000px;
+}
+
+#product_selection {
+	position:absolute;
+	top: 96px;
+	left:46px;
+}
+
+.status_line {
+	font-family: Arial;
+	font-size: 17px;
+	text-align: center;
+	color: orange;
+	margin-top: 17px;
+}
+
+.message_line {
+	font-family: Arial;
+	font-size: 17px;
+	text-align: center;
+	margin-top: -18px;
+		color: orange;	
+}
+
+#pin, #consumer_billing_phone {
+	margin-top: 1px;	
+}
+
+#welcome {
+	margin-left: 30px;
+}
+
 h2 {
 	font-family:"Arial Rounded MT Bold";
 }
@@ -8,8 +42,8 @@ body {
 
 a#link_to_how {
 	position:absolute;
-	top:425px;
-	left:282px;
+	top:397px;
+	left:300px;
 	color:transparent;
 }
 
@@ -26,14 +60,21 @@ This is what determines the modal window size
 */
 #payment_window {
 	background-color:#6b727a;
-	background-image:url(/images/payment_window_background1.png);
+	background-image:url(/images/payment_window_background3.png);
 	background-color:black;
 	padding-top:30px;
 	height:365px;
+	height:343px;
+	height:338px;
+	height:320px;
 	width:385px;
+	width:384px;
 }
 
 #input {
+	position:absolute;
+	top:200px;
+	left:5px;
 }
 
 
@@ -68,7 +109,7 @@ This is what determines the modal window size
 #step_title {
 	float:left;
 	height:20px;
-	padding-top:20px;
+	padding-top:10px;
 	padding-left:15px;
 	font:"Arial Rounded MT Bold";
 	font-size:11pt;

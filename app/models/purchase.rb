@@ -29,6 +29,10 @@ class Purchase < ActiveRecord::Base
     return counter, purchase_id
   end
   
+  def self.pending_count(payer_id)
+    self.count :conditions => ["payer_id = ? and authorization_type = ?", payer_id, "PendingPayer"]
+  end
+  
   def self.by_product_id(payer_id, product_id)
     self.find_all_by_product_id(product_id, 
               :conditions => ["payer_id = ? and authorized = ?", payer_id, true],
@@ -154,6 +158,21 @@ class Purchase < ActiveRecord::Base
 
   end
 
+  
+  def self.payer_pendings_the_works(payer_id)
+    self.find_all_by_payer_id(payer_id, 
+              :conditions => ["authorized = ? and authorization_type = ?", false, "PendingPayer"],
+               :joins  =>      "inner join products on purchases.product_id = products.id inner join categories on products.category_id = categories.id inner join consumers on purchases.consumer_id = consumers.id inner join retailers on purchases.retailer_id = retailers.id",
+              :select =>      "purchases.id, consumers.name as consumer_name, retailers.name as retailer_name, retailers.logo, products.title as product_title, amount, date, authorization_type, authentication_type, authentication_date, location")
+
+  end
+
+  def self.payer_purchases_the_works(payer_id)
+    self.find_all_by_payer_id(payer_id, 
+               :joins  =>      "inner join products on purchases.product_id = products.id inner join categories on products.category_id = categories.id inner join consumers on purchases.consumer_id = consumers.id inner join retailers on purchases.retailer_id = retailers.id",
+              :select =>      "purchases.id, consumers.name as consumer_name, retailers.name as retailer_name, retailers.logo, products.title as product_title, amount, date, authentication_type, authentication_date, authorized, authorization_type, authorization_date, location")
+
+  end
   
   def self.SAVEby_payer_retailer_and_month(payer_id, retailer_id, month)
     self.sum   :amount,

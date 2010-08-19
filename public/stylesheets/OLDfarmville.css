@@ -1,0 +1,490 @@
+body {
+	background: #d0e7f5 url(/images/main_bg.png) repeat-y center center;
+
+}
+
+#center_block {
+	height:475px;
+	width:750px;
+}
+
+#you_can_also_purchase {
+	padding-left:25px;
+}
+#missing_farm_cash {
+ 	margin-top:10px;
+	margin-bottom:10px;
+}
+
+.methods_box {
+
+}
+
+.method {
+	display:inline;
+	float:left;
+	width:190px;
+	height:70px;
+}
+
+#servicewindow {
+
+}
+
+#window_place {
+	height:100px;
+	width:100px;
+	border: 5px solid red;
+}
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+html[xmlns] .clearfix {
+	display: block;
+}
+
+* html .clearfix {
+	height: 1px;
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+html, body {
+	text-align: center;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:12px;
+	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	background: #d0e7f5 url(/images/main_bg.png) repeat-y center center;
+}
+
+img {
+	border: 0px;
+}
+
+a {
+/*	color: #76a5a0; */
+	text-decoration: none;
+}
+
+ul {
+	list-style-type: none;
+}
+
+.clear {
+	clear: both;
+}
+
+/* main body cont */
+
+.header {
+	margin: 0 auto 0;
+	height: 55px;
+	background: url(../images/header_bg.png) 50% 0 no-repeat;
+}
+
+.logout {
+	color: #3B5998;
+	margin-bottom: 4px;
+}
+
+.logout .name {
+	color: #1B7BDD;
+}
+
+.logo {
+	float: left;
+	margin-left: 21px;
+	width: 180px;
+	height: 53px;
+	text-indent: -9999px;
+	background: url(../images/logo_fv.png) no-repeat center center;
+}
+
+.zynga_logo {
+	float: right;
+	width: 100px;
+	height: 53px;
+	margin-right: 30px;
+	text-indent: -9999px;
+	background: url(../images/Zynga_Red_Logo_100.png) no-repeat center 10px;
+}
+
+#byzynga_text {
+	background: url(../images/logo_byZynga.png) no-repeat center center;	
+	margin-top:18px;
+	float:left;
+	width:97px;
+	height:20px;
+	text-indent: -9999px;
+}
+
+#login_text {
+	margin-top:18px;
+	float:right;
+	margin-right:8px;
+	font-size: 17px;
+	color: #59432c;
+	background: url(../images/login.png) no-repeat center center;
+	text-indent: -9999px;
+	width: 48px;
+	height: 22px;
+}
+
+.bttn_fb_login_short {
+	background: url(../images/bttn_fbConnect_short.png) no-repeat center center;	
+	margin-top:12px;
+	width: 97px;
+	height: 30px;
+	float:right;
+	margin-right:40px;
+}
+.bttn_fb_login {
+	background: url(../images/bttn_fbConnect.png) no-repeat center center;	
+	margin-top:12px;
+	width: 145px;
+	height: 30px;
+	float:right;
+	margin-right:40px;
+}
+
+.splash {
+	color:#4580d5;
+	background: url(../images/main_splash_art_new.jpg) no-repeat center bottom;
+	height:430px;
+	font-size: 28px;
+	font-weight: bold;
+	font-family: Verdana;
+	padding: 0 53px 10px 30px;
+	position: relative;
+}
+
+#splash_title {
+	background: url(../images/title_fv_is_a_game.png) no-repeat center center;
+	width: 820px;
+	height: 25px;
+	padding-left:100px;
+	padding-top:60px;
+}
+
+.splash .bttn_playnow_cont {
+	display: block;
+	position: absolute;
+	left: 636px;
+	top: 208px;
+	width: 316px;
+	height: 192px;
+	background: url(../images/bttn_playNow.png);
+	text-indent: -9999px;
+}
+
+.zynga_footer {
+	text-align: right;
+	border-top: 2px solid #999999;
+	margin: 20px 20px 0;
+	padding: 10px 0;
+	font-size: 16px;
+	color: #999999;
+}
+.zynga_footer a {
+	color: #68553c;
+	font-family: Verdana;
+	font-weight: bold;
+} 
+
+.zynga_footer .zynga_link {
+	float: left;
+	width: 79px;
+	height: 20px;
+	background: url(../images/logo_zynga.png);
+	text-align: left;
+	text-indent: -9999px;
+	font-weight: bold;
+}
+
+.outer_wrapper {
+	width: 998px;
+	margin: 0 auto; 
+	text-align: left;
+	background: white;
+	position: relative;
+	z-index: 10;
+}
+
+ul.nav {
+	padding: 0 0 0 230px;
+}
+
+ul.nav li {
+	float: left;
+	
+}
+
+ul.nav li a {
+	display: block;
+	text-indent: -9999px;
+	background: url(../images/top_nav_off.png) no-repeat 0 0;
+	width: 80px;
+	height: 53px;
+}
+
+ul.nav li a:hover, ul.nav li a.selected {
+	background-image: url(../images/top_nav_on.png);
+}
+
+ul.nav li a:hover {
+	background-image: url(../images/top_nav_hover.png);
+}
+
+ul.nav li a.gifts {
+	width: 79px;
+	background-position: -8px 0;
+	margin-left: 0;
+}
+
+ul.nav li a.play {
+	width: 83px;
+	background-position: -72px 0;
+}
+
+ul.nav li a.neighbors {
+	width: 140px;
+	background-position: -142px 0;
+}
+
+ul.nav li a.invite {
+	width: 96px;
+	background-position: -269px 0;
+}
+
+ul.nav li a.help {
+	width: 85px;
+	background-position: -352px 0;
+}
+
+ul.nav li a.money {
+	width: 143px;
+	background-position: -423px 0;
+}
+
+ul.nav li a.admin {
+	width: 104px;
+	background-position: -552px 0;
+}
+.left_col {
+	float: left;
+	width: 210px;
+	margin: 15px 15px 40px 1px;
+	min-height: 500px;
+}
+
+.main_col {
+	float: left;
+	width: 760px;
+	margin: 4px 5px 40px;
+	overflow-x: hidden;
+}
+
+.left_col_box {
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 5px;
+	padding-bottom: 15px;
+}
+
+.left_col_box h3 {
+	background: url(../images/headings_v3.png) no-repeat -9999px 0;
+	text-indent: -9999px;
+	height: 35px;
+	margin-bottom: 10px;
+}
+
+.left_col_box .box_content {
+	padding-left: 10px;
+}
+
+#game_feed_title {
+	background: url(../images/headings_v3.png) no-repeat -9999px 0;
+	text-indent: -9999px;
+	height: 32px;
+	margin-top: 10px;
+	background-position: 0 -141px;
+	border-top: 1px solid #EEEEEE;
+}
+
+.left_col_box#game_bar h3 {
+	background-position: 0 -210px;
+}
+
+.left_col_box#zynga_games h3 {
+	background-position: 0 0;
+}
+
+.left_col_box#farmville_fan h3 {
+	background-position: 0 -102px;
+}
+
+.left_col_box#new_features h3 {
+	background-position: 0 -174px;
+}
+
+.left_col_box#game_card h3 {
+	background-position: 0 -245px;
+} 
+
+.left_col_box#requests h3 {
+	background-position: 0 -34px;
+}
+
+.left_col_box#zynga_games .box_content ul li {
+	margin-bottom: 5px;	
+}
+
+.left_col_box#zynga_games .box_content ul li img {
+	margin: 0 10px 0 3px;
+	vertical-align: bottom;
+}
+
+.left_col_box#zynga_games .box_content ul li a {
+	color: #68553c;
+	font-weight: bold;
+}
+
+.left_col_box#new_features a.head {
+	font-weight: bold;
+}
+
+.left_col_box#new_features p {
+	margin: 5px 0 15px;
+}
+
+.cloud1, .cloud2 {
+	position: absolute;
+	z-index: 0;
+}
+
+.cloud1 {
+	width: 196px;
+	height: 130px;
+	right: 83%;
+	top: 150px;
+	background: url(../images/cloud_1.png);
+}
+
+.cloud2 {
+	width: 195px;
+	height: 118px;
+	left: 80%;
+	top: 180px;
+	background: url(../images/cloud_2.png);
+}
+
+
+#game_feed {
+	margin: 10px 0;
+	width: 600px;
+}
+
+#game_feed .feed_block {
+    border-bottom: 1px solid #EEEEEE;
+    padding: 8px 0px 8px 8px;
+    width: 600px;
+    min-height:70px;
+    position:relative;
+    vertical-align:top;
+    font-family: "lucida grande", tahoma, verdana,arial,sans-serif;
+}
+
+#game_feed .feed_block .profile_pic {
+    left:0;
+	position:absolute;
+    padding-bottom:6px;
+	display:block;
+}
+#game_feed .feed_block .story_pic {
+	padding-top:6px; 
+	width: 85px; 
+	float:left;
+}
+#game_feed .feed_block .story_desc {
+	margin-left:60px;
+	font-size: 11px;
+	color: #808080;
+}
+#game_feed .feed_block a {
+	color: #3B5998;
+}
+
+#game_feed .feed_block h1 {
+	color: #3B5998;
+	font-size: 13px;
+	font-weight: bold;
+}
+
+#game_feed .feed_paging {
+	text-align: right;
+	font-weight: bold;
+	padding: 8px 0;
+}
+
+#more_button {
+	font-weight: bold;
+	color: #3B5998;
+	margin-left:140px;
+}
+
+#popupcontent{
+	position: absolute;
+	visibility: hidden;
+	overflow: hidden;
+	border:1px solid #CCC;
+	background-color:#bababa;
+	border:1px solid #333;
+	text-align:center;
+	adding:5px;
+}
+
+#bookmarkButton {
+	border:1px;
+	margin: 0pt;
+	padding: 3px;
+	width: 50px;
+	background-repeat: repeat-x;
+}
+
+#bookmarkPanel {
+	background: url(../images/bookmarkPanel.png) no-repeat center center;
+	width: 450px;
+	height:250px;
+}
+#bookmark_bttn_nothanks {
+	width:154px;
+	height:77px;
+	float:right;
+	margin-right:60px;
+	margin-top:129px;
+	background: url(../images/bookmarksNoThanks.png)
+}
+#bookmark_bttn_ok {
+	width:154px;
+	height:77px;
+	float:left;
+	margin-left:60px;
+	margin-top:129px;
+	background: url(../images/bookmarksOk.png);
+}

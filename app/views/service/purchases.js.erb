@@ -1,0 +1,113 @@
+<% if @purchases.empty? %>
+
+	$('.purchases_list').append(	
+		'<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>');
+		
+/*
+	$(function() {
+		$('#tabs').tabs("option","disabled", [1, 2, 3, 4, 5]);
+	});
+
+*/			
+<% else %>
+
+	if ($('.purchases_list .column1').length) {
+		$('.purchases_list .column1').empty();
+		$('.purchases_list .column2').empty();
+	}
+	else {
+		$('.purchases_list').append(
+			'<p class="inner_content_title">purchases of...</p>' +
+			'<div class="column1" ><div class="column1_content" display="hidden"></div></div>' +
+			'<div class="column2" ><div class="column1_content" display="hidden"></div></div>' +
+			'<%= image_tag 'shopping_cart.png', :id => "shopping_cart" %>');
+	}
+			
+	<% i = 1 %>
+	<% for @purchase in @purchases %>
+		<% rem = i % 2 %>
+		<% if rem == 1 %>
+			$('.purchases_list .column1').append(
+				'<div class="portlet">'+
+					'<div class="purchase portlet-header" id="purchase_<%= @purchase.id %>"><%= "#{@purchase.date}  #{@purchase.retailer_name}" %></div>'+
+					'<div class="portlet-content" style="padding-bottom:0" >'+
+						'<div class="portlet-content-left">'+
+							'<p class=content-name><%= @purchase.product_title %></p>'+
+							'<p class="purchase-info">Price:&nbsp;<%= number_to_currency(@purchase.amount) %></p>'+
+						'</div>'+
+						'<div class="portlet-content-right">'+
+						'</div>'+
+					'</div>'+
+				'</div>')
+		<% else %>
+			$('.purchases_list .column2').append(
+				'<div class="portlet">'+ 
+					'<div class="purchase portlet-header" id="purchase_<%= @purchase.id %>"><%= "#{@purchase.date}  #{@purchase.retailer_name}" %></div>'+
+					'<div class="portlet-content" style="padding-bottom:0" >'+
+						'<div class="portlet-content-left">'+
+							'<p class=content-name><%= @purchase.product_title %></p>'+
+							'<p class="purchase-info">Price:&nbsp;<%= number_to_currency(@purchase.amount) %></p>'+
+						'</div>'+
+						'<div class="portlet-content-right">'+
+						'</div>'+
+					'</div>'+
+					'</div>'+
+				'</div>')
+		<% end %>
+		<% i += 1 %>
+	<% end %>
+ 
+ 	purchase_info(<%= @purchases[0].id %>);
+
+	
+<% end %>
+
+
+
+	function purchase_info(id) {
+		var selector = "div[id = purchase_" + id.toString() + " ]"
+			
+		$('.purchase.portlet-header').removeClass('ui-widget-header-lightness');
+		$(selector).addClass('ui-widget-header-lightness');
+		$.ajax({
+			url: 'purchase/'+id,
+			success: function(data){
+			}
+		})
+	};
+
+
+
+$(function() {
+	$('.purchases_list .column1').sortable({
+		connectWith: '.purchases_list .column2'
+	});
+	$('.purchases_list .column2').sortable({
+		connectWith: '.purchases_list .column1'
+	});
+	
+	$(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
+		.find(".purchase.portlet-header")
+			.addClass("ui-widget-header ui-corner-all")
+			.prepend('<span class="ui-icon ui-icon-minusthick"></span>')
+			.end()
+		.find(".purchase.portlet-content");
+
+	$(".portlet-header .ui-icon").click(function() {
+		$(this).toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick");
+		$(this).parents(".portlet:first").find(".portlet-content").toggle();
+	});
+	
+	$(".purchases_list .column1").disableSelection();
+});
+
+	$('.purchase.portlet-header').click(function () { 
+		
+		purchase_info($(this).attr('id').split('_')[1]);
+		
+	 }); 
+	 
+	 $(function() {
+		$("#period").buttonset();
+	});
+	

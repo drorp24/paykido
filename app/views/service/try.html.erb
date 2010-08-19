@@ -1,0 +1,562 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head> <!--  -->
+    <link href="/stylesheets/service_unified.css?1280073129" media="all" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>  
+    <script type="text/javascript" src="/javascripts/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="/javascripts/jquery-ui-1.8.2.custom.min.js"></script>
+    <script type="text/javascript" src="/javascripts/application.js"></script>
+    <script type="text/javascript">google.load("visualization", "1", {packages:["table"]});</script>
+    
+
+<body>
+  <div class="container">   
+    <div id="head">
+        <span id="get_started_today"><a href="/service/joinin">shalom</a></span>
+        <img alt="Service_head1" id="head_img" src="/images/service_head1.png?1274643744" />
+    </div>
+    <br />
+    
+            
+    
+        <span class="login" id="signedin">Welcome drorp108</span>
+        <a href="/service/signout" class="login" id="signout">Sign Out</a>
+    
+
+
+    <script type="text/javascript">
+    
+
+    function modifyBudget (verb) {
+            var budget_with_currency = document.getElementById("budget").value;
+            var budget_save = budget_with_currency
+            var budget = Number(budget_with_currency.replace(/[^0-9\.]+/g,""));
+        
+        $(function () {
+            $("#budget_slider").slider({
+                value: budget,
+                min: 0,
+                max: 150,
+                slide: function(event, ui) {
+                    $("#budget").val('$' + ui.value +'.00');
+                }
+                
+            });
+            $("#budget").val('$' + $("#budget_slider").slider("value") + '.00');
+
+        });
+
+        $(function () {
+            $("#budget_slider").slider({
+                change: function(event, ui){
+                    if (verb == "post") {
+                        drawChart();
+                    }
+                }
+                
+            });
+        });
+
+        if (verb == "post") {
+            $('#allowance_form').submit();
+        }
+
+    }   
+
+    
+    
+    function modifyBalance (verb) {
+        
+        $(function () {
+            var budget_with_currency = document.getElementById("budget").value;
+            var budget = Number(budget_with_currency.replace(/[^0-9\.]+/g,""));
+            var balance_with_currency = document.getElementById("balance").value;
+            var balance = Number(balance_with_currency.replace(/[^0-9\.]+/g,""));
+            $("#balance_slider").slider({
+                value: balance,
+                min: 0,
+                max: 150,
+                slide: function(event, ui) {
+                    $("#balance").val('$' + ui.value +'.00');
+                }
+            });
+            $("#balance").val('$' + $("#balance_slider").slider("value")+'.00');
+        });
+
+
+        $(function () {
+            $("#balance_slider").slider({
+                change: function(event, ui) {
+                    if (verb == "post") {
+                        drawChart();
+                    }
+                }   
+                
+            });
+        });
+
+        if (verb == "post") {
+            $('#allowance_form').submit();
+        }
+
+
+    }   
+
+    function drawChart(){
+
+        var budget_with_currency = document.getElementById("budget").value;
+        var budget = Number(budget_with_currency.replace(/[^0-9\.]+/g, ""));
+        var balance_with_currency = document.getElementById("balance").value;
+        var balance = Number(balance_with_currency.replace(/[^0-9\.]+/g, ""));
+        if (balance > budget) {
+            balance = budget;
+            document.getElementById("balance").value = '$' + budget + '.00';
+            modifyBalance ();
+        }
+        var balance_position = (balance / budget) * 100;
+        var tick = ((budget / 40).toFixed(1)) * 10;
+        var background = "chf=c,lg,90,FFE7C6,0,76A4FB,0.5"
+        var uri = "http://chart.apis.google.com/chart?cht=gom&chs=300x100&chf=bg,lg,90,FFFEE0,0,FFFFF5,0.75&chxt=y&chd=t:" + balance_position + "&chl=Balance&chxr=0,0," + budget + "," + tick;
+        document.getElementById("chartdiv").src = uri;
+
+    }
+
+    
+    function convertToCurrency(){
+        document.getElementById("budget").value = '$' + document.getElementById("budget").value;
+        document.getElementById("balance").value = '$' + document.getElementById("balance").value;
+    }
+        
+    function modifyUnderOver(verb) {
+        
+        $(function () {
+        
+            under = document.getElementById("under").value;
+            over = document.getElementById("over").value;
+            if (under.charAt(0) == '$') {under = under.slice(1)}
+            if (over.charAt(0) == '$') {over = over.slice(1)}
+    
+            $("#slider-range").slider({
+                range: true,
+                min: 0,
+                max: 100,
+                values: [under, over],
+                slide: function(event, ui) {
+                    $("#under").val('$' + ui.values[0] + '.00');
+                    $("#over").val('$' + ui.values[1] + '.00');
+                    $("#under1").html(' $' + ui.values[0] + '.00 ');
+                    $("#over1").html(' $' + ui.values[1] + '.00 ');
+                }
+            });
+    
+            $("#under").val('$' + $("#slider-range").slider("values", 0) + '.00');
+            $("#over").val('$' + $("#slider-range").slider("values", 1) + '.00');
+            $("#under1").html(' $' + $("#slider-range").slider("values", 0) + '.00 ');
+            $("#over1").html(' $' + $("#slider-range").slider("values", 1) + '.00 ');
+            });
+
+        if (verb == "post") {
+            $('#amounts_form').submit();
+        }
+
+    }
+
+
+
+    function viewConsumers(new_id){
+        $.ajax({
+            url: 'consumers/'+new_id})};
+
+
+
+    function consumer_info(id) {
+
+        var selector = "div[id = consumer_" + id.toString() + " ]";         
+        $('.consumer.portlet-header').removeClass('ui-widget-header-lightness');
+        $(selector).addClass('ui-widget-header-lightness');
+
+        $.ajax({
+        url: 'consumer/'+id,
+            success: function(data){
+                $(selector).addClass('ui-widget-header-lightness');
+                drawChart();
+                modifyBudget('get');
+                modifyBalance('get');           
+                modifyUnderOver('get');
+                $(function() {$("#radio").buttonset();});
+            }
+        });
+    };
+    
+    function viewRetailers(){
+        $.ajax({
+            url: 'retailers',
+            success: function(data){
+            }
+        })
+    };
+
+
+    function viewProducts(){
+        $.ajax({
+            url: 'products',
+            success: function(data){
+            }
+        })
+    };
+
+    function viewCategories(){
+        $.ajax({
+            url: 'categories',
+            success: function(data){
+            }
+        })
+    };
+    
+    function viewPendings(){
+        $.ajax({
+            url: 'pendings',
+            success: function(data){
+            }
+        })
+    };
+
+/*  Populate tabs by calling ajax  */
+
+        viewConsumers (0);
+        viewRetailers ();
+        viewProducts ();
+        viewCategories ();
+        viewPendings ();
+
+</script>
+
+
+<div id="tabs">
+    <ul>
+        <li><a href="#consumers">Consumers</a></li>
+        <li><a href="#allowance">Allowance</a></li>
+        <li><a href="#approvals">Approvals</a></li>
+        <li><a href="#retailers">Retailers</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#categories">Categories</a></li>
+        <li><a href="#pendings">Pendings</a></li>
+        <li><a href="#purchases">Purchases</a></li>
+        <li><a href="#account">Account</a></li>
+    </ul>
+
+
+    <div id="consumers">
+        <div class="left_content">
+            <p class="inner_content_title">Who would you like to take care for?</p>
+            <p class="content-name-left" id="consumers">Consumer community set-up</p>       
+            <div class="inner_content_text">Follow these two simple steps to get each member</div>
+            <div class="inner_content_text">of your community up and running within seconds.</div>
+            <br />
+            <p class="inner_content_text">Start by keying your consumer's phone number right here:</p>
+            <form action="/service/sms_consumer" id="phone_form" method="post">
+                <input class="formfield" id="consumer_billing_phone" name="consumer[billing_phone]" placeholder="Phone number" size="20" type="text" value="2346834572" />
+                <input class="fg-button ui-state-default loginbutton ui-corner-all" name="commit" type="submit" value="Click when done" />
+            </form>
+            <br />
+            <p class="inner_content_text">Once you got the text message, key-in the PIN code here:</p>  
+            <form action="/service/check_pin_and_link_consumer" id="pin_form" method="post">
+                <input class="formfield" id="consumer_pin" name="consumer[pin]" placeholder="Received PIN" size="20" type="text" />
+                <input class="fg-button ui-state-default loginbutton ui-corner-all" name="commit" type="submit" value="Click when done" />
+            </form>
+        </div>
+        <div class="right_content consumers_list"></div>
+    </div>
+
+
+    <div id="allowance">
+        <div class="left_content">
+            <p class="inner_content_title" id="consumer-allowance-title">How much can each consumer spend?</p>
+            <p class="content-name-left" id="consumer_name_allowance"></p>      
+            <img id='chartdiv' class="engrave"/>
+            <br /><br />
+            <form action="/service/consumer_rules_update" id="allowance_form" method="post">            
+                <span class="long item">Monthly Allowance:</span>
+                <span class="value"><input id="budget" name="payer_rule[edited_budget]" onchange="modifyBudget('post')" size="10" type="text" value="$79.00" /></span>
+                <div class="long item" id="budget_slider" onclick="modifyBudget('post')"></div>
+                <br />
+                <span class="long item">Current Balance:</span>
+                <span class="green_value"><input class="dollar_amount" id="balance" name="consumer[edited_balance]" onchange="modifyBalance('post')" size="10" type="text" value="$16.00" /></span>
+                <div id="balance_slider" onclick="modifyBalance('post')"></div>
+                <br />
+                <span class="item">Balance rollover</span>
+                <span id="rollover" class="buttonset">
+                    <input checked="checked" id="payer_rule_rollover_human_on" name="payer_rule[rollover_human]" onchange="$('#allowance_form').submit();" type="radio" value="On" /><label for="payer_rule_rollover_human_on">On</label>
+                    <input id="payer_rule_rollover_human_off" name="payer_rule[rollover_human]" onchange="$('#allowance_form').submit();" type="radio" value="Off" /><label for="payer_rule_rollover_human_off">Off</label>
+                </span>         
+            </form>
+        </div>
+        <div class="right_content consumers_list"></div>
+    </div>
+
+
+    <div id="approvals">
+        <div class="left_content">
+            <p class="inner_content_title">Are there amounts not worth dealing with?</p>
+            <p class="content-name-left" id="consumer_name_approvals"></p>
+            <div class="inner_content_text">Whenever your rules imply neither approval nor rejection,</div>
+            <div class="inner_content_text">arca informs you, letting you decide for yourslef.</div><br />
+            <div class="inner_content_text">If there are amounts you'd rather not be bothered with,</div>
+            <div class="inner_content_text">please specify them here and arca will act accordingly.</div><br />
+            <form action="/service/consumer_rules_update" id="amounts_form" method="post">
+                <p>
+                    <span class="rule">Approve anything under</span>
+                    <span><input id="under" name="payer_rule[edited_auto_authorize_under]" onchange="modifyUnderOver('post')" size="10" type="text" value="$5.00" /></span>
+                </p>
+                <p>
+                    <span class="rule">Reject anything over</span>
+                    <span><input id="over" name="payer_rule[edited_auto_deny_over]" onchange="modifyUnderOver('post')" size="10" type="text" value="$70.00" /></span>                   
+                </p>
+            </form>
+            <div id='slider-range' class="engrave" onclick="modifyUnderOver('post')"></div><br />
+        </div>
+        <div class="right_content consumers_list"></div>
+    </div>
+
+
+
+    <div id="retailers">
+        <div class="left_content"></div>
+        <div class="right_content retailers_list"></div>
+    </div>
+
+    <div id="products">
+        <div class="left_content"></div>
+        <div class="right_content products_list"></div>
+    </div>
+
+    <div id="categories">
+        <div class="left_content"></div>
+        <div class="right_content categories_list"></div>
+    </div>
+
+    <div id="pendings">
+        <div class="left_content"></div>
+        <div class="right_content pendings_list"></div>
+    </div>
+
+    <div id="purchases">
+        <div id="table"></div>
+    </div>
+
+    <div id="account">
+        <div id="account_tabs">
+            <ul>
+                <li><a href="#alerts">Alerts</a></li>
+                <li><a href="#other">Other</a></li>
+            </ul>
+            <div id="alerts">
+                <div class="left_content">
+                    <p class="inner_content_title">Alerts & Reports</p><br />
+                    <form action="/service/payment_update" id="phone_alert_form" method="post">
+                        <div id="phone_alert_shade_area">
+                            <div class="inner_content_subtitle" id="extra_space2">Notify me</div>
+                            <div class="form_line">
+                                <span class="icon">
+                                    <img class ="communication" id="dial" src="/images/iPhone Dial.png" border="0">
+                                </span>
+                                <span class ="item_by_icon">
+                                    <select class="value borderless" id="payer_phone_events" name="payer[phone_events]" onchange="$('#phone_alert_form').submit();"><option value="any purchase">of every purchase</option>
+<option value="authorizations" selected="selected">of each authorization request</option></select>
+                                </span>
+                            </div>
+                            <div class="form_line">
+                                <span class="icon">
+                                    <img class ="communication" id="clock" src="/images/iPhone Clock.png" border="0">   
+                                </span>
+                                <span class ="item_by_icon">
+                                    <select class="value borderless" id="payer_phone_alert_frequency" name="payer[phone_alert_frequency]" onchange="$('#phone_alert_form').submit();"><option value="as it occurs" selected="selected">as soon as it happens </option>
+<option value="once an hour">once an hour </option>
+<option value="twice a day">twice a day </option></select>
+                                </span>
+                            </div><br />
+                            <div class="inner_content_subtitle" id="extra_space2">On</div>
+                            <div class="form_line">
+                                <span class="icon">
+                                    <img class ="communication" id="sms" src="/images/iPhone SMS 64.png" border="0">                            
+                                </span>
+                                <span class ="item_by_icon">
+                                    <input class="value borderless" id="payer_edited_phone" name="payer[edited_phone]" onchange="$('#phone_alert_form').submit();" size="30" type="text" value="(054) 489-0349" />
+                                </span>
+                            </div>
+                            <div class="form_line">
+                                <span class="icon">
+                                    <img class ="communication" id="sms" src="/images/Skype.png" border="0">                            
+                                </span>
+                                <span class ="item_by_icon">
+                                    <input class="value borderless" id="payer_skype" name="payer[skype]" onchange="$('#phone_alert_form').submit();" size="30" type="text" value="dror.poliak" />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form_line">
+                            <span id="phone_alert" class="buttonset">
+                                <input id="payer_phone_alert_human_on" name="payer[phone_alert_human]" onchange="viewPhoneAlert('toggle');$('#phone_alert_form').submit();" type="radio" value="On" /><label for="payer_phone_alert_human_on">On</label>
+                                <input checked="checked" id="payer_phone_alert_human_off" name="payer[phone_alert_human]" onchange="viewPhoneAlert('toggle');$('#phone_alert_form').submit();" type="radio" value="Off" /><label for="payer_phone_alert_human_off">Off</label>
+                            </span>
+                        </div>
+                    </form>
+                    <br />
+                </div>
+                <div class="right_content">
+                    <p class="inner_content_title">&nbsp;</p><br />
+                    <form action="/service/payment_update" id="email_alert_form" method="post">
+                        <div id="email_alert_shade_area">
+                            <div class="inner_content_subtitle" id="extra_space3">Inform about</div>
+                            <div class="form_line">
+                                <span class="icon">
+                                    <img class ="communication" id="report" src="/images/iPhone Notes.png" border="0">                          
+                                </span>
+                                <span class ="item_by_icon">
+                                    <select class="value borderless" id="payer_email_events" name="payer[email_events]" onchange="$('#email_alert_form').submit();"><option value="purchases" selected="selected">all purchases</option>
+<option value="special activities">special activities</option>
+<option value="offers and promos">offers &amp; promotions</option></select>
+                                </span>
+                            </div>
+                            <div class="form_line">
+                                <span class="icon">
+                                    <img class ="communication" id="clock" src="/images/iPhone Clock.png" border="0">                               
+                                </span>
+                                <span class ="item_by_icon">
+                                    <select class="value borderless" id="payer_email_alert_frequency" name="payer[email_alert_frequency]" onchange="$('#email_alert_form').submit();"><option value="twice weekly">twice weekly</option>
+<option value="once a day">once a day</option>
+<option value="on a weekly basis" selected="selected">on a weekly basis</option>
+<option value="once a month">once a month</option></select>
+                                </span>
+                            </div><br />
+                            <div class="inner_content_subtitle" id="extra_space2">On</div>
+                            <div class="form_line">
+                                <span class="icon">
+                                    <img class ="communication" id="email" src="/images/iphone eMail 64.png" border="0">                            
+                                </span>
+                                <span class ="item_by_icon">
+                                    <input class="value borderless" id="payer_email" name="payer[email]" onchange="$('#email_alert_form').submit();" size="30" type="text" value="drorp24@yahoo.com" />
+                                </span>
+                            </div>
+                            <div class="form_line">
+                                <span class="icon">
+                                    <img class ="communication" id="sms" src="/images/facebook.png" border="0">                         
+                                </span>
+                                <span class ="item_by_icon">
+                                    <input class="value borderless" id="payer_facebook" name="payer[facebook]" onchange="$('#email_alert_form').submit();" size="30" type="text" value="drorp" />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form_line">
+                            <span id="email_alert" class="buttonset">
+                                <input id="payer_email_alert_human_on" name="payer[email_alert_human]" onchange="viewEmailAlert('toggle');$('#email_alert_form').submit();" type="radio" value="On" /><label for="payer_email_alert_human_on">On</label>
+                                <input checked="checked" id="payer_email_alert_human_off" name="payer[email_alert_human]" onchange="viewEmailAlert('toggle');$('#email_alert_form').submit();" type="radio" value="Off" /><label for="payer_email_alert_human_off">Off</label>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="other">shalom</div>
+        </div>
+    </div>
+    
+</div>
+
+<script type="text/javascript">
+
+    function viewPhoneAlert(phone_alert){
+
+        $('#phone_alert_notice').remove(); 
+        $('#phone_alert_form').after('<div id ="phone_alert_notice" class="field_notice small_note red" ></div>');
+        $('#payer_edited_phone').val("(054) 489-0349");
+
+        if (phone_alert == "toggle") {
+            $('#phone_alert_shade_area').toggleClass("shaded");
+        } 
+        else {
+            if (phone_alert) {
+                $('#phone_alert_shade_area').removeClass("shaded");
+            }
+            else
+            {
+                $('#phone_alert_shade_area').addClass("shaded");
+            }
+        }
+    };
+    
+    function viewEmailAlert(email_alert){
+
+        $('#email_alert_notice').remove(); 
+        $('#email_alert_form').after('<div id ="email_alert_notice" class="field_notice small_note red" ></div>');
+
+        if (email_alert == "toggle") {
+            $('#email_alert_shade_area').toggleClass("shaded");
+        } 
+        else {
+            if (email_alert) {
+                $('#email_alert_shade_area').removeClass("shaded");
+            }
+            else
+            {
+                $('#email_alert_shade_area').addClass("shaded");
+            }
+        }
+    };
+    
+    function setTabHeight(consumers_size, retailers_size) {
+
+        var height = $('#tabs').css('height');
+        
+        if (retailers_size == 0) {
+            if (consumers_size%2 == 1) {
+                height = height.split('px');
+                height = +height[0] + 131;
+            }
+        }
+        else {
+            var consumer_lines = Math.round((consumers_size)/2);
+            var height_for_consumers = 150 + (consumer_lines *131);
+            var height_for_retailers = 200 + 42*retailers_size;
+            var height = Math.max(height_for_retailers, height_for_consumers);          
+        }
+        
+        if (height > 450) {
+            $('#tabs').css('height', height);
+        }
+        
+    };
+    
+    function rename_consumer(id, name) {
+        input_name = "consumer[" + id + "][name]";
+        selector = "input[name='" + input_name + "']";
+        $(selector).val(name);
+        $('#consumer_name_allowance').html(name + "\'s allowance");
+        $('#consumer_name_approvals').html(name + "\'s approval policy");       
+        $.ajax({
+            url: 'rename_consumer/'+id + '?name=' + name,
+            success: function(data){
+
+            }
+        })
+    };
+    
+
+    function viewPurchases(){
+        $.ajax({
+            url: 'purchases',
+            success: function(data){
+            }
+        })
+    };
+
+    viewPurchases();
+    viewPhoneAlert (true);  
+    viewEmailAlert (true);
+    setTabHeight(17, 4);
+
+
+
+</script>
+    
+</div>
+</body>
+</html>

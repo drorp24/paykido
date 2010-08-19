@@ -1,0 +1,103 @@
+<% if @pendings.empty? %>
+
+	$('.pendings_list').append(	
+		'<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>');
+		
+/*
+	$(function() {
+		$('#tabs').tabs("option","disabled", [1, 2, 3, 4, 5]);
+	});
+
+*/			
+<% else %>
+
+	$('.pendings_list').append(	
+		'<p class="inner_content_title">pendings purchased</p>' +
+		'<div class="column1" ></div>' +
+		'<div class="column2" ></div>' +
+		'<%= image_tag 'shopping_cart.png', :id => "shopping_cart" %>');
+			
+	<% i = 1 %>
+
+	<% for @pending in @pendings %>
+		<% rem = i % 2 %>
+		<% if rem == 1 %>
+			$('.pendings_list .column1').append(
+				'<div class="portlet">'+
+					'<div class="pending portlet-header" id="pending_<%= @pending.id %>"><%= "#{@pending.date}  #{@pending.retailer_name}" %></div>'+
+					'<div class="portlet-content" style="padding-bottom:0" >'+
+						'<div class="portlet-content-left">'+
+							'<p class=content-name><%= @pending.product_title %></p>'+
+							'<p class="pending-info">Price:&nbsp;<%= number_to_currency(@pending.amount) %></p>'+
+						'</div>'+
+						'<div class="portlet-content-right">'+
+						'</div>'+
+					'</div>'+
+				'</div>');
+		<% else %>
+			$('.pendings_list .column2').append(
+				'<div class="portlet">'+ 
+					'<div class="pending portlet-header" id="pending_<%= @pending.id %>"><%= "#{@pending.date}  #{@pending.retailer_name}" %></div>'+
+					'<div class="portlet-content" style="padding-bottom:0" >'+
+						'<div class="portlet-content-left">'+
+							'<p class=content-name><%= @pending.product_title %></p>'+
+							'<p class="pending-info">Price:&nbsp;<%= number_to_currency(@pending.amount) %></p>'+
+						'</div>'+
+						'<div class="portlet-content-right">'+
+						'</div>'+
+					'</div>'+
+					'</div>'+
+				'</div>');
+		<% end %>
+		<% i += 1 %>
+	<% end %>
+
+	pending_info(<%= @pendings[0].id %>);
+
+	
+<% end %>
+
+
+
+	function pending_info(id) {
+		var selector = "div[id = pending_" + id.toString() + " ]"
+			
+		$('.pending.portlet-header').removeClass('ui-widget-header-lightness');
+		$(selector).addClass('ui-widget-header-lightness');
+		$.ajax({
+			url: 'pending/'+id,
+			success: function(data){
+			}
+		})
+	};
+
+
+
+$(function() {
+	$('.pendings_list .column1').sortable({
+		connectWith: '.pendings_list .column2'
+	});
+	$('.pendings_list .column2').sortable({
+		connectWith: '.pendings_list .column1'
+	});
+	
+	$(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
+		.find(".pending.portlet-header")
+			.addClass("ui-widget-header ui-corner-all")
+			.prepend('<span class="ui-icon ui-icon-minusthick"></span>')
+			.end()
+		.find(".pending.portlet-content");
+
+	$(".portlet-header .ui-icon").click(function() {
+		$(this).toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick");
+		$(this).parents(".portlet:first").find(".portlet-content").toggle();
+	});
+	
+	$(".pendings_list .column1").disableSelection();
+});
+
+	$('.pending.portlet-header').click(function () { 
+		
+		pending_info($(this).attr('id').split('_')[1]);
+		
+	 }); 

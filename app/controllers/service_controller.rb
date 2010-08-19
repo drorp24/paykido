@@ -10,10 +10,14 @@ class ServiceController < ApplicationController
   caches_page :retailers
   caches_page :products
   caches_page :categories
+  caches_page :pendings
+  caches_page :purchases
   caches_page :consumer
   caches_page :retailer
   caches_page :product
   caches_page :category
+  caches_page :pending
+  caches_page :purchase
 
   def joinin
 
@@ -22,13 +26,13 @@ class ServiceController < ApplicationController
       @user = User.new(params[:user])
       @user.affiliation = "payer"
       @user.role = "primary"
-      @user.payer = Payer.new(:balance => 0, :exists => true, :billing_id => 1) 
+      @user.payer = Payer.new(:exists => true) 
      
       if @user.save
         session[:user] = @user     
         payer = @user.payer
         session[:payer] = payer                  
-        payer_rule = payer.payer_rules.create!(:allowance => 0, :rollover => false, :billing_id => 1, :auto_authorize_under => 10, :auto_deny_over => 25)
+        payer_rule = payer.payer_rules.create!(:allowance => 0, :rollover => false, :auto_authorize_under => 10, :auto_deny_over => 25)
         session[:payer_rule] = payer_rule
         redirect_to :action => "payer_signedin"
       else
@@ -93,8 +97,6 @@ class ServiceController < ApplicationController
       session[:consumers] = @consumers
     end
     
-    expires_in 1.year
-   
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
       format.js  
@@ -106,8 +108,6 @@ class ServiceController < ApplicationController
 
     @retailers = session[:retailers]
     
-    expires_in 1.year
-
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
       format.js  
@@ -119,8 +119,6 @@ class ServiceController < ApplicationController
     
     @products = session[:products]
     
-    expires_in 1.year
-
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
       format.js  
@@ -132,8 +130,6 @@ class ServiceController < ApplicationController
     
     @categories = session[:categories]
     
-    expires_in 1.year
-
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
       format.js  
@@ -141,28 +137,84 @@ class ServiceController < ApplicationController
     
   end
   
+   def pendings
+    
+    @pendings = session[:pendings]
+    
+    respond_to do |format|  
+      format.html { redirect_to :action => 'JP' }  
+      format.js  
+    end
+    
+  end
+  
+    def purchases
+    
+    expire_page :action => "purchases" 
+    @purchases = select_purchases(session[:purchases], params[:id], params[:ent], params[:period])
+    
+    respond_to do |format|  
+      format.html { redirect_to :action => 'JP' }  
+      format.js  
+    end
+    
+  end
+  
+  def select_purchases(purchases, id, ent, period)
+    
+    if period == "Pending"
+      purchases.select{|purchase| purchase.authorization_type == "PendingPayer"}
+    elsif period == "Last week"
+      curr_week = Time.now.strftime("%W")
+      purchases.select{|purchase| purchase.date.strftime("%W") == curr_week}
+    elsif period == "Last month"
+      curr_month = Time.now.strftime("%m")
+      purchases.select{|purchase| purchase.date.strftime("%m") == curr_month}
+    else
+      purchases
+    end
+    
+  end
+
   def payer_signedin
     
-   @consumers = Consumer.payer_consumers_the_works(@payer.id)
-    get_rid_of_duplicates
-    session[:consumers] = @consumers 
-    session[:consumer] = (@consumers.empty?) ?nil :@consumers[0]
-    flash[:message] = "Welcome to arca!" if @consumers.empty?
+#    unless session[:same_as_last_payer]       # doesnt help a bit
+      
+        @consumers = Consumer.payer_consumers_the_works(@payer.id)
+        get_rid_of_duplicates
+        session[:consumers] = @consumers 
+        session[:consumer] = (@consumers.empty?) ?nil :@consumers[0]
+        flash[:message] = "Welcome to arca!" if @consumers.empty?
+        
+        @retailers = Purchase.payer_retailers_the_works(@payer.id)
+        sort_retailers
+        session[:retailers] = @retailers
+        session[:retailer] = (@retailers.empty?) ?nil :@retailers[0]
     
-    @retailers = Purchase.payer_retailers_the_works(@payer.id)
-    sort_retailers
-    session[:retailers] = @retailers
-    session[:retailer] = (@retailers.empty?) ?nil :@retailers[0]
+        @products = Purchase.payer_products_the_works(@payer.id)
+        sort_products
+        session[:products] = @products
+        session[:product] = (@products.empty?) ?nil :@products[0]
+    
+        @categories = Purchase.payer_categories_the_works(@payer.id)
+        sort_categories
+        session[:categories] = @categories
+        session[:category] = (@categories.empty?) ?nil :@categories[0]
+        
+        @pendings = Purchase.payer_pendings_the_works(@payer.id)
+    #    sort_pendings
+        session[:pendings] = @pendings
+        session[:pending] = (@pendings.empty?) ?nil :@pendings[0]
+    
+        @purchases = Purchase.payer_purchases_the_works(@payer.id)
+    #    sort_purchases
+        session[:purchases] = @purchases
+        session[:purchase] = (@purchases.empty?) ?nil :@purchases[0]
 
-    @products = Purchase.payer_products_the_works(@payer.id)
-    sort_products
-    session[:products] = @products
-    session[:product] = (@products.empty?) ?nil :@products[0]
+#    end
 
-    @categories = Purchase.payer_categories_the_works(@payer.id)
-    sort_categories
-    session[:categories] = @categories
-    session[:category] = (@categories.empty?) ?nil :@categories[0]
+    @consumers_size = session[:consumers].size
+    @retailers_size = session[:retailers].size
     
   end
  
@@ -214,12 +266,21 @@ end
     
   end
 
+  def sort_pendings
+    
+    @pendings.sort! {|x,y| y.date <=> x.date }
+    
+  end
+  def sort_purchases
+    
+    @purchases.sort! {|x,y| y.date <=> x.date }
+    
+  end
+  
   def consumer
 
     find_consumer
-    expires_in 1.year
 
-    
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
       format.js  
@@ -242,7 +303,6 @@ end
   def product
     
     find_product
-    expires_in 1.year
       
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
@@ -254,7 +314,28 @@ end
   def category
     
     find_category
-    expires_in 1.year
+      
+    respond_to do |format|  
+      format.html { redirect_to :action => 'JP' }  
+      format.js  
+    end
+    
+  end
+
+  def pending
+    
+    find_pending
+      
+    respond_to do |format|  
+      format.html { redirect_to :action => 'JP' }  
+      format.js  
+    end
+    
+  end
+
+  def purchase
+    
+    find_purchase
       
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
@@ -283,6 +364,7 @@ end
     @consumer.update_attributes!(params[:consumer]) if params[:consumer] and @consumer.balance != params[:consumer][:balance]
     @payer_rule.update_attributes!(params[:payer_rule]) 
     expire_page :action => "consumer", :id => @consumer.id
+    expire_page :action => "consumers", :id => 0
     
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
@@ -354,6 +436,24 @@ end
     
   end
   
+  def purchase_update
+    
+   @purchase = Purchase.find(params[:id])
+    unless @purchase.update_attributes(:authorization_type => params[:new_status])
+      flash[:notice] = "Oops... server unavailble. Back in a few moments!"
+    end
+    session[:pending].authorization_type = params[:new_status]
+    expire_page :action => "pending", :id => params[:id]
+    expire_page :action => "pendings"
+    
+    respond_to do |format|  
+      format.html { redirect_to :action => 'JP' }  
+      format.js  
+    end    
+    
+  end
+  
+  
   def retailer_signedin
      
     @sales = Purchase.retailer_sales(@retailer.id)
@@ -389,16 +489,26 @@ end
           format.js  
       end
     else
-      @consumer.balance = @payer_rule.allowance
-      session[:phone_is_ok] = true
-      session[:consumer] = @consumer
+
       session[:expected_pin] = rand.to_s.last(4)
-      sms(@consumer.billing_phone,"your PIN code is: #{session[:expected_pin]}")
-      flash[:notice] = "Thank you. A text message with the PIN code is on its way!"
+ 
+      begin
+        sms(@consumer.billing_phone,"Welcome to arca. Your PIN code is: #{session[:expected_pin]}")
+      rescue Clickatell::API::Error
+        flash[:notice] = "Can't locate phone. Please check the number"
+      else
+        find_payer_rule
+        @consumer.balance = @payer_rule.allowance
+        session[:phone_is_ok] = true
+        session[:consumer] = @consumer
+        flash[:notice] = "Thank you. A text message with the PIN code is on its way!"        
+      end
+
       respond_to do |format|  
           format.html { redirect_to :action => 'payer_signedin' }  
           format.js  
       end 
+ 
     end
     
     
@@ -408,7 +518,7 @@ end
   def sms(phone, message)
 
 #    api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
-#    api.send_message('0542343220', message)
+#    api.send_message(phone, message)
     
   end
    
@@ -453,6 +563,7 @@ end
         session[:consumer] = @consumer
         session[:payer_rule] = @consumer.payer_rules.create!(:allowance => @def_payer_rule.allowance, :rollover => @def_payer_rule.rollover, :auto_authorize_under => @def_payer_rule.auto_authorize_under, :auto_deny_over => @def_payer_rule.auto_deny_over)
         flash[:message] = "Thank you. #{number_to_phone(@phone, :area_code => true)} is now assigned to you!"
+        expire_page :action => "consumers", :id => 0
  
         respond_to do |format|  
           format.html { redirect_to :action => 'payer_signedin' }  
@@ -467,7 +578,10 @@ end
   
   def set_payer_session_and_cache
     
-   unless session[:payer] and session[:payer].id  == @user.payer.id   # if it's the same user that just logged out don't clear payer session and cached pages
+   if session[:payer] and session[:payer].id  == @user.payer.id 
+     session[:same_as_last_payer] = true
+   else
+      session[:same_as_last_payer] = false
       clear_cache
       clear_session
    end 
@@ -486,7 +600,6 @@ end
   def check_payer_is_signedin
     
     unless session[:payer]  # check that payer is signed in
-      debugger
       flash[:message] = "Please sign in with payer credentials"
       clear_session
       redirect_to  :action => 'index'
@@ -542,6 +655,7 @@ end
     
   end
   
+  
   def find_retailer
 
     if session[:retailer] and session[:retailer].id == params[:id]
@@ -578,6 +692,30 @@ end
     
   end
 
+  def find_pending
+
+    if session[:pending] and session[:pending].id == params[:id]
+      @pending = session[:pending]
+    elsif params[:id] and params[:id] != "0"
+      @pending = session[:pendings].select{|purchase| purchase.id == params[:id].to_i}[0]
+    end
+
+    session[:pending] = @pending
+    
+  end
+
+  def find_purchase
+
+    if session[:purchase] and session[:purchase].id == params[:id]
+      @purchase = session[:purchase]
+    elsif params[:id] and params[:id] != "0"
+      @purchase = session[:purchases].select{|purchase| purchase.id == params[:id].to_i}[0]
+    end
+
+    session[:purchase] = @purchase
+    
+  end
+
   def init_consumer
     Consumer.new(:balance => 0)
   end
@@ -595,18 +733,36 @@ end
     
   end
  
+  def find_payer_rule
+    
+    if session[:payer_rule]
+      @payer_rule = session[:payer_rule]
+    else
+      @payer_rule = find_def_payer_rule
+    end
+    
+  end
   
   def refresh_variables_from_session
     
+# @payer is needed by MANY activities so it belongs here. Not sure about user and payer_rule   
     @user =       session[:user]
     @payer =      session[:payer]
-    @payer_rule = session[:payer_rule]
-    @retailers =  session[:retailers]
-    @retailer =   session[:retailer]
-    @products =  session[:products]
-    @product =   session[:product]
-    @consumers =  session[:consumers]
     @consumer =   session[:consumer]
+    @payer_rule = find_payer_rule
+# Do I need the following for EVERY activity? I don't think so
+#    @consumers =  session[:consumers]
+
+#    @retailers =  session[:retailers]
+#    @retailer =   session[:retailer]
+#    @products =  session[:products]
+#    @product =   session[:product]
+#    @categories = session[:categories]
+#    @category = session[:category]
+#    @pendings = session[:pendings]
+#    @pending = session[:pending]
+#    @purchases = session[:purchases]
+#    @purchase = session[:purchase]
 
   end
 
@@ -617,17 +773,26 @@ end
     expire_page :action => "retailers"
     expire_page :action => "products"
     expire_page :action => "categories"
-    session[:consumers].each{|consumer| expire_page :action => :consumer, :id => consumer.id} if session[:consumers] 
-    session[:retailers].each{|retailer| expire_page :action => :retailer, :id => retailer.id} if session[:retailers]
-    session[:products].each{|product| expire_page :action => :product, :id => product.id}     if session[:products]
-    session[:categories].each{|category| expire_page :action => :category, :id => category.id} if session[:categories] 
+    expire_page :action => "pendings"
+    expire_page :action => "purchases"
+    session[:consumers].each{|consumer| expire_page :action => :consumer, :id => consumer.id}  if session[:consumers]
+    session[:retailers].each{|retailer| expire_page :action => :retailer, :id => retailer.id}  if session[:retailers]
+    session[:products].each{|product| expire_page :action => :product, :id => product.id}      if session[:products]
+    session[:categories].each{|category| expire_page :action => :category, :id => category.id} if session[:categories]
+    session[:pendings].each{|purchase| expire_page :action => :pending, :id => purchase.id}    if session[:pendings]
+    session[:purchases].each{|purchase| expire_page :action => :pending, :id => purchase.id}   if session[:purchases]
    
   end
   
   def clear_session
-    session[:user] = session[:payer] = session[:payer_rule] = 
-    session[:retailers] = session[:retailer] = session[:products] = session[:product] =
-    session[:consumers] = session[:consumer] = session[:expected_pin] = nil
+    session[:user] = session[:payer] = session[:payer_rule] = session[:expected_pin] = session[:same_as_last_payer] =
+    session[:consumers] = session[:consumer] = 
+    session[:retailers] = session[:retailer] = 
+    session[:products] = session[:product] =
+    session[:categories] = session[:category] =
+    session[:pendings] = session[:pending] =
+    session[:purchases] = session[:purchase] =
+    nil
   end
   
 end

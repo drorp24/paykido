@@ -2,11 +2,13 @@
 <div id="payment_window">
 	
 	<div id="message">
-		<h2>Welcome to arca</h2>
-		<br />
-		<br />	
 	</div>
-
+	<div id="product_selection">
+		<% form_remote_tag(:url => { :action => :select_product },:update => "message") do %>
+				<%= select_tag(:id, options_for_select(@products, params[:id]))  %>
+				<%= submit_tag 'Click to select'%>
+		<% end %>		
+	</div>	
 	<div id="input">
 		<% remote_form_for :consumer,
 			:url => { :action => :authorize },
@@ -53,3 +55,4 @@
 
 	<a href="/service/registration" id="link_to_how" >shalom</a>
 </div>
+

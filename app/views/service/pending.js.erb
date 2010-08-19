@@ -1,0 +1,111 @@
+$('#pendings .left_content').html(
+	'<p class="inner_content_title">Which purchases do you approve?</p>'+
+	'<p>'+
+		'<span class=item>Consumer:</span>'+			
+		'<span class=content-value><%= @pending.consumer_name %></span>' +
+	'</p>'+
+	'<p>'+
+		'<span class=item>Retailer:</span>'+			
+		'<span class=content-value><%= @pending.retailer_name %></span>' +
+	'</p>'+
+	'<p>'+
+		'<span class=item>Product:</span>'+			
+		'<span class=content-value><%= @pending.product_title %></span>' +
+	'</p>'+
+	'<p>'+
+		'<span class=item>Date:</span>'+			
+		'<span class=content-value><%= @pending.date %></span>' +
+	'</p>'+
+	'<p>'+
+		'<span class=item>Price:</span>'+			
+		'<span class=content-value><%= number_to_currency(@pending.amount) %></span>' +
+	'</p>' +
+	'<p>' +
+		'<span class="icon">' +
+			'<% if    @pending.authorization_type == "ManuallyAuthorized" %>'+
+				'<%= image_tag "/images/fb_like_lit_small.png", :id => "pending_like_lit_#{@pending.id}", :class => "pending like" %>'+
+			'<% else %>'+
+				'<%= image_tag "/images/fb_like_small.png", :id => "pending_like_unlit_#{@pending.id}",  :class => "pending like" %>'+
+			'<% end %>'+
+		'</span>'+	
+		'<span class="icon">'+
+			'<% if    @pending.authorization_type == "Unauthorized" %>'+
+				'<%= image_tag "/images/fb_dont_lit_small.png", :id => "pending_dislike_lit_#{@pending.id}",  :class => "pending like dislike" %>'+
+			'<% else %>'+
+				'<%= image_tag "/images/fb_dont_small.png", :id => "pending_dislike_unlit_#{@pending.id}",  :class => "pending like dislike" %>'+
+			'<% end %>'+
+		'</span>' +
+	'</p>'
+);	
+
+	function pendinglikeToggleSrc(id) {
+
+		var input = id.split('_');
+		var entity_type = input[0];
+		var clicked_button = input[1];
+		var status = input[2];
+		var entity_id = input[3];
+		
+		
+		if (clicked_button == "like") {
+			button_selector = 			"#"+id;
+			lit_image =  				"/images/fb_like_lit_small.png";
+			unlit_image = 				"/images/fb_like_small.png";
+			other_button  = 			"dislike";
+			other_button_lit_image = 	"/images/fb_dont_lit_small.png";
+			other_button_unlit_image = 	"/images/fb_dont_small.png";
+		} 
+		else {
+			button_selector = 			"#"+id;
+			lit_image = 				"/images/fb_dont_lit_small.png";
+			unlit_image = 				"/images/fb_dont_small.png";
+			other_button = 				"like";
+			other_button_lit_image = 	"/images/fb_like_lit_small.png";
+			other_button_unlit_image = 	"/images/fb_like_small.png";
+		}
+		
+		if ($('#pending_' + other_button + '_lit_' + entity_id).length) {
+			other_button_selector = '#pending_' + other_button + '_lit_' + entity_id;
+		}
+		else {
+			other_button_selector = '#pending_' + other_button + '_unlit_' + entity_id;			
+		}
+		
+		
+		if (status == "lit") {
+			$(button_selector).attr('src', unlit_image);
+			$(button_selector).attr('id', "pending_" + clicked_button + "_unlit_" + entity_id);
+		}
+		else {
+			$(button_selector).attr('src', lit_image);
+			$(other_button_selector).attr('src', other_button_unlit_image);
+			$(button_selector).attr('id', "pending_" + clicked_button + "_lit_" + entity_id);
+			$(other_button_selector).attr('id', "pending_" + other_button + "_unlit_" + entity_id);
+		}
+		
+		if (clicked_button == 'like' && status == 'unlit') {
+			return 'ManuallyAuthorized';
+		}
+		else if (clicked_button == 'dislike' && status == 'unlit') {
+			return 'Unauthorized';
+		}
+		else {
+			return 'PendingPayer';
+		}
+	};
+	
+
+	$(".pending.like").click(function() {
+		selector_id = $(this).attr("id");
+		pending_id = selector_id.split('_')[3];
+		new_status = pendinglikeToggleSrc(selector_id);
+		$.ajax({
+			url: 'purchase_update/' + pending_id + '?new_status=' + new_status,
+			success: function(data){
+				
+			}
+		})
+
+	});
+	
+

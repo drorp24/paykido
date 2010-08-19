@@ -15,7 +15,13 @@
 		<script type="text/javascript" charset="utf-8">  $.jQTouch({});</script> 
 	<% end %>
 		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
-
+		<script type="text/javascript">
+			$(document).ready(function() {
+				jQuery.ajaxSetup({  
+     				'beforeSend': function (xhr) {xhr.setRequestHeader("Accept", "text/javascript")}  
+				});
+			});
+		</script>
   </head>
 	
   <body style="font-family: Arial;border: 0 none;">
