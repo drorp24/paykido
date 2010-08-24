@@ -169,11 +169,18 @@ class Purchase < ActiveRecord::Base
 
   def self.payer_purchases_the_works(payer_id)
     self.find_all_by_payer_id(payer_id, 
+              :conditions => ["authorized = ?", true],
                :joins  =>      "inner join products on purchases.product_id = products.id inner join categories on products.category_id = categories.id inner join consumers on purchases.consumer_id = consumers.id inner join retailers on purchases.retailer_id = retailers.id",
               :select =>      "purchases.id, consumers.name as consumer_name, retailers.name as retailer_name, retailers.logo, products.title as product_title, amount, date, authentication_type, authentication_date, authorized, authorization_type, authorization_date, location")
 
   end
   
+  def self.payer_purchases_all_the_works(payer_id)
+    self.find_all_by_payer_id(payer_id, 
+               :joins  =>      "inner join products on purchases.product_id = products.id inner join categories on products.category_id = categories.id inner join consumers on purchases.consumer_id = consumers.id inner join retailers on purchases.retailer_id = retailers.id",
+              :select =>      "purchases.id, consumers.name as consumer_name, retailers.name as retailer_name, retailers.logo, products.title as product_title, amount, date, authentication_type, authentication_date, authorized, authorization_type, authorization_date, location")
+
+  end
   def self.SAVEby_payer_retailer_and_month(payer_id, retailer_id, month)
     self.sum   :amount,
                :conditions => ["payer_id =? and retailer_id = ? and authorized = ? and strftime('%m', date) = ?", payer_id, retailer_id, true, month],

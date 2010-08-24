@@ -19,7 +19,7 @@
 					'</div>'+
 					'<div class="portlet-content" >'+
 						'<div class="portlet-content-left">'+
-							'<%= image_tag "face_placeholder_small.png", :class => "face-placeholder" %>'+
+							'<%= image_tag (@consumer.pic) ?"#{@consumer.pic}" :"face_placeholder_small.png", :class => "face-placeholder" %>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
 							'<p class="consumer-info">Spent nothing this month</p>'+
@@ -36,7 +36,7 @@
 					'</div>'+
 					'<div class="portlet-content" >'+
 						'<div class="portlet-content-left">'+
-							'<%= image_tag "face_placeholder_small.png", :class => "face-placeholder" %>'+
+							'<%= image_tag (@consumer.pic) ?"#{@consumer.pic}" :"face_placeholder_small.png", :class => "face-placeholder" %>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
 							'<p class="consumer-info">Spent nothing this month</p>'+
@@ -54,8 +54,7 @@
 		'<p class="inner_content_title" id="consumers">Consumers Community</p>' +
 		'<% form_for :consumers, :url => { :action => :consumer_update }, :html => {:id => "consumer_form"}  do |f| %>'+
 		'<div class="column1 sortable ui-sortable" ></div>' +
-		'<div class="column2 sortable ui-sortable" ></div>' +
-		'<%= image_tag 'circle.png', :id => "circle" %>');
+		'<div class="column2 sortable ui-sortable" ></div>');
 			
 	<% i = 1 %>
 
@@ -69,7 +68,7 @@
 					'</div>'+
 					'<div class="portlet-content" >'+
 						'<div class="portlet-content-left">'+
-							'<%= image_tag "face_placeholder_small.png", :class => "face-placeholder" %>'+
+							'<%= image_tag (@consumer.pic) ?"#{@consumer.pic}" :"face_placeholder_small.png", :class => "face-placeholder" %>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
 							'<p class="consumer-info">Spent&nbsp;<%= (@consumer.sum_amount.blank?) ?"nothing" :number_to_currency(@consumer.sum_amount) %>&nbsp;this month</p>'+
@@ -85,7 +84,7 @@
 			    	'</div>'+
 					'<div class="portlet-content" >'+
 						'<div class="portlet-content-left">'+
-							'<%= image_tag "face_placeholder_small.png", :class => "face-placeholder" %>'+
+							'<%= image_tag (@consumer.pic) ?"#{@consumer.pic}" :"face_placeholder_small.png", :class => "face-placeholder" %>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
 							'<p class="consumer-info">Spent&nbsp;<%= (@consumer.sum_amount.blank?) ?"nothing" :number_to_currency(@consumer.sum_amount) %>&nbsp;this month</p>'+

@@ -22,6 +22,7 @@ $(document).ready(function (){
 	$('#phone_alert_form').submitWithAjax();
 	$('#email_alert_form').submitWithAjax();
 	$('#consumer_form').submitWithAjax();
+	$('#other_form').submitWithAjax();
 	
 
 

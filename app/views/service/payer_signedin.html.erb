@@ -239,6 +239,9 @@
 				<%= submit_tag "Click when done", :class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
 			<% end %>
 		</div>
+		<div class="middle_content">
+			<%= image_tag @consumers[0].pic, :class => "consumer_pic" %>
+		</div>
 		<div class="right_content consumers_list"></div>
 	</div>
 
@@ -265,6 +268,9 @@
 				</span>			
 			<% end %>
 		</div>
+		<div class="middle_content">
+			<%= image_tag @consumers[0].pic, :class => "consumer_pic" %>
+		</div>
 		<div class="right_content consumers_list"></div>
 	</div>
 
@@ -288,6 +294,9 @@
 				</p>
 			<% end %>
 			<div id='slider-range' class="engrave" onclick="modifyUnderOver('post')"></div><br />
+		</div>
+		<div class="middle_content">
+			<%= image_tag @consumers[0].pic, :class => "consumer_pic" %>
 		</div>
 		<div class="right_content consumers_list"></div>
 	</div>
@@ -315,7 +324,9 @@
 	</div>
 
 	<div id="purchases">
-		<div id="table" display="hidden"></div>
+		<div id="table" display="none">
+			
+		</div>
 		<div class="left_content"></div>
 		<div class="right_content purchases_list">
 			<form>
@@ -326,18 +337,19 @@
 					<input type="radio" id="radio4" name="radio" /><label for="radio4">Just show everything</label>
 				</div>
 		    </form>
+			<div id="purchase_records"></div>
 		</div>
 	</div>
 
 	<div id="account">
 		<div id="account_tabs">
-			<ul>
-				<li><a href="#alerts">Alerts</a></li>
-				<li><a href="#other">Other</a></li>
+			<ul id="no_tabs_background">
+				<li><a href="#alerts" id="alerts_tab">Alerts</a></li>
+				<li><a href="#other" id ="other_tab">Other</a></li>
 			</ul>
 			<div id="alerts">
 				<div class="left_content">
-					<p class="inner_content_title">Alerts & Reports</p><br />
+					<p class="inner_content_title">Alerts & Reports</p>
 					<% form_for :payer, :url => { :action => :payment_update }, :html => {:id => "phone_alert_form"} do |f| %>
 						<div id="phone_alert_shade_area">
 							<div class="inner_content_subtitle" id="extra_space2">Notify me</div>
@@ -363,7 +375,7 @@
 									<%= image_tag("/images/iPhone SMS 64.png", :id => "sms", :class => "communication", :border => "0")%>
 								</span>
 								<span class ="item_by_icon">
-									<%= f.text_field(:edited_phone, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless"  )%>
+									<%= f.text_field(:edited_phone, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless", :placeholder => "which phone to text?"  )%>
 								</span>
 							</div>
 							<div class="form_line">
@@ -382,10 +394,9 @@
 							</span>
 						</div>
 					<% end %>
-					<br />
 				</div>
 				<div class="right_content">
-					<p class="inner_content_title">&nbsp;</p><br />
+					<p class="inner_content_title">&nbsp;</p>
 					<% form_for :payer, :url => { :action => :payment_update }, :html => {:id => "email_alert_form"} do |f| %>
 						<div id="email_alert_shade_area">
 							<div class="inner_content_subtitle" id="extra_space3">Inform about</div>
@@ -432,7 +443,11 @@
 					<% end %>
 				</div>
 			</div>
-			<div id="other">shalom</div>
+			<div id="other">
+				<% form_for :payer, :url => { :action => :payment_update }, :html => {:id => "other_form"} do |f| %>
+					<%= f.text_field(:pin, :onchange => "$('#other_form').submit();", :class => "value borderless"  )%>
+				<% end %>
+			</div>
 		</div>
 	</div>
 	
@@ -479,7 +494,7 @@
 		}
 	};
 	
-	function setTabHeight(consumers_size, retailers_size) {
+	function setTabHeight(consumers_size, retailers_size, purchases_size) {
 
 		var height = $('#tabs').css('height');
 		
@@ -490,13 +505,18 @@
 			}
 		}
 		else {
+			var top_padding = 160;
+			var portlet_height = 120;
 			var consumer_lines = Math.round((consumers_size)/2);
-			var height_for_consumers = 150 + (consumer_lines *131);
-			var height_for_retailers = 200 + 42*retailers_size;
-			var height = Math.max(height_for_retailers, height_for_consumers);			
+			var purchases_lines = Math.round((purchases_size)/2);
+			var retailers_lines = Math.round((retailers_size)/2);
+			var height_for_consumers = top_padding + (consumer_lines * portlet_height);
+			var height_for_purchases = top_padding + (purchases_lines * portlet_height);
+			var height_for_retailers = top_padding + (retailers_lines * portlet_height);
+			var height = Math.max(height_for_retailers, height_for_consumers, height_for_purchases);			
 		}
 		
-		if (height > 470) {
+		if (height > 530) {
 			$('#tabs').css('height', height);
 		}
 		
@@ -518,23 +538,33 @@
 	
 
 	function viewPurchases(id, ent, period){
+		if   (period == "Just show everything") 
+			 {action = "purchases_all/"} 
+		else {action = "purchases/"}; 
 		$.ajax({
-			url: 'purchases/'+id + '?ent=' + ent + '&period=' + period,
-			success: function(data){
-			}
-		})
-	};
+				url: action + id + '?ent=' + ent + '&period=' + period,
+				success: function(data){
+				}})
+			 };
+	
+	
 	$('#period label').click(function () { 
 		viewPurchases(null, null, $(this).children().first().html());
 		
 	 }); 
 	
-	
 
+		  google.setOnLoadCallback(drawTable);
+
+
+		  function drawTable(){	  
+
+		  }		
+	
 	viewPurchases(null, null, "Pending");
 	viewPhoneAlert (<%= @payer.phone_alert %>);	
 	viewEmailAlert (<%= @payer.email_alert %>);
-	setTabHeight(<%= @consumers_size %>, <%= @retailers_size %>);
+	setTabHeight(<%= @consumers_size %>, <%= @retailers_size %>, <%= @purchases_size %>);
 
 
 

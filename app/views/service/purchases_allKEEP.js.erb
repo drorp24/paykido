@@ -1,0 +1,68 @@
+
+	      google.load("visualization", "1", {packages:["table"]});
+		  var table;
+
+		  google.setOnLoadCallback(drawTable);
+		  var table = new google.visualization.Table(document.getElementById('table'));			
+		  
+		  var data = new google.visualization.DataTable();
+		  	data.addColumn('string', 'Consumer');
+		  	data.addColumn('string', 'Retailer');
+		    data.addColumn('string', 'Product');
+			data.addColumn('number', 'Amount');
+			data.addColumn('string', 'Date');
+			data.addColumn('string', 'Authorization Type');
+			data.addColumn('string', 'Authorization Date');
+			data.addColumn('string', 'Authentication Type');
+			data.addColumn('string', 'Authentication Date');
+			data.addColumn('string', 'Location');
+			data.addColumn('boolean', '');
+			
+		    data.addRows(<%= @purchases.size %>);
+				<% i = 0 %>
+			<% @purchases.each do |purchase| %>
+		    	<%= "data.setCell(#{i}, 0, '#{purchase.consumer_name}');" %>
+		    	<%= "data.setCell(#{i}, 1, '#{purchase.retailer_name}');" %>
+				<%= "data.setCell(#{i}, 2, '#{purchase.product_title}');" %>
+				<%= "data.setCell(#{i}, 3,  #{number_with_precision(purchase.amount, :precision => 2)}#{(purchase.id/10)}#{(purchase.id%10)});" %>
+				<%= "data.setCell(#{i}, 4, '#{purchase.date.to_s.last(5)}');" %>
+				<%= "data.setCell(#{i}, 5, '#{purchase.authorization_type}');" %>
+				<%= "data.setCell(#{i}, 6, '#{purchase.authorization_date.to_s.last(5)}');" %>
+				<%= "data.setCell(#{i}, 7, '#{purchase.authentication_type}');" %>
+				<%= "data.setCell(#{i}, 8, '#{purchase.authentication_date.to_s.last(5)}');" %>
+				<%= "data.setCell(#{i}, 9, '#{purchase.location}');" %>
+				<%= "data.setCell(#{i}, 10,  '#{purchase.authorized}');" %>
+				<% i += 1 %>
+			<% end %>
+		alert ('I survived thru here');		
+
+
+
+		    var cssClassNames = {'tableCell': 'purchasesCell', 'oddTableRow' : 'purchasesOddRow'};
+
+			var formatter = new google.visualization.NumberFormat({prefix: '$' , fractionDigits: 2});
+  			formatter.format(data, 2); // Apply formatter to third column
+  			
+			var formatter_short = new google.visualization.DateFormat({formatType: 'short'});
+			formatter_short.format(data, 3);
+			
+			var formatter = new google.visualization.BarFormat({width: 50});
+  			formatter.format(data, 2); // Apply formatter to third column
+  			
+		  function drawTable(){	  
+
+			table.draw(data, {'cssClassNames': cssClassNames, sortColumn: 2, sortAscending: false, allowHtml: true, alternatingRowStyle: true});	
+			google.visualization.events.addListener(table, 'select', selectHandler);			  	
+		  }		
+		  
+		  function selectHandler(){
+		  
+		  	var selection = table.getSelection();
+		  	var row = selection[0].row;
+		  	var purchase_amt = data.getValue(row, 2).toFixed(4);
+		  	var purchase_amt_s = purchase_amt.toString();
+		  	var amt_fraction = purchase_amt_s.split('.');
+		  	var purchase_id = amt_fraction[1].substring(2);
+			window.location = '/aol/purchase/' + purchase_id;
+		  }		
+

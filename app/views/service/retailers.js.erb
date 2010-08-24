@@ -14,8 +14,7 @@
 	$('.retailers_list').append(	
 		'<p class="inner_content_title" id="retailers">Retailers you purchased from</p>' +
 		'<div class="column1" ></div>' +
-		'<div class="column2" ></div>' +
-		'<%= image_tag 'shopping_cart.png', :id => "shopping_cart" %>');
+		'<div class="column2" ></div>');
 			
 	<% i = 1 %>
 
@@ -28,7 +27,7 @@
 					'<div class="portlet-content" style="padding-bottom:0" >'+
 						'<div class="portlet-content-left">'+
 							'<%= (!@retailer.logo.blank?) ?image_tag(@retailer.logo, :class => "portlet-content-logo")  :"<p class=content-name>#{@retailer.name}</p>" %>'+
-							'<p class="retailer-info">Total purchases this month:&nbsp;<%= number_to_currency(@retailer.total_amount) %></p>'+
+							'<p class="retailer-info">Total monthly purchases:&nbsp;<%= number_to_currency(@retailer.total_amount) %></p>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
 						'</div>'+
@@ -41,7 +40,7 @@
 					'<div class="portlet-content" style="padding-bottom:0" >'+
 						'<div class="portlet-content-left">'+
 							'<%= (!@retailer.logo.blank?) ?image_tag(@retailer.logo, :class => "portlet-content-logo")  :"<p class=content-name>#{@retailer.name}</p>" %>'+
-							'<p class="retailer-info">Total purchases this month:&nbsp;<%= number_to_currency(@retailer.total_amount) %></p>'+
+							'<p class="retailer-info">Total monthly purchases:&nbsp;<%= number_to_currency(@retailer.total_amount) %></p>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
 						'</div>'+

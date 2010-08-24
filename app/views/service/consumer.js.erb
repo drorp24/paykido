@@ -18,5 +18,7 @@ $('#amounts_form').attr('action', '<%= "/service/consumer_rules_update/#{@consum
 <% else %>
 	$('#consumer_name_approvals').html("<%= @consumer.name %>'s approval policy");
 <% end %>
+
+$('.consumer_pic').attr('src', '<%= (@consumer.pic) ?"/images/#{@consumer.pic}" :"/images/face_placeholder_small.png" %>');
 	
 	

@@ -1,8 +1,58 @@
+.purchasesCell {
+	font-size:13px;
+	height:30px;
+	width:5px;
+	color: #666666;
+}
+
+.purchasesOddRow {
+	background-color:#D0E7F5;
+	background-color:#EEFEB8;
+	background-color:#FFFFDD;
+	background-color:#EEEEEE;
+	background-color:#f4f0ff;
+	background-image:url("/images/purchases_gradient1.png");
+	#f4f0ff;	
+}
+
+
+#purchases_message {
+	position: absolute;
+	top: 80px;
+}
+
+#other_form {
+	
+}
+
+#no_tabs_background {
+	background: none;
+	border:none;
+}
+
+#alerts, #alerts_tab, #other_tab {
+	padding-bottom: 0;
+	font-size: 16px;
+}
+
+#account_tabs {
+	height: 30px;
+	
+}
+
+.consumer_pic {
+	position: absolute;
+	top:183px;
+	left:441px;
+	height: 209px;
+
+}
+
 #period {
-	margin-left:-13px;
+	margin-left:-22px;
 	font-size: 15px;
 	position: absolute;
-	top:-30px;
+	top:9px;
 }
 
 /*
@@ -88,6 +138,7 @@
 	display:inline;
 	float:left;
 	margin-left: 3px;
+	height:64px;
 }
 
 .retailer-info {
@@ -116,13 +167,14 @@
 }
 
 #alerts .right_content {
-	left:645px;
+	left:582px;
 }
 
 
 #phone_alert_shade_area, #email_alert_shade_area {
 	border: 1px solid #0078AE;
-	-moz-border-radius:5px;
+	-moz-border-radius:10px;
+	-webkit-border-radius: 10px;
 	background-color: #FFFFF5;
 	background-color: #FFFEEE;
 	padding-left: 10px;
@@ -131,6 +183,7 @@
 	border-right: 1px solid #EEEEEE;
 	border-bottom: 1px solid #DDDDDD;
 	width:488px;
+	height: 312px;
 }
 
 #content_left_shade_area {
@@ -219,8 +272,8 @@ select, input {
 
 #phone_alert, #email_alert  {
 	position:absolute;
-	top:76px;
-	left:364px;
+	top:71px;
+	left:372px;
 }
 
 
@@ -332,6 +385,7 @@ select, input {
 	position:absolute;
 	top:-18px;
 	left:200px;
+	background-color:#E6EDF4;
 }
 
 #budget, #balance, #under, #over {
@@ -680,8 +734,14 @@ a.login:hover {
 
 #tabs {
     width: 1157px;
-    height: 495px;
+    height: 530px;
     margin-left: 3.5px;
+	background-image: url("/images/tabs_gradient2.png");
+	background-repeat: repeat;
+/*
+	the end color of gradient1 is: #B0C4DE (steel)
+	the end color of gradient1 (lighter version) is: #E6EDF4
+*/
 }
 
 #tabs-1 {

@@ -11,7 +11,6 @@ class ServiceController < ApplicationController
   caches_page :products
   caches_page :categories
   caches_page :pendings
-  caches_page :purchases
   caches_page :consumer
   caches_page :retailer
   caches_page :product
@@ -150,7 +149,6 @@ class ServiceController < ApplicationController
   
     def purchases
     
-    expire_page :action => "purchases" 
     @purchases = select_purchases(session[:purchases], params[:id], params[:ent], params[:period])
     
     respond_to do |format|  
@@ -160,16 +158,29 @@ class ServiceController < ApplicationController
     
   end
   
+  def purchases_all
+    
+    @purchases = Purchase.payer_purchases_all_the_works(@payer.id)
+
+    respond_to do |format|  
+      format.html { redirect_to :action => 'JP' }  
+      format.js  
+    end
+    
+    
+  end
+  
   def select_purchases(purchases, id, ent, period)
     
+   
     if period == "Pending"
       purchases.select{|purchase| purchase.authorization_type == "PendingPayer"}
     elsif period == "Last week"
       curr_week = Time.now.strftime("%W")
-      purchases.select{|purchase| purchase.date.strftime("%W") == curr_week}
+      purchases.select{|purchase| purchase.date.to_date > 1.week.ago.to_date}
     elsif period == "Last month"
       curr_month = Time.now.strftime("%m")
-      purchases.select{|purchase| purchase.date.strftime("%m") == curr_month}
+      purchases.select{|purchase| purchase.date.to_date > 1.month.ago.to_date}
     else
       purchases
     end
@@ -210,10 +221,14 @@ class ServiceController < ApplicationController
     #    sort_purchases
         session[:purchases] = @purchases
         session[:purchase] = (@purchases.empty?) ?nil :@purchases[0]
+        
+        @purchases = Purchase.payer_purchases_all_the_works(@payer.id)
+
 
 #    end
 
     @consumers_size = session[:consumers].size
+    @purchases_size = session[:purchases].size
     @retailers_size = session[:retailers].size
     
   end
@@ -376,7 +391,7 @@ end
   def payment_update
     
     unless @payer.update_attributes(params[:payer])
-      flash[:notice] = "Invalid phone number. Please try again!"
+      flash[:notice] = "Invalid... please try again!"
     end
     
     respond_to do |format|  
@@ -517,8 +532,8 @@ end
   
   def sms(phone, message)
 
-#    api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
-#    api.send_message(phone, message)
+    api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
+    api.send_message(phone, message)
     
   end
    
