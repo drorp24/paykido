@@ -121,8 +121,9 @@ class AaaController < ApplicationController
       end
 
     rescue
-        raise
-    end
+      @status = "Service is temprarily down"
+      @message = "Please hold on for a few moments"
+     end
     
   end
 
@@ -189,8 +190,8 @@ end
     end
 
     rescue 
-    @status = "We're sorry. The service is temprarily down"
-    @message = "Please retry in a few moments"
+      @status = "Service is temprarily down"
+      @message = "Please hold on for a few moments"
     end
   end
   
@@ -268,7 +269,11 @@ end
       @consumer = session[:consumer]
       @rule = session[:consumer_rule]
       
-      if @consumer.balance <= 0
+      if @purchase.product.is_blacklisted(@payer.id) or @purchase.retailer.is_blacklisted(@payer.id) or @purchase.product.category.is_blacklisted(@payer.id)
+        @purchase.authorization_type = "Inappropriate"
+        @purchase.authorized = false      
+      
+      elsif @consumer.balance <= 0
         @purchase.authorization_type = "ZeroBalance"
         @purchase.authorized = false      
       elsif @consumer.balance < @purchase.amount
@@ -281,12 +286,7 @@ end
       elsif @purchase.amount > @rule.auto_deny_over
         @purchase.authorization_type = "AutoOver"
         @purchase.authorized = false
-        
-
-#
-#     BLACK/WHITELIST HANDLING ADD HERE
-#      
-      
+             
       elsif @purchase.authorization_type == "ManuallyAuthorized"
         @purchase.authorized = true
       else
@@ -323,7 +323,7 @@ end
   def send_sms_to_consumer
     
       sms_phone = @consumer.billing_phone
-      sms_message = "Welcome to arca! your PIN code is: #{session[:expected_pin]}"
+      sms_message = "Thank you for using arca! your PIN code is: #{session[:expected_pin]}"
       sms(sms_phone,sms_message)
       
   end

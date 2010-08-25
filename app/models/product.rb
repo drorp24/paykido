@@ -22,44 +22,44 @@ class Product < ActiveRecord::Base
 
   def plist(payer_id)
     
-    plist = Plist.find_or_initialize_by_product_id_and_payer_id(self.id, payer_id)
+    Plist.find_or_initialize_by_product_id_and_payer_id(self.id, payer_id)
     
   end
   
   def status(payer_id)
 
-    self.plist(payer_id).status
+    plist(payer_id).status
     
   end
   
   def update(payer_id, status)
     
-    self.plist(payer_id).update_attributes!(:status => status)
+    plist(payer_id).update_attributes!(:status => status)
     
   end
   
   
   def is_blacklisted(payer_id)
     
-    self.status == "blacklisted" 
+    status(payer_id) == "blacklisted" 
     
   end
 
   def is_whitelisted(payer_id)
     
-    self.status == "whitelisted" 
+    status == "whitelisted" 
  
   end
 
   def blacklist(payer_id)
     
-    self.update(payer_id, "blacklisted")
+    update(payer_id, "blacklisted")
     
   end
  
   def whitelist(payer_id)
     
-   self.update(payer_id, "whitelisted")
+   update(payer_id, "whitelisted")
     
   end
   

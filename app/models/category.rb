@@ -12,47 +12,46 @@ class Category < ActiveRecord::Base
   
   def clist(payer_id)
     
-    clist = Clist.find_or_initialize_by_category_id_and_payer_id(self.id, payer_id)
+    Clist.find_or_initialize_by_category_id_and_payer_id(self.id, payer_id)
     
   end
   
   def status(payer_id)
 
-    self.clist(payer_id).status
+    clist(payer_id).status
     
   end
   
   def update(payer_id, status)
     
-    self.clist(payer_id).update_attributes!(:status => status)
+    clist(payer_id).update_attributes!(:status => status)
     
   end
   
   
   def is_blacklisted(payer_id)
     
-    self.status == "blacklisted" 
+    status(payer_id) == "blacklisted" 
     
   end
 
   def is_whitelisted(payer_id)
     
-    self.status == "whitelisted" 
+    status == "whitelisted" 
  
   end
 
   def blacklist(payer_id)
     
-    self.update(payer_id, "blacklisted")
+    update(payer_id, "blacklisted")
     
   end
  
   def whitelist(payer_id)
     
-   self.update(payer_id, "whitelisted")
+   update(payer_id, "whitelisted")
     
   end
   
- 
  
 end

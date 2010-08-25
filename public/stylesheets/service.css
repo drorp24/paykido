@@ -1,8 +1,59 @@
+
+tr.odd td.authorized_cell.really {
+	background-color: #FFFFFF;
+}
+
+.authorized_cell img {
+	height: 32px;
+
+}
+
+.location_cell {
+	
+}
+.authorization_cell {
+	
+}
+
+.authentication_cell {
+	
+}
+
+.date_cell {
+	padding-left: 2px;
+	padding-right:2px;
+	
+}
+
+.amount_cell {
+	
+}
+
+.retailer_cell {
+	
+}
+
+.category_cell {
+	
+}
+
+.product_cell {
+	
+}
+
+.consumer_cell {
+	
+}
+
+.amount {
+	text-align: right;
+	padding-right: 7px;
+}
 #table {
 	position: absolute;
 	top: 119px;
 	left: 0px;
-	font-size: 14px;
+	font-size: 12px;
 }
 
 .purchasesCell {

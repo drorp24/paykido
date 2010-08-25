@@ -224,8 +224,6 @@ class ServiceController < ApplicationController
         session[:purchases] = @purchases
         session[:purchase] = (@purchases.empty?) ?nil :@purchases[0]
         
-        @purchases = Purchase.payer_purchases_all_the_works(@payer.id)
-
 
 #    end
 

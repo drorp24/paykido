@@ -16,19 +16,36 @@ $('#purchases_message').empty();
 	$('#table').show();
 	<% for @purchase in @purchases %>
 
+		<% if @purchase.authorization_type == ("ManuallyAuthorized" || "Unauthorized" || "PendingPayer") %>
+			<% @authorizer = @payer.name %>
+		<% else %> 
+			<% @authorizer = "arca" %>
+		<% end %>
+		
+		<% if @purchase.authorized? %>
+			<% @authorized_img = "check_mark.png" %>
+		<% elsif @purchase.authorization_type == "PendingPayer" %>
+			<% @authorized_img = "question_mark2.png" %>
+		<% else %>
+			<% @authorized_img = "cross_sign.png" %>
+		<% end %>
+		
+		 
+
 		$('tbody').append(
 		'<tr>' +
-			'<td><%= @purchase.consumer_name %></td>' +
-			'<td><%= @purchase.retailer_name %></td>' +
-			'<td><%= @purchase.product_title %></td>' +
-			'<td><%= @purchase.category_name %></td>' +
-			'<td><%= @purchase.amount %></td>' +
-			'<td><%= @purchase.date%></td>' +
-			'<td><%= @purchase.authentication_type%></td>' +
-			'<td><%= @purchase.authentication_date %></td>' +
-			'<td><%= @purchase.authorization_type%></td>' +
-			'<td><%= @purchase.authorization_date %></td>' +
-			'<td><%= @purchase.location %></td>' +
+			'<td class="authorized_cell really"><%= image_tag @authorized_img, :border => "0" %></td>' +
+			'<td class="date_cell"><%= @purchase.date.strftime("%b %d, %Y %I:%M %p") if @purchase.date %></td>' +
+			'<td class="consumer_cell"><%= @purchase.consumer_name %></td>' +
+			'<td class="retailer_cell"><%= @purchase.retailer_name %></td>' +
+			'<td class="product_cell"><%= @purchase.product_title %></td>' +
+			'<td class="category_cell"><%= @purchase.category_name %></td>' +
+			'<td class="amount_cell"><%= number_to_currency(@purchase.amount) %></td>' +
+			'<td class="date_cell"><%= @purchase.authorization_date.strftime("%b %d, %Y %I:%M %p") if @purchase.authorization_date %></td>' +
+			'<td class="Authorizer_cell"><%= @authorizer %></td>' +
+			'<td class="authorization_cell"><%= @purchase.authorization_type%></td>' +
+			'<td class="date_cell"><%= @purchase.authentication_date.strftime("%b %d, %Y %I:%M %p") if @purchase.authentication_date%></td>' +
+			'<td class="authentication_cell"><%= @purchase.authentication_type%></td>' +
 		'</tr>');
 
 	<% end %>
