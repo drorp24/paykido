@@ -26,7 +26,6 @@ $(document).ready(function (){
 	
 
 
-		 
 		$(function(){
 		//all hover and click logic for buttons
 			$(".fg-button:not(.ui-state-disabled)")

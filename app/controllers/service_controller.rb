@@ -164,7 +164,9 @@ class ServiceController < ApplicationController
 
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
-      format.js  
+      format.json { render :layout => false ,
+                    :json => @purchases.to_json }
+      format.js
     end
     
     

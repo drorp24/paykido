@@ -324,9 +324,25 @@
 	</div>
 
 	<div id="purchases">
-		<div id="table" display="none">
-			
-		</div>
+		<table id="table">
+			<thead>
+				<tr>
+					<th>Consumer</th>
+					<th>Retailer</th>
+					<th>Product</th>
+					<th>Category</th>
+					<th>Amount</th>
+					<th>date</th>
+					<th>Authentication Type</th>
+					<th>Authentication Date</th>
+					<th>Authorization Type</th>
+					<th>Authorization Date</th>
+					<th>Location</th>
+				</tr>				
+			</thead>
+			<tbody>
+			</tbody>			
+		</table>
 		<div class="left_content"></div>
 		<div class="right_content purchases_list">
 			<form>
@@ -545,8 +561,7 @@
 				url: action + id + '?ent=' + ent + '&period=' + period,
 				success: function(data){
 				}})
-			 };
-	
+		};
 	
 	$('#period label').click(function () { 
 		viewPurchases(null, null, $(this).children().first().html());

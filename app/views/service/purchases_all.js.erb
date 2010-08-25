@@ -1,6 +1,8 @@
 $('#purchase_records').empty();
 $('#purchases_message').remove();
 $('#purchases .left_content').empty();
+$('#purchases_message').empty();
+
 
 <% if @purchases.empty? %>
 
@@ -11,6 +13,34 @@ $('#purchases .left_content').empty();
 <% else %>
 
 
+	$('#table').show();
+	<% for @purchase in @purchases %>
 
-	
+		$('tbody').append(
+		'<tr>' +
+			'<td><%= @purchase.consumer_name %></td>' +
+			'<td><%= @purchase.retailer_name %></td>' +
+			'<td><%= @purchase.product_title %></td>' +
+			'<td><%= @purchase.category_name %></td>' +
+			'<td><%= @purchase.amount %></td>' +
+			'<td><%= @purchase.date%></td>' +
+			'<td><%= @purchase.authentication_type%></td>' +
+			'<td><%= @purchase.authentication_date %></td>' +
+			'<td><%= @purchase.authorization_type%></td>' +
+			'<td><%= @purchase.authorization_date %></td>' +
+			'<td><%= @purchase.location %></td>' +
+		'</tr>');
+
+	<% end %>
+
+
+	$('#table').dataTable({
+		"bPaginate": true,
+		"bRetrieve": true,
+		"bJQueryUI": true,
+		"sPaginationType": "full_numbers"
+	});
+
+
+
 <% end %>

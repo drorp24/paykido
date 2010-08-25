@@ -1,6 +1,12 @@
 $('#purchase_records').empty();
 $('#purchases_message').remove();
 $('#purchases .left_content').empty();
+$('#table').hide();
+$('#table_length').remove();
+$('#table_filter').remove();
+$('#table_info').remove();
+$('#table_paginate').remove();
+
 
 <% if @purchases.empty? %>
 
@@ -109,3 +115,4 @@ $(function() {
 		$("#period").buttonset();
 	});
 	
+
