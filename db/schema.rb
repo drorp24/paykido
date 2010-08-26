@@ -137,8 +137,8 @@ ActiveRecord::Schema.define(:version => 20100711072443) do
     t.integer  "retailer_id",                        :null => false
     t.integer  "product_id",                         :null => false
     t.decimal  "amount",                             :null => false
-    t.date     "date",                               :null => false
-    t.date     "authorization_date"
+    t.datetime "date",                               :null => false
+    t.datetime "authorization_date"
     t.string   "authorization_type"
     t.date     "billing_date"
     t.integer  "billing_type"

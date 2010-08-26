@@ -1,3 +1,7 @@
+.incomplete, .complete {
+	font-size: 16px;
+}
+
 #new_pendings_alert img {
 	position:absolute;
 	top:180px;

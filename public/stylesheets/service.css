@@ -1,4 +1,15 @@
+.portlet-header-r {
+	float: right;
+	margin-right: 2px;
+	
+}
 
+.portlet-value {
+	float: right;
+	margin-right: 2px;
+	font-family:"Arial Rounded MT Bold";
+	font-size: 18px;
+}
 tr.odd td.authorized_cell.really {
 	background-color: #FFFFFF;
 }
@@ -184,7 +195,7 @@ tr.odd td.authorized_cell.really {
 }
 
 .content-name {
-	margin-left: 70px;
+	margin-left: 6px;
 	font-family:"Arial Rounded MT Bold";
 	margin-top:6px;
 	margin-bottom:10px;
@@ -212,7 +223,7 @@ tr.odd td.authorized_cell.really {
 	width: 100px;
 	height:25px;
 	margin-left: 56px;
-	margin-top: 5px;
+	margin-top: -11px;
 }
 .portlet-header input {
 	background-color:transparent;
@@ -298,11 +309,11 @@ select, input {
 .content-value {
 	display: inline;
 	float: right;
-	margin-right:267px;
+	margin-right:258px;
 }
 
 .dislike {
-	margin-left:178px;
+	margin-left:184px;
 }
 
 .logo {

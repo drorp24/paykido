@@ -33,9 +33,9 @@
 		<% for @purchase in @pending %>
 			<li>
 		 		<%= check_box("purchase[]" , 'authorization_type', {}, "ManuallyAuthorized", "PendingPayer") %>
+				<span><%= @purchase.date.to_s.first(10) %></span>
 				<span ><%= link_to @purchase.retailer.name, "/aol/purchase/#{@purchase.id}", :class =>"retailer_name" %></span>
-				<span><%= @purchase.product.title %></span> 
-				<span><%= @purchase.date.to_s.last(5) %></span>
+				<span><%= @purchase.product.title.first(8) %></span> 
 				<span class="price"><%= number_to_currency(@purchase.amount) %></span>		
 			</li>
 		<% end %>

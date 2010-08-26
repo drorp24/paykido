@@ -378,6 +378,9 @@ end
         purchase.update_attributes(:authorization_type => "ManuallyAuthorized")
       end
       Purchase.update(params[:purchase].keys, params[:purchase].values) if params[:purchase]
+      
+      # Improve:
+      sms(Consumer.find(@purchase.consumer_id).billing_phone, "Hi from arca. Please check your new authorizations!")
 
       redirect_to :action => :welcome_signedin 
  
@@ -442,27 +445,25 @@ end
  
     if params[:purchase] and 
        params[:purchase][:authorization_type] != @purchase.authorization_type and
-      (params[:purchase][:authorization_type] == "ManuallyAuthorized" or params[:purchase][:authorization_type] == "Unauthorized")
+       (params[:purchase][:authorization_type] == "ManuallyAuthorized" or params[:purchase][:authorization_type] == "Unauthorized")
 
-      @purchase.authorization_type = params[:purchase][:authorization_type]
-      @purchase.authorization_date = Time.now 
-
-      if params[:purchase][:authorization_type] == "ManuallyAuthorized"
-
-        @purchase.authorized = true
-        
-        if @payer.pin
-          @purchase.expected_pin = @payer.pin
-          @purchase.authentication_type = "PIN"
-        else
-          @purchase.expected_pin = rand.to_s.last(4)
-          @purchase.authentication_type = "SMS"
-        end
-        
-        send_sms_to_consumer(@purchase.consumer_id, @purchase.expected_pin)
-      end
+       @purchase.authorized = (params[:purchase][:authorization_type] == "ManuallyAuthorized") ?true :false
+       @purchase.authorization_type = params[:purchase][:authorization_type]
+       @purchase.authorization_date = Time.now 
+      
+       inform_consumer_by_sms
      
-     @purchase.save   
+       if @purchase.save
+         File.delete("#{RAILS_ROOT}/public/service/purchase/#{@purchase.id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchase/#{@purchase.id}.js")
+         File.delete("#{RAILS_ROOT}/public/service/purchases_all/Just show everything.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases_all/Just show everything.js")
+         File.delete("#{RAILS_ROOT}/public/service/purchases/Pending.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/Pending.js")
+         File.delete("#{RAILS_ROOT}/public/service/purchases/Last week.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/Last week.js")
+         File.delete("#{RAILS_ROOT}/public/service/purchases/Last month.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/Last month.js")
+       else
+         flash[:notice] = "service is temporarily down"
+         redirect_to :action => :welcome_signedin
+         return
+       end
 
     end
     
@@ -486,6 +487,27 @@ end
     end
     redirect_to @back_to
     
+  end
+  
+  def inform_consumer_by_sms
+    
+    if @payer.pin
+      @purchase.expected_pin = @payer.pin
+      @purchase.authentication_type = "PIN"
+    else
+      @purchase.expected_pin = rand.to_s.last(4)
+      @purchase.authentication_type = "SMS"
+    end
+    
+    if @purchase.authorization_type == "ManuallyAuthorized"
+      message = "Congrats! Your purchase of #{@purchase.product.title} has been approved. Your PIN: #{@purchase.expected_pin}"
+    else
+      message = "Sorry, your purchase of #{@purchase.product.title} is not approved"
+    end
+    
+    consumer_phone = Consumer.find(@purchase.consumer_id).billing_phone
+        
+    sms(consumer_phone, message)
   end
   
   def arca_auth_help
@@ -530,17 +552,7 @@ end
   def bills_form
     
   end
-  
-  def send_sms_to_consumer(consumer_id, expected_pin)
-    
-      consumer = Consumer.find(consumer_id)
-      sms_phone = consumer.billing_phone
-      sms_message = "Your purchase request has been approved! Your PIN code is: #{expected_pin}"
-      sms(sms_phone,sms_message)
-      
-  end
-  
-        
+          
   
   def sms(phone, message)
 

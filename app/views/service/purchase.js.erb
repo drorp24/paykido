@@ -1,5 +1,9 @@
 $('#purchases .left_content').html(
-	'<p class="inner_content_title">Purchase</p>'+
+	'<p class="inner_content_title"><%= (@purchase.authorization_type == "PendingPayer") ?"Which purchases do you approve?" :"Last purchases" %></p>'+
+	'<p class="content-name-left"><%= "#{@purchase.product_title} from #{@purchase.retailer_name}" %></p>'+
+	'<p>'+
+		'<span class=item><%= @purchase.date.strftime("%A, %B %d, %Y %I:%M %p") %></span>' +
+	'</p>'+
 	'<p>'+
 		'<span class=item>Consumer:</span>'+			
 		'<span class=content-value><%= @purchase.consumer_name %></span>' +
@@ -13,19 +17,23 @@ $('#purchases .left_content').html(
 		'<span class=content-value><%= @purchase.product_title %></span>' +
 	'</p>'+
 	'<p>'+
-		'<span class=item>Date:</span>'+			
-		'<span class=content-value><%= @purchase.date %></span>' +
-	'</p>'+
-	'<p>'+
 		'<span class=item>Amount:</span>'+			
 		'<span class=content-value><%= number_to_currency(@purchase.amount) %></span>' +
 	'</p>'+
 	'<p>' +
 		'<span class="icon">' +
-				'<%= image_tag "/images/fb_like_small.png", :id => "pending_like_unlit_#{@purchase.id}",  :class => "pending like" %>'+
+			'<% if    @purchase.authorization_type == "ManuallyAuthorized" %>'+
+				'<%= image_tag "/images/fb_like_lit_small.png", :id => "pending_like_lit_#{@purchase.id}", :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like" %>'+
+			'<% else %>'+
+				'<%= image_tag "/images/fb_like_small.png", :id => "pending_like_unlit_#{@purchase.id}",  :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like" %>'+
+			'<% end %>'+
 		'</span>'+	
 		'<span class="icon">'+
-			'<%= image_tag "/images/fb_dont_small.png", :id => "pending_dislike_unlit_#{@purchase.id}",  :class => "pending like dislike" %>'+
+			'<% if    @purchase.authorization_type == "Unauthorized" %>'+
+				'<%= image_tag "/images/fb_dont_lit_small.png", :id => "pending_dislike_lit_#{@purchase.id}",  :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like dislike" %>'+
+			'<% else %>'+
+				'<%= image_tag "/images/fb_dont_small.png", :id => "pending_dislike_unlit_#{@purchase.id}",  :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like dislike" %>'+
+			'<% end %>'+
 		'</span>' +
 	'</p>'
 );	
@@ -82,12 +90,12 @@ $('#purchases .left_content').html(
 			return 'Unauthorized';
 		}
 		else {
-			return 'purchasePayer';
+			return 'PendingPayer';
 		}
 	};
 	
 
-	$(".purchase.like").click(function() {
+	$(".pending.like").click(function() {
 		selector_id = $(this).attr("id");
 		purchase_id = selector_id.split('_')[3];
 		new_status = purchaselikeToggleSrc(selector_id);

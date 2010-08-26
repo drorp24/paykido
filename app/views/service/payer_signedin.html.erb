@@ -187,13 +187,6 @@
 		})
 	};
 	
-	function viewPendings(){
-		$.ajax({
-			url: 'pendings',
-			success: function(data){
-			}
-		})
-	};
 
 /*	Populate tabs by calling ajax  */
 
@@ -201,7 +194,6 @@
 		viewRetailers ();
 		viewProducts ();
 		viewCategories ();
-		viewPendings ();
 
 </script>
 
@@ -209,14 +201,13 @@
 <div id="tabs">
 	<ul>
 		<li><a href="#consumers">Consumers</a></li>
-		<li><a href="#allowance">Allowance</a></li>
+		<li><a href="#allowance">Allowances</a></li>
 		<li><a href="#approvals">Approvals</a></li>
 		<li><a href="#retailers">Retailers</a></li>
 		<li><a href="#products">Products</a></li>
 		<li><a href="#categories">Categories</a></li>
-		<li><a href="#pendings">Pendings</a></li>
 		<li><a href="#purchases">Purchases</a></li>
-		<li><a href="#account">Account</a></li>
+		<li><a href="#account">Contacts</a></li>
 	</ul>
 
 
@@ -316,11 +307,6 @@
 	<div id="categories">
 		<div class="left_content"></div>
 		<div class="right_content categories_list"></div>
-	</div>
-
-	<div id="pendings">
-		<div class="left_content"></div>
-		<div class="right_content pendings_list"></div>
 	</div>
 
 	<div id="purchases">
@@ -511,27 +497,12 @@
 		}
 	};
 	
-	function setTabHeight(consumers_size, retailers_size, purchases_size) {
+	function setTabHeight(max_records) {
 
-		var height = $('#tabs').css('height');
-		
-		if (retailers_size == 0) {
-			if (consumers_size%2 == 1) {
-				height = height.split('px');
-				height = +height[0] + 120;
-			}
-		}
-		else {
-			var top_padding = 160;
-			var portlet_height = 120;
-			var consumer_lines = Math.round((consumers_size)/2);
-			var purchases_lines = Math.round((purchases_size)/2);
-			var retailers_lines = Math.round((retailers_size)/2);
-			var height_for_consumers = top_padding + (consumer_lines * portlet_height);
-			var height_for_purchases = top_padding + (purchases_lines * portlet_height);
-			var height_for_retailers = top_padding + (retailers_lines * portlet_height);
-			var height = Math.max(height_for_retailers, height_for_consumers, height_for_purchases);			
-		}
+		var top_padding = 180;
+		var portlet_height = 120;
+		var lines = Math.round((max_records)/2);
+		var height = top_padding + (lines * portlet_height);
 		
 		if (height > 530) {
 			$('#tabs').css('height', height);
@@ -559,7 +530,7 @@
 			 {action = "purchases_all/"} 
 		else {action = "purchases/"}; 
 		$.ajax({
-				url: action + id + '?ent=' + ent + '&period=' + period,
+				url: action + period + '?ent=' + ent + '&ent_id=' + id,
 				success: function(data){
 				}})
 		};
@@ -568,19 +539,11 @@
 		viewPurchases(null, null, $(this).children().first().html());
 		
 	 }); 
-	
-
-		  google.setOnLoadCallback(drawTable);
-
-
-		  function drawTable(){	  
-
-		  }		
-	
+		
 	viewPurchases(null, null, "Pending");
 	viewPhoneAlert (<%= @payer.phone_alert %>);	
 	viewEmailAlert (<%= @payer.email_alert %>);
-	setTabHeight(<%= @consumers_size %>, <%= @retailers_size %>, <%= @purchases_size %>);
+	setTabHeight(<%= @max_records %>);
 
 
 

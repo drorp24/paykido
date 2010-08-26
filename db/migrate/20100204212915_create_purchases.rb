@@ -12,10 +12,10 @@ class CreatePurchases < ActiveRecord::Migration
       t.decimal   :amount,        :null => false
       t.date      :date, :null => false
       
-      t.date      :authorization_date
+      t.datetime  :authorization_date
       t.string    :authorization_type
       
-      t.date      :authentication_date
+      t.datetime  :authentication_date
       t.string    :authentication_type
       
       t.date      :billing_date

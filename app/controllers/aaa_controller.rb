@@ -13,81 +13,97 @@ class AaaController < ApplicationController
   def select_product
 
     session[:product] = Product.find(params[:id])
+    session[:product_title] = session[:product].title
+    session[:product_price] = session[:product].price
     session[:retailer_name] = "Zynga"
     @status = "You have selected " + session[:product].title
     
   end
   
-  def get_context
-    
-    @consumer = session[:consumer]
-    @retailer_name = "Zynga"
-     @product_title = session[:product].title if session[:product]
-    @product_price = session[:product].price if session[:product]
- 
-    begin
-      @billing_phone = params[:consumer][:billing_phone] 
-    rescue NoMethodError
-      @billing_phone = session[:billing_phone]
-    end 
- 
-  end
+  def set_session  
 
-  def set_session     
-
-# Purpose: decide if we're still in the same session:
-# - gets retailer/product/price from retailer page
-# - gets billing_phone from parameters (null handling later)
-    
-      get_context
-
-      unless  session[:billing_phone] == @billing_phone and
-              session[:retailer_name] == @retailer_name and
-              session[:product_title] == @product_title and
-              session[:product_price] == @product_price
-              
-         clear_session
-      end
-     
+  # If no product was selected first, no use to do anything. This will be found in no_use_waiting, which is next.  
+    if session[:product].nil?
+      @no_product_selected = true
+      return
     end
+
+  # We can therefore assume that the following must be set by now
+    @product = session[:product]
+    @product_title = session[:product_title]
+    @product_price = session[:product_price]
+    @retailer_name = "Zynga"
+    
+  # We clear the product session, to force passing thru the product selection next time too
+  # For the rest of that call, we should use only @ product variables, not session ones
+    session[:product] = session[:product_title] = session[:product_price] = nil
+    
+
+  # if the phone in the parameters matches the prev one, and the product matches the prev purchase, then we assume it's the same session:
+  # that means we're expecting the same pin, or still waiting, or no use waiting, or just about to complete the process now. 
+  # However, if it differs, we clear the session
+
+    if params[:consumer][:billing_phone] == session[:billing_phone] and
+       session[:purchase_id] and
+       @product.id == Purchase.find(session[:purchase_id]).product_id  
+ 
+       @consumer = session[:consumer]
+       @billing_phone = session[:billing_phone]
+       @purchase = Purchase.find(session[:purchase_id]) 
+
+    else
+
+       clear_session
+       @consumer = Consumer.find_or_initialize_by_billing_phone(params[:consumer][:billing_phone])
+       session[:consumer] = @consumer
+       @billing_phone = params[:consumer][:billing_phone]
+       session[:billing_phone] = @billing_phone
+
+    end
+     
+   end
          
   
-  def clear_session
-# find a better command to clear out all session construct
-    session[:consumer]=session[:payer_id]=session[:retailer_id]=session[:product_id]=session[:purchase_id]=nil
-    session[:expected_pin]=nil
-    session[:billing_phone]=session[:retailer_name]=session[:product_title]=session[:product_price]=nil
-  end
-  
+   def clear_session
+  # find a better command to clear out all session construct
+      session[:consumer]=session[:billing_phone]=
+      session[:payer_id]=
+      session[:retailer_id]=session[:retailer_name]=
+      session[:product]=session[:product_title]=session[:product_price]=session[:product_id]=
+      session[:purchase_id]=
+      session[:expected_pin]=      
+      nil
+   end
+    
 
   def no_use_waiting
     
-    @consumer = Consumer.new(:billing_phone => @billing_phone)
-    
-    if @consumer.invalid? 
-      @status = "Wrong phone number"
-      @message = "Please try again"
-      true
-      
-    elsif session[:product].nil?
+    if @no_product_selected
       @status = "Please select product first"
       @message = "Then try again"
       true
 
+    elsif @consumer.invalid? 
+      @status = "Wrong phone number"
+      @message = "Please try again"
+      true
+      
     elsif session[:purchase_id]
-
-        @purchase = Purchase.find(session[:purchase_id]) 
-        
+       
         if @purchase.authorization_type == "PendingPayer"
           @status = "Please hold while this purchase is being approved"
           @message = ""
           true
-        elsif !@purchase.authorization_date
-          @status = "No use pal... this purchase is unauthorized"
-          @message = "How about trying any of the other items?"
+        elsif !@purchase.authorized
+          @status = "We're sorry. This purchase was unauthorized"
+          @message = ""
+          true
+        elsif @purchase.authorized
+          @status = "Your purchase has been approved!"
+          @message = "Go ahead and enter the PIN code now"
           true
         else
-          nil
+          false
         end
       
     else
@@ -103,26 +119,20 @@ class AaaController < ApplicationController
   unless no_use_waiting
     begin
 
-      if session[:purchase_id] and @purchase.authorization_date?
-        @status = "Welcome back"
-        @message = "Go ahead and enter the PIN code now"
-  # manual authorization updates: 1. purchase record (2 fields) 2. sends the sms to the consumer
-  # if he's here then we can assume that an SMS has been sent and accepted by the consumer
-      else
-        find_consumer_and_payer
-        find_retailer_and_product
-        find_or_create_purchase
-        authorize_purchase
-        authenticate_consumer
-        unless @sms_failed
-          save_purchase
-          write_message
-        end
+      find_consumer_and_payer
+      find_retailer_and_product
+      find_or_create_purchase
+      authorize_purchase
+      authenticate_consumer
+      unless @sms_failed
+        save_purchase
+        write_message
       end
-
+ 
     rescue
       @status = "Service is temprarily down"
       @message = "Please hold on for a few moments"
+      raise
      end
     
   end
@@ -136,7 +146,7 @@ end
       @purchase.authentication_type = "PIN"
       session[:expected_pin] = @payer.pin
       
-    elsif @purchase.authorization_date?
+    elsif @purchase.authorized?
       
       @purchase.authentication_type = "SMS"
       session[:expected_pin] = rand.to_s.last(4)
@@ -150,7 +160,7 @@ end
     if @purchase.authorization_type == "PendingPayer" 
       @status = "This purchase has to be manually authorized"
       @message = "You'll get an SMS as soon as it is approved"
-    elsif !@purchase.authorization_date
+    elsif !@purchase.authorized
       @status = "We're sorry. This purchase was unauthorized (#{@purchase.authorization_type})"
       @message = ""
     elsif @payer.exists? and @payer.pin?
@@ -168,32 +178,37 @@ end
 
   def authenticate
     
-  set_session
-  
-  unless no_use_waiting
     begin
       
-    @purchase = Purchase.find(session[:purchase_id])
+    @purchase = Purchase.find(session[:purchase_id]) if session[:purchase_id]
     
-    expected_pin = @purchase.expected_pin || session[:expected_pin]
+    if @purchase
+      expected_pin = @purchase.expected_pin || session[:expected_pin]
     
-    if @purchase.authorization_date? and params[:pin]== expected_pin
-      @status = "Your purchase is approved."
-      @message = "Thanks for shopping with arca!"
-      @purchase.authentication_date = Time.now
-      @purchase.save
-      account(@purchase.amount)
-      clear_session
+      if @purchase.authorized? and params[:pin]== expected_pin
+        @status = "Your purchase is approved."
+        @message = "Thanks for shopping with arca!"
+        @purchase.authentication_date = Time.now
+        @purchase.save
+        account(@purchase.amount)
+        clear_session
+      elsif @purchase.authorized? and params[:pin] != expected_pin
+        @status = "Wrong PIN entered (#{expected_pin})"
+        @message = "Please try again"
+      elsif !@purchase.authorized?
+        @status = "We're sorry. This purchase is unauthorized"
+        @message = ""     
+        clear_session
+      end
     else
-      @status = "Wrong PIN entered (#{expected_pin})"
-      @message = "Please try again"
+        @status = "You need to get authorization first"
+        @message = "Complete step 1 then try again"
     end
 
     rescue 
       @status = "Service is temprarily down"
       @message = "Please hold on for a few moments"
     end
-  end
   
   end
 
@@ -224,7 +239,8 @@ end
   def find_retailer_and_product
     @retailer = Retailer.find_or_create_by_name(@retailer_name)
     @product = @retailer.products.find(:first, 
-              :conditions => ["title = ? and price = ?", @product_title, @product_price])                                   
+              :conditions => ["title = ? and price = ?", @product_title, @product_price]) 
+ 
     unless @product
       @product = @retailer.products.create(:category_id => 1, :title => @product_title, :price => @product_price)
     end
@@ -263,28 +279,28 @@ end
   
   def authorize_purchase  
     
+    
     @purchase.authorized = false                        
     
     if @payer.exists?
-      @consumer = session[:consumer]
+       @consumer = session[:consumer]
       @rule = session[:consumer_rule]
-      
       if @purchase.product.is_blacklisted(@payer.id) or @purchase.retailer.is_blacklisted(@payer.id) or @purchase.product.category.is_blacklisted(@payer.id)
-        @purchase.authorization_type = "Inappropriate"
+        @purchase.authorization_type = "Inappropriate Content"
         @purchase.authorized = false      
       
       elsif @consumer.balance <= 0
-        @purchase.authorization_type = "ZeroBalance"
+        @purchase.authorization_type = "Zero Balance"
         @purchase.authorized = false      
       elsif @consumer.balance < @purchase.amount
-        @purchase.authorization_type = "InsufficientBalance"
+        @purchase.authorization_type = "Insufficient Balance"
         @purchase.authorized = false
         
       elsif @purchase.amount <= @rule.auto_authorize_under
-        @purchase.authorization_type = "AutoUnder"
+        @purchase.authorization_type = "Under Threshold"
         @purchase.authorized = true
       elsif @purchase.amount > @rule.auto_deny_over
-        @purchase.authorization_type = "AutoOver"
+        @purchase.authorization_type = "Over Threshold"
         @purchase.authorized = false
              
       elsif @purchase.authorization_type == "ManuallyAuthorized"
@@ -299,16 +315,18 @@ end
       @purchase.authorization_type = "NoPayer"
       @purchase.authorized = true
     end
-    
-    if @purchase.authorized
+        
       @purchase.authorization_date = Time.now
-    end   
     
   end
   
   def save_purchase
     
-    @purchase.save
+    if @purchase.save
+        File.delete("#{RAILS_ROOT}/public/service/purchases_all/Just show everything.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases_all/Just show everything.js")
+        File.delete("#{RAILS_ROOT}/public/service/purchases/Pending.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/Pending.js")
+    end
+
     session[:purchase_id] = @purchase.id
     
   end

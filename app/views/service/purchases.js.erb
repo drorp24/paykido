@@ -33,11 +33,17 @@ $('#table_paginate').remove();
 		<% if rem == 1 %>
 			$('.purchases_list .column1').append(
 				'<div class="portlet">'+
-					'<div class="purchase portlet-header" id="purchase_<%= @purchase.id %>"><%= "#{@purchase.date}  #{@purchase.retailer_name}" %></div>'+
+					'<div class="purchase portlet-header" id="purchase_<%= @purchase.id %>">'+
+						'<span class="portlet-header-l"><%= @purchase.consumer_name %></span>'+
+						'<span class="portlet-header-r"><%= @purchase.date.strftime("%b %d, %Y") %></span>'+
+					'</div>'+
 					'<div class="portlet-content" style="padding-bottom:0" >'+
 						'<div class="portlet-content-left">'+
-							'<p class=content-name><%= @purchase.product_title %></p>'+
-							'<p class="purchase-info">Price:&nbsp;<%= number_to_currency(@purchase.amount) %></p>'+
+							'<p><%= (@purchase.retailer_logo) ?image_tag(@purchase.retailer_logo, :class => "portlet-content-logo")  :"<p class=content-name>#{@purchase.retailer_name}</p>" %></p>'+
+							'<p>'+
+								'<span class=content-name><%= @purchase.product_title %></span>'+
+								'<span class="portlet-value"><%= number_to_currency(@purchase.amount) %></span>'+
+							'</p>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
 						'</div>'+
@@ -45,12 +51,18 @@ $('#table_paginate').remove();
 				'</div>')
 		<% else %>
 			$('.purchases_list .column2').append(
-				'<div class="portlet">'+ 
-					'<div class="purchase portlet-header" id="purchase_<%= @purchase.id %>"><%= "#{@purchase.date}  #{@purchase.retailer_name}" %></div>'+
+				'<div class="portlet">'+
+					'<div class="purchase portlet-header" id="purchase_<%= @purchase.id %>">'+
+						'<span class="portlet-header-l"><%= @purchase.consumer_name %></span>'+
+						'<span class="portlet-header-r"><%= @purchase.date.strftime("%b %d, %Y") %></span>'+
+					'</div>'+
 					'<div class="portlet-content" style="padding-bottom:0" >'+
 						'<div class="portlet-content-left">'+
-							'<p class=content-name><%= @purchase.product_title %></p>'+
-							'<p class="purchase-info">Price:&nbsp;<%= number_to_currency(@purchase.amount) %></p>'+
+							'<p><%= (@purchase.retailer_logo) ?image_tag(@purchase.retailer_logo, :class => "portlet-content-logo")  :"<p class=content-name>#{@purchase.retailer_name}</p>" %></p>'+
+							'<p>'+
+								'<span class=content-name><%= @purchase.product_title %></span>'+
+								'<span class="portlet-value"><%= number_to_currency(@purchase.amount) %></span>'+
+							'</p>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
 						'</div>'+

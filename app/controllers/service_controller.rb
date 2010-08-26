@@ -10,13 +10,14 @@ class ServiceController < ApplicationController
   caches_page :retailers
   caches_page :products
   caches_page :categories
-  caches_page :pendings
   caches_page :consumer
   caches_page :retailer
   caches_page :product
   caches_page :category
   caches_page :pending
   caches_page :purchase
+  caches_page :purchases
+  caches_page :purchases_all
 
   def joinin
 
@@ -136,20 +137,20 @@ class ServiceController < ApplicationController
     
   end
   
-   def pendings
+#   def pendings
     
-    @pendings = session[:pendings]
+#    @pendings = session[:pendings]
     
-    respond_to do |format|  
-      format.html { redirect_to :action => 'JP' }  
-      format.js  
-    end
+#    respond_to do |format|  
+#      format.html { redirect_to :action => 'JP' }  
+#      format.js  
+#    end
     
-  end
+#  end
   
     def purchases
     
-    @purchases = select_purchases(session[:purchases], params[:id], params[:ent], params[:period])
+    @purchases = select_purchases(session[:purchases], params[:id], params[:ent], params[:ent_id]) #params[:id] is actuallu the period
     
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
@@ -160,7 +161,7 @@ class ServiceController < ApplicationController
   
   def purchases_all
     
-    @purchases = Purchase.payer_purchases_all_the_works(@payer.id)
+    @purchases = session[:purchases]
 
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
@@ -172,21 +173,40 @@ class ServiceController < ApplicationController
     
   end
   
-  def select_purchases(purchases, id, ent, period)
+  def select_purchases(purchases, period, ent, id)
     
    
     if period == "Pending"
       purchases.select{|purchase| purchase.authorization_type == "PendingPayer"}
     elsif period == "Last week"
       curr_week = Time.now.strftime("%W")
-      purchases.select{|purchase| purchase.date.to_date > 1.week.ago.to_date}
+      purchases.select{|purchase| purchase.authorized? and purchase.date.to_date > 1.week.ago.to_date}
     elsif period == "Last month"
       curr_month = Time.now.strftime("%m")
-      purchases.select{|purchase| purchase.date.to_date > 1.month.ago.to_date}
+      purchases.select{|purchase| purchase.authorized? and purchase.date.to_date > 1.month.ago.to_date}
     else
       purchases
     end
     
+  end
+  
+  def count_purchases(purchases)
+    
+    session[:pending_cnt] = session[:last_week_cnt] = session[:last_month_cnt] = 0
+    purchases.each do |purchase|
+      if purchase.authorization_type == "PendingPayer"
+        session[:pending_cnt] += 1
+      elsif purchase.authorized? and purchase.date.to_date > 1.week.ago.to_date
+        session[:last_week_cnt] += 1
+      elsif purchase.authorized? and purchase.date.to_date > 1.month.ago.to_date
+        session[:last_month_cnt] += 1
+      end
+    end
+            
+  end
+  
+  def find_max_records
+    [@consumers.size, @retailers.size, @products.size, @categories.size, session[:pending_cnt], session[:last_week_cnt], session[:last_month_cnt]].max
   end
 
   def payer_signedin
@@ -200,36 +220,27 @@ class ServiceController < ApplicationController
         flash[:message] = "Welcome to arca!" if @consumers.empty?
         
         @retailers = Purchase.payer_retailers_the_works(@payer.id)
-        sort_retailers
         session[:retailers] = @retailers
         session[:retailer] = (@retailers.empty?) ?nil :@retailers[0]
     
         @products = Purchase.payer_products_the_works(@payer.id)
-        sort_products
         session[:products] = @products
         session[:product] = (@products.empty?) ?nil :@products[0]
     
         @categories = Purchase.payer_categories_the_works(@payer.id)
-        sort_categories
         session[:categories] = @categories
         session[:category] = (@categories.empty?) ?nil :@categories[0]
         
-        @pendings = Purchase.payer_pendings_the_works(@payer.id)
-    #    sort_pendings
-        session[:pendings] = @pendings
-        session[:pending] = (@pendings.empty?) ?nil :@pendings[0]
-    
-        @purchases = Purchase.payer_purchases_the_works(@payer.id)
-    #    sort_purchases
+        @purchases = Purchase.payer_purchases_all_the_works(@payer.id)      # everything, including pendings and unauthorized
         session[:purchases] = @purchases
-        session[:purchase] = (@purchases.empty?) ?nil :@purchases[0]
+#       session[:purchase] = (@purchases.empty?) ?nil :@purchases[0]
+
+        count_purchases(@purchases)         
+        @max_records = find_max_records
         
 
 #    end
 
-    @consumers_size = session[:consumers].size
-    @purchases_size = session[:purchases].size
-    @retailers_size = session[:retailers].size
     
   end
  
@@ -281,11 +292,11 @@ end
     
   end
 
-  def sort_pendings
+#  def sort_pendings
     
-    @pendings.sort! {|x,y| y.date <=> x.date }
+#    @pendings.sort! {|x,y| y.date <=> x.date }
     
-  end
+#  end
   def sort_purchases
     
     @purchases.sort! {|x,y| y.date <=> x.date }
@@ -453,20 +464,59 @@ end
   
   def purchase_update
     
-   @purchase = Purchase.find(params[:id])
-    unless @purchase.update_attributes(:authorization_type => params[:new_status])
-      flash[:notice] = "Oops... server unavailble. Back in a few moments!"
+    @purchase = Purchase.find(params[:id])
+
+    if params[:new_status] and 
+       (params[:new_status] == "ManuallyAuthorized" or params[:new_status] == "Unauthorized") and
+       params[:new_status] != @purchase.authorization_type 
+
+       @purchase.authorized = (params[:new_status] == "ManuallyAuthorized") ?true :false
+       @purchase.authorization_type = params[:new_status]
+       @purchase.authorization_date = Time.now 
+      
+       inform_consumer_by_sms
+     
+       if @purchase.save
+         expire_page :action => "purchase", :id => @purchase.id 
+         expire_page :action => "purchases", :id => "Pending" 
+         expire_page :action => "purchases", :id => "Last week"
+         expire_page :action => "purchases", :id => "Last month"
+         expire_page :action => "purchases_all", :id => "Just show everything" 
+       else
+         flash[:notice] = "service is temporarily down. Please hold for a few moments"
+       end
+
+      respond_to do |format|  
+        format.html { redirect_to :action => 'JP' }  
+        format.js  
+      end    
+      
     end
-    session[:pending].authorization_type = params[:new_status]
-    expire_page :action => "pending", :id => params[:id]
-    expire_page :action => "pendings"
     
-    respond_to do |format|  
-      format.html { redirect_to :action => 'JP' }  
-      format.js  
-    end    
+   end
     
-  end
+   def inform_consumer_by_sms
+    
+    if @payer.pin
+      @purchase.expected_pin = @payer.pin
+      @purchase.authentication_type = "PIN"
+    else
+      @purchase.expected_pin = rand.to_s.last(4)
+      @purchase.authentication_type = "SMS"
+    end
+    
+    if @purchase.authorization_type == "ManuallyAuthorized"
+      message = "Congrats! Your purchase of #{@purchase.product.title} has been approved. Your PIN: #{@purchase.expected_pin}"
+    else
+      message = "Sorry, your purchase of #{@purchase.product.title} is not approved"
+    end
+    
+    consumer_phone = Consumer.find(@purchase.consumer_id).billing_phone
+        
+    sms(consumer_phone, message)
+  end   
+    
+
   
   
   def retailer_signedin
@@ -742,7 +792,8 @@ end
   
   def find_def_payer_rule
     
-    @def_payer_rule = PayerRule.find_by_payer_id(@payer.id)
+    
+    @def_payer_rule = PayerRule.find_by_payer_id(@payer.id) if @payer and @payer.id
     
     @def_payer_rule ||= init_payer_rule 
     
@@ -788,14 +839,17 @@ end
     expire_page :action => "retailers"
     expire_page :action => "products"
     expire_page :action => "categories"
-    expire_page :action => "pendings"
-    expire_page :action => "purchases"
+#    expire_page :action => "pendings"
+    expire_page :action => "purchases", :id => "Pending"
+    expire_page :action => "purchases", :id => "Last Week"
+    expire_page :action => "purchases", :id => "Last Month"
+    expire_page :action => "purchases_all", :id => "Just show everything"
     session[:consumers].each{|consumer| expire_page :action => :consumer, :id => consumer.id}  if session[:consumers]
     session[:retailers].each{|retailer| expire_page :action => :retailer, :id => retailer.id}  if session[:retailers]
     session[:products].each{|product| expire_page :action => :product, :id => product.id}      if session[:products]
     session[:categories].each{|category| expire_page :action => :category, :id => category.id} if session[:categories]
-    session[:pendings].each{|purchase| expire_page :action => :pending, :id => purchase.id}    if session[:pendings]
-    session[:purchases].each{|purchase| expire_page :action => :pending, :id => purchase.id}   if session[:purchases]
+#    session[:pendings].each{|purchase| expire_page :action => :pending, :id => purchase.id}    if session[:pendings]
+
    
   end
   
@@ -805,7 +859,7 @@ end
     session[:retailers] = session[:retailer] = 
     session[:products] = session[:product] =
     session[:categories] = session[:category] =
-    session[:pendings] = session[:pending] =
+#    session[:pendings] = session[:pending] =
     session[:purchases] = session[:purchase] =
     nil
   end
