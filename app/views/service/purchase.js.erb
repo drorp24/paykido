@@ -38,6 +38,7 @@ $('#purchases .left_content').html(
 	'</p>'
 );	
 
+
 	function purchaselikeToggleSrc(id) {
 
 		var input = id.split('_');
@@ -95,10 +96,28 @@ $('#purchases .left_content').html(
 	};
 	
 
+		function update_purchase_table(id, status) {
+
+		var oTable = $('#table').dataTable();
+		id += ''
+		var selector = ".authorization_cell." + id;
+		var cell = $('#tb_authorization_91').get(0);
+		var aPos = oTable.fnGetPosition( cell );
+		var aData = oTable.fnGetData( aPos[0] );
+		
+		aData[ aPos[1] ] = status + "jjj";
+		cell.innerHTML = status + "jjj";
+	
+		oTable = $('#table').dataTable();
+} ;
+
+
 	$(".pending.like").click(function() {
 		selector_id = $(this).attr("id");
 		purchase_id = selector_id.split('_')[3];
 		new_status = purchaselikeToggleSrc(selector_id);
+		update_purchase_table(purchase_id, new_status);
+
 		$.ajax({
 			url: 'purchase_update/' + purchase_id + '?new_status=' + new_status,
 			success: function(data){
@@ -107,5 +126,4 @@ $('#purchases .left_content').html(
 		})
 
 	});
-	
 

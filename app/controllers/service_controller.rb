@@ -582,8 +582,8 @@ end
   
   def sms(phone, message)
 
-    api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
-    api.send_message(phone, message)
+#    api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
+#    api.send_message(phone, message)
     
   end
    

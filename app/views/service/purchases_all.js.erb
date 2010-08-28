@@ -16,7 +16,9 @@ $('#purchases_message').empty();
 	$('#table').show();
 	<% for @purchase in @purchases %>
 
-		<% if @purchase.authorization_type == ("ManuallyAuthorized" || "Unauthorized" || "PendingPayer") %>
+		<% if @purchase.authorization_type == "ManuallyAuthorized" or 
+			  @purchase.authorization_type == "Unauthorized" or
+			  @purchase.authorization_type ==  "PendingPayer" %>
 			<% @authorizer = @payer.name %>
 		<% else %> 
 			<% @authorizer = "arca" %>
@@ -34,18 +36,18 @@ $('#purchases_message').empty();
 
 		$('tbody').append(
 		'<tr>' +
-			'<td class="authorized_cell really"><%= image_tag @authorized_img, :border => "0" %></td>' +
-			'<td class="date_cell"><%= @purchase.date.strftime("%b %d, %Y %I:%M %p") if @purchase.date %></td>' +
-			'<td class="consumer_cell"><%= @purchase.consumer_name %></td>' +
-			'<td class="retailer_cell"><%= @purchase.retailer_name %></td>' +
-			'<td class="product_cell"><%= @purchase.product_title %></td>' +
-			'<td class="category_cell"><%= @purchase.category_name %></td>' +
-			'<td class="amount_cell"><%= number_to_currency(@purchase.amount) %></td>' +
-			'<td class="date_cell"><%= @purchase.authorization_date.strftime("%b %d, %Y %I:%M %p") if @purchase.authorization_date %></td>' +
-			'<td class="Authorizer_cell"><%= @authorizer %></td>' +
-			'<td class="authorization_cell"><%= @purchase.authorization_type%></td>' +
-			'<td class="date_cell"><%= @purchase.authentication_date.strftime("%b %d, %Y %I:%M %p") if @purchase.authentication_date%></td>' +
-			'<td class="authentication_cell"><%= @purchase.authentication_type%></td>' +
+			'<td class="authorized_cell really" id="tb_authorized_<%= @purchase.id %>"><%= image_tag @authorized_img, :border => "0" %></td>' +
+			'<td class="date_cell" id="tb_date_<%= @purchase.id %>"><%= @purchase.date.strftime("%b %d, %Y %I:%M %p") if @purchase.date %></td>' +
+			'<td class="consumer_cell" id="tb_consumer_<%= @purchase.id %>"><%= @purchase.consumer_name %></td>' +
+			'<td class="retailer_cell" id="tb_retailer_<%= @purchase.id %>"><%= @purchase.retailer_name %></td>' +
+			'<td class="product_cell" id="tb_product_<%= @purchase.id %>"><%= @purchase.product_title %></td>' +
+			'<td class="category_cell" id="tb_category_<%= @purchase.id %>"><%= @purchase.category_name %></td>' +
+			'<td class="amount_cell" id="tb_amount_<%= @purchase.id %>"><%= number_to_currency(@purchase.amount) %></td>' +
+			'<td class="date_cell" id="tb_authordate_<%= @purchase.id %>"><%= @purchase.authorization_date.strftime("%b %d, %Y %I:%M %p") if @purchase.authorization_date %></td>' +
+			'<td class="Authorizer_cell" id="tb_authorizer_<%= @purchase.id %>"><%= @authorizer %></td>' +
+			'<td class="authorization_cell" id="tb_authorization_<%= @purchase.id %>"><%= @purchase.authorization_type%></td>' +
+			'<td class="date_cell" id="tb_authendate_<%= @purchase.id %>"><%= @purchase.authentication_date.strftime("%b %d, %Y %I:%M %p") if @purchase.authentication_date%></td>' +
+			'<td class="authentication_cell" id="authentication_<%= @purchase.id %>"><%= @purchase.authentication_type%></td>' +
 		'</tr>');
 
 	<% end %>
@@ -55,6 +57,7 @@ $('#purchases_message').empty();
 		"bPaginate": true,
 		"bRetrieve": true,
 		"bJQueryUI": true,
+		"aaSorting": [[7,'desc']],
 		"sPaginationType": "full_numbers"
 	});
 
