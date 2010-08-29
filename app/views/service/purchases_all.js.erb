@@ -55,7 +55,7 @@ $('#purchases_message').empty();
 	<% end %>
 
 
-	$('#table').dataTable({
+	pTable = $('#table').dataTable({
 		"bPaginate": true,
 		"bRetrieve": true,
 		"bJQueryUI": true,
@@ -78,9 +78,29 @@ $('#purchases_message').empty();
 			}
 		})
 	};
+	
 
 
 <% end %>
 	 $(function() {
 		$("#period").buttonset();
 	});
+
+
+	$('#period label').click(function () { 
+		var selection = $(this).children().first().html();
+		if 		(selection == "Pending") {
+			pTable.fnFilter( 'PendingPayer' , 9, true, false, false);
+		}
+		else if (selection == "Unauthorized") {
+			pTable.fnFilter( 'Unauthorized|Inappropriate|Zero|Insufficient|Over', 9, true, false, false);
+		}
+		else if (selection == "Authorized") {
+			pTable.fnFilter( 'ManuallyAuthorized|AutoUnder', 9, true, false, false );
+		}
+		else {
+			pTable.fnFilter( '*', 9, true, false, false );
+		}		
+	}); 
+
+
