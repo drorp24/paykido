@@ -1,9 +1,34 @@
+thead {
+	font-size: 14px;
+}
+#table_paginate {
+	margin-right: -24px;
+}
+
+td {
+	text-align: center;
+	height:60px;
+}
+
+.authorized_cell {
+	text-align: left;
+}
+
+.amount_cell {
+	text-align: right;
+}
+
+#period {
+	font-size: 15px;
+	position: absolute;
+	left: -369px;
+	margin-top: 11px;
+	z-index: 100000;
+}
+
 #table_wrapper .fg-toolbar {
-	position: relative;
-	top: 59px;
-	left: 400px;
 	height: 22px;
-	width: 717px;
+	width: 1096px;
 	font-size: 17px;
 }
 
@@ -24,15 +49,30 @@ tr.odd td.authorized_cell.really {
 }
 
 .authorized_cell img {
-	height: 32px;
-
+	
+	margin-top: 5px;
 }
 
 .location_cell {
 	
 }
+
+.authorized_cell {
+	width:65px;
+	background: #FFFFFF;
+}	
+
+.authorized_cell .icon .like {
+	margin-left: 5px;
+	margin-right: 5px;
+	width: 65px;
+/*
+	margin-right: -11px;
+*/
+}
+
 .authorization_cell {
-	
+	width: 125px;
 }
 
 .authentication_cell {
@@ -42,6 +82,8 @@ tr.odd td.authorized_cell.really {
 .date_cell {
 	padding-left: 2px;
 	padding-right:2px;
+	width: 84px;
+	text-align: center;
 	
 }
 
@@ -58,6 +100,7 @@ tr.odd td.authorized_cell.really {
 }
 
 .product_cell {
+	width: 100px;
 	
 }
 
@@ -70,11 +113,12 @@ tr.odd td.authorized_cell.really {
 	padding-right: 7px;
 }
 #table {
-	position: absolute;
-	top: 138px;
-	left: 398px;
+	position:absolute;
+	top: 95px;
 	font-size: 12px;
 	width: 720px;
+	margin-left: -2px;
+	width:1111px;
 }
 
 .purchasesCell {
@@ -127,13 +171,6 @@ tr.odd td.authorized_cell.really {
 
 }
 
-#period {
-
-	font-size: 15px;
-	margin-left: -73px;
-	z-index: 300000
-	top: 10px;
-}
 /*
 .purchasesCell {
 	font-size:13px;

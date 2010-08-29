@@ -117,7 +117,6 @@ table.display thead th {
 	width: 55%;
 	float: right;
 	text-align: right;
-	position: absolute;
 	left: 321px;
 }
 
@@ -129,9 +128,8 @@ table.display thead th {
 .dataTables_paginate {
 	float: right;
 	text-align: right;
-	position: absolute;
-	left:369px;
-	
+	margin-top: -31px;
+	margin-ritgh:-24px;	
 }
 
 /* Pagination nested */
