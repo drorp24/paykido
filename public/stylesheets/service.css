@@ -1,3 +1,12 @@
+#table_wrapper .fg-toolbar {
+	position: relative;
+	top: 59px;
+	left: 400px;
+	height: 22px;
+	width: 717px;
+	font-size: 17px;
+}
+
 .portlet-header-r {
 	float: right;
 	margin-right: 2px;
@@ -62,9 +71,10 @@ tr.odd td.authorized_cell.really {
 }
 #table {
 	position: absolute;
-	top: 119px;
-	left: 400px;
+	top: 138px;
+	left: 398px;
 	font-size: 12px;
+	width: 720px;
 }
 
 .purchasesCell {
@@ -120,8 +130,9 @@ tr.odd td.authorized_cell.really {
 #period {
 
 	font-size: 15px;
-	margin-left: -23px;
-	z-index: 10001;
+	margin-left: -73px;
+	z-index: 300000
+	top: 10px;
 }
 /*
 .purchasesCell {

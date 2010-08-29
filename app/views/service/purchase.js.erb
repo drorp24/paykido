@@ -1,10 +1,11 @@
 $('#purchases .left_content').html(
 	'<p class="inner_content_title"><%= (@purchase.authorization_type == "PendingPayer") ?"Which purchases do you approve?" :"Last purchases" %></p>'+
-	'<p class="content-name-left"><%= "#{@purchase.product_title} from #{@purchase.retailer_name}" %></p>'+
+	'<p class="content-name-left"><%= @purchase.product_title  %></p>'+
+	'<%= if @purchase.retailer_logo then image_tag(@purchase.retailer_logo, :class => "portlet-content-logo-left") end %>'+		
 	'<p>'+
 		'<span class=item><%= @purchase.date.strftime("%A, %B %d, %Y %I:%M %p") %></span>' +
 	'</p>'+
-	'<p>'+
+	'<p><br />'+
 		'<span class=item>Consumer:</span>'+			
 		'<span class=content-value><%= @purchase.consumer_name %></span>' +
 	'</p>'+
@@ -96,27 +97,34 @@ $('#purchases .left_content').html(
 	};
 	
 
-		function update_purchase_table(id, status) {
+	function update_purchase_table(status) {
 
 		var oTable = $('#table').dataTable();
-		id += ''
-		var selector = ".authorization_cell." + id;
-		var cell = $('#tb_authorization_91').get(0);
+
+		var cell = $("<%= "#tb_authorization_#{@purchase.id}" %>").get(0);
+		var aPos = oTable.fnGetPosition( cell );
+		var aData = oTable.fnGetData( aPos[0] );		
+		aData[ aPos[1] ] = status;
+		cell.innerHTML = status;
+	
+		var cell = $("<%= "#tb_authorized_#{@purchase.id}" %>").get(0);
 		var aPos = oTable.fnGetPosition( cell );
 		var aData = oTable.fnGetData( aPos[0] );
-		
-		aData[ aPos[1] ] = status + "jjj";
-		cell.innerHTML = status + "jjj";
-	
+		var img_tag = '<img border="0" src="/images/pic.png" alt="">';
+		var img_tag = img_tag.replace("pic", status);
+		aData[ aPos[1] ] = img_tag;
+		cell.innerHTML = img_tag;		
+
+
 		oTable = $('#table').dataTable();
-} ;
+	};
 
 
 	$(".pending.like").click(function() {
 		selector_id = $(this).attr("id");
 		purchase_id = selector_id.split('_')[3];
 		new_status = purchaselikeToggleSrc(selector_id);
-		update_purchase_table(purchase_id, new_status);
+		update_purchase_table(new_status);
 
 		$.ajax({
 			url: 'purchase_update/' + purchase_id + '?new_status=' + new_status,

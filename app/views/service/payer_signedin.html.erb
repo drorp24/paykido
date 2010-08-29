@@ -335,9 +335,10 @@
 			<form>
 				<div id="period">
 					<input type="radio" id="radio1" name="radio" checked="checked" /><label for="radio1">Pending</label>
-					<input type="radio" id="radio2" name="radio" /><label for="radio2">Last week</label>
-					<input type="radio" id="radio3" name="radio" /><label for="radio3">Last month</label>
-					<input type="radio" id="radio4" name="radio" /><label for="radio4">Just show everything</label>
+					<input type="radio" id="radio2" name="radio" /><label for="radio2">Today</label>
+					<input type="radio" id="radio3" name="radio" /><label for="radio3">Last week</label>
+					<input type="radio" id="radio4" name="radio" /><label for="radio4">Last month</label>
+					<input type="radio" id="radio5" name="radio" /><label for="radio5">Just show everything</label>
 				</div>
 		    </form>
 			<div id="purchase_records"></div>
@@ -540,7 +541,9 @@
 		
 	 }); 
 		
+/*
 	viewPurchases(null, null, "Pending");
+*/
 	viewPurchases(null, null, "Just show everything");
 	viewPhoneAlert (<%= @payer.phone_alert %>);	
 	viewEmailAlert (<%= @payer.email_alert %>);

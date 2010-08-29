@@ -1,7 +1,9 @@
+
 $('#purchase_records').empty();
 $('#purchases_message').remove();
 $('#purchases .left_content').empty();
 $('#purchases_message').empty();
+
 
 
 <% if @purchases.empty? %>
@@ -36,18 +38,18 @@ $('#purchases_message').empty();
 
 		$('tbody').append(
 		'<tr>' +
-			'<td class="authorized_cell really" id="tb_authorized_<%= @purchase.id %>"><%= image_tag @authorized_img, :border => "0" %></td>' +
-			'<td class="date_cell" id="tb_date_<%= @purchase.id %>"><%= @purchase.date.strftime("%b %d, %Y %I:%M %p") if @purchase.date %></td>' +
-			'<td class="consumer_cell" id="tb_consumer_<%= @purchase.id %>"><%= @purchase.consumer_name %></td>' +
-			'<td class="retailer_cell" id="tb_retailer_<%= @purchase.id %>"><%= @purchase.retailer_name %></td>' +
-			'<td class="product_cell" id="tb_product_<%= @purchase.id %>"><%= @purchase.product_title %></td>' +
-			'<td class="category_cell" id="tb_category_<%= @purchase.id %>"><%= @purchase.category_name %></td>' +
-			'<td class="amount_cell" id="tb_amount_<%= @purchase.id %>"><%= number_to_currency(@purchase.amount) %></td>' +
-			'<td class="date_cell" id="tb_authordate_<%= @purchase.id %>"><%= @purchase.authorization_date.strftime("%b %d, %Y %I:%M %p") if @purchase.authorization_date %></td>' +
-			'<td class="Authorizer_cell" id="tb_authorizer_<%= @purchase.id %>"><%= @authorizer %></td>' +
-			'<td class="authorization_cell" id="tb_authorization_<%= @purchase.id %>"><%= @purchase.authorization_type%></td>' +
-			'<td class="date_cell" id="tb_authendate_<%= @purchase.id %>"><%= @purchase.authentication_date.strftime("%b %d, %Y %I:%M %p") if @purchase.authentication_date%></td>' +
-			'<td class="authentication_cell" id="authentication_<%= @purchase.id %>"><%= @purchase.authentication_type%></td>' +
+			'<td class="row authorized_cell really" id="tb_authorized_<%= @purchase.id %>"><%= image_tag @authorized_img, :border => "0" %></td>' +
+			'<td class="row date_cell" id="tb_date_<%= @purchase.id %>"><%= @purchase.date.strftime("%b %d, %Y %I:%M %p") if @purchase.date %></td>' +
+			'<td class="row consumer_cell" id="tb_consumer_<%= @purchase.id %>"><%= @purchase.consumer_name %></td>' +
+			'<td class="row retailer_cell" id="tb_retailer_<%= @purchase.id %>"><%= @purchase.retailer_name %></td>' +
+			'<td class="row product_cell" id="tb_product_<%= @purchase.id %>"><%= @purchase.product_title %></td>' +
+			'<td class="row category_cell" id="tb_category_<%= @purchase.id %>"><%= @purchase.category_name %></td>' +
+			'<td class="row amount_cell" id="tb_amount_<%= @purchase.id %>"><%= number_to_currency(@purchase.amount) %></td>' +
+			'<td class="row date_cell" id="tb_authordate_<%= @purchase.id %>"><%= @purchase.authorization_date.strftime("%b %d, %Y %I:%M %p") if @purchase.authorization_date %></td>' +
+			'<td class="row Authorizer_cell" id="tb_authorizer_<%= @purchase.id %>"><%= @authorizer %></td>' +
+			'<td class="row authorization_cell" id="tb_authorization_<%= @purchase.id %>"><%= @purchase.authorization_type%></td>' +
+			'<td class="row date_cell" id="tb_authendate_<%= @purchase.id %>"><%= @purchase.authentication_date.strftime("%b %d, %Y %I:%M %p") if @purchase.authentication_date%></td>' +
+			'<td class="row authentication_cell" id="tb_authentication_<%= @purchase.id %>"><%= @purchase.authentication_type%></td>' +
 		'</tr>');
 
 	<% end %>
@@ -61,6 +63,24 @@ $('#purchases_message').empty();
 		"sPaginationType": "full_numbers"
 	});
 
+	$(".row").live('click', function() {
+		selector_id = $(this).attr("id");
+		purchase_id = selector_id.split('_')[2];
+		purchase_info(purchase_id);	
+		});
+
+ 	purchase_info(<%= @purchases[0].id %>);    /* CHANGE TO THE FIRST ROW IN THE TABLE */
+
+	function purchase_info(id) {
+		$.ajax({								/* NO NEED FOR AJAX! JUST TAKE FROM DATATABLES REC INTO LEFT HTML */
+			url: 'purchase/'+id,
+			success: function(data){
+			}
+		})
+	};
 
 
 <% end %>
+	 $(function() {
+		$("#period").buttonset();
+	});

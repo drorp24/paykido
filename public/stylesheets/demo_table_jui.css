@@ -62,6 +62,7 @@
 
 .dataTables_info {
 	padding-top: 3px;
+	padding-bottom: 5px;
 }
 
 table.display thead th {
@@ -85,7 +86,8 @@ table.display thead th {
  */
 
 .dataTables_wrapper {
-	position: relative;
+	position: absolute;
+	top:80px;
 	min-height: 302px;
 	_height: 302px;
 	clear: both;
@@ -115,19 +117,20 @@ table.display thead th {
 	width: 55%;
 	float: right;
 	text-align: right;
+	position: absolute;
+	left: 321px;
 }
 
 .dataTables_info {
 	width: 107%;
 	float: left;
-	font-size: 17px;
 }
 
 .dataTables_paginate {
 	float: right;
 	text-align: right;
 	position: absolute;
-	left:599px;
+	left:369px;
 	
 }
 
