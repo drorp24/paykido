@@ -1,5 +1,21 @@
 class DataController < ApplicationController
   
+def populate_retailers
+  
+  i = 1
+  for purchase in Purchase.find_all_by_payer_id(params[:purchase][:payer_id]) do 
+  
+    purchase.retailer_id = i    
+    purchase.save!
+    i += 1
+    i = 1 if i == 10
+    
+  end
+  
+  redirect_to :action => 'index'
+  
+end
+
 def update_purchase_dates
   
   for purchase in Purchase.find_all_by_payer_id(params[:purchase][:payer_id]) do 

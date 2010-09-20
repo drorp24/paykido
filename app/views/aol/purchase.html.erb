@@ -2,9 +2,10 @@
 
 <div class="thin_lines">	
 
-<ul class="rounded light_bg" ">
+<ul class="rounded light_bg" id="purchase_top_line">
 	<li>
-		<span class="item black"><%= @purchase.date.to_formatted_s(:long) %></span>
+		<span class="item"><%= @purchase.date.strftime("%d/%m/%y") %></span>
+		<span class="item" id="purchase_consumer_name"><%= @consumer.name %></span>
 		<span class="red_value" ><%= number_to_currency(@purchase.amount) %></span>
 	</li>
 </ul>

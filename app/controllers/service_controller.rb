@@ -4,7 +4,8 @@ require 'clickatell'
 
 class ServiceController < ApplicationController
 
-  before_filter :check_payer_and_set_variables, :except => [:index, :signin, :joinin, :signout]
+  before_filter :check_payer_and_set_variables, :except => [:index, :signin, :joinin, :signout, :retailer_signedin]
+  before_filter :check_retailer_and_set_variables, :only => [:retailer_signedin]
   
   caches_page :consumers
   caches_page :retailers
@@ -66,7 +67,12 @@ class ServiceController < ApplicationController
         redirect_to :action => :payer_signedin
       elsif @user.is_retailer
         set_retailer_session_and_cache
-        redirect_to :action => :retailer_signedin
+        if @retailer
+          redirect_to :action => :retailer_signedin
+        else
+          flash[:notice] = "Let admin set the retailer first!" 
+          redirect_to :action => :index
+        end
       elsif @user.is_administrator
         redirect_to :action => :administrator_signedin
       elsif @user.is_general
@@ -467,7 +473,6 @@ end
     @purchase = Purchase.find(params[:id])
 
     if params[:new_status] and 
-       (params[:new_status] == "ManuallyAuthorized" or params[:new_status] == "Unauthorized") and
        params[:new_status] != @purchase.authorization_type 
 
        @purchase.authorized = (params[:new_status] == "ManuallyAuthorized") ?true :false
@@ -647,8 +652,8 @@ end
      session[:same_as_last_payer] = true
    else
       session[:same_as_last_payer] = false
-      clear_cache
-      clear_session
+      clear_payer_cache
+      clear_payer_session
    end 
    session[:payer] = @user.payer
    session[:user]  = @user
@@ -658,7 +663,7 @@ end
   def check_payer_and_set_variables
     
    check_payer_is_signedin
-   refresh_variables_from_session
+   refresh_payer_variables_from_session
     
   end
 
@@ -666,9 +671,31 @@ end
     
     unless session[:payer]  # check that payer is signed in
       flash[:message] = "Please sign in with payer credentials"
-      clear_session
+      clear_payer_session
       redirect_to  :action => 'index'
     end   
+    
+  end
+  
+  def set_retailer_session_and_cache
+    
+   if session[:retailer] and session[:retailer].id  == @user.retailer.id 
+     session[:same_as_last_retailer] = true
+   else
+      session[:same_as_last_retailer] = false
+      clear_retailer_cache
+      clear_retailer_session
+   end 
+   @retailer = @user.retailer
+   session[:retailer] = @retailer
+   session[:user]  = @user
+
+ end
+  
+  def check_retailer_and_set_variables
+    
+#   check_retailer_is_signedin
+   refresh_retailer_variables_from_session
     
   end
   
@@ -676,7 +703,7 @@ end
     
     unless session[:retailer]
       flash[:message] = "Please sign in with retailer credentials"
-      clear_session
+      clear_retailer_session
       redirect_to  :action => 'index'
     end
     
@@ -809,37 +836,29 @@ end
     
   end
   
-  def refresh_variables_from_session
+  def refresh_payer_variables_from_session
     
 # @payer is needed by MANY activities so it belongs here. Not sure about user and payer_rule   
     @user =       session[:user]
     @payer =      session[:payer]
     @consumer =   session[:consumer]
     @payer_rule = find_payer_rule
-# Do I need the following for EVERY activity? I don't think so
-#    @consumers =  session[:consumers]
-
-#    @retailers =  session[:retailers]
-#    @retailer =   session[:retailer]
-#    @products =  session[:products]
-#    @product =   session[:product]
-#    @categories = session[:categories]
-#    @category = session[:category]
-#    @pendings = session[:pendings]
-#    @pending = session[:pending]
-#    @purchases = session[:purchases]
-#    @purchase = session[:purchase]
 
   end
 
+  def refresh_retailer_variables_from_session
+    
+    @user =       session[:user]
+    @retailer =      session[:retailer]
 
-  def clear_cache
+  end
+
+  def clear_payer_cache
     
     expire_page :action => "consumers", :id => 0
     expire_page :action => "retailers"
     expire_page :action => "products"
     expire_page :action => "categories"
-#    expire_page :action => "pendings"
     expire_page :action => "purchases", :id => "Pending"
     expire_page :action => "purchases", :id => "Last Week"
     expire_page :action => "purchases", :id => "Last Month"
@@ -848,12 +867,11 @@ end
     session[:retailers].each{|retailer| expire_page :action => :retailer, :id => retailer.id}  if session[:retailers]
     session[:products].each{|product| expire_page :action => :product, :id => product.id}      if session[:products]
     session[:categories].each{|category| expire_page :action => :category, :id => category.id} if session[:categories]
-#    session[:pendings].each{|purchase| expire_page :action => :pending, :id => purchase.id}    if session[:pendings]
 
    
   end
   
-  def clear_session
+  def clear_payer_session
     session[:user] = session[:payer] = session[:payer_rule] = session[:expected_pin] = session[:same_as_last_payer] =
     session[:consumers] = session[:consumer] = 
     session[:retailers] = session[:retailer] = 
@@ -862,6 +880,14 @@ end
 #    session[:pendings] = session[:pending] =
     session[:purchases] = session[:purchase] =
     nil
+  end
+  
+  def clear_retailer_cache
+    
+  end
+  
+  def clear_retailer_session
+    session[:user] = session[:retailer] = session[:same_as_last_retailer] = nil    
   end
   
 end

@@ -1,8 +1,14 @@
+#notice {
+	position: absolute;
+	width:1115px;
+	left:15px;
+}
+
 thead {
 	font-size: 14px;
 }
 #table_paginate {
-	margin-right: -24px;
+	margin-right: -16px;
 }
 
 td {
@@ -12,6 +18,7 @@ td {
 
 .authorized_cell {
 	text-align: left;
+	width:75px;
 }
 
 .amount_cell {
@@ -63,7 +70,7 @@ tr.odd td.authorized_cell.really {
 }	
 
 .authorized_cell .icon .like {
-	margin-left: 5px;
+	margin-left: 15px;
 	margin-right: 5px;
 	width: 65px;
 /*
@@ -165,10 +172,9 @@ tr.odd td.authorized_cell.really {
 
 .consumer_pic {
 	position: absolute;
-	top:183px;
-	left:441px;
-	height: 209px;
-
+	top:188px;
+	left:450px;
+	height: 228px;
 }
 
 /*
@@ -233,6 +239,13 @@ tr.odd td.authorized_cell.really {
 	font-size:20px;
 }
 
+.content-name-right {
+	font-family:"Arial Rounded MT Bold";
+	color: #004488;
+	margin-left: -13px;
+	font-size:20px;
+}
+
 .portlet-content-logo-left {
 	position:absolute;
 	top: 71px;
@@ -271,7 +284,7 @@ tr.odd td.authorized_cell.really {
 	width: 100px;
 	height:25px;
 	margin-left: 56px;
-	margin-top: -11px;
+	margin-top: 5px;
 }
 .portlet-header input {
 	background-color:transparent;
@@ -389,7 +402,7 @@ select, input {
 #phone_alert, #email_alert  {
 	position:absolute;
 	top:71px;
-	left:372px;
+	left:365px;
 }
 
 

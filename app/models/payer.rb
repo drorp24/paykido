@@ -39,7 +39,7 @@ class Payer < ActiveRecord::Base
   end
   
   def self.phone_events
-    [["of every purchase" , "any purchase"],["of each authorization request", "authorizations"]]            
+    [["of every purchase" , "any purchase"],["of every buy request", "authorizations"]]            
   end
 
   def self.email_alert_frequency

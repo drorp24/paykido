@@ -33,8 +33,10 @@ $('#purchases_message').empty();
 				'<span class="icon">' +
 					'<% if    @purchase.authorization_type == "ManuallyAuthorized" %>'+
 						'<%= image_tag "/images/fb_like_lit_small.png", :border => "0", :id => "pending_like_lit_#{@purchase.id}", :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like" %>'+
-					'<% else %>'+
+					'<% elsif @purchase.authorization_type == "PendingPayer" %>'+
 						'<%= image_tag "/images/fb_like_small.png", :border => "0", :id => "pending_like_unlit_#{@purchase.id}",  :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like" %>'+
+					'<% elsif @purchase.authorized? %>'+
+						'<%= image_tag "/images/approve.png", :border => "0", :class => "arca_for_table" %>'+
 					'<% end %>'+
 				'</span>'+	
 			'</td>' +
@@ -53,8 +55,10 @@ $('#purchases_message').empty();
 				'<span class="icon">'+
 					'<% if    @purchase.authorization_type == "Unauthorized" %>'+
 						'<%= image_tag "/images/fb_dont_lit_small.png", :border => "0", :id => "pending_dislike_lit_#{@purchase.id}",  :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like dislike" %>'+
-					'<% else %>'+
+					'<% elsif @purchase.authorization_type == "PendingPayer" %>'+
 						'<%= image_tag "/images/fb_dont_small.png", :border => "0", :id => "pending_dislike_unlit_#{@purchase.id}",  :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like dislike" %>'+
+					'<% elsif !@purchase.authorized? %>'+
+						'<%= image_tag "/images/rejected.png", :border => "0", :class => "arca_for_table" %>'+
 					'<% end %>'+
 				'</span>' +
 			'</td>' +
@@ -71,7 +75,7 @@ $('#purchases_message').empty();
 		"sPaginationType": "full_numbers"	 		
 	});
 
-<% end %>
+
 
 	 $(function() {
 		$("#period").buttonset();
@@ -87,7 +91,7 @@ $('#purchases_message').empty();
 			pTable.fnFilter( 'Unauthorized|Inappropriate|Zero|Insufficient|Over', 9, true, false, false);
 		}
 		else if (selection == "Authorized") {
-			pTable.fnFilter( 'ManuallyAuthorized|AutoUnder', 9, true, false, false );
+			pTable.fnFilter( 'ManuallyAuthorized|Under', 9, true, false, false );
 		}
 		else {
 			pTable.fnFilter( '', 9, true, false, false );
@@ -163,6 +167,20 @@ $('#purchases_message').empty();
 		aData[ aPos[1] ] = status;
 		cell.innerHTML = status;
 	
+		selector = "#tb_authordate_99";
+		selector = selector.replace("99", id);
+		var cell = $(selector).get(0);
+		var aPos = pTable.fnGetPosition( cell );
+		var aData = pTable.fnGetData( aPos[0] );
+		if (status == "ManuallyAuthorized" || status == "Unauthorized") {
+			aData[ aPos[1] ] = "<%= Time.now.strftime("%b %d, %Y")%>" + " " + get_current_time();
+		}
+		else {
+			aData[ aPos[1] ] = "";
+		}
+		cell.innerHTML = aData[ aPos[1] ];
+	};
+
 /*
 		selector = "#tb_authorized_99";
 		selector = selector.replace("99", id);
@@ -175,7 +193,6 @@ $('#purchases_message').empty();
 
 
 */
-	};
 
 
 	$(".pending.like").click(function() {
@@ -192,5 +209,21 @@ $('#purchases_message').empty();
 		})
 
 	});
+	
+	function get_current_time() {
+		var currentTime = new Date()
+		var hours = currentTime.getHours()
+		var minutes = currentTime.getMinutes()
+		if (minutes < 10){
+		minutes = "0" + minutes
+		}
+		current_time = hours + ":" + minutes + " "
+		if(hours > 11){
+		current_time = current_time + "PM"
+		} else {
+		current_time = current_time + "AM"}
+		return current_time
+	};
 
 
+<% end %>

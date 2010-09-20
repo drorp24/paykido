@@ -213,7 +213,7 @@
 
 	<div id="consumers">
 		<div class="left_content">
-			<p class="inner_content_title">Who would you like to take care for?</p>
+			<p class="inner_content_title">&nbsp;</p>
 			<p class="content-name-left" id="consumers">Consumer community set-up</p>		
 			<div class="inner_content_text">Follow these two simple steps to get each member</div>
 			<div class="inner_content_text">of your community up and running within seconds.</div>
@@ -231,7 +231,7 @@
 			<% end %>
 		</div>
 		<div class="middle_content">
-			<%= image_tag @consumers[0].pic, :class => "consumer_pic" %>
+			<%= image_tag @consumers[0].pic, :class => "consumer_pic" if @consumers[0].pic %>
 		</div>
 		<div class="right_content consumers_list"></div>
 	</div>
@@ -239,7 +239,7 @@
 
 	<div id="allowance">
 		<div class="left_content">
-			<p class="inner_content_title" id="consumer-allowance-title">How much can each consumer spend?</p>
+			<p class="inner_content_title" id="consumer-allowance-title">&nbsp;</p>
 			<p class="content-name-left" id="consumer_name_allowance"></p>		
 			<img id='chartdiv' class="engrave"/>
 			<br /><br />
@@ -260,7 +260,7 @@
 			<% end %>
 		</div>
 		<div class="middle_content">
-			<%= image_tag @consumers[0].pic, :class => "consumer_pic" %>
+			<%= image_tag @consumers[0].pic, :class => "consumer_pic"  if @consumers[0].pic%>
 		</div>
 		<div class="right_content consumers_list"></div>
 	</div>
@@ -268,7 +268,7 @@
 
 	<div id="approvals">
 		<div class="left_content">
-			<p class="inner_content_title">Are there amounts not worth dealing with?</p>
+			<p class="inner_content_title">&nbsp;</p>
 			<p class="content-name-left" id="consumer_name_approvals"></p>
 			<div class="inner_content_text">Whenever your rules imply neither approval nor rejection,</div>
 			<div class="inner_content_text">arca informs you, letting you decide for yourslef.</div><br />
@@ -287,7 +287,7 @@
 			<div id='slider-range' class="engrave" onclick="modifyUnderOver('post')"></div><br />
 		</div>
 		<div class="middle_content">
-			<%= image_tag @consumers[0].pic, :class => "consumer_pic" %>
+			<%= image_tag @consumers[0].pic, :class => "consumer_pic"  if @consumers[0].pic%>
 		</div>
 		<div class="right_content consumers_list"></div>
 	</div>
@@ -500,7 +500,7 @@
 	
 	function setTabHeight(max_records) {
 
-		var top_padding = 180;
+		var top_padding = 190;
 		var portlet_height = 120;
 		var lines = Math.round((max_records)/2);
 		var height = top_padding + (lines * portlet_height);

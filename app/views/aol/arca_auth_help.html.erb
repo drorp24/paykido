@@ -4,8 +4,4 @@
 	<%= image_tag('/images/arca_auth_help1.png')%>
 	
 	<div class="authorization_explained">
-		<h4><%= @authorization_text %></h4><br />
-		<p>According to your rule, <%= @rule_left %> <%= number_to_currency(@rule.auto_authorize_under) %> <%= @rule_right %>.</p>
-		<p>In this case, <%= @variable %><%= @purchase.amount %>.</p>
-		<p>Therefore, arca automatically <%= @auth_ind %> the purchase.</p>
 	</div>

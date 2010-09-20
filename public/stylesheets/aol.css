@@ -1,11 +1,32 @@
+#payer_phone_events, #payer_phone_alert_frequency, #payer_edited_phone {
+	display: inline;
+	width: 190px;
+}
+
+#payer_phone_events:hover, #payer_phone_alert_frequency:hover, #payer_edited_phone:hover, #payer_email_events:hover, #payer_email_alert_frequency:hover, #payer_email:hover {
+	color: blue;
+}
+
+#purchase_top_line {
+	font-weight: 100;
+}
+
+#purchase_consumer_name {
+	margin-left: 35px;
+}
+
 .incomplete, .complete {
 	font-size: 16px;
 }
 
+#new_pendings_alert {
+
+}
+
 #new_pendings_alert img {
 	position:absolute;
-	top:180px;
-	right:73px;
+	top:175px;
+	right:10px;
 }
 
 .tooltip {
@@ -280,6 +301,7 @@ ul.dark_bg  {
 	padding:5px;
 
 	text-indent:0;
+	margin-left:10px;
 
 
 }
@@ -497,9 +519,10 @@ h1 {
 
 	position:absolute;
 	left:97px;
-	width:130px;
+	width:100px;
 	height:29px;
 	margin-bottom:0px;
+	margin-left:10px;
 
 }
 
@@ -798,7 +821,7 @@ ul li span .green {
 ul li span .red {
 	color:#cc4200;	
 	color:#B22222;
-	font-weight:bold;
+
 }
 
 ul li span .blue {

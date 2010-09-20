@@ -1,15 +1,4 @@
-<% if @categories.empty? %>
 
-	$('.categories_list').append(	
-		'<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>');
-		
-/*
-	$(function() {
-		$('#tabs').tabs("option","disabled", [1, 2, 3, 4, 5]);
-	});
-
-*/			
-<% else %>
 
 	$('.categories_list').append(	
 		'<p class="inner_content_title">&nbsp;</p>' +
@@ -17,45 +6,66 @@
 		'<div class="column1" ></div>' +
 		'<div class="column2" ></div>');
 			
-	<% i = 1 %>
-
-	<% for @category in @categories %>
-		<% rem = i % 2 %>
-		<% if rem == 1 %>
-			$('.categories_list .column1').append(
-				'<div class="portlet">'+
-					'<div class="category portlet-header" id="category_<%= @category.id %>"><%= @category.name %></div>'+
-					'<div class="portlet-content" style="padding-bottom:0" >'+
-						'<div class="portlet-content-left">'+
-							'<%= (!@category.logo.blank?) ?image_tag(@category.logo, :class => "portlet-content-logo")  :"<p class=content-name>#{@category.name}</p>" %>'+
-							'<p class="category-info">Total monthly purchases:&nbsp;<%= number_to_currency(@category.total_amount) %></p>'+
-						'</div>'+
-						'<div class="portlet-content-right">'+
-						'</div>'+
-					'</div>'+
-				'</div>');
-		<% else %>
-			$('.categories_list .column2').append(
-				'<div class="portlet">'+ 
-					'<div class="category portlet-header" id="category_<%= @category.id %>"><%= @category.name %></div>'+
-					'<div class="portlet-content" style="padding-bottom:0" >'+
-						'<div class="portlet-content-left">'+
-							'<%= (!@category.logo.blank?) ?image_tag(@category.logo, :class => "portlet-content-logo")  :"<p class=content-name>#{@category.name}</p>" %>'+
-							'<p class="category-info">Total monthly purchases:&nbsp;<%= number_to_currency(@category.total_amount) %></p>'+
-						'</div>'+
-						'<div class="portlet-content-right">'+
-						'</div>'+
-					'</div>'+
-					'</div>'+
-				'</div>');
-		<% end %>
-		<% i += 1 %>
-	<% end %>
-
-	category_info(<%= @categories[0].id %>);
+	
 
 	
-<% end %>
+		
+		
+			$('.categories_list .column1').append(
+				'<div class="portlet">'+
+					'<div class="category portlet-header" id="category_6">Virtual Cash</div>'+
+					'<div class="portlet-content" style="padding-bottom:0" >'+
+						'<div class="portlet-content-left">'+
+							'<p class=content-name>Virtual Cash</p>'+
+							'<p class="category-info">Total monthly purchases:&nbsp;$765.00</p>'+
+						'</div>'+
+						'<div class="portlet-content-right">'+
+						'</div>'+
+					'</div>'+
+				'</div>');
+		
+		
+	
+		
+		
+			$('.categories_list .column2').append(
+				'<div class="portlet">'+ 
+					'<div class="category portlet-header" id="category_3">Virtual Goods</div>'+
+					'<div class="portlet-content" style="padding-bottom:0" >'+
+						'<div class="portlet-content-left">'+
+							'<p class=content-name>Virtual Goods</p>'+
+							'<p class="category-info">Total monthly purchases:&nbsp;$182.00</p>'+
+						'</div>'+
+						'<div class="portlet-content-right">'+
+						'</div>'+
+					'</div>'+
+					'</div>'+
+				'</div>');
+		
+		
+	
+		
+		
+			$('.categories_list .column1').append(
+				'<div class="portlet">'+
+					'<div class="category portlet-header" id="category_1">Game Supplies</div>'+
+					'<div class="portlet-content" style="padding-bottom:0" >'+
+						'<div class="portlet-content-left">'+
+							'<p class=content-name>Game Supplies</p>'+
+							'<p class="category-info">Total monthly purchases:&nbsp;$69.97</p>'+
+						'</div>'+
+						'<div class="portlet-content-right">'+
+						'</div>'+
+					'</div>'+
+				'</div>');
+		
+		
+	
+
+	category_info(6);
+
+	
+
 
 
 

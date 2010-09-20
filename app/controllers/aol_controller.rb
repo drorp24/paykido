@@ -1,5 +1,6 @@
 require 'ruby-debug'
-
+require 'rubygems'
+require 'clickatell'
 
 include ActionView::Helpers::NumberHelper
 
@@ -128,7 +129,12 @@ class AolController < ApplicationController
     @back_class = "like_back"    
     @help_to = "rules_help"
     
-    @consumer = Consumer.find(params[:id])
+    if params and params[:id]
+      @consumer = Consumer.find(params[:id])
+    else
+      @consumer = session[:consumer]
+    end
+    
     session[:consumer] = @consumer
     @consumer_rule = @consumer.most_recent_payer_rule
     session[:consumer_rule] = @consumer_rule
@@ -379,8 +385,6 @@ end
       end
       Purchase.update(params[:purchase].keys, params[:purchase].values) if params[:purchase]
       
-      # Improve:
-      sms(Consumer.find(@purchase.consumer_id).billing_phone, "Hi from arca. Please check your new authorizations!")
 
       redirect_to :action => :welcome_signedin 
  
@@ -406,9 +410,17 @@ end
         @back_class = "like_back"        
     end
  
-    @purchase = Purchase.find(params[:id]) 
+    begin
+      @purchase = Purchase.find(params[:id]) 
+    rescue #RecordNotFound
+      flash[:notice] = "oops... service is temporarily down"
+      flash[:notice] = "looked for purchase id  #{params[:id]}"
+      redirect_to :action => :welcome_signedin
+      return
+    end
     session[:purchase] = @purchase
 
+    @consumer = @purchase.consumer
     @retailer = @purchase.retailer
     @product = @purchase.product
     @category = @purchase.product.category
@@ -424,14 +436,14 @@ end
     @authorization = nil
     if @purchase.authorization_type == "PendingPayer"
       @authorization_text = 
-            [["Authorize this","ManuallyAuthorized"],
-             ["Unauthorize this " , "Unauthorized"]]
+            [["Authorize this purchase","ManuallyAuthorized"],
+             ["Unauthorize this purchase" , "Unauthorized"]]
     elsif @purchase.authorization_type == "ManuallyAuthorized"
       @purchase.authorization_date ||= Time.now.to_date
-      @authorization_text = ["Authorized by you on #{@purchase.authorization_date.to_s(:long)}"]
+      @authorization_text = [" Authorized by you on #{@purchase.authorization_date.strftime("%d/%m/%y")}"]
     elsif @purchase.authorization_type == "Unauthorized" 
       @purchase.authorization_date ||= Time.now.to_date
-      @authorization_text = ["Unauthorized by you #{@purchase.authorization_date.to_s(:long)}"]
+      @authorization_text = [" Unauthorized by you on #{@purchase.authorization_date.strftime("%d/%m/%y")}"]
     else
       @authorization = "by arca"
     end
@@ -451,19 +463,26 @@ end
        @purchase.authorization_type = params[:purchase][:authorization_type]
        @purchase.authorization_date = Time.now 
       
-       inform_consumer_by_sms
-     
-       if @purchase.save
-         File.delete("#{RAILS_ROOT}/public/service/purchase/#{@purchase.id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchase/#{@purchase.id}.js")
-         File.delete("#{RAILS_ROOT}/public/service/purchases_all/Just show everything.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases_all/Just show everything.js")
-         File.delete("#{RAILS_ROOT}/public/service/purchases/Pending.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/Pending.js")
-         File.delete("#{RAILS_ROOT}/public/service/purchases/Last week.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/Last week.js")
-         File.delete("#{RAILS_ROOT}/public/service/purchases/Last month.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/Last month.js")
-       else
-         flash[:notice] = "service is temporarily down"
-         redirect_to :action => :welcome_signedin
-         return
-       end
+    begin
+      inform_consumer_by_sms
+    rescue
+      flash[:notice] = "We're sorry. service is down"
+      redirect_to :action => :welcome_signedin
+      raise
+      return    
+    end
+ 
+    if @purchase.save
+      File.delete("#{RAILS_ROOT}/public/service/purchase/#{@purchase.id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchase/#{@purchase.id}.js")
+      File.delete("#{RAILS_ROOT}/public/service/purchases_all/Just show everything.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases_all/Just show everything.js")
+      File.delete("#{RAILS_ROOT}/public/service/purchases/Pending.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/Pending.js")
+      File.delete("#{RAILS_ROOT}/public/service/purchases/Last week.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/Last week.js")
+      File.delete("#{RAILS_ROOT}/public/service/purchases/Last month.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/Last month.js")
+    else
+      flash[:notice] = "service is temporarily down"
+      redirect_to :action => :welcome_signedin
+      return
+    end
 
     end
     
@@ -507,7 +526,9 @@ end
     
     consumer_phone = Consumer.find(@purchase.consumer_id).billing_phone
         
+   
     sms(consumer_phone, message)
+  
   end
   
   def arca_auth_help

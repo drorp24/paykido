@@ -22,9 +22,9 @@
 		    <%= "data.addRows(#{@purchases.size});" %>
 			<% @purchases.each do |p| -%>
 		    	<%= "data.setCell(#{@i}, 0, '#{p.retailer.name}');" %>
-				<%= "data.setCell(#{@i}, 1, '#{p.product.title}');" %>
-				<%= "data.setCell(#{@i}, 2,  #{number_with_precision(p.amount, :precision => 2)}#{(p.id/10)}#{(p.id%10)});" %>
-				<%= "data.setCell(#{@i}, 3, '#{p.date.to_s.last(5)}');" %>
+				<%= "data.setCell(#{@i}, 1, '#{p.product.title.first(8)}');" %>
+				<%= "data.setCell(#{@i}, 2,  #{number_with_precision(p.amount, :precision => 2)}0#{(p.id/10)}#{(p.id%10)});" %>
+				<%= "data.setCell(#{@i}, 3, '#{p.date.strftime("%d/%m/%y")}');" %>
 				<%= "data.setCell(#{@i}, 4, #{p.authorized || false});" %>
 				<% @i += 1 %>
 			<% end %>
@@ -53,10 +53,10 @@
 		  
 		  	var selection = table.getSelection();
 		  	var row = selection[0].row;
-		  	var purchase_amt = data.getValue(row, 2).toFixed(4);
+		  	var purchase_amt = data.getValue(row, 2);
 		  	var purchase_amt_s = purchase_amt.toString();
 		  	var amt_fraction = purchase_amt_s.split('.');
-		  	var purchase_id = amt_fraction[1].substring(2);
+		  	var purchase_id = amt_fraction[1].substring(3);
 			window.location = '/aol/purchase/' + purchase_id;
 		  }		
 		  

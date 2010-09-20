@@ -1,5 +1,5 @@
 $('#products .left_content').html(
-	'<p class="inner_content_title">Which products do you approve?</p>'+
+	'<p class="inner_content_title">&nbsp;</p>'+
 	'<p class="content-name-left"><%= @product.title %></p>'+
 	'<%= if @product.logo? then image_tag(@product.logo, :class => "portlet-content-logo-left") end %>'+		
 	'<p>'+
@@ -11,10 +11,10 @@ $('#products .left_content').html(
 		'<span class=content-value><%= number_to_currency(@product.total_amount) %></span>' +
 	'</p>'+
 	'<p>'+
-		'<span class=item>Last purchase made:</span>'+			
+		'<span class=item>Last purchase:</span>'+			
 		'<span class=content-value><%= @product.most_recent.to_date.strftime("%B %d, %Y") %></span>' +
 	'</p>'+
-	'<p>Show me all of <%= @product.title %> purchases</p>'+
+	'<p>Show me all <%= @product.title %> purchases</p>'+
 		'<% if    @product.status == "whitelisted" %>'+
 			'<%= image_tag "/images/fb_like_lit_small.png", :id => "product_like_lit_#{@product.id}", :class => "product like" %>'+
 		'<% else %>'+

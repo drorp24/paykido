@@ -12,7 +12,8 @@
 <% else %>
 
 	$('.products_list').append(	
-		'<p class="inner_content_title">Products purchased</p>' +
+		'<p class="inner_content_title">&nbsp;</p>' +
+		'<p class="content-name-right" id="consumers">Products you bought</p>'+		
 		'<div class="column1" ></div>' +
 		'<div class="column2" ></div>');
 			
@@ -27,7 +28,7 @@
 					'<div class="portlet-content" style="padding-bottom:0" >'+
 						'<div class="portlet-content-left">'+
 							'<%= (!@product.logo.blank?) ?image_tag(@product.logo, :class => "portlet-content-logo")  :"<p class=content-name>#{@product.title}</p>" %>'+
-							'<p class="product-info">Total purchases this month:&nbsp;<%= number_to_currency(@product.total_amount) %></p>'+
+							'<p class="product-info">Total monthly purchases:&nbsp;<%= number_to_currency(@product.total_amount) %></p>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
 						'</div>'+
@@ -40,7 +41,7 @@
 					'<div class="portlet-content" style="padding-bottom:0" >'+
 						'<div class="portlet-content-left">'+
 							'<%= (!@product.logo.blank?) ?image_tag(@product.logo, :class => "portlet-content-logo")  :"<p class=content-name>#{@product.title}</p>" %>'+
-							'<p class="product-info">Total purchases this month:&nbsp;<%= number_to_currency(@product.total_amount) %></p>'+
+							'<p class="product-info">Total monthly purchases:&nbsp;<%= number_to_currency(@product.total_amount) %></p>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
 						'</div>'+

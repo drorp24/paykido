@@ -1,5 +1,5 @@
 $('#retailers .left_content').html(
-	'<p class="inner_content_title">Which retailers do you approve?</p>'+
+	'<p class="inner_content_title">&nbsp;</p>'+
 	'<p class="content-name-left"><%= @retailer.name %></p>'+
 	'<%= if @retailer.logo? then image_tag(@retailer.logo, :class => "portlet-content-logo-left") end %>'+		
 	'<span class="icon">'+
@@ -13,10 +13,10 @@ $('#retailers .left_content').html(
 		'<span class=content-value><%= number_to_currency(@retailer.total_amount) %></span>' +
 	'</p>'+
 	'<p>'+
-		'<span class=item>Last purchase made:</span>'+			
+		'<span class=item>Last purchase:</span>'+			
 		'<span class=content-value><%= @retailer.most_recent.to_date.strftime("%B %d, %Y") %></span>' +
 	'</p>'+
-	'<p>Show me all of <%= @retailer.name %> purchases</p>'+
+	'<p>Show me all <%= @retailer.name %> purchases</p>'+
 		'<% if    @retailer.status == "whitelisted" %>'+
 			'<%= image_tag "/images/fb_like_lit_small.png", :id => "retailer_like_lit_#{@retailer.id}", :class => "retailer like" %>'+
 		'<% else %>'+

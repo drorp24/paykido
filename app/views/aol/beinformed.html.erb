@@ -14,7 +14,7 @@
 			<% i = 1 %>
 			<% Purchase.payer_top_products(@payer.id, 3).each do |product_id, total|%>
 				<li>
-					<%= link_to Product.find(product_id).title, "purchases_by_product/#{product_id}", :class => "short_item" %>
+					<%= link_to Product.find(product_id).title.first(8), "purchases_by_product/#{product_id}", :class => "short_item" %>
 					<span class="short_value">
 						<span class="right_indented"><%= number_to_currency(total) %></span>
 					</span>
@@ -28,7 +28,7 @@
 		</div>
 
 		<div id="top_retailers">
-			<ul class="edgetoedge" id="beinformed_heading" style="height:22px;width:140px;margin:5px;margin-left:0;padding-left:5px;text-align:center;background-image:url('/images/heading_bg1.png');color:white;text-align:left;text-shadow: rgba(0,0,0,.2) 0 5px 3px;font-weight:100;font-size:14px;">Top Merchants</ul>
+			<ul class="edgetoedge" id="beinformed_heading" style="height:22px;width:140px;margin:5px;margin-left:0;padding-left:5px;text-align:center;background-image:url('/images/heading_bg1.png');color:white;text-align:left;text-shadow: rgba(0,0,0,.2) 0 5px 3px;font-weight:100;font-size:14px;">Top Retailers</ul>
 			<ul class="edgetoedge">
 			<% i = 1 %>
 			<% Purchase.payer_top_retailers(@payer.id, 3).each do |retailer_id, total|%>
