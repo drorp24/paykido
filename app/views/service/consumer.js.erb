@@ -5,7 +5,7 @@ $('#payer_rule_rollover_human_on').attr('checked', "<%= (@payer_rule.rollover?) 
 $('#payer_rule_rollover_human_off').attr('checked', "<%= (@payer_rule.rollover?) ?"":"checked"  %>")
 $('#allowance_form').attr('action', '<%= "/service/consumer_rules_update/#{@consumer.id}" %>');
 <% if @consumer.name.blank? %>
-	$('#consumer_name_allowance').html("Consumer's allowance");
+	$('#consumer_name_allowance').html("Consumer's monthly allowance");
 <% else %>
 	$('#consumer_name_allowance').html("<%= @consumer.name %>'s monthly allowance");
 <% end %>
@@ -14,9 +14,9 @@ $('#under').val(<%= @payer_rule.auto_authorize_under %>);
 $('#over').val(<%= @payer_rule.auto_deny_over %>);
 $('#amounts_form').attr('action', '<%= "/service/consumer_rules_update/#{@consumer.id}" %>');
 <% if @consumer.name.blank? %>
-	$('#consumer_name_approvals').html("Consumer's approval policy");
+	$('#consumer_name_approvals').html("Consumer's thresholds");
 <% else %>
-	$('#consumer_name_approvals').html("<%= @consumer.name %>'s approval policy");
+	$('#consumer_name_approvals').html("<%= @consumer.name %>'s thresholds");
 <% end %>
 
 $('.consumer_pic').attr('src', '<%= (@consumer.pic) ?"/images/#{@consumer.pic}" :"/images/face_placeholder_small.png" %>');

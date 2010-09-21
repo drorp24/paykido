@@ -70,7 +70,7 @@
 		});
 
 		if (verb == "post") {
-			$('#allowance_form').submit();
+			$('#allowance_form').submit()
 		}
 
 
@@ -90,7 +90,7 @@
 		var balance_position = (balance / budget) * 100;
 		var tick = ((budget / 40).toFixed(1)) * 10;
 		var background = "chf=c,lg,90,FFE7C6,0,76A4FB,0.5"
-		var uri = "http://chart.apis.google.com/chart?cht=gom&chs=300x100&chf=bg,lg,90,FFFEE0,0,FFFFF5,0.75&chxt=y&chd=t:" + balance_position + "&chl=Balance&chxr=0,0," + budget + "," + tick;
+		var uri = "http://chart.apis.google.com/chart?cht=gom&chs=300x110&chf=bg,lg,90,FFFEE0,0,FFFFF5,0.75&chxt=y&chd=t:" + balance_position + "&chl=Balance&chxr=0,0," + budget + "," + tick;
 		document.getElementById("chartdiv").src = uri;
 
 	}
@@ -201,8 +201,6 @@
 <div id="tabs">
 	<ul>
 		<li><a href="#consumers">Consumers</a></li>
-		<li><a href="#allowance">Allowances</a></li>
-		<li><a href="#approvals">Approvals</a></li>
 		<li><a href="#retailers">Retailers</a></li>
 		<li><a href="#products">Products</a></li>
 		<li><a href="#categories">Categories</a></li>
@@ -212,87 +210,85 @@
 
 
 	<div id="consumers">
-		<div class="left_content">
-			<p class="inner_content_title">&nbsp;</p>
-			<p class="content-name-left" id="consumers">Consumer community set-up</p>		
-			<div class="inner_content_text">Follow these two simple steps to get each member</div>
-			<div class="inner_content_text">of your community up and running within seconds.</div>
-			<br />
-			<p class="inner_content_text">Start by keying your consumer's phone number right here:</p>
-			<% form_for(:consumer, :url => {:action => "sms_consumer"}, :html => {:id => "phone_form"}) do |f| %>
-				<%= f.text_field :billing_phone, :size => 20, :placeholder => "Phone number", :class => "formfield" %>
-				<%= submit_tag "Click when done",:class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
-			<% end %>
-			<br />
-			<p class="inner_content_text">Once you got the text message, key-in the PIN code here:</p>  
-			<% form_for(:consumer, :url => {:action => "check_pin_and_link_consumer"}, :html => {:id => "pin_form"}) do |f| %>
-				<%= f.text_field :pin, :size => 20, :placeholder => "Received PIN", :class => "formfield"  %>
-				<%= submit_tag "Click when done", :class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
-			<% end %>
+		<div id="consumers_tabs">
+			<ul id="no_tabs_background1">
+				<li><a href="#new" id="new_tab">New</a></li>
+				<li><a href="#allowance" id ="allowance_tab">Allowance</a></li>
+				<li><a href="#thresholds" id ="thresholds_tab">Thresholds</a></li>
+				<li><a href="#info" id ="info_tab">Info</a></li>
+			</ul>
+			<div id="new" class="consumers_page">
+				<div class="left_content">
+					<p class="content-name-left" id="consumers">Consumer community set-up</p>		
+					<div class="inner_content_text">Follow these two simple steps to get each member</div>
+					<div class="inner_content_text">of your community up and running within seconds.</div>
+					<p class="inner_content_text">Start by keying the consumer's phone number here:</p>
+					<% form_for(:consumer, :url => {:action => "sms_consumer"}, :html => {:id => "phone_form"}) do |f| %>
+						<%= f.text_field :billing_phone, :size => 20, :placeholder => "Phone number", :class => "formfield" %>
+						<%= submit_tag "Click when done",:class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
+					<% end %>
+					<p class="inner_content_text">Once you get the text message, key-in the PIN here:</p>  
+					<% form_for(:consumer, :url => {:action => "check_pin_and_link_consumer"}, :html => {:id => "pin_form"}) do |f| %>
+						<%= f.text_field :pin, :size => 20, :placeholder => "Received PIN", :class => "formfield"  %>
+						<%= submit_tag "Click when done", :class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
+					<% end %>
+				</div>
+				<div class="middle_content">
+					<%= image_tag @consumers[0].pic, :class => "consumer_pic" if @consumers[0].pic %>
+				</div>
+				<div class="right_content consumers_list"></div>
+			</div>
+			<div id="allowance" class="consumers_page">
+				<div class="left_content">
+					<p class="content-name-left" id="consumer_name_allowance"></p>		
+					<img id='chartdiv' class="engrave"/>
+					<% form_for :payer_rule, :url => { :action => :consumer_rules_update }, :html => {:id => "allowance_form"} do |f| %>			
+					    <span class="long item">Monthly Allowance:</span>
+						<span class="value"><%= f.text_field(:edited_budget, :onchange => "modifyBudget('post')", :id => "budget", :size => 10) %></span>
+					    <div class="long item" id="budget_slider" onclick="modifyBudget('post')"></div>
+					    <span class="long item">Current Balance:</span>
+						<span class="green_value"><%= text_field(:consumer, :edited_balance, :onchange => "modifyBalance('post')", :id => "balance", :class => "dollar_amount", :size => 10) %></span>
+					    <div id="balance_slider" onclick="modifyBalance('post')"></div>
+						<span class="item" id="balance_rollover">Balance rollover</span>
+						<span id="rollover" class="buttonset">
+							<%= f.radio_button("rollover_human", "On", :onchange => "$('#allowance_form').submit();") %><label for="payer_rule_rollover_human_on">On</label>
+							<%= f.radio_button("rollover_human", "Off",:onchange => "$('#allowance_form').submit();")%><label for="payer_rule_rollover_human_off">Off</label>
+						</span>			
+					<% end %>
+				</div>
+				<div class="middle_content">
+					<%= image_tag @consumers[0].pic, :class => "consumer_pic"  if @consumers[0].pic%>
+				</div>
+				<div class="right_content consumers_list"></div>
+			</div>
+			<div id="thresholds" class="consumers_page">
+				<div class="left_content">
+					<p class="content-name-left" id="consumer_name_approvals"></p>
+					<div class="inner_content_text">What low prices should automatically be approved?</div>
+					<div class="inner_content_text">How high should it get to automatically be denied?</div>
+					<div class="inner_content_text">Drag the slider to indicate both of these amounts.</div>
+					<div id='slider-range' class="engrave" onclick="modifyUnderOver('post')"></div><br />
+					<% form_for :payer_rule, :url => { :action => :consumer_rules_update }, :html => {:id => "amounts_form"} do |f| %>
+						<p id="slider">
+							<span class="rule">Approve anything under</span>
+							<span><%= f.text_field(:edited_auto_authorize_under, :onchange => "modifyUnderOver('post')", :id => "under", :size => 10) %></span>
+						</p>
+						<p>
+						    <span class="rule">Deny anything over</span>
+							<span><%= f.text_field(:edited_auto_deny_over, :onchange => "modifyUnderOver('post')", :id => "over",  :size => 10) %></span>					
+						</p>
+					<% end %>
+				</div>
+				<div class="middle_content">
+					<%= image_tag @consumers[0].pic, :class => "consumer_pic"  if @consumers[0].pic%>
+				</div>
+				<div class="right_content consumers_list"></div>
+			</div>
+			<div id="info" class="consumers_page">
+				
+			</div>
 		</div>
-		<div class="middle_content">
-			<%= image_tag @consumers[0].pic, :class => "consumer_pic" if @consumers[0].pic %>
-		</div>
-		<div class="right_content consumers_list"></div>
 	</div>
-
-
-	<div id="allowance">
-		<div class="left_content">
-			<p class="inner_content_title" id="consumer-allowance-title">&nbsp;</p>
-			<p class="content-name-left" id="consumer_name_allowance"></p>		
-			<img id='chartdiv' class="engrave"/>
-			<br /><br />
-			<% form_for :payer_rule, :url => { :action => :consumer_rules_update }, :html => {:id => "allowance_form"} do |f| %>			
-			    <span class="long item">Monthly Allowance:</span>
-				<span class="value"><%= f.text_field(:edited_budget, :onchange => "modifyBudget('post')", :id => "budget", :size => 10) %></span>
-			    <div class="long item" id="budget_slider" onclick="modifyBudget('post')"></div>
-				<br />
-			    <span class="long item">Current Balance:</span>
-				<span class="green_value"><%= text_field(:consumer, :edited_balance, :onchange => "modifyBalance('post')", :id => "balance", :class => "dollar_amount", :size => 10) %></span>
-			    <div id="balance_slider" onclick="modifyBalance('post')"></div>
-				<br />
-				<span class="item">Balance rollover</span>
-				<span id="rollover" class="buttonset">
-					<%= f.radio_button("rollover_human", "On", :onchange => "$('#allowance_form').submit();") %><label for="payer_rule_rollover_human_on">On</label>
-					<%= f.radio_button("rollover_human", "Off",:onchange => "$('#allowance_form').submit();")%><label for="payer_rule_rollover_human_off">Off</label>
-				</span>			
-			<% end %>
-		</div>
-		<div class="middle_content">
-			<%= image_tag @consumers[0].pic, :class => "consumer_pic"  if @consumers[0].pic%>
-		</div>
-		<div class="right_content consumers_list"></div>
-	</div>
-
-
-	<div id="approvals">
-		<div class="left_content">
-			<p class="inner_content_title">&nbsp;</p>
-			<p class="content-name-left" id="consumer_name_approvals"></p>
-			<div class="inner_content_text">Whenever your rules imply neither approval nor rejection,</div>
-			<div class="inner_content_text">arca informs you, letting you decide for yourslef.</div><br />
-			<div class="inner_content_text">If there are amounts you'd rather not be bothered with,</div>
-			<div class="inner_content_text">please specify them here and arca will act accordingly.</div><br />
-			<% form_for :payer_rule, :url => { :action => :consumer_rules_update }, :html => {:id => "amounts_form"} do |f| %>
-				<p>
-					<span class="rule">Approve anything under</span>
-					<span><%= f.text_field(:edited_auto_authorize_under, :onchange => "modifyUnderOver('post')", :id => "under", :size => 10) %></span>
-				</p>
-				<p>
-				    <span class="rule">Reject anything over</span>
-					<span><%= f.text_field(:edited_auto_deny_over, :onchange => "modifyUnderOver('post')", :id => "over",  :size => 10) %></span>					
-				</p>
-			<% end %>
-			<div id='slider-range' class="engrave" onclick="modifyUnderOver('post')"></div><br />
-		</div>
-		<div class="middle_content">
-			<%= image_tag @consumers[0].pic, :class => "consumer_pic"  if @consumers[0].pic%>
-		</div>
-		<div class="right_content consumers_list"></div>
-	</div>
-
-
 
 	<div id="retailers">
 		<div class="left_content"></div>
