@@ -1,9 +1,27 @@
+#consumer_info_name, #consumer_info_phone, #consumer_info_pin, #consumer_info_pic {
+	float: right;
+	margin-right: 220px;
+	border-width: 0px;
+	text-align: right;
+}
+
+#consumer_form .sortable .portlet {
+		border: 1px inset #FFFFF5;
+	border-right: 1px solid #EEEEEE;
+	border-bottom: 1px solid #EEEEEE;
+
+}
+
 #allowance_form {
 	padding-top: 5px;
 }
 
 #chartdiv {
 	margin-top:11px;
+			-moz-border-radius:10px;
+	-webkit-border-radius: 10px;
+		border: 1px inset #EEE;
+
 }
 
 #notice {
@@ -195,6 +213,7 @@ tr.odd td.authorized_cell.really {
 	border-bottom: 1px solid #DDDDDD;
 	position: static;
 	margin-left: -7px;
+	width:1116px;
 
 }
 
@@ -212,9 +231,15 @@ tr.odd td.authorized_cell.really {
 
 .consumer_pic {
 	position: absolute;
-	top:144px;
-	left:470px;
-	height: 228px;
+	top:142px;
+	left:454px;
+	height: 229px;
+		-moz-border-radius:8px;
+	-webkit-border-radius: 8px;
+	border: 1px inset #FFFFF5;
+	border-right: 1px solid #EEEEEE;
+	border-bottom: 1px solid #DDDDDD;
+
 }
 
 /*
@@ -591,7 +616,7 @@ select, input {
 	margin-top:0px;
 }
 
-#consumer_billing_phone, #consumer_pin {
+#consumer_billing_phone, #consumer_pin, #consumer_name, #consumer_pic, #consumer_received_pin {
 	background: #FFFEEE;
 	border: 1px inset #EEEEEE;
 	
@@ -684,7 +709,7 @@ h4 {
 
 
 
-#consumer_billing_phone, #consumer_pin {
+#consumer_billing_phone, #consumer_received_pin {
 	display:inline;
 	width: 160px;
 }
@@ -779,7 +804,7 @@ a:hover {
 
 .loginbutton {
     margin-top: 30px;
-    height: 35px;
+    height: 30px;
 }
 
 a.login:hover {

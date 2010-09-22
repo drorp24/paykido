@@ -29,11 +29,11 @@ class Consumer < ActiveRecord::Base
     self.balance = edited.delete "$"
   end
 
-  def pin
-    @pin
+  def received_pin
+    @received_pin
   end
   
-  def pin=(val)
+  def received_pin=(val)
     
   end
   
@@ -41,7 +41,7 @@ class Consumer < ActiveRecord::Base
 
     self.find_all_by_payer_id(payer_id,
                :group => ("consumers.id, authorized"),
-               :select => "consumers.id, name, balance, billing_phone, pic, payer_rules.id as payer_rule_id, allowance, rollover, auto_authorize_under, auto_deny_over, authorized, sum(amount) as sum_amount",
+               :select => "consumers.id, name, balance, billing_phone, pin, pic, payer_rules.id as payer_rule_id, allowance, rollover, auto_authorize_under, auto_deny_over, authorized, sum(amount) as sum_amount",
                :joins => "inner join payer_rules on consumers.id = payer_rules.consumer_id LEFT OUTER JOIN purchases on consumers.id = purchases.consumer_id")
     
     

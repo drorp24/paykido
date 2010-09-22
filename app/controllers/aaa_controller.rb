@@ -141,10 +141,10 @@ end
 
   def authenticate_consumer
     
-    if @payer.exists? and @payer.pin?
+    if @consumer.pin?
       
       @purchase.authentication_type = "PIN"
-      session[:expected_pin] = @payer.pin
+      session[:expected_pin] = @consumer.pin
       
     elsif @purchase.authorized?
       
@@ -165,7 +165,7 @@ end
     elsif !@purchase.authorized
       @status = "We're sorry. This purchase was unauthorized (#{@purchase.authorization_type})"
       @message = ""
-    elsif @payer.exists? and @payer.pin?
+    elsif @purchase.authentication_type == "PIN"
       @status = "Welcome back!"
       @message = "Go ahead and key in your permanent PIN"
     elsif @payer.exists?
@@ -190,22 +190,23 @@ end
     unless @purchase and @purchase.authorized? and (params[:pin]== @purchase.expected_pin or params[:pin] == session[:expected_pin])
       @another_purchase = Purchase.find_by_consumer_id_and_expected_pin(session[:consumer].id, params[:pin])
       @purchase = @another_purchase if @another_purchase
-      expected_pin = @purchase.expected_pin if @purchase 
-      expected_pin = expected_pin || session[:expected_pin] 
     end
     
+    expected_pin = @purchase.expected_pin if @purchase 
+    expected_pin = expected_pin || session[:expected_pin] 
+
     if @purchase
-      if @purchase.authorized? and @purchase.authorization_type == "ManuallyAuthorized" and @purchase.authentication_date == nil and params[:pin]== expected_pin
+      if @purchase.authorized? and @purchase.authorization_type != "PendingPayer" and @purchase.authentication_date == nil and params[:pin]== expected_pin
         @status = "Purchase of #{@purchase.product.title} is approved!"
         @message = "Thanks for shopping with arca"
         @purchase.authentication_date = Time.now
         @purchase.save
         account(@purchase.amount)
         clear_session
-      elsif @purchase.authorized? and @purchase.authorization_type == "ManuallyAuthorized" and @purchase.authentication_date and params[:pin]== expected_pin
-        @status = "The pin code you just entered"
-        @message = "belongs to an approved purchase!"
-      elsif @purchase.authorized? and @purchase.authorization_type == "ManuallyAuthorized" and @purchase.authentication_date == nil and params[:pin] != expected_pin
+      elsif @purchase.authorized? and @purchase.authorization_type != "PendingPayer" and @purchase.authentication_date and params[:pin]== expected_pin
+        @status = "The pin code you have entered"
+        @message = "belongs to an already-approved purchase!"
+      elsif @purchase.authorized? and @purchase.authorization_type != "PendingPayer" and @purchase.authentication_date == nil and params[:pin] != expected_pin
         @status = "Wrong PIN entered (#{expected_pin})"
         @message = "Please try again"
       elsif !@purchase.authorized? and @purchase.authorization_type == "PendingPayer"

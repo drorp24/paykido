@@ -224,17 +224,17 @@
 					<div class="inner_content_text">of your community up and running within seconds.</div>
 					<p class="inner_content_text">Start by keying the consumer's phone number here:</p>
 					<% form_for(:consumer, :url => {:action => "sms_consumer"}, :html => {:id => "phone_form"}) do |f| %>
-						<%= f.text_field :billing_phone, :size => 20, :placeholder => "Phone number", :class => "formfield" %>
+						<%= f.text_field :billing_phone, :value => nil, :size => 20, :placeholder => "Phone number", :class => "formfield" %>
 						<%= submit_tag "Click when done",:class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
 					<% end %>
 					<p class="inner_content_text">Once you get the text message, key-in the PIN here:</p>  
 					<% form_for(:consumer, :url => {:action => "check_pin_and_link_consumer"}, :html => {:id => "pin_form"}) do |f| %>
-						<%= f.text_field :pin, :size => 20, :placeholder => "Received PIN", :class => "formfield"  %>
+						<%= f.text_field :received_pin, :size => 20, :placeholder => "Received PIN", :class => "formfield"  %>
 						<%= submit_tag "Click when done", :class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
 					<% end %>
 				</div>
 				<div class="middle_content">
-					<%= image_tag @consumers[0].pic, :class => "consumer_pic" if @consumers[0].pic %>
+					<%= image_tag @consumers[0].pic, :class => "consumer_pic"  if @consumers[0].pic  and FileTest.exists?(RAILS_ROOT + "/public/images/#{@consumer.pic}") %>
 				</div>
 				<div class="right_content consumers_list"></div>
 			</div>
@@ -257,16 +257,16 @@
 					<% end %>
 				</div>
 				<div class="middle_content">
-					<%= image_tag @consumers[0].pic, :class => "consumer_pic"  if @consumers[0].pic%>
+					<%= image_tag @consumers[0].pic, :class => "consumer_pic"  if @consumers[0].pic  and FileTest.exists?(RAILS_ROOT + "/public/images/#{@consumer.pic}") %>
 				</div>
 				<div class="right_content consumers_list"></div>
 			</div>
 			<div id="thresholds" class="consumers_page">
 				<div class="left_content">
 					<p class="content-name-left" id="consumer_name_approvals"></p>
-					<div class="inner_content_text">What low prices should automatically be approved?</div>
-					<div class="inner_content_text">How high should it get to automatically be denied?</div>
-					<div class="inner_content_text">Drag the slider to indicate both of these amounts.</div>
+					<div class="inner_content_text">What is low enough to be automatically approved?</div>
+					<div class="inner_content_text">How high should it get to be automatically denied?</div>
+					<div class="inner_content_text">Drag the handles to indicate both amounts.</div>
 					<div id='slider-range' class="engrave" onclick="modifyUnderOver('post')"></div><br />
 					<% form_for :payer_rule, :url => { :action => :consumer_rules_update }, :html => {:id => "amounts_form"} do |f| %>
 						<p id="slider">
@@ -280,12 +280,36 @@
 					<% end %>
 				</div>
 				<div class="middle_content">
-					<%= image_tag @consumers[0].pic, :class => "consumer_pic"  if @consumers[0].pic%>
+					<%= image_tag @consumers[0].pic, :class => "consumer_pic"  if @consumers[0].pic  and FileTest.exists?(RAILS_ROOT + "/public/images/#{@consumer.pic}") %>
 				</div>
 				<div class="right_content consumers_list"></div>
 			</div>
 			<div id="info" class="consumers_page">
-				
+				<div class="left_content">
+					<p class="content-name-left" id="consumer_info"></p><br />
+					<% form_for :consumer, :url => {:action => :consumer_info_update}, :html => {:id => "consumer_info_form"} do |f| %>			
+						<p>
+							<span class=item>Name:</span>			
+							<span class=content-value id="consumer_info_name"><%= f.text_field(:name, :size => 15, :onchange => "consumer_rename_no_ajax($(this).val());$('#consumer_info_form').submit();") %></span> 
+						</p>
+						<p>
+							<span class=item>Phone:</span>			
+							<span class=content-value id="consumer_info_phone"><%= f.text_field :billing_phone, :onchange => "$('#consumer_info_form').submit();" %></span> 
+						</p>
+						<p>
+							<span class=item>PIN:</span>			
+							<span class=content-value id="consumer_info_pin"><%= f.password_field :pin, :size => 15, :onchange => "$('#consumer_info_form').submit();" %></span> 
+						</p>
+						<p>
+							<span class=item>Picture</span>			
+							<span class=content-value id="consumer_info_pic"><%= f.text_field :pic, :size => 15, :onchange => "$('#consumer_info_form').submit();"  %></span> 
+						</p>
+					<% end %>
+				</div>				
+				<div class="middle_content">
+					<%= image_tag @consumers[0].pic, :class => "consumer_pic"  if @consumers[0].pic  and FileTest.exists?(RAILS_ROOT + "/public/images/#{@consumer.pic}") %>
+				</div>
+				<div class="right_content consumers_list"></div>
 			</div>
 		</div>
 	</div>
@@ -513,15 +537,26 @@
 		$(selector).val(name);
 		$('#consumer_name_allowance').html(name + "\'s allowance");
 		$('#consumer_name_approvals').html(name + "\'s approval policy");		
-		$.ajax({
-			url: 'rename_consumer/'+id + '?name=' + name,
-			success: function(data){
+		$('#consumer_info').html(name + "\'s info");		
+		$('#consumer_info_name input').val(name);		
 
-			}
-		})
+			$.ajax({
+				url: 'rename_consumer/' + id + '?name=' + name,
+				success: function(data){
+				
+				}
+			})
+
 	};
 	
-
+	function consumer_rename_no_ajax(name) {
+		$('#consumer_name_allowance').html(name + "\'s allowance");
+		$('#consumer_name_approvals').html(name + "\'s approval policy");		
+		$('#consumer_info').html(name + "\'s info");
+		$('.ui-widget-header-lightness input').val(name);		
+		
+	};
+	
 	function viewPurchases(id, ent, period){
 		if   (period == "Just show everything") 
 			 {action = "purchases_all/"} 

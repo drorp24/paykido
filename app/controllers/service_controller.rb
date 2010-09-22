@@ -405,6 +405,20 @@ end
     
   end
   
+  def consumer_info_update
+    
+    find_consumer 
+    @consumer.update_attributes!(params[:consumer]) if params[:consumer] 
+    expire_page :action => "consumer", :id => @consumer.id
+    expire_page :action => "consumers", :id => 0
+    
+    respond_to do |format|  
+      format.html { redirect_to :action => 'JP' }  
+      format.js  
+    end
+    
+  end
+
   def payment_update
     
     unless @payer.update_attributes(params[:payer])
@@ -606,7 +620,7 @@ end
       return
     end
           
-    if params[:consumer][:pin] != session[:expected_pin]
+    if params[:consumer][:received_pin] != session[:expected_pin]
         flash[:notice] = "Incorrect PIN code [#{session[:expected_pin]}]. Please try again!"
         @phone = nil
         respond_to do |format|  

@@ -22,6 +22,7 @@ $(document).ready(function (){
 	$('#phone_alert_form').submitWithAjax();
 	$('#email_alert_form').submitWithAjax();
 	$('#consumer_form').submitWithAjax();
+	$('#consumer_info_form').submitWithAjax();
 	$('#other_form').submitWithAjax();
 	
 
@@ -50,6 +51,7 @@ $(document).ready(function (){
 		});
 		$(function() {
 			$("#tabs, #consumers_tabs, #account_tabs").tabs().find(".ui-tabs-nav").sortable({axis:'x'});
+			$("#consumers_tabs").tabs("select", 0);
 		});
 	
 		$(function() {
