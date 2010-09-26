@@ -1,4 +1,4 @@
-$('#cheerful_message').fadeOut(1200); 
+$('#cheerful_message').fadeOut(10000); 
 $('#balance').val(<%= @consumer.balance %>);
 $('#budget').val(<%= @payer_rule.allowance %>);
 $('#payer_rule_rollover_human_on').attr('checked', "<%= (@payer_rule.rollover?) ?"checked":""  %>")

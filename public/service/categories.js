@@ -17,7 +17,7 @@
 					'<div class="portlet-content" style="padding-bottom:0" >'+
 						'<div class="portlet-content-left">'+
 							'<p class=content-name>Virtual Cash</p>'+
-							'<p class="category-info">Total monthly purchases:&nbsp;$771.00</p>'+
+							'<p class="category-info">Total monthly purchases:&nbsp;$789.00</p>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
 						'</div>'+

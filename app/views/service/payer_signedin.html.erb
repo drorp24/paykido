@@ -224,7 +224,7 @@
 					<div class="inner_content_text">of your community up and running within seconds.</div>
 					<p class="inner_content_text">Start by keying the consumer's phone number here:</p>
 					<% form_for(:consumer, :url => {:action => "sms_consumer"}, :html => {:id => "phone_form"}) do |f| %>
-						<%= f.text_field :billing_phone, :value => nil, :size => 20, :placeholder => "Phone number", :class => "formfield" %>
+						<%= f.text_field :billing_phone, :id => "consumer_phone", :value => nil, :size => 20, :placeholder => "Phone number", :class => "formfield" %>
 						<%= submit_tag "Click when done",:class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
 					<% end %>
 					<p class="inner_content_text">Once you get the text message, key-in the PIN here:</p>  
@@ -234,7 +234,6 @@
 					<% end %>
 				</div>
 				<div class="middle_content">
-					<%= image_tag @consumers[0].pic, :class => "consumer_pic"  if @consumers[0].pic  and FileTest.exists?(RAILS_ROOT + "/public/images/#{@consumer.pic}") %>
 				</div>
 				<div class="right_content consumers_list"></div>
 			</div>
@@ -257,7 +256,6 @@
 					<% end %>
 				</div>
 				<div class="middle_content">
-					<%= image_tag @consumers[0].pic, :class => "consumer_pic"  if @consumers[0].pic  and FileTest.exists?(RAILS_ROOT + "/public/images/#{@consumer.pic}") %>
 				</div>
 				<div class="right_content consumers_list"></div>
 			</div>
@@ -280,7 +278,6 @@
 					<% end %>
 				</div>
 				<div class="middle_content">
-					<%= image_tag @consumers[0].pic, :class => "consumer_pic"  if @consumers[0].pic  and FileTest.exists?(RAILS_ROOT + "/public/images/#{@consumer.pic}") %>
 				</div>
 				<div class="right_content consumers_list"></div>
 			</div>
@@ -290,24 +287,23 @@
 					<% form_for :consumer, :url => {:action => :consumer_info_update}, :html => {:id => "consumer_info_form"} do |f| %>			
 						<p>
 							<span class=item>Name:</span>			
-							<span class=content-value id="consumer_info_name"><%= f.text_field(:name, :size => 15, :onchange => "consumer_rename_no_ajax($(this).val());$('#consumer_info_form').submit();") %></span> 
+							<span class=content-value id="consumer_info_name"><%= f.text_field(:name, :size => 25, :onchange => "consumer_rename_no_ajax($(this).val());$('#consumer_info_form').submit();") %></span> 
 						</p>
 						<p>
 							<span class=item>Phone:</span>			
-							<span class=content-value id="consumer_info_phone"><%= f.text_field :billing_phone, :onchange => "$('#consumer_info_form').submit();" %></span> 
+							<span class=content-value id="consumer_info_phone"><%= f.text_field :billing_phone, :size => 25, :onchange => "$('#consumer_info_form').submit();" %></span> 
 						</p>
 						<p>
 							<span class=item>PIN:</span>			
-							<span class=content-value id="consumer_info_pin"><%= f.password_field :pin, :size => 15, :onchange => "$('#consumer_info_form').submit();" %></span> 
+							<span class=content-value id="consumer_info_pin"><%= f.password_field :pin, :size => 25, :onchange => "$('#consumer_info_form').submit();" %></span> 
 						</p>
 						<p>
-							<span class=item>Picture</span>			
-							<span class=content-value id="consumer_info_pic"><%= f.text_field :pic, :size => 15, :onchange => "$('#consumer_info_form').submit();"  %></span> 
+							<span class=item>Photo:</span>			
+							<span class=content-value id="consumer_info_pic_file"><%= f.file_field :pic, :size => 25, :onchange => "$('#consumer_info_form').submit();"  %></span> 
 						</p>
 					<% end %>
 				</div>				
 				<div class="middle_content">
-					<%= image_tag @consumers[0].pic, :class => "consumer_pic"  if @consumers[0].pic  and FileTest.exists?(RAILS_ROOT + "/public/images/#{@consumer.pic}") %>
 				</div>
 				<div class="right_content consumers_list"></div>
 			</div>

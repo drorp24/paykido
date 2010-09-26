@@ -10,10 +10,11 @@ if (phone != "") {
 	$('#notice').remove();
 	$(function() {
 		$('#tabs').tabs( "option", "disabled", false );
+		$('#consumers_tabs').tabs("option","disabled", false);
 	}); 
 	viewConsumers (<%= @consumer.id %>);
 }		
 
 <% if flash[:message] %>
-	$('#tabs').before('<div class="ui-widget message" id="cheerful_message"><div id="notice" class="ui-state-highlight ui-corner-all"><p><span style="float: left; margin-right: 0.3em;" class="ui-icon ui-icon-info"></span><span><%= escape_javascript(flash.delete(:message)) %></span></p></div></div>');
+	$('#tabs').before('<div class="ui-widget message" id="cheerful_message"><div id="notice" class="ui-state-highlight ui-corner-all"><p><span class="flash_symbol ui-icon ui-icon-info"></span><span class="flash_text"><%= escape_javascript(flash.delete(:message)) %></span></p></div></div>');
 <% end %>

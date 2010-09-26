@@ -22,6 +22,9 @@ class ServiceController < ApplicationController
 
   def joinin
 
+    clear_payer_cache
+    clear_payer_session
+    
     if request.post?
       
       @user = User.new(params[:user])
@@ -38,7 +41,7 @@ class ServiceController < ApplicationController
         redirect_to :action => "payer_signedin"
       else
         if @user.errors.on(:name) == "has already been taken"
-            flash.now[:notice] = "name is taken. Try a differet one!"
+            flash.now[:notice] = "User name is taken. Try a differet one!"
         elsif @user.errors.on(:password) == "doesn't match confirmation"
             flash.now[:notice] = "password/confirmation mismatch. Try again!"
         else

@@ -1,3 +1,8 @@
+#consumer_pic {
+	margin-right: -35px;
+	width: 323px;
+}
+
 #consumer_info_name, #consumer_info_phone, #consumer_info_pin, #consumer_info_pic {
 	float: right;
 	margin-right: 220px;
@@ -26,8 +31,24 @@
 
 #notice {
 	position: absolute;
-	width:1115px;
-	left:15px;
+	top: -97px;
+	height: 24px;
+	width:1158px;
+	left:-2px;
+}
+
+.flash_text{
+	position: absolute;
+	top: 1px;
+	left: 30px;
+	font-size: 18px;
+}
+
+.flash_symbol{
+	position: absolute;
+	top: 5px;
+	left: 5px;
+
 }
 
 thead {
@@ -63,7 +84,10 @@ td {
 	height: 22px;
 	width: 1096px;
 	font-size: 17px;
-}
+/*
+	background: #0078ae url(images/ui-bg_glass_45_0078ae_1x400.png) 50% 50% repeat-x;
+
+*/}
 
 .portlet-header-r {
 	float: right;
@@ -616,7 +640,7 @@ select, input {
 	margin-top:0px;
 }
 
-#consumer_billing_phone, #consumer_pin, #consumer_name, #consumer_pic, #consumer_received_pin {
+#consumer_billing_phone, #consumer_phone, #consumer_pin, #consumer_name, #consumer_pic, #consumer_received_pin {
 	background: #FFFEEE;
 	border: 1px inset #EEEEEE;
 	
@@ -684,15 +708,15 @@ form {
 
 #phone_notice {
 	position:absolute;
-	top:246px;
-	left:-8px;
+	top:209px;
+	left:-10px;
 
 }
 
 #pin_notice {
 	position:absolute;
-	top:346px;
-	left:-8px;
+	top:294px;
+	left:-10px;
 
 }
 .red {
@@ -709,7 +733,7 @@ h4 {
 
 
 
-#consumer_billing_phone, #consumer_received_pin {
+#consumer_phone, #consumer_received_pin {
 	display:inline;
 	width: 160px;
 }
@@ -764,11 +788,17 @@ strong {
 */
 
 .righthandside_marketial {
-    margin-left: -6px;
-	margin-top:15px;
+    margin-left: -78px;
+	margin-top:11px;
 	margin-right:2px;
-	height:320px;
-	width:500px;
+
+}
+
+#welcome_to_arca {
+    margin-left: -88px;
+	margin-top:43px;
+	margin-right:35px;
+	
 }
 
 a {
@@ -1009,8 +1039,8 @@ body {
     font-size: 18pt;
     opacity: 0.0;
     position: absolute;
-    top: 420px;
-    left: 25px;
+    top: 432px;
+    left: 34px;
 }
 
 #learn2 a {
@@ -1018,8 +1048,8 @@ body {
     font-size: 18pt;
     opacity: 0.0;
     position: absolute;
-    top: 583px;
-    left: 30px;
+    top: 617px;
+    left: 35px;
 }
 
 #learn3 a {
@@ -1027,8 +1057,8 @@ body {
     font-size: 18pt;
     opacity: 0.0;
     position: absolute;
-    top: 583px;
-    left: 660px;
+    top: 616px;
+    left: 631px;
 }
 
 #get_started_today a {

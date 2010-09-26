@@ -69,7 +69,7 @@ class Consumer < ActiveRecord::Base
   def self.added(id)
     
         self.find(id,
-               :select => "consumers.id, name, balance, billing_phone, pic, null as payer_rule_id, 0 as allowance, 'f' as rollover, 0 as auto_authorize_under, 1 as auto_deny_over, 'f' as authorized, 0 as sum_amount")
+               :select => "consumers.id, name, balance, billing_phone, pin, pic, null as payer_rule_id, 0 as allowance, 'f' as rollover, 0 as auto_authorize_under, 1 as auto_deny_over, 'f' as authorized, 0 as sum_amount")
 
   end
    

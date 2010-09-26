@@ -1,25 +1,28 @@
+$('#cheerful_message').fadeOut(10000);
+
 <% if @consumers.empty? %>
 
 	$('.consumers_list').append(	
-		'<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>');
+		'<%= image_tag "/images/welcome_to_arca.png", :id => "welcome_to_arca", :class => "righthandside_marketial" %>');
 		
 	$(function() {
 		$('#tabs').tabs("option","disabled", [1, 2, 3, 4, 5]);
+		$('#consumers_tabs').tabs("option","disabled", [1, 2, 3]);
 	});
 		
-<% elsif @consumer_added %>
+<% elsif @consumer_added and @consumers and @consumers.size > 1 %>
 
-	$('#cheerful_message').fadeOut(1200);
 	<% rem = @consumers.size % 2 %>
 	<% if rem == 1 %>
 			$('#consumer_form .column1').prepend(
 				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
 					'<div class="consumer portlet-header ui-widget-header ui-corner-all" id="consumer_<%= @consumer_added.id %>">'+
+						'<span class="ui-icon ui-icon-minusthick"></span>'+
 						'<%= text_field("consumer[]", 'name', :onchange => "rename_consumer(#{@consumer.id}, $(this).val())") %>'+
 					'</div>'+
 					'<div class="portlet-content" >'+
 						'<div class="portlet-content-left">'+
-							'<%= image_tag (@consumer.pic) ?"#{@consumer.pic}" :"face_placeholder_small.png", :class => "face-placeholder" %>'+
+							'<%= image_tag (!@consumer.pic.blank?) ?"#{@consumer.pic}" :"face_placeholder_small.png", :class => "face-placeholder" %>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
 							'<p class="consumer-info">Spent nothing this month</p>'+
@@ -32,11 +35,12 @@
 			$('#consumer_form .column2').prepend(
 				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
 					'<div class="consumer portlet-header ui-widget-header ui-corner-all" id="consumer_<%= @consumer_added.id %>">'+
+						'<span class="ui-icon ui-icon-minusthick"></span>'+
 						'<%= text_field("consumer[]", 'name', :onchange => "rename_consumer(#{@consumer.id}, $(this).val())") %>'+
 					'</div>'+
 					'<div class="portlet-content" >'+
 						'<div class="portlet-content-left">'+
-							'<%= image_tag (@consumer.pic) ?"#{@consumer.pic}" :"face_placeholder_small.png", :class => "face-placeholder" %>'+
+							'<%= image_tag (!@consumer.pic.blank?) ?"#{@consumer.pic}" :"face_placeholder_small.png", :class => "face-placeholder" %>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
 							'<p class="consumer-info">Spent nothing this month</p>'+
@@ -65,11 +69,12 @@
 			$('#consumer_form .column1').append(
 				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
 					'<div class="consumer portlet-header ui-widget-header ui-corner-all" id="consumer_<%= @consumer.id %>">'+
-							'<%= text_field("consumer[]", 'name', :onchange => "rename_consumer(#{@consumer.id}, $(this).val())") %>'+
+						'<span class="ui-icon ui-icon-minusthick"></span>'+
+						'<%= text_field("consumer[]", 'name', :onchange => "rename_consumer(#{@consumer.id}, $(this).val())") %>'+
 					'</div>'+
 					'<div class="portlet-content" >'+
 						'<div class="portlet-content-left">'+
-							'<%= image_tag (@consumer.pic) ?"#{@consumer.pic}" :"face_placeholder_small.png", :class => "face-placeholder" %>'+
+							'<%= image_tag (!@consumer.pic.blank?) ?"#{@consumer.pic}" :"face_placeholder_small.png", :class => "face-placeholder" %>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
 							'<p class="consumer-info">Spent&nbsp;<%= (@consumer.sum_amount.blank?) ?"nothing" :number_to_currency(@consumer.sum_amount) %>&nbsp;this month</p>'+
@@ -81,11 +86,12 @@
 			$('#consumer_form .column2').append(
 				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+ 
 					'<div class="consumer portlet-header ui-widget-header ui-corner-all" id="consumer_<%= @consumer.id %>">'+
+						'<span class="ui-icon ui-icon-minusthick"></span>'+
 						'<%= text_field("consumer[]", 'name', :onchange => "rename_consumer(#{@consumer.id}, $(this).val())") %>'+
 			    	'</div>'+
 					'<div class="portlet-content" >'+
 						'<div class="portlet-content-left">'+
-							'<%= image_tag (@consumer.pic) ?"#{@consumer.pic}" :"face_placeholder_small.png", :class => "face-placeholder" %>'+
+							'<%= image_tag (!@consumer.pic.blank?) ?"#{@consumer.pic}" :"face_placeholder_small.png", :class => "face-placeholder" %>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
 							'<p class="consumer-info">Spent&nbsp;<%= (@consumer.sum_amount.blank?) ?"nothing" :number_to_currency(@consumer.sum_amount) %>&nbsp;this month</p>'+
@@ -110,12 +116,7 @@ $(function() {
 		connectWith: '#consumer_form .column1'
 	});
 	
-	$(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all")
-		.find(".consumer.portlet-header")
-			.addClass("ui-widget-header ui-corner-all")
-			.prepend('<span class="ui-icon ui-icon-minusthick"></span>')
-			.end()
-		.find(".consumer.portlet-content");
+	$(".portlet").addClass("ui-widget ui-widget-content ui-helper-clearfix ui-corner-all");
 
 	$(".portlet-header .ui-icon").click(function() {
 		$(this).toggleClass("ui-icon-minusthick").toggleClass("ui-icon-plusthick");
