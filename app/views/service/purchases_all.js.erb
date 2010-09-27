@@ -8,8 +8,9 @@ $('#purchases_message').empty();
 
 <% if @purchases.empty? %>
 
-	$('.purchases_list').append(	
-		'<div id="purchases_message">No purchases were found for that selection criteria</div>');
+	$(function() {
+		$('#tabs').tabs('disable',4);
+	});
 		
 
 <% else %>

@@ -415,8 +415,8 @@ end
     expire_page :action => "consumer", :id => @consumer.id
     expire_page :action => "consumers", :id => 0
     
-    respond_to do |format|  
-      format.html { redirect_to :action => 'JP' }  
+    respond_to do |format|        # To enable the file upload, this is the only Service activity that's not done by Ajax!
+      format.html { redirect_to :action => :payer_signedin }  
       format.js  
     end
     
@@ -568,7 +568,7 @@ end
           format.html { redirect_to :action => 'payer_signedin' }  
           format.js  
       end
-    elsif @consumer.id
+    elsif @consumer.id and @consumer.payer.exists
       session[:phone_is_ok] = false
       flash[:notice] = "That phone is assigned to someone else"
       respond_to do |format|  
@@ -584,11 +584,17 @@ end
       rescue Clickatell::API::Error
         flash[:notice] = "Can't locate phone. Please check the number"
       else
+
+        if @consumer.balance and @consumer.balance != 0
+          flash[:notice] = "This subscriber has made some purchases already. Sending PIN code"
+        else
+          flash[:notice] = "Thank you. A text message with the PIN code is on its way!"
+        end 
         find_payer_rule
         @consumer.balance = @payer_rule.allowance
         session[:phone_is_ok] = true
         session[:consumer] = @consumer
-        flash[:notice] = "Thank you. A text message with the PIN code is on its way!"        
+
       end
 
       respond_to do |format|  
@@ -612,7 +618,6 @@ end
   
   def check_pin_and_link_consumer
     
-    
     unless session[:phone_is_ok]
       flash[:notice] = "Please handle the phone number first"
       @phone = nil
@@ -635,8 +640,15 @@ end
         
     @consumer = session[:consumer]
     @payer_rule = session[:payer_rule]
-    
-    if @consumer.payer_id                       # case of repeating the submit button after the consumer has been linked
+   
+    if @consumer.payer_id and @consumer.payer.exists? 
+        flash[:notice] = "Phone is already assigned to someone else!"  # rare case - checked a minute before. 
+        @phone = nil
+        respond_to do |format|  
+          format.html { redirect_to :action => 'payer_signedin' }  
+          format.js  
+        end         
+    elsif @consumer.payer_id and @consumer.payer_id == @payer.id # case of repeating the submit button after the consumer has been linked
         flash[:notice] = "Phone is already assigned to you!"
         @phone = nil
         respond_to do |format|  
@@ -890,11 +902,10 @@ end
   
   def clear_payer_session
     session[:user] = session[:payer] = session[:payer_rule] = session[:expected_pin] = session[:same_as_last_payer] =
-    session[:consumers] = session[:consumer] = 
+    session[:consumers] = session[:consumer] = session[:phone_is_ok] = 
     session[:retailers] = session[:retailer] = 
     session[:products] = session[:product] =
     session[:categories] = session[:category] =
-#    session[:pendings] = session[:pending] =
     session[:purchases] = session[:purchase] =
     nil
   end

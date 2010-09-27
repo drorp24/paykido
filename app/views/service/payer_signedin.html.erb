@@ -284,7 +284,7 @@
 			<div id="info" class="consumers_page">
 				<div class="left_content">
 					<p class="content-name-left" id="consumer_info"></p><br />
-					<% form_for :consumer, :url => {:action => :consumer_info_update}, :html => {:id => "consumer_info_form"} do |f| %>			
+					<% form_for (:consumer, :url => {:action => :consumer_info_update}, :html => {:id => "consumer_info_form"}) do |f| %>			
 						<p>
 							<span class=item>Name:</span>			
 							<span class=content-value id="consumer_info_name"><%= f.text_field(:name, :size => 25, :onchange => "consumer_rename_no_ajax($(this).val());$('#consumer_info_form').submit();") %></span> 
@@ -297,9 +297,11 @@
 							<span class=item>PIN:</span>			
 							<span class=content-value id="consumer_info_pin"><%= f.password_field :pin, :size => 25, :onchange => "$('#consumer_info_form').submit();" %></span> 
 						</p>
+					<% end %>
+					<% form_for (:consumer, :url => {:action => :consumer_info_update}, :html => {:multipart => true, :id => "consumer_pic_form"}) do |f| %>			
 						<p>
 							<span class=item>Photo:</span>			
-							<span class=content-value id="consumer_info_pic_file"><%= f.file_field :pic, :size => 25, :onchange => "$('#consumer_info_form').submit();"  %></span> 
+							<span class=content-value id="consumer_info_pic_file"><%= f.file_field("uploaded_pic", :size => 25, :onchange => "$('#consumer_pic_form').submit();")  %></span> 
 						</p>
 					<% end %>
 				</div>				

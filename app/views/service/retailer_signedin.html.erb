@@ -34,16 +34,24 @@
 						backgroundColor: 'white', 
 						legend: 'left', 
 						is3D: true, 
-						title: 'Sales by Category',
+						title: '',
 						colors: [{color:'orange', darker:'#680000'}, {color:'#1B7BDD', darker:'black'},{color:'#666666', darker:'black'}, {color:'#dc3912', darker:'black'}]
 	      });
 		  }
 	    </script>
 	
-		<div id="purchases_by_category" class="chart"></div>
-
+		<div class="chart_container">
+			<div id="purchases_by_category" class="chart"></div>
+		</div>
+		<div class="chart_text">
+			<div class="chart_text_title">
+				<p>Quarterly Sales Revenue by Category</p>
+			</div>
+			<div class="chart_text_lines">
+				<p>See how much each product category contributes to the quarterly revenue.</p> 
+			</div>
+		</div>
 	</div>
-
 
 
 	<div id="tabs-2">
@@ -76,9 +84,17 @@
 		    </script>
 		<% end %>
 	
-	    <br />
-		<div id="chart_div" class="chart"></div>
-		<div id="tabs-1-explain"></div>
+		<div class="chart_container">
+			<div id="chart_div" class="chart"></div>
+		</div>
+		<div class="chart_text">
+			<div class="chart_text_title">
+				<p>Sales versus Denials</p>
+			</div>
+			<div class="chart_text_lines">
+				<p>Watch how sales volumes and denials change over time, across geographies and product categories.</p> 
+			</div>
+		</div>
 	</div>
 
 	<div id="tabs-3">

@@ -9,7 +9,6 @@ if (phone != "") {
 	$('.righthandside_marketial').remove();
 	$('#notice').remove();
 	$(function() {
-		$('#tabs').tabs( "option", "disabled", false );
 		$('#consumers_tabs').tabs("option","disabled", false);
 	}); 
 	viewConsumers (<%= @consumer.id %>);

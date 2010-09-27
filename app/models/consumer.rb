@@ -16,9 +16,24 @@ class Consumer < ActiveRecord::Base
 #    @billing_phone = consumer[:billing_phone]
 #  end
   
-  validates_presence_of :billing_phone
-  validates_numericality_of :billing_phone
-  validates_length_of :billing_phone, :is => 10
+  validates_numericality_of :billing_phone, :allow_nil => true
+  validates_length_of :billing_phone, :is => 10, :allow_nil => true
+#  validates_format_of :content_type, 
+#                      :with => /^image/,
+#                      :message => "--- you can only upload pictures"
+
+  def uploaded_pic
+    self.pic
+  end
+  
+  def uploaded_pic=(picture_field)
+    self.pic        = base_part_of(picture_field.original_filename)
+
+  end
+
+  def base_part_of(file_name)
+    File.basename(file_name).gsub(/[^\w._-]/, '')
+  end
 
 
   def edited_balance

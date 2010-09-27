@@ -1,14 +1,16 @@
 <% if @retailers.empty? %>
 
+/*
 	$('.retailers_list').append(	
 		'<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>');
-		
-/*
+
+*/		
+
 	$(function() {
-		$('#tabs').tabs("option","disabled", [1, 2, 3, 4, 5]);
+		$('#tabs').tabs('disable',1);
 	});
 
-*/			
+			
 <% else %>
 
 	$('.retailers_list').append(	

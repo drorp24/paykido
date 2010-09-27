@@ -475,9 +475,9 @@ end
     if @purchase.save
       File.delete("#{RAILS_ROOT}/public/service/purchase/#{@purchase.id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchase/#{@purchase.id}.js")
       File.delete("#{RAILS_ROOT}/public/service/purchases_all/Just show everything.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases_all/Just show everything.js")
-      File.delete("#{RAILS_ROOT}/public/service/purchases/Pending.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/Pending.js")
-      File.delete("#{RAILS_ROOT}/public/service/purchases/Last week.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/Last week.js")
-      File.delete("#{RAILS_ROOT}/public/service/purchases/Last month.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/Last month.js")
+      File.delete("#{RAILS_ROOT}/public/service/retailers.js") if File.exist?("#{RAILS_ROOT}/public/service/retailers.js")
+      File.delete("#{RAILS_ROOT}/public/service/products.js") if File.exist?("#{RAILS_ROOT}/public/service/products.js")
+      File.delete("#{RAILS_ROOT}/public/service/categories.js") if File.exist?("#{RAILS_ROOT}/public/service/categories.js")
     else
       flash[:notice] = "service is temporarily down"
       redirect_to :action => :welcome_signedin
