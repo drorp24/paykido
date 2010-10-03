@@ -17,7 +17,42 @@
 					'<div class="portlet-content" style="padding-bottom:0" >'+
 						'<div class="portlet-content-left">'+
 							'<p class=content-name>Virtual Cash</p>'+
-							'<p class="category-info">Total monthly purchases:&nbsp;$9.00</p>'+
+							'<p class="category-info">Total monthly purchases:&nbsp;$807.00</p>'+
+						'</div>'+
+						'<div class="portlet-content-right">'+
+						'</div>'+
+					'</div>'+
+				'</div>');
+		
+		
+	
+		
+		
+			$('.categories_list .column2').append(
+				'<div class="portlet">'+ 
+					'<div class="category portlet-header" id="category_3">Virtual Goods</div>'+
+					'<div class="portlet-content" style="padding-bottom:0" >'+
+						'<div class="portlet-content-left">'+
+							'<p class=content-name>Virtual Goods</p>'+
+							'<p class="category-info">Total monthly purchases:&nbsp;$182.00</p>'+
+						'</div>'+
+						'<div class="portlet-content-right">'+
+						'</div>'+
+					'</div>'+
+					'</div>'+
+				'</div>');
+		
+		
+	
+		
+		
+			$('.categories_list .column1').append(
+				'<div class="portlet">'+
+					'<div class="category portlet-header" id="category_1">Game Supplies</div>'+
+					'<div class="portlet-content" style="padding-bottom:0" >'+
+						'<div class="portlet-content-left">'+
+							'<p class=content-name>Game Supplies</p>'+
+							'<p class="category-info">Total monthly purchases:&nbsp;$69.97</p>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
 						'</div>'+

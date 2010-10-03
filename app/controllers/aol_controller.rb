@@ -160,6 +160,9 @@ class AolController < ApplicationController
   end
   
   def involved_help
+
+    @back_to = "/aol/rules_menu/#{session[:consumer].id}"
+    @back_class = "like_back"    
     
   end
   
@@ -463,26 +466,27 @@ end
        @purchase.authorization_type = params[:purchase][:authorization_type]
        @purchase.authorization_date = Time.now 
       
-    begin
-      inform_consumer_by_sms
-    rescue
-      flash[:notice] = "We're sorry. service is down"
-      redirect_to :action => :welcome_signedin
-      raise
-      return    
-    end
+       if Current.policy.send_sms?  
+         begin
+            inform_consumer_by_sms
+         rescue
+            flash[:notice] = "We're sorry. service is down"
+            redirect_to :action => :welcome_signedin
+            raise
+            return    
+         end
+       end
  
-    if @purchase.save
-      File.delete("#{RAILS_ROOT}/public/service/purchase/#{@purchase.id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchase/#{@purchase.id}.js")
-      File.delete("#{RAILS_ROOT}/public/service/purchases_all/Just show everything.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases_all/Just show everything.js")
-      File.delete("#{RAILS_ROOT}/public/service/retailers.js") if File.exist?("#{RAILS_ROOT}/public/service/retailers.js")
-      File.delete("#{RAILS_ROOT}/public/service/products.js") if File.exist?("#{RAILS_ROOT}/public/service/products.js")
-      File.delete("#{RAILS_ROOT}/public/service/categories.js") if File.exist?("#{RAILS_ROOT}/public/service/categories.js")
-    else
-      flash[:notice] = "service is temporarily down"
-      redirect_to :action => :welcome_signedin
-      return
-    end
+       if @purchase.save
+          File.delete("#{RAILS_ROOT}/public/service/purchases.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases.js")
+          File.delete("#{RAILS_ROOT}/public/service/retailers.js") if File.exist?("#{RAILS_ROOT}/public/service/retailers.js")
+          File.delete("#{RAILS_ROOT}/public/service/products.js") if File.exist?("#{RAILS_ROOT}/public/service/products.js")
+          File.delete("#{RAILS_ROOT}/public/service/categories.js") if File.exist?("#{RAILS_ROOT}/public/service/categories.js")
+       else
+          flash[:notice] = "service is temporarily down"
+          redirect_to :action => :welcome_signedin
+          return
+       end
 
     end
     
@@ -510,22 +514,19 @@ end
   
   def inform_consumer_by_sms
     
-    if @payer.pin
-      @purchase.expected_pin = @payer.pin
-      @purchase.authentication_type = "PIN"
-    else
-      @purchase.expected_pin = rand.to_s.last(4)
-      @purchase.authentication_type = "SMS"
-    end
-    
+  # Assumptiion: @purchase.expected_pin IS already there (populated by aaa)    
+
     if @purchase.authorization_type == "ManuallyAuthorized"
-      message = "Congrats! Your purchase of #{@purchase.product.title} has been approved. Your PIN: #{@purchase.expected_pin}"
+      if @purchase.authentication_type == "PIN"
+        message = "Congrats! Your purchase of #{@purchase.product.title} has been approved. Use your permanent PIN code!"
+      else
+        message = "Congrats! Your purchase of #{@purchase.product.title} has been approved. Your PIN: #{@purchase.expected_pin}"
+      end
     else
-      message = "Sorry, your purchase of #{@purchase.product.title} is not approved"
+      message = "We're Sorry. Your purchase of #{@purchase.product.title} is not approved."
     end
     
     consumer_phone = Consumer.find(@purchase.consumer_id).billing_phone
-        
    
     sms(consumer_phone, message)
   

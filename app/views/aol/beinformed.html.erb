@@ -3,7 +3,9 @@
 <div id="info" style="margin-top:10px">
 	<ul class="edgetoedge" style="height:15px;width:169px;margin:5px;margin-left:0;padding:3px;text-align:center;background-image:url('/images/heading_bg1.png');color:white;text-align:left;text-shadow: rgba(0,0,0,.2) 0 5px 3px;font-weight:100;font-size:14px;">Top Categories</ul>
 	<div id="categoryChart">
-		<div id="purchases_by_category"></div>
+		<div id="purchases_by_category">
+			<%= image_tag "/images/visualization_categories_fake.png" if !Current.policy.online? %>
+		</div>
 	</div>
 
 	<div id="lists" >
@@ -51,7 +53,9 @@
 </div>
 <ul class="rounded wide">
 	<li class="arrow"><%= link_to "Review all purchases", "purchases_all" %></li>
-</ul>	
+</ul>
+
+<% if Current.policy.online? %>	
     <script type="text/javascript">
       google.load("visualization", "1", {packages:["piechart"]});
       google.setOnLoadCallback(drawChart);
@@ -80,4 +84,4 @@
       });
 	  }
     </script>
-	
+<% end %>	

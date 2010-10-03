@@ -42,8 +42,10 @@ body {
 
 a#link_to_how {
 	position:absolute;
-	top:397px;
-	left:300px;
+	top:342px;
+	left:35px;
+	width: 304px;
+	height: 60px;
 	color:transparent;
 }
 

@@ -1,17 +1,46 @@
+$('#purchases').empty();
 
-$('#purchase_records').empty();
-$('#purchases_message').remove();
-$('#purchases .left_content').empty();
-$('#purchases_message').empty();
-
-
+$('#purchases').append(
+		'<table id="table">' +
+			'<thead>' +
+				'<tr>' +
+					'<th>Like</th>' +
+					'<th>Date</th>' +
+					'<th>Consumer</th>' +
+					'<th>Retailer</th>' +
+					'<th>Product</th>' +
+					'<th>Category</th>' +
+					'<th>Amount</th>' +
+					'<th>Authorized</th>' +
+					'<th>By</th>' +
+					'<th>Reason</th>' +
+					'<th>Authenticated</th>' +
+					'<th>By</th>' +
+					'<th>Dislike</th>' +
+				'</tr>' +				
+			'</thead>' +
+			'<tbody>' +
+			'</tbody>' +			
+		'</table>' +
+		'<div class="right_content purchases_list">' +
+			'<form>' +
+				'<div id="period">' +
+					'<input type="radio" id="radio1" name="radio" /><label for="radio1">Pending</label>' +
+					'<input type="radio" id="radio2" name="radio" /><label for="radio2">Unauthorized</label>' +
+					'<input type="radio" id="radio3" name="radio" /><label for="radio3">Authorized</label>' +
+					'<input type="radio" id="radio4" name="radio" checked="checked"/><label for="radio4">Just show everything</label>' +
+				'</div>' +
+		    '</form>' +
+		'</div>');
 
 <% if @purchases.empty? %>
 
+/*
 	$(function() {
 		$('#tabs').tabs('disable',4);
 	});
-		
+
+*/		
 
 <% else %>
 
@@ -68,6 +97,13 @@ $('#purchases_message').empty();
 	<% end %>
 
 
+
+<% end %>
+
+$(document).ready(function (){  
+
+	$('#period').buttonset();
+
 	pTable = $('#table').dataTable({
 		"bPaginate": true,
 		"bRetrieve": true,
@@ -77,14 +113,8 @@ $('#purchases_message').empty();
 	});
 
 
-
-	 $(function() {
-		$("#period").buttonset();
-	});
-
-
-	$('#period label').click(function () { 
-		var selection = $(this).children().first().html();
+	$("#period").change( function() {
+		var selection = $("#period input:checked").next('label').html();
 		if 		(selection == "Pending") {
 			pTable.fnFilter( 'PendingPayer' , 9, true, false, false);
 		}
@@ -182,18 +212,6 @@ $('#purchases_message').empty();
 		cell.innerHTML = aData[ aPos[1] ];
 	};
 
-/*
-		selector = "#tb_authorized_99";
-		selector = selector.replace("99", id);
-		var cell = $("<%= "#tb_authorized_#{@purchase.id}" %>").get(0);
-		var aPos = pTable.fnGetPosition( cell );
-		var aData = pTable.fnGetData( aPos[0] );
-		var img_tag = '<img border="0" src="/images/pic.png" alt="">';
-		var img_tag = img_tag.replace("pic", status);
-		aData[ aPos[1] ] = img_tag;
-
-
-*/
 
 
 	$(".pending.like").click(function() {
@@ -227,4 +245,5 @@ $('#purchases_message').empty();
 	};
 
 
-<% end %>
+
+});

@@ -40,6 +40,7 @@
 
 	function drawChart()
 	  {
+	<% if Current.policy.online? %>
 	  	var budget_with_currency = document.getElementById("budget").value;
 		var budget = Number(budget_with_currency.replace(/[^0-9\.]+/g,""));
 		var balance_with_currency = document.getElementById("balance").value;
@@ -49,6 +50,9 @@
 		var tick = ((budget / 40).toFixed(1))*10;	
 		var background = "chf=c,lg,90,FFE7C6,0,76A4FB,0.5" 	
 		var uri = "http://chart.apis.google.com/chart?cht=gom&chs=280x100&chf=bg,lg,90,EFEFEF,0,666666,0.75&chxt=y&chd=t:"+ balance_position+"&chl=Balance&chxr=0,0," + budget + "," + tick;
+	<% else %>
+		var uri = "/images/visualization_balance_fake.png";	
+	<% end %>
 	  	document.getElementById("chartdiv").src=uri;
 
 

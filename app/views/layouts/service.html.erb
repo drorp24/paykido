@@ -41,7 +41,7 @@
 	<% end -%>
 	
 	<% if params[:action] != 'index' and session[:user] and session[:user].name %>
-		<span class="login" id="signedin">Welcome <%= session[:user].name %></span>
+		<span class="login" id="signedin">Welcome <%= if session[:payer].name? then session[:payer].name else session[:user].name end %></span>
 		<%= link_to "Sign Out", "/service/signout", :class => "login", :id => "signout" %>
 	<% else %>		
 		<%= link_to "Sign In", "/service/signin", :class => "login", :id => "signin" %>

@@ -15,15 +15,15 @@ class Payer < ActiveRecord::Base
   
   attr_accessor :password_confirmation
   
-  validates_numericality_of :phone, :allow_nil => true
-  validates_length_of :phone, :is => 10, :allow_nil => true
+#  validates_numericality_of :phone, :allow_nil => true
+#  validates_length_of :phone, :is => 10, :allow_nil => true
   
   def phone_alert_human
     (self.phone_alert) ?"Off":"On"                                        #reversed for color...
   end
   
   def phone_alert_human=(value)
-    (value == "On") ?self.phone_alert = false :self.phone_alert = true    #reversed for color...
+    if value == "On" then self.phone_alert = false else self.phone_alert = true end   #reversed for color...
   end    
     
   def email_alert_human
@@ -31,7 +31,7 @@ class Payer < ActiveRecord::Base
   end
   
   def email_alert_human=(value)
-    (value == "On") ?self.email_alert = false :self.email_alert = true    #reversed for color...
+    if value == "On" then self.email_alert = false else self.email_alert = true end  #reversed for color...
   end    
 
   def self.phone_alert_frequency

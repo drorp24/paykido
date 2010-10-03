@@ -328,7 +328,6 @@ end
         @purchase.authorized = true
       else
         @purchase.authorization_type = "PendingPayer"
-        manually_authorize(@payer.phone, @retailer.name, @product.title, @product.price)
         @purchase.authorized = false
       end
 
@@ -344,8 +343,7 @@ end
   def save_purchase
     
     if @purchase.save
-        File.delete("#{RAILS_ROOT}/public/service/purchase/#{@purchase.id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchase/#{@purchase.id}.js")
-        File.delete("#{RAILS_ROOT}/public/service/purchases_all/Just show everything.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases_all/Just show everything.js")
+        File.delete("#{RAILS_ROOT}/public/service/purchases.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases.js")
         File.delete("#{RAILS_ROOT}/public/service/retailers.js") if File.exist?("#{RAILS_ROOT}/public/service/retailers.js")
         File.delete("#{RAILS_ROOT}/public/service/products.js") if File.exist?("#{RAILS_ROOT}/public/service/products.js")
         File.delete("#{RAILS_ROOT}/public/service/categories.js") if File.exist?("#{RAILS_ROOT}/public/service/categories.js")
@@ -355,27 +353,21 @@ end
     
   end
   
-  def manually_authorize(phone, retailer, product, price)
-#    authorization_method = "sms"
-#    sms_message = "need your approval for #{retailer} #{product} #{price}"
-#    sms(phone, sms_message)if authorization_method == "sms"
-  end
-    
-  
   def send_sms_to_consumer
     
+    if Current.policy.send_sms?
       sms_phone = @consumer.billing_phone
       sms_message = "Thank you for using arca! your PIN code is: #{session[:expected_pin]}"
       sms(sms_phone,sms_message)
+    end
       
-  end
-        
+  end        
   
   def sms(phone, message)
 
     api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
     begin
-#      api.send_message(phone, message)
+      api.send_message(phone, message)
     rescue Clickatell::API::Error
       @status = "Oops... can't locate that phone."
       @message = "Would you check the number and try again"

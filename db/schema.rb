@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100711072443) do
+ActiveRecord::Schema.define(:version => 20100928230330) do
 
   create_table "billings", :force => true do |t|
     t.string   "method",     :null => false
@@ -32,6 +32,14 @@ ActiveRecord::Schema.define(:version => 20100711072443) do
     t.datetime "updated_at"
   end
 
+  create_table "configs", :force => true do |t|
+    t.boolean  "check_pendings"
+    t.boolean  "send_sms"
+    t.boolean  "online"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "consumers", :force => true do |t|
     t.string   "payer_id",      :null => false
     t.string   "billing_phone"
@@ -44,6 +52,14 @@ ActiveRecord::Schema.define(:version => 20100711072443) do
   end
 
   add_index "consumers", ["billing_phone"], :name => "index_consumers_on_billing_phone"
+
+  create_table "currents", :force => true do |t|
+    t.boolean  "check_pendings"
+    t.boolean  "send_sms"
+    t.boolean  "online"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "items", :force => true do |t|
     t.string   "retailer_id", :null => false

@@ -1,0 +1,13 @@
+<% if flash[:notice] -%>
+	
+	$('#head').append(
+		'<div class="ui-widget message">' +
+	    	'<div id="notice" class="ui-state-error ui-corner-all">' +
+	    		'<p>' +
+	    			'<span class="flash_symbol ui-icon ui-icon-alert"></span>' +
+					'<span class="flash_text"><%= error_messages_for :payer %>.</span>' +
+	    		'</p>' +
+			'</div>' +
+		'</div>');
+		
+<% end -%>

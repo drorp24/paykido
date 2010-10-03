@@ -15,10 +15,7 @@ class ServiceController < ApplicationController
   caches_page :retailer
   caches_page :product
   caches_page :category
-  caches_page :pending
-  caches_page :purchase
   caches_page :purchases
-  caches_page :purchases_all
 
   def joinin
 
@@ -157,67 +154,37 @@ class ServiceController < ApplicationController
     
 #  end
   
-    def purchases
-    
-    @purchases = select_purchases(session[:purchases], params[:id], params[:ent], params[:ent_id]) #params[:id] is actuallu the period
-    
-    respond_to do |format|  
-      format.html { redirect_to :action => 'JP' }  
-      format.js  
-    end
-    
-  end
   
-  def purchases_all
+  def purchases
     
     @purchases = session[:purchases]
+    
+    unless params[:id] == "all"
+      par = params[:id].split("_")
+      @purchases = select_purchases(par[0], par[1])
+    end
 
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
-      format.json { render :layout => false ,
-                    :json => @purchases.to_json }
       format.js
     end
     
+  end
     
+  def select_purchases(ent, id)
+    
+    if ent == "consumer"
+      session[:purchases].select {|purchase| purchase.consumer_id == id.to_i}
+    elsif ent == "retailer"
+      session[:purchases].select {|purchase| purchase.retailer_id == id.to_i}
+    elsif ent == "product"
+      session[:purchases].select {|purchase| purchase.product_id == id.to_i}
+    elsif ent == "category"
+      session[:purchases].select {|purchase| purchase.category_id == id}
+    end    
+        
   end
   
-  def select_purchases(purchases, period, ent, id)
-    
-   
-    if period == "Pending"
-      purchases.select{|purchase| purchase.authorization_type == "PendingPayer"}
-    elsif period == "Last week"
-      curr_week = Time.now.strftime("%W")
-      purchases.select{|purchase| purchase.authorized? and purchase.date.to_date > 1.week.ago.to_date}
-    elsif period == "Last month"
-      curr_month = Time.now.strftime("%m")
-      purchases.select{|purchase| purchase.authorized? and purchase.date.to_date > 1.month.ago.to_date}
-    else
-      purchases
-    end
-    
-  end
-  
-  def count_purchases(purchases)
-    
-    session[:pending_cnt] = session[:last_week_cnt] = session[:last_month_cnt] = 0
-    purchases.each do |purchase|
-      if purchase.authorization_type == "PendingPayer"
-        session[:pending_cnt] += 1
-      elsif purchase.authorized? and purchase.date.to_date > 1.week.ago.to_date
-        session[:last_week_cnt] += 1
-      elsif purchase.authorized? and purchase.date.to_date > 1.month.ago.to_date
-        session[:last_month_cnt] += 1
-      end
-    end
-            
-  end
-  
-  def find_max_records
-    [@consumers.size, @retailers.size, @products.size, @categories.size, session[:pending_cnt], session[:last_week_cnt], session[:last_month_cnt]].max
-  end
-
   def payer_signedin
     
 #    unless session[:same_as_last_payer]       # doesnt help a bit
@@ -244,10 +211,9 @@ class ServiceController < ApplicationController
         session[:purchases] = @purchases
 #       session[:purchase] = (@purchases.empty?) ?nil :@purchases[0]
 
-        count_purchases(@purchases)         
-        @max_records = find_max_records
+        @max_records = [@consumers.size, @retailers.size, @products.size, @purchases.size].max
         
-
+  
 #    end
 
     
@@ -301,17 +267,12 @@ end
     
   end
 
-#  def sort_pendings
-    
-#    @pendings.sort! {|x,y| y.date <=> x.date }
-    
-#  end
   def sort_purchases
     
     @purchases.sort! {|x,y| y.date <=> x.date }
     
   end
-  
+    
   def consumer
 
     find_consumer
@@ -382,9 +343,13 @@ end
   def rename_consumer
     
     find_consumer
-    @consumer.update_attributes!(:name => params[:name])
-    expire_page :action => "consumer", :id => @consumer.id
-    expire_page :action => "consumers", :id => 0
+    if @consumer.update_attributes(:name => params[:name])
+      session[:consumer] = @consumer
+      expire_page :action => "consumer", :id => @consumer.id
+      expire_page :action => "consumers", :id => 0
+    else
+      flash[:notice] = "Invalid... please try again!"
+    end
     
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
@@ -396,8 +361,24 @@ end
   def consumer_rules_update
     
     find_consumer 
-    @consumer.update_attributes!(params[:consumer]) if params[:consumer] and @consumer.balance != params[:consumer][:balance]
-    @payer_rule.update_attributes!(params[:payer_rule]) 
+    if params[:consumer] 
+      if @consumer.update_attributes(params[:consumer]) 
+        session[:consumer] = @consumer
+      else
+        flash[:notice] = "Invalid... please try again!"
+        return
+      end
+    end
+      
+    if params[:payer_rule]
+      if @payer_rule.update_attributes(params[:payer_rule])
+        session[:payer_rule] = @payer_rule
+      else
+        flash[:notice] = "Invalid... please try again!"
+        return
+      end
+    end
+
     expire_page :action => "consumer", :id => @consumer.id
     expire_page :action => "consumers", :id => 0
     
@@ -411,9 +392,15 @@ end
   def consumer_info_update
     
     find_consumer 
-    @consumer.update_attributes!(params[:consumer]) if params[:consumer] 
-    expire_page :action => "consumer", :id => @consumer.id
-    expire_page :action => "consumers", :id => 0
+    if params[:consumer]
+      if @consumer.update_attributes(params[:consumer])
+        session[:consumer] = @consumer
+        expire_page :action => "consumer", :id => @consumer.id
+        expire_page :action => "consumers", :id => 0
+      else
+        flash[:notice] = "Invalid... please try again!"
+      end
+    end
     
     respond_to do |format|        # To enable the file upload, this is the only Service activity that's not done by Ajax!
       format.html { redirect_to :action => :payer_signedin }  
@@ -424,16 +411,35 @@ end
 
   def payment_update
     
-    unless @payer.update_attributes(params[:payer])
+    if @payer.update_attributes(params[:payer])
+      session[:payer] = @payer
+    else
       flash[:notice] = "Invalid... please try again!"
     end
     
     respond_to do |format|  
-      format.html { redirect_to :action => 'index' }  
+      format.html { redirect_to :action => 'payer_signedin' }  
       format.js  
     end
     
   end
+  
+  def rename_payer
+
+    if @payer.update_attributes(:name => params[:id])
+      session[:payer] = @payer
+      expire_page :action => "consumers", :id => 0
+    else
+      flash[:notice] = "Invalid... please try again!"
+    end
+    
+    respond_to do |format|  
+      format.html { redirect_to :action => 'JP' }  
+      format.js  
+    end
+    
+   end
+
   
   def rlist_update
     
@@ -496,14 +502,20 @@ end
        @purchase.authorization_type = params[:new_status]
        @purchase.authorization_date = Time.now 
       
-       inform_consumer_by_sms
+       if Current.policy.send_sms? 
+        begin
+          inform_consumer_by_sms
+        rescue
+          flash[:notice] = "We're sorry. SMS service is down at the moment!"
+          return    
+        end
+       end
      
        if @purchase.save
-         expire_page :action => "purchase", :id => @purchase.id 
-         expire_page :action => "purchases", :id => "Pending" 
-         expire_page :action => "purchases", :id => "Last week"
-         expire_page :action => "purchases", :id => "Last month"
-         expire_page :action => "purchases_all", :id => "Just show everything" 
+         expire_page :action => "purchases"
+         expire_page :action => "retailers"
+         expire_page :action => "products"
+         expire_page :action => "categories"
        else
          flash[:notice] = "service is temporarily down. Please hold for a few moments"
        end
@@ -519,20 +531,18 @@ end
     
    def inform_consumer_by_sms
     
-    if @payer.pin
-      @purchase.expected_pin = @payer.pin
-      @purchase.authentication_type = "PIN"
-    else
-      @purchase.expected_pin = rand.to_s.last(4)
-      @purchase.authentication_type = "SMS"
-    end
+  # Assumptiion: @purchase.expected_pin IS already there (populated by aaa)    
     
     if @purchase.authorization_type == "ManuallyAuthorized"
-      message = "Congrats! Your purchase of #{@purchase.product.title} has been approved. Your PIN: #{@purchase.expected_pin}"
+      if @purchase.authentication_type == "PIN"
+        message = "Congrats! Your purchase of #{@purchase.product.title} has been approved. Use your permanent PIN code!"
+      else
+        message = "Congrats! Your purchase of #{@purchase.product.title} has been approved. Your PIN: #{@purchase.expected_pin}"
+      end
     else
-      message = "Sorry, your purchase of #{@purchase.product.title} is not approved"
+      message = "We're Sorry. Your purchase of #{@purchase.product.title} is not approved."
     end
-    
+     
     consumer_phone = Consumer.find(@purchase.consumer_id).billing_phone
         
     sms(consumer_phone, message)
@@ -580,7 +590,7 @@ end
       session[:expected_pin] = rand.to_s.last(4)
  
       begin
-        sms(@consumer.billing_phone,"Welcome to arca. Your PIN code is: #{session[:expected_pin]}")
+        sms(@consumer.billing_phone,"Welcome to arca. Your PIN code is: #{session[:expected_pin]}") if Current.policy.send_sms?
       rescue Clickatell::API::Error
         flash[:notice] = "Can't locate phone. Please check the number"
       else
@@ -610,8 +620,8 @@ end
   
   def sms(phone, message)
 
-#    api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
-#    api.send_message(phone, message)
+    api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
+    api.send_message(phone, message)
     
   end
    
@@ -888,10 +898,7 @@ end
     expire_page :action => "retailers"
     expire_page :action => "products"
     expire_page :action => "categories"
-    expire_page :action => "purchases", :id => "Pending"
-    expire_page :action => "purchases", :id => "Last Week"
-    expire_page :action => "purchases", :id => "Last Month"
-    expire_page :action => "purchases_all", :id => "Just show everything"
+    expire_page :action => "purchases"
     session[:consumers].each{|consumer| expire_page :action => :consumer, :id => consumer.id}  if session[:consumers]
     session[:retailers].each{|retailer| expire_page :action => :retailer, :id => retailer.id}  if session[:retailers]
     session[:products].each{|product| expire_page :action => :product, :id => product.id}      if session[:products]

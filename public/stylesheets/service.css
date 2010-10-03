@@ -1,3 +1,46 @@
+.pic-in-tab.logo-in-tab {
+	position: absolute;
+	left: 202px;
+	top: 5px;
+	height: 30px;
+	width: 102px;
+}
+
+.content-name-right {
+	z-index: 1000000;
+}
+
+#purchases_tab {
+	width: 310px;
+}
+
+.pic-in-tab {
+	height: 64px;
+	position: absolute;
+	top: -25px;
+	left: 244px;
+	float: right;
+	border: none;
+	
+}
+
+.tab-text {
+	margin-top:0px;
+	position: absolute;
+	top: -19px;
+}
+
+#payer_name {
+	font-family: "Arial Rounded MT Bold";
+	font-size: 20px;
+	color: #004488;
+	text-align: left;
+	border: none;
+	background: none;
+	width: 400px;
+}
+
+
 .chart_text {
 	position: absolute;
 	top: 88px;
@@ -253,12 +296,12 @@ tr.odd td.authorized_cell.really {
 */
 }
 
-#alerts, #alerts_tab, #other_tab, #new_tab, #allowance_tab, #thresholds_tab, #info_tab {
+#alerts, #alerts_tab, #billing_tab, #account_tab, #new_tab, #allowance_tab, #thresholds_tab, #info_tab {
 	padding-bottom: 0;
 	font-size: 16px;
 }
 
-#account_tabs, #consumers_tabs {
+#preferences_tabs, #consumers_tabs {
 	height: 30px;
 	
 }
@@ -291,7 +334,7 @@ tr.odd td.authorized_cell.really {
 
 .consumer_pic {
 	position: absolute;
-	top:142px;
+	top:152px;
 	left:454px;
 	height: 229px;
 		-moz-border-radius:4px;
@@ -412,7 +455,7 @@ tr.odd td.authorized_cell.really {
 	margin-top: 5px;
 }
 .portlet-header input {
-	background-color:transparent;
+	background: none;
 	width:130px;
 	border: none;
 	color: white;
@@ -461,7 +504,7 @@ tr.odd td.authorized_cell.really {
 	background-color: #FFFEEE;
 }
 
-select:hover, input:hover {
+select:hover, input:hover, #payer_name:hover {
 	color:#F28D3A;
 	
 }
@@ -898,7 +941,7 @@ a.login:hover {
 #signedin {
     position: absolute;
     top: 41px;
-    left: 493px;
+    left: 483px;
 }
 
 #signout {
@@ -1278,21 +1321,21 @@ h2 {
     text-decoration: line-through;
 }
 
-/*
+
 .fieldWithErrors {
     border: 1px solid #b81900;
 	height:10px;
     display: table;
 }
 
-*/
+
 #errorExplanation {
     width: 400px;
     border: 2px solid #b81900;
     padding: 7px;
     padding-bottom: 12px;
     margin-bottom: 20px;
-    background-color: #f0f0f0;
+    background-color: #E14F1C;
 }
 
 #errorExplanation h2 {

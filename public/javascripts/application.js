@@ -23,6 +23,7 @@ $(document).ready(function (){
 	$('#email_alert_form').submitWithAjax();
 	$('#consumer_form').submitWithAjax();
 	$('#consumer_info_form').submitWithAjax();
+	$('#community_form').submitWithAjax();
 	$('#other_form').submitWithAjax();
 	
 
@@ -50,7 +51,7 @@ $(document).ready(function (){
 			});
 		});
 		$(function() {
-			$("#tabs, #consumers_tabs, #account_tabs").tabs().find(".ui-tabs-nav").sortable({axis:'x'});
+			$("#tabs, #consumers_tabs, #preferences_tabs").tabs().find(".ui-tabs-nav").sortable({axis:'x'});
 			$("#consumers_tabs").tabs("select", 0);
 		});
 	
@@ -66,6 +67,15 @@ $(document).ready(function (){
 
 		$(function() {
 			$(".buttonset").buttonset();
+		});
+		
+		$("#tabs").tabs({
+			select: function(event, ui){
+				if (ui.index != 4) {
+				$('#payer-in-tab').html($('#payer_name').val());
+				$('.pic-in-tab').attr('style', 'display: none;');
+				viewPurchases("all");}
+			}
 		});
 		
 

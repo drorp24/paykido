@@ -10,7 +10,7 @@
 
 	<div id="tabs-1">
 
-
+<% if Current.policy.online? %>	
 	    <script type="text/javascript">
 	      google.load("visualization", "1", {packages:["piechart"]});
 	      google.setOnLoadCallback(drawChart);
@@ -39,9 +39,11 @@
 	      });
 		  }
 	    </script>
-	
+<% end %>	
 		<div class="chart_container">
-			<div id="purchases_by_category" class="chart"></div>
+			<div id="purchases_by_category" class="chart">
+				<%= image_tag "/images/visualization_revByCategory_fake.png" if !Current.policy.online? %>
+			</div>
 		</div>
 		<div class="chart_text">
 			<div class="chart_text_title">
@@ -55,7 +57,7 @@
 
 
 	<div id="tabs-2">
-		<% if @sales.size > 0 %>
+		<% if @sales.size > 0 and Current.policy.online? %>
 		    <script type="text/javascript">
 		      google.load('visualization', '1', {'packages':['motionchart']});
 		      google.setOnLoadCallback(drawChart);
@@ -85,7 +87,9 @@
 		<% end %>
 	
 		<div class="chart_container">
-			<div id="chart_div" class="chart"></div>
+			<div id="chart_div" class="chart">
+				<%= image_tag "/images/visualization_sales_fake.png" if !Current.policy.online? %>
+			</div>
 		</div>
 		<div class="chart_text">
 			<div class="chart_text_title">

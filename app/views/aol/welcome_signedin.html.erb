@@ -1,4 +1,8 @@
-<% title "Hi #{@user.name}" %>
+<% if @payer.name? %>
+	<% title @payer.name %>
+<% else %>
+	<% title "Hi #{@user.name}" %>
+<% end %>
 
 
 	<ul class="rounded" id="iconized_menu">
@@ -41,12 +45,11 @@
 		<%= image_tag  "/images/new_purchase_requests2.png" %>		
 	</div>
 
+
     <script type="text/javascript" charset="utf-8">
 
     function waitForMsg(){
 		
-        /* This requests the url "msgsrv.php"
-        When it complete (or errors)*/
         $.ajax({
             type: "GET",
             url: "check_for_new_pendings",
@@ -71,14 +74,15 @@
     };
 
 
- /*
+
    $(document).ready(function(){
         
+	<% if Current.policy.check_pendings? %>
 	   	waitForMsg(); /* Start the inital request */
+	<% end %>
 
 });
 
-*/
+
 
     </script>
- 

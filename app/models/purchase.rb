@@ -184,7 +184,7 @@ class Purchase < ActiveRecord::Base
   def self.payer_purchases_all_the_works(payer_id)
     self.find_all_by_payer_id(payer_id, 
                :joins  =>      "inner join products on purchases.product_id = products.id inner join categories on products.category_id = categories.id inner join consumers on purchases.consumer_id = consumers.id inner join retailers on purchases.retailer_id = retailers.id",
-               :select =>      "purchases.id, consumers.name as consumer_name, retailers.name as retailer_name, retailers.logo as retailer_logo, products.title as product_title, categories.name as category_name, amount, date, authentication_type, authentication_date, authorized, authorization_type, authorization_date, location",
+               :select =>      "purchases.id, consumers.id as consumer_id, consumers.name as consumer_name, retailers.id as retailer_id, retailers.name as retailer_name, retailers.logo as retailer_logo, products.id as product_id, products.title as product_title, categories.id as category_id, categories.name as category_name, amount, date, authentication_type, authentication_date, authorized, authorization_type, authorization_date, location",
                :order =>       "date desc")
 
   end

@@ -78,6 +78,7 @@
 
 	function drawChart(){
 
+	<% if Current.policy.online? %>
 		var budget_with_currency = document.getElementById("budget").value;
 		var budget = Number(budget_with_currency.replace(/[^0-9\.]+/g, ""));
 		var balance_with_currency = document.getElementById("balance").value;
@@ -91,6 +92,9 @@
 		var tick = ((budget / 40).toFixed(1)) * 10;
 		var background = "chf=c,lg,90,FFE7C6,0,76A4FB,0.5"
 		var uri = "http://chart.apis.google.com/chart?cht=gom&chs=300x110&chf=bg,lg,90,FFFEE0,0,FFFFF5,0.75&chxt=y&chd=t:" + balance_position + "&chl=Balance&chxr=0,0," + budget + "," + tick;
+	<% else %>
+		var uri = "/images/google_visualization_fake_service.png";	
+	<% end %>
 		document.getElementById("chartdiv").src = uri;
 
 	}
@@ -187,6 +191,7 @@
 		})
 	};
 	
+	
 
 /*	Populate tabs by calling ajax  */
 
@@ -204,8 +209,14 @@
 		<li><a href="#retailers">Retailers</a></li>
 		<li><a href="#products">Products</a></li>
 		<li><a href="#categories">Categories</a></li>
-		<li><a href="#purchases">Purchases</a></li>
-		<li><a href="#account">Contacts</a></li>
+		<li id="purchases_tab">
+			<a href="#purchases">
+				<span id="payer-in-tab"><%= @payer.name + "'s&nbsp;" if @payer.name? %></span>
+				Purchases
+				<%= image_tag "face_placeholder_small.png", :style=>"display: none;", :class => "pic-in-tab" %>
+			</a>
+		</li>
+		<li><a href="#preferences">Preferences</a></li>
 	</ul>
 
 
@@ -328,46 +339,14 @@
 	</div>
 
 	<div id="purchases">
-		<table id="table">
-			<thead>
-				<tr>
-					<th>Like</th>
-					<th>Date</th>
-					<th>Consumer</th>
-					<th>Retailer</th>
-					<th>Product</th>
-					<th>Category</th>
-					<th>Amount</th>
-					<th>Authorized</th>
-					<th>By</th>
-					<th>Reason</th>
-					<th>Authenticated</th>
-					<th>By</th>
-					<th>Dislike</th>
-				</tr>				
-			</thead>
-			<tbody>
-			</tbody>			
-		</table>
-		<div class="left_content"></div>
-		<div class="right_content purchases_list">
-			<form>
-				<div id="period">
-					<input type="radio" id="radio1" name="radio" checked="checked" /><label for="radio1">Pending</label>
-					<input type="radio" id="radio2" name="radio" /><label for="radio2">Unauthorized</label>
-					<input type="radio" id="radio3" name="radio" /><label for="radio3">Authorized</label>
-					<input type="radio" id="radio4" name="radio" /><label for="radio4">Just show everything</label>
-				</div>
-		    </form>
-			<div id="purchase_records"></div>
-		</div>
 	</div>
 
-	<div id="account">
-		<div id="account_tabs">
+	<div id="preferences">
+		<div id="preferences_tabs">
 			<ul id="no_tabs_background">
-				<li><a href="#alerts" id="alerts_tab">Alerts</a></li>
-				<li><a href="#other" id ="other_tab">Other</a></li>
+				<li><a href="#alerts" id="alerts_tab">Alerts & Reports</a></li>
+				<li><a href="#billing" id ="billing_tab">Billing</a></li>
+				<li><a href="#account" id ="account_tab">Account</a></li>
 			</ul>
 			<div id="alerts">
 				<div class="left_content">
@@ -465,10 +444,9 @@
 					<% end %>
 				</div>
 			</div>
-			<div id="other">
-				<% form_for :payer, :url => { :action => :payment_update }, :html => {:id => "other_form"} do |f| %>
-					<%= f.text_field(:pin, :onchange => "$('#other_form').submit();", :class => "value borderless"  )%>
-				<% end %>
+			<div id="billing">
+			</div>
+			<div id="account">
 			</div>
 		</div>
 	</div>
@@ -555,21 +533,16 @@
 		
 	};
 	
-	function viewPurchases(id, ent, period){
-		if   (period == "Just show everything") 
-			 {action = "purchases_all/"} 
-		else {action = "purchases/"}; 
-		$.ajax({
-				url: action + period + '?ent=' + ent + '&ent_id=' + id,
-				success: function(data){
-				}})
-		};
+	function viewPurchases(param){
+			$.ajax({
+					url: "purchases/" + param,
+					success: function(data){
+					}
+			})				
+	};
+
 	
-		
-/*
-	viewPurchases(null, null, "Pending");
-*/
-	viewPurchases(null, null, "Just show everything");
+	viewPurchases("all");
 	viewPhoneAlert (<%= @payer.phone_alert %>);	
 	viewEmailAlert (<%= @payer.email_alert %>);
 	setTabHeight(<%= @max_records %>);

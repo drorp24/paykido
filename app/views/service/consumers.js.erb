@@ -55,7 +55,8 @@ $('#cheerful_message').fadeOut(10000);
 <% else %>
 	$('.consumers_list').append(	
 		'<p class="inner_content_title" id="consumers">&nbsp;</p>' +
-		'<p class="content-name-right" id="consumers">Consumer community</p>'+		
+		'<% form_for :payer, :url => { :action => :payment_update }, :html => {:id => "community_form"}  do |f| %>'+
+		'<p class="content-name-right" id="consumers"><%= f.text_field :name, :onchange => escape_javascript("renameCommunity($(this).val())") %></p><% end %>'+		
 		'<% form_for :consumers, :url => { :action => :consumer_update }, :html => {:id => "consumer_form"}  do |f| %>'+
 		'<div class="column1 sortable ui-sortable" ></div>' +
 		'<div class="column2 sortable ui-sortable" ></div>');
@@ -107,7 +108,18 @@ $('#cheerful_message').fadeOut(10000);
 	
 <% end %>
 	
-$(function() {
+	function renameCommunity(name) {
+		$(".content-name-right input:text").val(name);
+		$("#signedin").html("Welcome " + name);
+		$("#payer-in-tab").html(name + "'s&nbsp;");
+			$.ajax({
+				url: 'rename_payer/' + name,
+				success: function(data){
+				}			
+			})
+		};
+
+$(document).ready(function (){  
 	$('#consumer_form .column1').sortable({
 		connectWith: '#consumer_form .column2'
 	});
@@ -123,7 +135,36 @@ $(function() {
 	});
 	
 	$("#consumer_form .column1").disableSelection();
-});
+	
+
+	$(".portlet").draggable({
+			cursor: "move",
+			cursorAt: { top: 10, left: 10 },
+			helper: function( event ) {
+				return $( $(this).find('.portlet-content-left').html());
+			},
+			stop: function( event, ui ) {
+				if ($(this).find('input').length) {
+				    $('#payer-in-tab').html($(this).find('input').val() + "'s");
+				}
+				else { 
+				    $('#payer-in-tab').html($(this).find('.portlet-header').contents().filter(function() {return this.nodeType == 3}).text());
+					$('.pic-in-tab').addClass('logo-in-tab');
+				}
+				$('.pic-in-tab').attr('style', 'display: inline;');
+				if ($(this).find('img').length) {
+				    $('.pic-in-tab').attr('src', $(this).find('img').attr('src'));
+				}
+				else {
+				    $('.pic-in-tab').attr('style', 'display: none');
+				}
+				$("#tabs").tabs("select", 4);
+				viewPurchases($(this).find('.portlet-header').attr("id"));
+			}
+	});
+
+	$("#purchases_tab").droppable();
+
 
 	$('.consumer.portlet-header').click(function () { 
 		
@@ -131,4 +172,10 @@ $(function() {
 		
 	 });
 	 
-	$("input[value='']").val("(name here)");	
+
+	$(".content-name-right input:text[value='']").val("Your Community (what's your name?)");
+	$(".consumer input:text[value='']").val("(name me)");
+
+	
+
+});		
