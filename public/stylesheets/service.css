@@ -2,8 +2,8 @@
 	position: absolute;
 	left: 202px;
 	top: 5px;
-	height: 30px;
-	width: 102px;
+	height: 25px;
+	width: 100px;
 }
 
 .content-name-right {
@@ -17,7 +17,7 @@
 .pic-in-tab {
 	height: 64px;
 	position: absolute;
-	top: -25px;
+	top: -27px;
 	left: 244px;
 	float: right;
 	border: none;
@@ -85,6 +85,7 @@
 		border: 1px inset #FFFFF5;
 	border-right: 1px solid #DDDDDD;
 	border-bottom: 1px solid #DDDDDD;
+	width: 235px;
 
 }
 
@@ -1045,7 +1046,7 @@ a.login:hover {
     margin-top: 10px;
 }
 
-#tabs {
+#payer_tabs, #retailer_tabs {
     width: 1157px;
     height: 530px;
     margin-left: 3.5px;

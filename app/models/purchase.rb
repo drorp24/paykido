@@ -14,13 +14,14 @@ class Purchase < ActiveRecord::Base
   
 #  attr_accessor :authorization_date, :authorization_type
     
+  
   def self.pending_amt(payer_id)
     self.sum(:amount, :conditions => ["payer_id = ? and authorization_type = ?", payer_id, "PendingPayer"]) 
   end
   
   def self.pending_trxs(payer_id)
     self.find_all_by_payer_id(payer_id, 
-      :conditions => ["authorization_type = ?", "PendingPayer"],
+      :conditions => ["authorization_type = ? and consumer_id != ?", "PendingPayer", "null" ],
       :order => "date desc")
   end
   
@@ -32,7 +33,7 @@ class Purchase < ActiveRecord::Base
   end
   
   def self.pending_count(payer_id)
-    self.count :conditions => ["payer_id = ? and authorization_type = ?", payer_id, "PendingPayer"]
+    self.count :conditions => ["payer_id = ? and authorization_type = ? and consumer_id != ?", payer_id, "PendingPayer", "null"]
   end
   
   def self.by_product_id(payer_id, product_id)

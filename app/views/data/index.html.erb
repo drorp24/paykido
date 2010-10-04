@@ -1,3 +1,23 @@
+<% form_for :consumer, :url => {:action => :delete_consumer_by_id} do  |f| %>
+
+	<p>Delete consumer and related purchases by consumer id</p>
+	<p>Phone number: <%= f.text_field :id %></p>
+	<p><%= submit_tag %></p>
+
+<% end %>
+
+<br /><br /><br /><br />
+
+<% form_for :consumer, :url => {:action => :delete_consumer} do  |f| %>
+
+	<p>Delete consumer and related purchases by phone number</p>
+	<p>Phone number: <%= f.text_field :billing_phone %></p>
+	<p><%= submit_tag %></p>
+
+<% end %>
+
+<br /><br /><br /><br />
+
 <% form_for :purchase, :url => {:action => :populate_retailers} do  |f| %>
 
 	<p>Populate different retailers</p>

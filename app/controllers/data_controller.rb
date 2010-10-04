@@ -1,5 +1,31 @@
 class DataController < ApplicationController
   
+def delete_consumer_by_id
+    
+  
+  Purchase.delete_all(["consumer_id = ?", params[:consumer][:id]]) 
+  
+  Consumer.delete(params[:consumer][:id])
+
+  redirect_to :action => 'index'
+  
+end
+
+
+def delete_consumer
+  
+  consumer = Consumer.find_by_billing_phone(params[:consumer][:billing_phone])
+  for purchase in Purchase.find_by_consumer_id(consumer.id)
+    purchase.delete!
+  end
+  
+  consumer.delete!
+
+  redirect_to :action => 'index'
+  
+end
+
+
 def populate_retailers
   
   i = 1

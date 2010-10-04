@@ -203,7 +203,7 @@
 </script>
 
 
-<div id="tabs">
+<div id="payer_tabs">
 	<ul>
 		<li><a href="#consumers">Consumers</a></li>
 		<li><a href="#retailers">Retailers</a></li>
@@ -211,7 +211,7 @@
 		<li><a href="#categories">Categories</a></li>
 		<li id="purchases_tab">
 			<a href="#purchases">
-				<span id="payer-in-tab"><%= @payer.name + "'s&nbsp;" if @payer.name? %></span>
+				<span id="payer-in-tab"><%= (@payer.name) ?@payer.name.first(14) :"Your Community" %></span>
 				Purchases
 				<%= image_tag "face_placeholder_small.png", :style=>"display: none;", :class => "pic-in-tab" %>
 			</a>
@@ -502,7 +502,7 @@
 		var height = top_padding + (lines * portlet_height);
 		
 		if (height > 530) {
-			$('#tabs').css('height', height);
+			$('#payer_tabs').css('height', height);
 		}
 		
 	};

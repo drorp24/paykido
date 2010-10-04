@@ -3,3 +3,4 @@ log/*.log
 tmp/**/*
 *.tmp*
 app/views/payers/.tmp*
+*.js

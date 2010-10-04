@@ -543,9 +543,10 @@ end
       message = "We're Sorry. Your purchase of #{@purchase.product.title} is not approved."
     end
      
-    consumer_phone = Consumer.find(@purchase.consumer_id).billing_phone
-        
-    sms(consumer_phone, message)
+    if @purchase.consumer_id        # possible only in test mode: pending purchase refers to a consumer once existed and since deleted
+      consumer_phone = Consumer.find(@purchase.consumer_id).billing_phone        
+      sms(consumer_phone, message)
+    end
   end   
     
 

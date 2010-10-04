@@ -127,7 +127,7 @@ class AolController < ApplicationController
     @use_jqt = "no"
     @back_to = "/aol/select_consumer/rules_menu"
     @back_class = "like_back"    
-    @help_to = "rules_help"
+    @help_to = "/aol/rules_help"
     
     if params and params[:id]
       @consumer = Consumer.find(params[:id])
@@ -157,6 +157,9 @@ class AolController < ApplicationController
   
   def rules_help
     
+    @back_to = "/aol/rules_menu"
+    @back_class = "like_back"
+    
   end
   
   def involved_help
@@ -168,7 +171,7 @@ class AolController < ApplicationController
   
   def sms_prefs
     
-  @back_to = "rules_menu"
+  @back_to = "/aol/rules_menu"
   @back_class = "like_back"
    
   end
@@ -187,7 +190,7 @@ class AolController < ApplicationController
   
   def email_prefs
     
-  @back_to = "rules_menu"
+  @back_to = "/aol/rules_menu"
   @back_class = "like_back"
   
   @email_frequencies =
@@ -295,7 +298,7 @@ end
     @categories = Purchase.payer_top_categories(@payer.id)
     @i = 0
     
-    @back_to = "welcome_signedin"
+    @back_to = "/aol/welcome_signedin"
     @back_class = "like_back"
     
 
@@ -423,7 +426,7 @@ end
     end
     session[:purchase] = @purchase
 
-    @consumer = @purchase.consumer
+    @consumer = @purchase.consumer || Consumer.find(100)    # This is of course temporary only
     @retailer = @purchase.retailer
     @product = @purchase.product
     @category = @purchase.product.category
@@ -526,9 +529,10 @@ end
       message = "We're Sorry. Your purchase of #{@purchase.product.title} is not approved."
     end
     
-    consumer_phone = Consumer.find(@purchase.consumer_id).billing_phone
-   
-    sms(consumer_phone, message)
+    unless @purchase.consumer_id == 100   # possible only in test mode: pending purchase refers to a consumer once existed and since deleted
+      consumer_phone = Consumer.find(@purchase.consumer_id).billing_phone   
+      sms(consumer_phone, message)
+    end
   
   end
   
