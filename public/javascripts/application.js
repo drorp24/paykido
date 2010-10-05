@@ -71,7 +71,7 @@ $(document).ready(function (){
 		
 		$("#payer_tabs").tabs({
 			select: function(event, ui){
-				if (ui.index != 4) {
+				if (ui.index != 5) {
 				$('#payer-in-tab').html($('#payer_name').val().substring(0,14));
 				$('.pic-in-tab').attr('style', 'display: none;');
 				viewPurchases("all");}
@@ -134,7 +134,7 @@ $(document).ready(function (){
 				else {
 				    $('.pic-in-tab').attr('style', 'display: none');
 				}
-				$("#payer_tabs").tabs("select", 4);
+				$("#payer_tabs").tabs("select", 5);
 				viewPurchases(ui.draggable.find('.portlet-header').attr("id"));
 			}
 	});

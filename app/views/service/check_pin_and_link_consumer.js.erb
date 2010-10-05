@@ -10,6 +10,7 @@ if (phone != "") {
 	$('#notice').remove();
 	$(function() {
 		$('#consumers_tabs').tabs("option","disabled", false);
+		$("#consumers_tabs").tabs("select", 1);
 	}); 
 	viewConsumers (<%= @consumer.id %>);
 }		

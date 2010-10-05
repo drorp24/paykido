@@ -287,7 +287,6 @@ end
   def retailer
     
     find_retailer
-    expires_in 1.year
       
     respond_to do |format|  
       format.html { redirect_to :action => 'JP' }  
@@ -512,10 +511,11 @@ end
        end
      
        if @purchase.save
-         expire_page :action => "purchases"
-         expire_page :action => "retailers"
-         expire_page :action => "products"
-         expire_page :action => "categories"
+         expire_page :action => "purchases", :id => "all"
+         expire_page :action => "purchases", :id => "consumer_#{@purchase.consumer_id}"
+         expire_page :action => "purchases", :id => "retailer_#{@purchase.retailer_id}"
+         expire_page :action => "purchases", :id => "product_#{@purchase.product_id}"
+         expire_page :action => "purchases", :id => "category_#{@purchase.product.category_id}"
        else
          flash[:notice] = "service is temporarily down. Please hold for a few moments"
        end
@@ -899,12 +899,14 @@ end
     expire_page :action => "retailers"
     expire_page :action => "products"
     expire_page :action => "categories"
-    expire_page :action => "purchases"
     session[:consumers].each{|consumer| expire_page :action => :consumer, :id => consumer.id}  if session[:consumers]
     session[:retailers].each{|retailer| expire_page :action => :retailer, :id => retailer.id}  if session[:retailers]
     session[:products].each{|product| expire_page :action => :product, :id => product.id}      if session[:products]
     session[:categories].each{|category| expire_page :action => :category, :id => category.id} if session[:categories]
-
+    @purchases_files = Dir.glob(File.join("#{RAILS_ROOT}/public/service/purchases/*"))
+    @purchases_files.each do |file_location|
+      File.delete(file_location)
+    end
    
   end
   

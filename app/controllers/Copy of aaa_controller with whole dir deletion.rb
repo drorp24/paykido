@@ -132,7 +132,7 @@ class AaaController < ApplicationController
     rescue
       @status = "Service is temprarily down"
       @message = "Please hold on for a few moments"
-#      raise
+      raise
      end
     
   end
@@ -187,11 +187,8 @@ end
       
 # First, find which purchase the user is responding to (he might have gotten several sms's with different purchases)
     @purchase = Purchase.find(session[:purchase_id]) if session[:purchase_id]
-
-    unless @purchase and @purchase.authorized? and !@purchase.authentication_date and (params[:pin]== @purchase.expected_pin or params[:pin] == session[:expected_pin])
-      @another_purchase = 
-        Purchase.find_by_consumer_id_and_expected_pin(session[:consumer].id, params[:pin],
-        :conditions => ["authentication_date is ? and authorized = ?", nil, true])
+    unless @purchase and @purchase.authorized? and (params[:pin]== @purchase.expected_pin or params[:pin] == session[:expected_pin])
+      @another_purchase = Purchase.find_by_consumer_id_and_expected_pin(session[:consumer].id, params[:pin])
       @purchase = @another_purchase if @another_purchase
     end
     
@@ -203,9 +200,12 @@ end
         @status = "Purchase of #{@purchase.product.title} is approved!"
         @message = "Thanks for shopping with arca"
         @purchase.authentication_date = Time.now
-        save_purchase
+        @purchase.save
         account(@purchase.amount)
-#        clear_session
+        clear_session
+      elsif @purchase.authorized? and @purchase.authorization_type != "PendingPayer" and @purchase.authentication_date and params[:pin]== expected_pin
+        @status = "The pin code you have entered"
+        @message = "belongs to an already-approved purchase!"
       elsif @purchase.authorized? and @purchase.authorization_type != "PendingPayer" and @purchase.authentication_date == nil and params[:pin] != expected_pin
         @status = "Wrong PIN entered (#{expected_pin})"
         @message = "Please try again"
@@ -217,8 +217,7 @@ end
         @message = ""     
         clear_session
       else
-
-        @status = "Wrong PIN entered..."
+        @status = "Wrong PIN entered"
         @message = "Please try again"        
       end
     else
@@ -227,7 +226,7 @@ end
     end
 
     rescue 
-      @status = "Service is temporarily down"
+      @status = "Service is temprarily down"
       @message = "Please hold on for a few moments"
 #      raise
     end
@@ -245,6 +244,7 @@ end
           @consumer.save!
         rescue #RecordInvalid 
           flash[:notice] = "Consumer and/or payer didn't pass validation"
+          raise
         end 
      end
      @payer = @consumer.payer
@@ -343,22 +343,16 @@ end
   def save_purchase
     
     if @purchase.save
-        File.delete("#{RAILS_ROOT}/public/service/purchases/all.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/all.js")
-        File.delete("#{RAILS_ROOT}/public/service/purchases/consumer_#{@purchase.consumer_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/consumer_#{@purchase.consumer_id}.js")
-        File.delete("#{RAILS_ROOT}/public/service/purchases/retailer_#{@purchase.retailer_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/retailer_#{@purchase.retailer_id}.js")
-        File.delete("#{RAILS_ROOT}/public/service/purchases/product_#{@purchase.product_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/product_#{@purchase.product_id}.js")
-        File.delete("#{RAILS_ROOT}/public/service/purchases/category_#{@purchase.product.category_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/category_#{@purchase.product.category_id}.js")
-
-        if @purchase.authentication_date?
-          File.delete("#{RAILS_ROOT}/public/service/consumers/0.js") if File.exist?("#{RAILS_ROOT}/public/service/consumers/0.js")
-          File.delete("#{RAILS_ROOT}/public/service/consumer/#{@purchase.consumer_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/consumer/#{@purchase.consumer_id}.js")
-          File.delete("#{RAILS_ROOT}/public/service/retailers.js") if File.exist?("#{RAILS_ROOT}/public/service/retailers.js")
-          File.delete("#{RAILS_ROOT}/public/service/products.js") if File.exist?("#{RAILS_ROOT}/public/service/products.js")
-          File.delete("#{RAILS_ROOT}/public/service/categories.js") if File.exist?("#{RAILS_ROOT}/public/service/categories.js")
-          File.delete("#{RAILS_ROOT}/public/service/retailer/#{@purchase.retailer_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/retailer/#{@purchase.retailer_id}.js")
-          File.delete("#{RAILS_ROOT}/public/service/product/#{@purchase.product_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/product/#{@purchase.product_id}.js")
-          File.delete("#{RAILS_ROOT}/public/service/category/#{@purchase.product.category_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/category/#{@purchase.product.category_id}.js")
+         @purchases_files = Dir.glob(File.join("#{RAILS_ROOT}/public/service/purchases/*"))
+        @purchases_files.each do |file_location|
+          File.delete(file_location)
         end
+        File.delete("#{RAILS_ROOT}/public/service/retailers.js") if File.exist?("#{RAILS_ROOT}/public/service/retailers.js")
+        File.delete("#{RAILS_ROOT}/public/service/products.js") if File.exist?("#{RAILS_ROOT}/public/service/products.js")
+        File.delete("#{RAILS_ROOT}/public/service/categories.js") if File.exist?("#{RAILS_ROOT}/public/service/categories.js")
+        File.delete("#{RAILS_ROOT}/public/service/retailer/{@purchase.retailer_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/retailer/{@purchase.retailer_id}.js")
+        File.delete("#{RAILS_ROOT}/public/service/product/{@purchase.product_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/product/{@purchase.product_id}.js")
+        File.delete("#{RAILS_ROOT}/public/service/category/{@purchase.product_category_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/category/{@purchase.product_category_id}.js")
     end
 
     session[:purchase_id] = @purchase.id

@@ -480,16 +480,17 @@ end
          end
        end
  
-       if @purchase.save
-          File.delete("#{RAILS_ROOT}/public/service/purchases.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases.js")
-          File.delete("#{RAILS_ROOT}/public/service/retailers.js") if File.exist?("#{RAILS_ROOT}/public/service/retailers.js")
-          File.delete("#{RAILS_ROOT}/public/service/products.js") if File.exist?("#{RAILS_ROOT}/public/service/products.js")
-          File.delete("#{RAILS_ROOT}/public/service/categories.js") if File.exist?("#{RAILS_ROOT}/public/service/categories.js")
-       else
-          flash[:notice] = "service is temporarily down"
-          redirect_to :action => :welcome_signedin
-          return
-       end
+    if @purchase.save
+       File.delete("#{RAILS_ROOT}/public/service/purchases/all.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/all.js")
+       File.delete("#{RAILS_ROOT}/public/service/purchases/consumer_#{@purchase.consumer_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/consumer_#{@purchase.consumer_id}.js")
+       File.delete("#{RAILS_ROOT}/public/service/purchases/retailer_#{@purchase.retailer_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/retailer_#{@purchase.retailer_id}.js")
+       File.delete("#{RAILS_ROOT}/public/service/purchases/product_#{@purchase.product_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/product_#{@purchase.product_id}.js")
+       File.delete("#{RAILS_ROOT}/public/service/purchases/category_#{@purchase.product.category_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/category_#{@purchase.product.category_id}.js")
+    else
+       flash[:notice] = "service is temporarily down"
+       redirect_to :action => :welcome_signedin
+       return
+    end
 
     end
     

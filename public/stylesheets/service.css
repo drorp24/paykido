@@ -1,3 +1,14 @@
+#alerts_pane, #reports_pane {
+	margin-left: 5px;
+}
+
+#alerts  {
+	position: absolute;
+	top: 57px;
+	left:5px;	
+}
+
+
 .pic-in-tab.logo-in-tab {
 	position: absolute;
 	left: 202px;
@@ -302,13 +313,10 @@ tr.odd td.authorized_cell.really {
 	font-size: 16px;
 }
 
-#preferences_tabs, #consumers_tabs {
-	height: 30px;
-	
-}
 
-#consumers_tabs {
-		border: 1px solid #0078AE;
+#consumers_tabs, #preferences_tabs {
+	height: 30px;
+	border: 1px solid #0078AE;
 	background-color: #FFFFF5;
 	padding-left: 10px;
 	padding-top:5px;
@@ -965,6 +973,7 @@ a.login:hover {
     width: 590px;
     height: 370px;
 }
+
 
 .right_content {
     display: inline;
