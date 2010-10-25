@@ -33,7 +33,6 @@ $('#consumer_pic_form').attr('action', '<%= "/service/consumer_info_update/#{@co
 
 <% if @consumer.pic? and FileTest.exists?(RAILS_ROOT + "/public/images/#{@consumer.pic}") %>
 	$('.middle_content').html('<%= image_tag @consumer.pic, :class =>"consumer_pic" %>');
-	$("#consumers_tabs").tabs("select", 2);
 <% else %>
 	$('.middle_content').html('<%= image_tag "/images/face_placeholder_small.png", :class =>"consumer_pic"%>');
 <% end %>

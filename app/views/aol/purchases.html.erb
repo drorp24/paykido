@@ -57,6 +57,8 @@
 		  	var purchase_amt_s = purchase_amt.toString();
 		  	var amt_fraction = purchase_amt_s.split('.');
 		  	var purchase_id = amt_fraction[1].substring(3);
+			if (purchase_id.length == 1)
+			   {purchase_id += '0'}
 			window.location = '/aol/purchase/' + purchase_id;
 		  }		
 		  

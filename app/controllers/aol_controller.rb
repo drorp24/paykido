@@ -419,8 +419,8 @@ end
     begin
       @purchase = Purchase.find(params[:id]) 
     rescue #RecordNotFound
-      flash[:notice] = "oops... service is temporarily down"
-      flash[:notice] = "looked for purchase id  #{params[:id]}"
+      flash[:notice] = "Service is temporarily down. Try again in a few moments."
+#      flash[:notice] = "looked for purchase id  #{params[:id]}"
       redirect_to :action => :welcome_signedin
       return
     end

@@ -674,6 +674,7 @@ end
         session[:payer_rule] = @consumer.payer_rules.create!(:allowance => @def_payer_rule.allowance, :rollover => @def_payer_rule.rollover, :auto_authorize_under => @def_payer_rule.auto_authorize_under, :auto_deny_over => @def_payer_rule.auto_deny_over)
         flash[:message] = "Thank you. #{number_to_phone(@phone, :area_code => true)} is now assigned to you!"
         expire_page :action => "consumers", :id => 0
+        update_consumer_purchases_with_new_payer_id(@consumer.id, @consumer.payer_id)
  
         respond_to do |format|  
           format.html { redirect_to :action => 'payer_signedin' }  
@@ -683,6 +684,14 @@ end
 
   end
 
+
+  def update_consumer_purchases_with_new_payer_id(consumer_id, new_payer_id)
+    
+       Purchase.find_all_by_consumer_id(consumer_id).each do |purchase| 
+         purchase.update_attributes!(:payer_id => new_payer_id)
+       end
+    
+  end
 
   protected
   

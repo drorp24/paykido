@@ -8,10 +8,9 @@ var phone = "<%= @phone %>" ;
 if (phone != "") {
 	$('.righthandside_marketial').remove();
 	$('#notice').remove();
-	$(function() {
-		$('#consumers_tabs').tabs("option","disabled", false);
-		$("#consumers_tabs").tabs("select", 1);
-	}); 
+	$('#consumers_tabs').tabs("option","disabled", false);
+	$('#consumer_name').val('');
+	$("#consumers_tabs").tabs("select", 2);
 	viewConsumers (<%= @consumer.id %>);
 }		
 

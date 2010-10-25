@@ -69,8 +69,9 @@ $(document).ready(function (){
 			$(".buttonset").buttonset();
 		});
 		
-		$("#payer_tabs").tabs({
-			select: function(event, ui){
+
+	$("#payer_tabs").tabs({
+				select: function(event, ui){
 				if (ui.index != 5) {
 				$('#payer-in-tab').html($('#payer_name').val().substring(0,14));
 				$('.pic-in-tab').attr('style', 'display: none;');
@@ -93,6 +94,8 @@ $(document).ready(function (){
 			
 	$("#purchases_tab").droppable({
 			
+			tolerance: 'touch',
+
 			hoverClass: "ui-state-active",
 
 			over: function( event, ui ) {
@@ -138,6 +141,7 @@ $(document).ready(function (){
 				viewPurchases(ui.draggable.find('.portlet-header').attr("id"));
 			}
 	});
+	
 
 
 });

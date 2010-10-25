@@ -43,9 +43,11 @@ class AaaController < ApplicationController
   # that means we're expecting the same pin, or still waiting, or no use waiting, or just about to complete the process now. 
   # However, if it differs, we clear the session
 
-    if params[:consumer][:billing_phone] == session[:billing_phone] and
-       session[:purchase_id] and
-       @product.id == Purchase.find(session[:purchase_id]).product_id  
+    last_purchase = Purchase.find_by_id(session[:purchase_id]) if session[:purchase_id]
+    
+    if last_purchase and 
+       params[:consumer][:billing_phone] == session[:billing_phone] and
+       @product.id == last_purchase.product_id  
  
        @consumer = session[:consumer]
        @billing_phone = session[:billing_phone]
@@ -124,11 +126,9 @@ class AaaController < ApplicationController
       find_or_create_purchase
       authorize_purchase
       authenticate_consumer
-      unless @sms_failed
-        save_purchase
-        write_message
-      end
- 
+      save_purchase unless @sms_failed
+      write_message
+
     rescue
       @status = "Service is temprarily down"
       @message = "Please hold on for a few moments"
@@ -159,7 +159,10 @@ end
 
   def write_message
     
-    if @purchase.authorization_type == "PendingPayer" 
+    if @sms_failed
+      @status = "Couldn't locate that phone."
+      @message = "Please check the number and try again"
+    elsif @purchase.authorization_type == "PendingPayer" 
       @status = "This purchase has to be manually authorized"
       @message = "You'll get an SMS as soon as it is approved"
     elsif !@purchase.authorized

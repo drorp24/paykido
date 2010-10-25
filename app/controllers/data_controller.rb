@@ -15,11 +15,9 @@ end
 def delete_consumer
   
   consumer = Consumer.find_by_billing_phone(params[:consumer][:billing_phone])
-  for purchase in Purchase.find_by_consumer_id(consumer.id)
-    purchase.delete!
-  end
+  Purchase.delete_all(["consumer_id = ?", consumer.id]) 
   
-  consumer.delete!
+  Consumer.delete(consumer.id)
 
   redirect_to :action => 'index'
   

@@ -189,6 +189,8 @@ class Purchase < ActiveRecord::Base
                :order =>       "date desc")
 
   end
+
+  
   def self.SAVEby_payer_retailer_and_month(payer_id, retailer_id, month)
     self.sum   :amount,
                :conditions => ["payer_id =? and retailer_id = ? and authorized = ? and strftime('%m', date) = ?", payer_id, retailer_id, true, month],
