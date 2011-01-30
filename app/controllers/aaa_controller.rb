@@ -96,7 +96,7 @@ class AaaController < ApplicationController
           @status = "Please hold while this purchase is being approved"
           @message = ""
           true
-        elsif !@purchase.authorized
+        elsif !@purchase.authorized and @purchase.authorization_type
           @status = "We're sorry. This purchase was unauthorized"
           @message = ""
           true
@@ -126,12 +126,12 @@ class AaaController < ApplicationController
       find_or_create_purchase
       authorize_purchase
       authenticate_consumer
-      save_purchase unless @sms_failed
+      save_purchase # unless @sms_failed
       write_message
 
     rescue
-      @status = "Service is temprarily down"
-      @message = "Please hold on for a few moments"
+      @status = "Your online connection is lost"
+      @message = "Please connect and try again"
 #      raise
      end
     
@@ -153,7 +153,7 @@ end
       send_sms_to_consumer
     end 
     
-    @purchase.expected_pin = session[:expected_pin] unless @sms_failed
+    @purchase.expected_pin = session[:expected_pin] # unless @sms_failed
 
   end
 
@@ -165,18 +165,30 @@ end
     elsif @purchase.authorization_type == "PendingPayer" 
       @status = "This purchase has to be manually authorized"
       @message = "You'll get an SMS as soon as it is approved"
+    elsif !@purchase.authorized and @purchase.authorization_type
+      @status = "We're sorry. This purchase is unauthorized"
+      @message = "(#{@purchase.authorization_type})"
     elsif !@purchase.authorized
-      @status = "We're sorry. This purchase was unauthorized (#{@purchase.authorization_type})"
+      @status = "We're sorry. This purchase is unauthorized..."
       @message = ""
-    elsif @purchase.authentication_type == "PIN"
+   elsif @purchase.authorized and @purchase.authentication_type == "PIN"
       @status = "Welcome back!"
       @message = "Go ahead and key in your permanent PIN"
-    elsif @payer.exists?
-      @status = "Welcome back. An SMS is on its way."
-      @message = "Make yourself a premanent PIN!"
-    else
-      @status = "Thank you"
-      @message = "An SMS with the PIN code is on its way!"
+    elsif @purchase.authorized and @purchase.authentication_type == "SMS"
+#      if Current.policy.online? and Current.policy.send_sms?
+        @status = "Thank you. An SMS is on its way."
+#      else
+#        @status = "No SMS sent - you are offline"
+#      end      
+      @message = "Subscribe and get it with no SMS!"
+       @message = "Join us now and get it all with no SMS!"
+   else
+      if Current.policy.online? and Current.policy.send_sms?
+        @status = "Thanks... An SMS is on its way."
+      else
+        @status = "Thanks... No SMS - you are offline"
+      end      
+      @message = "Subscribe and get it with no SMS!"
     end  
  
   end
@@ -370,7 +382,7 @@ end
   
   def send_sms_to_consumer
     
-    if Current.policy.send_sms?
+    if Current.policy.online? and Current.policy.send_sms?
       sms_phone = @consumer.billing_phone
       sms_message = "Thank you for using arca! your PIN code is: #{session[:expected_pin]}"
       sms(sms_phone,sms_message)
@@ -383,9 +395,7 @@ end
     api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
     begin
       api.send_message(phone, message)
-    rescue Clickatell::API::Error
-      @status = "Oops... can't locate that phone."
-      @message = "Would you check the number and try again"
+    rescue # doesn't work
       @sms_failed = true
     end
     

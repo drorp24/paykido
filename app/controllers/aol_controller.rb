@@ -419,10 +419,13 @@ end
     begin
       @purchase = Purchase.find(params[:id]) 
     rescue #RecordNotFound
-      flash[:notice] = "Service is temporarily down. Try again in a few moments."
-#      flash[:notice] = "looked for purchase id  #{params[:id]}"
-      redirect_to :action => :welcome_signedin
-      return
+      begin
+        @purchase = Purchase.find(params[:id].to_i*10)
+      rescue
+        flash[:notice] = "Service is temporarily down. Try again in a few moments."
+        redirect_to :action => :welcome_signedin
+        return       
+      end
     end
     session[:purchase] = @purchase
 
@@ -469,7 +472,7 @@ end
        @purchase.authorization_type = params[:purchase][:authorization_type]
        @purchase.authorization_date = Time.now 
       
-       if Current.policy.send_sms?  
+       if Current.policy.online? and Current.policy.send_sms?  
          begin
             inform_consumer_by_sms
          rescue

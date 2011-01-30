@@ -46,7 +46,8 @@ a#link_to_how {
 	left:35px;
 	width: 304px;
 	height: 60px;
-	color:transparent;
+	opacity:0;
+	color: transparent;
 }
 
 img#no_sms_service {
@@ -71,6 +72,7 @@ This is what determines the modal window size
 	height:320px;
 	width:385px;
 	width:384px;
+	z-index: 3000;
 }
 
 #input {

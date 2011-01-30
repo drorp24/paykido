@@ -19,15 +19,14 @@ class ServiceController < ApplicationController
 
   def joinin
 
-    clear_payer_cache
-    clear_payer_session
-    
     if request.post?
-      
+          
       @user = User.new(params[:user])
       @user.affiliation = "payer"
       @user.role = "primary"
       @user.payer = Payer.new(:exists => true) 
+     
+      set_payer_session_and_cache
      
       if @user.save
         session[:user] = @user     
@@ -501,7 +500,7 @@ end
        @purchase.authorization_type = params[:new_status]
        @purchase.authorization_date = Time.now 
       
-       if Current.policy.send_sms? 
+       if Current.policy.online? and Current.policy.send_sms? 
         begin
           inform_consumer_by_sms
         rescue
@@ -591,7 +590,7 @@ end
       session[:expected_pin] = rand.to_s.last(4)
  
       begin
-        sms(@consumer.billing_phone,"Welcome to arca. Your PIN code is: #{session[:expected_pin]}") if Current.policy.send_sms?
+        sms(@consumer.billing_phone,"Welcome to arca. Your PIN code is: #{session[:expected_pin]}") if Current.policy.online? and Current.policy.send_sms?
       rescue Clickatell::API::Error
         flash[:notice] = "Can't locate phone. Please check the number"
       else
@@ -601,7 +600,7 @@ end
         else
           flash[:notice] = "Thank you. A text message with the PIN code is on its way!"
         end 
-        find_payer_rule
+        session[:payer_rule] = find_payer_rule
         @consumer.balance = @payer_rule.allowance
         session[:phone_is_ok] = true
         session[:consumer] = @consumer
@@ -697,12 +696,14 @@ end
   
   def set_payer_session_and_cache
     
-   if session[:payer] and session[:payer].id  == @user.payer.id 
-     session[:same_as_last_payer] = true
-   else
-      session[:same_as_last_payer] = false
-      clear_payer_cache
-      clear_payer_session
+   if session[:payer]
+     if session[:payer].id  == @user.payer.id 
+        session[:same_as_last_payer] = true
+     else
+        session[:same_as_last_payer] = false
+        clear_payer_cache
+        clear_payer_session
+    end    
    end 
    session[:payer] = @user.payer
    session[:user]  = @user
