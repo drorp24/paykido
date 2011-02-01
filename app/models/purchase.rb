@@ -135,7 +135,7 @@ class Purchase < ActiveRecord::Base
   def self.payer_retailers_the_works(payer_id)
     self.find_all_by_payer_id(payer_id, 
               :conditions => ["authorized = ? and authentication_date is not ?", true, nil],
-              :group =>       "purchases.retailer_id",
+              :group =>       "purchases.retailer_id, retailers.id, retailers.name, retailers.logo, rlists.status",
               :joins  =>      "inner join retailers on purchases.retailer_id = retailers.id left outer join rlists on purchases.retailer_id = rlists.retailer_id and purchases.payer_id = rlists.payer_id",
               :select =>      "retailers.id, retailers.name, retailers.logo, rlists.status, sum(amount) as total_amount, count(*) as purchase_count, max(date) as most_recent",
               :order =>       "total_amount desc")
@@ -145,7 +145,7 @@ class Purchase < ActiveRecord::Base
   def self.payer_products_the_works(payer_id)
     self.find_all_by_payer_id(payer_id, 
               :conditions => ["authorized = ? and authentication_date is not ?", true, nil],
-              :group =>       "purchases.product_id",
+              :group =>       "purchases.product_id, products.id, products.title, products.logo, plists.status",
               :joins  =>      "inner join products on purchases.product_id = products.id left outer join plists on purchases.product_id = plists.product_id and purchases.payer_id = plists.payer_id",
               :select =>      "products.id, products.title, products.logo, plists.status, sum(amount) as total_amount, count(*) as purchase_count, max(date) as most_recent",
               :order =>       "total_amount desc")
@@ -155,7 +155,7 @@ class Purchase < ActiveRecord::Base
   def self.payer_categories_the_works(payer_id)
     self.find_all_by_payer_id(payer_id, 
               :conditions => ["authorized = ? and authentication_date is not ?", true, nil],
-              :group =>       "categories.id",
+              :group =>       "categories.id, categories.name, categories.logo, clists.status",
               :joins  =>      "inner join products on purchases.product_id = products.id inner join categories on products.category_id = categories.id left outer join clists on categories.id = clists.category_id and purchases.payer_id = clists.payer_id",
               :select =>      "categories.id, categories.name, categories.logo, clists.status, sum(amount) as total_amount, count(*) as purchase_count, max(date) as most_recent",
               :order =>       "total_amount desc")
