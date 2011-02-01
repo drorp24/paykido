@@ -1,2 +1,2 @@
 source :gemcutter
-gem 'clickatell'
+gem 'clickatell', 'taps'
