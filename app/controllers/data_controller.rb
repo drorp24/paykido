@@ -2,10 +2,12 @@ class DataController < ApplicationController
   
 def set_policy
   
-  current = Current.find_or_create_by_current_id(1)
+  current = Current.find_or_initialize_by_current_id(1)
   if current
     current.update_attributes!(params[:current])     
   end
+
+  redirect_to :action => 'index'
   
 end
 
