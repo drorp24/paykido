@@ -6,7 +6,7 @@ def set_policy
   current = Current.new(:current_id => 1) unless current
   current.update_attributes!(params[:current])     
 
-  redirect_to :action => 'index'
+  redirect_to :controller => 'data', :action => 'index'
   
 end
 
