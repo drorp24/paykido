@@ -1,0 +1,10 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    clickatell (0.8.2)
+
+PLATFORMS
+  x86-mswin32
+
+DEPENDENCIES
+  clickatell
