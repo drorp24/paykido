@@ -8,14 +8,14 @@ class ServiceController < ApplicationController
   before_filter :check_retailer_and_set_variables, :only => [:retailer_signedin]
   
 #  caches_page :consumers
-  caches_page :retailers
-  caches_page :products
-  caches_page :categories
-  caches_page :consumer
-  caches_page :retailer
-  caches_page :product
-  caches_page :category
-  caches_page :purchases
+#  caches_page :retailers
+#  caches_page :products
+#  caches_page :categories
+#  caches_page :consumer
+#  caches_page :retailer
+#  caches_page :product
+#  caches_page :category
+#  caches_page :purchases
 
   def joinin
 
@@ -906,16 +906,16 @@ end
   def clear_payer_cache
     
 #    expire_page :action => "consumers", :id => 0
-    expire_page :action => "retailers"
-    expire_page :action => "products"
-    expire_page :action => "categories"
-    session[:consumers].each{|consumer| expire_page :action => :consumer, :id => consumer.id}  if session[:consumers]
-    session[:retailers].each{|retailer| expire_page :action => :retailer, :id => retailer.id}  if session[:retailers]
-    session[:products].each{|product| expire_page :action => :product, :id => product.id}      if session[:products]
-    session[:categories].each{|category| expire_page :action => :category, :id => category.id} if session[:categories]
-    @purchases_files = Dir.glob(File.join("#{RAILS_ROOT}/public/service/purchases/*"))
-    @purchases_files.each do |file_location|
-      File.delete(file_location)
+#    expire_page :action => "retailers"
+#    expire_page :action => "products"
+#    expire_page :action => "categories"
+#    session[:consumers].each{|consumer| expire_page :action => :consumer, :id => consumer.id}  if session[:consumers]
+#    session[:retailers].each{|retailer| expire_page :action => :retailer, :id => retailer.id}  if session[:retailers]
+#    session[:products].each{|product| expire_page :action => :product, :id => product.id}      if session[:products]
+#    session[:categories].each{|category| expire_page :action => :category, :id => category.id} if session[:categories]
+#    @purchases_files = Dir.glob(File.join("#{RAILS_ROOT}/public/service/purchases/*"))
+#    @purchases_files.each do |file_location|
+#      File.delete(file_location)
     end
    
   end
