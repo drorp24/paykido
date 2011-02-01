@@ -72,7 +72,7 @@ $(document).ready(function (){
 
 	$("#payer_tabs").tabs({
 				select: function(event, ui){
-				if (ui.index != 5) {
+				if (ui.index != 5 && $('#payer_name').val != '') {
 				$('#payer-in-tab').html($('#payer_name').val().substring(0,14));
 				$('.pic-in-tab').attr('style', 'display: none;');
 				viewPurchases("all");}

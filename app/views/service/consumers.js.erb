@@ -6,7 +6,11 @@ $('#consumer_phone').val('');
 		'<%= image_tag "/images/welcome_to_arca.png", :id => "welcome_to_arca", :class => "righthandside_marketial" %>');
 		
 	$(function() {
-		$('#consumers_tabs').tabs("option","disabled", [1, 2, 3]);
+		$('#consumers_tabs').tabs("option","disabled", [0, 1, 2]);
+		$("#consumers_tabs").tabs("select", 3);
+		$('#consumers_tabs').tabs('disable',0);
+
+
 	});
 		
 <% elsif @consumer_added and @consumers and @consumers.size > 1 %>
