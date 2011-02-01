@@ -188,7 +188,7 @@ class ServiceController < ApplicationController
     
 #    unless session[:same_as_last_payer]       # doesnt help a bit
       
-        @consumers = Consumer.payer_consumers_the_works(@payer.id)
+        @consumers = Consumer.payer_consumers_the_works(1)
         get_rid_of_duplicates
         session[:consumers] = @consumers 
         session[:consumer] = (@consumers.empty?) ?nil :@consumers[0]
