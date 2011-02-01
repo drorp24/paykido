@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(:version => 20100928230330) do
   end
 
   create_table "consumers", :force => true do |t|
-    t.string   "payer_id",      :null => false
+    t.integer   "payer_id",      :null => false
     t.string   "billing_phone"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -54,8 +54,8 @@ ActiveRecord::Schema.define(:version => 20100928230330) do
   end
 
   create_table "items", :force => true do |t|
-    t.string   "retailer_id", :null => false
-    t.string   "product_id",  :null => false
+    t.integer   "retailer_id", :null => false
+    t.integer   "product_id",  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -179,7 +179,7 @@ ActiveRecord::Schema.define(:version => 20100928230330) do
   end
 
   create_table "sessions", :force => true do |t|
-    t.string   "session_id", :null => false
+    t.integer   "session_id", :null => false
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
