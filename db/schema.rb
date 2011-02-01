@@ -179,7 +179,7 @@ ActiveRecord::Schema.define(:version => 20100928230330) do
   end
 
   create_table "sessions", :force => true do |t|
-    t.integer   "session_id", :null => false
+    t.string   "session_id", :null => false
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
