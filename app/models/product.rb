@@ -1,4 +1,3 @@
-require 'ruby-debug'
 include ActionView::Helpers::NumberHelper
 class Product < ActiveRecord::Base
   belongs_to  :category

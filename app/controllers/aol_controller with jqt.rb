@@ -1,5 +1,3 @@
-require 'ruby-debug'
-
 
 include ActionView::Helpers::NumberHelper
 

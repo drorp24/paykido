@@ -1,5 +1,4 @@
 require 'digest/sha1'
-require 'ruby-debug'
 
 class Payer < ActiveRecord::Base
   has_many  :payer_rules

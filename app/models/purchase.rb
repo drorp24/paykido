@@ -1,5 +1,3 @@
-require 'ruby-debug'
-
 class Purchase < ActiveRecord::Base
 #  versioned
   
