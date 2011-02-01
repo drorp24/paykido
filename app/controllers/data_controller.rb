@@ -1,5 +1,14 @@
 class DataController < ApplicationController
   
+def set_policy
+  
+  current = Current.find(1)
+  if current
+    current.update_attributes!(params[:current])     
+  end
+  
+end
+
 def delete_consumer_by_id
     
   

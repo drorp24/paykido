@@ -1,3 +1,11 @@
+<% form_for :current, :url => {:action => :set_policy} do |f| %>
+
+	<p><%= f.check_box(:check_pendings) %> Check Pendings</p>
+	<p><%= f.check_box(:send_sms) %>       Send SMS</p>  
+	<p><%= f.check_box(:online) %>         Online</p>
+
+<% end %>
+
 <% form_for :consumer, :url => {:action => :delete_consumer_by_id} do  |f| %>
 
 	<p>Delete consumer and related purchases by consumer id</p>
