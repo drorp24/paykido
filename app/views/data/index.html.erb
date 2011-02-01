@@ -3,9 +3,12 @@
 	<p><%= f.check_box(:check_pendings) %> Check Pendings</p>
 	<p><%= f.check_box(:send_sms) %>       Send SMS</p>  
 	<p><%= f.check_box(:online) %>         Online</p>
+	<p><%= submit_tag %></p>
 
 <% end %>
 
+
+<br /><br /><br /><br />
 <% form_for :consumer, :url => {:action => :delete_consumer_by_id} do  |f| %>
 
 	<p>Delete consumer and related purchases by consumer id</p>
