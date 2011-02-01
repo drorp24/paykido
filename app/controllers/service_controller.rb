@@ -7,7 +7,7 @@ class ServiceController < ApplicationController
   before_filter :check_payer_and_set_variables, :except => [:index, :signin, :joinin, :signout, :retailer_signedin]
   before_filter :check_retailer_and_set_variables, :only => [:retailer_signedin]
   
-  caches_page :consumers
+#  caches_page :consumers
   caches_page :retailers
   caches_page :products
   caches_page :categories
@@ -188,7 +188,7 @@ class ServiceController < ApplicationController
     
 #    unless session[:same_as_last_payer]       # doesnt help a bit
       
-        @consumers = Consumer.payer_consumers_the_works(@payer.id)
+        @consumers = Consumer.payer_consumers_the_works()
         get_rid_of_duplicates
         session[:consumers] = @consumers 
         session[:consumer] = (@consumers.empty?) ?nil :@consumers[0]
@@ -905,7 +905,7 @@ end
 
   def clear_payer_cache
     
-    expire_page :action => "consumers", :id => 0
+#    expire_page :action => "consumers", :id => 0
     expire_page :action => "retailers"
     expire_page :action => "products"
     expire_page :action => "categories"
