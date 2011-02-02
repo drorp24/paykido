@@ -2,9 +2,9 @@ class CreateItems < ActiveRecord::Migration
   def self.up
     create_table :items do |t|
       
-      t.string    :retailer_id, :null => false, :options =>
+      t.integer    :retailer_id, :null => false, :options =>
         "CONSTRAINT fk_retailer_product_retailers REFERENCES retailers(id)"
-      t.string    :product_id, :null => false, :options =>
+      t.integer    :product_id, :null => false, :options =>
         "CONSTRAINT fk_retailer_product_products REFERENCES products(id)"
       
         t.timestamps
