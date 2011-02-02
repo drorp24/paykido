@@ -916,7 +916,7 @@ end
 #    @purchases_files = Dir.glob(File.join("#{RAILS_ROOT}/public/service/purchases/*"))
 #    @purchases_files.each do |file_location|
 #      File.delete(file_location)
-    end
+#    end
    
   end
   
