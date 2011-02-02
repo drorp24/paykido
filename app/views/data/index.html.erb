@@ -1,3 +1,48 @@
+
+<% form_for :category, :url => {:action => :add_category} do  |f| %>
+
+	<p>Insert a Category</p>
+	<p>Name: <%= f.text_field :name %></p>
+	<p><%= submit_tag %></p>
+
+<% end %>
+
+<br /><br /><br /><br />
+
+<% form_for :retailer, :url => {:action => :add_retailer} do  |f| %>
+
+	<p>Insert a Retailer</p>
+	<p>Name: <%= f.text_field :name %></p>
+	<p>Logo: <%= f.text_field :logo %></p>
+	<p><%= submit_tag %></p>
+
+<% end %>
+
+<br /><br /><br /><br />
+
+<% form_for :product, :url => {:action => :add_product} do  |f| %>
+
+	<p>Insert a Product</p>
+	<p>Category id: <%= f.text_field :category_id %></p>
+	<p>Title: <%= f.text_field :title %></p>
+	<p>Price: <%= f.text_field :price %></p>
+	<p><%= submit_tag %></p>
+
+<% end %>
+
+<br /><br /><br /><br />
+
+<% form_for :item, :url => {:action => :add_item} do  |f| %>
+
+	<p>Insert an Item</p>
+	<p>Retailer id: <%= f.text_field :retailer_id %></p>
+	<p>Product id: <%= f.text_field :product_id %></p>
+	<p><%= submit_tag %></p>
+
+<% end %>
+
+<br /><br /><br /><br />
+
 <% form_for :current, :url => {:action => :set_policy} do |f| %>
 
 	<p><%= f.check_box(:check_pendings) %> Check Pendings</p>
