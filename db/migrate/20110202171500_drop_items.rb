@@ -1,12 +1,6 @@
 class CreateItems < ActiveRecord::Migration
   def self.up
-   drop_table :items
-
-
-  end
-
-  def self.down
-   create_table :items do |t|
+    create_table :items do |t|
       
       t.integer    :retailer_id, :null => false, :options =>
         "CONSTRAINT fk_retailer_product_retailers REFERENCES retailers(id)"
@@ -16,6 +10,11 @@ class CreateItems < ActiveRecord::Migration
         t.timestamps
         end
         add_index :items, [:product_id, :retailer_id], :unique => true
-        add_index :items, :retailer_id, :unique => false 
+        add_index :items, :retailer_id, :unique => false
+
+  end
+
+  def self.down
+    drop_table :items
   end
 end
