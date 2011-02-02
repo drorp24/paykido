@@ -1,4 +1,4 @@
-class CreateItems < ActiveRecord::Migration
+class CreateItemsAgain < ActiveRecord::Migration
   def self.up
     create_table :items do |t|
       
