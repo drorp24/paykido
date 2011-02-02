@@ -17,6 +17,11 @@ class ServiceController < ApplicationController
 #  caches_page :category
 #  caches_page :purchases
 
+
+  def index
+    
+  end
+  
   def joinin
 
     if request.post?
