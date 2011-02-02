@@ -18,11 +18,6 @@ class ApplicationController < ActionController::Base
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
     
-  def index
-    
-    redirect_to :controller => 'service', :action => 'index'
-    
-  end
 
 protected
   def authorize
