@@ -2,7 +2,7 @@ class DataController < ApplicationController
   
 def add_item
   
-  item - item.new(params[:item])
+  item = item.new(params[:item])
   item.save!
   redirect_to :controller => 'data', :action => 'index'
   
@@ -11,7 +11,7 @@ end
 
 def add_product
   
-  product - product.new(params[:product])
+  product = product.new(params[:product])
   product.save!
   redirect_to :controller => 'data', :action => 'index'
   
@@ -20,7 +20,7 @@ end
 
 def add_retailer
   
-  retailer - retailer.new(params[:retailer])
+  retailer = retailer.new(params[:retailer])
   retailer.save!
   redirect_to :controller => 'data', :action => 'index'
   
@@ -29,7 +29,7 @@ end
 
 def add_category
   
-  category - Category.new(params[:category])
+  category = Category.new(params[:category])
   category.save!
   redirect_to :controller => 'data', :action => 'index'
   
