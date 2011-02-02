@@ -150,6 +150,11 @@ end
       @purchase.authentication_type = "SMS"
       session[:expected_pin] = rand.to_s.last(4)
       send_sms_to_consumer
+      
+    else
+      @purchase.authentication_type = "SMS"
+      session[:expected_pin] = rand.to_s.last(4)
+      
     end 
     
     @purchase.expected_pin = session[:expected_pin] # unless @sms_failed

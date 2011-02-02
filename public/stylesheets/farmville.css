@@ -171,5 +171,10 @@ End of reduandant part with aaa.css
 	left:495px;
 	font-size:48px;
 	color:transparent;
+        /* IE 8 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=0)";
+
+        /* IE 6,7 */
+	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
 	z-index:2000;
 }

@@ -42,6 +42,11 @@ body {
 
 a#link_to_how {
 	position:absolute;
+        /* IE 8 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=0)";
+
+        /* IE 6,7 */
+	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
 	top:342px;
 	left:35px;
 	width: 304px;

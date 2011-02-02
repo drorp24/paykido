@@ -22,6 +22,11 @@ class User < ActiveRecord::Base
     
   end
   
+
+  def is_friend    
+    self.affiliation == "friend" 
+  end
+ 
   def is_payer    
     self.affiliation == "payer" and self.payer_id
   end

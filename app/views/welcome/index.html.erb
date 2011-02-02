@@ -1,0 +1,7 @@
+<p id="logo">arca</p>
+<% form_for(:user, :url => { :action => :index }, :html => {:id => "friend_signin"}) do |f| %>
+	
+	<%= f.text_field :name, :size => 20, :placeholder => "Select a user name", :class => "formfield", :id => "f_user" %>
+	<%= f.password_field :password, :size => 20, :placeholder => "Select a password", :class => "formfield", :id => "f_pass" %>
+	<%= button_to "Discover", "/service/index", :class => "fg-button ui-state-default loginbutton ui-corner-all", :id => "f_login"  %>
+<% end %>			
