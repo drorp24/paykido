@@ -21,7 +21,7 @@
 img#source-image {
 	position: absolute;
 	overflow: hidden;
-	top: -112px;
+	top: 0;
 	left: 0;
 
 	width: 100%;
