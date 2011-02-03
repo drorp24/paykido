@@ -60,7 +60,7 @@ $('#consumer_phone').val('');
 	$('.consumers_list').append(	
 		'<p class="inner_content_title" id="consumers">&nbsp;</p>' +
 		'<% form_for :payer, :url => { :action => :payment_update }, :html => {:id => "community_form"}  do |f| %>'+
-		'<p class="content-name-right" id="consumers"><%= f.text_field :name, :onchange => escape_javascript("renameCommunity($(this).val())") %></p><% end %>'+		
+		'<p class="content-name-right" id="family_name"><%= f.text_field :name, :onchange => escape_javascript("renameCommunity($(this).val())") %></p><% end %>'+		
 		'<% form_for :consumers, :url => { :action => :consumer_update }, :html => {:id => "consumer_form"}  do |f| %>'+
 		'<div class="column1 sortable ui-sortable" ></div>' +
 		'<div class="column2 sortable ui-sortable" ></div>');
@@ -152,7 +152,7 @@ $(document).ready(function (){
 	 
 		
 
-	$(".content-name-right input:text[value='']").val("(Family name?)");
+	$("#family_name input:text[value='']").val("Family");
 	$(".consumer input:text[value='']").val("(Name?)");
 
 	

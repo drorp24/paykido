@@ -3,6 +3,8 @@ require 'clickatell'
 
 class AaaController < ApplicationController
   
+  before_filter :check_friend_authenticated
+  
   def main
     
     @products = Product.find_product_options(1)
@@ -437,5 +439,10 @@ end
   def get_status
    
   end
+
+   def check_friend_authenticated    
+    redirect_to  :controller => 'welcome', :action => 'index' unless session[:friend_authenticated]    
+  end
+
  
  end

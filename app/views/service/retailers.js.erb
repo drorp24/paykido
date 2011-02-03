@@ -1,21 +1,17 @@
 <% if @retailers.empty? %>
 
 /*
-	$('.retailers_list').append(	
-		'<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>');
-
-*/		
-
 	$(function() {
-		$('#tabs').tabs('disable',1);
+		$('#payer_tabs').tabs('disable',2);
 	});
 
+*/
 			
 <% else %>
 
 	$('.retailers_list').append(	
 		'<p class="inner_content_title" id="retailers">&nbsp;</p>' +
-		'<p class="content-name-right" id="consumers">Retailers you bought from</p>'+		
+		'<p class="content-name-right" id="consumers">Retailers</p>'+		
 		'<div class="column1" ></div>' +
 		'<div class="column2" ></div>');
 			

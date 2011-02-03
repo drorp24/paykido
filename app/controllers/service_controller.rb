@@ -4,6 +4,7 @@ require 'clickatell'
 
 class ServiceController < ApplicationController
 
+  before_filter :check_friend_authenticated
   before_filter :check_payer_and_set_variables, :except => [:index, :signin, :joinin, :signout, :retailer_signedin]
   before_filter :check_retailer_and_set_variables, :only => [:retailer_signedin]
   
@@ -82,7 +83,7 @@ class ServiceController < ApplicationController
       elsif @user.is_general
         redirect_to :action => :general_signedin
       else
-        flash.now[:notice] = "User's type is not clear"      
+        flash.now[:notice] = "Please sign in with a payer's user, not your invitation user"      
      end
       
    end
@@ -731,6 +732,12 @@ end
     end   
     
   end
+  
+  def check_friend_authenticated    
+    redirect_to  :controller => 'welcome', :action => 'index' unless session[:friend_authenticated]    
+  end
+
+
   
   def set_retailer_session_and_cache
     

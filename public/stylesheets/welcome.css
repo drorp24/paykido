@@ -1,3 +1,64 @@
+#login {
+	position: absolute;
+/*
+	left: 1088px;
+	top: 281px;
+*/
+
+	top:37%;
+	left: 10%;
+
+}
+
+#arca_logo {
+	margin-bottom: 100px;
+/*
+	opacity:0.4;
+	filter:alpha(opacity=40)
+*/
+}
+
+img#source-image {
+	position: absolute;
+	overflow: hidden;
+	top: -112px;
+	left: 0;
+
+	width: 100%;
+
+
+}
+
+#f_user, #f_pass, #f_login {
+	width: 202px;
+	font-size: 18px;
+	font-family: "Arial Rounded MT Bold";
+	
+}
+
+#f_user, #f_pass {
+	height: 30px;
+	-moz-border-radius:5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background-color:#FFFEEE;
+	
+}
+
+#f_login {
+	width: 207px;
+	margin-top: 10px;
+}
+/*
+#logo {
+	font-family:"Arial Rounded MT Bold";
+	font-weight: bold;
+	font-size: 76px;
+	font-stretch:extra-expanded;
+	margin-left: 16px;
+}
+
+
 #logo {
 	font-family:"Arial Rounded MT Bold";
 	font-weight: bold;
@@ -5,25 +66,14 @@
 	font-stretch:extra-expanded;
 	position: absolute;
 	z-index: 1000000;
-	left: 1117px;
+	left: 1109px;
 	top: -25px;
-}
-
-#friend_signin {
-	background-image:url("/images/invite_background.png");
-	position: absolute;
-	top:-17px;
-	left:-126px;
-	height:825px;
-	width:1570px;
-	z-index: 10;
-
 }
 
 #f_user {
 	position: absolute;
 	top:300px;
-	left:1227px;
+	left:1100px;
 	-moz-border-radius:3px;
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
@@ -36,7 +86,7 @@
 #f_pass {
 	position: absolute;
 	top: 350px;
-	left:1227px;
+	left:1100px;
 	width:200px;
 	height:23px;
 	-moz-border-radius:3px;
@@ -48,8 +98,9 @@
 #f_login {
 	position: absolute;
 	top: 400px;
-	left:1228px;
+	left:1100px;
 	width: 202px;
 	font-size: 18px;
 	font-family: "Arial Rounded MT Bold";
-}
+
+*/}

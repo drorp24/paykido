@@ -1,4 +1,5 @@
 class Purchase < ActiveRecord::Base
+
 #  versioned
   
   belongs_to :consumer
@@ -139,6 +140,7 @@ class Purchase < ActiveRecord::Base
               :joins  =>      "inner join retailers on purchases.retailer_id = retailers.id left outer join rlists on purchases.retailer_id = rlists.retailer_id and purchases.payer_id = rlists.payer_id",
               :select =>      "retailers.id, retailers.name, retailers.logo, rlists.status, sum(amount) as total_amount, count(*) as purchase_count, max(date) as most_recent",
               :order =>       "total_amount desc")
+              
 
   end
 
