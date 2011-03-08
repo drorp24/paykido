@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'clickatell'
 
-class AaaController < ApplicationController
+class consumerController < ApplicationController
   
   def main
     

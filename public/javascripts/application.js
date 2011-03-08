@@ -25,6 +25,7 @@ $(document).ready(function (){
 	$('#consumer_info_form').submitWithAjax();
 	$('#community_form').submitWithAjax();
 	$('#other_form').submitWithAjax();
+	$('#select_product_form').submitWithAjax();
 	
 
 
@@ -70,6 +71,7 @@ $(document).ready(function (){
 		});
 		
 
+
 	$("#payer_tabs").tabs({
 				select: function(event, ui){
 				if (ui.index != 5 && $('#payer_name').val != '') {
@@ -78,6 +80,7 @@ $(document).ready(function (){
 				viewPurchases("all");}
 			}
 		});
+
 
 	$(".portlet").draggable({
 			cursor: "move",
@@ -91,7 +94,7 @@ $(document).ready(function (){
 				}
 			}
 	});
-			
+				
 	$("#purchases_tab").droppable({
 			
 			tolerance: 'touch',

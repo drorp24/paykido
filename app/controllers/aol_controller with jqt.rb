@@ -308,7 +308,7 @@ end
     
     # need to 
     # 1. move sms handling to an sms model
-    # 2. put expected sms in the db, not in the session - so aaa will know what to expect
+    # 2. put expected sms in the db, not in the session - so consumer will know what to expect
     # 3. send an sms either way, but include in it a rand number or not according to whether perm pin exists or not
     
     @purchase = Purchase.find(session[:purchase_id])

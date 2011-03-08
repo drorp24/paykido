@@ -16,8 +16,8 @@ class Consumer < ActiveRecord::Base
 #    @billing_phone = consumer[:billing_phone]
 #  end
   
-  validates_numericality_of :billing_phone, :allow_nil => true
-  validates_length_of :billing_phone, :is => 10, :allow_nil => true
+#  validates_numericality_of :billing_phone, :allow_nil => true
+#  validates_length_of :billing_phone, :is => 10, :allow_nil => true
 #  validates_format_of :content_type, 
 #                      :with => /^image/,
 #                      :message => "--- you can only upload pictures"

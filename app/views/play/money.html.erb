@@ -1,0 +1,307 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+	<head>
+		<script type="text/javascript">
+				
+		
+		// This should hopefully take care of all "game within game" cases
+		// The try/catch block is for those times when parent is on a different domain
+		//   It will throw a permission error otherwise	
+		try {
+			if(window.parent.location.href && window.parent != self) {
+			
+				found = false;
+				newRefStr = 'ref=nestedframe';
+				
+				qStr = new String(location.search);
+				
+				if(qStr.indexOf('?') == 0) {
+					qStr = qStr.substr(1);
+				}
+				
+				qArr = qStr.split('&');
+			
+				for(var i in qArr) {
+					if(qArr[i].substr(0,4) == 'ref=') {
+						qArr[i] = newRefStr;
+						found = true;
+						break;
+					}
+				}
+				
+				if(!found) {
+					qArr.push(newRefStr);
+				}
+				
+				url = new String(location.href);
+				
+				qStart = url.indexOf('?');
+				
+				if(qStart > -1) {
+					url = url.substr(0, qStart);
+				}
+				
+				url += '?' + qArr.join('&');
+				
+				window.parent.location.href = url;
+			}
+
+		} catch(err) {
+			// do nothing
+		}		
+		
+		
+							</script>
+		
+			
+						<link href="http://static-www.farmville.com/css/main.css" rel="stylesheet" type="text/css"/>
+		<link href="http://static-www.farmville.com/css/fvdotcom_main_v3.css" rel="stylesheet" type="text/css"/>
+				<script type="text/javascript" src="http://static-www.farmville.com/js/jquery.tools.min.js"></script>
+		<title>FarmVille - Zynga</title>
+
+	</head>
+	
+	<body>
+		<script src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php" type="text/javascript"></script>
+		<div class="outer_wrapper">
+					<div class="header">
+				<a class="logo" href="http://www.farmville.com/index.php?ref=logo">Farmville</a>
+				<a class="zynga_logo" href="http://www.zynga.com/" target="_blank">Zynga</a>
+
+				<ul class="nav">
+					<li>
+<a href="/farmville/play" title="Play"
+class='play'>Play</a>
+</li>
+
+<li>
+<a href="http://www.farmville.com/gifts.php?ref=tab" title="Free Gifts"
+class='gifts'>Free Gifts</a>
+</li>
+
+<li>
+<a href="http://www.farmville.com/neighbors.php?ref=tab" title="My Neighbors"
+class='neighbors'>My Neighbors</a>
+</li>
+
+<li>
+<a href="http://www.farmville.com/invite.php?ref=tab" title="Invite Friends"
+class='invite'>Invite Friends</a>
+</li>
+
+<li>
+<a href="http://www.farmville.com/money.php?ref=tab" title="Add Farm Coins & Cash"
+class='money selected'>Add Farm Coins & Cash</a>
+</li>
+
+<li>
+<a href="http://www.farmville.com/help.php?ref=tab" title="Help"
+class='help'>Help</a>
+</li>
+
+				</ul>
+			</div>
+			
+								
+								
+					
+								<div class="left_col">
+					<div class="left_col_box" id="zynga_games">
+						<h3>Zynga Games</h3>
+						<div class="box_content">
+							<ul>
+							
+
+<li>
+
+	<a target="_blank" href="http://apps.facebook.com/fishville/links.php?src=xpromo&aff=dotcommenu&crt=farmvilledotcom">
+		<img src="http://www.zynga.com/images/games/gameIcon_fishville.jpg" alt="FishVille"/>FishVille
+	</a>
+</li>
+
+<li>
+	<a target="_blank" href="http://apps.facebook.com/inthemafia/track.php?zy_track=xpromo&zy_link=dotcommenu&zy_creative=farmvilledotcom">
+		<img src="http://www.zynga.com/images/games/gameIcon_mafiawars.jpg" alt="Mafia Wars"/>Mafia Wars
+	</a>
+</li>
+
+<li>
+	<a target="_blank" href="http://apps.facebook.com/cafeworld/track.php?channel=xpromo&ref=xpromo&k=dotcommenu&p=farmvilledotcom">
+
+		<img src="http://www.zynga.com/images/games/gameIcon_cafeworld.jpg" alt="Cafe World"/>Café World
+	</a>
+</li>
+<li>
+	<a target="_blank" href="http://apps.facebook.com/coasterkingdom/index.php?src=xpromo&aff=dotcommenu&crt=farmvilledotcom">
+		<img src="http://www.zynga.com/images/games/gameIcon_rollercoaster.jpg" alt="Roller Coaster"/>Roller Coaster
+	</a>
+</li>
+<li>
+	<a target="_blank" href="http://apps.facebook.com/yoville/index.php?src=xpromo&aff=dotcommenu&crt=farmvilledotcom">
+		<img src="http://www.zynga.com/images/games/gameIcon_yoville.jpg" alt="YoVille!"/>YoVille!
+	</a>
+
+</li>
+<li>
+	<a target="_blank" href="http://facebook.poker.zynga.com/poker/dmz_link_landing.php?src_track_str=Poker+FB+xpromo+Unknown+%25ACTION%25+a:dotcommenu&src=xpromo&aff=dotcommenu&crt=farmvilledotcom">
+		<img src="http://www.zynga.com/images/games/gameIcon_zyngapoker.jpg" alt="Zynga Poker"/>Zynga Poker
+	</a>
+</li>
+<li>
+	<a target="_blank" href="http://apps.facebook.com/petvillegame/links.php?src=xpromo&aff=dotcommenu&crt=farmvilledotcom">
+		<img src="http://www.zynga.com/images/games/gameIcon_petville.jpg" alt="PetVille"/>PetVille
+	</a>
+</li>
+							</ul>
+
+						</div>
+					</div>
+					<div class="left_col_box" id="game_bar">
+						<h3>Game Bar</h3>
+						<div class="box_content">
+						<a href="http://toolbar.zynga.com/install/farmville/" target="_blank">Get time to your next harvest, collect bonuses, and find out about the next features.</a>
+						</div>
+					</div>
+
+					<div class="left_col_box" id="requests">
+						<h3>Requests</h3>
+						<div class="box_content">
+						<a href="http://www.facebook.com/home.php?#/reqs.php">Click here to see your FarmVille requests.</a>
+						</div>
+					</div>
+										<div class="left_col_box" id="new_features">
+						<h3>New Features</h3>
+
+						<div class="box_content">
+															<b><a href="http://blog.farmville.com/2010/02/all-you-need-is-love.html">All you need is love!</a></b><br/>
+								<p>Valentine's Day is right around the corner, and FarmVille is celebrating in...</p>
+															<b><a href="http://blog.farmville.com/2010/02/horse-stables-and-limited-edition-items.html">Horse Stables and Limited Edition Items!</a></b><br/>
+								<p>Evenin? Folks! Time to get you and your neighbors back in the saddle. You can...</p>
+															<b><a href="http://blog.farmville.com/2010/01/extension-of-the-super-pumpkin-event.html">Extension of the Super Pumpkin Event!</a></b><br/>
+
+								<p>Hey Farmers, Due to the various technical issues the past few days, the Super...</p>
+													<a id="more_button" href="http://blog.farmville.com">More >></a>
+						</div>
+					</div>
+										<div class="left_col_box" id="farmville_fan">
+						<h3>FarmVille Fan</h3>
+						<div class="box_content">
+
+							<fb:fan name="FarmVille" stream="1" connections="6" width="200"></fb:fan>
+						</div>
+					</div>
+			</div>	
+						<div class="main_col">
+				<div class="logout">
+						<script type="text/javascript">
+						
+						function logoutNext() {
+							parent.location.href='http://www.farmville.com/';
+						}
+						
+						</script>
+						<b>Welcome&nbsp;<fb:name class="name" uid="733552507" useyou="false" linked="false" firstnameonly="true"></fb:name></b> (<a href="#" onclick="javascript:FB.Connect.logout(logoutNext); return false;">Log out</a>)
+					
+										</div>
+
+		
+
+<div id="main" style="margin-top:5px; height:95px; width:760px; background-image: url(http://static-www.farmville.com/images/buy/fv_payment_header2.png)">
+&nbsp;
+</div>
+<div id="center_block">
+	<img src="/images/center_block.png"/>
+</div>
+<div id="you_can_also_purchase">
+		<h1 style="font-size:20px; color:#13A89E;">You can also purchase Farm Cash via the following payment providers:</h1>
+	<div align="center" style="text-align:center; margin-top: 10px;"></div>
+	Please click the green "Missing Farm Cash" button if you are missing Farm Cash from completing a transaction via these services.
+	<div id="missing_farm_cash"><img src="/images/missing_farm_cash.png" alt="missing farm cash"/></div>
+</div>
+<div class="methods_box">
+	<div class="method">
+		<a id="servicewindow" href="/consumer/main" title="Pay with arca">
+		<img src="/images/arca.png" alt="arca"/>
+		</a>
+	</div>
+	<div class="method">
+		<a href="/farmville/amazon">
+		<img src="/images/amazon.png" alt="amazon"/>
+		</a>
+	</div>
+	<div class="method">
+		<a href="/farmville/paybycash">
+		<img src="/images/pay_by_cash.png" alt="pay by cash"/>
+		</a>
+	</div>
+	<div class="method">
+		<a href="/farmville/daopay">
+		<img src="/images/dao_pay.png" alt="dao pay"/>
+		</a>
+	</div>
+	<br/>
+</div>
+			
+		<script type="text/javascript">
+		
+		FB_RequireFeatures(["XFBML"], function()
+		{
+
+			FB.init("80c6ec6628efd9a465dd223190a65bbc","./xd_receiver.htm",
+				{"ifUserConnected":onConnected,"ifUserNotConnected":onNotConnected,"doNotUseCachedConnectState":true});
+			
+			function onConnected(user_id) {
+			
+							
+			}
+			
+			function onNotConnected() {
+			
+								location.href='expire_session.php';
+							
+			}
+		});
+		
+		</script>
+			
+					</div>
+				
+			<div class="clear"></div>
+			
+			<div class="zynga_footer">
+				<a target="_blank" class="zynga_link" href="http://www.zynga.com" target="_blank"></a>
+				<a target="_blank" href="http://www.zynga.com/about/" target="_blank">About</a> | 
+				<a target="_blank" href="http://zynga.custhelp.com/app/home/gameid/63/sn/1">Support</a> |
+				<a target="_blank" href="http://forums.zynga.com/forumdisplay.php?f=91">Forums</a> |
+				<a target="_blank" href="http://twitter.com/zfarmville/" target="_blank">Twitter</a> |
+				<a target="_blank" href="http://www.zazzle.com/farmville/" target="_blank">Shop</a> |				<a target="_blank" href="http://www.zynga.com/privacyPolicy/" target="_blank">Privacy</a> | 
+				<a target="_blank" href="http://www.zynga.com/legal/terms_of_service.php" target="_blank">Terms of Service</a> 
+			</div>
+
+			
+			<div class="clear"></div>
+				</div>
+		<div class="cloud1"></div>
+		<div class="cloud2"></div>
+		
+		<script type="text/javascript">
+		
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		
+		</script>
+		<script type="text/javascript">
+		
+			try{
+			var pageTracker = _gat._getTracker("UA-9830736-2");
+			pageTracker._trackPageview();
+			} catch(err) {}
+		
+		</script>
+	
+		
+		
+		
+		</body>
+</html>
+
+&nbsp;&nbsp;

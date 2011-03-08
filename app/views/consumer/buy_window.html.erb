@@ -1,0 +1,105 @@
+<script>
+
+$(document).ready(function (){  
+
+	$(function() {
+		$( "#accordion" ).accordion({
+			autoHeight: true,
+			navigation: true
+		});
+	});
+
+
+	FB.getLoginStatus(function(response) {
+	  if ((response.session)) {
+	  	$('#login_button').hide();
+	    $('#login_first').empty();
+	  } else {		
+	    $('#login_first').html('Login and register to buy')
+	  }
+	});
+	
+	function update_status() {
+		FB.getLoginStatus(function(response) {
+		  if ((response.session)) {
+		  	$('#login_button').hide();
+		    $('#login_first').empty();
+		  } else {		
+		    $('#login_first').html('Login and register to buy')
+		  }
+		});		
+	}
+
+
+	FB.Event.subscribe('auth.statusChange', function(response) {
+	  if ((response.session)) {
+	  	$('#login_button').hide();
+		} else {		
+	    $('#login_first').html('Login and register to buy')
+	  }
+
+	});
+
+
+});
+
+
+
+</script>
+
+
+<%=fb_connect_async_js %>
+
+<div id="accordion">
+    <h3><a href="#" onclick="update_status();">Buy</a></h3>
+	<div>
+		<div id="welcome_message" class="text">
+			<% if current_facebook_user %>
+		    	<span class="text">
+		    		<span>Hi</span>
+					<span><%= fb_name(current_facebook_user, :first_name_only => true, :use_you => false) %></span>
+					<span>!</span>
+				</span>
+			<% else %>
+		    	<span class="text">Hello! </span>
+			<% end %>    	
+			<span id="login_first" class="text"></span>
+    	</div>
+
+    	<div id="ajax_message">
+			<p id="first_line" class="text"></p>
+			<p id="second_line" class="text"></p>		
+		</div>
+
+		<div id="buy" class="box">
+			<% form_tag "http://localhost/consumer/buy", :id => "select_product_form" do %>
+				<span>You have selected <%= @product%></span>
+				<%= submit_tag "Single-click to Buy" %>
+			<% end %>
+		</div>
+		
+		<div id="tell" class="box">
+			<p class="text">Like arca? Tell your friends</p>
+		</div>		
+	
+		<div id="comments" class="box">
+			<fb:comments numposts="10" width="595" publish_feed="true"></fb:comments>
+		</div>
+	</div>
+    <h3><a href="#" onclick="update_status();">Register</a></h3>
+    <div>
+    	<fb:registration onlogin="" fb_only="true" fields="[
+		{'name':'name'},
+		{'name':'email'},
+		{'name':'location'},
+		{'name':'gender'},
+		{'name':'birthday'},
+		{'name':'password',   'view':'not_prefilled'},
+		{'name':'family',    'description':'My Family Name',  	'type':'text'},
+		{'name':'message',    'description':'Message To My Parents',  	'type':'text'},
+		{'name':'consumer_phone',      'description':'My Mobile Phone',             'type':'text'},
+		{'name':'payer_phone',      'description':'My Parent Mobile Phone',             'type':'text'},
+		{'name':'payer_email',      'description':'My Parent Email Address',             'type':'text'}
+		]" redirect-uri="http://localhost/consumer/register_callback/"></fb:registration>
+    </div>
+</div>

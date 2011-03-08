@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<%= stylesheet_link_tag "/stylesheets/consumer.css", :media => "all" %>
+	<%= javascript_include_tag :defaults %>
+
+</head>	
+<body id="consumer">
+	
+	<%# Javascript SDK to use facebook connect%>
+	<%=fb_connect_async_js %>
+
+  	<div id="main">
+      <!-- START:flash -->
+      <% if flash[:notice] -%>
+        <div id="notice"><%= flash[:notice] %></div>
+      <% end -%>
+     <!-- END:flash -->
+
+	  <%= image_tag 'loading.gif', :id=>'spinner',:style=>"display:none; float:right;" %>
+
+      <%= yield :layout %>
+    </div>
+</body>
+</html>
+

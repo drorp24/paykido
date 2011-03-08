@@ -1,0 +1,21 @@
+development:
+  environment: "sandbox"
+  username: "drorp2_1297098512_biz_api1.yahoo.com"
+  password: "1297098521"
+  signature: "ABpwSNxMhO2VLmGNQC3bVADqL1a4AG66RfMDia3E9j-eESXSKuhKL8cf"
+  application_id: "APP-80W284485P519543T"
+
+test:
+  environment: "sandbox"
+  username: "sandbox_username"
+  password: "sandbox_password"
+  signature: "sandbox_signature"
+  application_id: "sandbox_app_id"
+
+production:
+  environment: "production"
+  username: "my_production_username"
+  password: "my_production_password"
+  signature: "my_production_signature"
+  application_id: "my_production_app_id"
+

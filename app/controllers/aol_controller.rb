@@ -483,11 +483,11 @@ end
        end
  
     if @purchase.save
-       File.delete("#{RAILS_ROOT}/public/service/purchases/all.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/all.js")
-       File.delete("#{RAILS_ROOT}/public/service/purchases/consumer_#{@purchase.consumer_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/consumer_#{@purchase.consumer_id}.js")
-       File.delete("#{RAILS_ROOT}/public/service/purchases/retailer_#{@purchase.retailer_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/retailer_#{@purchase.retailer_id}.js")
-       File.delete("#{RAILS_ROOT}/public/service/purchases/product_#{@purchase.product_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/product_#{@purchase.product_id}.js")
-       File.delete("#{RAILS_ROOT}/public/service/purchases/category_#{@purchase.product.category_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/category_#{@purchase.product.category_id}.js")
+#       File.delete("#{RAILS_ROOT}/public/service/purchases/all.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/all.js")
+#       File.delete("#{RAILS_ROOT}/public/service/purchases/consumer_#{@purchase.consumer_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/consumer_#{@purchase.consumer_id}.js")
+#       File.delete("#{RAILS_ROOT}/public/service/purchases/retailer_#{@purchase.retailer_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/retailer_#{@purchase.retailer_id}.js")
+#       File.delete("#{RAILS_ROOT}/public/service/purchases/product_#{@purchase.product_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/product_#{@purchase.product_id}.js")
+#       File.delete("#{RAILS_ROOT}/public/service/purchases/category_#{@purchase.product.category_id}.js") if File.exist?("#{RAILS_ROOT}/public/service/purchases/category_#{@purchase.product.category_id}.js")
     else
        flash[:notice] = "service is temporarily down"
        redirect_to :action => :welcome_signedin
@@ -520,7 +520,7 @@ end
   
   def inform_consumer_by_sms
     
-  # Assumptiion: @purchase.expected_pin IS already there (populated by aaa)    
+  # Assumptiion: @purchase.expected_pin IS already there (populated by consumer)    
 
     if @purchase.authorization_type == "ManuallyAuthorized"
       if @purchase.authentication_type == "PIN"

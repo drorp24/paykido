@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
   #layout "store"
   #...
   
+  include Facebooker2::Rails::Controller
+  
+    
+
   # before_filter :authorize, :except => :login
   helper :layout
   helper :all # include all helpers, all the time

@@ -1,4 +1,4 @@
-class AaaController < ApplicationController
+class consumerController < ApplicationController
   
   def main
     if session[:consumer_id]

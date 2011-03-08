@@ -1,0 +1,64 @@
+<div id="buy_window">
+	<div id="welcome_msg" class="box">
+		<p>
+			<% if current_facebook_user %>
+		    	<span class="text">Hi <%= fb_name(current_facebook_user, :first_name_only => true, :use_you => false) %>!</span>
+			<% else %>
+		    	<span class="text">Hello! </span>
+			<% end %>
+			<span id="login_first" class="text"></span>
+			<span id="login_button" class="text rightflush">
+				<fb:login-button
+					registration-url="http://localhost/consumer/register" 
+					onlogin="http://localhost/consumer/buy_window"
+				/>			
+			</span>
+		</p>
+	</div>	
+	
+	<div id="ajax_message">
+		<p id="first_line" class="text"></p>
+		<p id="second_line" class="text"></p>
+		
+	</div>
+
+	<div id="buy" class="box">
+		<% form_for(:product, :url => {:action => "buy"}, :html => {:id => "select_product_form"}) do |f| %>
+			<%= f.select :id, options_for_select(@products, params[:id]), :onchange => "display_product();" %>
+			<%= submit_tag "Single-click to Buy" %>
+		<% end %>
+	</div>
+	
+	<div id="tell" class="box">
+		<p class="text">Like arca? Tell your friends</p>
+	</div>		
+
+	<div id="comments" class="box">
+		<fb:comments numposts="10" width="565" publish_feed="true"></fb:comments>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function (){  
+
+	FB.getLoginStatus(function(response) {
+	  if ((response.session)) {
+	  	$('#login_button').hide();
+		} else {		
+	    $('#login_first').html('Login and register to buy')
+	  }
+	});
+
+});
+
+	function display_product(){
+		clear_ajax_messages();
+		jQuery('#ajax_message').html('<p>You have selected this and this...</p>');		
+	};
+	
+	function clear_ajax_messages() {
+		jQuery('#ajax_message').empty();
+	};
+
+</script>

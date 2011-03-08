@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100928230330) do
+ActiveRecord::Schema.define(:version => 20110215223122) do
 
   create_table "billings", :force => true do |t|
     t.string   "method",     :null => false
@@ -32,8 +32,16 @@ ActiveRecord::Schema.define(:version => 20100928230330) do
     t.datetime "updated_at"
   end
 
+  create_table "configs", :force => true do |t|
+    t.boolean  "check_pendings"
+    t.boolean  "send_sms"
+    t.boolean  "online"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "consumers", :force => true do |t|
-    t.integer   "payer_id",      :null => false
+    t.string   "payer_id",      :null => false
     t.string   "billing_phone"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -41,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20100928230330) do
     t.string   "pin"
     t.string   "name"
     t.string   "pic"
+    t.string   "facebook_id"
   end
 
   add_index "consumers", ["billing_phone"], :name => "index_consumers_on_billing_phone"
@@ -54,8 +63,8 @@ ActiveRecord::Schema.define(:version => 20100928230330) do
   end
 
   create_table "items", :force => true do |t|
-    t.integer   "retailer_id", :null => false
-    t.integer   "product_id",  :null => false
+    t.integer  "retailer_id", :null => false
+    t.integer  "product_id",  :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -117,6 +126,14 @@ ActiveRecord::Schema.define(:version => 20100928230330) do
     t.integer  "billing_id"
     t.string   "skype"
     t.string   "facebook"
+    t.boolean  "registered"
+    t.string   "pp_preapprovalKey"
+    t.datetime "pp_startingDate"
+    t.datetime "pp_endingDate"
+    t.integer  "pp_maxNumberOfPayments"
+    t.decimal  "pp_maxAmountPerPayment"
+    t.string   "pp_pinType"
+    t.string   "family"
   end
 
   create_table "plists", :force => true do |t|

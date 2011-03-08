@@ -1,0 +1,40 @@
+$('#cheerful_message').fadeOut(10000); 
+$('#balance').val(<%= @consumer.balance %>);
+$('#budget').val(<%= @payer_rule.allowance %>);
+$('#payer_rule_rollover_human_on').attr('checked', "<%= (@payer_rule.rollover?) ?"checked":""  %>")
+$('#payer_rule_rollover_human_off').attr('checked', "<%= (@payer_rule.rollover?) ?"":"checked"  %>")
+$('#allowance_form').attr('action', '<%= "/subscriber/consumer_rules_update/#{@consumer.id}" %>');
+<% if @consumer.name.blank? %>
+	$('#consumer_name_allowance').html("Consumer's monthly allowance");
+<% else %>
+	$('#consumer_name_allowance').html("<%= @consumer.name %>'s monthly allowance");
+<% end %>
+
+$('#under').val(<%= @payer_rule.auto_authorize_under %>);
+$('#over').val(<%= @payer_rule.auto_deny_over %>);
+$('#amounts_form').attr('action', '<%= "/subscriber/consumer_rules_update/#{@consumer.id}" %>');
+<% if @consumer.name.blank? %>
+	$('#consumer_name_approvals').html("Consumer's thresholds");
+<% else %>
+	$('#consumer_name_approvals').html("<%= @consumer.name %>'s thresholds");
+<% end %>
+
+$('#consumer_info_name input').val("<%= @consumer.name %>");
+$('#consumer_info_phone input').val("<%= @consumer.billing_phone %>");
+$('#consumer_info_pin input').val("<%= @consumer.pin %>");
+$('#consumer_info_pic input').val("<%= @consumer.pic %>");
+$('#consumer_info_form').attr('action', '<%= "/subscriber/consumer_info_update/#{@consumer.id}" %>');
+$('#consumer_pic_form').attr('action', '<%= "/subscriber/consumer_info_update/#{@consumer.id}" %>');
+<% if @consumer.name.blank? %>
+	$('#consumer_info').html("Consumer's info");
+<% else %>
+	$('#consumer_info').html("<%= @consumer.name %>'s info");
+<% end %>
+
+<% if @consumer.pic? and FileTest.exists?(RAILS_ROOT + "/public/images/#{@consumer.pic}") %>
+	$('.middle_content').html('<%= image_tag @consumer.pic, :class =>"consumer_pic" %>');
+<% else %>
+	$('.middle_content').html('<%= image_tag "/images/face_placeholder_small.png", :class =>"consumer_pic"%>');
+<% end %>
+	
+	
