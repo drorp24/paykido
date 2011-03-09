@@ -72,6 +72,8 @@ $(document).ready(function (){
 		
 
 
+
+/*
 	$("#payer_tabs").tabs({
 				select: function(event, ui){
 				if (ui.index != 5 && $('#payer_name').val != '') {
@@ -80,6 +82,8 @@ $(document).ready(function (){
 				viewPurchases("all");}
 			}
 		});
+
+*/
 
 
 	$(".portlet").draggable({

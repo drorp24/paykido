@@ -220,9 +220,9 @@ class SubscriberController < ApplicationController
         session[:purchases] = @purchases
 #       session[:purchase] = (@purchases.empty?) ?nil :@purchases[0]
 
-        @max_records = [@consumers.size, @retailers.size, @products.size, @purchases.size].max
+        @max_records = [@consumers.size, @retailers.size, @products.size].max
         
-  
+   a=1
 #    end
 
     

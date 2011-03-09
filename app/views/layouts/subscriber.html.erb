@@ -15,9 +15,12 @@
   <div class="container">	
 	<div id="head">
 		<span id="get_started_today"><a href="/subscriber/joinin">shalom</a></span>
-		<%= image_tag "/images/service_head1.png", :id => "head_img" %>
+		<% if current_page?(:controller => 'subscriber', :action => 'index') %>
+			<div id="head_img" style="display:none"></div>
+		<% else %>
+			<div id="head_img" ></div>
+		<% end %>
 	</div>
-	<br />
 	
 	<% if flash[:notice] -%>
 		<div class="ui-widget message">

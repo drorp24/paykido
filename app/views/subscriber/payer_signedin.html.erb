@@ -510,6 +510,23 @@
 		
 	};
 	
+
+	$("#payer_tabs").tabs({
+		select: function(event, ui){
+		$('#payer_tabs').css('height', 850)
+		if (ui.index != 5)  {
+			setTabHeight(<%= @max_records %>);
+			if ($('#payer_name').val != '') {
+				$('#payer-in-tab').html($('#payer_name').val().substring(0,14));
+				$('.pic-in-tab').attr('style', 'display: none;');
+				viewPurchases("all");
+			}
+		}
+		}});
+
+
+
+	
 	function rename_consumer(id, name) {
 		input_name = "consumer[" + id + "][name]";
 		selector = "input[name='" + input_name + "']";

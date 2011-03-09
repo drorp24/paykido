@@ -1,3 +1,14 @@
+/*
+.ui-tabs-selected a {
+	background-color: #F6FAFC;
+	border-bottom: none;
+}
+*/
+
+img#gradient_wrap {
+	
+}
+
 #b {
 	position: absolute;
 	left: 23px;
@@ -50,7 +61,7 @@
 #payer_name {
 	font-family: "Arial Rounded MT Bold";
 	font-size: 20px;
-	color: #004488;
+	color: #17375E;
 	text-align: left;
 	border: none;
 	background: none;
@@ -273,6 +284,7 @@ tr.odd td.authorized_cell.really {
 	width: 720px;
 	margin-left: -2px;
 	width:1111px;
+
 }
 
 .purchasesCell {
@@ -417,7 +429,7 @@ tr.odd td.authorized_cell.really {
 
 .content-name-left {
 	font-family:"Arial Rounded MT Bold";
-	color: orange;
+	color: #F7B64A;
 	margin-left: 3px;
 	font-size:20px;
 }
@@ -710,6 +722,7 @@ select, input {
 #balance, #budget {
 	float: right;
 	margin-right:248px;
+	background-color: transparent;
 }
 
 #under {
@@ -939,6 +952,7 @@ a.login:hover {
     font-family: "Arial Rounded MT Bold";
     color: #026890;
     color: #004488;
+	color: #17375E;
     font-size: 18px;
 }
 
@@ -1062,10 +1076,10 @@ a.login:hover {
     margin-top: 10px;
 }
 
-#payer_tabs, #retailer_tabs {
-    width: 1157px;
-    height: 530px;
-    margin-left: 3.5px;
+#payer_tabs, #retailer_tabs{
+    width: 1167px;
+    height: 550px;
+    margin-left: 5px;
 	background-image: url("/images/tabs_gradient2.png");
 	background-repeat: repeat;
 /*
@@ -1073,6 +1087,7 @@ a.login:hover {
 	the end color of gradient1 (lighter version) is: #E6EDF4
 */
 }
+
 
 #tabs-1 {
     width: 600px;
@@ -1103,9 +1118,26 @@ a.login:hover {
 #servicewindow {
 }
 
+/*
 body {
-    background-image: url("/images/gradient.png");
-    background-repeat: repeat-x;
+	height: 2000px;
+background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0.22, rgb(222,222,205)),
+    color-stop(1, rgb(252,252,252))
+);
+background-image: -moz-linear-gradient(
+    center top,
+    rgb(222,222,205) 48%,
+    rgb(252,252,252) 100%
+);}
+*/
+
+body {
+	background-image: url("http://snook.ca/img/bg.png");
+	background-repeat: repeat;
 }
 
 .container {
@@ -1115,17 +1147,50 @@ body {
 }
 
 #head_img {
-    height: 200px;
-    margin: 0;
+
+    margin-left: 6px;
+	width: 1159px;
+	background-image: url("/images/service_head3.png");
 	width: 1172px;
+	height: 214px;
+		-moz-border-radius: 5px;
+border-radius: 5px;
+
 }
 
-#remainder {
-    background-image: url("/images/service_content1.png");
-    background-repeat: no-repeat;
-    height: 450px;
-	margin-left:3.5px;
+#remainder_img, #head_img, #service_full_img, #payer_tabs, #retailer_tabs, #full {
+	-moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 5px #888;
+	border: none;	
 }
+
+
+
+img#head_img {
+			-moz-border-radius: 5px;
+border-radius: 5px;
+}
+
+/*
+img#service_full_img {
+		-moz-border-radius: 5px;
+	border-radius: 5px;
+	margin-left: 3.5px;
+}
+*/
+
+#full {
+
+	background-image: url("/images/service_full.png");
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	margin-left: 6px;
+	width: 1172px;
+	height: 770px;
+
+}
+
 
 #learn1 a {
     z-index: 100;
