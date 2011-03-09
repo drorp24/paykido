@@ -3,7 +3,8 @@
 <head> <!--  -->
    	<%= stylesheet_link_tag  "subscriber", :media => "all" %>
    	<%= stylesheet_link_tag  "jquery-ui-1.8.1.custom.css", :media => "all" %>
-   	<%= stylesheet_link_tag  "demo_table_jui.css", :media => "all" %>
+   	<%= stylesheet_link_tag  "jquery.ui.theme.css", :media => "all" %>
+  	<%= stylesheet_link_tag  "demo_table_jui.css", :media => "all" %>
 	<%= javascript_include_tag "jquery-1.4.2.min", "jquery-ui-1.8.2.custom.min", "jquery.dataTables.min", "application"%>
 	<% if session[:user] and session[:user].is_retailer %>
 		<script type="text/javascript" src="http://www.google.com/jsapi"></script>	
@@ -21,6 +22,7 @@
 			<div id="head_img" ></div>
 		<% end %>
 	</div>
+	
 	
 	<% if flash[:notice] -%>
 		<div class="ui-widget message">
@@ -46,7 +48,7 @@
 	<% if params[:action] != 'index' and session[:user] and session[:user].name %>
 		<span class="login" id="signedin">
 			<% if @user %>
-				Welcome&nbsp;
+				Welcome
 				<% if @user.is_payer and session[:payer].name? %>
 					<%= session[:payer].name %>
 				<% elsif @user.is_retailer and session[:retailer].name? %>
@@ -61,6 +63,9 @@
 		<%= link_to "Sign In", "/subscriber/signin", :class => "login", :id => "signin" %>
 		<%= link_to "Join In", "/subscriber/joinin", :class => "login", :id => "joinin" %>
 	<% end %>
+
+	<div id="release" class="login">0.4.1</div>
+
 
 
     <%= yield :layout %>

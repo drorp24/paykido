@@ -231,7 +231,7 @@
 			<div id="allowance" class="consumers_page">
 				<div class="left_content">
 					<p class="content-name-left" id="consumer_name_allowance"></p>		
-					<img id='chartdiv' class="engrave"/>
+					<div id="gauge"><img id='chartdiv' class="engrave"/></div>
 					<% form_for :payer_rule, :url => { :action => :consumer_rules_update }, :html => {:id => "allowance_form"} do |f| %>			
 					    <span class="long item">Monthly Allowance:</span>
 						<span class="value"><%= f.text_field(:edited_budget, :onchange => "modifyBudget('post')", :id => "budget", :size => 10) %></span>
@@ -253,9 +253,9 @@
 			<div id="thresholds" class="consumers_page">
 				<div class="left_content">
 					<p class="content-name-left" id="consumer_name_approvals"></p>
-					<div class="inner_content_text">What is low enough to be automatically approved?</div>
-					<div class="inner_content_text">How high should it get to be automatically denied?</div>
-					<div class="inner_content_text">Drag the handles to indicate both amounts.</div>
+					<div class="inner_content_text"><span>Should arca automatically approve</span><span id="cname"></span><span>'s low</span></div>
+					<div class="inner_content_text">priced purchases , or deny high priced ones?</div>
+					<div class="inner_content_text">Use the handles to indicate your preferences.</div>
 					<div id='slider-range' class="engrave" onclick="modifyUnderOver('post')"></div><br />
 					<% form_for :payer_rule, :url => { :action => :consumer_rules_update }, :html => {:id => "amounts_form"} do |f| %>
 						<p id="slider">
@@ -292,7 +292,7 @@
 					<% form_for(:consumer, :url => {:action => :consumer_info_update}, :html => {:multipart => true, :id => "consumer_pic_form"}) do |f| %>			
 						<p>
 							<span class=item>Photo:</span>			
-							<span class=content-value id="consumer_info_pic_file"><%= f.file_field("uploaded_pic", :size => 25, :onchange => "$('#consumer_pic_form').submit();")  %></span> 
+							<span class=content-value id="consumer_info_pic_file"><%= f.file_field("uploaded_pic", :size => 25, :disabled => "disabled", :onclick => "this.disabled=true;")  %></span> 
 						</p>
 					<% end %>
 				</div>				
@@ -302,9 +302,9 @@
 			</div>
 			<div id="new" class="consumers_page">
 				<div class="left_content">
-					<p class="content-name-left" id="consumers">Consumer community set-up</p>		
-					<div class="inner_content_text">Follow these two simple steps to get each member</div>
-					<div class="inner_content_text">of your community up and running within seconds.</div>
+					<p class="content-name-left" id="consumers">Adding a family member</p>		
+					<div class="inner_content_text">&nbsp;</div>
+					<div class="inner_content_text">&nbsp;</div>
 					<p class="inner_content_text">Start by keying the consumer's phone number here:</p>
 					<% form_for(:consumer, :url => {:action => "sms_consumer"}, :html => {:id => "phone_form"}) do |f| %>
 						<%= f.text_field :billing_phone, :id => "consumer_phone", :value => nil, :size => 20, :placeholder => "Phone number", :class => "formfield" %>
@@ -447,7 +447,6 @@
 			<div id="billing">
 				<%= button_to "Preapproval", :action => "preapproval" %>
 				<br /><br />
-				<%= button_to "Payment", :action => "pay" %>
 			</div>
 			<div id="account">
 			</div>
@@ -560,6 +559,7 @@
 					}
 			})				
 	};
+
 
 	
 	viewPurchases("all");

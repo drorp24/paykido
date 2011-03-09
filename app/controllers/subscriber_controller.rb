@@ -202,7 +202,6 @@ class SubscriberController < ApplicationController
         get_rid_of_duplicates
         session[:consumers] = @consumers 
         session[:consumer] = (@consumers.empty?) ?nil :@consumers[0]
-        flash[:message] = "Welcome to arca!" if @consumers.empty?
         
         @retailers = Purchase.payer_retailers_the_works(@payer.id)
         session[:retailers] = @retailers
@@ -463,35 +462,7 @@ end
     
   end
   
-  def pay
-    
-    pay_request = PaypalAdaptive::Request.new
 
-    data = {
-    "returnUrl" => "http://localhost/subscriber/payer_signedin",
-    "requestEnvelope" => {"errorLanguage" => "en_US"},
-    "currencyCode"=>"USD",
-    "cancelUrl"=>"http://localhost/subscriber/payer_signedin",
-    "senderEmail" => "drorp1_1297098617_per@yahoo.com",
-    "receiverList"=>{"receiver"=>
-         [{"email"=>"drorp2_1297098512_biz@yahoo.com", "amount"=>"1499.00"}]},
-    "actionType"=>"PAY",
-    "trackingId" => "191",
-    "preapprovalKey" => session[:preapprovalKey],
-    "ipnNotificationUrl"=>"http://localhost/subscriber/ipn_notification"    }
-    
-    pay_response = pay_request.pay(data)
-    
-    if pay_response.success?
-      flash[:message] = "Thank you!"
-      redirect_to "/subscriber/payer_signedin"
-    else
-      puts pay_response.errors.first['message']
-      flash[:message] = pay_response.errors.first['message']
-      redirect_to "/subscriber/payer_signedin"
-    end    
-    
-  end
   
   def rename_payer
 

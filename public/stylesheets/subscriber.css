@@ -1,3 +1,42 @@
+.consumer.portlet-header.ui-widget-header-lightness { border: 1px solid #e78f08; background: #f6a828 url(images/ui-bg_gloss-wave_35_f6a828_500x100.png) 50% 50% repeat-x; color: #ffffff; font-weight: bold; }
+
+
+.consumer.portlet-header input {
+	border: none;
+}
+
+#release {
+    position: absolute;
+    top: 45px;
+    left: 1123px;
+	font-size: 16px;
+
+	
+}
+
+#table_filter input {
+	margin-top: -2px;
+	
+}
+
+#gauge, #chartdiv {
+	-moz-border-radius:4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;	
+}
+
+td {
+	border-bottom: 1px dotted gray;
+
+}
+
+#under, #over {
+	background-color: transparent;
+	width: 75px;
+	float: right;
+	margin-right: 245px;
+}
+
 /*
 .ui-tabs-selected a {
 	background-color: #F6FAFC;
@@ -59,7 +98,6 @@ img#gradient_wrap {
 }
 
 #payer_name {
-	font-family: "Arial Rounded MT Bold";
 	font-size: 20px;
 	color: #17375E;
 	text-align: left;
@@ -192,6 +230,7 @@ td {
 	height: 22px;
 	width: 1096px;
 	font-size: 17px;
+	border: none;
 /*
 	background: #0078ae url(images/ui-bg_glass_45_0078ae_1x400.png) 50% 50% repeat-x;
 
@@ -224,7 +263,7 @@ tr.odd td.authorized_cell.really {
 
 .authorized_cell {
 	width:65px;
-	background: #FFFFFF;
+	background-color: transparent;
 }	
 
 .authorized_cell .icon .like {
@@ -361,9 +400,10 @@ tr.odd td.authorized_cell.really {
 
 .consumer_pic {
 	position: absolute;
-	top:152px;
-	left:454px;
-	height: 229px;
+	top:154px;
+	left:407px;
+	height: 221px;
+	width: 165px;
 		-moz-border-radius:4px;
 	-webkit-border-radius: 4px;
 	border: 1px inset #FFFFF5;
@@ -428,14 +468,12 @@ tr.odd td.authorized_cell.really {
 }
 
 .content-name-left {
-	font-family:"Arial Rounded MT Bold";
 	color: #F7B64A;
 	margin-left: 3px;
 	font-size:20px;
 }
 
 .content-name-right {
-	font-family:"Arial Rounded MT Bold";
 	color: #004488;
 	margin-left: -13px;
 	font-size:20px;
@@ -462,7 +500,8 @@ tr.odd td.authorized_cell.really {
 	display:inline;
 	float:left;
 	margin-left: 3px;
-	height:64px;
+	height:54px;
+	width: 43px;
 }
 
 .retailer-info {
@@ -485,7 +524,7 @@ tr.odd td.authorized_cell.really {
 	background: none;
 	width:130px;
 	border: none;
-	color: white;
+
 	font-weight: bold;
 	font-family:"Arial Rounded MT Bold";
 }
@@ -725,15 +764,6 @@ select, input {
 	background-color: transparent;
 }
 
-#under {
-	float: right;
-	margin-right: 210px;
-}
-
-#over {
-	float: right;
-	margin-right: 210px;
-}
 
 #budget_slider, #balance_slider {
 	width:300px;
@@ -949,11 +979,11 @@ a.login:hover {
 .login {
     display: inline:z-index: 100;
     text-decoration: none;
-    font-family: "Arial Rounded MT Bold";
     color: #026890;
     color: #004488;
 	color: #17375E;
-    font-size: 18px;
+    font-size: 20px;
+	font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
 }
 
 #signin {
@@ -1023,14 +1053,12 @@ a.login:hover {
 
 
 .inner_content_title, .inner_content_subtitle {
-    font-family:"Arial Rounded MT Bold";
     color: #004488;
     font-size: 18px;
 	margin-left: 3px;
 }
 
 .inner_content_subtitle {
-	font-family:"Arial Narrow";
 	font-size:18px;
 	margin-bottom:5px;
 	margin-left:2px;
@@ -1136,7 +1164,7 @@ background-image: -moz-linear-gradient(
 */
 
 body {
-	background-image: url("http://snook.ca/img/bg.png");
+	background-image: url("/images/bg.png");
 	background-repeat: repeat;
 }
 
@@ -1150,9 +1178,9 @@ body {
 
     margin-left: 6px;
 	width: 1159px;
-	background-image: url("/images/service_head3.png");
+	background-image: url("/images/service_head4.png");
 	width: 1172px;
-	height: 214px;
+	height: 212px;
 		-moz-border-radius: 5px;
 border-radius: 5px;
 
@@ -1188,6 +1216,7 @@ img#service_full_img {
 	margin-left: 6px;
 	width: 1172px;
 	height: 770px;
+	background-repeat: repeat-x;
 
 }
 

@@ -8,6 +8,36 @@ class ConsumerController < ApplicationController
 #  before_filter :ensure_consumer_authenticated, :except => ["login", "register", "register_callback"]
   
   
+  def pay
+    
+    pay_request = PaypalAdaptive::Request.new
+
+    data = {
+    "returnUrl" => "http://localhost/subscriber/payer_signedin",
+    "requestEnvelope" => {"errorLanguage" => "en_US"},
+    "currencyCode"=>"USD",
+    "cancelUrl"=>"http://localhost/subscriber/payer_signedin",
+    "senderEmail" => "drorp1_1297098617_per@yahoo.com",
+    "receiverList"=>{"receiver"=>
+         [{"email"=>"drorp2_1297098512_biz@yahoo.com", "amount"=>"1499.00"}]},
+    "actionType"=>"PAY",
+    "trackingId" => "191",
+    "preapprovalKey" => session[:preapprovalKey],
+    "ipnNotificationUrl"=>"http://localhost/subscriber/ipn_notification"    }
+    
+    pay_response = pay_request.pay(data)
+    
+    if pay_response.success?
+      flash[:message] = "Thank you!"
+      redirect_to "/subscriber/payer_signedin"
+    else
+      puts pay_response.errors.first['message']
+      flash[:message] = pay_response.errors.first['message']
+      redirect_to "/subscriber/payer_signedin"
+    end    
+    
+  end
+  
   def buy_window
     
 #    if current_facebook_user

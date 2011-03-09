@@ -6,8 +6,10 @@ $('#payer_rule_rollover_human_off').attr('checked', "<%= (@payer_rule.rollover?)
 $('#allowance_form').attr('action', '<%= "/subscriber/consumer_rules_update/#{@consumer.id}" %>');
 <% if @consumer.name.blank? %>
 	$('#consumer_name_allowance').html("Consumer's monthly allowance");
+	$('#cname').html(" consumer");
 <% else %>
 	$('#consumer_name_allowance').html("<%= @consumer.name %>'s monthly allowance");
+	$('#cname').html(" <%= @consumer.name %>");
 <% end %>
 
 $('#under').val(<%= @payer_rule.auto_authorize_under %>);

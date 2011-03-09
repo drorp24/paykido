@@ -2,8 +2,6 @@ $('#cheerful_message').fadeOut(10000);
 $('#consumer_phone').val('');
 <% if @consumers.empty? %>
 
-	$('.consumers_list').append(	
-		'<%= image_tag "/images/welcome_to_arca.png", :id => "welcome_to_arca", :class => "righthandside_marketial" %>');
 		
 	$(function() {
 		$('#consumers_tabs').tabs("option","disabled", [0, 1, 2]);
