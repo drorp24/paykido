@@ -60,8 +60,8 @@
 	function retailer_info(id) {
 		var selector = "div[id = retailer_" + id.toString() + " ]"
 			
-		$('.retailer.portlet-header').removeClass('ui-widget-header-lightness');
-		$(selector).addClass('ui-widget-header-lightness');
+		$('.retailer.portlet-header').removeClass('ui-state-active');
+		$(selector).addClass('ui-state-active');
 		$.ajax({
 			url: 'retailer/'+id,
 			success: function(data){

@@ -523,10 +523,13 @@ tr.odd td.authorized_cell.really {
 .portlet-header input {
 	background: none;
 	width:130px;
-	border: none;
-
 	font-weight: bold;
-	font-family:"Arial Rounded MT Bold";
+	margin: 0;
+	padding: 0;
+}
+
+.ui-state-active.portlet-header input {
+	color: white;	
 }
 
 #alerts .right_content {
@@ -575,10 +578,12 @@ select:hover, input:hover, #payer_name:hover {
 	
 }
 
+/*
 select, input {
 	color:#026890;
 }
 
+*/
 .item_by_icon {
 	position:absolute;
 	left:60px;

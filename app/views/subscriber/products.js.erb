@@ -62,8 +62,8 @@
 	function product_info(id) {
 		var selector = "div[id = product_" + id.toString() + " ]"
 			
-		$('.product.portlet-header').removeClass('ui-widget-header-lightness');
-		$(selector).addClass('ui-widget-header-lightness');
+		$('.product.portlet-header').removeClass('ui-state-active');
+		$(selector).addClass('ui-state-active');
 		$.ajax({
 			url: 'product/'+id,
 			success: function(data){

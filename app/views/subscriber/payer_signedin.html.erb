@@ -150,13 +150,13 @@
 	function consumer_info(id) {
 
 		var selector = "div[id = consumer_" + id.toString() + " ]";			
-		$('.consumer.portlet-header').removeClass('ui-widget-header-lightness');
-		$(selector).addClass('ui-widget-header-lightness');
+		$('.consumer.portlet-header').removeClass('ui-state-active');
+		$(selector).addClass('ui-state-active');
 
 		$.ajax({
 		url: 'consumer/'+id,
 			success: function(data){
-				$(selector).addClass('ui-widget-header-lightness');
+				$(selector).addClass('ui-state-active');
 				drawChart();
 				modifyBudget('get');
 				modifyBalance('get');			
@@ -351,7 +351,7 @@
 			<div id="alerts">
 				<div class="left_content">
 					<p class="content-name-right" id="alerts_pane">Alerts</p>
-					<% form_for :payer, :url => { :action => :payment_update }, :html => {:id => "phone_alert_form"} do |f| %>
+					<% form_for :payer, :url => { :action => :payer_update }, :html => {:id => "phone_alert_form"} do |f| %>
 						<div id="phone_alert_shade_area">
 							<div class="inner_content_subtitle" id="extra_space2">Notify me</div>
 							<div class="form_line">
@@ -398,7 +398,7 @@
 				</div>
 				<div class="right_content">
 					<p class="content-name-right" id="reports_pane">Reports</p>
-					<% form_for :payer, :url => { :action => :payment_update }, :html => {:id => "email_alert_form"} do |f| %>
+					<% form_for :payer, :url => { :action => :payer_update }, :html => {:id => "email_alert_form"} do |f| %>
 						<div id="email_alert_shade_area">
 							<div class="inner_content_subtitle" id="extra_space3">Inform about</div>
 							<div class="form_line">
@@ -445,8 +445,14 @@
 				</div>
 			</div>
 			<div id="billing">
+				<h2>This page is under construction</h2><br /><br />
+				<% form_for @payer, :url => {:controller => :subscriber, :action => :payer_update} do |f| %>
+					<p><%= f.radio_button "billing_id", 1, :checked => true  %> I want every purchase to be charged automatically</p>			
+					<p><%= f.radio_button "billing_id", 2  %> I want to pay for each purchase myself</p>
+					<p><%= f.submit %></p>
+				<% end %>
+				<br /><br /><br /><br /><br />
 				<%= button_to "Preapproval", :action => "preapproval" %>
-				<br /><br />
 			</div>
 			<div id="account">
 			</div>
@@ -533,7 +539,8 @@
 		$('#consumer_name_allowance').html(name + "\'s allowance");
 		$('#consumer_name_approvals').html(name + "\'s approval policy");		
 		$('#consumer_info').html(name + "\'s info");		
-		$('#consumer_info_name input').val(name);		
+		$('#consumer_info_name input').val(name);
+		$('#cname').html(" " + name);		
 
 			$.ajax({
 				url: 'rename_consumer/' + id + '?name=' + name,
@@ -548,7 +555,7 @@
 		$('#consumer_name_allowance').html(name + "\'s allowance");
 		$('#consumer_name_approvals').html(name + "\'s approval policy");		
 		$('#consumer_info').html(name + "\'s info");
-		$('.ui-widget-header-lightness input').val(name);		
+		$('.ui-state-active').val(name);		
 		
 	};
 	

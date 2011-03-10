@@ -72,7 +72,7 @@ $(document).ready(function (){
 		</div>
 
 		<div id="buy" class="box">
-			<% form_tag "http://localhost/consumer/buy", :id => "select_product_form" do %>
+			<% form_for :consumer, :action => :buy do %>
 				<span>You have selected <%= @product%></span>
 				<%= submit_tag "Single-click to Buy" %>
 			<% end %>

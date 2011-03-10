@@ -416,7 +416,7 @@ end
     
   end
 
-  def payment_update
+  def payer_update
     
     if @payer.update_attributes(params[:payer])
       session[:payer] = @payer
@@ -436,10 +436,10 @@ end
     preapproval_request = PaypalAdaptive::Request.new
 
     data = {
-    "returnUrl" => "http://localhost/subscriber/payer_signedin",
+    "returnUrl" => "http://www.go-arca.com/subscriber/payer_signedin",
     "requestEnvelope" => {"errorLanguage" => "en_US"},
     "currencyCode"=>"USD",
-    "cancelUrl"=>"http://localhost/subscriber/payer_signedin",
+    "cancelUrl"=>"http://www.go-arca.com/subscriber/payer_signedin",
     "maxTotalAmountOfAllPayments" => "1500.00",
     "maxNumberOfPayments" => "30",
     "startingDate" => "2011-02-24T07:00:00.000Z",
