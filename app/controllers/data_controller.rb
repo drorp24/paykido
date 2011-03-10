@@ -6,6 +6,7 @@ def populate_pid
     consumer.pid = consumer.payer_id
     consumer.save!
   end
+  redirect_to :controller => 'data', :action => 'index'
   
   
 end
