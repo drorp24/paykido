@@ -2,7 +2,7 @@ require 'rubygems'
 require 'openssl'
 require 'base64'
 #require 'yajl'
-require 'ruby-debug'
+#require 'ruby-debug'
 
 class LoginController < ApplicationController
   
