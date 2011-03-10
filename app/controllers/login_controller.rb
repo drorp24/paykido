@@ -31,8 +31,6 @@ class LoginController < ApplicationController
     redirect_to :controller => 'consumer', :action => 'main'
     
   end
- 
-  end
 
   def set_consumer_and_payer
 
