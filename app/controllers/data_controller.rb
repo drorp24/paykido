@@ -1,5 +1,16 @@
 class DataController < ApplicationController
   
+def populate_pid
+  
+  for consumer in Consumer.all
+    consumer.pid = consumer.payer_id
+    consumer.save!
+  end
+  
+  
+end
+
+
 def add_item
   
   item = Item.new(params[:item])
