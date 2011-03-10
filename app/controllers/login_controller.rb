@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'openssl'
 require 'base64'
-require 'yajl'
+#require 'yajl'
 require 'ruby-debug'
 
 class LoginController < ApplicationController
@@ -73,7 +73,7 @@ module FacebookRegistration
     end
 
     signature, signed_params = signed_request.split('.')
-    signed_params = Yajl::Parser.new.parse(base64_url_decode(signed_params))
+#    signed_params = Yajl::Parser.new.parse(base64_url_decode(signed_params))
 
     return signed_params
   end
