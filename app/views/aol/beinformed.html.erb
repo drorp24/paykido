@@ -4,7 +4,7 @@
 	<ul class="edgetoedge" style="height:15px;width:169px;margin:5px;margin-left:0;padding:3px;text-align:center;background-image:url('/images/heading_bg1.png');color:white;text-align:left;text-shadow: rgba(0,0,0,.2) 0 5px 3px;font-weight:100;font-size:14px;">Top Categories</ul>
 	<div id="categoryChart">
 		<div id="purchases_by_category">
-			<%= image_tag "/images/visualization_categories_fake.png" if !Current.policy.online? %>
+			<%= image_tag "/images/visualization_categories_fake.png"  %>
 		</div>
 	</div>
 
@@ -15,7 +15,7 @@
 			<ul class="edgetoedge">
 			<% i = 1 %>
 			<% Purchase.payer_top_products(@payer.id, 3).each do |product_id, total|%>
-				<li>
+				<li class="top">
 					<%= link_to Product.find(product_id).title.first(8), "purchases_by_product/#{product_id}", :class => "short_item" %>
 					<span class="short_value">
 						<span class="right_indented"><%= number_to_currency(total) %></span>
@@ -56,8 +56,9 @@
 </ul>
 
 <% if Current.policy.online? %>	
+
     <script type="text/javascript">
-      google.load("visualization", "1", {packages:["piechart"]});
+/*      google.load("visualization", "1", {packages:["piechart"]});
       google.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = new google.visualization.DataTable();
@@ -83,5 +84,7 @@
 					colors: [{color:'orange', darker:'#680000'}, {color:'#1B7BDD', darker:'black'},{color:'#666666', darker:'black'}, {color:'#dc3912', darker:'black'}]
       });
 	  }
+*/
     </script>
+
 <% end %>	

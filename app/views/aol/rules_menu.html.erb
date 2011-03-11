@@ -57,6 +57,7 @@
 				:placeholder => "this amount",  
 				:class => "value red",
 				:id => "over",
+				:size => 20,
 				:onchange => "updateSlider()") %>
 			</span>
 		</li>
@@ -64,10 +65,7 @@
 
 	
 
-<ul class="banner_question_mark">
-		<span style="position:absolute;left:12px;font-size:14px">If I do need to be involved, reach me by</span>
-		<span><%= link_to "shal", "/aol/involved_help", :class => "slideup transparent question_mark" %> </span>
-</ul>
+
 	<%if @payer.phone_alert %>
 		<a href="/aol/sms_prefs" class="contact"><img src="/images/iPhone SMS 64.png" border="0"></a> 
 	<% else %>

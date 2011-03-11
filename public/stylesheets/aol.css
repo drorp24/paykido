@@ -1,3 +1,11 @@
+.top {
+	width: 100%;
+}
+
+body {
+	height: 1000px;
+}
+
 #payer_phone_events, #payer_phone_alert_frequency, #payer_edited_phone {
 	display: inline;
 	width: 190px;
@@ -276,9 +284,9 @@ img.smsEmail {
 
 .bottom_submit_tag {
 	position:absolute;
-	bottom:5px;
+	TOP:380px;
 	left:1px;
-	width:303px;
+right: 1px;
 	height:35px;
 }
 
@@ -419,13 +427,22 @@ li.bordered {
 }
 
 #chartdiv {
-	margin-left:10px;
+	position: absolute;
+	left: 50%;
+	margin-left: -150px;
 	margin-top:20px;
 	margin-bottom:0;
 	width:300px;
 	height:110px;
 
 }
+
+#chart_placeholder {
+	width:370px;
+	height:140px;
+	
+}
+
 
 
 
@@ -540,7 +557,7 @@ ul li small.counter {
 
 .iphone_strip {
 
-
+	height: 55px;
 }
 
 .toolbar {
