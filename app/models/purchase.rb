@@ -56,7 +56,7 @@ class Purchase < ActiveRecord::Base
   def self.payer_top_products(payer_id, limit)
     self.sum   :amount,
                :conditions => ["payer_id = ? and authorized = ? and authentication_date is not ?", payer_id, true, nil], 
-               :group => "product_id" ,
+               :group => "product_id, purchases.amount" ,
                :order => "amount desc",
                :limit => limit
 
@@ -65,7 +65,7 @@ class Purchase < ActiveRecord::Base
    def self.payer_top_retailers(payer_id, limit)
     self.sum   :amount,
                :conditions => ["payer_id = ? and authorized = ? and authentication_date is not ?", payer_id, true, nil], 
-               :group => "retailer_id" ,
+               :group => "retailer_id, purchases.amount" ,
                :order => "amount desc", 
                :limit => limit
   end
