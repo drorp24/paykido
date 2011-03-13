@@ -16,7 +16,7 @@
 				}
 			});
 			$("#budget").val('$' + $("#budget_slider").slider("value")+'.00');
-			redrawChart();
+			drawChart();
 		});
 	}	
 
@@ -34,26 +34,33 @@
 				}
 			});
 			$("#balance").val('$' + $("#balance_slider").slider("value")+'.00');
-			redrawChart();
+			drawChart();
 		});
 	}	
 
-	function redrawChart()
+	function drawChart()
 	  {
-		<% if Current.policy.online? %>
-		  	var budget_with_currency = document.getElementById("budget").value;
-			var budget = Number(budget_with_currency.replace(/[^0-9\.]+/g,""));
-			var balance_with_currency = document.getElementById("balance").value;
-			var balance = Number(balance_with_currency.replace(/[^0-9\.]+/g,""));
-			if (balance>budget) {balance=budget; document.getElementById("balance").value = '$' + budget + '.00';}				
-			var balance_position = (balance / budget)*100;
-			var tick = ((budget / 40).toFixed(1))*10;	
-			var background = "chf=c,lg,90,FFE7C6,0,76A4FB,0.5" 	
-			var uri = "http://chart.apis.google.com/chart?cht=gom&chs=280x100&chf=bg,lg,90,EFEFEF,0,666666,0.75&chxt=y&chd=t:"+ balance_position+"&chl=Balance&chxr=0,0," + budget + "," + tick;
-		<% else %>
-			var uri = "/images/visualization_balance_fake.png";
-		<% end %>
-		  	document.getElementById("chartdiv").src=uri;
+	var uri = "/images/visualization_balance_fake.png";
+	document.getElementById("chartdiv").src=uri;
+	<% if Current.policy.online? %>
+	  	var budget_with_currency = document.getElementById("budget").value;
+		var budget = Number(budget_with_currency.replace(/[^0-9\.]+/g,""));
+		var balance_with_currency = document.getElementById("balance").value;
+		var balance = Number(balance_with_currency.replace(/[^0-9\.]+/g,""));
+		if (balance>budget) {balance=budget; document.getElementById("balance").value = '$' + budget + '.00';}				
+		var balance_position = (balance / budget)*100;
+		var tick = ((budget / 40).toFixed(1))*10;	
+		var background = "chf=c,lg,90,FFE7C6,0,76A4FB,0.5" 	
+		var uri = "http://chart.apis.google.com/chart?cht=gom&chs=280x100&chf=bg,lg,90,EFEFEF,0,666666,0.75&chxt=y&chd=t:"+ balance_position+"&chl=Balance&chxr=0,0," + budget + "," + tick;
+	  	document.getElementById("chartdiv").src=uri;
+	<% end %>
+
+
+/*
+	  	document.getElementById("balance").value = '$'+balance;
+*/
+	
+/*		new Ajax.Updater('budget_update','/aol/budget_update',{asynchronous:true, evalScripts:true,parameters:Form.serialize(this)}); */
 	  }
 	  
 	function convertToCurrency(){
@@ -61,10 +68,22 @@
 		document.getElementById("balance").value = '$' + document.getElementById("balance").value;
 	}
 
+$(document).ready(function (){  
+
+	  drawChart();
+	  if (!$('#chartdiv').attr('src').length) {
+	  	var uri = "/images/visualization_balance_fake.png";
+		document.getElementById("chartdiv").src=uri;
+	  }
+
+	});
+
 </script>
 
-<img id='chartdiv' class="engrave" src="<%= @uri %>"/>
+
+<img id='chartdiv' class="engrave"/>
 <div id='chart_placeholder'></div>
+
 
 <div class="thin_lines">
 
@@ -92,4 +111,3 @@
 <% end %>
 	
 </div>
-

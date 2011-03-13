@@ -241,8 +241,8 @@ class AolController < ApplicationController
   
   def select_consumer
     
-    @back_to = "/aol/welcome_signedin"
-    @back_class = "like_back"
+#    @back_to = "/aol/welcome_signedin"
+#    @back_class = "like_back"
     
     @action = params[:id]
     @title = (@action == 'budget_form') ?"Allowance":"Authorization" 
@@ -256,13 +256,29 @@ class AolController < ApplicationController
 #    @use_jqt = "no"
 #    @back_to = "/aol/select_consumer/budget_form"
 #    @back_class = "like_back"    
-
     
     @consumer = Consumer.find(params[:id])
-    session[:consumer] = @consumer
     @consumer_rule = @consumer.most_recent_payer_rule
+    session[:consumer] = @consumer
     session[:consumer_rule] = @consumer_rule
 
+    @uri = generate_uri
+
+  end
+
+  def generate_uri
+    
+    if Current.policy.online?
+      budget = @consumer_rule.allowance
+      balance = @consumer.balance
+      balance = budget if balance > budget        
+      balance_position = (balance / budget)*100;
+      tick = budget.divmod(4)[0]
+      uri = "http://chart.apis.google.com/chart?cht=gom&chs=280x100&chf=bg,lg,90,EFEFEF,0,666666,0.75&chxt=y&chd=t:"+ balance_position.to_s + "&chl=Balance&chxr=0,0," + budget.to_s + "," + tick.to_s;
+    else
+      uri = "/images/visualization_balance_fake.png"    
+    end
+  
   end
   
   def budget_update
