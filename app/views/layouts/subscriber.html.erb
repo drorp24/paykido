@@ -16,7 +16,7 @@
   <div class="container">	
 	<div id="head">
 		<span id="get_started_today"><a href="/subscriber/joinin">shalom</a></span>
-		<% if current_page?(:controller => 'subscriber', :action => 'index') %>
+		<% if params[:action] == 'index' %>
 			<div id="head_img" style="display:none"></div>
 		<% else %>
 			<div id="head_img" ></div>

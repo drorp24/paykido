@@ -204,7 +204,7 @@
 
 
 <div id="payer_tabs">
-	<ul>
+	<ul class = "ui-tabs-nav">
 		<li><a href="#consumers">Consumers</a></li>
 		<li><a href="#preferences">Preferences</a></li>
 		<li><a href="#retailers">Retailers</a></li>
@@ -222,7 +222,7 @@
 
 	<div id="consumers">
 		<div id="consumers_tabs">
-			<ul id="no_tabs_background1">
+			<ul class = "ui-tabs-nav" id="no_tabs_background1">
 				<li><a href="#allowance" id ="allowance_tab">Allowance</a></li>
 				<li><a href="#thresholds" id ="thresholds_tab">Thresholds</a></li>
 				<li><a href="#info" id ="info_tab">Info</a></li>
@@ -253,9 +253,9 @@
 			<div id="thresholds" class="consumers_page">
 				<div class="left_content">
 					<p class="content-name-left" id="consumer_name_approvals"></p>
+					<div class="inner_content_text">&nbsp;</div>
 					<div class="inner_content_text"><span>Should arca automatically approve</span><span id="cname"></span><span>'s low</span></div>
 					<div class="inner_content_text">priced purchases , or deny high priced ones?</div>
-					<div class="inner_content_text">Use the handles to indicate your preferences.</div>
 					<div id='slider-range' class="engrave" onclick="modifyUnderOver('post')"></div><br />
 					<% form_for :payer_rule, :url => { :action => :consumer_rules_update }, :html => {:id => "amounts_form"} do |f| %>
 						<p id="slider">
@@ -343,7 +343,7 @@
 
 	<div id="preferences">
 		<div id="preferences_tabs">
-			<ul id="no_tabs_background">
+			<ul class = "ui-tabs-nav" id="no_tabs_background">
 				<li><a href="#alerts" id="alerts_tab">Alerts & Reports</a></li>
 				<li><a href="#billing" id ="billing_tab">Billing</a></li>
 				<li><a href="#account" id ="account_tab">Account</a></li>
