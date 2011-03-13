@@ -74,7 +74,7 @@ class Purchase < ActiveRecord::Base
     self.sum   :amount,
                :conditions => ["payer_id = ? and authorized = ? and authentication_date is not ?", payer_id, true, nil],
                :joins => "inner join products on purchases.product_id = products.id",
-               :group => "category_id",
+               :group => "category_id, purchases.amount",
                :order => "amount desc"
   end
   
