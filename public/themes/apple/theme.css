@@ -7,7 +7,8 @@ body > * {
 }
 
 h1, h2 {
-    font: bold 18px Helvetica;
+    font: bold 18px;
+	font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
     text-shadow: rgba(255,255,255,.2) 0 1px 1px;
     color: rgb(76, 86, 108);
     margin: 10px 20px 6px;
@@ -282,7 +283,7 @@ ul.form li:hover {
 ul li input[type="text"], ul li input[type="password"], ul li textarea, ul li select {
     color: #777;
     background: #fff ;
-    border: 0;
+    border: none;
     font: normal 17px Helvetica;
     padding: 0;
     display: inline-block;

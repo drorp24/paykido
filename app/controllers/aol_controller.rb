@@ -253,9 +253,9 @@ class AolController < ApplicationController
   
   def budget_form
 
-    @use_jqt = "no"
-    @back_to = "/aol/select_consumer/budget_form"
-    @back_class = "like_back"    
+#    @use_jqt = "no"
+#    @back_to = "/aol/select_consumer/budget_form"
+#    @back_class = "like_back"    
 
     
     @consumer = Consumer.find(params[:id])
