@@ -30,11 +30,18 @@ td {
 
 }
 
-#under, #over {
+#under, #over, #balance, #budget {
 	background-color: transparent;
 	width: 75px;
 	float: right;
-	margin-right: 245px;
+}
+
+#balance, #budget {
+	margin-right:248px;
+}
+
+#under, #over {
+	margin-right: 235px;	
 }
 
 /*
@@ -762,12 +769,6 @@ select, input {
 	text-align:right;
 }
 
-
-#balance, #budget {
-	float: right;
-	margin-right:248px;
-	background-color: transparent;
-}
 
 
 #budget_slider, #balance_slider {
