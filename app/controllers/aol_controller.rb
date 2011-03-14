@@ -313,8 +313,8 @@ end
     @categories = Purchase.payer_top_categories(@payer.id)
     @i = 0
     
-    #@back_to = "/aol/welcome_signedin"
-    #@back_class = "like_back"
+    @back_to = "/aol/welcome_signedin"
+    @back_class = "like_back"
     
 
 
@@ -338,8 +338,8 @@ end
      
     #@use_jqt = "no"    
     
-    #@back_to = "/aol/beinformed"
-    #@back_class = "like_back"
+    @back_to = "/aol/beinformed"
+    @back_class = "like_back"
     
     session[:prev_action] = "/aol/purchases_all"
     session[:prev_id] = nil
@@ -356,8 +356,8 @@ end
     
     #@use_jqt = "no"
     
-    #@back_to = "/aol/beinformed"
-    #@back_class = "like_back"
+    @back_to = "/aol/beinformed"
+    @back_class = "like_back"
     
     session[:prev_action] = "/aol/purchases_by_product"
     session[:prev_id] = params[:id]
@@ -372,8 +372,8 @@ end
     
     #@use_jqt = "no"
     
-    #@back_to = "/aol/beinformed"
-    #@back_class = "like_back"
+    @back_to = "/aol/beinformed"
+    @back_class = "like_back"
     
     session[:prev_action] = "/aol/purchases_by_retailer"
     session[:prev_id] = params[:id]
