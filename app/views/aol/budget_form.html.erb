@@ -60,6 +60,12 @@
 		document.getElementById("budget").value = '$' + document.getElementById("budget").value;
 		document.getElementById("balance").value = '$' + document.getElementById("balance").value;
 	}
+	
+	$(function(){
+	    $('#budget_slider').tap( function(e){
+	          "modifyBudget()";
+	    });
+	});
 
 </script>
 
@@ -73,7 +79,7 @@
 
   	<ul class="very_thin_lines engrave">
     	<li>
-    		<span class="long item" id="budget_slider" onclick="modifyBudget()">Monthly Allowance</span>
+    		<span class="long item" id="budget_slider" >Monthly Allowance</span>
 			<span class="value"><%= f.text_field(:edited_budget, :onchange => "redrawChart()", :id => "budget") %></span>
 		</li>
 		<li>
