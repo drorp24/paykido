@@ -123,9 +123,9 @@ class AolController < ApplicationController
   
   def rules_menu
     
-    @use_jqt = "no"
-    @back_to = "/aol/select_consumer/rules_menu"
-    @back_class = "like_back"    
+    #@use_jqt = "no"
+    #@back_to = "/aol/select_consumer/rules_menu"
+    #@back_class = "like_back"    
     @help_to = "/aol/rules_help"
     
     if params and params[:id]
@@ -156,22 +156,22 @@ class AolController < ApplicationController
   
   def rules_help
     
-    @back_to = "/aol/rules_menu"
-    @back_class = "like_back"
+    #@back_to = "/aol/rules_menu"
+    #@back_class = "like_back"
     
   end
   
   def involved_help
 
-    @back_to = "/aol/rules_menu/#{session[:consumer].id}"
-    @back_class = "like_back"    
+    #@back_to = "/aol/rules_menu/#{session[:consumer].id}"
+    #@back_class = "like_back"    
     
   end
   
   def sms_prefs
     
-  @back_to = "/aol/rules_menu"
-  @back_class = "like_back"
+  #@back_to = "/aol/rules_menu"
+  #@back_class = "like_back"
    
   end
   
@@ -189,8 +189,8 @@ class AolController < ApplicationController
   
   def email_prefs
     
-  @back_to = "/aol/rules_menu"
-  @back_class = "like_back"
+  #@back_to = "/aol/rules_menu"
+  #@back_class = "like_back"
   
   @email_frequencies =
             [["as the event occurs","as it occurs"],
@@ -241,8 +241,8 @@ class AolController < ApplicationController
   
   def select_consumer
     
-#    @back_to = "/aol/welcome_signedin"
-#    @back_class = "like_back"
+#    #@back_to = "/aol/welcome_signedin"
+#    #@back_class = "like_back"
     
     @action = params[:id]
     @title = (@action == 'budget_form') ?"Allowance":"Authorization" 
@@ -253,9 +253,9 @@ class AolController < ApplicationController
   
   def budget_form
 
-#    @use_jqt = "no"
-#    @back_to = "/aol/select_consumer/budget_form"
-#    @back_class = "like_back"    
+#    #@use_jqt = "no"
+#    #@back_to = "/aol/select_consumer/budget_form"
+#    #@back_class = "like_back"    
     
     @consumer = Consumer.find(params[:id])
     @consumer_rule = @consumer.most_recent_payer_rule
@@ -283,7 +283,7 @@ class AolController < ApplicationController
   
   def budget_update
   
-    @use_jqt = "no"
+    #@use_jqt = "no"
     
     @consumer = session[:consumer]
     @consumer_rule = session[:consumer_rule]
@@ -308,13 +308,13 @@ end
 
   def beinformed
     
-    @use_jqt = "no"
+#    #@use_jqt = "no"
 
     @categories = Purchase.payer_top_categories(@payer.id)
     @i = 0
     
-    @back_to = "/aol/welcome_signedin"
-    @back_class = "like_back"
+    #@back_to = "/aol/welcome_signedin"
+    #@back_class = "like_back"
     
 
 
@@ -323,10 +323,10 @@ end
   
   def purchases
     
-   @use_jqt = "no"
+#   #@use_jqt = "no"
     
-#    @back_to = "/aol/beinformed"
-#    @back_class = "like_back"
+#    #@back_to = "/aol/beinformed"
+#    #@back_class = "like_back"
     
 #    @purchases = Purchase.all
 #    @i = 0
@@ -336,10 +336,10 @@ end
   
    def purchases_all
      
-    @use_jqt = "no"    
+    #@use_jqt = "no"    
     
-    @back_to = "/aol/beinformed"
-    @back_class = "like_back"
+    #@back_to = "/aol/beinformed"
+    #@back_class = "like_back"
     
     session[:prev_action] = "/aol/purchases_all"
     session[:prev_id] = nil
@@ -354,10 +354,10 @@ end
   
   def purchases_by_product
     
-    @use_jqt = "no"
+    #@use_jqt = "no"
     
-    @back_to = "/aol/beinformed"
-    @back_class = "like_back"
+    #@back_to = "/aol/beinformed"
+    #@back_class = "like_back"
     
     session[:prev_action] = "/aol/purchases_by_product"
     session[:prev_id] = params[:id]
@@ -370,10 +370,10 @@ end
 
   def purchases_by_retailer
     
-    @use_jqt = "no"
+    #@use_jqt = "no"
     
-    @back_to = "/aol/beinformed"
-    @back_class = "like_back"
+    #@back_to = "/aol/beinformed"
+    #@back_class = "like_back"
     
     session[:prev_action] = "/aol/purchases_by_retailer"
     session[:prev_id] = params[:id]
@@ -388,10 +388,10 @@ end
 
   def purchases_pending_authorization
     
-    @use_jqt = "no"
+    #@use_jqt = "no"
     
-    @back_to = "/aol/welcome_signedin"
-    @back_class = "like_back"
+    #@back_to = "/aol/welcome_signedin"
+    #@back_class = "like_back"
     
     session[:prev_action] = "/aol/purchases_pending_authorization"
     session[:prev_id] = nil    
@@ -421,14 +421,14 @@ end
   
   def purchase
     
-#    @use_jqt = "no"
+#    #@use_jqt = "no"
     
     if session[:prev_id]                              
-      @back_to = session[:prev_action] + '/' +  session[:prev_id]
-      @back_class = "like_back"      
+      #@back_to = session[:prev_action] + '/' +  session[:prev_id]
+      #@back_class = "like_back"      
     elsif session[:prev_action]      
-        @back_to = session[:prev_action]
-        @back_class = "like_back"        
+        #@back_to = session[:prev_action]
+        #@back_class = "like_back"        
     end
  
     begin
@@ -524,13 +524,13 @@ end
     
     
     if session[:prev_id]
-      @back_to = session[:prev_action] + '/' +  session[:prev_id]
+      #@back_to = session[:prev_action] + '/' +  session[:prev_id]
     elsif session[:prev_action]
-      @back_to = session[:prev_action]
+      #@back_to = session[:prev_action]
     else
-      @back_to = "/aol/welcome_signedin"
+      #@back_to = "/aol/welcome_signedin"
     end
-    redirect_to @back_to
+    redirect_to #@back_to
     
   end
   
@@ -559,8 +559,8 @@ end
     
     @purchase = session[:purchase]
     
-    @back_to = "/aol/purchase/#{@purchase.id}"
-    @back_class = "like_back"
+    #@back_to = "/aol/purchase/#{@purchase.id}"
+    #@back_class = "like_back"
 
     
     @rule_left = "blah blah "

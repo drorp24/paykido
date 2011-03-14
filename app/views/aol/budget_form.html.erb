@@ -74,11 +74,11 @@
   	<ul class="very_thin_lines engrave">
     	<li>
     		<span class="long item" id="budget_slider" onclick="modifyBudget()">Monthly Allowance</span>
-			<span class="value"><%= f.text_field(:edited_budget, :onchange => "drawChart()", :id => "budget") %></span>
+			<span class="value"><%= f.text_field(:edited_budget, :onchange => "redrawChart()", :id => "budget") %></span>
 		</li>
 		<li>
     		<span class="long item" id="balance_slider" onclick="modifyBalance()">Current Balance</span>
-			<span class="green_value"><%= text_field(:consumer, :edited_balance, :onchange => "drawChart()", :id => "balance", :class => "dollar_amount") %>
+			<span class="green_value"><%= text_field(:consumer, :edited_balance, :onchange => "redrawChart()", :id => "balance", :class => "dollar_amount") %>
 			</span>
 		</li>
 		<li>
