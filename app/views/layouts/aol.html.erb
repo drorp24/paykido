@@ -31,6 +31,12 @@
      				'beforeSend': function (xhr) {xhr.setRequestHeader("Accept", "text/javascript")}  
 				});
 			});
+			
+	if ((navigator.userAgent.indexOf('iPhone') != -1) ||   (navigator.userAgent.indexOf('iPod') != -1))
+{
+    document.location = "http://www.go-arca/aol/signin";
+}
+
 		</script>
   </head>
 	
