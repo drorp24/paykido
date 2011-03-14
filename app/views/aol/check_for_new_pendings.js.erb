@@ -1,5 +1,4 @@
 $('small.counter').html('<%= @pending_count %>');
 <% if @new_pendings == true %>
-	$('#new_pendings_alert').show("slow");
-	$('#new_pendings_alert').fadeOut(7000);
+	alert('Incoming purchase request!');
 <% end %>
