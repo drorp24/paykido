@@ -1,13 +1,26 @@
 <%= image_tag "/images/farmville1.png", :id => "farmville1" %>
 <%= image_tag "/images/farmville21.png", :id => "farmville2" %>
-<a href="http://www.go-arca.com/consumer/buy_window?
+<%= image_tag "/images/loading_short.gif", :id => "loading", :style=>"display:none;" %>
+<a href="http://localhost/consumer/buy_window?
 	sn=ACME&
 	userid=131827&
 	amount=6.99&
 	amountdesc=310%20Farm%20Cash&
-	has=df659d502af5151a2edd18e2ebb50ba3&
-	xdurl=http:%2F%2Fwww.mydomain.com%2Fxd.html"
+	hash=df659d502af5151a2edd18e2ebb50ba3&
+	xdurl=http:%2F%2Flocalhost%2Fxd.html"
 	rel="facebox">
-	<img src="http://localhost/images/arca button.png" id="arca" border=0 alt="arca"/>
+	<img src="http://www.go-arca.com/images/arca button.png" id="arca" border=0 alt="arca"/>
 </a>
+
+<script type="text/javascript">
+	$(document).ready(function (){  
+
+		<% if @activity == "register" %>
+			$.facebox({ ajax: 'http://localhost/consumer/register_window'});
+		<% elsif @activity == "buy" %>	
+			$.facebox({ ajax: 'http://localhost/consumer/buy_window'});
+		<% end %>
+	});
+</script>
+
 

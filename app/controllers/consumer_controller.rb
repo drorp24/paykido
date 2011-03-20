@@ -8,6 +8,10 @@ class ConsumerController < ApplicationController
 #  before_filter :ensure_consumer_authenticated, :except => ["login", "register", "register_callback"]
   
   
+  def logout
+    
+  end
+  
   def pay
     
     pay_request = PaypalAdaptive::Request.new
@@ -55,12 +59,95 @@ class ConsumerController < ApplicationController
     
 #    @products = session[:products] || Product.find_product_options(1)
 #    session[:products] = @products
-    @product = params[:amountdesc]
+
+    find_consumer
+    
+    if @consumer
+      @salutation = "Welcome "
+      @name = @consumer.name   
+      @pic = @consumer.tinypic 
+      find_params
+      @first_line = "You have selected"
+      @second_line = "#{params[:amountdesc]} for $#{params[:amount]}"
+    else
+      @salutation = "Hello!"
+      @name = nil
+      @pic = nil
+      @first_line =  "Login or register to arca"
+      @second_line = "and get it all 1-click!"
+    end
+    
+  end
+  
+
+  def find_consumer
+
+    if session[:consumer]
+      @consumer = session[:consumer]
+    elsif current_facebook_user
+      @consumer = find_consumer_by_facebook_user  
+    end    
 
   end
 
+  def find_params
+    
+    if params
+      session[:params] = params
+    else
+      params = session[:params]
+    end
+    
+  end
+
+
+  def find_consumer_by_facebook_user
+    
+    @consumer = session[:consumer] = Consumer.find_or_initialize_by_facebook_id(current_facebook_user.id)    
+    @consumer.facebook_id = current_facebook_user.id
+    @consumer.facebook_access_token = current_facebook_client.access_token
+
+    @payer = session[:payer] = @consumer.payer if @consumer    
+    @consumer_rule = session[:consumer_rule] = @consumer.most_recent_payer_rule if @consumer
+    
+
+
+#    begin
+    @consumer.update_attributes(:name => @consumer.facebook_user.first_name,
+                                :pic => @consumer.facebook_user.large_image_url,
+                                :tinypic => @consumer.facebook_user.image_url)
+                                 
+#    rescue @first_line = "(tmp) access token problem"
+#    end
+    
+    @consumer
+  
+  end
+
+  def login_callback
+    
+    if current_facebook_user
+      find_consumer_by_facebook_user
+    else
+      clear_session
+      @current_user = @consumer = @consumer_rule = @payer = nil
+    end
+        
+    respond_to do |format|  
+       format.html { redirect_to :action => 'zzz' }  
+       format.js  
+     end
+    
+  end
   
   def register
+    
+    session[:activity] = "register"
+    redirect_to :controller => :play, :action => :index
+    
+  end
+  
+  def register_window
 
 #    if current_facebook_user
 #      session[:current_facebook_user_id] = current_facebook_user.id
@@ -78,11 +165,16 @@ class ConsumerController < ApplicationController
       
   def register_callback
 
+  # Every consumer in the sysetm is registered and so its connected payer.
+  # A consumer record may exist already (e.g., registered and later removed arca from his facebook app list)
   # if parent's phone number exists already, then an existing payer record will be used instead of a new payer created
   # whether for first consumer in the family or any next one, payer will always get an sms and code to enter acct    
 
     
-    create_consumer_and_payer
+    create_consumer_and_payer 
+
+    session[:activity] = "buy"
+    redirect_to :controller => :play, :action => "index"
     # send SMS/email to parent. 
     # Need to check consumer's and payer's phone validity thru facebook registration
     # Need to retrieve family from consumer's FB record and remove from registration form
@@ -94,25 +186,32 @@ class ConsumerController < ApplicationController
   end
  
 
+  # check whether payer exists already:
+  #   (consumer already asked his parent to register but that has not yet happened; or consumer now updates phone num)
+  #       if consumer record exists and linked to a payer recrod, then update that payer record and dont create a new one
+  #   (parent has already registered, e.g., by the consumer's brother. 
+  #       find if a payer exists that has that given phone then link consumer to that payer record. 
+  #   (first consumer in this family)
+  #       If none of the above, initialize a new record then update as above.
+
   def create_consumer_and_payer
 
-    current_facebook_user_id = session[:current_facebook_user_id]
-#    last_name = fb_name(current_facebook_user_id, :last_name_only => true, :use_you => false)
- last_name = "shalom"   
-
-    # check whether payer exists already:
-    #   (consumer already asked his parent to register but that has not yet happened; or consumer now updates phone num)
-    #       if consumer record exists and linked to a payer recrod, then update that payer record and dont create a new one
-    #   (parent has already registered, e.g., by the consumer's brother. 
-    #       find if a payer exists that has that given phone then link consumer to that payer record. 
-    #   (first consumer in this family)
-    #       If none of the above, initialize a new record then update as above.
+    current_facebook_user_id = current_facebook_user.id
+    current_facebook_access_token = current_facebook_client.access_token
 
     @consumer = Consumer.find_or_initialize_by_facebook_id(current_facebook_user_id)
+    @consumer.facebook_access_token = current_facebook_access_token
     @payer = @consumer.payer || Payer.find_or_initialize_by_phone(facebook_params['registration']['payer_phone'])
-    @payer.update_attributes!(:exists => true, :email => facebook_params['registration']['payer_email'], :family => last_name)    
+    @payer.update_attributes!(:exists => true, :email => facebook_params['registration']['payer_email'], :family => @consumer.facebook_user.last_name)    
+    @consumer.update_attributes!(:facebook_id => current_facebook_user_id, 
+                                 :facebook_access_token => current_facebook_access_token,
+                                 :name => @consumer.facebook_user.first_name,
+                                 :pic => @consumer.facebook_user.large_image_url,
+                                 :tinypic => @consumer.facebook_user.image_url,
+                                 :payer_id => @payer.id, 
+                                 :balance => @def_allowance, 
+                                 :billing_phone => facebook_params['registration']['consumer_phone'])
     update_consumer_rule
-    @consumer.update_attributes!(:facebook_id => current_facebook_user_id,:payer_id => @payer.id, :balance => @consumer_rule.allowance, :billing_phone => facebook_params['registration']['consumer_phone'])
 
     session[:consumer]   =  @consumer
     session[:consumer_rule] =  @consumer_rule
@@ -122,15 +221,16 @@ class ConsumerController < ApplicationController
   end
 
   def update_consumer_rule    
-    unless @consumer_rule = session[:consumer_rule] || @consumer.most_recent_payer_rule
+    unless @consumer_rule = @consumer.most_recent_payer_rule
       find_def_consumer_rule
-      @consumer_rule = @consumer.consumer_rules.create!(:allowance => @def_consumer_rule.allowance, :rollover => @def_consumer_rule.rollover, :auto_authorize_under => @def_consumer_rule.auto_authorize_under, :auto_deny_over => @def_consumer_rule.auto_deny_over)     
+      @consumer_rule = @consumer.payer_rules.create!(:allowance => @def_consumer_rule.allowance, :rollover => @def_consumer_rule.rollover, :auto_authorize_under => @def_consumer_rule.auto_authorize_under, :auto_deny_over => @def_consumer_rule.auto_deny_over)     
     end
   end
 
   def find_def_consumer_rule        
     @def_consumer_rule = PayerRule.find_by_payer_id(@payer.id) if @payer and @payer.id    
     @def_consumer_rule ||= PayerRule.new(:allowance => 50, :rollover => false, :auto_authorize_under => 10, :auto_deny_over => 25)   
+    @def_allowance = @def_consumer_rule.allowance
   end
   
 
@@ -198,7 +298,8 @@ class ConsumerController < ApplicationController
       session[:consumer]= session[:consumer_rule] = session[:payer]= session[:retailer]=
       session[:product]= session[:products] =
       session[:purchase]=
-      session[:current_facebook_user_id] =
+      session[:current_facebook_user_id] = session[:current_facebook_access_token] =
+      session[:activity] =
 #      session[:expected_pin]=      
       nil
    end
@@ -246,11 +347,12 @@ class ConsumerController < ApplicationController
 
 #  unless no_use_waiting
 
-    unless session[:consumer] and session[:consumer].payer and session[:consumer].payer.registered?
-      @first_line = "Please login to buy!" 
-      return
+
+    unless current_user
+      @first_line =  "Please login and register"
+      @second_line = "to buy with arca 1-click!"
     end
-    
+      
     begin
 
       find_consumer_and_payer
@@ -260,17 +362,31 @@ class ConsumerController < ApplicationController
 #      authenticate_consumer
       account_for(@purchase.amount) if @purchase.authorized?
       write_message
-      clear_session
 
     rescue
       @first_line = "Your online connection is lost"
       @second_line = "Please try again later"
-#      raise
+      raise
      end
     
 #  end
 
+
+     respond_to do |format|  
+       format.html { redirect_to :action => 'zzz' }  
+       format.js  
+     end
+  
   end
+
+  def find_consumer_and_payer
+
+     @consumer = session[:consumer]
+     @payer = session[:payer]
+     @consumer_rule = session[:consumer_rule]
+     
+  end
+
 
 
 #  def authenticate_consumer
@@ -319,7 +435,7 @@ class ConsumerController < ApplicationController
 #      else
 #        @first_line = "No SMS sent - you are offline"
 #      end      
-   elsif @purchase_authorized
+   elsif @purchase.authorized
 #      if Current.policy.online? and Current.policy.send_sms?
 #        @first_line = "Thanks... An SMS is on its way."
 #      else
@@ -330,7 +446,7 @@ class ConsumerController < ApplicationController
       @second_line = "Your purchase is approved!"
     else
       @first_line = "Arca is momentarily down."
-      @second_line = "Please try again."
+      @second_line = "Please try again in a few moments."
       
     end  
  
@@ -393,18 +509,9 @@ class ConsumerController < ApplicationController
 #  end
 
    
-  def find_consumer_and_payer
-
-     @consumer = session[:consumer]
-     @payer = session[:payer]
-     @consumer_rule = session[:consumer_rule]
-     
-  end
-  
-  
   def find_retailer_and_product
     @retailer = Retailer.find(1)
-    @product = Product.find(params[:product][:id]) rescue Product.find(1)
+    @product = Product.find_or_create_by_title_and_price(params[:amountdesc], params[:amount]) rescue Product.find(1)
  
     session[:retailer] = @retailer
     session[:product] = @product
@@ -439,11 +546,10 @@ class ConsumerController < ApplicationController
   def authorize_purchase  
     
     
-    @purchase.authorized = false                        
-    
-    if @payer.registered?
-       @consumer = session[:consumer]
+      @consumer = session[:consumer]
       @rule = session[:consumer_rule]
+      @purchase.authorized = false                            
+    
       if @purchase.product.is_blacklisted(@payer.id) or @purchase.retailer.is_blacklisted(@payer.id) or @purchase.product.category.is_blacklisted(@payer.id)
         @purchase.authorization_type = "Inappropriate Content"
         @purchase.authorized = false      
@@ -468,11 +574,6 @@ class ConsumerController < ApplicationController
         @purchase.authorization_type = "PendingPayer"
         @purchase.authorized = false
       end
-
-    else
-      @purchase.authorization_type = "NotRegistered"
-      @purchase.authorized = false
-    end
         
       @purchase.authorization_date = Time.now
       @purchase.save!

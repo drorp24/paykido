@@ -1,0 +1,25 @@
+$('#salutation, #pic').empty();
+<% if @consumer %>
+	$('#salutation').html(
+		    	'<span id=welcomeline class=text>' +
+		    		'<span>Welcome</span>' +
+					'<span class=user>' + ' <%= @consumer.name %>!' + '</span>' +
+				'</span>');
+<% else %>
+	$('#salutation').html(
+		    	'<span class=text>Hello! </span>');
+<% end %>    	
+
+<% if @consumer and @consumer.tinypic %>
+	$('#pic').html('<%= image_tag @consumer.tinypic %>');
+<% end %>
+
+<% if @first_line %>
+	$('#ajax_message #first_line').empty();
+	$('#ajax_message #first_line').html("<%= @first_line %>");
+<% end %>
+<% if @second_line %>
+	$('#ajax_message #second_line').empty();
+	$('#ajax_message #second_line').html("<%= @second_line %>");
+<% end %>
+

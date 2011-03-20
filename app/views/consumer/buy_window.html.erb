@@ -1,105 +1,46 @@
-<script>
+<div id="window_content">
 
-$(document).ready(function (){  
-
-	$(function() {
-		$( "#accordion" ).accordion({
-			autoHeight: true,
-			navigation: true
-		});
-	});
-
-
-	FB.getLoginStatus(function(response) {
-	  if ((response.session)) {
-	  	$('#login_button').hide();
-	    $('#login_first').empty();
-	  } else {		
-	    $('#login_first').html('Login and register to buy')
-	  }
-	});
-	
-	function update_status() {
-		FB.getLoginStatus(function(response) {
-		  if ((response.session)) {
-		  	$('#login_button').hide();
-		    $('#login_first').empty();
-		  } else {		
-		    $('#login_first').html('Login and register to buy')
-		  }
-		});		
-	}
-
-
-	FB.Event.subscribe('auth.statusChange', function(response) {
-	  if ((response.session)) {
-	  	$('#login_button').hide();
-		} else {		
-	    $('#login_first').html('Login and register to buy')
-	  }
-
-	});
-
-
-});
-
-
-
-</script>
-
-
-<%=fb_connect_async_js %>
-
-<div id="accordion">
-    <h3><a href="#" onclick="update_status();">Buy</a></h3>
-	<div>
-		<div id="welcome_message" class="text">
-			<% if current_facebook_user %>
-		    	<span class="text">
-		    		<span>Hi</span>
-					<span><%= fb_name(current_facebook_user, :first_name_only => true, :use_you => false) %></span>
-					<span>!</span>
-				</span>
-			<% else %>
-		    	<span class="text">Hello! </span>
-			<% end %>    	
-			<span id="login_first" class="text"></span>
-    	</div>
-
-    	<div id="ajax_message">
-			<p id="first_line" class="text"></p>
-			<p id="second_line" class="text"></p>		
-		</div>
-
-		<div id="buy" class="box">
-			<% form_for :consumer, :action => :buy do %>
-				<span>You have selected <%= @product%></span>
-				<%= submit_tag "Single-click to Buy" %>
-			<% end %>
-		</div>
+	<div id="logo">
+		<%= image_tag "/images/arca_logo.png", :id=>"logoimg",:border => 0 %>
+	</div>	
 		
-		<div id="tell" class="box">
-			<p class="text">Like arca? Tell your friends</p>
-		</div>		
-	
-		<div id="comments" class="box">
-			<fb:comments numposts="10" width="595" publish_feed="true"></fb:comments>
-		</div>
+	<div id="welcome_message" class="text">
+		<span>
+		    <span id="welcomeline" class="text">
+		    	<span><%= @salutation %></span>
+				<span class="user"><%= @name %></span>
+			</span>
+	  	</span>
+		<span id="login_button" class="text right">
+			<fb:login-button perms="offline_access" 
+							 registration-url="http://localhost/consumer/register"
+							 onlogin="$.ajax({url: 'http://localhost/consumer/login_callback'});"
+							 autologoutlink="true"
+							 V="2" />
+		</span>
+ 	</div>
+
+	<div id="pic-n-msg">
+	<div id="pic">
+		<% if @pic %>
+			<%= image_tag @pic %>
+		<% end %>
 	</div>
-    <h3><a href="#" onclick="update_status();">Register</a></h3>
-    <div>
-    	<fb:registration onlogin="" fb_only="true" fields="[
-		{'name':'name'},
-		{'name':'email'},
-		{'name':'location'},
-		{'name':'gender'},
-		{'name':'birthday'},
-		{'name':'password',   'view':'not_prefilled'},
-		{'name':'family',    'description':'My Family Name',  	'type':'text'},
-		{'name':'message',    'description':'Message To My Parents',  	'type':'text'},
-		{'name':'consumer_phone',      'description':'My Mobile Phone',             'type':'text'},
-		{'name':'payer_phone',      'description':'My Parent Mobile Phone',             'type':'text'},
-		{'name':'payer_email',      'description':'My Parent Email Address',             'type':'text'}
-		]" redirect-uri="http://localhost/consumer/register_callback/"></fb:registration>
-    </div>
+
+   	<div id="ajax_message">
+		<p id="first_line" class="text"><%= @first_line %></p>
+		<p id="second_line" class="text"><%= @second_line %></p>		
+	</div>
+	</div>
+	
+	<div id="buy" class="box">
+		<% form_for :consumer, :url => {:action => :buy}, :html => {:id => "buy_form"} do |f| %>
+			<p><%= submit_tag "1-click to buy",:class => "fg-button ui-state-default loginbutton ui-corner-all" %></p>
+		<% end %>
+	</div>
+		
+	<div id="like" class="box">
+		<fb:like href="www.go-arca.com" show_faces="true" width="322" font=""></fb:like>
+	</div>
 </div>
+

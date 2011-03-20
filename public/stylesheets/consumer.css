@@ -1,4 +1,59 @@
 
+.user {
+	color: #2E90BD;
+}
+
+a {
+	text-decoration: none;
+	color: gray;
+}
+
+a:hover {
+	color: black;
+}
+
+p#first_line, p#second_line {
+	
+}
+
+input.fg-button {
+	height: 28px;
+	padding-bottom: 5px;
+	margin-left: 5px;
+}
+
+#pic-n-msg {
+	height: 82px;
+	margin-top: 30px;
+}
+
+img.fb_profile_pic_rendered {
+	margin-top: 1px;
+}
+
+#window_content {
+	margin-left: 13px;
+	margin-right: 13px;
+	width: 300px;
+	height: 380px;
+}
+
+#logo img#logoimg  {
+	
+	width: 166px;
+	margin-left: -14px;	
+}
+
+.right {
+	float: right;
+}
+
+#pic {
+	float: left;
+	width: 53px;
+	height: 50px;
+}
+
 .ui-accordion .ui-accordion-header a.fb_link {
 	display: inline;
 	padding-left: 0;
@@ -11,7 +66,7 @@
 	padding-right: 0;
 }
 form, .text {
-	font:"Arial Black";
+	font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
 	font-size: 14px;
 	color: gray;
 }
@@ -24,59 +79,40 @@ form, div#tell {
 	float: right;
 }
 
-#buy_window {
-	position: absolute;
-	left: 23px;
-}
 
 .box {
-	width: 556px;
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
 
-#welcome_msg {
-	color: gray;
-	font: "Arial Black"
-}
 
 #welcome_message {
-	position: absolute;
-	top: 16px;
+	margin-bottom: 16px;
+	margin-top:34px;
+
 }
+
+#welcomeline {		
+
+}
+
 #ajax_message {
-	position: absolute;
-	top: 47px;
-	height: 60px;
-	border: 1px inset gray;
-	width: 87.5%;
+	height: 64px;
+	margin-left: 65px;
+	margin-right: 65px;
+	text-align: center;
 }
 
 #product_selection {
-	position: absolute;
-	top: 130px;
-	left: 1px;
 }
 
-input {
-	float: right;
-	margin-right: -70px;
-}
 #buy {
-	position: absolute;
-	top: 140px;
-	left: 1px;
-}
+	margin-left: 54px;
+	margin-bottom: 60px;
 
-#tell {
-	position: absolute;
-	top: 210px;
-	left:1px;
-}
-
-#comments {
-	position: absolute;
-	top:273px;
+#like {
+	margin-top: 30px;
+	margin-left: 35px;
 }
 
 /*

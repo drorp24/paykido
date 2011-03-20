@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110310175019) do
+ActiveRecord::Schema.define(:version => 20110316204712) do
 
   create_table "billings", :force => true do |t|
     t.string   "method",     :null => false
@@ -50,6 +50,8 @@ ActiveRecord::Schema.define(:version => 20110310175019) do
     t.string   "pic"
     t.string   "facebook_id"
     t.integer  "payer_id"
+    t.string   "facebook_access_token"
+    t.string   "tinypic"
   end
 
   add_index "consumers", ["billing_phone"], :name => "index_consumers_on_billing_phone"

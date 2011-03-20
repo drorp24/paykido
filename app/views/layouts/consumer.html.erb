@@ -1,18 +1,50 @@
 <html>
 <head>
 
-	<%= stylesheet_link_tag "/stylesheets/consumer.css", :media => "all" %>
+	<%= stylesheet_link_tag "consumer.css", :media => "all" %>
+	<%= stylesheet_link_tag "arca-api.css", :media => "all" %>
    	<%= stylesheet_link_tag  "jquery-ui-1.8.1.custom.css", :media => "all" %>
-	<link href="/stylesheets/facebox.css" media="screen" rel="stylesheet" type="text/css"/>
-	<%= javascript_include_tag "jquery-1.4.2.min", "jquery-ui-1.8.2.custom.min", "facebox", "application" %>
+ 	<%= javascript_include_tag "jquery-1.4.2.min", "jquery-ui-1.8.2.custom.min", "arca-api", "application" %>
 
-
- 
 </head>	
 <body id="main">
+<div id="fb-root"></div>
+<script>
+		
+	  window.fbAsyncInit = function() {
+	  	
+	    FB.init({appId: '134769406591035', status: true, cookie: true, xfbml: true});				 
+
+		FB.getLoginStatus(function(response) {
+		  if ((response.session)) {
+
+
+		  } else {		
+
+		  }
+		});
+
+		FB.Event.subscribe('auth.statusChange', function(response) {
+		  if ((response.session)) {
+
+
+		  } else {		
+
+		  }
+		});
+
+	  };
+	  
+	  (function() {
+	    var e = document.createElement('script'); e.async = true;
+	    e.src = document.location.protocol +
+	      '//connect.facebook.net/en_US/all.js';
+	    document.getElementById('fb-root').appendChild(e);
+	  }());
+	  
+</script>
 
 	<% if flash[:notice] -%><div id="notice"><%= flash[:notice] %></div<% end -%>
-	<%= image_tag("arca_with_tagline1_bg.png", :id => "tagline", :style => "margin-left:-5px") %>
 	
 	<%= yield :layout %>
 

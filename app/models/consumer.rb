@@ -22,6 +22,15 @@ class Consumer < ActiveRecord::Base
 #                      :with => /^image/,
 #                      :message => "--- you can only upload pictures"
 
+ 
+  def facebook_user 
+    unless @facebook_user 
+      @facebook_user = Mogli::User.find(facebook_id,Mogli::Client.new(facebook_access_token, nil)) 
+      @facebook_user.fetch 
+    end 
+    @facebook_user 
+  end 
+  
   def uploaded_pic
     self.pic
   end

@@ -1,15 +1,20 @@
-<%=fb_connect_async_js %>
+<%= image_tag "/images/farmville1.png", :id => "farmville1" %>
+<%= image_tag "/images/farmville21.png", :id => "farmville2" %>
+<%= image_tag "/images/loading_short.gif", :id => "loading", :style=>"display:none;" %>
+<a href="http://localhost/consumer/buy_window?
+	sn=ACME&
+	userid=131827&
+	amount=6.99&
+	amountdesc=310%20Farm%20Cash&
+	hash=df659d502af5151a2edd18e2ebb50ba3&
+	xdurl=http:%2F%2Flocalhost%2Fxd.html"
+	rel="facebox">
+	<img src="http://www.go-arca.com/images/arca button.png" id="arca" border=0 alt="arca"/>
+</a>
 
-<p><fb:registration  fb_only="true" fields="[
-{'name':'name'},
-{'name':'email'},
-{'name':'location'},
-{'name':'gender'},
-{'name':'birthday'},
-{'name':'password',   'view':'not_prefilled'},
-{'name':'family',    'description':'My Family Name',  	'type':'text'},
-{'name':'message',    'description':'Message To My Parents',  	'type':'text'},
-{'name':'consumer_phone',      'description':'My Mobile Phone',             'type':'text'},
-{'name':'payer_phone',      'description':'My Parent Mobile Phone',             'type':'text'},
-{'name':'payer_email',      'description':'My Parent Email Address',             'type':'text'}
-]" redirect-uri="http://www.go-arca.com/consumer/register_callback/"></fb:registration></p>
+<script type="text/javascript">
+	$(document).ready(function (){  
+	
+		$.facebox({ ajax: 'http://localhost/consumer/register_window'});
+	});
+</script>

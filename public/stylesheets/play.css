@@ -5,6 +5,14 @@ when the aaa#payment_window is invoked.
 
 */
 
+#loading {
+	position: absolute;
+	top:1045px;
+	left:853px;
+	width: 50px;
+	
+}
+
 #arca {
 	z-index: 100;
 	position: absolute;
