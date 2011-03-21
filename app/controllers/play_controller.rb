@@ -5,7 +5,8 @@ class PlayController < ApplicationController
   
   def index  
     session[:consumer] = nil
-    @activity = session[:activity]    
+    @activity = session[:activity]
+    session[:activity] = nil
   end
   
   def check_friend_authenticated 

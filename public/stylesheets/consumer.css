@@ -1,5 +1,10 @@
+#registration {
+	position: absolute;
+	left: -100px;
+	top:69px;
 
-.user {
+}
+span#name.text {
 	color: #2E90BD;
 }
 

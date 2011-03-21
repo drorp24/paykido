@@ -64,17 +64,16 @@ class ConsumerController < ApplicationController
     
     if @consumer
       @salutation = "Welcome "
-      @name = @consumer.name   
+      @name = @consumer.name + "!"  
       @pic = @consumer.tinypic 
-      find_params
       @first_line = "You have selected"
       @second_line = "#{params[:amountdesc]} for $#{params[:amount]}"
     else
       @salutation = "Hello!"
       @name = nil
       @pic = nil
-      @first_line =  "Login or register to arca"
-      @second_line = "and get it all 1-click!"
+      @first_line =  "Register to arca"
+      @second_line = "and get it in one click!"
     end
     
   end
@@ -89,18 +88,7 @@ class ConsumerController < ApplicationController
     end    
 
   end
-
-  def find_params
-    
-    if params
-      session[:params] = params
-    else
-      params = session[:params]
-    end
-    
-  end
-
-
+  
   def find_consumer_by_facebook_user
     
     @consumer = session[:consumer] = Consumer.find_or_initialize_by_facebook_id(current_facebook_user.id)    
@@ -113,9 +101,9 @@ class ConsumerController < ApplicationController
 
 
 #    begin
-    @consumer.update_attributes(:name => @consumer.facebook_user.first_name,
-                                :pic => @consumer.facebook_user.large_image_url,
-                                :tinypic => @consumer.facebook_user.image_url)
+#    @consumer.update_attributes(:name => @consumer.facebook_user.first_name,
+#                                :pic => @consumer.facebook_user.large_image_url,
+#                                :tinypic => @consumer.facebook_user.image_url)
                                  
 #    rescue @first_line = "(tmp) access token problem"
 #    end
@@ -173,15 +161,16 @@ class ConsumerController < ApplicationController
     
     create_consumer_and_payer 
 
-    session[:activity] = "buy"
-    redirect_to :controller => :play, :action => "index"
     # send SMS/email to parent. 
     # Need to check consumer's and payer's phone validity thru facebook registration
     # Need to retrieve family from consumer's FB record and remove from registration form
 #   redirect_to  :back
 #    @products = session[:products] || Product.find_product_options(1)
 
-#  render :buy_window
+    
+     session[:activity] = "buy"
+    redirect_to :controller => :play, :action => "index", :scroll => session[:last_scroll]
+
     
   end
  
@@ -209,7 +198,7 @@ class ConsumerController < ApplicationController
                                  :pic => @consumer.facebook_user.large_image_url,
                                  :tinypic => @consumer.facebook_user.image_url,
                                  :payer_id => @payer.id, 
-                                 :balance => @def_allowance, 
+                                 :balance => 50, 
                                  :billing_phone => facebook_params['registration']['consumer_phone'])
     update_consumer_rule
 
@@ -231,6 +220,16 @@ class ConsumerController < ApplicationController
     @def_consumer_rule = PayerRule.find_by_payer_id(@payer.id) if @payer and @payer.id    
     @def_consumer_rule ||= PayerRule.new(:allowance => 50, :rollover => false, :auto_authorize_under => 10, :auto_deny_over => 25)   
     @def_allowance = @def_consumer_rule.allowance
+  end
+  
+  def save_scroll
+    
+    session[:last_scroll] = params[:id]    
+    respond_to do |format|  
+      format.html { redirect_to "zzz" }  
+      format.js  
+    end
+    
   end
   
 
@@ -299,7 +298,7 @@ class ConsumerController < ApplicationController
       session[:product]= session[:products] =
       session[:purchase]=
       session[:current_facebook_user_id] = session[:current_facebook_access_token] =
-      session[:activity] =
+      session[:activity] = session[:last_scroll] =
 #      session[:expected_pin]=      
       nil
    end

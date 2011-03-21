@@ -7,13 +7,13 @@
 	<div id="welcome_message" class="text">
 		<span>
 		    <span id="welcomeline" class="text">
-		    	<span><%= @salutation %></span>
-				<span class="user"><%= @name %></span>
+		    	<span id="salutation"><%= @salutation %></span>
+				<span id="name"><%= @name %></span>
 			</span>
 	  	</span>
 		<span id="login_button" class="text right">
 			<fb:login-button perms="offline_access" 
-							 registration-url="http://localhost/consumer/register"
+							 registration-url="#registration"
 							 onlogin="$.ajax({url: 'http://localhost/consumer/login_callback'});"
 							 autologoutlink="true"
 							 V="2" />
@@ -42,5 +42,29 @@
 	<div id="like" class="box">
 		<fb:like href="www.go-arca.com" show_faces="true" width="322" font=""></fb:like>
 	</div>
+	
+	<div id="registration" style="display: none;">
+		<fb:registration  fb_only="true" width="300" fields="[
+			{'name':'name'},
+			{'name':'email'},
+			{'name':'password',   'view':'not_prefilled'},
+			{'name':'birthday'},
+			{'name':'message',    'description':'Message To My Parents',  	'type':'text'},
+			{'name':'consumer_phone',      'description':'My Mobile Phone',             'type':'text'},
+			{'name':'payer_phone',      'description':'My Parent Mobile Phone',             'type':'text'},
+			{'name':'payer_email',      'description':'My Parent Email Address',             'type':'text'}
+		]" redirect-uri="http://localhost/consumer/register_callback/"></fb:registration>
+	</div>
 </div>
 
+<script type="text/javascript">
+
+$(document).ready(function (){  	
+	$('#login_button').click(function() {
+		if ($('.fb_button_text').html() == 'Register') {
+			$('#registration').attr('style', 'display:block');			
+		}
+	})
+	
+})
+</script>

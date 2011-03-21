@@ -1,13 +1,10 @@
-$('#salutation, #pic').empty();
+$('#pic').empty();
 <% if @consumer %>
-	$('#salutation').html(
-		    	'<span id=welcomeline class=text>' +
-		    		'<span>Welcome</span>' +
-					'<span class=user>' + ' <%= @consumer.name %>!' + '</span>' +
-				'</span>');
+	$('#salutation').html('Welcome ');
+	$('#name').html('<%= @consumer.name %>');
 <% else %>
-	$('#salutation').html(
-		    	'<span class=text>Hello! </span>');
+	$('#salutation').html('Hello!');
+	$('#name').html('');
 <% end %>    	
 
 <% if @consumer and @consumer.tinypic %>
@@ -22,4 +19,17 @@ $('#salutation, #pic').empty();
 	$('#ajax_message #second_line').empty();
 	$('#ajax_message #second_line').html("<%= @second_line %>");
 <% end %>
+
+/*
+$('iframe.fb_ltr).attr('src', 'http://www.facebook.com/plugins/registration.php?api_key=134769406591035&channel_url=http%3A%2F%2Fstatic.ak.fbcdn.net%2Fconnect%2Fxd_proxy.php%3Fversion%3D0%23cb%3Df1a0c35722d577e%26origin%3Dhttp%253A%252F%252Flocalhost%252Ff22c28b7557eaee%26relation%3Dparent.parent%26transport%3Dpostmessage&client_id=134769406591035&fb_only=true&fields=%5B%0A%09%09%09%7B'name'%3A'name'%7D%2C%0A%09%09%09%7B'name'%3A'email'%7D%2C%0A%09%09%09%7B'name'%3A'password'%2C%20%20%20'view'%3A'not_prefilled'%7D%2C%0A%09%09%09%7B'nam...'%2C%20%20%20%20%20%20%20%20%20%20%20%20%20'type'%3A'text'%7D%2C%0A%09%09%09%7B'name'%3A'payer_phone'%2C%20%20%20%20%20%20'description'%3A'My%20Parent%20Mobile%20Phone'%2C%20%20%20%20%20%20%20%20%20%20%20%20%20'type'%3A'text'%7D%2C%0A%09%09%09%7B'name'%3A'payer_email'%2C%20%20%20%20%20%20'description'%3A'My%20Parent%20Email%20Address'%2C%20%20%20%20%20%20%20%20%20%20%20%20%20'type'%3A'text'%7D%0A%09%09%5D&locale=en_US&redirect_uri=http%3A%2F%2Flocalhost%2Fconsumer%2Fregister_callback%2F&sdk=joey&width=300');
+
+
+$('#registration').empty();
+$('#registration').html(
+		'<fb:registration  fb_only=true width=300 fields=[' +
+			'{&#39;name&#39;:&#39;name&#39;},'+
+			'{&#39;name&#39;:&#39;email&#39;},'+
+			'{&#39;name&#39;:&#39;password&#39;}'+
+		'] redirect-uri=http://localhost/consumer/register_callback/></fb:registration>');
+*/
 

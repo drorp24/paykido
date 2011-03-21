@@ -5,6 +5,11 @@ when the aaa#payment_window is invoked.
 
 */
 
+#name {
+	color: #2E90BD;
+}
+
+
 #loading {
 	position: absolute;
 	top:1045px;

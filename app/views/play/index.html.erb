@@ -13,14 +13,31 @@
 </a>
 
 <script type="text/javascript">
-	$(document).ready(function (){  
 
-		<% if @activity == "register" %>
-			$.facebox({ ajax: 'http://localhost/consumer/register_window'});
-		<% elsif @activity == "buy" %>	
-			$.facebox({ ajax: 'http://localhost/consumer/buy_window'});
-		<% end %>
-	});
+window.onload = function() {
+    
+	set_scroll();
+	<% if @activity == "register" %>
+		$.facebox({ ajax: 'http://localhost/consumer/register_window'});
+	<% elsif @activity == "buy" %>	
+		$.facebox({ ajax:  'http://localhost/consumer/buy_window?sn=ACME&userid=131827&amount=6.99&amountdesc=310%20Farm%20Cash&hash=df659d502af5151a2edd18e2ebb50ba3&xdurl=http:%2F%2Flocalhost%2Fxd.html'});
+	<% end %>
+
+}
+
+// if query string in URL contains scroll=nnn, then scroll position will be restored
+function set_scroll(){
+    // get query string parameter with "?"
+    var search = window.location.search;
+    // if query string exists
+    if (search){
+        // find scroll parameter in query string
+        var matches = /scroll=(\d+)/.exec(search);
+        // jump to the scroll position if scroll parameter exists
+        if (matches) window.scrollTo(0, matches[1]);
+    }
+}
+
 </script>
 
 
