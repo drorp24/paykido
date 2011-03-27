@@ -1,5 +1,10 @@
-jQuery('#ajax_message #first_line').empty();
-jQuery('#ajax_message #first_line').html("<%= @first_line %>");
-jQuery('#ajax_message #second_line').empty();
-jQuery('#ajax_message #second_line').html("<%= @second_line %>");
-
+$('#name').empty();
+<% if @purchase and @purchase.authorized? %>
+	$('#salutation').html('Congratulations!');
+<% elsif @purchase and !@purchase.authorized %>
+	$('#salutation').html('Sorry...');
+<% end %>
+$('#ajax_message #first_line').html("<%= @first_line %>");
+$('#ajax_message #second_line').html("<%= @second_line %>");
+document.getElementById("buy_button").disabled = true;
+$('#buy_button').addClass("ui-state-hover").blur();

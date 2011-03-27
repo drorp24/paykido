@@ -42,7 +42,7 @@ class ConsumerController < ApplicationController
     
   end
   
-  def buy_window
+ # def buy_window
     
 #    if current_facebook_user
 #       session[:current_facebook_user_id] = current_facebook_user.id
@@ -60,40 +60,72 @@ class ConsumerController < ApplicationController
 #    @products = session[:products] || Product.find_product_options(1)
 #    session[:products] = @products
 
+#    session[:product_title] = params[:amountdesc] || session[:product_title]
+#    session[:product_price] = params[:amount] || session[:product_price]
+
+#    find_consumer    
+#    login_messages
+    
+#  end
+  
+  def login
+    
+    session[:product_title] = params[:amountdesc] || session[:product_title]
+    session[:product_price] = params[:amount] || session[:product_price]
+
     find_consumer
+    login_messages        
+    
+  end
+  
+  def login_callback
+    
+    login
+    
+    respond_to do |format|  
+       format.html  
+       format.js  
+     end
+
+    
+  end
+
+  
+  def find_consumer
+    
+    if current_facebook_user
+      @consumer = find_consumer_by_facebook_user
+    else
+      @consumer = nil 
+      clear_session
+    end    
+
+  end
+
+  def login_messages
     
     if @consumer
       @salutation = "Welcome "
       @name = @consumer.name + "!"  
-      @pic = @consumer.tinypic 
+      @pic = "https://graph.facebook.com/#{@consumer.facebook_id}/picture"
       @first_line = "You have selected"
-      @second_line = "#{params[:amountdesc]} for $#{params[:amount]}"
+      @second_line = "#{session[:product_title]} for $#{session[:product_price]}"
     else
       @salutation = "Hello!"
       @name = nil
       @pic = nil
       @first_line =  "Register to arca"
-      @second_line = "and get it in one click!"
+      @second_line = "and buy in one click!"
     end
     
-  end
-  
-
-  def find_consumer
-
-    if session[:consumer]
-      @consumer = session[:consumer]
-    elsif current_facebook_user
-      @consumer = find_consumer_by_facebook_user  
-    end    
-
-  end
+  end    
   
   def find_consumer_by_facebook_user
     
-    @consumer = session[:consumer] = Consumer.find_or_initialize_by_facebook_id(current_facebook_user.id)    
+    @consumer = Consumer.find_or_initialize_by_facebook_id(current_facebook_user.id)    
     @consumer.facebook_id = current_facebook_user.id
     @consumer.facebook_access_token = current_facebook_client.access_token
+    session[:consumer] = @consumer
 
     @payer = session[:payer] = @consumer.payer if @consumer    
     @consumer_rule = session[:consumer_rule] = @consumer.most_recent_payer_rule if @consumer
@@ -112,30 +144,15 @@ class ConsumerController < ApplicationController
   
   end
 
-  def login_callback
-    
-    if current_facebook_user
-      find_consumer_by_facebook_user
-    else
-      clear_session
-      @current_user = @consumer = @consumer_rule = @payer = nil
-    end
-        
-    respond_to do |format|  
-       format.html { redirect_to :action => 'zzz' }  
-       format.js  
-     end
-    
-  end
   
-  def register
+ # def register
     
-    session[:activity] = "register"
-    redirect_to :controller => :play, :action => :index
+ #   session[:activity] = "register"
+ #   redirect_to :controller => :play, :action => :index
     
-  end
+ # end
   
-  def register_window
+#  def register_window
 
 #    if current_facebook_user
 #      session[:current_facebook_user_id] = current_facebook_user.id
@@ -149,7 +166,7 @@ class ConsumerController < ApplicationController
 #      redirect_to :action => :buy
 #    end
         
-  end
+#  end
       
   def register_callback
 
@@ -163,12 +180,8 @@ class ConsumerController < ApplicationController
 
     # send SMS/email to parent. 
     # Need to check consumer's and payer's phone validity thru facebook registration
-    # Need to retrieve family from consumer's FB record and remove from registration form
-#   redirect_to  :back
-#    @products = session[:products] || Product.find_product_options(1)
 
-    
-     session[:activity] = "buy"
+    session[:activity] = "buy"
     redirect_to :controller => :play, :action => "index", :scroll => session[:last_scroll]
 
     
@@ -295,7 +308,7 @@ class ConsumerController < ApplicationController
    def clear_session
   # find a better command to clear out all session construct
       session[:consumer]= session[:consumer_rule] = session[:payer]= session[:retailer]=
-      session[:product]= session[:products] =
+      session[:product]= session[:products] = session[:product_title] = session[:product_price] =
       session[:purchase]=
       session[:current_facebook_user_id] = session[:current_facebook_access_token] =
       session[:activity] = session[:last_scroll] =
@@ -347,9 +360,10 @@ class ConsumerController < ApplicationController
 #  unless no_use_waiting
 
 
-    unless current_user
+    unless @consumer = session[:consumer]
       @first_line =  "Please login and register"
       @second_line = "to buy with arca 1-click!"
+      return
     end
       
     begin
@@ -360,7 +374,7 @@ class ConsumerController < ApplicationController
       authorize_purchase
 #      authenticate_consumer
       account_for(@purchase.amount) if @purchase.authorized?
-      write_message
+      authorization_messages
 
     rescue
       @first_line = "Your online connection is lost"
@@ -411,17 +425,22 @@ class ConsumerController < ApplicationController
 
 #  end
 
-  def write_message
+  def authorization_messages
     
 #    if @sms_failed
 #      @first_line = "Couldn't locate that phone."
 #      @second_line = "Please check the number and try again"
     if @purchase.authorization_type == "PendingPayer" 
-      @first_line = "This purchase has to be manually authorized"
-      @second_line = "You'll get an SMS as soon as it is approved!"
+      @first_line =  "This has to be manually authorized"
+      @second_line = "We'll text you as soon as it is over!"
     elsif !@purchase.authorized 
-      @first_line = "We're sorry. This purchase is unauthorized"
-      @second_line = "(#{@purchase.authorization_type})"
+      @first_line = "This purchase is unauthorized."
+      if @purchase.authorization_type == 'Insufficient Balance'
+        @second_line = "Your balance is too low ($#{@consumer.balance})."
+      else
+        @second_line = "(#{@purchase.authorization_type})"
+      end
+
 #    elsif !@purchase.authorized
 #      @first_line = "We're sorry. This purchase is unauthorized..."
 #      @second_line = ""
@@ -441,8 +460,8 @@ class ConsumerController < ApplicationController
 #        @first_line = "Thanks... No SMS - you are offline"
 #      end      
 #      @second_line = "Subscribe and get it with no SMS!"
-      @first_line = "That's it."
-      @second_line = "Your purchase is approved!"
+      @first_line = "#{session[:product_title]} is yours!"
+      @second_line = "Thanks for using arca"
     else
       @first_line = "Arca is momentarily down."
       @second_line = "Please try again in a few moments."
@@ -510,7 +529,18 @@ class ConsumerController < ApplicationController
    
   def find_retailer_and_product
     @retailer = Retailer.find(1)
-    @product = Product.find_or_create_by_title_and_price(params[:amountdesc], params[:amount]) rescue Product.find(1)
+    @product = Product.find_or_initialize_by_title_and_price(session[:product_title], session[:product_price])
+#    Product.update(@product.id, :category_id => 6)     nothing works, no way to save @product 
+#### WACKO CODE
+    unless @product.category_id == 6
+      product_clone = @product.clone
+      product_clone.id = @product.id
+      product_clone.category_id = 6
+      product_clone.updated_at = Time.now
+      @product.delete
+      product_clone.save
+    end
+#### WACKO CODE
  
     session[:retailer] = @retailer
     session[:product] = @product

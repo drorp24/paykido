@@ -4,10 +4,41 @@ The following exists also in aaa.css. For some reason, Chrome browser doesnt upl
 when the aaa#payment_window is invoked.
 
 */
-
-#name {
-	color: #2E90BD;
+form {
+	z-index: 1001;
 }
+
+#FarmCash_310_farm_cash {
+	position: absolute;
+	top: 380px;
+	left: 519px;
+}
+
+#FarmCash_240_farm_cash {
+	position: absolute;
+	top: 409px;
+	left: 519px;
+}
+
+#FarmCash_115_farm_cash {
+	position: absolute;
+	top: 438px;
+	left: 519px;
+}
+
+#FarmCash_55_farm_cash {
+	position: absolute;
+	top: 467px;
+	left: 519px;
+}
+
+#FarmCash_25_farm_cash {
+	position: absolute;
+	top: 496px;
+	left: 519px;
+}
+
+
 
 
 #loading {

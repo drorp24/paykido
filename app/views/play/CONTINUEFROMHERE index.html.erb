@@ -3,32 +3,25 @@
 <%= image_tag "/images/loading_short.gif", :id => "loading", :style=>"display:none;" %>
 
 <% form_tag do %>
-	<%= radio_button_tag("FarmCash", "310 Farm Cash", false, :class=> "option") %>
-	<%= radio_button_tag("FarmCash", "240 Farm Cash", false, :class=> "option") %>
-	<%= radio_button_tag("FarmCash", "115 Farm Cash", false, :class=> "option") %>
-	<%= radio_button_tag("FarmCash", "55 Farm Cash", false, :class=> "option") %>
-	<%= radio_button_tag("FarmCash", "25 Farm Cash", false, :class=> "option") %>
+	<%= radio_button_tag("amountdesc", "310 Farm Cash", false, :class=> "option") %>
+	<%= radio_button_tag("amountdesc", "240 Farm Cash", false, :class=> "option") %>
+	<%= radio_button_tag("amountdesc", "115 Farm Cash", false, :class=> "option") %>
+	<%= radio_button_tag("amountdesc", "55 Farm Cash", false, :class=> "option") %>
+	<%= radio_button_tag("amountdesc", "25 Farm Cash", false, :class=> "option") %>
 <% end %>
 
-<a href="http://localhost/consumer/login?
-	sn=ACME&
-	userid=131827&
-	amount=6.99&
-	amountdesc=310%20Farm%20Cash&
-	hash=df659d502af5151a2edd18e2ebb50ba3&
-	xdurl=http:%2F%2Flocalhost%2Fxd.html"
-	rel="facebox">
-	<img src="http://www.go-arca.com/images/arca button.png" id="arca" border=0 alt="arca"/>
-</a>
+<img src="http://www.go-arca.com/images/arca button.png" id="arca" border=0 alt="arca"/>
 
 <script type="text/javascript">
 
 $(document).ready(function() {
-
-	$('.option').click(function() {
-		alert($('form').serialize());
+	
+	$('#arca').click(function() {
+		var url = 'http://localhost/consumer/login?' + $('form').serialize();
+		alert('url is: ' + url);
+		$.facebox(url);		
 	})
-})
+});
 
 window.onload = function() {
     

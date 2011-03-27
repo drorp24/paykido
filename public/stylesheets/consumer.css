@@ -1,11 +1,36 @@
+#buy_button.ui-state-hover {
+	 color: white; 
+}
+
+#stop, #go {
+	width: 57px;
+	height: 57px;
+	position: absolute;
+	top: 152px;
+	left:24px;
+}
+#pic-n-like {
+	height: 70px;
+
+}
+
+#pic {
+	float: left;
+	width: 15%
+}
+
+#like {
+	float: right;
+	width: 78%;
+	margin-top: 26px;
+	height: 35px;
+}
+ 
 #registration {
 	position: absolute;
 	left: -100px;
 	top:69px;
 
-}
-span#name.text {
-	color: #2E90BD;
 }
 
 a {
@@ -17,19 +42,23 @@ a:hover {
 	color: black;
 }
 
-p#first_line, p#second_line {
+p#first_line {
+	margin-bottom: 18px;
+	margin-top: 0;
 	
 }
+p#second_line {
+	margin: 0;
 
-input.fg-button {
-	height: 28px;
-	padding-bottom: 5px;
-	margin-left: 5px;
 }
+input.fg-button {
+	height: 35px;
+	padding-left: 10px;
+	padding-right: 10px;
+	font-size: 16px;
+	margin-left: 14%;
+	text-shadow: 0px -1px 0px #0078AE;
 
-#pic-n-msg {
-	height: 82px;
-	margin-top: 30px;
 }
 
 img.fb_profile_pic_rendered {
@@ -39,8 +68,6 @@ img.fb_profile_pic_rendered {
 #window_content {
 	margin-left: 13px;
 	margin-right: 13px;
-	width: 300px;
-	height: 380px;
 }
 
 #logo img#logoimg  {
@@ -51,12 +78,6 @@ img.fb_profile_pic_rendered {
 
 .right {
 	float: right;
-}
-
-#pic {
-	float: left;
-	width: 53px;
-	height: 50px;
 }
 
 .ui-accordion .ui-accordion-header a.fb_link {
@@ -76,9 +97,6 @@ form, .text {
 	color: gray;
 }
 
-form, div#tell {
-	margin-left: 40px;
-}
 
 .rightflush {
 	float: right;
@@ -86,8 +104,6 @@ form, div#tell {
 
 
 .box {
-	margin-top: 10px;
-	margin-bottom: 10px;
 }
 
 
@@ -97,28 +113,41 @@ form, div#tell {
 
 }
 
-#welcomeline {		
+#welcomeline {	
+	display: inline;
+	vertical-align: sub;
+	color: #0078AE;
+	font-size: 16px;
+	float: left;
 
 }
 
+#login_button {
+
+	float: right;
+}
+
 #ajax_message {
-	height: 64px;
-	margin-left: 65px;
-	margin-right: 65px;
+
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 90px;
 	text-align: center;
+	width: 100%
 }
 
 #product_selection {
 }
 
 #buy {
-	margin-left: 54px;
-	margin-bottom: 60px;
-
-#like {
-	margin-top: 30px;
-	margin-left: 35px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+	margin-bottom: 50px;
+	margin-top: 50px;
+	
 }
+
 
 /*
 a.fb_link {

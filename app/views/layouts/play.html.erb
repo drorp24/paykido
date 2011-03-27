@@ -15,8 +15,8 @@
 		});
 
 	$(document).bind('afterReveal.facebox', function() {
-		$('div#facebox').show();
-		$('#loading').hide();		
+		$('#facebox').show();
+		$('#loading').hide();
 		});
 
 	$(document).bind('afterClose.facebox', function() {
@@ -26,6 +26,11 @@
     $(document).ready(function($){
 		$('a[rel*=facebox]').facebox();
        });
+
+	$('iframe').load(function() {
+	  	
+		
+		});		
 
 </script> 
             
