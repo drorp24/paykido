@@ -12,7 +12,7 @@
 		<div id="login_button" class="text">
 			<fb:login-button perms="offline_access" 
 							 registration-url="#registration"
-							 onlogin="$.ajax({url: 'http://localhost/consumer/login_callback?sn=ACME&userid=131827&amount=6.99&amountdesc=310%20Farm%20Cash&hash=df659d502af5151a2edd18e2ebb50ba3&xdurl=http:%2F%2Flocalhost%2Fxd.html'});"
+							 onlogin="$.ajax({url: 'http://www.go-arca.com/consumer/login_callback'});"
 							 autologoutlink="true"
 							 V="2" />
 		</div>
@@ -57,14 +57,14 @@
 		{'name':'consumer_phone',      'description':'My Mobile Phone',             'type':'text'},
 		{'name':'payer_phone',      'description':'My Parent Mobile Phone',             'type':'text'},
 		{'name':'payer_email',      'description':'My Parent Email Address',             'type':'text'}
-	]" redirect-uri="http://localhost/consumer/register_callback/"></fb:registration>
+	]" redirect-uri="http://www.go-arca.com/consumer/register_callback/"></fb:registration>
 </div>
 
 <script type="text/javascript">
 
 $(document).ready(function (){ 
 
-	$.ajax({url: 'http://localhost/consumer/save_scroll/' + $(document).scrollTop()});
+	$.ajax({url: 'http://www.go-arca.com/consumer/save_scroll/' + $(document).scrollTop()});
 
 	$('#login_button').click(function() {
 		if ($('.fb_button_text').html() == 'Register') {

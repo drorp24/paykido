@@ -17,17 +17,17 @@ class ConsumerController < ApplicationController
     pay_request = PaypalAdaptive::Request.new
 
     data = {
-    "returnUrl" => "http://localhost/subscriber/payer_signedin",
+    "returnUrl" => "http://www.go-arca.com/subscriber/payer_signedin",
     "requestEnvelope" => {"errorLanguage" => "en_US"},
     "currencyCode"=>"USD",
-    "cancelUrl"=>"http://localhost/subscriber/payer_signedin",
+    "cancelUrl"=>"http://www.go-arca.com/subscriber/payer_signedin",
     "senderEmail" => "drorp1_1297098617_per@yahoo.com",
     "receiverList"=>{"receiver"=>
          [{"email"=>"drorp2_1297098512_biz@yahoo.com", "amount"=>"1499.00"}]},
     "actionType"=>"PAY",
     "trackingId" => "191",
     "preapprovalKey" => session[:preapprovalKey],
-    "ipnNotificationUrl"=>"http://localhost/subscriber/ipn_notification"    }
+    "ipnNotificationUrl"=>"http://www.go-arca.com/subscriber/ipn_notification"    }
     
     pay_response = pay_request.pay(data)
     
