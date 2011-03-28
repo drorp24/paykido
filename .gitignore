@@ -1,6 +1,9 @@
 db/*.sqlite3
+db/**/*
+*.sqlite3
 log/*.log
 tmp/**/*
 *.tmp*
-app/views/payers/.tmp*
-*.js
+.bundle/*
+*.tmp*
+/version/**
