@@ -202,7 +202,6 @@ class ConsumerController < ApplicationController
     current_facebook_access_token = current_facebook_client.access_token
 
     @consumer = Consumer.find_or_initialize_by_facebook_id(current_facebook_user_id)
-    @consumer.facebook_access_token = current_facebook_access_token
     @payer = @consumer.payer || Payer.find_or_initialize_by_phone(facebook_params['registration']['payer_phone'])
     @payer.update_attributes!(:exists => true, :email => facebook_params['registration']['payer_email'], :family => @consumer.facebook_user.last_name)    
     @consumer.update_attributes!(:facebook_id => current_facebook_user_id, 

@@ -12,7 +12,7 @@
 		<div id="login_button" class="text">
 			<fb:login-button perms="offline_access" 
 							 registration-url="#registration"
-							 onlogin="$.ajax({url: 'http://www.go-arca.com/consumer/login_callback'});"
+							 onlogin="$.ajax({url: '/consumer/login_callback'});"
 							 autologoutlink="true"
 							 V="2" />
 		</div>
@@ -57,7 +57,7 @@
 		{'name':'consumer_phone',      'description':'My Mobile Phone',             'type':'text'},
 		{'name':'payer_phone',      'description':'My Parent Mobile Phone',             'type':'text'},
 		{'name':'payer_email',      'description':'My Parent Email Address',             'type':'text'}
-	]" redirect-uri="http://www.go-arca.com/consumer/register_callback/"></fb:registration>
+	]" redirect-uri="http://localhost/consumer/register_callback/"></fb:registration>
 </div>
 
 <script type="text/javascript">
