@@ -10,7 +10,6 @@
 
 	$(document).bind('loading.facebox', function() {
 		$('div#facebox').hide();
-		$('#arca').css('z-index', '0');	
 		$('#loading').show();	
 		});
 
@@ -20,7 +19,6 @@
 		});
 
 	$(document).bind('afterClose.facebox', function() {
-		$('#arca').css('z-index', '100');	
 		});
 
     $(document).ready(function($){

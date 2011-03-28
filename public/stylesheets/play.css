@@ -1,38 +1,36 @@
-/*
+#arca:hover {
+	cursor: pointer;
+}
 
-The following exists also in aaa.css. For some reason, Chrome browser doesnt upload aaa.css
-when the aaa#payment_window is invoked.
-
-*/
 form {
 	z-index: 1001;
 }
 
-#FarmCash_310_farm_cash {
+#a {
 	position: absolute;
 	top: 380px;
 	left: 519px;
 }
 
-#FarmCash_240_farm_cash {
+#b {
 	position: absolute;
 	top: 409px;
 	left: 519px;
 }
 
-#FarmCash_115_farm_cash {
+#c {
 	position: absolute;
 	top: 438px;
 	left: 519px;
 }
 
-#FarmCash_55_farm_cash {
+#d {
 	position: absolute;
 	top: 467px;
 	left: 519px;
 }
 
-#FarmCash_25_farm_cash {
+#e {
 	position: absolute;
 	top: 496px;
 	left: 519px;
@@ -50,7 +48,7 @@ form {
 }
 
 #arca {
-	z-index: 100;
+
 	position: absolute;
 	top:940px;
 	left:497px;

@@ -3,32 +3,28 @@
 <%= image_tag "/images/loading_short.gif", :id => "loading", :style=>"display:none;" %>
 
 <% form_tag do %>
-	<%= radio_button_tag("FarmCash", "310 Farm Cash", false, :class=> "option") %>
-	<%= radio_button_tag("FarmCash", "240 Farm Cash", false, :class=> "option") %>
-	<%= radio_button_tag("FarmCash", "115 Farm Cash", false, :class=> "option") %>
-	<%= radio_button_tag("FarmCash", "55 Farm Cash", false, :class=> "option") %>
-	<%= radio_button_tag("FarmCash", "25 Farm Cash", false, :class=> "option") %>
+	<%= radio_button_tag("product", "310 Farm Cash@30.00", false, :class=> "option", :id=>"a", :checked=>"checked") %>
+	<%= radio_button_tag("product", "240 Farm Cash@24.00", false, :class=> "option", :id=>"b") %>
+	<%= radio_button_tag("product", "115 Farm Cash@12.00", false, :class=> "option", :id=>"c") %>
+	<%= radio_button_tag("product", "55 Farm Cash@6.00", false, :class=> "option", 	:id=>"d") %>
+	<%= radio_button_tag("product", "25 Farm Cash@3.00", false, :class=> "option", 	:id=>"e") %>
 <% end %>
 
-<a href="http://localhost/consumer/login?
-	sn=ACME&
-	userid=131827&
-	amount=6.99&
-	amountdesc=310%20Farm%20Cash&
-	hash=df659d502af5151a2edd18e2ebb50ba3&
-	xdurl=http:%2F%2Flocalhost%2Fxd.html"
-	rel="facebox">
-	<img src="http://www.go-arca.com/images/arca button.png" id="arca" border=0 alt="arca"/>
-</a>
+
+<img src="http://www.go-arca.com/images/arca button.png" id="arca" border=0 alt="arca"/>
+
 
 <script type="text/javascript">
 
 $(document).ready(function() {
-
-	$('.option').click(function() {
-		alert($('form').serialize());
+	
+	$('#arca').click(function() {
+		var url = 'http://localhost/consumer/login?' + $('form').serialize();
+		$.facebox({
+			ajax: url
+		});		
 	})
-})
+});
 
 window.onload = function() {
     

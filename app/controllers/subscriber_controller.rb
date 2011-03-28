@@ -488,7 +488,7 @@ end
     unless @rlist.update_attributes(:status => params[:new_status])
       flash[:notice] = "Oops... server unavailble. Back in a few moments!"
     end
-    session[:retailer].status = params[:new_status]
+    #session[:retailer].status = params[:new_status]
     # expire_page :action => "retailer", :id => params[:id]
    
     respond_to do |format|  
@@ -505,7 +505,7 @@ end
     unless @plist.update_attributes(:status => params[:new_status])
       flash[:notice] = "Oops... server unavailble. Back in a few moments!"
     end
-    session[:product].status = params[:new_status]
+    #session[:product].status = params[:new_status]
     # expire_page :action => "product", :id => params[:id]
     
     respond_to do |format|  
@@ -521,7 +521,7 @@ end
     unless @clist.update_attributes(:status => params[:new_status])
       flash[:notice] = "Oops... server unavailble. Back in a few moments!"
     end
-    session[:category].status = params[:new_status]
+    #session[:category].status = params[:new_status]
     # expire_page :action => "category", :id => params[:id]
     
     respond_to do |format|  

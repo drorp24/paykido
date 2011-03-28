@@ -70,8 +70,8 @@ class ConsumerController < ApplicationController
   
   def login
     
-    session[:product_title] = params[:amountdesc] || session[:product_title]
-    session[:product_price] = params[:amount] || session[:product_price]
+    session[:product_title] = params[:product].split('@')[0] || session[:product_title]
+    session[:product_price] = params[:product].split('@')[1]  || session[:product_price]
 
     find_consumer
     login_messages        
@@ -434,11 +434,11 @@ class ConsumerController < ApplicationController
       @first_line =  "This has to be manually authorized"
       @second_line = "We'll text you as soon as it is over!"
     elsif !@purchase.authorized 
-      @first_line = "This purchase is unauthorized."
+      @first_line = "This purchase is unauthorized"
       if @purchase.authorization_type == 'Insufficient Balance'
         @second_line = "Your balance is too low ($#{@consumer.balance})."
       else
-        @second_line = "(#{@purchase.authorization_type})"
+        @second_line = "#{@purchase.authorization_type}"
       end
 
 #    elsif !@purchase.authorized
@@ -539,6 +539,7 @@ class ConsumerController < ApplicationController
       product_clone.updated_at = Time.now
       @product.delete
       product_clone.save
+      @product = product_clone
     end
 #### WACKO CODE
  
@@ -579,8 +580,14 @@ class ConsumerController < ApplicationController
       @rule = session[:consumer_rule]
       @purchase.authorized = false                            
     
-      if @purchase.product.is_blacklisted(@payer.id) or @purchase.retailer.is_blacklisted(@payer.id) or @purchase.product.category.is_blacklisted(@payer.id)
-        @purchase.authorization_type = "Inappropriate Content"
+      if @purchase.product.is_blacklisted(@payer.id) 
+        @purchase.authorization_type = "Unauthorized Product (#{@purchase.product.title})"
+        @purchase.authorized = false      
+      elsif @purchase.retailer.is_blacklisted(@payer.id) 
+        @purchase.authorization_type = "Unauthorized Merchant (#{@purchase.retailer.name})"
+        @purchase.authorized = false      
+      elsif @purchase.product.category.is_blacklisted(@payer.id) 
+        @purchase.authorization_type = "Unauthorized Category (#{@purchase.product.category.name})"
         @purchase.authorized = false      
       
       elsif @consumer.balance <= 0
