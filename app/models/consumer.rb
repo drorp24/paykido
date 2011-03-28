@@ -22,6 +22,7 @@ class Consumer < ActiveRecord::Base
 #                      :with => /^image/,
 #                      :message => "--- you can only upload pictures"
 
+  attr_accessor facebook_access_token, facebook_id
  
   def facebook_user 
     unless @facebook_user 
