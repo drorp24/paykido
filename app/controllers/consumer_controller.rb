@@ -123,8 +123,6 @@ class ConsumerController < ApplicationController
   def find_consumer_by_facebook_user
     
     @consumer = Consumer.find_or_initialize_by_facebook_id(current_facebook_user.id)    
-    @consumer.facebook_id = current_facebook_user.id
-    @consumer.facebook_access_token = current_facebook_client.access_token
     session[:consumer] = @consumer
 
     @payer = session[:payer] = @consumer.payer if @consumer    
