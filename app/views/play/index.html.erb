@@ -19,7 +19,7 @@
 $(document).ready(function() {
 	
 	$('#arca').click(function() {
-		var url = 'http://www.go-arca.com/consumer/login?' + $('form').serialize();
+		var url = '/consumer/login?' + $('form').serialize();
 		$.facebox({
 			ajax: url
 		});		
@@ -30,7 +30,7 @@ window.onload = function() {
     
 	set_scroll();
 	<% if @activity == "buy" %>	
-		$.facebox({ ajax:  'http://www.go-arca.com/consumer/login'});
+		$.facebox({ ajax:  '/consumer/login'});
 	<% end %>
 
 }

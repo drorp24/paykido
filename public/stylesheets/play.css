@@ -50,8 +50,9 @@ form {
 #arca {
 
 	position: absolute;
-	top:940px;
-	left:497px;
+	top:938px;
+	left:496px;
+	opacity: 0;
 }
 
 #fancybox-inner {

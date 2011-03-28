@@ -8,43 +8,9 @@
 
 </head>	
 <body id="main">
-<div id="fb-root"></div>
-<script>
-		
-	  window.fbAsyncInit = function() {
-	  	
-	    FB.init({appId: '134769406591035', status: true, cookie: true, xfbml: true});				 
 
-		FB.getLoginStatus(function(response) {
-		  if ((response.session)) {
-
-
-		  } else {		
-
-		  }
-		});
-
-		FB.Event.subscribe('auth.statusChange', function(response) {
-		  if ((response.session)) {
-
-
-		  } else {		
-
-		  }
-		});
-
-	  };
-	  
-	  (function() {
-	    var e = document.createElement('script'); e.async = true;
-	    e.src = document.location.protocol +
-	      '//connect.facebook.net/en_US/all.js';
-	    document.getElementById('fb-root').appendChild(e);
-	  }());
-	  
-		
-	  
-</script>
+	<div id="fb-root"></div>
+	<%=fb_connect_async_js %>
 
 	<% if flash[:notice] -%><div id="notice"><%= flash[:notice] %></div<% end -%>
 	
