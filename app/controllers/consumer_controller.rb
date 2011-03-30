@@ -538,17 +538,18 @@ class ConsumerController < ApplicationController
   def find_retailer_and_product
     @retailer = Retailer.find(1)
     @product = Product.find_or_initialize_by_title_and_price(session[:product_title], session[:product_price])
+    @product.update_attributes!(:category_id => 6) unless @product
 #    Product.update(@product.id, :category_id => 6)     nothing works, no way to save @product 
 #### WACKO CODE
-    unless @product.category_id == 6
-      product_clone = @product.clone
-      product_clone.id = @product.id
-      product_clone.category_id = 6
-      product_clone.updated_at = Time.now
-      @product.delete
-      product_clone.save
-      @product = product_clone
-    end
+#    unless @product.category_id == 6
+#      product_clone = @product.clone
+#      product_clone.id = @product.id
+#      product_clone.category_id = 6
+#      product_clone.updated_at = Time.now
+#      @product.delete
+#      product_clone.save
+#      @product = product_clone
+#    end
 #### WACKO CODE
  
     session[:retailer] = @retailer
