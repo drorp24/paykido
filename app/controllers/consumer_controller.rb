@@ -70,9 +70,7 @@ class ConsumerController < ApplicationController
   
   def login
     
-    session[:product_title] = params[:product].split('@')[0] || session[:product_title]
-    session[:product_price] = params[:product].split('@')[1]  || session[:product_price]
-
+    find_product
     find_consumer
     login_messages        
     
@@ -87,6 +85,13 @@ class ConsumerController < ApplicationController
        format.js  
      end
 
+    
+  end
+  
+  def find_product
+    
+    @product_title = session[:product_title] = params[:product] ? params[:product].split('@')[0] : session[:product_title] 
+    @product_price = session[:product_price] = params[:product] ? params[:product].split('@')[1] : session[:product_price]    
     
   end
 
@@ -108,14 +113,14 @@ class ConsumerController < ApplicationController
       @salutation = "Welcome "
       @name = @consumer.name + "!"  
       @pic = "https://graph.facebook.com/#{@consumer.facebook_id}/picture"
-      @first_line = "You have selected"
-      @second_line = "#{session[:product_title]} for $#{session[:product_price]}"
+      @first_line = "You're about to buy"
+      @second_line = "#{@product_title} for $#{@product_price}"
     else
       @salutation = "Hello!"
       @name = nil
       @pic = nil
-      @first_line =  "Register to arca"
-      @second_line = "and buy in one click!"
+      @first_line =  "You have selected #{@product_title}"
+      @second_line = "Login or register, and get it in one click"
     end
     
   end    
@@ -181,8 +186,8 @@ class ConsumerController < ApplicationController
     # send SMS/email to parent. 
     # Need to check consumer's and payer's phone validity thru facebook registration
 
-    session[:activity] = "buy"
-    redirect_to :controller => :play, :action => "index", :scroll => session[:last_scroll]
+    product = session[:product_title] + '@' + session[:product_price]
+    redirect_to :controller => :play, :action => "index", :scroll => session[:last_scroll], :product => product
 
     
   end
@@ -235,9 +240,12 @@ class ConsumerController < ApplicationController
     @def_allowance = @def_consumer_rule.allowance
   end
   
-  def save_scroll
+  def save_state
     
-    session[:last_scroll] = params[:id]    
+    session[:last_scroll]   = params[:scroll]
+    session[:product_title] = params[:product].split('@')[0]  
+    session[:product_price] = params[:product].split('@')[1] 
+
     respond_to do |format|  
       format.html { redirect_to "zzz" }  
       format.js  
@@ -361,7 +369,7 @@ class ConsumerController < ApplicationController
 
 
     unless @consumer = session[:consumer]
-      @first_line =  "Please login and register"
+      @first_line =  "Please login or register"
       @second_line = "to buy with arca 1-click!"
       return
     end

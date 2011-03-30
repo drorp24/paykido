@@ -15,23 +15,31 @@
 
 
 <script type="text/javascript">
-
-$(document).ready(function() {
 	
+$(document).ready(function () {
+
 	$('#arca').click(function() {
 		var url = '/consumer/login?' + $('form').serialize();
 		$.facebox({
 			ajax: url
-		});		
+		});				
 	})
+
 });
+
 
 window.onload = function() {
     
 	set_scroll();
-	<% if @activity == "buy" %>	
-		$.facebox({ ajax:  '/consumer/login'});
-	<% end %>
+	
+	var product_param = $.url.param("product");
+	if (product_param) {
+		
+		var url = '/consumer/login?product=' + product_param;
+		$.facebox({ 
+			ajax:  url	
+		})
+	};
 
 }
 
