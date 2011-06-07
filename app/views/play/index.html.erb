@@ -33,9 +33,10 @@ window.onload = function() {
 	set_scroll();
 	
 	var product_param = $.url.param("product");
+	var sms_param = $.url.param("sms");
 	if (product_param) {
 		
-		var url = '/consumer/login?product=' + product_param;
+		var url = '/consumer/login?product=' + product_param + "&sms=" + sms_param;
 		$.facebox({ 
 			ajax:  url	
 		})

@@ -4,9 +4,9 @@ class PlayController < ApplicationController
 
   
   def index  
-    session[:consumer] = nil
-    @activity = session[:activity]
-    session[:activity] = nil
+#    session[:consumer] = nil
+#    @activity = session[:activity]
+#    session[:activity] = nil
 
   end
   

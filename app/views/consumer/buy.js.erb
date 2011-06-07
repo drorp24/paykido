@@ -2,9 +2,11 @@ $('#name').empty();
 <% if @purchase and @purchase.authorized? %>
 	$('#salutation').html('Congratulations!');
 <% elsif @purchase and @purchase.authorization_type == "PendingPayer"%>
-	$('#salutation').html('Patience...');
+	$('#salutation').html('Wait...');
 <% elsif @purchase and !@purchase.authorized %>
 	$('#salutation').html('Sorry...');
+<% elsif !@payer.registered? %>
+	$('#salutation').html('Almost there...');
 <% end %>
 $('#ajax_message #first_line').html("<%= @first_line %>");
 $('#ajax_message #second_line').html("<%= @second_line %>");

@@ -110,11 +110,30 @@ class ConsumerController < ApplicationController
   def login_messages
     
     if @consumer
+
       @salutation = "Welcome "
       @name = @consumer.name + "!"  
       @pic = "https://graph.facebook.com/#{@consumer.facebook_id}/picture"
-      @first_line = "You're about to buy"
-      @second_line = "#{@product_title} for $#{@product_price}"
+
+      if sms = params[:sms]    # = this is the second time login is called, i.e., we're back from register_callback
+        if sms == "test" 
+          @first_line = "You are in test mode (no sms)"
+          @second_line = "Use #{session[:username]}/#{session[:password]} to access your subscriber account"
+        elsif sms == "sent" 
+          @first_line = "We sent your parents a registration invite"
+          @second_line = "You can use arca as soon as they accept it!"
+        elsif sms == "failed"
+          @first_line = "We could not send your parents the invite"
+          @second_line = "Try registering again. Note the phone number."
+        else
+          @first_line = "Sorry, service is temporarily down"
+          @second_line = "Please try again in a few moments"
+        end
+      else
+        @first_line = "You're about to buy"
+        @second_line = "#{@product_title} for $#{@product_price}"
+      end
+      
     else
       @salutation = "Hello!"
       @name = nil
@@ -127,25 +146,22 @@ class ConsumerController < ApplicationController
   
   def find_consumer_by_facebook_user
     
-    @consumer = Consumer.find_or_initialize_by_facebook_id(current_facebook_user.id)    
-    @consumer.facebook_id = current_facebook_user.id
-    @consumer.facebook_access_token = current_facebook_client.access_token
+    @consumer = Consumer.find_or_initialize_by_facebook_id(current_facebook_user.id)
+    if @consumer
+      @payer = session[:payer] = @consumer.payer   
+      @consumer_rule = session[:consumer_rule] = @consumer.most_recent_payer_rule
+    else  
+      @consumer.facebook_id = current_facebook_user.id
+      @consumer.facebook_access_token = nil
+      @consumer.name = @consumer.facebook_user.first_name
+      @consumer.pic =  @consumer.facebook_user.large_image_url
+      @consumer.tinypic = @consumer.facebook_user.image_url
+      @consumer.save!
+      @payer = session[:payer] = nil   
+      @consumer_rule = session[:consumer_rule] = nil
+    end   
+
     session[:consumer] = @consumer
-
-    @payer = session[:payer] = @consumer.payer if @consumer    
-    @consumer_rule = session[:consumer_rule] = @consumer.most_recent_payer_rule if @consumer
-    
-
-
-#    begin
-#    @consumer.update_attributes(:name => @consumer.facebook_user.first_name,
-#                                :pic => @consumer.facebook_user.large_image_url,
-#                                :tinypic => @consumer.facebook_user.image_url)
-                                 
-#    rescue @first_line = "(tmp) access token problem"
-#    end
-    
-    @consumer
   
   end
 
@@ -181,19 +197,29 @@ class ConsumerController < ApplicationController
   # whether for first consumer in the family or any next one, payer will always get an sms and code to enter acct    
 
     
-    create_consumer_and_payer 
+    find_consumer_find_or_create_payer 
 
     # send SMS/email to parent. 
     # Need to check consumer's and payer's phone validity thru facebook registration
 
     product = session[:product_title] + '@' + session[:product_price]
-    redirect_to :controller => :play, :action => "index", :scroll => session[:last_scroll], :product => product
 
+    create_user_and_inform_subscriber
+    if !Current.policy.send_sms
+      sms = "test"
+    elsif @sms_failed
+      sms = "failed"
+    else
+      sms = "sent"
+    end
+ 
+    redirect_to :controller => :play, :action => "index", :scroll => session[:last_scroll], :product => product, :sms => sms
     
   end
  
 
-  # check whether payer exists already:
+  #   @consumer was created as soon as the consumer performed his part of the registration  (login)
+  #   now check whether payer exists already:
   #   (consumer already asked his parent to register but that has not yet happened; or consumer now updates phone num)
   #       if consumer record exists and linked to a payer recrod, then update that payer record and dont create a new one
   #   (parent has already registered, e.g., by the consumer's brother. 
@@ -201,13 +227,37 @@ class ConsumerController < ApplicationController
   #   (first consumer in this family)
   #       If none of the above, initialize a new record then update as above.
 
-  def create_consumer_and_payer
+  def find_consumer_find_or_create_payer
+
+    current_facebook_user_id = current_facebook_user.id if current_facebook_user
+    @consumer = session[:consumer] || Consumer.find_or_initialize_by_facebook_id(current_facebook_user_id)
+
+    @payer = @consumer.payer || Payer.find_or_initialize_by_phone(facebook_params['registration']['payer_phone'])
+    @payer.registered = false unless @payer.registered?
+    @payer.update_attributes!(:exists => true, 
+                                 :email => facebook_params['registration']['payer_email'], 
+                                 :phone => facebook_params['registration']['payer_phone'])    
+    @consumer.update_attributes!(:payer_id => @payer.id, 
+                                 :balance => 50, 
+                                 :billing_phone => facebook_params['registration']['consumer_phone'])
+    update_consumer_rule
+
+    session[:consumer]   =  @consumer
+    session[:consumer_rule] =  @consumer_rule
+    session[:payer]      =  @payer
+    session[:facebook_id] = @consumer.facebook_id
+     
+  end
+
+  def old_working_create_consumer_and_payer
 
     current_facebook_user_id = current_facebook_user.id
     current_facebook_access_token = current_facebook_client.access_token
 
     @consumer = Consumer.find_or_initialize_by_facebook_id(current_facebook_user_id)
     @consumer.facebook_access_token = current_facebook_access_token
+
+    
     @payer = @consumer.payer || Payer.find_or_initialize_by_phone(facebook_params['registration']['payer_phone'])
     @payer.update_attributes!(:exists => true, :email => facebook_params['registration']['payer_email'], :family => @consumer.facebook_user.last_name)    
     @consumer.update_attributes!(:facebook_id => current_facebook_user_id, 
@@ -368,15 +418,22 @@ class ConsumerController < ApplicationController
 #  unless no_use_waiting
 
 
-    unless @consumer = session[:consumer]
+    find_consumer_and_payer
+
+    unless @consumer 
       @first_line =  "Please login or register"
       @second_line = "to buy with arca 1-click!"
       return
     end
       
+    unless @payer.registered?
+      @first_line =  "Please see that your parent completes registration"
+      @second_line = "to buy with arca 1-click!"
+      return      
+    end
+    
     begin
 
-      find_consumer_and_payer
       find_retailer_and_product
       find_or_create_purchase
       authorize_purchase
@@ -661,6 +718,30 @@ class ConsumerController < ApplicationController
       
   end        
   
+  def create_user_and_inform_subscriber
+    
+    create_new_user
+    if @user_failed
+      return
+    else
+      user = session[:username] = @user.name
+      pass = session[:password] = @user.password
+    end
+
+    return unless Current.policy.send_sms?
+
+    sms_phone = @payer.phone
+    message = facebook_params['registration']['message']
+      
+    sms_message = "#{message} It's me, #{@consumer.name}. There's a new service named Arca I want you to know."
+    sms(sms_phone,sms_message)
+    return if @sms_failed
+
+    sms_message = "Arca lets you control what I buy! To see what it does, go to www.go-arca.com. User: #{user} Pass: #{pass}"
+    sms(sms_phone,sms_message)
+          
+  end        
+  
   def sms(phone, message)
 
     api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
@@ -729,6 +810,23 @@ class ConsumerController < ApplicationController
 #  end
   
 
-
+    def create_new_user
+      
+      @user = User.new
+      @user.name = generate_string
+      @user.password = generate_string
+      @user.affiliation = "payer"
+      @user.role = "primary"
+      @user.payer_id = session[:payer].id
+      @user_failed = true unless @user.save
+            
+    end
+    
+    def generate_string(length=6)
+      chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ23456789'
+      string = ''
+      length.times { |i| string << chars[rand(chars.length)] }
+      string
+    end
  
  end
