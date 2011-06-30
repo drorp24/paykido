@@ -366,7 +366,8 @@ class ConsumerController < ApplicationController
    def clear_session
   # find a better command to clear out all session construct
       session[:consumer]= session[:consumer_rule] = session[:payer]= session[:retailer]=
-      session[:product]= session[:products] = session[:product_title] = session[:product_price] =
+      session[:product]= session[:products] = 
+#      session[:product_title] = session[:product_price] =
       session[:purchase]=
       session[:current_facebook_user_id] = session[:current_facebook_access_token] =
       session[:activity] = session[:last_scroll] =
