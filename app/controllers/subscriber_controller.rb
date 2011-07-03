@@ -442,8 +442,8 @@ end
     "cancelUrl"=>"http://www.go-arca.com/subscriber/payer_signedin",
     "maxTotalAmountOfAllPayments" => "1500.00",
     "maxNumberOfPayments" => "30",
-    "startingDate" => "2011-02-24T07:00:00.000Z",
-    "endingDate" => "2011-12-13T07:00:00.000Z",
+    "startingDate" => DateTime.now.to_s,
+    "endingDate" => (DateTime.now + 365).to_s,
     "senderEmail" => "drorp1_1297098617_per@yahoo.com"
     }
     

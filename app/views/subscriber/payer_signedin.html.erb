@@ -379,14 +379,6 @@
 									<%= f.text_field(:edited_phone, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless", :placeholder => "which phone to text?"  )%>
 								</span>
 							</div>
-							<div class="form_line">
-								<span class="icon">
-									<%= image_tag("/images/Skype.png", :id => "sms", :class => "communication", :border => "0")%>
-								</span>
-								<span class ="item_by_icon">
-									<%= f.text_field(:skype, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless"  )%>
-								</span>
-							</div>
 						</div>
 						<div class="form_line">
 							<span id="phone_alert" class="buttonset">
@@ -424,14 +416,6 @@
 								</span>
 								<span class ="item_by_icon">
 									<%= f.text_field(:email, :onchange => "$('#email_alert_form').submit();", :class => "value borderless"  )%>
-								</span>
-							</div>
-							<div class="form_line">
-								<span class="icon">
-									<%= image_tag("/images/facebook.png", :id => "sms", :class => "communication", :border => "0")%>
-								</span>
-								<span class ="item_by_icon">
-									<%= f.text_field(:facebook, :onchange => "$('#email_alert_form').submit();", :class => "value borderless"  )%>
 								</span>
 							</div>
 						</div>
