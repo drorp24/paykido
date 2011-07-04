@@ -33,7 +33,7 @@ $('#consumer_pic_form').attr('action', '<%= "/subscriber/consumer_info_update/#{
 	$('#consumer_info').html("<%= @consumer.name %>'s info");
 <% end %>
 
-<% if @consumer.pic? and FileTest.exists?(RAILS_ROOT + "/public/images/#{@consumer.pic}") %>
+<% if @consumer.pic?  %>
 	$('.middle_content').html('<%= image_tag @consumer.pic, :class =>"consumer_pic" %>');
 <% else %>
 	$('.middle_content').html('<%= image_tag "/images/face_placeholder_small.png", :class =>"consumer_pic"%>');

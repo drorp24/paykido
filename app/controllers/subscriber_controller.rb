@@ -436,10 +436,10 @@ end
     preapproval_request = PaypalAdaptive::Request.new
 
     data = {
-    "returnUrl" => "http://www.go-arca.com/subscriber/payer_signedin",
+    "returnUrl" => "http://#{request.host}/subscriber/payer_signedin",
     "requestEnvelope" => {"errorLanguage" => "en_US"},
     "currencyCode"=>"USD",
-    "cancelUrl"=>"http://www.go-arca.com/subscriber/payer_signedin",
+    "cancelUrl"=>"http://#{request.host}/subscriber/payer_signedin",
     "maxTotalAmountOfAllPayments" => "1500.00",
     "maxNumberOfPayments" => "30",
     "startingDate" => DateTime.now.to_s,
