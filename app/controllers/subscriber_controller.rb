@@ -452,7 +452,8 @@ end
     session[:preapprovalKey] = preapproval_response['preapprovalKey']
     
     if preapproval_response.success?
-      flash[:message] = "Thank you!"
+      flash[:message] = "Congratulations! You have successfully registered to Arca!"
+      @payer.update_attributes!(:registered => true)
       redirect_to preapproval_response.preapproval_paypal_payment_url
     else
       puts preapproval_response.errors.first['message']

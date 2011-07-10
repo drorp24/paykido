@@ -344,10 +344,20 @@
 	<div id="preferences">
 		<div id="preferences_tabs">
 			<ul class = "ui-tabs-nav" id="no_tabs_background">
-				<li><a href="#alerts" id="alerts_tab">Alerts & Reports</a></li>
 				<li><a href="#billing" id ="billing_tab">Billing</a></li>
+				<li><a href="#alerts" id="alerts_tab">Notifications</a></li>
 				<li><a href="#account" id ="account_tab">Account</a></li>
 			</ul>
+			<div id="billing">
+				<br />
+				<h3>Authorize the service</h3>
+				<% form_for @payer, :url => {:controller => :subscriber, :action => :payer_update} do |f| %>
+					<p><%= f.radio_button "registered", false  %> Do not currently activate arca</p>			
+					<p><%= f.radio_button "registered", true  %> Have arca check purchases and pay for them</p>			
+					<p id = "charging"><%= f.check_box "registered" %> I agree to let arca pay the merchant and charge me when purchase is approved</p>			
+					<p><%= f.submit "I agree"%></p>
+				<% end %>
+			</div>
 			<div id="alerts">
 				<div class="left_content">
 					<p class="content-name-right" id="alerts_pane">Alerts</p>
@@ -427,16 +437,6 @@
 						</div>
 					<% end %>
 				</div>
-			</div>
-			<div id="billing">
-				<h2>This page is under construction</h2><br /><br />
-				<% form_for @payer, :url => {:controller => :subscriber, :action => :payer_update} do |f| %>
-					<p><%= f.radio_button "billing_id", 1, :checked => true  %> I want every purchase to be charged automatically</p>			
-					<p><%= f.radio_button "billing_id", 2  %> I want to pay for each purchase myself</p>
-					<p><%= f.submit %></p>
-				<% end %>
-				<br /><br /><br /><br /><br />
-				<%= button_to "Preapproval", :action => "preapproval" %>
 			</div>
 			<div id="account">
 			</div>
