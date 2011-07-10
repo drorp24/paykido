@@ -354,7 +354,7 @@
 				<% form_for @payer, :url => {:controller => :subscriber, :action => :payer_update} do |f| %>
 					<p><%= f.radio_button "registered", false  %> Do not currently activate arca</p>			
 					<p><%= f.radio_button "registered", true  %> Have arca check purchases and pay for them</p>			
-					<p id = "charging"><%= f.check_box "registered" %> I agree to let arca pay the merchant and charge me when purchase is approved</p>			
+					<p id = "charging"><%= f.check_box "facebook" %> I agree to let arca pay the merchant and charge me when purchase is approved</p>			
 					<p><%= f.submit "I agree"%></p>
 				<% end %>
 			</div>
