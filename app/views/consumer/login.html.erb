@@ -48,11 +48,12 @@
 </div>
 		
 <div id="registration" style="display: none;">
-	<fb:registration  fb_only="true" width="600" redirect-uri="http://<%= request.host %>/consumer/register_callback"  fields='[
+	<fb:registration  fb_only="true" width="600" redirect-uri="http://<%= request.host + ':' + request.port.to_s %>/consumer/register_callback"  fields='[
 		{"name":"name"},
 		{"name":"email"},
 		{"name":"password",   "view":"not_prefilled"},
 		{"name":"birthday"},
+		{"name":"consumer_phone",    "description":"My mobile phone number",  	"type":"text"},
 		{"name":"message",    "description":"Message To My Parent",  	"type":"text"},
 		{"name":"payer_name",      "description":"My Parent Name",             "type":"text"},
 		{"name":"payer_phone",      "description":"My Parent Mobile Phone",             "type":"text"},
@@ -88,6 +89,14 @@ function validate(form) {
         errors.payer_phone= "Only digits please!";
     }
 	
+	if (form.consumer_phone == "") {
+        errors.consumer_phone = "Please enter phone number";
+    } else if (form.consumer_phone.length !== 10) {
+        errors.consumer_phone= "Valid phone number please!";
+    } else if (!IsNumeric(form.consumer_phone)) {
+        errors.consumer_phone= "Only digits please!";
+    }
+
 	 if(reg.test(form.payer_email) == false) {
         errors.payer_email = "Valid email address please!";
     }

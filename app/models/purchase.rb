@@ -118,24 +118,20 @@ class Purchase < ActiveRecord::Base
   
   end
 
-  def self.SAVEby_payer_retailer_and_month(payer_id, retailer_id, month)
-    self.find_all_by_payer_id_and_retailer_id(payer_id, retailer_id,
-               :conditions => ["authorized = ?", true],
-               :group => "retailer_id",
-               :select => "retailer_id, sum(amount) as total_amount, count(*) as purchase_count, max(date) as most_recent")  
-    
-  end
-  
-  def self.SAVEpayer_retailers_with_retailer_info_and_status_info(payer_id)
+  def self.payer_consumers_the_works(payer_id)
     self.find_all_by_payer_id(payer_id, 
-                :joins  =>      "inner join retailers on purchases.retailer_id = retailers.id left outer join rlists on purchases.retailer_id = rlists.retailer_id and purchases.payer_id = rlists.payer_id",
-                :select =>      "DISTINCT retailers.id, retailers.name, retailers.logo, rlists.status")
+              :conditions => ["authorized = ?", true],
+              :group =>       "purchases.consumer_id, consumers.id, consumers.name, consumers.balance, consumers.pic",
+              :joins  =>      "inner join consumers on purchases.consumer_id = consumers.id",
+              :select =>      "consumers.id, name, balance, pic, sum(amount) as sum_amount, count(*) as purchase_count, max(date) as most_recent",
+              :order =>       "sum_amount desc")
+              
 
   end
 
   def self.payer_retailers_the_works(payer_id)
     self.find_all_by_payer_id(payer_id, 
-              :conditions => ["authorized = ? and authentication_date is not ?", true, nil],
+              :conditions => ["authorized = ?", true],
               :group =>       "purchases.retailer_id, retailers.id, retailers.name, retailers.logo, rlists.status",
               :joins  =>      "inner join retailers on purchases.retailer_id = retailers.id left outer join rlists on purchases.retailer_id = rlists.retailer_id and purchases.payer_id = rlists.payer_id",
               :select =>      "retailers.id, retailers.name, retailers.logo, rlists.status, sum(amount) as total_amount, count(*) as purchase_count, max(date) as most_recent",
@@ -146,7 +142,7 @@ class Purchase < ActiveRecord::Base
 
   def self.payer_products_the_works(payer_id)
     self.find_all_by_payer_id(payer_id, 
-              :conditions => ["authorized = ? and authentication_date is not ?", true, nil],
+              :conditions => ["authorized = ?", true],
               :group =>       "purchases.product_id, products.id, products.title, products.logo, plists.status",
               :joins  =>      "inner join products on purchases.product_id = products.id left outer join plists on purchases.product_id = plists.product_id and purchases.payer_id = plists.payer_id",
               :select =>      "products.id, products.title, products.logo, plists.status, sum(amount) as total_amount, count(*) as purchase_count, max(date) as most_recent",
@@ -156,7 +152,7 @@ class Purchase < ActiveRecord::Base
 
   def self.payer_categories_the_works(payer_id)
     self.find_all_by_payer_id(payer_id, 
-              :conditions => ["authorized = ? and authentication_date is not ?", true, nil],
+              :conditions => ["authorized = ?", true],
               :group =>       "categories.id, categories.name, categories.logo, clists.status",
               :joins  =>      "inner join products on purchases.product_id = products.id inner join categories on products.category_id = categories.id left outer join clists on categories.id = clists.category_id and purchases.payer_id = clists.payer_id",
               :select =>      "categories.id, categories.name, categories.logo, clists.status, sum(amount) as total_amount, count(*) as purchase_count, max(date) as most_recent",
@@ -165,24 +161,7 @@ class Purchase < ActiveRecord::Base
   end
 
   
-  def self.payer_pendings_the_works(payer_id)
-    self.find_all_by_payer_id(payer_id, 
-              :conditions => ["authorized = ? and authorization_type = ?", false, "PendingPayer"],
-               :joins  =>      "inner join products on purchases.product_id = products.id inner join categories on products.category_id = categories.id inner join consumers on purchases.consumer_id = consumers.id inner join retailers on purchases.retailer_id = retailers.id",
-               :select =>      "purchases.id, consumers.name as consumer_name, retailers.name as retailer_name, retailers.logo, products.title as product_title, amount, date, authorization_type, authentication_type, authentication_date, location",
-               :order =>       "date desc")
-
-  end
-
-  def self.SAVEpayer_purchases_the_works(payer_id)
-    self.find_all_by_payer_id(payer_id, 
-              :conditions => ["authorized = ?", true],
-               :joins  =>      "inner join products on purchases.product_id = products.id inner join categories on products.category_id = categories.id inner join consumers on purchases.consumer_id = consumers.id inner join retailers on purchases.retailer_id = retailers.id",
-              :select =>      "purchases.id, consumers.name as consumer_name, retailers.name as retailer_name, retailers.logo, products.title as product_title, amount, date, authentication_type, authentication_date, authorized, authorization_type, authorization_date, location")
-
-  end
-  
-  def self.payer_purchases_all_the_works(payer_id)
+  def self.payer_purchases_the_works(payer_id)
     self.find_all_by_payer_id(payer_id, 
                :joins  =>      "inner join products on purchases.product_id = products.id inner join categories on products.category_id = categories.id inner join consumers on purchases.consumer_id = consumers.id inner join retailers on purchases.retailer_id = retailers.id",
                :select =>      "purchases.id, consumers.id as consumer_id, consumers.name as consumer_name, retailers.id as retailer_id, retailers.name as retailer_name, retailers.logo as retailer_logo, products.id as product_id, products.title as product_title, categories.id as category_id, categories.name as category_name, amount, date, authentication_type, authentication_date, authorized, authorization_type, authorization_date, location",
@@ -191,12 +170,5 @@ class Purchase < ActiveRecord::Base
   end
 
   
-  def self.SAVEby_payer_retailer_and_month(payer_id, retailer_id, month)
-    self.sum   :amount,
-               :conditions => ["payer_id =? and retailer_id = ? and authorized = ? and strftime('%m', date) = ?", payer_id, retailer_id, true, month],
-               :group => "retailer_id",
-               :select => "amount, count(*) as purchase_count, max(date) as most_recent"  
-    
-  end
    
 end

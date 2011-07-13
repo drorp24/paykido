@@ -13,6 +13,10 @@ class Retailer < ActiveRecord::Base
   has_many :users
 
 
+  def add(amount)
+    self.collected += amount
+  end
+  
   def rlist(payer_id)
     
     Rlist.find_or_initialize_by_retailer_id_and_payer_id(self.id, payer_id)

@@ -1,9 +1,9 @@
 $('#cheerful_message').fadeOut(10000); 
 $('#balance').val(<%= @consumer.balance %>);
-$('#budget').val(<%= @payer_rule.allowance %>);
-$('#payer_rule_rollover_human_on').attr('checked', "<%= (@payer_rule.rollover?) ?"checked":""  %>")
-$('#payer_rule_rollover_human_off').attr('checked', "<%= (@payer_rule.rollover?) ?"":"checked"  %>")
-$('#allowance_form').attr('action', '<%= "/subscriber/consumer_rules_update/#{@consumer.id}" %>');
+$('#budget').val(<%= @consumer_rule.allowance %>);
+$('#payer_rule_rollover_human_on').attr('checked', "<%= (@consumer_rule.rollover?) ?"checked":""  %>")
+$('#payer_rule_rollover_human_off').attr('checked', "<%= (@consumer_rule.rollover?) ?"":"checked"  %>")
+$('#allowance_form').attr('action', '<%= "/subscriber/consumer_update/#{@consumer.id}" %>');
 <% if @consumer.name.blank? %>
 	$('#consumer_name_allowance').html("Consumer's monthly allowance");
 	$('#cname').html(" consumer");
@@ -12,9 +12,9 @@ $('#allowance_form').attr('action', '<%= "/subscriber/consumer_rules_update/#{@c
 	$('#cname').html(" <%= @consumer.name %>");
 <% end %>
 
-$('#under').val(<%= @payer_rule.auto_authorize_under %>);
-$('#over').val(<%= @payer_rule.auto_deny_over %>);
-$('#amounts_form').attr('action', '<%= "/subscriber/consumer_rules_update/#{@consumer.id}" %>');
+$('#under').val(<%= @consumer_rule.auto_authorize_under %>);
+$('#over').val(<%= @consumer_rule.auto_deny_over %>);
+$('#amounts_form').attr('action', '<%= "/subscriber/consumer_update/#{@consumer.id}" %>');
 <% if @consumer.name.blank? %>
 	$('#consumer_name_approvals').html("Consumer's thresholds");
 <% else %>
@@ -25,8 +25,8 @@ $('#consumer_info_name input').val("<%= @consumer.name %>");
 $('#consumer_info_phone input').val("<%= @consumer.billing_phone %>");
 $('#consumer_info_pin input').val("<%= @consumer.pin %>");
 $('#consumer_info_pic input').val("<%= @consumer.pic %>");
-$('#consumer_info_form').attr('action', '<%= "/subscriber/consumer_info_update/#{@consumer.id}" %>');
-$('#consumer_pic_form').attr('action', '<%= "/subscriber/consumer_info_update/#{@consumer.id}" %>');
+$('#consumer_info_form').attr('action', '<%= "/subscriber/consumer_update/#{@consumer.id}" %>');
+$('#consumer_pic_form').attr('action', '<%= "/subscriber/consumer_update/#{@consumer.id}" %>');
 <% if @consumer.name.blank? %>
 	$('#consumer_info').html("Consumer's info");
 <% else %>

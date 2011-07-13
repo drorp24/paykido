@@ -1,6 +1,347 @@
+<div id="payer_tabs">
+	<ul class = "ui-tabs-nav">
+		<li><a href="#consumers">Consumers</a></li>
+		<li><a href="#preferences">Preferences</a></li>
+		<li><a href="#retailers">Retailers</a></li>
+		<li><a href="#products">Products</a></li>
+		<li><a href="#categories">Categories</a></li>
+		<li id="purchases_tab">
+			<a href="#purchases">
+				<span id="payer-in-tab"><%= (@payer.name) ?@payer.name.first(14) :"Family" %></span>
+				Purchases
+				<%= image_tag "face_placeholder_small.png", :style=>"display: none;", :class => "pic-in-tab" %>
+			</a>
+		</li>
+	</ul>
+
+
+	<div id="consumers">
+		<div id="consumers_tabs">
+			<ul class = "ui-tabs-nav" id="no_tabs_background1">
+				<li><a href="#allowance" id ="allowance_tab">Allowance</a></li>
+				<li><a href="#thresholds" id ="thresholds_tab">Thresholds</a></li>
+				<li><a href="#info" id ="info_tab">Info</a></li>
+			</ul>
+			<div id="allowance" class="consumers_page">
+				<div class="left_content">
+					<p class="content-name-left" id="consumer_name_allowance"></p>		
+					<div id="gauge"><img id='chartdiv' class="engrave"/></div>
+					<% form_for :payer_rule, :url => { :action => :consumer_update }, :html => {:id => "allowance_form"} do |f| %>			
+					    <span class="long item">Monthly Allowance:</span>
+						<span class="value"><%= f.text_field(:edited_budget, :onchange => "modifyBudget('post')", :id => "budget", :size => 10) %></span>
+					    <div class="long item" id="budget_slider" onclick="modifyBudget('post')"></div>
+					    <span class="long item">Current Balance:</span>
+						<span class="green_value"><%= text_field(:consumer, :edited_balance, :onchange => "modifyBalance('post')", :id => "balance", :class => "dollar_amount", :size => 10) %></span>
+					    <div id="balance_slider" onclick="modifyBalance('post')"></div>
+						<span class="item" id="balance_rollover">Balance rollover</span>
+						<span id="rollover" class="buttonset">
+							<%= f.radio_button("rollover_human", "On", :onchange => "$('#allowance_form').submit();") %><label for="payer_rule_rollover_human_on">On</label>
+							<%= f.radio_button("rollover_human", "Off",:onchange => "$('#allowance_form').submit();")%><label for="payer_rule_rollover_human_off">Off</label>
+						</span>			
+					<% end %>
+				</div>
+				<div class="middle_content">
+				</div>
+				<div class="right_content consumers_list"></div>
+			</div>
+			<div id="thresholds" class="consumers_page">
+				<div class="left_content">
+					<p class="content-name-left" id="consumer_name_approvals"></p>
+					<div class="inner_content_text">&nbsp;</div>
+					<div class="inner_content_text"><span>Should arca automatically approve</span><span id="cname"></span><span>'s low</span></div>
+					<div class="inner_content_text">priced purchases , or deny high priced ones?</div>
+					<div id='slider-range' class="engrave" onclick="modifyUnderOver('post')"></div><br />
+					<% form_for :payer_rule, :url => { :action => :consumer_update }, :html => {:id => "amounts_form"} do |f| %>
+						<p id="slider">
+							<span class="rule">Approve anything under</span>
+							<span><%= f.text_field(:edited_auto_authorize_under, :onchange => "modifyUnderOver('post')", :id => "under", :size => 10) %></span>
+						</p>
+						<p>
+						    <span class="rule">Deny anything over</span>
+							<span><%= f.text_field(:edited_auto_deny_over, :onchange => "modifyUnderOver('post')", :id => "over",  :size => 10) %></span>					
+						</p>
+					<% end %>
+				</div>
+				<div class="middle_content">
+				</div>
+				<div class="right_content consumers_list"></div>
+			</div>
+			<div id="info" class="consumers_page">
+				<div class="left_content">
+					<p class="content-name-left" id="consumer_info"></p><br />
+					<% form_for(:consumer, :url => {:action => :consumer_update}, :html => {:id => "consumer_info_form"}) do |f| %>			
+						<p>
+							<span class=item>Name:</span>			
+							<span class=content-value id="consumer_info_name"><%= f.text_field(:name, :size => 25, :onchange => "consumer_rename_no_ajax($(this).val());$('#consumer_info_form').submit();") %></span> 
+						</p>
+						<p>
+							<span class=item>Phone:</span>			
+							<span class=content-value id="consumer_info_phone"><%= f.text_field :billing_phone, :size => 25, :onchange => "$('#consumer_info_form').submit();" %></span> 
+						</p>
+						<p>
+							<span class=item>PIN:</span>			
+							<span class=content-value id="consumer_info_pin"><%= f.password_field :pin, :size => 25, :onchange => "$('#consumer_info_form').submit();" %></span> 
+						</p>
+					<% end %>
+					<% form_for(:consumer, :url => {:action => :consumer_update}, :html => {:multipart => true, :id => "consumer_pic_form"}) do |f| %>			
+						<p>
+							<span class=item>Photo:</span>			
+							<span class=content-value id="consumer_info_pic_file"><%= f.file_field("uploaded_pic", :size => 25, :disabled => "disabled", :onclick => "this.disabled=true;")  %></span> 
+						</p>
+					<% end %>
+				</div>				
+				<div class="middle_content">
+				</div>
+				<div class="right_content consumers_list"></div>
+			</div>
+		</div>
+	</div>
+
+	<div id="retailers">
+		<div class="left_content"></div>
+		<div class="right_content retailers_list"></div>
+	</div>
+
+	<div id="products">
+		<div class="left_content"></div>
+		<div class="right_content products_list"></div>
+	</div>
+
+	<div id="categories">
+		<div class="left_content"></div>
+		<div class="right_content categories_list"></div>
+	</div>
+
+	<div id="purchases">
+	</div>
+
+	<div id="preferences">
+		<div id="preferences_tabs">
+			<ul class = "ui-tabs-nav" id="no_tabs_background">
+				<li><a href="#billing" id ="billing_tab">Billing</a></li>
+				<li><a href="#alerts" id="alerts_tab">Notifications</a></li>
+				<li><a href="#account" id ="account_tab">Account</a></li>
+			</ul>
+			<div id="billing">
+				<br />
+				<h3>Authorize the service</h3>
+				<% form_for :payer, :url => {:controller => :subscriber, :action => :payer_update} do |f| %>
+					<p><%= f.radio_button "registered", false  %> Do not currently activate arca</p>			
+					<p><%= f.radio_button "registered", true  %> Have arca check purchases and pay for them</p>			
+					<p id = "charging"><%= f.check_box "facebook" %> I agree to let arca pay the merchant and charge me when purchase is approved</p>			
+					<p><%= f.submit "I agree"%></p>
+				<% end %>
+			</div>
+			<div id="alerts">
+				<div class="left_content">
+					<p class="content-name-right" id="alerts_pane">Alerts</p>
+					<% form_for :payer, :url => { :action => :payer_update }, :html => {:id => "phone_alert_form"} do |f| %>
+						<div id="phone_alert_shade_area">
+							<div class="inner_content_subtitle" id="extra_space2">Notify me</div>
+							<div class="form_line">
+								<span class="icon">
+									<%= image_tag("/images/iPhone Dial.png", :id => "dial", :class => "communication", :border => "0")%>
+								</span>
+								<span class ="item_by_icon">
+									<%= f.select(:phone_events, Payer.phone_events,{}, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless" )%>
+								</span>
+							</div>
+							<div class="form_line">
+								<span class="icon">
+									<%= image_tag("/images/iPhone Clock.png", :id => "clock", :class => "communication", :border => "0")%>
+								</span>
+								<span class ="item_by_icon">
+									<%= f.select(:phone_alert_frequency, Payer.phone_alert_frequency,{}, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless" )%>
+								</span>
+							</div><br />
+							<div class="inner_content_subtitle" id="extra_space2">On</div>
+							<div class="form_line">
+								<span class="icon">
+									<%= image_tag("/images/iPhone SMS 64.png", :id => "sms", :class => "communication", :border => "0")%>
+								</span>
+								<span class ="item_by_icon">
+									<%= f.text_field(:edited_phone, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless", :placeholder => "which phone to text?"  )%>
+								</span>
+							</div>
+						</div>
+						<div class="form_line">
+							<span id="phone_alert" class="buttonset">
+								<%= f.radio_button("phone_alert_human", "On", :onchange => "viewPhoneAlert('toggle');$('#phone_alert_form').submit();") %><label for="payer_phone_alert_human_on">On</label>
+								<%= f.radio_button("phone_alert_human", "Off",:onchange => "viewPhoneAlert('toggle');$('#phone_alert_form').submit();") %><label for="payer_phone_alert_human_off">Off</label>
+							</span>
+						</div>
+					<% end %>
+				</div>
+				<div class="right_content">
+					<p class="content-name-right" id="reports_pane">Reports</p>
+					<% form_for :payer, :url => { :action => :payer_update }, :html => {:id => "email_alert_form"} do |f| %>
+						<div id="email_alert_shade_area">
+							<div class="inner_content_subtitle" id="extra_space3">Inform about</div>
+							<div class="form_line">
+								<span class="icon">
+									<%= image_tag("/images/iPhone Notes.png", :id => "report", :class => "communication", :border => "0")%>
+								</span>
+								<span class ="item_by_icon">
+									<%= f.select(:email_events, Payer.email_events,{}, :onchange => "$('#email_alert_form').submit();", :class => "value borderless" )%>
+								</span>
+							</div>
+							<div class="form_line">
+								<span class="icon">
+									<%= image_tag("/images/iPhone Clock.png", :id => "clock", :class => "communication", :border => "0")%>
+								</span>
+								<span class ="item_by_icon">
+									<%= f.select(:email_alert_frequency, Payer.email_alert_frequency,{}, :onchange => "$('#email_alert_form').submit();", :class => "value borderless" )%>
+								</span>
+							</div><br />
+							<div class="inner_content_subtitle" id="extra_space2">On</div>
+							<div class="form_line">
+								<span class="icon">
+									<%= image_tag("/images/iPhone eMail 64.png", :id => "email", :class => "communication", :border => "0")%>
+								</span>
+								<span class ="item_by_icon">
+									<%= f.text_field(:email, :onchange => "$('#email_alert_form').submit();", :class => "value borderless"  )%>
+								</span>
+							</div>
+						</div>
+						<div class="form_line">
+							<span id="email_alert" class="buttonset">
+								<%= f.radio_button("email_alert_human", "On", :onchange => "viewEmailAlert('toggle');$('#email_alert_form').submit();") %><label for="payer_email_alert_human_on">On</label>
+								<%= f.radio_button("email_alert_human", "Off",:onchange => "viewEmailAlert('toggle');$('#email_alert_form').submit();") %><label for="payer_email_alert_human_off">Off</label>
+							</span>
+						</div>
+					<% end %>
+				</div>
+			</div>
+			<div id="account">
+			</div>
+		</div>
+	</div>
+	
+</div>
+
 <script type="text/javascript">
+
+
+		viewConsumers  ();
+		viewRetailers  ();
+		viewProducts   ();
+		viewCategories ();	
+		viewPurchases();
+		viewPhoneAlert (<%= @payer.phone_alert %>);	
+		viewEmailAlert (<%= @payer.email_alert %>);
+		setTabHeight(<%= @max_records %>);
+
+
+	function viewConsumers() {
+		$.ajax({
+			url: 'consumers',
+			success: function(data){
+			}
+		})
+	};
+
+
+	function viewRetailers(){
+		$.ajax({
+			url: 'retailers',
+			success: function(data){
+			}
+		})
+	};
+
+
+	function viewProducts(){
+		$.ajax({
+			url: 'products',
+			success: function(data){
+			}
+		})
+	};
+
+	function viewCategories(){
+		$.ajax({
+			url: 'categories',
+			success: function(data){
+			}
+		})
+	};
+	
+	function viewPurchases(){
+			$.ajax({
+					url: 'purchases',
+					success: function(data){
+					}
+			})				
+	};
+
+	function viewPhoneAlert(phone_alert){
+
+		$('#phone_alert_notice').remove(); 
+		$('#phone_alert_form').after('<div id ="phone_alert_notice" class="field_notice small_note red" ><%= escape_javascript(flash.delete(:notice)) %></div>');
+		$('#payer_edited_phone').val("<%= @payer.edited_phone %>");
+
+		if (phone_alert == "toggle") {
+			$('#phone_alert_shade_area').toggleClass("shaded");
+		} 
+		else {
+			if (phone_alert) {
+				$('#phone_alert_shade_area').removeClass("shaded");
+			}
+			else
+			{
+				$('#phone_alert_shade_area').addClass("shaded");
+			}
+		}
+	};
+	
+	function viewEmailAlert(email_alert){
+
+		$('#email_alert_notice').remove(); 
+		$('#email_alert_form').after('<div id ="email_alert_notice" class="field_notice small_note red" ><%= escape_javascript(flash.delete(:notice)) %></div>');
+
+		if (email_alert == "toggle") {
+			$('#email_alert_shade_area').toggleClass("shaded");
+		} 
+		else {
+			if (email_alert) {
+				$('#email_alert_shade_area').removeClass("shaded");
+			}
+			else
+			{
+				$('#email_alert_shade_area').addClass("shaded");
+			}
+		}
+	};
+	
+	function setTabHeight(max_records) {
+
+		var top_padding = 190;
+		var portlet_height = 120;
+		var lines = Math.round((max_records)/2);
+		var height = top_padding + (lines * portlet_height);
+		
+		if (height > 530) {
+			$('#payer_tabs').css('height', height);
+		}
+		
+	};
 	
 
+	$("#payer_tabs").tabs({
+		select: function(event, ui){
+		$('#payer_tabs').css('height', 850)
+		if (ui.index != 5)  {
+			setTabHeight(<%= @max_records %>);
+			if ($('#payer_name').val != '') {
+				$('#payer-in-tab').html($('#payer_name').val().substring(0,14));
+				$('.pic-in-tab').attr('style', 'display: none;');
+			}
+		}
+		}});
+
+
+
+	
 	function modifyBudget (verb) {
 			var budget_with_currency = document.getElementById("budget").value;
 			var budget_save = budget_with_currency
@@ -137,426 +478,7 @@
 			$('#amounts_form').submit();
 		}
 
-	}
-
-
-
-	function viewConsumers(new_id){
-		$.ajax({
-			url: 'consumers/'+new_id})};
-
-
-
-	function consumer_info(id) {
-
-		var selector = "div[id = consumer_" + id.toString() + " ]";			
-		$('.consumer.portlet-header').removeClass('ui-state-active');
-		$(selector).addClass('ui-state-active');
-
-		$.ajax({
-		url: 'consumer/'+id,
-			success: function(data){
-				$(selector).addClass('ui-state-active');
-				drawChart();
-				modifyBudget('get');
-				modifyBalance('get');			
-				modifyUnderOver('get');
-				$(function() {$("#radio").buttonset();});
-			}
-		});
 	};
-	
-	function viewRetailers(){
-		$.ajax({
-			url: 'retailers',
-			success: function(data){
-			}
-		})
-	};
-
-
-	function viewProducts(){
-		$.ajax({
-			url: 'products',
-			success: function(data){
-			}
-		})
-	};
-
-	function viewCategories(){
-		$.ajax({
-			url: 'categories',
-			success: function(data){
-			}
-		})
-	};
-	
-	
-
-/*	Populate tabs by calling ajax  */
-
-		viewConsumers (0);
-		viewRetailers ();
-		viewProducts ();
-		viewCategories ();
-
-</script>
-
-
-<div id="payer_tabs">
-	<ul class = "ui-tabs-nav">
-		<li><a href="#consumers">Consumers</a></li>
-		<li><a href="#preferences">Preferences</a></li>
-		<li><a href="#retailers">Retailers</a></li>
-		<li><a href="#products">Products</a></li>
-		<li><a href="#categories">Categories</a></li>
-		<li id="purchases_tab">
-			<a href="#purchases">
-				<span id="payer-in-tab"><%= (@payer.name) ?@payer.name.first(14) :"Family" %></span>
-				Purchases
-				<%= image_tag "face_placeholder_small.png", :style=>"display: none;", :class => "pic-in-tab" %>
-			</a>
-		</li>
-	</ul>
-
-
-	<div id="consumers">
-		<div id="consumers_tabs">
-			<ul class = "ui-tabs-nav" id="no_tabs_background1">
-				<li><a href="#allowance" id ="allowance_tab">Allowance</a></li>
-				<li><a href="#thresholds" id ="thresholds_tab">Thresholds</a></li>
-				<li><a href="#info" id ="info_tab">Info</a></li>
-				<li><a href="#new" id="new_tab">New</a></li>
-			</ul>
-			<div id="allowance" class="consumers_page">
-				<div class="left_content">
-					<p class="content-name-left" id="consumer_name_allowance"></p>		
-					<div id="gauge"><img id='chartdiv' class="engrave"/></div>
-					<% form_for :payer_rule, :url => { :action => :consumer_rules_update }, :html => {:id => "allowance_form"} do |f| %>			
-					    <span class="long item">Monthly Allowance:</span>
-						<span class="value"><%= f.text_field(:edited_budget, :onchange => "modifyBudget('post')", :id => "budget", :size => 10) %></span>
-					    <div class="long item" id="budget_slider" onclick="modifyBudget('post')"></div>
-					    <span class="long item">Current Balance:</span>
-						<span class="green_value"><%= text_field(:consumer, :edited_balance, :onchange => "modifyBalance('post')", :id => "balance", :class => "dollar_amount", :size => 10) %></span>
-					    <div id="balance_slider" onclick="modifyBalance('post')"></div>
-						<span class="item" id="balance_rollover">Balance rollover</span>
-						<span id="rollover" class="buttonset">
-							<%= f.radio_button("rollover_human", "On", :onchange => "$('#allowance_form').submit();") %><label for="payer_rule_rollover_human_on">On</label>
-							<%= f.radio_button("rollover_human", "Off",:onchange => "$('#allowance_form').submit();")%><label for="payer_rule_rollover_human_off">Off</label>
-						</span>			
-					<% end %>
-				</div>
-				<div class="middle_content">
-				</div>
-				<div class="right_content consumers_list"></div>
-			</div>
-			<div id="thresholds" class="consumers_page">
-				<div class="left_content">
-					<p class="content-name-left" id="consumer_name_approvals"></p>
-					<div class="inner_content_text">&nbsp;</div>
-					<div class="inner_content_text"><span>Should arca automatically approve</span><span id="cname"></span><span>'s low</span></div>
-					<div class="inner_content_text">priced purchases , or deny high priced ones?</div>
-					<div id='slider-range' class="engrave" onclick="modifyUnderOver('post')"></div><br />
-					<% form_for :payer_rule, :url => { :action => :consumer_rules_update }, :html => {:id => "amounts_form"} do |f| %>
-						<p id="slider">
-							<span class="rule">Approve anything under</span>
-							<span><%= f.text_field(:edited_auto_authorize_under, :onchange => "modifyUnderOver('post')", :id => "under", :size => 10) %></span>
-						</p>
-						<p>
-						    <span class="rule">Deny anything over</span>
-							<span><%= f.text_field(:edited_auto_deny_over, :onchange => "modifyUnderOver('post')", :id => "over",  :size => 10) %></span>					
-						</p>
-					<% end %>
-				</div>
-				<div class="middle_content">
-				</div>
-				<div class="right_content consumers_list"></div>
-			</div>
-			<div id="info" class="consumers_page">
-				<div class="left_content">
-					<p class="content-name-left" id="consumer_info"></p><br />
-					<% form_for(:consumer, :url => {:action => :consumer_info_update}, :html => {:id => "consumer_info_form"}) do |f| %>			
-						<p>
-							<span class=item>Name:</span>			
-							<span class=content-value id="consumer_info_name"><%= f.text_field(:name, :size => 25, :onchange => "consumer_rename_no_ajax($(this).val());$('#consumer_info_form').submit();") %></span> 
-						</p>
-						<p>
-							<span class=item>Phone:</span>			
-							<span class=content-value id="consumer_info_phone"><%= f.text_field :billing_phone, :size => 25, :onchange => "$('#consumer_info_form').submit();" %></span> 
-						</p>
-						<p>
-							<span class=item>PIN:</span>			
-							<span class=content-value id="consumer_info_pin"><%= f.password_field :pin, :size => 25, :onchange => "$('#consumer_info_form').submit();" %></span> 
-						</p>
-					<% end %>
-					<% form_for(:consumer, :url => {:action => :consumer_info_update}, :html => {:multipart => true, :id => "consumer_pic_form"}) do |f| %>			
-						<p>
-							<span class=item>Photo:</span>			
-							<span class=content-value id="consumer_info_pic_file"><%= f.file_field("uploaded_pic", :size => 25, :disabled => "disabled", :onclick => "this.disabled=true;")  %></span> 
-						</p>
-					<% end %>
-				</div>				
-				<div class="middle_content">
-				</div>
-				<div class="right_content consumers_list"></div>
-			</div>
-			<div id="new" class="consumers_page">
-				<div class="left_content">
-					<p class="content-name-left" id="consumers">Adding a family member</p>		
-					<div class="inner_content_text">&nbsp;</div>
-					<div class="inner_content_text">&nbsp;</div>
-					<p class="inner_content_text">Start by keying the consumer's phone number here:</p>
-					<% form_for(:consumer, :url => {:action => "sms_consumer"}, :html => {:id => "phone_form"}) do |f| %>
-						<%= f.text_field :billing_phone, :id => "consumer_phone", :value => nil, :size => 20, :placeholder => "Phone number", :class => "formfield" %>
-						<%= submit_tag "Click when done",:class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
-					<% end %>
-					<p class="inner_content_text">Once you get the text message, key-in the PIN here:</p>  
-					<% form_for(:consumer, :url => {:action => "check_pin_and_link_consumer"}, :html => {:id => "pin_form"}) do |f| %>
-						<%= f.text_field :received_pin, :size => 20, :placeholder => "Received PIN", :class => "formfield"  %>
-						<%= submit_tag "Click when done", :class => "fg-button ui-state-default loginbutton ui-corner-all"  %>
-					<% end %>
-				</div>
-				<div class="middle_content">
-				</div>
-				<div class="right_content consumers_list"></div>
-			</div>
-		</div>
-	</div>
-
-	<div id="retailers">
-		<div class="left_content"></div>
-		<div class="right_content retailers_list"></div>
-	</div>
-
-	<div id="products">
-		<div class="left_content"></div>
-		<div class="right_content products_list"></div>
-	</div>
-
-	<div id="categories">
-		<div class="left_content"></div>
-		<div class="right_content categories_list"></div>
-	</div>
-
-	<div id="purchases">
-	</div>
-
-	<div id="preferences">
-		<div id="preferences_tabs">
-			<ul class = "ui-tabs-nav" id="no_tabs_background">
-				<li><a href="#billing" id ="billing_tab">Billing</a></li>
-				<li><a href="#alerts" id="alerts_tab">Notifications</a></li>
-				<li><a href="#account" id ="account_tab">Account</a></li>
-			</ul>
-			<div id="billing">
-				<br />
-				<h3>Authorize the service</h3>
-				<% form_for @payer, :url => {:controller => :subscriber, :action => :payer_update} do |f| %>
-					<p><%= f.radio_button "registered", false  %> Do not currently activate arca</p>			
-					<p><%= f.radio_button "registered", true  %> Have arca check purchases and pay for them</p>			
-					<p id = "charging"><%= f.check_box "facebook" %> I agree to let arca pay the merchant and charge me when purchase is approved</p>			
-					<p><%= f.submit "I agree"%></p>
-				<% end %>
-			</div>
-			<div id="alerts">
-				<div class="left_content">
-					<p class="content-name-right" id="alerts_pane">Alerts</p>
-					<% form_for :payer, :url => { :action => :payer_update }, :html => {:id => "phone_alert_form"} do |f| %>
-						<div id="phone_alert_shade_area">
-							<div class="inner_content_subtitle" id="extra_space2">Notify me</div>
-							<div class="form_line">
-								<span class="icon">
-									<%= image_tag("/images/iPhone Dial.png", :id => "dial", :class => "communication", :border => "0")%>
-								</span>
-								<span class ="item_by_icon">
-									<%= f.select(:phone_events, Payer.phone_events,{}, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless" )%>
-								</span>
-							</div>
-							<div class="form_line">
-								<span class="icon">
-									<%= image_tag("/images/iPhone Clock.png", :id => "clock", :class => "communication", :border => "0")%>
-								</span>
-								<span class ="item_by_icon">
-									<%= f.select(:phone_alert_frequency, Payer.phone_alert_frequency,{}, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless" )%>
-								</span>
-							</div><br />
-							<div class="inner_content_subtitle" id="extra_space2">On</div>
-							<div class="form_line">
-								<span class="icon">
-									<%= image_tag("/images/iPhone SMS 64.png", :id => "sms", :class => "communication", :border => "0")%>
-								</span>
-								<span class ="item_by_icon">
-									<%= f.text_field(:edited_phone, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless", :placeholder => "which phone to text?"  )%>
-								</span>
-							</div>
-						</div>
-						<div class="form_line">
-							<span id="phone_alert" class="buttonset">
-								<%= f.radio_button("phone_alert_human", "On", :onchange => "viewPhoneAlert('toggle');$('#phone_alert_form').submit();") %><label for="payer_phone_alert_human_on">On</label>
-								<%= f.radio_button("phone_alert_human", "Off",:onchange => "viewPhoneAlert('toggle');$('#phone_alert_form').submit();") %><label for="payer_phone_alert_human_off">Off</label>
-							</span>
-						</div>
-					<% end %>
-				</div>
-				<div class="right_content">
-					<p class="content-name-right" id="reports_pane">Reports</p>
-					<% form_for :payer, :url => { :action => :payer_update }, :html => {:id => "email_alert_form"} do |f| %>
-						<div id="email_alert_shade_area">
-							<div class="inner_content_subtitle" id="extra_space3">Inform about</div>
-							<div class="form_line">
-								<span class="icon">
-									<%= image_tag("/images/iPhone Notes.png", :id => "report", :class => "communication", :border => "0")%>
-								</span>
-								<span class ="item_by_icon">
-									<%= f.select(:email_events, Payer.email_events,{}, :onchange => "$('#email_alert_form').submit();", :class => "value borderless" )%>
-								</span>
-							</div>
-							<div class="form_line">
-								<span class="icon">
-									<%= image_tag("/images/iPhone Clock.png", :id => "clock", :class => "communication", :border => "0")%>
-								</span>
-								<span class ="item_by_icon">
-									<%= f.select(:email_alert_frequency, Payer.email_alert_frequency,{}, :onchange => "$('#email_alert_form').submit();", :class => "value borderless" )%>
-								</span>
-							</div><br />
-							<div class="inner_content_subtitle" id="extra_space2">On</div>
-							<div class="form_line">
-								<span class="icon">
-									<%= image_tag("/images/iPhone eMail 64.png", :id => "email", :class => "communication", :border => "0")%>
-								</span>
-								<span class ="item_by_icon">
-									<%= f.text_field(:email, :onchange => "$('#email_alert_form').submit();", :class => "value borderless"  )%>
-								</span>
-							</div>
-						</div>
-						<div class="form_line">
-							<span id="email_alert" class="buttonset">
-								<%= f.radio_button("email_alert_human", "On", :onchange => "viewEmailAlert('toggle');$('#email_alert_form').submit();") %><label for="payer_email_alert_human_on">On</label>
-								<%= f.radio_button("email_alert_human", "Off",:onchange => "viewEmailAlert('toggle');$('#email_alert_form').submit();") %><label for="payer_email_alert_human_off">Off</label>
-							</span>
-						</div>
-					<% end %>
-				</div>
-			</div>
-			<div id="account">
-			</div>
-		</div>
-	</div>
-	
-</div>
-
-<script type="text/javascript">
-
-	function viewPhoneAlert(phone_alert){
-
-		$('#phone_alert_notice').remove(); 
-		$('#phone_alert_form').after('<div id ="phone_alert_notice" class="field_notice small_note red" ><%= escape_javascript(flash.delete(:notice)) %></div>');
-		$('#payer_edited_phone').val("<%= @payer.edited_phone %>");
-
-		if (phone_alert == "toggle") {
-			$('#phone_alert_shade_area').toggleClass("shaded");
-		} 
-		else {
-			if (phone_alert) {
-				$('#phone_alert_shade_area').removeClass("shaded");
-			}
-			else
-			{
-				$('#phone_alert_shade_area').addClass("shaded");
-			}
-		}
-	};
-	
-	function viewEmailAlert(email_alert){
-
-		$('#email_alert_notice').remove(); 
-		$('#email_alert_form').after('<div id ="email_alert_notice" class="field_notice small_note red" ><%= escape_javascript(flash.delete(:notice)) %></div>');
-
-		if (email_alert == "toggle") {
-			$('#email_alert_shade_area').toggleClass("shaded");
-		} 
-		else {
-			if (email_alert) {
-				$('#email_alert_shade_area').removeClass("shaded");
-			}
-			else
-			{
-				$('#email_alert_shade_area').addClass("shaded");
-			}
-		}
-	};
-	
-	function setTabHeight(max_records) {
-
-		var top_padding = 190;
-		var portlet_height = 120;
-		var lines = Math.round((max_records)/2);
-		var height = top_padding + (lines * portlet_height);
-		
-		if (height > 530) {
-			$('#payer_tabs').css('height', height);
-		}
-		
-	};
-	
-
-	$("#payer_tabs").tabs({
-		select: function(event, ui){
-		$('#payer_tabs').css('height', 850)
-		if (ui.index != 5)  {
-			setTabHeight(<%= @max_records %>);
-			if ($('#payer_name').val != '') {
-				$('#payer-in-tab').html($('#payer_name').val().substring(0,14));
-				$('.pic-in-tab').attr('style', 'display: none;');
-				viewPurchases("all");
-			}
-		}
-		}});
-
-
-
-	
-	function rename_consumer(id, name) {
-		input_name = "consumer[" + id + "][name]";
-		selector = "input[name='" + input_name + "']";
-		$(selector).val(name);
-		$('#consumer_name_allowance').html(name + "\'s allowance");
-		$('#consumer_name_approvals').html(name + "\'s approval policy");		
-		$('#consumer_info').html(name + "\'s info");		
-		$('#consumer_info_name input').val(name);
-		$('#cname').html(" " + name);		
-
-			$.ajax({
-				url: 'rename_consumer/' + id + '?name=' + name,
-				success: function(data){
-				
-				}
-			})
-
-	};
-	
-	function consumer_rename_no_ajax(name) {
-		$('#consumer_name_allowance').html(name + "\'s allowance");
-		$('#consumer_name_approvals').html(name + "\'s approval policy");		
-		$('#consumer_info').html(name + "\'s info");
-		$('.ui-state-active').val(name);		
-		
-	};
-	
-	function viewPurchases(param){
-			$.ajax({
-					url: "purchases/" + param,
-					success: function(data){
-					}
-			})				
-	};
-
-
-	
-	viewPurchases("all");
-	viewPhoneAlert (<%= @payer.phone_alert %>);	
-	viewEmailAlert (<%= @payer.email_alert %>);
-	setTabHeight(<%= @max_records %>);
 
 
 </script>

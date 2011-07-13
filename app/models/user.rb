@@ -38,11 +38,6 @@ class User < ActiveRecord::Base
   def is_administrator   
     self.affiliation == "administrator" 
   end
-
-  def is_general   
-    self.affiliation == "general" 
-  end
-
   
   def self.authenticate(name, password)
     user = self.find_by_name(name)

@@ -1,125 +1,117 @@
-$('#cheerful_message').fadeOut(10000);
-$('#consumer_phone').val('');
-<% if @consumers.empty? %>
-
-		
-	$(function() {
-		$('#consumers_tabs').tabs("option","disabled", [0, 1, 2]);
-		$("#consumers_tabs").tabs("select", 3);
-		$('#consumers_tabs').tabs('disable',0);
-
-
-	});
-		
-<% elsif @consumer_added and @consumers and @consumers.size > 1 %>
-
-	<% rem = @consumers.size % 2 %>
-	<% if rem == 1 %>
-			$('#consumer_form .column1').prepend(
-				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
-					'<div class="consumer portlet-header ui-widget-header ui-corner-all" id="consumer_<%= @consumer_added.id %>">'+
-						'<span class="ui-icon ui-icon-minusthick"></span>'+
-						'<%= text_field("consumer[]", 'name', :onchange => "rename_consumer(#{@consumer.id}, $(this).val())") %>'+
-					'</div>'+
-					'<div class="portlet-content" >'+
-						'<div class="portlet-content-left">'+
-							'<%= image_tag (!@consumer.pic.blank?) ?"#{@consumer.pic}" :"face_placeholder_small.png", :class => "face-placeholder" %>'+
-						'</div>'+
-						'<div class="portlet-content-right">'+
-							'<p class="consumer-info">Spent nothing this month</p>'+
-							'<p class="consumer-info"><%= "Monthly balance:&nbsp #{number_to_currency(@consumer_added.balance)}" %></p>'+		
-						'</div>'+
-					'</div>'+
-				'</div>');
-	
-	<% else %>
-			$('#consumer_form .column2').prepend(
-				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
-					'<div class="consumer portlet-header ui-widget-header ui-corner-all" id="consumer_<%= @consumer_added.id %>">'+
-						'<span class="ui-icon ui-icon-minusthick"></span>'+
-						'<%= text_field("consumer[]", 'name', :onchange => "rename_consumer(#{@consumer.id}, $(this).val())") %>'+
-					'</div>'+
-					'<div class="portlet-content" >'+
-						'<div class="portlet-content-left">'+
-							'<%= image_tag (!@consumer.pic.blank?) ?"#{@consumer.pic}" :"face_placeholder_small.png", :class => "face-placeholder" %>'+
-						'</div>'+
-						'<div class="portlet-content-right">'+
-							'<p class="consumer-info">Spent nothing this month</p>'+
-							'<p class="consumer-info"><%= "Monthly balance:&nbsp  #{number_to_currency(@consumer_added.balance)}" %></p>'+		
-						'</div>'+
-					'</div>'+
-				'</div>');	
-	<% end %>
-	
-	consumer_info(<%= @consumer_added.id %>);
-	setTabHeight(<%= @consumers.size %>, 0);
-	
-<% else %>
-	$('.consumers_list').append(	
-		'<p class="inner_content_title" id="consumers">&nbsp;</p>' +
-		'<% form_for :payer, :url => { :action => :payer_update }, :html => {:id => "community_form"}  do |f| %>'+
-		'<p class="content-name-right" id="family_name"><%= f.text_field :name, :onchange => escape_javascript("renameCommunity($(this).val())") %></p><% end %>'+		
-		'<% form_for :consumers, :url => { :action => :consumer_update }, :html => {:id => "consumer_form"}  do |f| %>'+
-		'<div class="column1 sortable ui-sortable" ></div>' +
-		'<div class="column2 sortable ui-sortable" ></div>');
+$('.consumers_list').append(	
+	'<p class="inner_content_title" id="consumers">&nbsp;</p>' +
+	'<% form_for :payer, :url => { :action => :payer_update }, :html => {:id => "community_form"}  do |f| %>'+
+	'<p class="content-name-right" id="family_name"><%= f.text_field :name, :onchange => escape_javascript("renameCommunity($(this).val())") %></p><% end %>'+		
+	'<% form_for :consumers, :url => { :action => :consumer_update }, :html => {:id => "consumer_form"}  do |f| %>'+
+	'<div class="column1 sortable ui-sortable" ></div>' +
+	'<div class="column2 sortable ui-sortable" ></div>');
 			
-	<% i = 1 %>
-
-	<% for @consumer in @consumers %>
-		<% rem = i % 2 %>
-		<% if rem == 1 %>
-			$('#consumer_form .column1').append(
-				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
-					'<div class="consumer portlet-header ui-widget-header ui-corner-all" id="consumer_<%= @consumer.id %>">'+
-						'<span class="ui-icon ui-icon-minusthick"></span>'+
-						'<%= text_field("consumer[]", 'name', :onchange => "rename_consumer(#{@consumer.id}, $(this).val())") %>'+
+<% i = 1 %>
+<% for @consumer in @consumers %>
+	<% rem = i % 2 %>
+	<% if rem == 1 %>
+		$('#consumer_form .column1').append(
+			'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
+				'<div class="consumer portlet-header ui-widget-header ui-corner-all" id="consumer_<%= @consumer.id %>">'+
+					'<span class="ui-icon ui-icon-minusthick"></span>'+
+					'<%= text_field("consumer[]", 'name', :onchange => "rename_consumer(#{@consumer.id}, $(this).val())") %>'+
+				'</div>'+
+				'<div class="portlet-content" >'+
+					'<div class="portlet-content-left">'+
+						'<%= image_tag (!@consumer.pic.blank?) ?"#{@consumer.pic}" :"face_placeholder_small.png", :class => "face-placeholder" %>'+
 					'</div>'+
-					'<div class="portlet-content" >'+
-						'<div class="portlet-content-left">'+
-							'<%= image_tag (!@consumer.pic.blank?) ?"#{@consumer.pic}" :"face_placeholder_small.png", :class => "face-placeholder" %>'+
-						'</div>'+
-						'<div class="portlet-content-right">'+
-							'<p class="consumer-info">Spent&nbsp;<%= (@consumer.sum_amount.blank? || @consumer.sum_amount == 0) ?"nothing" :number_to_currency(@consumer.sum_amount) %>&nbsp;this month</p>'+
-							'<p class="consumer-info"><%= "Monthly balance:&nbsp  #{number_to_currency(@consumer.balance)}" %></p>'+		
-						'</div>'+
+					'<div class="portlet-content-right">'+
+						'<p class="consumer-info">Spent&nbsp;<%= (@consumer.sum_amount.blank? || @consumer.sum_amount == 0) ?"nothing" :number_to_currency(@consumer.sum_amount) %>&nbsp;this month</p>'+
+						'<p class="consumer-info"><%= "Monthly balance:&nbsp  #{number_to_currency(@consumer.balance)}" %></p>'+		
 					'</div>'+
-				'</div>');
-		<% else %>
-			$('#consumer_form .column2').append(
-				'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+ 
-					'<div class="consumer portlet-header ui-widget-header ui-corner-all" id="consumer_<%= @consumer.id %>">'+
-						'<span class="ui-icon ui-icon-minusthick"></span>'+
-						'<%= text_field("consumer[]", 'name', :onchange => "rename_consumer(#{@consumer.id}, $(this).val())") %>'+
-			    	'</div>'+
-					'<div class="portlet-content" >'+
-						'<div class="portlet-content-left">'+
-							'<%= image_tag (!@consumer.pic.blank?) ?"#{@consumer.pic}" :"face_placeholder_small.png", :class => "face-placeholder" %>'+
-						'</div>'+
-						'<div class="portlet-content-right">'+
-							'<p class="consumer-info">Spent&nbsp;<%= (@consumer.sum_amount.blank?|| @consumer.sum_amount == 0) ?"nothing" :number_to_currency(@consumer.sum_amount) %>&nbsp;this month</p>'+
-							'<p class="consumer-info"><%= "Monthly balance:&nbsp  #{number_to_currency(@consumer.balance)}" %></p>'+		
-						'</div>'+
+				'</div>'+
+			'</div>');
+	<% else %>
+		$('#consumer_form .column2').append(
+			'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+ 
+				'<div class="consumer portlet-header ui-widget-header ui-corner-all" id="consumer_<%= @consumer.id %>">'+
+					'<span class="ui-icon ui-icon-minusthick"></span>'+
+					'<%= text_field("consumer[]", 'name', :onchange => "rename_consumer(#{@consumer.id}, $(this).val())") %>'+
+		    	'</div>'+
+				'<div class="portlet-content" >'+
+					'<div class="portlet-content-left">'+
+						'<%= image_tag (!@consumer.pic.blank?) ?"#{@consumer.pic}" :"face_placeholder_small.png", :class => "face-placeholder" %>'+
 					'</div>'+
-				'</div>');
-		<% end %>
-		<% i += 1 %>
+					'<div class="portlet-content-right">'+
+						'<p class="consumer-info">Spent&nbsp;<%= (@consumer.sum_amount.blank?|| @consumer.sum_amount == 0) ?"nothing" :number_to_currency(@consumer.sum_amount) %>&nbsp;this month</p>'+
+						'<p class="consumer-info"><%= "Monthly balance:&nbsp  #{number_to_currency(@consumer.balance)}" %></p>'+		
+					'</div>'+
+				'</div>'+
+			'</div>');
 	<% end %>
-	$('.consumers_list').append('<% end %>');
-
-	consumer_info(<%= @consumers[0].id %>);
-	
+	<% i += 1 %>
 <% end %>
+$('.consumers_list').append('<% end %>');
+
+
+consumer_info(<%= @consumers[0].id %>);
+
+	function consumer_info(id) {
+
+		var selector = "div[id = consumer_" + id.toString() + " ]";			
+		$('.consumer.portlet-header').removeClass('ui-state-active');
+		$(selector).addClass('ui-state-active');
+
+		$.ajax({
+		url: 'consumer/'+id,
+			success: function(data){
+				$(selector).addClass('ui-state-active');
+				drawChart();
+				modifyBudget('get');
+				modifyBalance('get');			
+				modifyUnderOver('get');
+				$(function() {$("#radio").buttonset();});
+			}
+		});
+	};
 	
-	function renameCommunity(name) {
-		$(".content-name-right input:text").val(name);
-		$("#signedin").html("Welcome " + name);
-		$("#payer-in-tab").html(name);
+	
+
+function renameCommunity(name) {
+	$(".content-name-right input:text").val(name);
+	$("#signedin").html("Welcome " + name);
+	$("#payer-in-tab").html(name);
+		$.ajax({
+			url: 'payer_update/?name=' + name,
+			success: function(data){
+			}			
+		})
+	};
+
+	function rename_consumer(id, name) {
+		input_name = "consumer[" + id + "][name]";
+		selector = "input[name='" + input_name + "']";
+		$(selector).val(name);
+		$('#consumer_name_allowance').html(name + "\'s allowance");
+		$('#consumer_name_approvals').html(name + "\'s approval policy");		
+		$('#consumer_info').html(name + "\'s info");		
+		$('#consumer_info_name input').val(name);
+		$('#cname').html(" " + name);		
+
 			$.ajax({
-				url: 'rename_payer/' + name,
+				url: 'consumer_update/' + id + '?name=' + name,
 				success: function(data){
-				}			
+				
+				}
 			})
-		};
+
+	};
+	
+	function consumer_rename_no_ajax(name) {
+		$('#consumer_name_allowance').html(name + "\'s allowance");
+		$('#consumer_name_approvals').html(name + "\'s approval policy");		
+		$('#consumer_info').html(name + "\'s info");
+		$('.ui-state-active').val(name);		
+		
+	};
+	
+
+
 
 $(document).ready(function (){  
 	$('#consumer_form .column1').sortable({
@@ -155,6 +147,4 @@ $(document).ready(function (){
 
 	
 
-});	
-
-	
+});		
