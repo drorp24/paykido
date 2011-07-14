@@ -229,6 +229,7 @@ class SubscriberController < ApplicationController
     end
 
     respond_to do |format|  
+      format.html { redirect_to :action => 'payer_signedin' }  
       format.js  
     end
     
