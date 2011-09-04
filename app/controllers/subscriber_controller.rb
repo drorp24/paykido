@@ -56,7 +56,8 @@ class SubscriberController < ApplicationController
   def payer_signedin
     
     # while most are purchase aggregations, @consumer is an actual consumer record
-    @consumers = Purchase.payer_consumers_the_works(@payer.id)
+    @consumers = Consumer.payer_consumers_the_works(@payer.id)
+    get_rid_of_duplicates    
     session[:consumers] = @consumers 
     session[:consumer] = (@consumers.empty?) ?nil :Consumer.find(@consumers[0].id)
         
@@ -79,6 +80,36 @@ class SubscriberController < ApplicationController
             
   end
  
+  def get_rid_of_duplicates
+    
+    to_delete = []
+    i = 0
+    while i < @consumers.size
+    
+      consumer = @consumers.at(i)      
+      next_one = @consumers.at(i + 1)
+      next_two = @consumers.at(i + 2)
+   
+      consumer.sum_amount = nil unless consumer.authorized?
+      
+      if next_one and next_one.id == consumer.id 
+        if next_one.authorized?
+          consumer.sum_amount = next_one.sum_amount
+        end
+        @consumers.delete_at(i)
+        if next_two and next_two.id == consumer.id 
+          if next_two.authorized?
+            consumer.sum_amount = next_two.sum_amount
+          end
+          @consumers.delete_at(i)
+         end        
+      end
+      i += 1
+ 
+    end
+
+  end
+
   def consumers
     
     @consumers = session[:consumers]
@@ -529,7 +560,7 @@ class SubscriberController < ApplicationController
     session[:preapprovalKey] = preapproval_response['preapprovalKey']
       
     if preapproval_response.success?
-      flash[:message] = "Congratulations! You have successfully registered to Arca!"
+      flash[:message] = "Congratulations! You have successfully registered to safito!"
       @payer.update_attributes!(:registered => true)
       redirect_to preapproval_response.preapproval_paypal_payment_url
     else

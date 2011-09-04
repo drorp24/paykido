@@ -1,3 +1,9 @@
+#page_head_logo {
+	position: absolute;
+	left: 9px;
+	top: 2px;
+}
+
 #charging {
 	font-size: 14px;
 }

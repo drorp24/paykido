@@ -91,7 +91,7 @@ class ConsumerController < ApplicationController
           @second_line = "Use #{session[:username]}/#{session[:password]} to access your subscriber account"
         elsif sms == "sent" 
           @first_line = "We sent your parents a registration invite"
-          @second_line = "You can use arca as soon as they accept it!"
+          @second_line = "You can use safito as soon as they accept it!"
         elsif sms == "failed"
           @first_line = "We could not send your parents the invite"
           @second_line = "Try registering again. Note the phone number."
@@ -206,12 +206,12 @@ class ConsumerController < ApplicationController
     sms_phone = @payer.phone
     message = facebook_params['registration']['message']
     
-    sms_message = "#{message} It's me, #{@consumer.name}. There's a new service named Arca I want you to know! (wait, there's more)"
+    sms_message = "#{message} It's me, #{@consumer.name}. There's a new service named Safito I want you to know! (wait, there's more)"
     sms(sms_phone,sms_message)
     return if @sms == "failed"
     
-    # Currently the sms has the arca url with a user and pwd to enter; better send him an activation link
-    sms_message = "Arca lets you control what I buy! www.go-arca.com/subscriber User: #{user} Pass: #{pass}"
+    # Currently the sms has the safito url with a user and pwd to enter; better send him an activation link
+    sms_message = "Safito lets you control what I buy! www.safito.com/subscriber User: #{user} Pass: #{pass}"
     sms(sms_phone,sms_message)
     return if @sms == "failed"
 
@@ -243,13 +243,13 @@ class ConsumerController < ApplicationController
     
     unless @consumer 
       @first_line =  "Please login or register"
-      @second_line = "to buy with arca 1-click!"
+      @second_line = "to buy with safito 1-click!"
       return
     end
     
     unless @payer.registered?
       @first_line =  "Please see that your parent completes registration"
-      @second_line = "to buy with arca 1-click!"
+      @second_line = "to buy with safito 1-click!"
       return      
     end
     
@@ -410,7 +410,7 @@ class ConsumerController < ApplicationController
     
      if     @purchase.authorized
       @first_line = "#{session[:product_title]} is yours!"
-      @second_line = "Thanks for using arca"
+      @second_line = "Thanks for using safito"
      elsif  @purchase.authorization_type == "PendingPayer" 
       @first_line =  "This has to be manually authorized"
       @second_line = "We'll text you as soon as it is over!"
@@ -425,7 +425,7 @@ class ConsumerController < ApplicationController
 #     @first_line =  "[retailer was not paid message]"
 #     @second_line = "[retailer was not paid message]"      
      else
-      @first_line = "Arca is momentarily down"
+      @first_line = "safito is momentarily down"
       @second_line = "Please try again soon"     
     end  
     
