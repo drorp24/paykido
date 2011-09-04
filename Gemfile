@@ -2,7 +2,7 @@ source :gemcutter
 gem 'rails' , '2.3.5'
 gem 'sqlite3'
 gem 'clickatell'
-#gem 'json'
+gem 'json'
 gem 'facebooker2'
 gem 'paypal_adaptive'
 gem 'ruby_core_source'
