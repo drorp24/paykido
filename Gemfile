@@ -1,5 +1,5 @@
 source :gemcutter
-gem 'rails' , '2.3.5'
+gem 'rails' , '2.3.11'
 gem 'sqlite3'
 gem 'clickatell'
 gem 'json'
