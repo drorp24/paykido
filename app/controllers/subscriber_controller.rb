@@ -328,7 +328,7 @@ class SubscriberController < ApplicationController
 
        if Current.policy.send_sms? 
           inform_consumer_by_sms
-          if @sms_failed
+          if @sms == "failed"
             flash[:notice] = "We're sorry. SMS service is down at the moment!"
             return    
           end
@@ -343,16 +343,16 @@ class SubscriberController < ApplicationController
   end
     
   def inform_consumer_by_sms
-        
+            
     if @purchase.authorization_type == "ManuallyAuthorized"
       message = "Congrats! Your purchase of #{@purchase.product.title} has been approved."
      else
       message = "We're Sorry. Your purchase of #{@purchase.product.title} is not approved."
     end
     
-    if phone = @consumer.billing_phone
+    if phone = @purchase.consumer.billing_phone
       sms(phone, message)
-      return if @sms_failed
+      return if @sms == "failed"
     end          
  
   end   
@@ -560,7 +560,7 @@ class SubscriberController < ApplicationController
     session[:preapprovalKey] = preapproval_response['preapprovalKey']
       
     if preapproval_response.success?
-      flash[:message] = "Congratulations! You have successfully registered to safito!"
+      flash[:message] = "Congratulations! You have successfully registered to paykido!"
       @payer.update_attributes!(:registered => true)
       redirect_to preapproval_response.preapproval_paypal_payment_url
     else

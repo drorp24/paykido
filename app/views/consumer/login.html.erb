@@ -12,16 +12,11 @@
 		<div id="login_button" class="text">
 			<fb:login-button perms="offline_access" 
 							 registration-url="#registration"
-							 onlogin="$.ajax({url: 'http://www.safito.com/consumer/login_callback'});"
+							 onlogin="$.ajax({url: 'http://www.paykido.com/consumer/login_callback'});"
 							 autologoutlink="true"
 							 V="2" />
 		</div>
  	</div>
-
-	<div id="sign">
-		<%= image_tag "/images/no_entry1.png", :id=>"stop" , :style=>"display:none"%>
-		<%= image_tag "/images/go.png", :id=>"go" , :style=>"display:none"%>		
-	</div>
 
    	<div id="ajax_message">
 		<p id="first_line" class="text"><%= @first_line %><span id="action"></span></p>
