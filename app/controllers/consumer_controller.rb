@@ -152,7 +152,8 @@ class ConsumerController < ApplicationController
     
     find_or_create_consumer_and_payer     
     create_user_and_inform_payer    
-  
+    
+    session[:friend_authenticated] = true  
     redirect_to :controller => :play, 
                 :action => :index, 
                 :scroll => session[:last_scroll], 
@@ -240,11 +241,11 @@ class ConsumerController < ApplicationController
       return
     end
     
-    unless @payer.registered?
-      @first_line =  "Please see that your parent completes registration"
-      @second_line = "to buy with paykido 1-click!"
-      return      
-    end
+#    unless @payer.registered?
+#      @first_line =  "Please see that your parent completes registration"
+#      @second_line = "to buy with paykido 1-click!"
+#      return      
+#    end
     
     begin      
       create_purchase
