@@ -46,6 +46,8 @@ class ConsumerController < ApplicationController
     
     if current_facebook_user
       @consumer = find_consumer_by_facebook_user
+                @first_line = "You are in test mode (no sms)"
+
     else
       @consumer = nil 
       clear_session
@@ -64,13 +66,14 @@ class ConsumerController < ApplicationController
       @consumer = Consumer.new
       @consumer.facebook_id = current_facebook_user.id
       @consumer.facebook_access_token = nil
-      @consumer.name = @consumer.facebook_user.first_name
-      @consumer.pic =  @consumer.facebook_user.large_image_url
-      @consumer.tinypic = @consumer.facebook_user.image_url
-      @consumer.save!
       @payer = session[:payer] = nil   
       @rule = session[:rule] = nil
-    end   
+    end
+      
+    @consumer.name = @consumer.facebook_user.first_name
+    @consumer.pic =  @consumer.facebook_user.large_image_url
+    @consumer.tinypic = @consumer.facebook_user.image_url
+    @consumer.save!
     
     session[:consumer] = @consumer
     
@@ -167,7 +170,8 @@ class ConsumerController < ApplicationController
     # (e.g., the parent has subscribed already and this is the next brother registering)
     
     current_facebook_user_id = current_facebook_user.id if current_facebook_user
-    @consumer = session[:consumer] || Consumer.find_or_initialize_by_facebook_id(current_facebook_user_id)
+    @consumer = Consumer.find_or_initialize_by_facebook_id(current_facebook_user_id)
+    @consumer = session[:consumer] unless @consumer
     
     @payer = @consumer.payer || Payer.find_or_initialize_by_phone(facebook_params['registration']['payer_phone'])
     @payer.update_attributes!(:name => facebook_params['registration']['payer_name'], 

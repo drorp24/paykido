@@ -86,15 +86,15 @@
     settings: {
       opacity      : 0.2,
       overlay      : true,
-      loadingImage : 'http://www.go-arca.com/images/fbloading.gif',
-      closeImage   : 'http://www.go-arca.com/images/closelabel.png',
+      loadingImage : 'http://www.paykido.com/images/fbloading.gif',
+      closeImage   : 'http://www.paykido.com/images/closelabel.png',
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
       faceboxHtml  : '\
     <div id="facebox" style="display:none;"> \
       <div class="popup"> \
         <div class="content"> \
         </div> \
-        <a href="#" class="close"><img src="http://www.go-arca.com/images/closelabel.png" title="close" class="close_image" /></a> \
+        <a href="#" class="close"><img src="http://www.paykido.com/images/closelabel.png" title="close" class="close_image" /></a> \
       </div> \
     </div>'
     },
