@@ -9,7 +9,7 @@ class WelcomeController < ApplicationController
       if @user and @user.is_friend
         session[:friend_authenticated] = true
         controller = session[:req_controller] ?session[:req_controller] :'play' 
-        action = session[:req_action] ?session[:req_action] :'index' 
+        action = 'index' 
         redirect_to :controller => controller, :action => action
       else
         session[:friend_authenticated] = false
