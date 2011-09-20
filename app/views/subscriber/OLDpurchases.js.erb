@@ -4,6 +4,7 @@ $('#purchases').append(
 		'<table id="table">' +
 			'<thead>' +
 				'<tr>' +
+					'<th>Like</th>' +
 					'<th>Date</th>' +
 					'<th>Consumer</th>' +
 					'<th>Retailer</th>' +
@@ -15,7 +16,7 @@ $('#purchases').append(
 					'<th>Reason</th>' +
 					'<th>Authenticated</th>' +
 					'<th>By</th>' +
-					'<th>Status</th>' +
+					'<th>Dislike</th>' +
 				'</tr>' +				
 			'</thead>' +
 			'<tbody>' +
@@ -47,12 +48,23 @@ $('#purchases').append(
 			  @purchase.authorization_type ==  "PendingPayer" %>
 			<% @authorizer = @payer.name %>
 		<% else %> 
-			<% @authorizer = "Paykido" %>
+			<% @authorizer = "arca" %>
 		<% end %>
 		
 
 		$('tbody').append(
 		'<tr>' +
+			'<td class="authorized_cell" id="tb_like_<%= @purchase.id %>">'+
+				'<span class="icon">' +
+					'<% if    @purchase.authorization_type == "ManuallyAuthorized" %>'+
+						'<%= image_tag "/images/fb_like_lit_small.png", :border => "0", :id => "pending_like_lit_#{@purchase.id}", :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like" %>'+
+					'<% elsif @purchase.authorization_type == "PendingPayer" %>'+
+						'<%= image_tag "/images/fb_like_small.png", :border => "0", :id => "pending_like_unlit_#{@purchase.id}",  :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like" %>'+
+					'<% elsif @purchase.authorized? %>'+
+						'<%= image_tag "/images/approve.png", :border => "0", :class => "arca_for_table" %>'+
+					'<% end %>'+
+				'</span>'+	
+			'</td>' +
 			'<td class="date_cell" id="tb_date_<%= @purchase.id %>"><%= @purchase.date.strftime("%b %d, %Y %I:%M %p") if @purchase.date %></td>' +
 			'<td class="consumer_cell" id="tb_consumer_<%= @purchase.id %>"><%= @purchase.consumer_name %></td>' +
 			'<td class="retailer_cell" id="tb_retailer_<%= @purchase.id %>"><%= @purchase.retailer_name %></td>' +
@@ -64,20 +76,14 @@ $('#purchases').append(
 			'<td class="authorization_cell" id="tb_authorization_<%= @purchase.id %>"><%= @purchase.authorization_type%></td>' +
 			'<td class="date_cell" id="tb_authendate_<%= @purchase.id %>"><%= @purchase.authentication_date.strftime("%b %d, %Y %I:%M %p") if @purchase.authentication_date%></td>' +
 			'<td class="authentication_cell" id="tb_authentication_<%= @purchase.id %>"><%= @purchase.authentication_type%></td>' +
-			'<td class="authorized_cell" id="tb_status_<%= @purchase.id %>">'+
+			'<td class="authorized_cell" id="tb_dislike_<%= @purchase.id %>">'+
 				'<span class="icon">'+
-					'<% if    @purchase.authorization_type == "ManuallyAuthorized" %>'+
-						'<%= image_tag "/images/fb_like_lit_small.png", :border => "0", :id => "pending_like_lit_#{@purchase.id}", :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like" %>'+
-					'<% elsif @purchase.authorization_type == "PendingPayer" %>'+
-						'<%= image_tag "/images/fb_like_small.png", :border => "0", :id => "pending_like_unlit_#{@purchase.id}",  :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like" %>'+
-					'<% elsif @purchase.authorized? %>'+
-						'<%= image_tag "/images/approved1.png", :border => "0", :class => "arca_for_table" %>'+
-					'<% elsif    @purchase.authorization_type == "Unauthorized" %>'+
+					'<% if    @purchase.authorization_type == "Unauthorized" %>'+
 						'<%= image_tag "/images/fb_dont_lit_small.png", :border => "0", :id => "pending_dislike_lit_#{@purchase.id}",  :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like dislike" %>'+
 					'<% elsif @purchase.authorization_type == "PendingPayer" %>'+
 						'<%= image_tag "/images/fb_dont_small.png", :border => "0", :id => "pending_dislike_unlit_#{@purchase.id}",  :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like dislike" %>'+
 					'<% elsif !@purchase.authorized? %>'+
-						'<%= image_tag "/images/rejected1.png", :border => "0", :class => "arca_for_table" %>'+
+						'<%= image_tag "/images/rejected.png", :border => "0", :class => "arca_for_table" %>'+
 					'<% end %>'+
 				'</span>' +
 			'</td>' +
@@ -97,7 +103,7 @@ $(document).ready(function (){
 		"bPaginate": true,
 		"bRetrieve": true,
 		"bJQueryUI": true,
-		"aaSorting": [[0,'desc']],
+		"aaSorting": [[1,'desc']],
 		"sPaginationType": "full_numbers"	 		
 	});
 	
@@ -105,16 +111,16 @@ $(document).ready(function (){
 	$('#period label').click(function () {
 		var selection = $(this).children().first().html();
 		if 		(selection == "Pending") {
-			pTable.fnFilter( 'PendingPayer' , 8, true, false, false);
+			pTable.fnFilter( 'PendingPayer' , 9, true, false, false);
 		}
 		else if (selection == "Unauthorized") {
-			pTable.fnFilter( 'Unauthorized|Zero|Insufficient|Over', 8, true, false, false);
+			pTable.fnFilter( 'Unauthorized|Inappropriate|Zero|Insufficient|Over', 9, true, false, false);
 		}
 		else if (selection == "Authorized") {
-			pTable.fnFilter( 'ManuallyAuthorized|Under', 8, true, false, false );
+			pTable.fnFilter( 'ManuallyAuthorized|Under', 9, true, false, false );
 		}
 		else {
-			pTable.fnFilter( '', 8, true, false, false );
+			pTable.fnFilter( '', 9, true, false, false );
 		}		
 	}); 
 	

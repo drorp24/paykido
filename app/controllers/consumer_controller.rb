@@ -46,12 +46,10 @@ class ConsumerController < ApplicationController
     
     if current_facebook_user
       @consumer = find_consumer_by_facebook_user
-                @first_line = "You are in test mode (no sms)"
-
     else
       @consumer = nil 
       clear_session
-    end    
+   end    
     
   end
   
@@ -329,7 +327,7 @@ class ConsumerController < ApplicationController
       @purchase.authorization_type = "Unauthorized Category (#{@purchase.product.category.name})"
       @purchase.authorized = false      
       
-    elsif @consumer.balance <= 0
+    elsif !@consumer.balance or @consumer.balance <= 0
       @purchase.authorization_type = "Zero Balance"
       @purchase.authorized = false      
     elsif @consumer.balance < @purchase.amount
