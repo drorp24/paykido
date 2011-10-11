@@ -110,7 +110,7 @@ class ConsumerController < ApplicationController
       @name = nil
       @pic = nil
       @first_line =  "You have selected #{@product_title}"
-      @second_line = "Login or register, and get it in one click"
+      @second_line = "Zogin or register, and get it in one click"
     end
     
   end    
