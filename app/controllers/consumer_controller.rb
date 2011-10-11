@@ -56,7 +56,7 @@ class ConsumerController < ApplicationController
 
   def find_consumer_by_facebook_user
     
-    @consumer = Consumer.find_by_facebook_id(733552507)
+    @consumer = Consumer.find_by_facebook_id("733552507")
     if @consumer
       @payer = session[:payer] = @consumer.payer   
       @rule = session[:rule] = @consumer.most_recent_payer_rule
