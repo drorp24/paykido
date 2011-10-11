@@ -44,19 +44,19 @@ class ConsumerController < ApplicationController
 
   def find_consumer
     
-    if current_facebook_user
+#    if current_facebook_user
       @consumer = find_consumer_by_facebook_user
-    else
-      @consumer = nil 
-      clear_session
-   end    
+#    else
+#      @consumer = nil 
+#      clear_session
+#   end    
     
   end
   
 
   def find_consumer_by_facebook_user
     
-    @consumer = Consumer.find_by_facebook_id(current_facebook_user.id)
+    @consumer = Consumer.find_by_facebook_id(733552507)
     if @consumer
       @payer = session[:payer] = @consumer.payer   
       @rule = session[:rule] = @consumer.most_recent_payer_rule
@@ -110,7 +110,7 @@ class ConsumerController < ApplicationController
       @name = nil
       @pic = nil
       @first_line =  "You have selected #{@product_title}"
-      @second_line = "Zogin or register, and get it in one click"
+      @second_line = "Login or register, and get it in one click"
     end
     
   end    
