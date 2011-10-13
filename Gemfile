@@ -8,6 +8,4 @@ gem 'paypal_adaptive'
 gem 'ruby_core_source'
 gem 'heroku'
 gem 'taps'
-gem 'ruby-debug-base19'
-gem 'ruby-debug19'
-gem 'ruby-debug-ide19'
+
