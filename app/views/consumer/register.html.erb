@@ -1,7 +1,7 @@
 <div id="registration">
 	<fb:registration  
 		width="600" 
-		redirect-uri="http://localhost:3000/play"  
+		redirect-uri="http://<%= request.host + ':' + request.port.to_s %>/play"  
 		fields='[
 			{ "name":"name"},
 			{ "name":"email"},
