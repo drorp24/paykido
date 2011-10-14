@@ -16,7 +16,9 @@ class Consumer < ActiveRecord::Base
   
   def create_def_payer_rule!
     @rule = self.def_rule
-    self.payer_rules.create!(:allowance => @rule.allowance, :rollover => @rule.rollover, :auto_authorize_under => @rule.auto_authorize_under, :auto_deny_over => @rule.auto_deny_over)
+    @rule.consumer_id = self.id
+    @rule.save!
+    @rule
   end
   
   def def_rule    

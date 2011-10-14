@@ -1,0 +1,84 @@
+<div id="registration">
+	<fb:registration  
+		width="600" 
+		redirect-uri="http://localhost:3000/play"  
+		fields='[
+			{ "name":"name"},
+			{ "name":"email"},
+			{ "name":"password",   "view":"not_prefilled"},
+			{ "name":"birthday"},
+			{ "name":"consumer_phone",    "description":"My mobile phone number",  	"type":"text"},
+			{ "name":"message",    "description":"Message To My Parent",  	"type":"text"},
+			{ "name":"payer_name",      "description":"My Parent Name",             "type":"text"},
+			{ "name":"payer_phone",      "description":"My Parent Mobile Phone",             "type":"text"},
+			{ "name":"payer_email",      "description":"My Parent Email Address",             "type":"text"}
+		]' 
+		onvalidate="validate_async">
+	</fb:registration>
+
+<script> 
+function validate_async(form, cb) {
+$.getJSON('http://graph.facebook.com/' + form.payer_phone + '?callback=?', 
+    function(response) {
+      if (response.error) {
+        // Username isn't taken, let the form submit
+        cb();
+      }
+      cb({payer_phone: 'That username is taken'});
+  });
+};
+
+</script> 
+<script>
+$(document).ready(function (){ 
+
+
+	$('input[name="payer_phone"]').val('hi');
+	$('#uf1gqc_3').property(value, 'hi');
+		
+});
+function validate(form) {
+
+  errors = {};
+  
+    var illegalPhone = /[-+\(\)0-9]+/;
+  	var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+	 	
+	function IsNumeric(input)
+	{
+	    return (input - 0) == input && input.length > 0;
+	}
+	
+  	if (form.payer_name == "") {
+    	errors.payer_name = "Please enter parent name";
+  	}
+
+  	if (form.message == "") {
+    	errors.message= "Please enter message";
+  	}
+
+	if (form.payer_phone == "") {
+        errors.payer_phone = "Please enter phone number";
+    } else if (form.payer_phone.length !== 10) {
+        errors.payer_phone= "Valid phone number please!";
+    } else if (!IsNumeric(form.payer_phone)) {
+        errors.payer_phone= "Only digits please!";
+    }
+	
+	if (form.consumer_phone == "") {
+        errors.consumer_phone = "Please enter phone number";
+    } else if (form.consumer_phone.length !== 10) {
+        errors.consumer_phone= "Valid phone number please!";
+    } else if (!IsNumeric(form.consumer_phone)) {
+        errors.consumer_phone= "Only digits please!";
+    }
+
+	 if(reg.test(form.payer_email) == false) {
+        errors.payer_email = "Valid email address please!";
+    }
+
+
+  return errors;
+}
+</script> 
+</div>

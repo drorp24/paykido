@@ -8,6 +8,23 @@ class ConsumerController < ApplicationController
   #  before_filter :ensure_consumer_authenticated, :except => ["login", "register", "register_callback"]
     
   
+  def register
+    
+  end
+
+  def check_registration_input
+    
+    errors = Hash.new
+    if params[:payer_phone] != "2"
+      errors["payer_phone"] = "wrong"
+    end
+    
+    respond_to do |format|
+      format.json { render :json => errors }
+    end
+    
+  end
+  
   def login
     
     find_product
@@ -92,7 +109,7 @@ class ConsumerController < ApplicationController
           @second_line = "Use #{session[:username]}/#{session[:password]} to access your subscriber account"
         elsif sms == "sent" 
           @first_line = "We sent your parents a registration invite"
-          @second_line = "You can use paykido as soon as they accept it!"
+          @second_line = "You can use Paykido as soon as they accept it!"
         elsif sms == "failed"
           @first_line = "We could not send your parents the invite"
           @second_line = "Try registering again. Note the phone number."
@@ -145,6 +162,7 @@ class ConsumerController < ApplicationController
   #############################################
   #############################################
   
+
   
   def register_callback
     
@@ -457,8 +475,8 @@ class ConsumerController < ApplicationController
   def create_new_user
     
     @user = User.new
-    @user.name = session[:payer].email
-    @user.password = generate_string
+    @user.name = session[:payer].email || "no name"
+#    @user.password = generate_string
     @user.password = "1"
     @user.affiliation = "payer"
     @user.role = "primary"

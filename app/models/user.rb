@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   attr_accessor :password_confirmation
   
   validates_presence_of     :name
-  validates_uniqueness_of   :name
+#  validates_uniqueness_of   :name
  
   validate :password_non_blank
   validates_confirmation_of :password
