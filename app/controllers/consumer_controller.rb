@@ -232,7 +232,7 @@ class ConsumerController < ApplicationController
     return if @sms == "failed"
     
     # Currently the sms has the paykido url with a user and pwd to enter; better send him an activation link
-    sms_message = "Paykido lets you control what I buy! www.paykido.com/subscriber User: #{user} Pass: #{pass}"
+    sms_message = "Paykido lets you control what I buy! alpha.paykido.com/subscriber User: #{user} Pass: #{pass}"
     sms(sms_phone,sms_message)
     return if @sms == "failed"
 
