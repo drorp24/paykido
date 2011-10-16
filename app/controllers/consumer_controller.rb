@@ -225,9 +225,9 @@ class ConsumerController < ApplicationController
     end
     
     sms_phone = @payer.phone
-    message = facebook_params['registration']['message']
+    message = facebook_params['registration']['message'].slice(0,24)
     
-    sms_message = "#{message} It's me, #{@consumer.name}. There's a new service named Paykido I want you to know! (wait, there's more)"
+    sms_message = "It's me, #{@consumer.name}. There's a new service named Paykido I want you to know. #{message}"
     sms(sms_phone,sms_message)
     return if @sms == "failed"
     

@@ -1,4 +1,5 @@
 <div id="registration">
+	
 	<fb:registration  
 		width="600" 
 		redirect-uri="http://<%= request.host + ':' + request.port.to_s %>/play"  
@@ -7,31 +8,17 @@
 			{ "name":"email"},
 			{ "name":"password",   "view":"not_prefilled"},
 			{ "name":"birthday"},
-			{ "name":"consumer_phone",    "description":"My mobile phone number",  	"type":"text"},
-			{ "name":"message",    "description":"Message To My Parent",  	"type":"text"},
-			{ "name":"payer_name",      "description":"My Parent Name",             "type":"text"},
-			{ "name":"payer_phone",      "description":"My Parent Mobile Phone",             "type":"text"},
-			{ "name":"payer_email",      "description":"My Parent Email Address",             "type":"text"}
+			{ "name":"consumer_phone",  "description":"Your mobile phone number",  				"type":"text"},
+			{ "name":"message",     	"description":"Tell your parents why you want Paykido", "type":"text"},
+			{ "name":"payer_name",      "description":"Your parent name",             			"type":"text"},
+			{ "name":"payer_phone",     "description":"Your parent mobile phone",     			"type":"text"},
+			{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
+			{ "name":"captcha" }]'
 		]' 
-		onvalidate="validate_async">
+		>
 	</fb:registration>
 
-<script> 
-function validate_async(form, cb) {
-$.ajax({
-  	url: '/consumer/check_registration_input?payer_phone=' + form.payer_phone + '&payer_email=' + form.payer_email + '?callback=?',
-	beforeSend : function(xhr){xhr.setRequestHeader("Accept", "application/json")},
-	success: function(data) {
-		$.each(data, function(key, val) {
-    		if (key == 'payer_phone') {
-cb();
-			}	
-  		});
-	}
-});
-};
 
-</script> 
 <script>
 $(document).ready(function (){ 
 
