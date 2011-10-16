@@ -7,6 +7,6 @@ test:
   secret: c51423412567be5e6d4c21f73a239df1
   api_key: 136459893116661
 production:
-  app_id:  172514742824594
-  secret:  bb14684f97caa197b1c205add83d5a27  
-  api_key: 172514742824594
+  app_id:  206049929465676
+  secret:  5857f9bb791dac305ab15636606cd6fb   
+  api_key: 206049929465676
