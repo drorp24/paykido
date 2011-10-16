@@ -225,14 +225,15 @@ class ConsumerController < ApplicationController
     end
     
     sms_phone = @payer.phone
+    name = facebook_params['registration']['name']
     message = facebook_params['registration']['message'].slice(0,24)
-    
-    sms_message = "It's me, #{@consumer.name}. There's a new service named Paykido I want you to know. #{message}"
+     
+    sms_message = "It's me, #{name}. There's a new service named Paykido I want you to know. #{message}"
     sms(sms_phone,sms_message)
     return if @sms == "failed"
     
     # Currently the sms has the paykido url with a user and pwd to enter; better send him an activation link
-    sms_message = "Paykido lets you control what I buy! alpha.paykido.com/subscriber User: #{user} Pass: #{pass}"
+    sms_message = "Paykido lets you control what I buy! Try it at paykido.heroku.com/subscriber User: #{user} Pass: #{pass}"
     sms(sms_phone,sms_message)
     return if @sms == "failed"
 
