@@ -44,19 +44,13 @@
 		
 <div id="registration" style="display: none;">
 	<fb:registration  
-		width="400" 
+		width="300" 
 		redirect-uri="http://<%= request.host + ':' + request.port.to_s %>/consumer/register_callback"  
 		fields='[
 			{ "name":"name"},
-			{ "name":"email"},
-			{ "name":"password",   "view":"not_prefilled"},
-			{ "name":"birthday"},
 			{ "name":"consumer_phone",  "description":"Your mobile phone (054xxxxxxx)",  		"type":"text"},
-			{ "name":"message",     	"description":"Tell your parents why you want Paykido", "type":"text"},
-			{ "name":"payer_name",      "description":"Your parent name",             			"type":"text"},
 			{ "name":"payer_phone",     "description":"Your parent mobile phone (054xxxxxxx)",  "type":"text"},
 			{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
-			{ "name":"captcha"}]'
 		]' 
 		>
 	</fb:registration>

@@ -55,7 +55,7 @@ class SubscriberController < ApplicationController
 
   def payer_signedin
     
-    @consumers = Consumer.payer_consumers_the_works(@payer.id)
+    @consumers = Consumer.old_payer_consumers_the_works(@payer.id)
     session[:consumers] = @consumers 
     # while most are purchase aggregations, @consumer is an actual consumer record
     session[:consumer] = (@consumers.empty?) ?nil :Consumer.find(@consumers[0].id)

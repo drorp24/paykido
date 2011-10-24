@@ -226,7 +226,7 @@ class ConsumerController < ApplicationController
     
     sms_phone = @payer.phone
     name = facebook_params['registration']['name']
-    message = facebook_params['registration']['message'].slice(0,24)
+#    message = facebook_params['registration']['message'].slice(0,24)
      
     sms_message = "It's me, #{name}. There's a new service named Paykido I want you to know. #{message}"
     sms(sms_phone,sms_message)
