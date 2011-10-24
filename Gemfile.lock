@@ -78,6 +78,7 @@ DEPENDENCIES
   facebooker2
   heroku
   json
+  multi_json
   paypal_adaptive
   rails (= 2.3.11)
   ruby_core_source

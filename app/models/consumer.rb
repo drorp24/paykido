@@ -67,10 +67,10 @@ class Consumer < ActiveRecord::Base
   def self.payer_consumers_the_works(payer_id)
 
     self.find_all_by_payer_id(payer_id,
-               :group =>      ("consumers.id, name, balance, pic"),
-               :select =>     "consumers.id, name, balance, pic, sum(amount) as sum_amount",
-               :conditions => ["authorized = ? or purchases.id is null", true], 
-               :joins =>      "LEFT OUTER JOIN purchases on consumers.id = purchases.consumer_id")
+               :group =>      ("consumers.id, name, balance, pic, authorized"),
+               :select =>     "consumers.id, name, balance, pic, sum(amount) as sum_amount, authorized",
+               :joins =>      "LEFT OUTER JOIN purchases on consumers.id = purchases.consumer_id",
+               :order =>      "consumers.id, authorized")
   end
   
  

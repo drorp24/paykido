@@ -55,7 +55,8 @@ class SubscriberController < ApplicationController
 
   def payer_signedin
     
-    @consumers = Consumer.old_payer_consumers_the_works(@payer.id)
+    @consumers = Consumer.payer_consumers_the_works(@payer.id)
+    get_rid_of_duplicates
     session[:consumers] = @consumers 
     # while most are purchase aggregations, @consumer is an actual consumer record
     session[:consumer] = (@consumers.empty?) ?nil :Consumer.find(@consumers[0].id)
@@ -79,6 +80,25 @@ class SubscriberController < ApplicationController
             
   end
  
+  def get_rid_of_duplicates
+    
+    i = 0
+    while i < @consumers.size
+    
+      consumer = @consumers.at(i)      
+      next_one = @consumers.at(i + 1)
+
+      if next_one and next_one.id == consumer.id and next_one.authorized? 
+        @consumers.delete_at(i)
+      end
+ 
+      i += 1
+ 
+    end
+
+end
+
+  
   def consumers
     
     @consumers = session[:consumers]
