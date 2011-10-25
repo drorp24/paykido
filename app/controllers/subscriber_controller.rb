@@ -88,7 +88,12 @@ class SubscriberController < ApplicationController
       consumer = @consumers.at(i)      
       next_one = @consumers.at(i + 1)
 
-      if next_one and next_one.id == consumer.id and next_one.authorized? 
+      consumer.sum_amount = nil unless consumer.authorized?
+      
+      if next_one and next_one.id == consumer.id 
+        if next_one.authorized?
+          consumer.sum_amount = next_one.sum_amount
+        end
         @consumers.delete_at(i)
       end
  
