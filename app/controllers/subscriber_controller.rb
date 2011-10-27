@@ -14,8 +14,8 @@ class SubscriberController < ApplicationController
   def index
     
   end
-  
-  
+
+
   def signin
     
    if request.post?
