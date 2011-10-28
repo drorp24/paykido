@@ -17,7 +17,6 @@ GEM
     facebooker2 (0.0.13)
       mogli (>= 0.0.33)
       ruby-hmac
-    gem_plugin (0.2.3)
     hashie (1.1.0)
     heroku (2.9.0)
       launchy (>= 0.3.2)
@@ -36,8 +35,6 @@ GEM
       hashie (~> 1.1.0)
       httparty (>= 0.4.3)
       multi_json (~> 1.0.3)
-    mongrel (1.2.0.pre2-x86-mingw32)
-      gem_plugin (~> 0.2.3)
     multi_json (1.0.3)
     multi_xml (0.4.1)
     paypal_adaptive (0.2.3)
@@ -81,7 +78,6 @@ DEPENDENCIES
   facebooker2
   heroku
   json
-  mongrel
   multi_json
   paypal_adaptive
   rails (= 2.3.11)
