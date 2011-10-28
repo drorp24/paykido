@@ -11,6 +11,11 @@
 		<script type="text/javascript" src="http://www.google.com/jsapi"></script>	
 		<script type="text/javascript">google.load("visualization", "1", {packages:["table"]});</script>
 	<% end %> 
+	<script type="text/javascript"> // <![CDATA[
+	if (navigator.userAgent.indexOf('iPad') != -1) {
+		document.write('<meta name="viewport" content="width=device-width"  />');
+	} // ]]>
+	</script>
 </head>	
 
 <body>
