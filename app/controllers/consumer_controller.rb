@@ -191,7 +191,8 @@ class ConsumerController < ApplicationController
     @consumer = session[:consumer] unless @consumer
     
     @payer = @consumer.payer || Payer.find_or_initialize_by_phone(facebook_params['registration']['payer_phone'])
-    @payer.update_attributes!(:name => facebook_params['registration']['payer_name'], 
+    @payer.update_attributes!(
+#    :name => facebook_params['registration']['payer_name'], 
                               :email => facebook_params['registration']['payer_email'], 
                               :phone => facebook_params['registration']['payer_phone'])    
 
@@ -228,12 +229,12 @@ class ConsumerController < ApplicationController
     name = facebook_params['registration']['name']
 #    message = facebook_params['registration']['message'].slice(0,24)
      
-    sms_message = "It's me, #{name}. There's a new service named Paykido I want you to know. #{message}"
+    sms_message = "It's me, #{name}. There's a new service named Paykido I want you to know"
     sms(sms_phone,sms_message)
     return if @sms == "failed"
     
     # Currently the sms has the paykido url with a user and pwd to enter; better send him an activation link
-    sms_message = "Paykido lets you control what I buy! Try it at paykido.heroku.com/subscriber User: #{user} Pass: #{pass}"
+    sms_message = "Paykido lets you control what I buy! Try it at alpha.paykido.com/subscriber User: #{user} Pass: #{pass}"
     sms(sms_phone,sms_message)
     return if @sms == "failed"
 
