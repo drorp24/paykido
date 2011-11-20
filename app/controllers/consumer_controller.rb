@@ -53,9 +53,24 @@ class ConsumerController < ApplicationController
 
   def find_product
     
-    @product_title = session[:product_title] = params[:product] ? params[:product].split('@')[0] : session[:product_title] 
-    @product_price = session[:product_price] = params[:product] ? params[:product].split('@')[1] : session[:product_price]    
-    
+    if params[:product]
+      @product_title = params[:product].split('@')[0]
+    elsif params[:desc]     
+      @product_title = params[:desc]
+    else
+      @product_title = session[:product_title]
+    end
+    session[:product_title] = @product_title
+      
+    if params[:product]
+      @product_price = params[:product].split('@')[1]
+    elsif params[:amount]
+      @product_price = params[:amount]
+    else
+      @product_price = session[:product_title]
+    end
+    session[:product_price] = @product_price
+        
   end  
   
 
