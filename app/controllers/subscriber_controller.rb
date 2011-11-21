@@ -27,7 +27,7 @@ class SubscriberController < ApplicationController
   def safecharge_page
     
     Safecharge.post('https://secure.safecharge.com/ppp/purchase.do?&merchant_site_id=34721&merchant_id=4678792034088503828&time_stamp=2010-08-25%2011:12:52&total_amount=1&currency=USD&checksum=f83c5b1a24e6fbe64dc14a1ff5fe4d8c&item_name_1=test&item_amount_1=1&item_quantity_1=1&version=3.0.0')
-    redirect_to "https://secure.safecharge.com/ppp/purchase.do?&merchant_site_id=34721&merchant_id=4678792034088503828&time_stamp=2010-08-25%2011:12:52&total_amount=1&currency=USD&checksum=f83c5b1a24e6fbe64dc14a1ff5fe4d8c&item_name_1=test&item_amount_1=1&item_quantity_1=1&version=3.0.0&success_url=http://paykido.heroku.com/subscriber/sc_success&error_url='http://paykido.heroku.com/subscriber/sc_error'&pending_url='http://localhost:3000/subscriber/sc_error'"
+    redirect_to "https://secure.safecharge.com/ppp/purchase.do?&merchant_site_id=34721&merchant_id=4678792034088503828&time_stamp=2010-08-25%2011:12:52&total_amount=1&currency=USD&checksum=f83c5b1a24e6fbe64dc14a1ff5fe4d8c&item_name_1=test&item_amount_1=1&item_quantity_1=1&version=3.0.0&success_url=http://paykido.heroku.com/subscriber/sc_success&error_url='http://paykido.heroku.com/subscriber/sc_error'&pending_url='http://paykido.heroku.com/subscriber/sc_error'"
     
   end
   
