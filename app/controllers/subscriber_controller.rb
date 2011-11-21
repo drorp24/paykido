@@ -5,7 +5,7 @@ require 'clickatell'
 require 'httparty'
 
 class Safecharge
-  include httparty
+  include HTTParty
 end
 
 class SubscriberController < ApplicationController
