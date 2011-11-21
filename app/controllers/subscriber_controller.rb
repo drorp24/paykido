@@ -35,6 +35,7 @@ class SubscriberController < ApplicationController
     @status = params[:Status]
     @amount = params[:totalAmount]
     @code = params[:ErrCode]
+    @reason = params[:ReasonCode]
     @token = params[:Token]
   end
   
@@ -42,6 +43,7 @@ class SubscriberController < ApplicationController
     @status = params[:Status]
     @amount = params[:totalAmount]
     @code = params[:ErrCode]
+    @reason = params[:ReasonCode]
     @token = params[:Token]   
   end
  
