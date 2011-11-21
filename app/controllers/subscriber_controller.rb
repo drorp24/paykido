@@ -11,7 +11,7 @@ end
 class SubscriberController < ApplicationController
 
   before_filter :check_friend_authenticated
-  before_filter :check_payer_and_set_variables, :except => [:index, :signin, :joinin, :signout, :retailer_signedin, :registration, :safecharge_page, :sc_success, :sc_error]
+#  before_filter :check_payer_and_set_variables, :except => [:index, :signin, :joinin, :signout, :retailer_signedin, :registration, :safecharge_page, :sc_success, :sc_error]
   before_filter :check_retailer_and_set_variables, :only => [:retailer_signedin]
   
   
