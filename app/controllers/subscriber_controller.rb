@@ -43,7 +43,7 @@ class SubscriberController < ApplicationController
     @status = params[:Status]
     @amount = params[:totalAmount]
     @code = params[:ErrCode]
-    @reason = params[:ReasonCode]
+    @reason = params[:Reason]
     @token = params[:Token]   
   end
  
