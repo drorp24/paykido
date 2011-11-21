@@ -1,21 +1,50 @@
 include ActionView::Helpers::NumberHelper
 require 'rubygems'
 require 'clickatell'
-require 'paypal_adaptive'
+#require 'paypal_adaptive'
+require 'HTTParty'
 
+class Safecharge
+  include HTTParty
+end
 
 class SubscriberController < ApplicationController
 
   before_filter :check_friend_authenticated
-  before_filter :check_payer_and_set_variables, :except => [:index, :signin, :joinin, :signout, :retailer_signedin]
+  before_filter :check_payer_and_set_variables, :except => [:index, :signin, :joinin, :signout, :retailer_signedin, :registration, :safecharge_page, :sc_success, :sc_error]
   before_filter :check_retailer_and_set_variables, :only => [:retailer_signedin]
   
   
   def index
     
   end
+  
+  def registration
+    
 
-
+  end
+    
+  def safecharge_page
+    
+    Safecharge.post('https://secure.safecharge.com/ppp/purchase.do?&merchant_site_id=34721&merchant_id=4678792034088503828&time_stamp=2010-08-25%2011:12:52&total_amount=1&currency=USD&checksum=f83c5b1a24e6fbe64dc14a1ff5fe4d8c&item_name_1=test&item_amount_1=1&item_quantity_1=1&version=3.0.0')
+    redirect_to "https://secure.safecharge.com/ppp/purchase.do?&merchant_site_id=34721&merchant_id=4678792034088503828&time_stamp=2010-08-25%2011:12:52&total_amount=1&currency=USD&checksum=f83c5b1a24e6fbe64dc14a1ff5fe4d8c&item_name_1=test&item_amount_1=1&item_quantity_1=1&version=3.0.0&success_url=http://paykido.heroku.com/subscriber/sc_success&error_url='http://paykido.heroku.com/subscriber/sc_error'&pending_url='http://localhost:3000/subscriber/sc_error'"
+    
+  end
+  
+  def sc_success
+    @status = params[:Status]
+    @amount = params[:totalAmount]
+    @code = params[:ErrCode]
+    @token = params[:Token]
+  end
+  
+  def sc_error
+    @status = params[:Status]
+    @amount = params[:totalAmount]
+    @code = params[:ErrCode]
+    @token = params[:Token]   
+  end
+ 
   def signin
     
    if request.post?
