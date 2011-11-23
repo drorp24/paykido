@@ -4,14 +4,10 @@ require 'clickatell'
 #require 'paypal_adaptive'
 require 'httparty'
 
-class Safecharge
-  include HTTParty
-end
-
 class SubscriberController < ApplicationController
 
   before_filter :check_friend_authenticated
-#  before_filter :check_payer_and_set_variables, :except => [:index, :signin, :joinin, :signout, :retailer_signedin, :registration, :safecharge_page, :sc_success, :sc_error]
+  before_filter :check_payer_and_set_variables, :except => [:index, :signin, :joinin, :signout, :retailer_signedin]
   before_filter :check_retailer_and_set_variables, :only => [:retailer_signedin]
   
   
@@ -19,34 +15,7 @@ class SubscriberController < ApplicationController
     
   end
   
-  def registration
-    
 
-  end
-    
-  def safecharge_page
-    
-    Safecharge.post('https://secure.safecharge.com/ppp/purchase.do?&merchant_site_id=34721&merchant_id=4678792034088503828&time_stamp=2010-08-25%2011:12:52&total_amount=1&currency=USD&checksum=f83c5b1a24e6fbe64dc14a1ff5fe4d8c&item_name_1=test&item_amount_1=1&item_quantity_1=1&version=3.0.0')
-    redirect_to "https://secure.safecharge.com/ppp/purchase.do?&merchant_site_id=34721&merchant_id=4678792034088503828&time_stamp=2010-08-25%2011:12:52&total_amount=1&currency=USD&checksum=f83c5b1a24e6fbe64dc14a1ff5fe4d8c&item_name_1=test&item_amount_1=1&item_quantity_1=1&version=3.0.0&success_url=http://paykido.heroku.com/subscriber/sc_success&error_url=http://paykido.heroku.com/subscriber/sc_error&pending_url=http://paykido.heroku.com/subscriber/sc_error"
-    
-  end
-  
-  def sc_success
-    @status = params[:Status]
-    @amount = params[:totalAmount]
-    @code = params[:ErrCode]
-    @reason = params[:Reason]
-    @token = params[:Token]
-  end
-  
-  def sc_error
-    @status = params[:Status]
-    @amount = params[:totalAmount]
-    @code = params[:ErrCode]
-    @reason = params[:Reason]
-    @token = params[:Token]   
-  end
- 
   def signin
     
    if request.post?
@@ -76,6 +45,38 @@ class SubscriberController < ApplicationController
   end
  
 
+  def joinin
+
+    if request.post?
+          
+      @user = User.new(params[:user])
+      @user.affiliation = "payer"
+      @user.role = "primary"
+      @user.payer = Payer.new() 
+     
+      set_payer_session
+     
+      if @user.save
+        session[:user] = @user     
+        payer = @user.payer
+        session[:payer] = payer                  
+        redirect_to :action => "payer_signedin"
+      else
+        if @user.errors.on(:name) == "has already been taken"
+            flash.now[:notice] = "User name is taken. Try a differet one!"
+        elsif @user.errors.on(:password) == "doesn't match confirmation"
+            flash.now[:notice] = "password/confirmation mismatch. Try again!"
+        else
+            flash.now[:notice] = "something's missing. Please try again!"
+        end
+      end
+      
+    end
+
+  end
+  
+
+  
   def signout
     
     #session is cleared upon next signin, provided it's not the same user/payer

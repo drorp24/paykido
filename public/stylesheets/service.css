@@ -1,0 +1,91 @@
+.ui-very-rounded-corners {
+	border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+#tell_me_more, #register {
+	z-index: 1000;
+	position: absolute;
+    top: 106px;
+    left: 1000px;
+	font-size: 35px;
+    height: 67px;
+    width: 254px;
+    z-index: 1000;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -o-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -moz-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);}
+	text-shadow: 0px 1px 1px #fff;
+	-webkit-text-shadow: 0px 1px 1px #fff;
+	-mox-text-shadow: 0px 1px 1px #fff;
+	text-shadow: -1px -1px #666, 1px 1px #FFF;
+	border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+#else.invitation_msg {
+
+	top: 200px;
+	    font-size: 20px;
+	font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
+
+
+}
+#second{
+	top: 129px;
+	font-size: 22px;
+	color: #00BCCF;
+	font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
+
+}
+#third{
+	top:162px;
+	
+}
+
+.invitation_msg {
+	z-index: 1000;
+	position: absolute;
+	left: 717px;
+	font-family:"Arial Rounded MT Bold";
+	color: #444444;
+	font-family: "Trebuchet MS";
+}
+
+.login {
+	z-index: 1000;
+}
+
+#landing1 {
+	position:absolute;
+	top:0;
+	left:0;
+	width: 1423px;
+	height: 757px;
+	
+	
+}
+#landing2 {
+	position:absolute;
+	top:756px;
+	left:0;
+	width: 1423px;
+	height: 211px;
+}
+
+#signin {
+	left: 1235px;
+	position: absolute;
+	top: 42px;
+}
+
+#joinin {
+	position: absolute;
+	left: 468px;
+	top: 50px;
+}
