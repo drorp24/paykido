@@ -48,8 +48,8 @@
 		redirect-uri="http://<%= request.host + ':' + request.port.to_s %>/consumer/register_callback"  
 		fields='[
 			{ "name":"name"},
-			{ "name":"consumer_phone",  "description":"Your mobile phone (054xxxxxxx)",  		"type":"text"},
-			{ "name":"payer_phone",     "description":"Your parent mobile phone (054xxxxxxx)",  "type":"text"},
+			{ "name":"consumer_phone",  "description":"Your mobile phone (e.g., 2131234567)",  		"type":"text"},
+			{ "name":"payer_phone",     "description":"Your parent mobile phone (e.g., 2131234567)",  "type":"text"},
 			{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
 		]' 
 		>
