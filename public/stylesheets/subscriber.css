@@ -1,3 +1,16 @@
+.content-name-left, .content-name-right, .item, #budget, #balance, #under, #over, #payer_name {
+	font-family: Tahoma;
+	text-shadow: 0px 1px 1px #fff
+}
+
+#balance_title {
+	margin-top: 5px;
+}
+
+.allowance_value, .balance_value {
+	float: right;
+}
+
 #charging {
 	font-size: 14px;
 }
@@ -33,12 +46,14 @@ td {
 
 #under, #over, #balance, #budget {
 	background-color: transparent;
-	width: 75px;
+	width: 78px;
 	float: right;
 }
 
 #balance, #budget {
+/*
 	margin-right:248px;
+*/
 }
 
 #under, #over {
@@ -165,6 +180,7 @@ img#gradient_wrap {
 
 #allowance_form {
 	padding-top: 5px;
+	width: 302px;
 }
 
 #chartdiv {
@@ -479,6 +495,7 @@ tr.odd td.authorized_cell.really {
 	color: #F7B64A;
 	margin-left: 3px;
 	font-size:20px;
+	margin-top: 29px;
 }
 
 .content-name-right {
@@ -776,6 +793,7 @@ select, input {
 	background: #FFFEEE;
 	border: 1px inset #EEEEEE;
 	margin-top:10px;
+	margin-bottom: 12px;
 
 }
 

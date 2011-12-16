@@ -9,6 +9,16 @@
 </head>	
 <body id="main">
 
+<% result = request.env['HTTP_USER_AGENT'] %>
+<% version = result.split('MSIE')[1].split(' ').first if result =~ /MSIE/%>
+<% if result =~ /MSIE/ and version.to_i < 9 %>
+   	<div id="ajax_message">
+		<p id="first_line" class="text">To pay with Paykido, please use</p>
+		<p id="second_line" class="text">Internet Explorer 9 or any different browser</p>		
+	</div>
+
+<% else %>
+
 	  <div id="fb-root"></div>
 	  <%=fb_connect_async_js %>
 
@@ -16,6 +26,7 @@
 	
 	<%= yield :layout %>
 
+<% end %>
 </body>
 </html>
 

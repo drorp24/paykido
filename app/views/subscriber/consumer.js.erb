@@ -1,8 +1,6 @@
 $('#cheerful_message').fadeOut(10000); 
 $('#balance').val(<%= @consumer.balance %>);
 $('#budget').val(<%= @consumer_rule.allowance %>);
-$('#payer_rule_rollover_human_on').attr('checked', "<%= (@consumer_rule.rollover?) ?"checked":""  %>")
-$('#payer_rule_rollover_human_off').attr('checked', "<%= (@consumer_rule.rollover?) ?"":"checked"  %>")
 $('#allowance_form').attr('action', '<%= "/subscriber/consumer_update/#{@consumer.id}" %>');
 <% if @consumer.name.blank? %>
 	$('#consumer_name_allowance').html("Consumer's monthly allowance");

@@ -1,16 +1,8 @@
-$('.consumers_list').append(	
-	'<p class="inner_content_title" id="consumers">&nbsp;</p>' +
-	'<% form_for :payer, :url => { :action => :payer_update }, :html => {:id => "community_form"}  do |f| %>'+
-	'<p class="content-name-right" id="family_name"><%= f.text_field :name, :onchange => escape_javascript("renameCommunity($(this).val())") %></p><% end %>'+		
-	'<% form_for :consumers, :url => { :action => :consumer_update }, :html => {:id => "consumer_form"}  do |f| %>'+
-	'<div class="column1 sortable ui-sortable" ></div>' +
-	'<div class="column2 sortable ui-sortable" ></div>');
-			
 <% i = 1 %>
 <% for @consumer in @consumers %>
 	<% rem = i % 2 %>
 	<% if rem == 1 %>
-		$('#consumer_form .column1').append(
+		$('.consumer.column1').append(
 			'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+
 				'<div class="consumer portlet-header ui-widget-header ui-corner-all" id="consumer_<%= @consumer.id %>">'+
 					'<span class="ui-icon ui-icon-minusthick"></span>'+
@@ -27,7 +19,7 @@ $('.consumers_list').append(
 				'</div>'+
 			'</div>');
 	<% else %>
-		$('#consumer_form .column2').append(
+		$('.consumer.column2').append(
 			'<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'+ 
 				'<div class="consumer portlet-header ui-widget-header ui-corner-all" id="consumer_<%= @consumer.id %>">'+
 					'<span class="ui-icon ui-icon-minusthick"></span>'+
@@ -46,7 +38,6 @@ $('.consumers_list').append(
 	<% end %>
 	<% i += 1 %>
 <% end %>
-$('.consumers_list').append('<% end %>');
 
 
 consumer_info(<%= @consumers[0].id %>);
