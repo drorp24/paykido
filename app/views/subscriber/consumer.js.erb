@@ -34,7 +34,7 @@ $('#consumer_pic_form').attr('action', '<%= "/subscriber/consumer_update/#{@cons
 <% if @consumer.pic?  %>
 	$('.middle_content').html('<%= image_tag @consumer.pic, :class =>"consumer_pic" %>');
 <% else %>
-	$('.middle_content').html('<%= image_tag "/images/face_placeholder_small.png", :class =>"consumer_pic"%>');
+	$('.middle_content').html('<%= image_tag "/assets/face_placeholder_small.png", :class =>"consumer_pic"%>');
 <% end %>
 	
 	

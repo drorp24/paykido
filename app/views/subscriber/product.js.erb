@@ -16,16 +16,16 @@ $('#products .left_content').html(
 	'</p>'+
 	'<p>Show me all <%= @product.title %> purchases</p>'+
 		'<% if    @product.status == "whitelisted" %>'+
-			'<%= image_tag "/images/fb_like_lit_small.png", :id => "product_like_lit_#{@product.id}", :class => "product like" %>'+
+			'<%= image_tag "/assets/fb_like_lit_small.png", :id => "product_like_lit_#{@product.id}", :class => "product like" %>'+
 		'<% else %>'+
-			'<%= image_tag "/images/fb_like_small.png", :id => "product_like_unlit_#{@product.id}",  :class => "product like" %>'+
+			'<%= image_tag "/assets/fb_like_small.png", :id => "product_like_unlit_#{@product.id}",  :class => "product like" %>'+
 		'<% end %>'+
 	'</span>'+	
 	'<span class="icon">'+
 		'<% if    @product.status == "blacklisted" %>'+
-			'<%= image_tag "/images/fb_dont_lit_small.png", :id => "product_dislike_lit_#{@product.id}",  :class => "product like dislike" %>'+
+			'<%= image_tag "/assets/fb_dont_lit_small.png", :id => "product_dislike_lit_#{@product.id}",  :class => "product like dislike" %>'+
 		'<% else %>'+
-			'<%= image_tag "/images/fb_dont_small.png", :id => "product_dislike_unlit_#{@product.id}",  :class => "product like dislike" %>'+
+			'<%= image_tag "/assets/fb_dont_small.png", :id => "product_dislike_unlit_#{@product.id}",  :class => "product like dislike" %>'+
 		'<% end %>'+
 	'</span>'
 );	
@@ -41,19 +41,19 @@ $('#products .left_content').html(
 		
 		if (clicked_button == "like") {
 			button_selector = 			"#"+id;
-			lit_image =  				"/images/fb_like_lit_small.png";
-			unlit_image = 				"/images/fb_like_small.png";
+			lit_image =  				"/assets/fb_like_lit_small.png";
+			unlit_image = 				"/assets/fb_like_small.png";
 			other_button  = 			"dislike";
-			other_button_lit_image = 	"/images/fb_dont_lit_small.png";
-			other_button_unlit_image = 	"/images/fb_dont_small.png";
+			other_button_lit_image = 	"/assets/fb_dont_lit_small.png";
+			other_button_unlit_image = 	"/assets/fb_dont_small.png";
 		} 
 		else {
 			button_selector = 			"#"+id;
-			lit_image = 				"/images/fb_dont_lit_small.png";
-			unlit_image = 				"/images/fb_dont_small.png";
+			lit_image = 				"/assets/fb_dont_lit_small.png";
+			unlit_image = 				"/assets/fb_dont_small.png";
 			other_button = 				"like";
-			other_button_lit_image = 	"/images/fb_like_lit_small.png";
-			other_button_unlit_image = 	"/images/fb_like_small.png";
+			other_button_lit_image = 	"/assets/fb_like_lit_small.png";
+			other_button_unlit_image = 	"/assets/fb_like_small.png";
 		}
 		
 		if ($('#product_' + other_button + '_lit_' + entity_id).length) {

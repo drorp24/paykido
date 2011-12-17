@@ -67,17 +67,17 @@ $('#purchases').append(
 			'<td class="authorized_cell" id="tb_status_<%= @purchase.id %>">'+
 				'<span class="icon">'+
 					'<% if    @purchase.authorization_type == "ManuallyAuthorized" %>'+
-						'<%= image_tag "/images/fb_like_lit_small.png", :border => "0", :id => "pending_like_lit_#{@purchase.id}", :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like" %>'+
+						'<%= image_tag "/assets/fb_like_lit_small.png", :border => "0", :id => "pending_like_lit_#{@purchase.id}", :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like" %>'+
 					'<% elsif @purchase.authorization_type == "PendingPayer" %>'+
-						'<%= image_tag "/images/fb_like_small.png", :border => "0", :id => "pending_like_unlit_#{@purchase.id}",  :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like" %>'+
+						'<%= image_tag "/assets/fb_like_small.png", :border => "0", :id => "pending_like_unlit_#{@purchase.id}",  :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like" %>'+
 					'<% elsif @purchase.authorized? %>'+
-						'<%= image_tag "/images/approved1.png", :border => "0", :class => "arca_for_table" %>'+
+						'<%= image_tag "/assets/approved1.png", :border => "0", :class => "arca_for_table" %>'+
 					'<% elsif    @purchase.authorization_type == "Unauthorized" %>'+
-						'<%= image_tag "/images/fb_dont_lit_small.png", :border => "0", :id => "pending_dislike_lit_#{@purchase.id}",  :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like dislike" %>'+
+						'<%= image_tag "/assets/fb_dont_lit_small.png", :border => "0", :id => "pending_dislike_lit_#{@purchase.id}",  :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like dislike" %>'+
 					'<% elsif @purchase.authorization_type == "PendingPayer" %>'+
-						'<%= image_tag "/images/fb_dont_small.png", :border => "0", :id => "pending_dislike_unlit_#{@purchase.id}",  :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like dislike" %>'+
+						'<%= image_tag "/assets/fb_dont_small.png", :border => "0", :id => "pending_dislike_unlit_#{@purchase.id}",  :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like dislike" %>'+
 					'<% elsif !@purchase.authorized? %>'+
-						'<%= image_tag "/images/rejected1.png", :border => "0", :class => "arca_for_table" %>'+
+						'<%= image_tag "/assets/rejected1.png", :border => "0", :class => "arca_for_table" %>'+
 					'<% end %>'+
 				'</span>' +
 			'</td>' +
@@ -130,19 +130,19 @@ $(document).ready(function (){
 		
 		if (clicked_button == "like") {
 			button_selector = 			"#"+id;
-			lit_image =  				"/images/fb_like_lit_small.png";
-			unlit_image = 				"/images/fb_like_small.png";
+			lit_image =  				"/assets/fb_like_lit_small.png";
+			unlit_image = 				"/assets/fb_like_small.png";
 			other_button  = 			"dislike";
-			other_button_lit_image = 	"/images/fb_dont_lit_small.png";
-			other_button_unlit_image = 	"/images/fb_dont_small.png";
+			other_button_lit_image = 	"/assets/fb_dont_lit_small.png";
+			other_button_unlit_image = 	"/assets/fb_dont_small.png";
 		} 
 		else {
 			button_selector = 			"#"+id;
-			lit_image = 				"/images/fb_dont_lit_small.png";
-			unlit_image = 				"/images/fb_dont_small.png";
+			lit_image = 				"/assets/fb_dont_lit_small.png";
+			unlit_image = 				"/assets/fb_dont_small.png";
 			other_button = 				"like";
-			other_button_lit_image = 	"/images/fb_like_lit_small.png";
-			other_button_unlit_image = 	"/images/fb_like_small.png";
+			other_button_lit_image = 	"/assets/fb_like_lit_small.png";
+			other_button_unlit_image = 	"/assets/fb_like_small.png";
 		}
 		
 		if ($('#purchase_' + other_button + '_lit_' + entity_id).length) {

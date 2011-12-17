@@ -162,7 +162,7 @@
 							<div class="inner_content_subtitle" id="extra_space2">Notify me</div>
 							<div class="form_line">
 								<span class="icon">
-									<%= image_tag("/images/iPhone Dial.png", :id => "dial", :class => "communication", :border => "0")%>
+									<%= image_tag("/assets/iPhone Dial.png", :id => "dial", :class => "communication", :border => "0")%>
 								</span>
 								<span class ="item_by_icon">
 									<%= f.select(:phone_events, Payer.phone_events,{}, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless" )%>
@@ -170,7 +170,7 @@
 							</div>
 							<div class="form_line">
 								<span class="icon">
-									<%= image_tag("/images/iPhone Clock.png", :id => "clock", :class => "communication", :border => "0")%>
+									<%= image_tag("/assets/iPhone Clock.png", :id => "clock", :class => "communication", :border => "0")%>
 								</span>
 								<span class ="item_by_icon">
 									<%= f.select(:phone_alert_frequency, Payer.phone_alert_frequency,{}, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless" )%>
@@ -179,7 +179,7 @@
 							<div class="inner_content_subtitle" id="extra_space2">On</div>
 							<div class="form_line">
 								<span class="icon">
-									<%= image_tag("/images/iPhone SMS 64.png", :id => "sms", :class => "communication", :border => "0")%>
+									<%= image_tag("/assets/iPhone SMS 64.png", :id => "sms", :class => "communication", :border => "0")%>
 								</span>
 								<span class ="item_by_icon">
 									<%= f.text_field(:edited_phone, :onchange => "$('#phone_alert_form').submit();", :class => "value borderless", :placeholder => "which phone to text?"  )%>
@@ -201,7 +201,7 @@
 							<div class="inner_content_subtitle" id="extra_space3">Inform about</div>
 							<div class="form_line">
 								<span class="icon">
-									<%= image_tag("/images/iPhone Notes.png", :id => "report", :class => "communication", :border => "0")%>
+									<%= image_tag("/assets/iPhone Notes.png", :id => "report", :class => "communication", :border => "0")%>
 								</span>
 								<span class ="item_by_icon">
 									<%= f.select(:email_events, Payer.email_events,{}, :onchange => "$('#email_alert_form').submit();", :class => "value borderless" )%>
@@ -209,7 +209,7 @@
 							</div>
 							<div class="form_line">
 								<span class="icon">
-									<%= image_tag("/images/iPhone Clock.png", :id => "clock", :class => "communication", :border => "0")%>
+									<%= image_tag("/assets/iPhone Clock.png", :id => "clock", :class => "communication", :border => "0")%>
 								</span>
 								<span class ="item_by_icon">
 									<%= f.select(:email_alert_frequency, Payer.email_alert_frequency,{}, :onchange => "$('#email_alert_form').submit();", :class => "value borderless" )%>
@@ -218,7 +218,7 @@
 							<div class="inner_content_subtitle" id="extra_space2">On</div>
 							<div class="form_line">
 								<span class="icon">
-									<%= image_tag("/images/iPhone eMail 64.png", :id => "email", :class => "communication", :border => "0")%>
+									<%= image_tag("/assets/iPhone eMail 64.png", :id => "email", :class => "communication", :border => "0")%>
 								</span>
 								<span class ="item_by_icon">
 									<%= f.text_field(:email, :onchange => "$('#email_alert_form').submit();", :class => "value borderless"  )%>
@@ -453,7 +453,7 @@
 		var background = "chf=c,lg,90,FFE7C6,0,76A4FB,0.5"
 		var uri = "http://chart.apis.google.com/chart?cht=gom&chs=300x110&chf=bg,lg,90,FFFEE0,0,FFFFF5,0.75&chxt=y&chd=t:" + balance_position + "&chl=Balance&chxr=0,0," + budget + "," + tick;
 	<% else %>
-		var uri = "/images/google_visualization_fake_service.png";	
+		var uri = "/assets/google_visualization_fake_service.png";	
 	<% end %>
 		document.getElementById("chartdiv").src = uri;
 
