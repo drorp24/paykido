@@ -1,7 +1,7 @@
 <% if @products.empty? %>
 /*
 	$('.products_list').append(	
-		'<%= image_tag "/assets/thanks_for_joining5.png", :class => "righthandside_marketial" %>');
+		'<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>');
 		
 */
 	$(function() {
@@ -27,7 +27,11 @@
 					'<div class="product portlet-header" id="product_<%= @product.id %>"><%= @product.title %></div>'+
 					'<div class="portlet-content" style="padding-bottom:0" >'+
 						'<div class="portlet-content-left">'+
-							'<%= (!@product.logo.blank?) ?image_tag(@product.logo, :class => "portlet-content-logo")  :"<p class=content-name>#{@product.title}</p>" %>'+
+							<% if (!@product.logo.blank?) %>
+							  '<%= image_tag(@product.logo, :class => "portlet-content-logo") %>' +
+							<% else %>
+							  '<p class=content-name><%= @product.title %></p>' +
+							<% end %>
 							'<p class="product-info">Total monthly purchases:&nbsp;<%= number_to_currency(@product.total_amount) %></p>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
@@ -40,7 +44,11 @@
 					'<div class="product portlet-header" id="product_<%= @product.id %>"><%= @product.title %></div>'+
 					'<div class="portlet-content" style="padding-bottom:0" >'+
 						'<div class="portlet-content-left">'+
-							'<%= (!@product.logo.blank?) ?image_tag(@product.logo, :class => "portlet-content-logo")  :"<p class=content-name>#{@product.title}</p>" %>'+
+							<% if (!@product.logo.blank?) %>
+							  '<%= image_tag(@product.logo, :class => "portlet-content-logo") %>' +
+							<% else %>
+							  '<p class=content-name><%= @product.title %></p>' +
+							<% end %>
 							'<p class="product-info">Total monthly purchases:&nbsp;<%= number_to_currency(@product.total_amount) %></p>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+

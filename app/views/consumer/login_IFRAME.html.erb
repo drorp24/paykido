@@ -1,7 +1,7 @@
 <div id="window_content">
 
 	<div id="logo">
-		<%= image_tag "/assets/arca_logo.png", :id=>"logoimg",:border => 0 %>
+		<%= image_tag "/images/arca_logo.png", :id=>"logoimg",:border => 0 %>
 	</div>	
 		
 	<div id="welcome_message" class="text">
@@ -24,7 +24,7 @@
 	</div>
 	
 	<div id="buy" class="box">
-		<% form_for :consumer, :url => {:action => :buy}, :html => {:id => "buy_form"} do |f| %>
+		<%= form_for :consumer, :url => {:action => :buy}, :html => {:id => "buy_form"} do |f| %>
 			<%= submit_tag "1-click to buy", :id=> "buy_button", :class => "fg-button ui-state-default loginbutton ui-corner-all" %>
 		<% end %>
 	</div>

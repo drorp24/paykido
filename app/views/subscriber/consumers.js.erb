@@ -13,8 +13,8 @@
 						'<%= image_tag (!@consumer.pic.blank?) ?"#{@consumer.pic}" :"face_placeholder_small.png", :class => "face-placeholder" %>'+
 					'</div>'+
 					'<div class="portlet-content-right">'+
-						'<p class="consumer-info">Spent&nbsp;<%= (@consumer.sum_amount.blank? || @consumer.sum_amount == 0) ?"nothing" :number_to_currency(@consumer.sum_amount) %>&nbsp;this month</p>'+
-						'<p class="consumer-info"><%= "Monthly balance:&nbsp  #{number_to_currency(@consumer.balance)}" %></p>'+		
+						'<p class="consumer-info">Spent <%= (@consumer.sum_amount.blank? || @consumer.sum_amount == 0) ?"nothing" :number_to_currency(@consumer.sum_amount) %> this month</p>'+
+						'<p class="consumer-info"><%= "Monthly balance: #{number_to_currency(@consumer.balance, :locale => 'fr')}" %></p>'+		
 					'</div>'+
 				'</div>'+
 			'</div>');
@@ -30,8 +30,8 @@
 						'<%= image_tag (!@consumer.pic.blank?) ?"#{@consumer.pic}" :"face_placeholder_small.png", :class => "face-placeholder" %>'+
 					'</div>'+
 					'<div class="portlet-content-right">'+
-						'<p class="consumer-info">Spent&nbsp;<%= (@consumer.sum_amount.blank?|| @consumer.sum_amount == 0) ?"nothing" :number_to_currency(@consumer.sum_amount) %>&nbsp;this month</p>'+
-						'<p class="consumer-info"><%= "Monthly balance:&nbsp  #{number_to_currency(@consumer.balance)}" %></p>'+		
+						'<p class="consumer-info">Spent <%= (@consumer.sum_amount.blank?|| @consumer.sum_amount == 0) ?"nothing" :number_to_currency(@consumer.sum_amount) %> this month</p>'+
+						'<p class="consumer-info"><%= "Monthly balance:  #{number_to_currency(@consumer.balance)}" %></p>'+		
 					'</div>'+
 				'</div>'+
 			'</div>');

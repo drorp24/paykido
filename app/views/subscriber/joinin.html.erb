@@ -9,7 +9,7 @@
 			<div class="inner_content">	
 				<p class="inner_content_title">Join In</p>
 				<div class="inner_content_indented">
-					<% form_for(:user, :url => { :action => :joinin }, :html => {:id => "new_payer"}) do |f| %>
+					<%= form_for(:user, :url => { :action => :joinin }, :html => {:id => "new_payer"}) do |f| %>
 					
 					   	<%= f.text_field :name, :size => 20, :placeholder => "Select a user name", :class => "formfield" %>
 					   	<%= f.password_field :password, :size => 20, :placeholder => "Select a password", :class => "formfield" %>

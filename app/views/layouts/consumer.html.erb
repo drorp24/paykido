@@ -1,9 +1,11 @@
 <head>
 <html>
   <title>Paykido</title>
-  <%= stylesheet_link_tag    "application" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+	<%= stylesheet_link_tag "consumer.css", :media => "all" %>
+	<%= stylesheet_link_tag "paykido-api.css", :media => "all" %>
+   	<%= stylesheet_link_tag  "jquery-ui-1.8.1.custom.css", :media => "all" %>
+ 	<%= javascript_include_tag "jquery-1.4.2.min", "jquery-ui-1.8.2.custom.min", "paykido-api", "jquery.url", "old_application" %>
+
 </head>	
 <body id="main">
 

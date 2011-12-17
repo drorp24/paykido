@@ -1,7 +1,7 @@
 <% if @categories.empty? %>
 /*
 	$('.categories_list').append(	
-		'<%= image_tag "/assets/thanks_for_joining5.png", :class => "righthandside_marketial" %>');
+		'<%= image_tag "/images/thanks_for_joining5.png", :class => "righthandside_marketial" %>');
 */			
 
 	$(function() {
@@ -27,7 +27,7 @@
 					'<div class="category portlet-header" id="category_<%= @category.id %>"><%= @category.name %></div>'+
 					'<div class="portlet-content" style="padding-bottom:0" >'+
 						'<div class="portlet-content-left">'+
-							'<%= (!@category.logo.blank?) ?image_tag(@category.logo, :class => "portlet-content-logo")  :"<p class=content-name>#{@category.name}</p>" %>'+
+							'<p class=content-name><%= @category.name %></p>'+
 							'<p class="category-info">Total monthly purchases:&nbsp;<%= number_to_currency(@category.total_amount) %></p>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
@@ -40,7 +40,7 @@
 					'<div class="category portlet-header" id="category_<%= @category.id %>"><%= @category.name %></div>'+
 					'<div class="portlet-content" style="padding-bottom:0" >'+
 						'<div class="portlet-content-left">'+
-							'<%= (!@category.logo.blank?) ?image_tag(@category.logo, :class => "portlet-content-logo")  :"<p class=content-name>#{@category.name}</p>" %>'+
+							'<p class=content-name><%= @category.name %></p>'+
 							'<p class="category-info">Total monthly purchases:&nbsp;<%= number_to_currency(@category.total_amount) %></p>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+

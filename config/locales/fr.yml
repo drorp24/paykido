@@ -1,0 +1,14 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  hello: "Hello world"
+number:
+    currency:
+        format:
+            format: "%u%n"
+            unit: "&pound;"
+            # These three are to override number.format and are optional
+            separator: "."
+            delimiter: ","
+            precision: 2

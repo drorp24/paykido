@@ -1,11 +1,11 @@
 <div id="container">
 
-	<img id="source-image" src="/assets/invite_background11.jpg" alt="" />
+	<img id="source-image" src="/images/invite_background11.jpg" alt="" />
 
 	<div id="login">
 		
 		
-		<% form_for(:user, :url => { :action => :index }, :html => {:id => "friend_signin"}) do |f| %>
+		<%= form_for(:user, :url => { :action => :index }, :html => {:id => "friend_signin"}) do |f| %>
 			
 			<p>
 				<%= f.text_field :name, :size => 20, :placeholder => "Select a user name", :class => "formfield", :id => "f_user" %>				

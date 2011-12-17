@@ -17,16 +17,16 @@ $('#retailers .left_content').html(
 	'</p>'+
 	'<p>Show me all <%= @retailer.name %> purchases</p>'+
 		'<% if    @retailer.status == "whitelisted" %>'+
-			'<%= image_tag "/assets/fb_like_lit_small.png", :id => "retailer_like_lit_#{@retailer.id}", :class => "retailer like" %>'+
+			'<%= image_tag "/images/fb_like_lit_small.png", :id => "retailer_like_lit_#{@retailer.id}", :class => "retailer like" %>'+
 		'<% else %>'+
-			'<%= image_tag "/assets/fb_like_small.png", :id => "retailer_like_unlit_#{@retailer.id}",  :class => "retailer like" %>'+
+			'<%= image_tag "/images/fb_like_small.png", :id => "retailer_like_unlit_#{@retailer.id}",  :class => "retailer like" %>'+
 		'<% end %>'+
 	'</span>'+	
 	'<span class="icon">'+
 		'<% if    @retailer.status == "blacklisted" %>'+
-			'<%= image_tag "/assets/fb_dont_lit_small.png", :id => "retailer_dislike_lit_#{@retailer.id}",  :class => "retailer like dislike" %>'+
+			'<%= image_tag "/images/fb_dont_lit_small.png", :id => "retailer_dislike_lit_#{@retailer.id}",  :class => "retailer like dislike" %>'+
 		'<% else %>'+
-			'<%= image_tag "/assets/fb_dont_small.png", :id => "retailer_dislike_unlit_#{@retailer.id}",  :class => "retailer like dislike" %>'+
+			'<%= image_tag "/images/fb_dont_small.png", :id => "retailer_dislike_unlit_#{@retailer.id}",  :class => "retailer like dislike" %>'+
 		'<% end %>'+
 	'</span>'
 );	
@@ -41,19 +41,19 @@ $('#retailers .left_content').html(
 		
 		if (clicked_button == "like") {
 			button_selector = 			"#"+id;
-			lit_image =  				"/assets/fb_like_lit_small.png";
-			unlit_image = 				"/assets/fb_like_small.png";
+			lit_image =  				"/images/fb_like_lit_small.png";
+			unlit_image = 				"/images/fb_like_small.png";
 			other_button  = 			"dislike";
-			other_button_lit_image = 	"/assets/fb_dont_lit_small.png";
-			other_button_unlit_image = 	"/assets/fb_dont_small.png";
+			other_button_lit_image = 	"/images/fb_dont_lit_small.png";
+			other_button_unlit_image = 	"/images/fb_dont_small.png";
 		} 
 		else {
 			button_selector = 			"#"+id;
-			lit_image = 				"/assets/fb_dont_lit_small.png";
-			unlit_image = 				"/assets/fb_dont_small.png";
+			lit_image = 				"/images/fb_dont_lit_small.png";
+			unlit_image = 				"/images/fb_dont_small.png";
 			other_button = 				"like";
-			other_button_lit_image = 	"/assets/fb_like_lit_small.png";
-			other_button_unlit_image = 	"/assets/fb_like_small.png";
+			other_button_lit_image = 	"/images/fb_like_lit_small.png";
+			other_button_unlit_image = 	"/images/fb_like_small.png";
 		}
 		
 		if ($('#retailer_' + other_button + '_lit_' + entity_id).length) {

@@ -25,7 +25,11 @@
 					'<div class="retailer portlet-header" id="retailer_<%= @retailer.id %>"><%= @retailer.name %></div>'+
 					'<div class="portlet-content" style="padding-bottom:0" >'+
 						'<div class="portlet-content-left">'+
-							'<%= (!@retailer.logo.blank?) ?image_tag(@retailer.logo, :class => "portlet-content-logo")  :"<p class=content-name>#{@retailer.name}</p>" %>'+
+							<% if !@retailer.logo.blank? %>
+							   '<%= image_tag(@retailer.logo, :class => "portlet-content-logo") %>' +
+							<% else %> 
+							   '<p class=content-name><%= @retailer.name %></p>' +
+							<% end %>
 							'<p class="retailer-info">Total monthly purchases:&nbsp;<%= number_to_currency(@retailer.total_amount) %></p>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+
@@ -38,7 +42,11 @@
 					'<div class="retailer portlet-header" id="retailer_<%= @retailer.id %>"><%= @retailer.name %></div>'+
 					'<div class="portlet-content" style="padding-bottom:0" >'+
 						'<div class="portlet-content-left">'+
-							'<%= (!@retailer.logo.blank?) ?image_tag(@retailer.logo, :class => "portlet-content-logo")  :"<p class=content-name>#{@retailer.name}</p>" %>'+
+							<% if !@retailer.logo.blank? %>
+							   '<%= image_tag(@retailer.logo, :class => "portlet-content-logo") %>' +
+							<% else %> 
+							   '<p class=content-name><%= @retailer.name %></p>' +
+							<% end %>
 							'<p class="retailer-info">Total monthly purchases:&nbsp;<%= number_to_currency(@retailer.total_amount) %></p>'+
 						'</div>'+
 						'<div class="portlet-content-right">'+

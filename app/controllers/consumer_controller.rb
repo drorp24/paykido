@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'clickatell'
+require 'ruby-debug'
 class Safecharge
   include HTTParty
   base_uri 'https://test.safecharge.com'
@@ -9,7 +10,7 @@ end
 
 class ConsumerController < ApplicationController
   
-    before_filter :ensure_friend_authenticated
+   # before_filter :ensure_friend_authenticated
   #  before_filter :ensure_consumer_authenticated, :except => ["login", "register", "register_callback"]
     
   
@@ -67,13 +68,13 @@ class ConsumerController < ApplicationController
       @product_title = session[:product_title]
     end
     session[:product_title] = @product_title
-      
+     
     if params[:product]
       @product_price = params[:product].split('@')[1]
     elsif params[:amount]
       @product_price = params[:amount]
     else
-      @product_price = session[:product_title]
+      @product_price = session[:product_price]
     end
     session[:product_price] = @product_price
         
@@ -191,6 +192,7 @@ class ConsumerController < ApplicationController
     create_user_and_inform_payer    
     
     session[:friend_authenticated] = true  
+
     redirect_to :controller => :play, 
                 :action => :index, 
                 :scroll => session[:last_scroll], 
