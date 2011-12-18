@@ -6,11 +6,18 @@ require 'httparty'
 
 class SubscriberController < ApplicationController
 
-#  before_filter :check_friend_authenticated
+  before_filter :check_friend_authenticated
   before_filter :check_payer_and_set_variables, :except => [:index, :signin, :joinin, :signout, :retailer_signedin]
   before_filter :check_retailer_and_set_variables, :only => [:retailer_signedin]
   
   
+  # this should be removed from here and done upon rregistration_callback
+  def email
+    @user = User.find(41)
+    UserMailer.welcome_email(@user, "yuval").deliver
+    redirect_to :action => :index
+  end
+
   def index
     
   end
@@ -25,6 +32,8 @@ class SubscriberController < ApplicationController
         flash.now[:notice] = "user or password are incorrect. Please try again!"
         return
       end
+      
+      UserMailer.welcome_email(@user).deliver
 
       if @user.is_payer
         set_payer_session

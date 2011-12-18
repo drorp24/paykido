@@ -10,7 +10,7 @@ end
 
 class ConsumerController < ApplicationController
   
-   # before_filter :ensure_friend_authenticated
+    before_filter :ensure_friend_authenticated
   #  before_filter :ensure_consumer_authenticated, :except => ["login", "register", "register_callback"]
     
   

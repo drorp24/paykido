@@ -27,4 +27,29 @@ Arca::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+#  require 'tlsmail' #key but not always described
+#  Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
+
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+  :address              => "smtp.gmail.com",
+  :port                 => 587,
+  :domain               => 'paykido.com',
+  :user_name            => 'dror@paykido.com',
+  :password             => 'dror160395',
+  :authentication       => 'plain',
+  :enable_starttls_auto => true  }
+  
+  ActionMailer::Base.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :user_name            => "dror@paykido.com",
+    :password             => 'dror160395',
+    :authentication       => "plain",
+    :enable_starttls_auto => true
+  }
+
 end
