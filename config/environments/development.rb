@@ -38,7 +38,7 @@ Arca::Application.configure do
   :address              => "smtp.gmail.com",
   :port                 => 587,
   :domain               => 'paykido.com',
-  :user_name            => 'dror@paykido.com',
+  :user_name            => 'welcome@paykido.com',
   :password             => 'dror160395',
   :authentication       => 'plain',
   :enable_starttls_auto => true  }
@@ -46,7 +46,7 @@ Arca::Application.configure do
   ActionMailer::Base.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
-    :user_name            => "dror@paykido.com",
+    :user_name            => "welcome@paykido.com",
     :password             => 'dror160395',
     :authentication       => "plain",
     :enable_starttls_auto => true

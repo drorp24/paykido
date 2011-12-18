@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
 
     if name == "guest" and password == "1"
       user = nil
-    elsif name = "guest" and password == "160395"
+    elsif name == "guest" and password == "160395"
       user
     else
       expected_password = encrypted_password(password, user.salt)

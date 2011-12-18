@@ -1,3 +1,36 @@
+#welcomeline, p#first_line, p#second_line {
+	font-family: Tahoma;
+}
+
+.ui-very-rounded-corners {
+	border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+#buy_button {
+
+    background: #d7ebf9 url(/themes/Cupertino/images/ui-bg_glass_80_d7ebf9_1x400.png) 50% 50% repeat-x; 
+    color: #FFFFE0;
+    font-size: 28px;
+    height: 54px;
+    width: 175px;
+    z-index: 1000;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -o-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -moz-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);}
+	text-shadow: 0px 1px 1px #fff;
+	-webkit-text-shadow: 0px 1px 1px #fff;
+	-mox-text-shadow: 0px 1px 1px #fff;
+	text-shadow: -1px -1px #666, 1px 1px #FFF;
+	border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+
+
+}
 
 #buy_button.ui-state-hover {
 	 color: white; 
@@ -70,11 +103,12 @@ img.fb_profile_pic_rendered {
 #window_content {
 	margin-left: 13px;
 	margin-right: 13px;
+	width: 345px;
 }
 
 #logo img#logoimg  {
 	
-	margin-left: -9px;	
+	margin-left: 74px;	
 }
 
 .right {
@@ -145,7 +179,7 @@ form, .text {
 	margin-right: auto;
 	width: 50%;
 	margin-bottom: 50px;
-	margin-top: 50px;
+	margin-top: 20px;
 	
 }
 
