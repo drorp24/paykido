@@ -1,3 +1,35 @@
+.portlet .portlet-header.ui-state-active {
+	background: #F7B64A;
+	background: #FDD331;
+}
+
+.content-name-left, .content-name-right {
+			text-shadow: 0px -1px #666, 0px 0px #FFF;
+	-webkit-text-shadow: 0px -1px #666, 0px 0px #FFF;
+	-mox-text-shadow: 0px -1px #666, 0px 0px #FFF;
+	text-shadow: 0px -1px #666, 0px 0px #FFF;
+
+}
+
+
+#payer_name {
+	font-family: Tahoma;
+}
+
+#payer_tabs {
+	box-shadow:0 0 5px #888;
+	font-family: tahoma; 
+	font-weight: 100;
+}
+
+#payer_tabs .ui-tabs-nav{
+		text-shadow: 0px 1px 1px #fff;
+	-webkit-text-shadow: 0px 1px 1px #fff;
+	-mox-text-shadow: 0px 1px 1px #fff;
+	text-shadow: 0px -1px #666, 0px 0px #FFF;
+
+}
+
 #charging {
 	font-size: 14px;
 }
@@ -983,13 +1015,15 @@ a.login:hover {
 }
 
 .login {
-    display: inline:z-index: 100;
+    display: inline;
+    z-index: 100;
     text-decoration: none;
     color: #026890;
     color: #004488;
 	color: #17375E;
-    font-size: 20px;
-	font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
+	color:#666666;
+    font-size: 18px;
+	font-family: Tahoma;
 }
 
 #signin {
@@ -1006,14 +1040,14 @@ a.login:hover {
 
 #signedin {
     position: absolute;
-    top: 41px;
-    left: 483px;
+    top: 17px;
+    left: 860px;
 }
 
 #signout {
     position: absolute;
-    top: 41px;
-    left: 740px;
+    top: 17px;
+    left: 1064px;
 }
 
 .left_content {
@@ -1111,11 +1145,13 @@ a.login:hover {
 }
 
 #payer_tabs, #retailer_tabs{
-    width: 1167px;
+	background-color: #F1F7FB;
+	background-color: #F8FAFB;
+    width: 1164px;
     height: 550px;
     margin-left: 5px;
-	background-image: url("/images/tabs_gradient2.png");
-	background-repeat: repeat;
+/*	background-image: url("/images/bg.png");
+	background-repeat: repeat; */
 /*
 	the end color of gradient1 is: #B0C4DE (steel)
 	the end color of gradient1 (lighter version) is: #E6EDF4
@@ -1182,9 +1218,9 @@ body {
 
 #head_img {
 
-    margin-left: 6px;
+    margin-left: 5px;
 	width: 1159px;
-	background-image: url("/images/service_head5.png");
+	background-image: url("/images/head_img3.png");
 	width: 1172px;
 	height: 212px;
 		-moz-border-radius: 5px;
@@ -1193,10 +1229,10 @@ border-radius: 5px;
 }
 
 #remainder_img, #head_img, #service_full_img, #payer_tabs, #retailer_tabs, #full {
-	-moz-box-shadow: 0 0 5px #888;
-	-webkit-box-shadow: 0 0 5px#888;
-	box-shadow: 0 0 5px #888;
-	border: none;	
+/*	-moz-box-shadow: 0 0 3px #888;
+	-webkit-box-shadow: 0 0 3px #888;
+	box-shadow: 0 0 3px #888; */
+	border: none; 	
 }
 
 

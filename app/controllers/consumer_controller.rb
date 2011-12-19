@@ -531,7 +531,7 @@ class ConsumerController < ApplicationController
     
     phone = @payer.phone
     message = "Hi from Paykido! Do you approve #{@product.title} from #{@retailer.name} for #{number_to_currency(@purchase.amount)} (Y/N)?"
-    sms(phone, message)
+    sms(phone, message) unless !Current.policy.send_sms?
     
   end
    

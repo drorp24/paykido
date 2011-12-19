@@ -33,9 +33,7 @@ class SubscriberController < ApplicationController
         return
       end
       
-      UserMailer.welcome_email(@user).deliver
-
-      if @user.is_payer
+     if @user.is_payer
         set_payer_session
         redirect_to :action => :payer_signedin
       elsif @user.is_retailer
