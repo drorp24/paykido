@@ -39,6 +39,15 @@ class User < ActiveRecord::Base
     self.affiliation == "administrator" 
   end
   
+  def self.authenticate_by_hp(name, hash)
+    user = self.find_by_name(name)
+    return unless user
+    if user.hashed_password != hash
+      user = nil
+    end
+    user
+  end
+
   def self.authenticate(name, password)
 
     user = self.find_by_name(name)

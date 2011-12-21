@@ -11,13 +11,6 @@ class SubscriberController < ApplicationController
   before_filter :check_retailer_and_set_variables, :only => [:retailer_signedin]
   
   
-  # this should be removed from here and done upon rregistration_callback
-  def email
-    @user = User.find(41)
-    UserMailer.welcome_email(@user, "yuval").deliver
-    redirect_to :action => :index
-  end
-
 #  def index
     
 #  end

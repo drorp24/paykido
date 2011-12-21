@@ -10,7 +10,7 @@ end
 
 class ConsumerController < ApplicationController
   
-    before_filter :ensure_friend_authenticated
+  #  before_filter :ensure_friend_authenticated
   #  before_filter :ensure_consumer_authenticated, :except => ["login", "register", "register_callback"]
     
   
@@ -187,17 +187,20 @@ class ConsumerController < ApplicationController
 
   
   def register_callback
-    
+      
     find_or_create_consumer_and_payer     
-    create_user_and_inform_payer    
+    find_or_create_user
+    inform_payer    
     
-    session[:friend_authenticated] = true  
+    session[:friend_authenticated] = true 
 
     redirect_to :controller => :play, 
-                :action => :index, 
-                :scroll => session[:last_scroll], 
-                :product => session[:product_title] + '@' + session[:product_price], 
-                :sms => @sms
+                :action => :index
+# find out later why: all session is being erased
+#                , 
+#                :scroll => session[:last_scroll], 
+#                :product => session[:product_title] + '@' + session[:product_price], 
+#                :sms => @sms
     
   end
   
@@ -206,20 +209,24 @@ class ConsumerController < ApplicationController
     
     # A consumer record may exist already (e.g., he registered already, and later unregistered thru facebook)
     # A payer record may already be linked with such consumer (e.g. in the case above)
-    # A payer record may exist in the system with that phone number specified in the registration form
+    # A payer record may exist in the system with that email specified in the registration form
     # (e.g., the parent has subscribed already and this is the next brother registering)
     
-    current_facebook_user_id = current_facebook_user.id if current_facebook_user
-    @consumer = Consumer.find_or_initialize_by_facebook_id(current_facebook_user_id)
-    @consumer = session[:consumer] unless @consumer
+    if facebook_params_user_id = facebook_params['user_id']
+      @consumer = Consumer.find_or_initialize_by_facebook_id(facebook_params_user_id)   
+    elsif current_facebook_user #probably never true for some reason
+      @consumer = Consumer.find_or_initialize_by_facebook_id(current_facebook_user.id)
+    else # this shouldn't happen 
+      @consumer = session[:consumer] || Consumer.new
+    end 
     
-    @payer = @consumer.payer || Payer.find_or_initialize_by_phone(facebook_params['registration']['payer_phone'])
+    @payer = @consumer.payer || Payer.find_or_initialize_by_email(facebook_params['registration']['payer_email'])
     @payer.update_attributes!(
-#    :name => facebook_params['registration']['payer_name'], 
+                              :name => facebook_params['registration']['payer_name'], 
                               :email => facebook_params['registration']['payer_email'], 
                               :phone => facebook_params['registration']['payer_phone'])    
 
-    @consumer.update_attributes!(:payer_id => @payer.id, :billing_phone => facebook_params['registration']['consumer_phone'])
+    @consumer.update_attributes!(:name => facebook_params['registration']['name'],:payer_id => @payer.id, :billing_phone => facebook_params['registration']['consumer_phone'])
    
     @rule = @consumer.most_recent_payer_rule || @consumer.create_def_payer_rule!
 
@@ -230,42 +237,49 @@ class ConsumerController < ApplicationController
     session[:rule] =     @rule
     session[:payer] =    @payer
     
+  end 
+
+  def find_or_create_user
+    
+    @user = User.find_by_email(facebook_params['registration']['payer_email'])
+    if @user
+      @user.update_attributes!(:payer_id => session[:payer].id, :name => facebook_params['registration']['payer_name'])   #just to be on the safe side
+      session[:user] = @user
+    else
+      create_new_user      
+    end
+    return if @user_failed
+
   end
   
+  def inform_payer
+     
+    inform_payer_by_email(session[:user], session[:consumer])
+    inform_payer_by_sms(session[:payer], session[:consumer]) 
+    
+  end 
+  
+  def inform_payer_by_email (user, consumer)   
+    UserMailer.joinin_email(user, consumer).deliver
+  end
 
-  def create_user_and_inform_payer
-    
-    create_new_user
-    if @user_failed
-      return
-    else
-      user = session[:username] = @user.name
-      pass = session[:password] = @user.password
-    end
-    
+  
+  def inform_payer_by_sms (payer, consumer)
+  
     unless Current.policy.send_sms?
       @sms = "test"
       return
     end
     
-    sms_phone = @payer.phone
-    name = facebook_params['registration']['name']
-#    message = facebook_params['registration']['message'].slice(0,24)
-     
-    sms_message = "It's me, #{name}. There's a new service named Paykido I want you to know"
-    sms(sms_phone,sms_message)
+    name = consumer.name    
+    phone = payer.phone
+    message = "#{name} wants you to know Paykido, a way to control what kids buy! See our email for more details"
+    sms(phone,message)
     return if @sms == "failed"
     
-    # Currently the sms has the paykido url with a user and pwd to enter; better send him an activation link
-    sms_message = "Paykido lets you control what I buy! Try it at alpha.paykido.com/subscriber User: #{user} Pass: #{pass}"
-    sms(sms_phone,sms_message)
-    return if @sms == "failed"
-
     @sms = "sent"
-    
-  end        
   
-
+  end 
 
     
   #############################################
@@ -556,14 +570,21 @@ class ConsumerController < ApplicationController
   def create_new_user
     
     @user = User.new
-    @user.name = session[:payer].email || "no name"
+
+    @user.email = session[:payer].email
+    @user.name = session[:payer].name
 #    @user.password = generate_string
     @user.password = "1"
     @user.affiliation = "payer"
     @user.role = "primary"
     @user.payer_id = session[:payer].id
-    @user_failed = true unless @user.save
-    
+
+    if @user.save
+      session[:user] = @user
+    else
+      @user_failed = true
+    end
+        
   end
   
   def generate_string(length=6)

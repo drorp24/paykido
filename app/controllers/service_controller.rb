@@ -1,3 +1,5 @@
+require 'ruby-debug'
+
 class Safecharge
   include HTTParty
   base_uri 'https://secure.safecharge.com'
@@ -8,7 +10,23 @@ class ServiceController < ApplicationController
    before_filter   :check_friend_authenticated    
 
   
-  def index  
+  def index 
+        
+  end
+  
+  def invite
+    
+    @user = User.authenticate_by_hp(params[:name], params[:authenticity_token])
+    if @user
+      clear_payer_session if session[:payer] and session[:payer].id  != @user.payer.id 
+      session[:user]  = @user
+      session[:payer] = @payer = @user.payer
+    else
+      flash.now[:notice] = "user or password are incorrect. Please try again!"
+      return
+    end
+    
+    render :action => :index
     
   end
 
@@ -17,6 +35,10 @@ class ServiceController < ApplicationController
   end
     
   def safecharge_page
+    
+    #temporary until the push to heroku
+    sc_error
+    return
     
     merchant_site_id = "34721"
     merchant_id = "4678792034088503828"
@@ -41,7 +63,8 @@ class ServiceController < ApplicationController
      :item_name_1 => item_name_1, 
      :item_amount_1 => item_amount_1, 
      :item_quantity_1 => item_quantity_1, 
-     :version => version})
+     :version => version
+     })
      
     redirect_url = "https://secure.safecharge.com/ppp/purchase.do?" +
       "&merchant_site_id=" + merchant_site_id +
@@ -55,10 +78,8 @@ class ServiceController < ApplicationController
       "&item_quantity_1=" + item_quantity_1 +
       "&version=" + version +
       "&success_url=" + success_url +
-      "&error_url=" + error_url +
-      "&pending_url=" + error_url
-                   
-                   
+      "&error_url=" + error_url 
+                                      
     redirect_to redirect_url
     
   end
@@ -85,7 +106,7 @@ class ServiceController < ApplicationController
   
   def sc_error
     flash[:message] = "Congratulations! You are registered to Paykido!"
-    redirect_to  :controller => "subscriber", :action => payer_signedin
+    redirect_to  :controller => "subscriber", :action => "payer_signedin"
   end
  
   
@@ -95,5 +116,10 @@ class ServiceController < ApplicationController
     redirect_to  :controller => 'welcome', :action => 'index' unless session[:friend_authenticated]    
   end
   
+
+  def clear_payer_session
+    session[:user] = session[:payer] =
+    nil
+  end
 
 end

@@ -5,5 +5,6 @@ $('#name').html('<%= @name %>');
 <% else %>
 	$('#pic').empty();
 <% end %>
-$('#ajax_message #first_line').html("<%= @first_line %>");
-$('#ajax_message #second_line').html("<%= @second_line %>");
+$('#ajax_message #first_line').html("Now that you are logged in to facebook");
+$('#ajax_message #second_line').html("Please click Paykido button again");
+$('#login_button').unbind('click');

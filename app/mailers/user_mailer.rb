@@ -1,11 +1,15 @@
 class UserMailer < ActionMailer::Base
-  default from: "info@paykido.com"
+  default :from => "info@paykido.com"
  
-  def welcome_email(user, consumer_name)
+  def joinin_email(user, consumer)
+
     @user = user
-    @url  = "http://localhost:3000/service?name=" + user.name + "&invited_by=" + consumer_name
+    @consumer = consumer
+    @url  = url_for(:controller => "service", :action => "invite") + "?name=" + @user.name + "&authenticity_token=" + @user.hashed_password + "&email=" + @user.email + "&invited_by=" + @consumer.name
+
     email_with_name = "#{@user.name} <#{@user.email}>"
-    mail(:to => email_with_name, :subject => "Welcome to My Awesome Site")
+    mail(:to => email_with_name, :subject => "Join Paykido!")
+
   end
   
  end
