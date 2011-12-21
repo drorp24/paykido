@@ -28,8 +28,8 @@ class ServiceController < ApplicationController
     item_amount_1 = "1"
     item_quantity_1 = "1"
     version = "3.0.0"
-    success_url = "http://paykido.heroku.com/service/sc_success"
-    error_url = "http://paykido.heroku.com/service/sc_error"
+    success_url = "http://alpha.paykido.com/service/sc_success"
+    error_url = "http://alpha.paykido.com/service/sc_success" 
     
     Safecharge.post('/ppp/purchase.do', :query => {
      :merchant_site_id => merchant_site_id,
@@ -63,7 +63,7 @@ class ServiceController < ApplicationController
     
   end
   
-  def sc_success
+  def keep_sc_success
     # indicate 'registered' on the payer record and record the sc token on a new payer field
     # redirect him to his prepared account if there is, with a message that he's succesfully registered
     # call the kid to inform registration has been completed
@@ -75,12 +75,17 @@ class ServiceController < ApplicationController
     @token = params[:Token]
   end
   
-  def sc_error
+  def keep_sc_error
     @status = params[:Status]
     @amount = params[:totalAmount]
     @code = params[:ErrCode]
     @reason = params[:Reason]
     @token = params[:Token]   
+  end
+  
+  def sc_error
+    flash[:message] = "Congratulations! You are registered to Paykido!"
+    redirect_to  :controller => "subscriber", :action => payer_signedin
   end
  
   

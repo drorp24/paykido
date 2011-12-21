@@ -18,9 +18,9 @@ class SubscriberController < ApplicationController
     redirect_to :action => :index
   end
 
-  def index
+#  def index
     
-  end
+#  end
   
 
   def signin
@@ -87,7 +87,7 @@ class SubscriberController < ApplicationController
   def signout
     
     #session is cleared upon next signin, provided it's not the same user/payer
-    redirect_to :action => :index
+    redirect_to :controller => :service, :action => :index
     
   end
 

@@ -12,8 +12,8 @@
 
     background: #d7ebf9 url(/themes/Cupertino/images/ui-bg_glass_80_d7ebf9_1x400.png) 50% 50% repeat-x; 
     color: #FFFFE0;
-    font-size: 28px;
-    height: 54px;
+    font-size: 25px;
+    height: 45px;
     width: 175px;
     z-index: 1000;
 	box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
@@ -24,10 +24,10 @@
 	-webkit-text-shadow: 0px 1px 1px #fff;
 	-mox-text-shadow: 0px 1px 1px #fff;
 	text-shadow: -1px -1px #666, 1px 1px #FFF;
-	border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+	border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
 
 
 }
@@ -108,7 +108,7 @@ img.fb_profile_pic_rendered {
 
 #logo img#logoimg  {
 	
-	margin-left: 74px;	
+	margin-left: -12px;	
 }
 
 .right {
@@ -128,8 +128,8 @@ img.fb_profile_pic_rendered {
 }
 form, .text {
 	font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
-	font-size: 14px;
-	color: gray;
+	font-size: 16px;
+	color: #637BAD;
 }
 
 
@@ -151,8 +151,8 @@ form, .text {
 #welcomeline {	
 	display: inline;
 	vertical-align: sub;
-	color: #0078AE;
-	font-size: 16px;
+	color: #637BAD;
+	font-size: 18px;
 	float: left;
 
 }

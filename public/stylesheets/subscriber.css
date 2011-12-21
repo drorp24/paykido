@@ -1,15 +1,25 @@
-.portlet .portlet-header.ui-state-active {
-	background: #F7B64A;
-	background: #FDD331;
+.ui-widget-header input{
+	text-shadow: 0px -1px #666, 0px 0px #FFF;
+	-webkit-text-shadow: 0px -1px #666, 0px 0px #FFF;
+	-mox-text-shadow: 0px -1px #666, 0px 0px #FFF;
+	text-shadow: 0px -1px #666, 0px 0px #FFF;
+	
 }
 
-.content-name-left, .content-name-right {
+.portlet .portlet-header.ui-state-active {
+	text-shadow: 0px -1px #666, 0px 0px #FFF;
+	-webkit-text-shadow: 0px -1px #666, 0px 0px #FFF;
+	-mox-text-shadow: 0px -1px #666, 0px 0px #FFF;
+	text-shadow: 0px -1px #666, 0px 0px #FFF;
+}
+
+/*.content-name-left, .content-name-right {
 			text-shadow: 0px -1px #666, 0px 0px #FFF;
 	-webkit-text-shadow: 0px -1px #666, 0px 0px #FFF;
 	-mox-text-shadow: 0px -1px #666, 0px 0px #FFF;
 	text-shadow: 0px -1px #666, 0px 0px #FFF;
 
-}
+}*/
 
 
 #payer_name {
@@ -17,15 +27,15 @@
 }
 
 #payer_tabs {
-	box-shadow:0 0 5px #888;
+	box-shadow:0 0 3px #888;
 	font-family: tahoma; 
 	font-weight: 100;
 }
 
-#payer_tabs .ui-tabs-nav{
-		text-shadow: 0px 1px 1px #fff;
-	-webkit-text-shadow: 0px 1px 1px #fff;
-	-mox-text-shadow: 0px 1px 1px #fff;
+#payer_tabs .ui-tabs-nav .ui-state-active{
+		text-shadow: 0px -1px #666 0px 0px #fff;
+	-webkit-text-shadow: 0px -1px #666 0px 0px #fff;
+	-mox-text-shadow: 0px -1px #666 0px 0px #fff;
 	text-shadow: 0px -1px #666, 0px 0px #FFF;
 
 }
@@ -69,9 +79,6 @@ td {
 	float: right;
 }
 
-#balance, #budget {
-	margin-right:248px;
-}
 
 #under, #over {
 	margin-right: 235px;	
@@ -140,6 +147,7 @@ img#gradient_wrap {
 #payer_name {
 	font-size: 20px;
 	color: #17375E;
+	color: #778899;
 	text-align: left;
 	border: none;
 	background: none;
@@ -509,6 +517,7 @@ tr.odd td.authorized_cell.really {
 
 .content-name-left {
 	color: #F7B64A;
+	color: #778899;
 	margin-left: 3px;
 	font-size:20px;
 }
@@ -828,8 +837,8 @@ select, input {
 	margin-bottom:10px;
 }
 
-form {
-	width:550px;
+.left_content form {
+	width:299px;
 }
 
 #slider {
@@ -1022,6 +1031,7 @@ a.login:hover {
     color: #004488;
 	color: #17375E;
 	color:#666666;
+	color: #778899;
     font-size: 18px;
 	font-family: Tahoma;
 }
@@ -1040,13 +1050,13 @@ a.login:hover {
 
 #signedin {
     position: absolute;
-    top: 17px;
+    top: 30px;
     left: 860px;
 }
 
 #signout {
     position: absolute;
-    top: 17px;
+    top: 30px;
     left: 1064px;
 }
 
@@ -1146,10 +1156,11 @@ a.login:hover {
 
 #payer_tabs, #retailer_tabs{
 	background-color: #F1F7FB;
-	background-color: #F8FAFB;
+/*	background-color: #F8FAFB; */
     width: 1164px;
     height: 550px;
     margin-left: 5px;
+    font-size: 16px;
 /*	background-image: url("/images/bg.png");
 	background-repeat: repeat; */
 /*
