@@ -10,7 +10,7 @@ gem 'clickatell'
 gem 'json'
 gem 'facebooker2'
 gem 'paypal_adaptive'
-gem 'ruby_core_source'
+#gem 'ruby_core_source'
 gem 'heroku'
 gem 'taps'
 gem 'multi_json'
@@ -26,7 +26,7 @@ gem 'httparty'
 #  gem 'uglifier', '>= 1.0.3'
 #end
 
-gem 'jquery-rails'
+#gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -38,11 +38,11 @@ gem 'jquery-rails'
 # gem 'capistrano'
 
 # To use debugger
- gem 'ruby-debug', :require => 'ruby-debug'
- gem 'ruby-debug-base'
- gem 'ruby-debug-ide'
+# gem 'ruby-debug', :require => 'ruby-debug'
+# gem 'ruby-debug-base'
+# gem 'ruby-debug-ide'
 
-group :test do
+#group :test do
   # Pretty printed test output
-  gem 'turn', '0.8.2', :require => false
-end
+#  gem 'turn', '0.8.2', :require => false
+#end
