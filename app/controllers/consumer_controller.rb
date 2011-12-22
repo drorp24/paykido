@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'clickatell'
-require 'ruby-debug'
 class Safecharge
   include HTTParty
   base_uri 'https://test.safecharge.com'

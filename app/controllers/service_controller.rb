@@ -1,5 +1,3 @@
-require 'ruby-debug'
-
 class Safecharge
   include HTTParty
   base_uri 'https://secure.safecharge.com'
