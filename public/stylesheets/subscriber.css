@@ -1,3 +1,65 @@
+.ui-very-rounded-corners {
+	border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+#tell_me_more, #register {
+	-webkit-text-shadow: 0px -1px #666, 0px 0px #FFF;
+	-mox-text-shadow: 0px -1px #666, 0px 0px #FFF;
+	text-shadow: 0px -1px #666, 0px 0px #FFF;
+	color: #00BCCF;
+	z-index: 1000;
+	position: absolute;
+    top: 108px;
+    left: 1020px;
+	font-size: 20px;
+    height: 50px;
+    width: 147px;
+    z-index: 1000;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -o-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -moz-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);}
+	border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+
+
+}
+
+#else.invitation_msg {
+
+	top: 200px;
+	    font-size: 20px;
+	font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
+
+
+}
+#second{
+	top: 120px;
+	font-size: 22px;
+	color: #00BCCF;
+	font-family: Lucida Grande,Lucida Sans,Arial,sans-serif;
+
+}
+#third{
+	top:153px;
+	
+}
+
+.invitation_msg {
+	z-index: 1000;
+	position: absolute;
+	left: 704px;
+	font-family:"Arial Rounded MT Bold";
+	color: #444444;
+	font-family: "Trebuchet MS";
+}
+
+
 .ui-widget-header input{
 	text-shadow: 0px -1px #666, 0px 0px #FFF;
 	-webkit-text-shadow: 0px -1px #666, 0px 0px #FFF;
@@ -80,9 +142,7 @@ td {
 }
 
 
-#under, #over {
-	margin-right: 235px;	
-}
+
 
 /*
 .ui-tabs-selected a {
@@ -190,7 +250,7 @@ img#gradient_wrap {
 
 #consumer_info_name, #consumer_info_phone, #consumer_info_pin, #consumer_info_pic {
 	float: right;
-	margin-right: 220px;
+	margin-right: 0px;
 	border-width: 0px;
 	text-align: right;
 }
@@ -572,7 +632,6 @@ tr.odd td.authorized_cell.really {
 .portlet-header input {
 	background: none;
 	width:130px;
-	font-weight: bold;
 	margin: 0;
 	padding: 0;
 }
@@ -1024,6 +1083,8 @@ a.login:hover {
 }
 
 .login {
+	position: absolute;
+	top: 30px;
     display: inline;
     z-index: 100;
     text-decoration: none;
@@ -1039,25 +1100,26 @@ a.login:hover {
 #signin {
     position: absolute;
     top: 41px;
-    left: 690px;
+    left: 657px;
 }
 
 #joinin {
-    position: absolute;
-    top: 41px;
-    left: 770px;
+
+    left: 937px;
 }
 
 #signedin {
-    position: absolute;
-    top: 30px;
-    left: 860px;
+
+    left: 448px;
 }
 
 #signout {
-    position: absolute;
-    top: 30px;
-    left: 1064px;
+
+    left: 1092px;
+}
+
+#whatis {
+	left: 704px;
 }
 
 .left_content {
@@ -1231,7 +1293,7 @@ body {
 
     margin-left: 5px;
 	width: 1159px;
-	background-image: url("/images/head_img3.png");
+	background-image: url("/images/head_img4.png");
 	width: 1172px;
 	height: 212px;
 		-moz-border-radius: 5px;

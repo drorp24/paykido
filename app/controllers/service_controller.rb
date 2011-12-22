@@ -16,14 +16,13 @@ class ServiceController < ApplicationController
   
   def invite
     
-    @user = User.authenticate_by_hp(params[:name], params[:authenticity_token])
+    @user = User.authenticate_by_hp(params[:email], params[:authenticity_token])
     if @user
       clear_payer_session if session[:payer] and session[:payer].id  != @user.payer.id 
       session[:user]  = @user
       session[:payer] = @payer = @user.payer
     else
       flash.now[:notice] = "user or password are incorrect. Please try again!"
-      return
     end
     
     render :action => :index
@@ -35,11 +34,7 @@ class ServiceController < ApplicationController
   end
     
   def safecharge_page
-    
-    #temporary until the push to heroku
-    sc_error
-    return
-    
+        
     merchant_site_id = "34721"
     merchant_id = "4678792034088503828"
     time_stamp = "2010-08-25%2011:12:52"
@@ -50,8 +45,8 @@ class ServiceController < ApplicationController
     item_amount_1 = "1"
     item_quantity_1 = "1"
     version = "3.0.0"
-    success_url = "http://alpha.paykido.com/service/sc_success"
-    error_url = "http://alpha.paykido.com/service/sc_success" 
+    success_url = "http://paykido.heroku.com/service/sc_success"
+    error_url = "http://paykido.heroku.com/service/sc_success" 
     
     Safecharge.post('/ppp/purchase.do', :query => {
      :merchant_site_id => merchant_site_id,
@@ -104,7 +99,7 @@ class ServiceController < ApplicationController
     @token = params[:Token]   
   end
   
-  def sc_error
+  def sc_success
     flash[:message] = "Congratulations! You are registered to Paykido!"
     redirect_to  :controller => "subscriber", :action => "payer_signedin"
   end

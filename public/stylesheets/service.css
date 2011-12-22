@@ -6,26 +6,28 @@
 }
 
 #tell_me_more, #register {
+	-webkit-text-shadow: 0px -1px #666, 0px 0px #FFF;
+	-mox-text-shadow: 0px -1px #666, 0px 0px #FFF;
+	text-shadow: 0px -1px #666, 0px 0px #FFF;
+	color: #00BCCF;
 	z-index: 1000;
 	position: absolute;
-    top: 106px;
+    top: 114px;
     left: 1000px;
-	font-size: 35px;
-    height: 67px;
-    width: 254px;
+	font-size: 20px;
+    height: 50px;
+    width: 183px;
     z-index: 1000;
 	box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
    -o-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
    -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
    -moz-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);}
-	text-shadow: 0px 1px 1px #fff;
-	-webkit-text-shadow: 0px 1px 1px #fff;
-	-mox-text-shadow: 0px 1px 1px #fff;
-	text-shadow: -1px -1px #666, 1px 1px #FFF;
 	border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
+
+
 }
 
 #else.invitation_msg {

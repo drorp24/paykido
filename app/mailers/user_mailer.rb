@@ -5,7 +5,7 @@ class UserMailer < ActionMailer::Base
 
     @user = user
     @consumer = consumer
-    @url  = url_for(:controller => "service", :action => "invite") + "?name=" + @user.name + "&authenticity_token=" + @user.hashed_password + "&email=" + @user.email + "&invited_by=" + @consumer.name
+#    @url  = url_for :controller => "service", :action => "invite" + "?name=" + @user.name + "authenticity_token=" + @user.hashed_password + "&email=" + @user.email + "&invited_by=" + @consumer.name
 
     email_with_name = "#{@user.name} <#{@user.email}>"
     mail(:to => email_with_name, :subject => "Join Paykido!")

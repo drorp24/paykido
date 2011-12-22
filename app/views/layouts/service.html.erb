@@ -34,7 +34,7 @@
 	<% end -%>
 	
 
-	<% if params[:action] != 'index' and session[:user] and session[:user].name %>
+	<% if params[:action] != 'index' and params[:action] != 'invite' and session[:user] and session[:user].name %>
 		<span class="login" id="signedin">
 			<% if @user %>
 				Welcome

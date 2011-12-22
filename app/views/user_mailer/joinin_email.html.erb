@@ -23,6 +23,14 @@
     <p>Not even Paykido! :)</p>
     <br\>
     <p>See what else can Paykido do for you:</p>
-	<p><%= @url %></p>
+	<%= link_to "Discover Paykido",
+		:host => "localhost:3000",
+		:controller => "subscriber", 
+		:action => "invite", 
+		:name => @user.name,
+		:authenticity_token => @user.hashed_password,
+		:email => @user.email,
+		:invited_by => @consumer.name
+	%>	
   </body>
 </html>

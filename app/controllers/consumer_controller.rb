@@ -197,6 +197,7 @@ class ConsumerController < ApplicationController
     redirect_to :controller => :play, 
                 :action => :index
 # find out later why: all session is being erased
+# perhaps the save state doesnt escape the url
 #                , 
 #                :scroll => session[:last_scroll], 
 #                :product => session[:product_title] + '@' + session[:product_price], 
@@ -222,11 +223,16 @@ class ConsumerController < ApplicationController
     
     @payer = @consumer.payer || Payer.find_or_initialize_by_email(facebook_params['registration']['payer_email'])
     @payer.update_attributes!(
-                              :name => facebook_params['registration']['payer_name'], 
-                              :email => facebook_params['registration']['payer_email'], 
-                              :phone => facebook_params['registration']['payer_phone'])    
+          :name => facebook_params['registration']['payer_name'], 
+          :email => facebook_params['registration']['payer_email'], 
+          :phone => facebook_params['registration']['payer_phone'])    
 
-    @consumer.update_attributes!(:name => facebook_params['registration']['name'],:payer_id => @payer.id, :billing_phone => facebook_params['registration']['consumer_phone'])
+    @consumer.update_attributes!(
+          :name => facebook_params['registration']['name'].split(' ')[0],
+          :payer_id => @payer.id, 
+          :billing_phone => facebook_params['registration']['consumer_phone'],
+          :pic =>  "https://graph.facebook.com/" + facebook_params['user_id'] + "/picture?type=large",
+          :tinypic => "https://graph.facebook.com/" + facebook_params['user_id'] + "/picture")
    
     @rule = @consumer.most_recent_payer_rule || @consumer.create_def_payer_rule!
 

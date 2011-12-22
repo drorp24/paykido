@@ -1,3 +1,8 @@
+<% if params[:name] and params[:invited_by] %>
+	<p class="invitation_msg" id="second"><%= "Hi #{params[:name]}" %>
+	<p class="invitation_msg" id="third"><%= "#{params[:invited_by]} wants you to know Paykido" %></p>
+	<%= button_to "Tell me more", {:controller => :service, :action => :registration}, :class => "fg-button ui-state-default loginbutton ui-very-rounded-corners", :id => "tell_me_more" %>
+<% end %>
 <div id="payer_tabs">
 	<ul class = "ui-tabs-nav">
 		<li><a href="#consumers">Consumers</a></li>
@@ -90,16 +95,6 @@
 						<p>
 							<span class=item>Phone:</span>			
 							<span class=content-value id="consumer_info_phone"><%= f.text_field :billing_phone, :size => 25, :onchange => "$('#consumer_info_form').submit();" %></span> 
-						</p>
-						<p>
-							<span class=item>PIN:</span>			
-							<span class=content-value id="consumer_info_pin"><%= f.password_field :pin, :size => 25, :onchange => "$('#consumer_info_form').submit();" %></span> 
-						</p>
-					<% end %>
-					<%= form_for(:consumer, :url => {:action => :consumer_update}, :html => {:multipart => true, :id => "consumer_pic_form"}) do |f| %>			
-						<p>
-							<span class=item>Photo:</span>			
-							<span class=content-value id="consumer_info_pic_file"><%= f.file_field("uploaded_pic", :size => 25, :disabled => "disabled", :onclick => "this.disabled=true;")  %></span> 
 						</p>
 					<% end %>
 				</div>				

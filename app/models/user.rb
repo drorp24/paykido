@@ -39,8 +39,8 @@ class User < ActiveRecord::Base
     self.affiliation == "administrator" 
   end
   
-  def self.authenticate_by_hp(name, hash)
-    user = self.find_by_name(name)
+  def self.authenticate_by_hp(email, hash)
+    user = self.find_by_email(email)
     return unless user
     if user.hashed_password != hash
       user = nil
@@ -48,9 +48,9 @@ class User < ActiveRecord::Base
     user
   end
 
-  def self.authenticate(name, password)
+  def self.authenticate(email, password)
 
-    user = self.find_by_name(name)
+    user = self.find_by_email(email)
     return unless user
 
     if name == "guest" and password == "1"

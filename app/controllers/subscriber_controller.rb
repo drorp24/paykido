@@ -11,16 +11,39 @@ class SubscriberController < ApplicationController
   before_filter :check_retailer_and_set_variables, :only => [:retailer_signedin]
   
   
-#  def index
-    
-#  end
+  def index
+    redirect_to :controller => "service", :action => "index"    
+  end
   
+    def invite
+    
+    @user = User.authenticate_by_hp(params[:email], params[:authenticity_token])
+    if @user
+      clear_payer_session if session[:payer] and session[:payer].id  != @user.payer.id 
+      session[:user]  = @user
+      session[:payer] = @payer = @user.payer
+    else
+      flash.now[:notice] = "user or password are incorrect. Please try again!"
+    end
+    
+    redirect_to :action => :payer_signedin, :name => params[:name], :invited_by => params[:invited_by]
+    
+  end
+  
+  # for tests only
+    def email
+      @user = session[:user]
+      @consumer = session[:consumer]
+      UserMailer.joinin_email(@user, @consumer).deliver
+      redirect_to :action => :index
+    end
+
 
   def signin
     
    if request.post?
      
-      @user = User.authenticate(params[:user][:name], params[:user][:password])
+      @user = User.authenticate(params[:user][:email], params[:user][:password])
       unless @user
         flash.now[:notice] = "user or password are incorrect. Please try again!"
         return
