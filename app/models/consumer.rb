@@ -23,7 +23,7 @@ class Consumer < ActiveRecord::Base
   
   def def_rule    
       @def_rule = PayerRule.find_by_payer_id(self.payer_id) if self.payer_id    
-      @def_rule ||= PayerRule.new(:allowance => 50, :rollover => false, :auto_authorize_under => 10, :auto_deny_over => 25)      
+      @def_rule ||= PayerRule.new(:allowance => 50, :rollover => false, :auto_authorize_under => 0, :auto_deny_over => 25)      
   end
   
   def facebook_user 

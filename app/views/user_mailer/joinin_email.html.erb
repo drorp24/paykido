@@ -1,36 +1,710 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-  </head>
-  <body>
-    <h2>Hi <%= @user.name %>, <%= @consumer.name %> wants you to know Paykido!</h2> 
-    <br\>
-	<h3>Introducing the first parental control for shopping</h3>
-	<br\>
-    <p>Paykido lets you define and control what your kid can buy</p>
-    <p>Paykido informs you of everything they buy before they do!</p>
-    <p>It enables you to approve or deny anything your kids buy</p>
-    <p>You can even define rules and let Paykido do the work for you!</p>
-    <br\>
-	<h3>Prepare to change anything you know about online safety</h3>
-	<br\>
-    <p>Unlike common alternatives, Paykido charges nothing off you in advance.</p>
-    <p>Paykido charges only when purchase is made, and only after you approve!</p>
-    <p>To register, you will provide your payment details to Safecharge</p>
-    <p>Safecharge will keep them safe and secure</p>.
-    <p>Noone and nobody will ever have access to your card details.</p> 
-    <p>Not even Paykido! :)</p>
-    <br\>
-    <p>See what else can Paykido do for you:</p>
-	<%= link_to "Discover Paykido",
-		:host => "localhost:3000",
-		:controller => "subscriber", 
-		:action => "invite", 
-		:name => @user.name,
-		:authenticity_token => @user.hashed_password,
-		:email => @user.email,
-		:invited_by => @consumer.name
-	%>	
-  </body>
+<!-- www.createsend.com follow their steps then send a test email. Open in Outlook and view source... -->
+<html style="background-color:#ececec;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;" >
+	<head>
+		<title></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<style type="text/css">
+			@media only screen and (max-device-width: 480px) {
+				table[class=w0], td[class=w0] {
+					width: 0 !important;
+				}
+				table[class=w10], td[class=w10], img[class=w10] {
+					width: 10px !important;
+				}
+				table[class=w15], td[class=w15], img[class=w15] {
+					width: 5px !important;
+				}
+				table[class=w30], td[class=w30], img[class=w30] {
+					width: 10px !important;
+				}
+				table[class=w60], td[class=w60], img[class=w60] {
+					width: 10px !important;
+				}
+				table[class=w125], td[class=w125], img[class=w125] {
+					width: 80px !important;
+				}
+				table[class=w130], td[class=w130], img[class=w130] {
+					width: 55px !important;
+				}
+				table[class=w140], td[class=w140], img[class=w140] {
+					width: 90px !important;
+				}
+				table[class=w160], td[class=w160], img[class=w160] {
+					width: 180px !important;
+				}
+				table[class=w170], td[class=w170], img[class=w170] {
+					width: 100px !important;
+				}
+				table[class=w180], td[class=w180], img[class=w180] {
+					width: 80px !important;
+				}
+				table[class=w195], td[class=w195], img[class=w195] {
+					width: 80px !important;
+				}
+				table[class=w220], td[class=w220], img[class=w220] {
+					width: 80px !important;
+				}
+				table[class=w240], td[class=w240], img[class=w240] {
+					width: 180px !important;
+				}
+				table[class=w255], td[class=w255], img[class=w255] {
+					width: 185px !important;
+				}
+				table[class=w275], td[class=w275], img[class=w275] {
+					width: 135px !important;
+				}
+				table[class=w280], td[class=w280], img[class=w280] {
+					width: 135px !important;
+				}
+				table[class=w300], td[class=w300], img[class=w300] {
+					width: 140px !important;
+				}
+				table[class=w325], td[class=w325], img[class=w325] {
+					width: 95px !important;
+				}
+				table[class=w360], td[class=w360], img[class=w360] {
+					width: 140px !important;
+				}
+				table[class=w410], td[class=w410], img[class=w410] {
+					width: 180px !important;
+				}
+				table[class=w470], td[class=w470], img[class=w470] {
+					width: 200px !important;
+				}
+				table[class=w580], td[class=w580], img[class=w580] {
+					width: 280px !important;
+				}
+				table[class=w640], td[class=w640], img[class=w640] {
+					width: 300px !important;
+				}
+				table[class=hide], td[class=hide], img[class=hide], p[class=hide], span[class=hide], .hide {
+					display: none !important;
+				}
+				table[class=h0], td[class=h0] {
+					height: 0 !important;
+				}
+				p[class=footer-content-left] {
+					text-align: center !important;
+				}
+				#headline p {
+					font-size: 30px !important;
+				}
+			}
+			#outlook a {
+				padding: 0;
+			}
+			body {
+				width: 100% !important;
+			}
+			.ReadMsgBody {
+				width: 100%;
+			}
+			.ExternalClass {
+				width: 100%;
+				display: block !important;
+			}
+			html, body {
+				background-color: #ececec;
+				margin: 0;
+				padding: 0;
+			}
+			img {
+				height: auto;
+				line-height: 100%;
+				outline: none;
+				text-decoration: none;
+				display: block;
+			}
+			br, strong br, b br, em br, i br {
+				line-height: 100%;
+			}
+			h1, h2, h3, h4, h5, h6 {
+				line-height: 100% !important;
+				-webkit-font-smoothing: antialiased;
+			}
+			h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+				color: blue !important;
+			}
+			h1 a:active, h2 a:active, h3 a:active, h4 a:active, h5 a:active, h6 a:active {
+				color: red !important;
+			}
+			h1 a:visited, h2 a:visited, h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited {
+				color: purple !important;
+			}
+			table td, table tr {
+				border-collapse: collapse;
+			}
+			.yshortcuts, .yshortcuts a, .yshortcuts a:link, .yshortcuts a:visited, .yshortcuts a:hover, .yshortcuts a span {
+				color: black;
+				text-decoration: none !important;
+				border-bottom: none !important;
+				background: none !important;
+			}
+			#background-table {
+				background-color: #ececec;
+			}
+			#top-bar {
+				border-radius: 6px 6px 0px 0px;
+				-moz-border-radius: 6px 6px 0px 0px;
+				-webkit-border-radius: 6px 6px 0px 0px;
+				-webkit-font-smoothing: antialiased;
+				background-color: #556c90;
+				color: #d9fffd;
+			}
+			#top-bar a {
+				font-weight: bold;
+				color: #d9fffd;
+				text-decoration: none;
+			}
+			#footer {
+				border-radius: 0px 0px 6px 6px;
+				-moz-border-radius: 0px 0px 6px 6px;
+				-webkit-border-radius: 0px 0px 6px 6px;
+				-webkit-font-smoothing: antialiased;
+			}
+			body {
+				font-family: Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;
+			}
+			.header-content, .footer-content-left, .footer-content-right {
+				-webkit-text-size-adjust: none;
+				-ms-text-size-adjust: none;
+			}
+			.header-content {
+				font-size: 12px;
+				color: #d9fffd;
+			}
+			.header-content a {
+				font-weight: bold;
+				color: #d9fffd;
+				text-decoration: none;
+			}
+			#headline p {
+				color: #d9fffd;
+				font-family: Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;
+				font-size: 36px;
+				text-align: center;
+				margin-top: 0px;
+				margin-bottom: 30px;
+			}
+			#headline p a {
+				color: #d9fffd;
+				text-decoration: none;
+			}
+			#left-sidebar .toc-item {
+				font-family: Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;
+				font-size: 12px;
+				line-height: 16px;
+				color: #383735;
+				margin-top: 0px;
+				margin-bottom: 6px;
+			}
+			#left-sidebar .toc-item a {
+				color: #383735;
+				text-decoration: none;
+			}
+			#left-sidebar .toc-heading {
+				font-family: Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;
+				font-size: 11px;
+				line-height: 15px;
+				color: #3f6569;
+				font-weight: bold;
+			}
+			#left-sidebar .toc-heading a {
+				color: #3f6569;
+				text-decoration: none;
+			}
+			#left-sidebar .left-column-heading {
+				font-family: Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;
+				font-size: 11px;
+				line-height: 15px;
+				color: #3f6569;
+				font-weight: bold;
+			}
+			#left-sidebar .left-column-heading a {
+				color: #3f6569;
+				text-decoration: none;
+			}
+			#left-sidebar .left-column-subhead {
+				font-family: Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;
+				font-size: 13px;
+				line-height: 16px;
+				color: #999999;
+				font-weight: bold;
+				margin-top: 0px;
+				margin-bottom: 16px;
+			}
+			#left-sidebar .left-column-subhead a {
+				color: #999999;
+				text-decoration: none;
+			}
+			#left-sidebar .left-column-content {
+				font-family: Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;
+				font-size: 12px;
+				line-height: 16px;
+				color: #3f6569;
+				margin-top: 0px;
+				margin-bottom: 16px;
+			}
+			#left-sidebar .left-column-content a {
+				color: #383735;
+				text-decoration: none;
+			}
+			.article-title {
+				font-size: 18px;
+				line-height: 24px;
+				color: #c25130;
+				font-weight: bold;
+				margin-top: 0px;
+				margin-bottom: 18px;
+				font-family: Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;
+			}
+			.article-title a {
+				color: #c25130;
+				text-decoration: none;
+			}
+			.article-content {
+				font-size: 13px;
+				line-height: 18px;
+				color: #444444;
+				margin-top: 0px;
+				margin-bottom: 18px;
+				font-family: Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;
+			}
+			.article-content a {
+				color: #3f6569;
+				font-weight: bold;
+				text-decoration: none;
+			}
+			.article-content ol, .article-content ul {
+				margin-top: 0px;
+				margin-bottom: 18px;
+				margin-left: 19px;
+				padding: 0;
+			}
+			.article-content li {
+				font-size: 13px;
+				line-height: 18px;
+				color: #444444;
+			}
+			.article-content li a {
+				color: #3f6569;
+				text-decoration: underline;
+			}
+			.article-content p {
+				margin-bottom: 15px;
+			}
+			.footer-content-left {
+				font-size: 12px;
+				line-height: 15px;
+				color: #d9fffd;
+				margin-top: 0px;
+				margin-bottom: 15px;
+			}
+			.footer-content-left a {
+				color: #d9fffd;
+				font-weight: bold;
+				text-decoration: none;
+			}
+			.footer-content-right {
+				font-size: 11px;
+				line-height: 16px;
+				color: #d9fffd;
+				margin-top: 0px;
+				margin-bottom: 15px;
+			}
+			.footer-content-right a {
+				color: #d9fffd;
+				font-weight: bold;
+				text-decoration: none;
+			}
+			#footer {
+				background-color: #425470;
+				color: #d9fffd;
+			}
+			#footer a {
+				color: #d9fffd;
+				text-decoration: none;
+				font-weight: bold;
+			}
+			#permission-reminder {
+				white-space: pre-wrap;
+			}
+			#street-address {
+				color: #d9fffd;
+				white-space: pre-wrap;
+			}
+		</style>
+		<!--[if gte mso 9]>
+		<style _tmplitem="338" >
+		.article-content ol, .article-content ul {
+		margin: 0 0 0 24px;
+		padding: 0;
+		list-style-position: inside;
+		}
+		</style>
+		<![endif]-->
+	</head>
+	<body style="width:100% !important;background-color:#ececec;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;font-family:Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;" >
+		<table id="background-table" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#ececec;" >
+			<tbody>
+				<tr style="border-collapse:collapse;" >
+					<td align="center" bgcolor="#ececec" style="border-collapse:collapse;" >
+					<table class="w640" border="0" cellpadding="0" cellspacing="0" width="640">
+						<tbody>
+							<tr style="border-collapse:collapse;" >
+								<td class="w640" height="20" width="640" style="border-collapse:collapse;" ></td>
+							</tr>
+							<tr style="border-collapse:collapse;" >
+								<td class="w640" width="640" style="border-collapse:collapse;" >
+								<table id="top-bar" class="w640" bgcolor="#FFFFFF" border="0" cellpadding="0" cellspacing="0" width="640" style="border-radius:6px 6px 0px 0px;-moz-border-radius:6px 6px 0px 0px;-webkit-border-radius:6px 6px 0px 0px;-webkit-font-smoothing:antialiased;background-color:#556c90;color:#d9fffd;" >
+									<tbody>
+										<tr style="border-collapse:collapse;" >
+											<td class="w15" width="15" style="border-collapse:collapse;" ></td>
+											<td class="w325" align="left" valign="middle" width="350" style="border-collapse:collapse;" >
+											<table class="w325" border="0" cellpadding="0" cellspacing="0" width="350">
+												<tbody>
+													<tr style="border-collapse:collapse;" >
+														<td class="w325" height="8" width="350" style="border-collapse:collapse;" ></td>
+													</tr>
+												</tbody>
+											</table>
+											<div class="header-content" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;font-size:12px;color:#d9fffd;" >
+												<a href="http://paykido.createsend3.com/t/j/e/cyhkrd/l/r/" style="font-weight:bold;color:#d9fffd;text-decoration:none;" >Web version</a><span class="hide">&nbsp;&nbsp;|&nbsp; <a href="http://paykido.updatemyprofile.com/j/l/2AD73FFF/l/y" style="font-weight:bold;color:#d9fffd;text-decoration:none;" >Update preferences</a>&nbsp;&nbsp;|&nbsp; <a href="http://paykido.createsend3.com/t/j/u/cyhkrd/l/j/" style="font-weight:bold;color:#d9fffd;text-decoration:none;" >Unsubscribe</a></span>
+											</div>
+											<table class="w325" border="0" cellpadding="0" cellspacing="0" width="350">
+												<tbody>
+													<tr style="border-collapse:collapse;" >
+														<td class="w325" height="8" width="350" style="border-collapse:collapse;" ></td>
+													</tr>
+												</tbody>
+											</table></td>
+											<td class="w30" width="30" style="border-collapse:collapse;" ></td>
+											<td class="w255" align="right" valign="middle" width="255" style="border-collapse:collapse;" >
+											<table class="w255" border="0" cellpadding="0" cellspacing="0" width="255">
+												<tbody>
+													<tr style="border-collapse:collapse;" >
+														<td class="w255" height="8" width="255" style="border-collapse:collapse;" ></td>
+													</tr>
+												</tbody>
+											</table>
+											<table border="0" cellpadding="0" cellspacing="0">
+												<tbody>
+													<tr style="border-collapse:collapse;" >
+														<td valign="middle" style="border-collapse:collapse;" ><a href="http://paykido.createsend3.com/t/j/fb/cyhkrd/l/t/" rel="cs_facebox" style="font-weight:bold;color:#d9fffd;text-decoration:none;" ><img src="https://img.createsend1.com/img/templatebuilder/like-glyph.png" alt="Facebook icon" ="" border="0" height="14" width="8" style="height:auto;line-height:100%;outline-style:none;text-decoration:none;display:block;" /></a></td>
+														<td width="3" style="border-collapse:collapse;" ></td>
+														<td valign="middle" style="border-collapse:collapse;" >
+														<div class="header-content" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;font-size:12px;color:#d9fffd;" >
+															<a href="http://paykido.createsend3.com/t/j/fb/cyhkrd/l/i/" rel="cs_facebox" style="font-weight:bold;color:#d9fffd;text-decoration:none;" >Like</a>
+														</div></td>
+														<td class="w10" width="10" style="border-collapse:collapse;" ></td>
+														<td valign="middle" style="border-collapse:collapse;" ><a href="http://paykido.createsend3.com/t/j/tw/cyhkrd/l/d/" style="font-weight:bold;color:#d9fffd;text-decoration:none;" ><img src="https://img.createsend1.com/img/templatebuilder/tweet-glyph.png" alt="Twitter icon" ="" border="0" height="13" width="17" style="height:auto;line-height:100%;outline-style:none;text-decoration:none;display:block;" /></a></td>
+														<td width="3" style="border-collapse:collapse;" ></td>
+														<td valign="middle" style="border-collapse:collapse;" >
+														<div class="header-content" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;font-size:12px;color:#d9fffd;" >
+															<a href="http://paykido.createsend3.com/t/j/tw/cyhkrd/l/h/" style="font-weight:bold;color:#d9fffd;text-decoration:none;" >Tweet</a>
+														</div></td>
+														<td class="w10" width="10" style="border-collapse:collapse;" ></td>
+														<td valign="middle" style="border-collapse:collapse;" ><a href="http://paykido.forwardtomyfriend.com/j/l/2AD73FFF/cyhkrd/l/k" style="font-weight:bold;color:#d9fffd;text-decoration:none;" ><img src="https://img.createsend1.com/img/templatebuilder/forward-glyph.png" alt="Forward icon" ="" border="0" height="14" width="19" style="height:auto;line-height:100%;outline-style:none;text-decoration:none;display:block;" /></a></td>
+														<td width="3" style="border-collapse:collapse;" ></td>
+														<td valign="middle" style="border-collapse:collapse;" >
+														<div class="header-content" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;font-size:12px;color:#d9fffd;" >
+															<a href="http://paykido.forwardtomyfriend.com/j/l/2AD73FFF/cyhkrd/l/u" style="font-weight:bold;color:#d9fffd;text-decoration:none;" >Forward</a>
+														</div></td>
+													</tr>
+												</tbody>
+											</table>
+											<table class="w255" border="0" cellpadding="0" cellspacing="0" width="255">
+												<tbody>
+													<tr style="border-collapse:collapse;" >
+														<td class="w255" height="8" width="255" style="border-collapse:collapse;" ></td>
+													</tr>
+												</tbody>
+											</table></td>
+											<td class="w15" width="15" style="border-collapse:collapse;" ></td>
+										</tr>
+									</tbody>
+								</table></td>
+							</tr>
+							<tr style="border-collapse:collapse;" >
+								<td id="header" class="w640" align="center" bgcolor="#FFFFFF" width="640" style="border-collapse:collapse;" >
+								<div  align="left" style="text-align:left;" ><img id="customHeaderImage" src="http://i2.createsend3.com/ti/j/90/9C5/BD0/223803/images/arca_logo.133517.png" class="w640"  align="top" border="0" style="display:inline;height:auto;line-height:100%;outline-style:none;text-decoration:none;" />
+			    <p style="margin-left: 200px"><span style="font-size: 16px"><strong>Dear <%= @user.name %></strong></span>, <%= @consumer.name %> asked us to tell you about Paykido.</p>
+					</div></td>
+							</tr>
+							<tr id="twocolumn-content-row" style="border-collapse:collapse;" >
+								<td class="w640" width="640" style="border-collapse:collapse;" >
+								<table class="w640" border="0" cellpadding="0" cellspacing="0" width="640">
+									<tbody>
+										<tr style="border-collapse:collapse;" >
+											<td class="w15" bgcolor="#f0f1f2" width="15" style="border-collapse:collapse;" ></td>
+											<td id="left-sidebar" class="w140" align="left" bgcolor="#f0f1f2" valign="top" width="140" style="border-collapse:collapse;" >
+											<table class="w140" border="0" cellpadding="0" cellspacing="0" width="140">
+												<tbody>
+													<tr style="border-collapse:collapse;" >
+														<td class="w140" height="15" width="140" style="border-collapse:collapse;" ></td>
+													</tr>
+													<tr style="border-collapse:collapse;" >
+														<td class="w140" width="140" style="border-collapse:collapse;" >
+														<p class="toc-heading" align="left" style="font-family:Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;font-size:11px;line-height:15px;color:#3f6569;font-weight:bold;" >
+															TABLE OF CONTENTS
+														</p>
+														<table border="0" cellpadding="0" cellspacing="0">
+															<tbody>
+																<tr style="border-collapse:collapse;" >
+																	<td width="3" style="border-collapse:collapse;" ></td>
+																	<td valign="top" style="border-collapse:collapse;" >
+																	<p class="toc-item" align="left" style="font-family:Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;font-size:12px;line-height:16px;color:#383735;margin-top:0px;margin-bottom:6px;" >
+																		•
+																	</p></td>
+																	<td width="6" style="border-collapse:collapse;" ></td>
+																	<td valign="top" style="border-collapse:collapse;" >
+																	<p class="toc-item" align="left" style="font-family:Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;font-size:12px;line-height:16px;color:#383735;margin-top:0px;margin-bottom:6px;" >
+																		<strong><a href="#toc_item_0" style="color:#383735;text-decoration:none;" >First Parental Control for Shopping</a></strong>
+																	</p></td>
+																</tr>
+															</tbody>
+														</table>
+														<table border="0" cellpadding="0" cellspacing="0">
+															<tbody>
+																<tr style="border-collapse:collapse;" >
+																	<td width="3" style="border-collapse:collapse;" ></td>
+																	<td valign="top" style="border-collapse:collapse;" >
+																	<p class="toc-item" align="left" style="font-family:Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;font-size:12px;line-height:16px;color:#383735;margin-top:0px;margin-bottom:6px;" >
+																		•
+																	</p></td>
+																	<td width="6" style="border-collapse:collapse;" ></td>
+																	<td valign="top" style="border-collapse:collapse;" >
+																	<p class="toc-item" align="left" style="font-family:Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;font-size:12px;line-height:16px;color:#383735;margin-top:0px;margin-bottom:6px;" >
+																		<strong><a href="#toc_item_1" style="color:#383735;text-decoration:none;" >Free to use, no payment in advance</a></strong>
+																	</p></td>
+																</tr>
+															</tbody>
+														</table>
+														<table border="0" cellpadding="0" cellspacing="0">
+															<tbody>
+																<tr style="border-collapse:collapse;" >
+																	<td width="3" style="border-collapse:collapse;" ></td>
+																	<td valign="top" style="border-collapse:collapse;" >
+																	<p class="toc-item" align="left" style="font-family:Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;font-size:12px;line-height:16px;color:#383735;margin-top:0px;margin-bottom:6px;" >
+																		•
+																	</p></td>
+																	<td width="6" style="border-collapse:collapse;" ></td>
+																	<td valign="top" style="border-collapse:collapse;" >
+																	<p class="toc-item" align="left" style="font-family:Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;font-size:12px;line-height:16px;color:#383735;margin-top:0px;margin-bottom:6px;" >
+																		<strong><a href="#toc_item_2" style="color:#383735;text-decoration:none;" >See how Paykido works</a></strong>
+																	</p></td>
+																</tr>
+															</tbody>
+														</table></td>
+													</tr>
+													<tr style="border-collapse:collapse;" >
+														<td class="w140" height="15" width="140" style="border-collapse:collapse;" ></td>
+													</tr>
+												</tbody>
+											</table>
+											<table class="w140" border="0" cellpadding="0" cellspacing="0" width="140">
+												<tbody>
+													<tr style="border-collapse:collapse;" >
+														<td class="w140" height="15" width="140" style="border-collapse:collapse;" ></td>
+													</tr>
+													<tr style="border-collapse:collapse;" >
+														<td class="w140" width="140" style="border-collapse:collapse;" >
+														<div class="left-column-heading" align="left" style="font-family:Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;font-size:11px;line-height:15px;color:#3f6569;font-weight:bold;" >
+															PAYKIDO NEWS
+														</div></td>
+													</tr>
+												</tbody>
+											</table>
+											<table class="w140" border="0" cellpadding="0" cellspacing="0" width="140">
+												<tbody>
+													<tr style="border-collapse:collapse;" >
+														<td class="w140" height="15" width="140" style="border-collapse:collapse;" ></td>
+													</tr>
+													<tr style="border-collapse:collapse;" >
+														<td class="w140" width="140" style="border-collapse:collapse;" ></td>
+													</tr>
+												</tbody>
+											</table>
+											<table class="w140" border="0" cellpadding="0" cellspacing="0" width="140">
+												<tbody>
+													<tr style="border-collapse:collapse;" >
+														<td class="w140" height="15" width="140" style="border-collapse:collapse;" ></td>
+													</tr>
+													<tr style="border-collapse:collapse;" >
+														<td class="w140" width="140" style="border-collapse:collapse;" >
+														<p class="left-column-subhead" align="left" style="font-family:Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;font-size:13px;line-height:16px;color:#999999;font-weight:bold;margin-top:0px;margin-bottom:16px;" >
+															<strong>Dec 21 Strategic partnership with Gate2Shop</strong>
+														</p></td>
+													</tr>
+													<tr style="border-collapse:collapse;" >
+														<td class="w140" width="140" style="border-collapse:collapse;" ><img label="Image" class="w140" border="0" width="140" src="http://i1.createsend3.com/ei/j/A9/17D/FCE/csimport/G2S_logo.135825.png" height="49" alt="Safecharge" style="height:auto;line-height:100%;outline-style:none;text-decoration:none;display:block;" /></td>
+													</tr>
+													<tr style="border-collapse:collapse;" >
+														<td class="w140" height="15" width="140" style="border-collapse:collapse;" ></td>
+													</tr>
+													<tr style="border-collapse:collapse;" >
+														<td class="w140" width="140" style="border-collapse:collapse;" >
+														<div class="left-column-content" align="left" style="font-family:Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;font-size:12px;line-height:16px;color:#3f6569;margin-top:0px;margin-bottom:16px;" >
+															<p>
+																Gate2Shop will distribute Paykido's Parental Controlled Payment to hundreds publishers across Europe, Asia and South America.
+															</p>
+														</div></td>
+													</tr>
+												</tbody>
+											</table></td>
+											<td class="w15" bgcolor="#f0f1f2" width="15" style="border-collapse:collapse;" ></td>
+											<td class="w470" bgcolor="#ffffff" valign="top" width="470" style="border-collapse:collapse;" >
+											<table class="w470" border="0" cellpadding="0" cellspacing="0" width="470">
+												<tbody>
+													<tr style="border-collapse:collapse;" >
+														<td class="w470" height="30" width="470" style="border-collapse:collapse;" ></td>
+													</tr>
+												</tbody>
+											</table>
+											<table class="w470" border="0" cellpadding="0" cellspacing="0" width="470">
+												<tbody>
+													<tr style="border-collapse:collapse;" >
+														<td class="w30" width="30" style="border-collapse:collapse;" ></td>
+														<td class="w410" width="410" style="border-collapse:collapse;" >
+														<table class="w410" border="0" cellpadding="0" cellspacing="0" width="410">
+															<tbody>
+																<tr style="border-collapse:collapse;" >
+																	<td class="w410" width="410" style="border-collapse:collapse;" >
+																	<p class="article-title" align="left" style="font-size:18px;line-height:24px;color:#c25130;font-weight:bold;margin-top:0px;margin-bottom:18px;font-family:Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;" >
+																		<a name="toc_item_0" style="color:#c25130;text-decoration:none;" ></a>First Parental Control for Shopping
+																	</p>
+																	<div class="article-content" align="left" style="font-size:13px;line-height:18px;color:#444444;margin-top:0px;margin-bottom:18px;font-family:Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;" >
+																		<p style="margin-bottom:15px;" >
+																			Kids can buy the wrong stuff. Paykido keeps their shopping safe. Powered by leading clearing solutions worldwide, Paykido protects your kids and saves your bills.
+																		</p>
+																		<p style="margin-bottom:15px;" >
+																			No more bill shocks, offers, bad products and outrageous commissions.&nbsp; No more using your credit card, buying prepaid cards and endlessly recharging debit accounts.
+																		</p>
+																		<p style="margin-bottom:15px;" >
+																			Approve every purchase before they make it or define your rules and let paykido enforce them for you.
+																		</p>
+																	</div></td>
+																</tr>
+																<tr style="border-collapse:collapse;" >
+																	<td class="w410" height="10" width="410" style="border-collapse:collapse;" ></td>
+																</tr>
+															</tbody>
+														</table>
+														<table class="w410" border="0" cellpadding="0" cellspacing="0" width="410">
+															<tbody>
+																<tr style="border-collapse:collapse;" >
+																	<td class="w410" width="410" style="border-collapse:collapse;" >
+																	<p class="article-title" align="left" style="font-size:18px;line-height:24px;color:#c25130;font-weight:bold;margin-top:0px;margin-bottom:18px;font-family:Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;" >
+																		<a name="toc_item_1" style="color:#c25130;text-decoration:none;" ></a>Free to use, no payment in advance
+																	</p>
+																	<div class="article-content" align="left" style="font-size:13px;line-height:18px;color:#444444;margin-top:0px;margin-bottom:18px;font-family:Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;" >
+																		<p style="margin-bottom:15px;" >
+																			Pay nothing in advance!&nbsp; Paykido charges you after a purchase is made, and only if you approved it. Paykido is much different than any other payment or control service you have ever encountered.
+																		</p>
+																	</div></td>
+																</tr>
+																<tr style="border-collapse:collapse;" >
+																	<td class="w410" height="10" width="410" style="border-collapse:collapse;" ></td>
+																</tr>
+															</tbody>
+														</table>
+														<table class="w410" border="0" cellpadding="0" cellspacing="0" width="410">
+															<tbody>
+																<tr style="border-collapse:collapse;" >
+																	<td class="w410" width="410" style="border-collapse:collapse;" >
+																	<p class="article-title" align="left" style="font-size:18px;line-height:24px;color:#c25130;font-weight:bold;margin-top:0px;margin-bottom:18px;font-family:Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;" >
+																		<a name="toc_item_2" style="color:#c25130;text-decoration:none;" ></a>See how Paykido works
+																	</p>
+																	<table align="right" border="0" cellpadding="0" cellspacing="0">
+																		<tbody>
+																			<tr style="border-collapse:collapse;" >
+																				<td class="w30" width="15" style="border-collapse:collapse;" ></td>
+																				<td style="border-collapse:collapse;" ><img label="Image" class="w220" border="0" width="167" src="http://i2.createsend3.com/ei/j/A9/17D/FCE/csimport/yellowshirt_kid.140405.png" height="195" style="height:auto;line-height:100%;outline-style:none;text-decoration:none;display:block;" /></td>
+																			</tr>
+																			<tr style="border-collapse:collapse;" >
+																				<td class="w30" height="5" width="15" style="border-collapse:collapse;" ></td><td style="border-collapse:collapse;" ></td>
+																			</tr>
+																		</tbody>
+																	</table>
+																	<div class="article-content" align="left" style="font-size:13px;line-height:18px;color:#444444;margin-top:0px;margin-bottom:18px;font-family:Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;" >
+																		<p style="margin-bottom:15px;" >
+																			We've opened an account for you! Go on, give it a try.
+																		</p>
+																		<p style="margin-bottom:15px;" >
+																			Click
+																			<%= link_to "Discover Paykido",
+                                        :host => "alpha.paykido.com",
+                                        :controller => "subscriber",
+                                        :action => "invite",
+                                        :name => @user.name,
+                                        :authenticity_token => @user.hashed_password,
+                                        :email => @user.email,
+                                        :invited_by => @consumer.name
+%>
+																			and start controlling what your kids buy.
+																		</p>
+																	</div></td>
+																</tr>
+																<tr style="border-collapse:collapse;" >
+																	<td class="w410" height="10" width="410" style="border-collapse:collapse;" ></td>
+																</tr>
+															</tbody>
+														</table></td>
+														<td class="w30" width="30" style="border-collapse:collapse;" ></td>
+													</tr>
+												</tbody>
+											</table></td>
+										</tr>
+									</tbody>
+								</table></td>
+							</tr>
+							<tr style="border-collapse:collapse;" >
+								<td class="w640" width="640" style="border-collapse:collapse;" >
+								<table class="w640" border="0" cellpadding="0" cellspacing="0" width="640">
+									<tbody>
+										<tr style="border-collapse:collapse;" >
+											<td class="w170" bgcolor="#f0f1f2" height="15" width="170" style="border-collapse:collapse;" ></td>
+											<td class="w470" bgcolor="#ffffff" height="15" width="470" style="border-collapse:collapse;" ></td>
+										</tr>
+									</tbody>
+								</table></td>
+							</tr>
+							<tr style="border-collapse:collapse;" >
+								<td class="w640" width="640" style="border-collapse:collapse;" >
+								<table id="footer" class="w640" bgcolor="#425470" border="0" cellpadding="0" cellspacing="0" width="640" style="border-radius:0px 0px 6px 6px;-moz-border-radius:0px 0px 6px 6px;-webkit-border-radius:0px 0px 6px 6px;-webkit-font-smoothing:antialiased;background-color:#425470;color:#d9fffd;" >
+									<tbody>
+										<tr style="border-collapse:collapse;" >
+											<td class="w30" width="30" style="border-collapse:collapse;" ></td><td class="w580 h0" height="30" width="360" style="border-collapse:collapse;" ></td><td class="w0" width="60" style="border-collapse:collapse;" ></td><td class="w0" width="160" style="border-collapse:collapse;" ></td><td class="w30" width="30" style="border-collapse:collapse;" ></td>
+										</tr>
+										<tr style="border-collapse:collapse;" >
+											<td class="w30" width="30" style="border-collapse:collapse;" ></td>
+											<td class="w580" valign="top" width="360" style="border-collapse:collapse;" ><span class="hide">
+												<p id="permission-reminder" class="footer-content-left" align="left" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;font-size:12px;line-height:15px;color:#d9fffd;margin-top:0px;margin-bottom:15px;white-space:pre-wrap;" >
+													&nbsp;
+												</p></span>
+											<p class="footer-content-left" align="left" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;font-size:12px;line-height:15px;color:#d9fffd;margin-top:0px;margin-bottom:15px;" >
+												<a href="http://paykido.updatemyprofile.com/j/l/2AD73FFF/l/o" style="color:#d9fffd;text-decoration:none;font-weight:bold;" >Edit your subscription</a> | <a href="http://paykido.createsend3.com/t/j/u/cyhkrd/l/b/" style="color:#d9fffd;text-decoration:none;font-weight:bold;" >Unsubscribe instantly</a>
+											</p></td>
+											<td class="hide w0" width="60" style="border-collapse:collapse;" ></td>
+											<td class="hide w0" valign="top" width="160" style="border-collapse:collapse;" >
+											<p id="street-address" class="footer-content-right" align="right" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;font-size:11px;line-height:16px;margin-top:0px;margin-bottom:15px;color:#d9fffd;white-space:pre-wrap;" >
+												&nbsp;
+											</p></td>
+											<td class="w30" width="30" style="border-collapse:collapse;" ></td>
+										</tr>
+										<tr style="border-collapse:collapse;" >
+											<td class="w30" width="30" style="border-collapse:collapse;" ></td><td class="w580 h0" height="15" width="360" style="border-collapse:collapse;" ></td><td class="w0" width="60" style="border-collapse:collapse;" ></td><td class="w0" width="160" style="border-collapse:collapse;" ></td><td class="w30" width="30" style="border-collapse:collapse;" ></td>
+										</tr>
+									</tbody>
+								</table></td>
+							</tr>
+							<tr style="border-collapse:collapse;" >
+								<td class="w640" height="60" width="640" style="border-collapse:collapse;" ></td>
+							</tr>
+						</tbody>
+					</table></td>
+				</tr>
+			</tbody>
+		</table><img src="https://createsend3.com/t/j/o/cyhkrd/l/o.gif"  width="1" height="1" border="0" style="height:1px !important;width:1px !important;border-width:0 !important;margin-top:0 !important;margin-bottom:0 !important;margin-right:0 !important;margin-left:0 !important;padding-top:0 !important;padding-bottom:0 !important;padding-right:0 !important;padding-left:0 !important;line-height:100%;outline-style:none;text-decoration:none;display:block;" />
+	</body>
 </html>

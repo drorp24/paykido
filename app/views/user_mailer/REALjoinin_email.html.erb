@@ -1,25 +1,32 @@
-	Hi <%= @user.name %>, <%= @consumer.name %> asked us to tell you about Paykido.
-
-	First parental control for shopping
-	
-    
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+	<%= image_tag "http://alpha.paykido.com/images/arca_logo.png", :id=>"logoimg",:border => 0 %>
+    <p>Hi <%= @user.name %>, <%= @consumer.name %> asked us to tell you about Paykido.</p> 
+    <br\>
+	<h3>First parental control for shopping</h3>
+	<br\>
+    <p>
     	Kids can buy the wrong stuff. Paykido keeps their shopping safe. 
     	Powered by leading clearing solutions, Paykido provides the first parental control for shopping. 
     	No more bill shocks, offers, bad products and outrageous 50% commissions. 
     	No more using your credit card, buying prepaid cards and endlessly recharging debit accounts. 
-    	approve every purchase before they make it, or define your rules and let paykido denforce them for you.
+    	approve every purchase before they make it, or define your rules and let paykido denforce them for you.</p>
 
-	A free service that requires no rules to set or payment in advance.
-	
+	<h3>A free service that requires no rules to set or payment in advance</h3>
+	<p>
 		Different than popular prepaid solutions, Paykido charges nothing in advance. 
 		If and when approved, purchase is charged to your account. 
 		Paykido charges nothing extra. The service is absolutely free.
+	</p>
 	
-	
-	See how Paykido works
-	
+	<h3>See how Paykido works</h3>
+	<p>
 		We've opened an account for you! Click below and see what you could do with Paykido.	.
-	
+	</p>
 	<%= link_to "Discover Paykido",
 		:host => "alpha.paykido.com",
 		:controller => "subscriber", 
@@ -29,3 +36,5 @@
 		:email => @user.email,
 		:invited_by => @consumer.name
 	%>	
+  </body>
+</html>
