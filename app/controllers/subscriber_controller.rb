@@ -23,7 +23,7 @@ class SubscriberController < ApplicationController
       session[:user]  = @user
       session[:payer] = @payer = @user.payer
     else
-      flash.now[:notice] = "user or password are incorrect. Please try again!"
+      flash[:notice] = "user or password are incorrect. Please try again!"
     end
     
     redirect_to :action => :payer_signedin, :name => params[:name], :invited_by => params[:invited_by]

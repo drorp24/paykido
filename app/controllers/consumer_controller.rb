@@ -131,6 +131,9 @@ class ConsumerController < ApplicationController
         elsif sms == "sent" 
           @first_line = "We sent your parents a registration invite"
           @second_line = "You can use Paykido as soon as they accept it!"
+        elsif email == "failed"
+          @first_line = "We could not send your parents the invite"
+          @second_line = "check the email address and try again."
         elsif sms == "failed"
           @first_line = "We could not send your parents the invite"
           @second_line = "Try registering again. Note the phone number."
@@ -191,8 +194,7 @@ class ConsumerController < ApplicationController
     find_or_create_user
     inform_payer    
     
-    session[:friend_authenticated] = true 
-
+   session[:friend_authenticated] = true 
     redirect_to :controller => :play, 
                 :action => :index
 # find out later why: all session is being erased
@@ -264,8 +266,12 @@ class ConsumerController < ApplicationController
     
   end 
   
-  def inform_payer_by_email (user, consumer)   
-    UserMailer.joinin_email(user, consumer).deliver
+  def inform_payer_by_email (user, consumer)
+    begin   
+      UserMailer.joinin_email(user, consumer).deliver
+    rescue
+      @email == "failed"
+    end
   end
 
   
@@ -276,10 +282,8 @@ class ConsumerController < ApplicationController
       return
     end
     
-    name = consumer.name    
-    phone = payer.phone
-    message = "#{name} wants you to know Paykido, a way to control what kids buy! See our email for more details"
-    sms(phone,message)
+    message = "Hi #{payer.name}! #{consumer.name} asked us to tell you about Paykido. See our email for details"
+    sms(payer.phone,message)
     return if @sms == "failed"
     
     @sms = "sent"
