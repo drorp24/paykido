@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111218092521) do
+ActiveRecord::Schema.define(:version => 20111226102832) do
 
   create_table "billings", :force => true do |t|
     t.string    "method",     :null => false
@@ -43,17 +42,23 @@ ActiveRecord::Schema.define(:version => 20111218092521) do
   end
 
   create_table "consumers", :force => true do |t|
-    t.string    "billing_phone"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.decimal   "balance"
-    t.string    "pin"
-    t.string    "name"
-    t.string    "pic"
-    t.string    "facebook_id"
-    t.integer   "payer_id"
-    t.string    "facebook_access_token"
-    t.string    "tinypic"
+    t.string   "billing_phone"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "pin"
+    t.string   "name"
+    t.string   "pic"
+    t.string   "facebook_id"
+    t.integer  "payer_id"
+    t.string   "facebook_access_token"
+    t.string   "tinypic"
+    t.decimal  "allowance"
+    t.string   "allowance_period"
+    t.datetime "allowance_change_date"
+    t.decimal  "balance_on_acd"
+    t.decimal  "purchases_since_acd"
+    t.decimal  "auto_authorize_under"
+    t.decimal  "auto_deny_over"
   end
 
   add_index "consumers", ["billing_phone"], :name => "index_consumers_on_billing_phone"

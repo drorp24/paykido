@@ -1,17 +1,16 @@
-$('#cheerful_message').fadeOut(10000); 
-$('#balance').val(<%= @consumer.balance %>);
-$('#budget').val(<%= @consumer_rule.allowance %>);
+$('#balance').html('<%= number_to_currency @consumer.balance %>');
+$('#budget').val(<%= @consumer.allowance %>);
 $('#allowance_form').attr('action', '<%= "/subscriber/consumer_update/#{@consumer.id}" %>');
 <% if @consumer.name.blank? %>
-	$('#consumer_name_allowance').html("Consumer's monthly allowance");
+	$('#consumer_name_allowance').html("Consumer's allowance");
 	$('#cname').html(" consumer");
 <% else %>
-	$('#consumer_name_allowance').html("<%= @consumer.name %>'s monthly allowance");
+	$('#consumer_name_allowance').html("<%= "#{@consumer.name}'s allowance" %>");
 	$('#cname').html(" <%= @consumer.name %>");
 <% end %>
 
-$('#under').val(<%= @consumer_rule.auto_authorize_under %>);
-$('#over').val(<%= @consumer_rule.auto_deny_over %>);
+$('#under').val(<%= @consumer.auto_authorize_under %>);
+$('#over').val(<%= @consumer.auto_deny_over %>);
 $('#amounts_form').attr('action', '<%= "/subscriber/consumer_update/#{@consumer.id}" %>');
 <% if @consumer.name.blank? %>
 	$('#consumer_name_approvals').html("Consumer's thresholds");

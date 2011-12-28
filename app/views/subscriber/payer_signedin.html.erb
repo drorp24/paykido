@@ -31,13 +31,17 @@
 				<div class="left_content">
 					<p class="content-name-left" id="consumer_name_allowance"></p>		
 					<div id="gauge"><img id='chartdiv' class="engrave"/></div>
-					<%= form_for :payer_rule, :url => { :action => :consumer_update }, :html => {:id => "allowance_form"} do |f| %>			
-					    <span class="long item">Monthly Allowance:</span>
-						<span class="allowance_value"><%= f.text_field(:edited_budget, :onchange => "modifyBudget('post')", :id => "budget", :size => 10) %></span>
+					<%= form_for :consumer, :url => {:action => :consumer_update }, :html => {:id => "allowance_form"} do |f| %>			
 					    <div class="long item" id="budget_slider" onclick="modifyBudget('post')"></div>
-					    <span id="balance_title" class="long item">Current Balance:</span>
-						<span class="balance_value"><%= text_field(:consumer, :edited_balance, :onchange => "modifyBalance('post')", :id => "balance", :class => "dollar_amount", :size => 10) %></span>
-					    <div id="balance_slider" onclick="modifyBalance('post')"></div>
+						<p>
+							<span id="allowance_period"><%= f.select(:allowance_period, Consumer.allowance_period,{}, :onchange => "$('#allowance_form').submit();", :class => "borderless" )%></span>
+						    <span class="long item">allowance:</span>
+							<span class="allowance_value"><%= f.text_field(:edited_allowance, :onchange => "modifyBudget('post')", :id => "budget", :size => 10) %></span>							
+						</p>
+						<p>							
+						    <span id="balance_title" class="long item">Current balance:</span>
+							<span id="balance" class="balance_value"><%= number_to_currency(@consumer.balance) %></span>
+						</p>
 					<% end %>
 				</div>
 				<div class="middle_content">
@@ -60,7 +64,7 @@
 					<div class="inner_content_text"><span>Should Paykido automatically approve</span><span id="cname"></span><span>'s low</span></div>
 					<div class="inner_content_text">priced purchases , or deny high priced ones?</div>
 					<div id='slider-range' class="engrave" onclick="modifyUnderOver('post')"></div><br />
-					<%= form_for :payer_rule, :url => { :action => :consumer_update }, :html => {:id => "amounts_form"} do |f| %>
+					<%= form_for :consumer, :url => { :action => :consumer_update }, :html => {:id => "amounts_form"} do |f| %>
 						<p id="slider">
 							<span class="rule">Approve anything under</span>
 							<span><%= f.text_field(:edited_auto_authorize_under, :onchange => "modifyUnderOver('post')", :id => "under", :size => 10) %></span>
@@ -392,55 +396,13 @@
 
 	
 	
-	function modifyBalance (verb) {
-		
-		$(function () {
-			var budget_with_currency = document.getElementById("budget").value;
-			var budget = Number(budget_with_currency.replace(/[^0-9\.]+/g,""));
-			var balance_with_currency = document.getElementById("balance").value;
-			var balance = Number(balance_with_currency.replace(/[^0-9\.]+/g,""));
-			$("#balance_slider").slider({
-				value: balance,
-				min: 0,
-				max: 150,
-				slide: function(event, ui) {
-					$("#balance").val('$' + ui.value +'.00');
-				}
-			});
-			$("#balance").val('$' + $("#balance_slider").slider("value")+'.00');
-		});
-
-
-		$(function () {
-			$("#balance_slider").slider({
-				change: function(event, ui) {
-					if (verb == "post") {
-						drawChart();
-					}
-				}	
-				
-			});
-		});
-
-		if (verb == "post") {
-			$('#allowance_form').submit()
-		}
-
-
-	}	
-
 	function drawChart(){
 
 	<% if Current.policy.online? %>
 		var budget_with_currency = document.getElementById("budget").value;
 		var budget = Number(budget_with_currency.replace(/[^0-9\.]+/g, ""));
-		var balance_with_currency = document.getElementById("balance").value;
+		var balance_with_currency = $('#balance').html();
 		var balance = Number(balance_with_currency.replace(/[^0-9\.]+/g, ""));
-		if (balance > budget) {
-			balance = budget;
-			document.getElementById("balance").value = '$' + budget + '.00';
-			modifyBalance ();
-		}
 		var balance_position = (balance / budget) * 100;
 		var tick = ((budget / 40).toFixed(1)) * 10;
 		var background = "chf=c,lg,90,FFE7C6,0,76A4FB,0.5"

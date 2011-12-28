@@ -45,9 +45,9 @@ gem 'httparty'
 # gem 'capistrano'
 
 # To use debugger
-# gem 'ruby-debug', :require => 'ruby-debug'
-# gem 'ruby-debug-base'
-# gem 'ruby-debug-ide'
+# gem 'ruby-debug19', :require => 'ruby-debug'
+# gem 'ruby-debug-base19'
+# gem 'ruby-debug-ide19'
 
 #group :test do
   # Pretty printed test output

@@ -8,7 +8,7 @@
 		<%= form_for(:user, :url => { :action => :index }, :html => {:id => "friend_signin"}) do |f| %>
 			
 			<p>
-				<%= f.text_field :name, :size => 20, :placeholder => "Select a user name", :class => "formfield", :id => "f_user" %>				
+				<%= f.text_field :email, :size => 20, :placeholder => "Select a user name", :class => "formfield", :id => "f_user" %>				
 			</p>
 			<p>
 				<%= f.password_field :password, :size => 20, :placeholder => "Select a password", :class => "formfield", :id => "f_pass" %>				

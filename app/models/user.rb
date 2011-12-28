@@ -1,4 +1,6 @@
 require 'digest/sha1'
+#require 'ruby-debug'
+
 
 class User < ActiveRecord::Base
   
@@ -49,23 +51,15 @@ class User < ActiveRecord::Base
   end
 
   def self.authenticate(email, password)
-
     user = self.find_by_email(email)
-    return unless user
-
-    if name == "guest" and password == "1"
-      user = nil
-    elsif name == "guest" and password == "160395"
-      user
-    else
+    debugger
+    if user
       expected_password = encrypted_password(password, user.salt)
       if user.hashed_password != expected_password
         user = nil
       end
     end
-
     user
-
   end
   
   

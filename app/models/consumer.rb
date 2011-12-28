@@ -1,3 +1,4 @@
+#require 'ruby-debug'
 class Consumer < ActiveRecord::Base
   
   belongs_to :payer
@@ -7,13 +8,73 @@ class Consumer < ActiveRecord::Base
   has_one :most_recent_payer_rule,
     :class_name =>  'PayerRule' ,
     :order =>       'created_at DESC'
+    
+  after_initialize :init
+  def init
+      self.allowance  ||= 0           
+      self.allowance_period ||= 'Weekly'
+      self.allowance_change_date ||= Time.now
+      self.balance_on_acd ||= 0
+      self.purchases_since_acd ||= 0
+      self.auto_authorize_under ||= 0
+      self.auto_deny_over ||= 35
+  end
 
-  
- 
-  def subtract(amount)
-    self.balance -= amount
+  def edited_auto_authorize_under
+    number_to_currency(self.auto_authorize_under).strip
   end
   
+  def edited_auto_authorize_under=(edited)
+    self.auto_authorize_under = edited.delete "$"
+  end
+
+  def edited_auto_deny_over
+    number_to_currency(self.auto_deny_over)
+  end
+  
+  def edited_auto_deny_over=(edited)
+    self.auto_deny_over = edited.delete "$"
+  end
+
+  def self.allowance_period
+    [["Weekly" , "Weekly"], ["Monthly" , "Monthly"]]            
+  end  
+ 
+  def balance
+
+    return @balance if @balance
+    
+    self.balance_on_acd        ||= 0
+    self.allowance             ||= 0
+    self.purchases_since_acd   ||= 0
+    self.allowance_change_date ||= self.created_at
+
+    @balance = self.balance_on_acd + self.periods_since_acd *  self.allowance - self.purchases_since_acd
+ 
+  end
+
+  def periods_since_acd
+    if allowance_period == 'Weekly'
+      Time.now.strftime("%W").to_i - allowance_change_date.strftime("%W").to_i
+    elsif allowance_period == 'Monthly'
+      Time.now.strftime("%m").to_i - allowance_change_date.strftime("%m").to_i
+    else
+      nil 
+    end           
+  end
+    
+  def record(amount)
+    self.purchases_since_acd += amount
+  end
+  
+  def edited_allowance
+    number_to_currency(self.allowance)
+  end
+
+  def edited_allowance=(edited)
+    self.allowance = edited.delete "$"
+  end
+
   def create_def_payer_rule!
     @rule = self.def_rule
     @rule.consumer_id = self.id
@@ -73,7 +134,6 @@ class Consumer < ActiveRecord::Base
                :order =>      "consumers.id, authorized")
   end
   
- 
   def self.old_payer_consumers_the_works(payer_id)
 
     self.find_all_by_payer_id(payer_id,

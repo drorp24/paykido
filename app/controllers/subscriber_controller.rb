@@ -1,5 +1,5 @@
 include ActionView::Helpers::NumberHelper
-require 'rubygems'
+#require 'rubygems'
 require 'clickatell'
 #require 'paypal_adaptive'
 require 'httparty'
@@ -110,11 +110,11 @@ class SubscriberController < ApplicationController
 
   def payer_signedin
     
-    @consumers = Consumer.payer_consumers_the_works(@payer.id)
-    get_rid_of_duplicates
+    @consumers = Consumer.find_all_by_payer_id(@payer.id)
+#    get_rid_of_duplicates
     session[:consumers] = @consumers 
     # while most are purchase aggregations, @consumer is an actual consumer record
-    session[:consumer] = (@consumers.empty?) ?nil :Consumer.find(@consumers[0].id)
+    @consumer = session[:consumer] = (@consumers.empty?) ?nil :Consumer.find(@consumers[0].id)
         
     @retailers = Purchase.payer_retailers_the_works(@payer.id)
     session[:retailers] = @retailers
@@ -255,23 +255,27 @@ end
     find_consumer
 
     if params[:consumer] 
+      if params[:consumer][:edited_allowance] 
+          new_allowance = params[:consumer][:edited_allowance].delete '$'  # bad I18n 
+          if new_allowance != @consumer.allowance 
+            @consumer.balance_on_acd = @consumer.balance
+            @consumer.allowance_change_date = Time.now
+            @consumer.purchases_since_acd = 0
+          end
+      end
+      if params[:consumer][:allowance_period] and params[:consumer][:allowance_period] != @consumer.allowance_period
+            @consumer.balance_on_acd = @consumer.balance
+            @consumer.allowance_change_date = Time.now
+            @consumer.purchases_since_acd = 0      
+      end
       if @consumer.update_attributes(params[:consumer])
-        session[:consumer] = @consumer
+          session[:consumer] = @consumer
       else
-        flash[:notice] = "Invalid... please try again!"
-        return
+          flash[:notice] = "Invalid... please try again!"
+          return
       end
     end
     
-    if params[:payer_rule] 
-      if @consumer_rule.update_attributes(params[:payer_rule]) 
-        session[:consumer_rule] = @consumer_rule
-      else
-        flash[:notice] = "Invalid... please try again!"
-        return
-      end
-    end
- 
     if params[:name] 
       if @consumer.update_attributes(:name => params[:name])
         session[:consumer] = @consumer
@@ -508,16 +512,12 @@ end
     
     if session[:consumer] and session[:consumer].id == params[:id]
       @consumer = session[:consumer]
-      @consumer_rule = session[:consumer_rule]
-    else
-      @consumer_purchases = session[:consumers].select{|consumer| consumer.id == params[:id].to_i}[0]
-      @consumer = Consumer.find(@consumer_purchases.id)
-      @consumer_rule = @consumer.most_recent_payer_rule
+     else
+      @consumer = Consumer.find(params[:id])
     end
    
     session[:consumer] = @consumer
-    session[:consumer_rule] = @consumer_rule
-    
+
   end
   
   
@@ -575,7 +575,7 @@ end
   
   def clear_payer_session
     session[:user] = session[:payer] =
-    session[:consumers] = session[:consumer] =  session[:consumer_rule] = 
+    session[:consumers] = session[:consumer] =  
     session[:retailers] = session[:retailer] = 
     session[:products] = session[:product] =
     session[:categories] = session[:category] =

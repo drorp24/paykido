@@ -1,3 +1,11 @@
+#consumer_allowance_period {
+	width: 81px;
+	background: transparent;
+	color: #362B36;	
+}	
+#allowance_period {
+	width: 50px;	
+}	
 .ui-very-rounded-corners {
 	border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
@@ -620,7 +628,7 @@ tr.odd td.authorized_cell.really {
 
 .consumer-info {
 	margin-top:7px;
-	margin-right: 11px;
+	margin-right: -1px;
 }
 
 .portlet-content-logo {

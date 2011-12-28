@@ -1,0 +1,22 @@
+<h3>Test Balance Calculation</h3>
+
+<%= form_for :consumer, :url => { :action => :balance_test }, :html => {:id => "allowance_form"}  do |f| %>
+	Allowance:				<%= f.text_field :allowance %>
+	Allowance period:		<%= f.select :allowance_period, Consumer.allowance_period %>
+	Allowance change date: 	<%= f.date_select :allowance_change_date %>
+	<%= submit_tag "Update" %>
+<% end %>	
+
+Consumer Balance: <%= Consumer.find(281).balance.to_s %>
+
+
+<h3>Populate allowance fields</h3>
+
+<%= form_for :consumer, :url => { :action => :allowance_update }, :html => {:id => "allowance_form"}  do |f| %>
+	Allowance:				<%= f.text_field :allowance %>
+	Allowance period:		<%= f.select :allowance_period, Consumer.allowance_period %>
+	Allowance change date: 	<%= f.date_select :allowance_change_date %>
+	<%= submit_tag "Update" %>
+<% end %>	
+
+	

@@ -97,13 +97,11 @@ class ConsumerController < ApplicationController
     @consumer = Consumer.find_by_facebook_id(current_facebook_user.id)
     if @consumer
       @payer = session[:payer] = @consumer.payer   
-      @rule = session[:rule] = @consumer.most_recent_payer_rule
     else
       @consumer = Consumer.new
       @consumer.facebook_id = current_facebook_user.id
       @consumer.facebook_access_token = nil
       @payer = session[:payer] = nil   
-      @rule = session[:rule] = nil
     end
       
     @consumer.name = @consumer.facebook_user.first_name
@@ -172,7 +170,7 @@ class ConsumerController < ApplicationController
     
 
   def clear_session
-    session[:consumer]= session[:rule] = session[:payer]= session[:retailer]=
+    session[:consumer]= = session[:payer]= session[:retailer]=
     session[:product]= session[:products] = 
     #      session[:product_title] = session[:product_price] =
     session[:purchase]=
@@ -235,13 +233,8 @@ class ConsumerController < ApplicationController
           :pic =>  "https://graph.facebook.com/" + facebook_params['user_id'] + "/picture?type=large",
           :tinypic => "https://graph.facebook.com/" + facebook_params['user_id'] + "/picture")
    
-    @rule = @consumer.most_recent_payer_rule || @consumer.create_def_payer_rule!
-
-    @consumer.update_attributes!(:balance => @rule.allowance)
-   
 
     session[:consumer] = @consumer
-    session[:rule] =     @rule
     session[:payer] =    @payer
     
   end 
@@ -339,8 +332,6 @@ class ConsumerController < ApplicationController
 
     @consumer = session[:consumer]
     @payer = session[:payer]
-    @rule = session[:rule]
-
     # currently, retailer = Zynga. When invoked thru API the retailer name will be part of the API paramters.
     @retailer = Retailer.find(1)
     @product = Product.find_or_initialize_by_title_and_price(session[:product_title], session[:product_price])
@@ -400,10 +391,10 @@ class ConsumerController < ApplicationController
       @purchase.authorization_type = "Insufficient Balance"
       @purchase.authorized = false
       
-    elsif @purchase.amount <= @rule.auto_authorize_under
+    elsif @purchase.amount <= @consumer.auto_authorize_under
       @purchase.authorization_type = "Under Threshold"
       @purchase.authorized = true
-    elsif @purchase.amount > @rule.auto_deny_over
+    elsif @purchase.amount > @consumer.auto_deny_over
       @purchase.authorization_type = "Over Threshold"
       @purchase.authorized = false
       
@@ -512,12 +503,12 @@ class ConsumerController < ApplicationController
   def account_for(amount)
     
     @retailer = session[:retailer] 
-    @retailer.add(amount)
-#    @retailer.save!
+    @retailer.record(amount)
+    @retailer.save!
     session[:retailer] = @retailer
     
     @consumer = session[:consumer]
-    @consumer.subtract(amount)
+    @consumer.record(amount)
     @consumer.save!
     session[:consumer] = @consumer
    

@@ -14,7 +14,6 @@ $('#products .left_content').html(
 		'<span class=item>Last purchase:</span>'+			
 		'<span class=content-value><%= @product.most_recent.to_date.strftime("%B %d, %Y") %></span>' +
 	'</p>'+
-	'<p>Show me all <%= @product.title %> purchases</p>'+
 		'<% if    @product.status == "whitelisted" %>'+
 			'<%= image_tag "/images/fb_like_lit_small.png", :id => "product_like_lit_#{@product.id}", :class => "product like" %>'+
 		'<% else %>'+

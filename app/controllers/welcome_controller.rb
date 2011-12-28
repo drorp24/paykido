@@ -5,7 +5,7 @@ class WelcomeController < ApplicationController
 
     if request.post?
      
-      @user = User.authenticate(params[:user][:name], params[:user][:password])
+      @user = User.authenticate(params[:user][:email], params[:user][:password])
       if @user and @user.is_friend
         session[:friend_authenticated] = true
         controller = session[:req_controller] ?session[:req_controller] :'play' 

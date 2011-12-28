@@ -13,7 +13,7 @@ class Retailer < ActiveRecord::Base
   has_many :users
 
 
-  def add(amount)
+  def record(amount)
     self.collected += amount
   end
   
