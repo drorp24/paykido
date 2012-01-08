@@ -1,0 +1,6 @@
+$('#budget').val('<%= number_to_currency @consumer.allowance %>');
+$('#current_allowance').html('<%= number_to_currency(@consumer.allowance) + ' ' + @consumer.allowance_period  + ":"%>');
+$('#acd').html('<%= l @consumer.allowance_change_date, :format => :short %>');
+$('#next_allowance').html('<%= l @consumer.next_allowance_date, :format => :weekday %>');
+$('#under').val('<%= number_to_currency @consumer.auto_authorize_under %>');
+$('#over').val('<%= number_to_currency @consumer.auto_deny_over %>');

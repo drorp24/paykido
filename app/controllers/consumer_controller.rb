@@ -156,6 +156,7 @@ class ConsumerController < ApplicationController
 
   
   def save_state
+   
     
     session[:last_scroll]   = params[:scroll]
     session[:product_title] = params[:product].split('@')[0]  
@@ -170,7 +171,7 @@ class ConsumerController < ApplicationController
     
 
   def clear_session
-    session[:consumer]= = session[:payer]= session[:retailer]=
+    session[:consumer]= session[:payer]= session[:retailer]=
     session[:product]= session[:products] = 
     #      session[:product_title] = session[:product_price] =
     session[:purchase]=

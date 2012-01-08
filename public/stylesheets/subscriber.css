@@ -1,7 +1,24 @@
+.translation_missing { color: red }
+
+#next_allowance {
+	width: 125px;
+}
+
+#acd {
+ 	width: 63px;
+}	
+
+#acd {
+ 	text-align:right;
+ 	float:right;
+}
+
 #consumer_allowance_period {
-	width: 81px;
+	width: 84px;
 	background: transparent;
+	background-color: #F1F7FB;
 	color: #362B36;	
+	border: 1px solid #AED0EA;
 }	
 #allowance_period {
 	width: 50px;	
@@ -143,7 +160,7 @@ td {
 
 }
 
-#under, #over, #balance, #budget {
+#under, #over, #balance, #budget, #budget1 {
 	background-color: transparent;
 	width: 75px;
 	float: right;
@@ -872,7 +889,7 @@ select, input {
 	background-color:#E6EDF4;
 }
 
-#budget, #balance, #under, #over {
+#budget, #budget1, #balance, #under, #over {
 	border-width:0;
 	text-align:right;
 }

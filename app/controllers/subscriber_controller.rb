@@ -255,37 +255,19 @@ end
     find_consumer
 
     if params[:consumer] 
-      if params[:consumer][:edited_allowance] 
-          new_allowance = params[:consumer][:edited_allowance].delete '$'  # bad I18n 
-          if new_allowance != @consumer.allowance 
+      if  params[:consumer][:allowance] or params[:consumer][:allowance_period]
             @consumer.balance_on_acd = @consumer.balance
             @consumer.allowance_change_date = Time.now
             @consumer.purchases_since_acd = 0
-          end
       end
-      if params[:consumer][:allowance_period] and params[:consumer][:allowance_period] != @consumer.allowance_period
-            @consumer.balance_on_acd = @consumer.balance
-            @consumer.allowance_change_date = Time.now
-            @consumer.purchases_since_acd = 0      
-      end
-      if @consumer.update_attributes(params[:consumer])
+      if @consumer.update_attributes!(params[:consumer])
           session[:consumer] = @consumer
       else
           flash[:notice] = "Invalid... please try again!"
           return
       end
     end
-    
-    if params[:name] 
-      if @consumer.update_attributes(:name => params[:name])
-        session[:consumer] = @consumer
-      else
-        flash[:notice] = "Invalid... please try again!"
-        return
-      end
-    end
-
-    
+        
     respond_to do |format|  
       format.js  
     end

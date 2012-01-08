@@ -20,25 +20,15 @@ class Consumer < ActiveRecord::Base
       self.auto_deny_over ||= 35
   end
 
-  def edited_auto_authorize_under
-    number_to_currency(self.auto_authorize_under).strip
+  def next_allowance_date
+    if self.allowance_period == 'Weekly'
+      Time.now.next_week
+    elsif self.allowance_period == 'Monthly'
+      Time.now.next_month.change(:day => 1)
+    else
+      nil
+    end    
   end
-  
-  def edited_auto_authorize_under=(edited)
-    self.auto_authorize_under = edited.delete "$"
-  end
-
-  def edited_auto_deny_over
-    number_to_currency(self.auto_deny_over)
-  end
-  
-  def edited_auto_deny_over=(edited)
-    self.auto_deny_over = edited.delete "$"
-  end
-
-  def self.allowance_period
-    [["Weekly" , "Weekly"], ["Monthly" , "Monthly"]]            
-  end  
  
   def balance
 
@@ -55,9 +45,9 @@ class Consumer < ActiveRecord::Base
 
   def periods_since_acd
     if allowance_period == 'Weekly'
-      Time.now.strftime("%W").to_i - allowance_change_date.strftime("%W").to_i
+      (Time.now.strftime("%Y").to_i * 52 + Time.now.strftime("%W").to_i) - (allowance_change_date.strftime("%Y").to_i * 52 + allowance_change_date.strftime("%W").to_i)
     elsif allowance_period == 'Monthly'
-      Time.now.strftime("%m").to_i - allowance_change_date.strftime("%m").to_i
+      (Time.now.strftime("%Y").to_i * 12 + Time.now.strftime("%m").to_i) - (allowance_change_date.strftime("%Y").to_i * 12 + allowance_change_date.strftime("%m").to_i)
     else
       nil 
     end           
@@ -67,14 +57,6 @@ class Consumer < ActiveRecord::Base
     self.purchases_since_acd += amount
   end
   
-  def edited_allowance
-    number_to_currency(self.allowance)
-  end
-
-  def edited_allowance=(edited)
-    self.allowance = edited.delete "$"
-  end
-
   def create_def_payer_rule!
     @rule = self.def_rule
     @rule.consumer_id = self.id
@@ -108,14 +90,6 @@ class Consumer < ActiveRecord::Base
     File.basename(file_name).gsub(/[^\w._-]/, '')
   end
 
-
-  def edited_balance
-    number_to_currency(self.balance)
-  end
-  
-  def edited_balance=(edited)
-    self.balance = edited.delete "$"
-  end
 
   def received_pin
     @received_pin

@@ -52,9 +52,6 @@ consumer_info(<%= @consumers[0].id %>);
 		url: 'consumer/'+id,
 			success: function(data){
 				$(selector).addClass('ui-state-active');
-				drawChart();
-				modifyBudget('get');
-				modifyUnderOver('get');
 			}
 		});
 	};

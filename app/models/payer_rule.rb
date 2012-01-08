@@ -16,32 +16,6 @@ class PayerRule < ActiveRecord::Base
     (rh == "On") ?self.rollover = false :self.rollover = true    #reversed for color...
   end    
   
-  def edited_budget
-    number_to_currency(self.allowance)
-  end
-  
-  def edited_budget=(edited)
-    self.allowance = edited.delete "$"
-  end
-  
-  def edited_auto_authorize_under
-    number_to_currency(self.auto_authorize_under).strip
-  end
-  
-  def edited_auto_authorize_under=(edited)
-    self.auto_authorize_under = edited.delete "$"
-  end
-
-  def edited_auto_deny_over
-    number_to_currency(self.auto_deny_over)
-  end
-  
-  def edited_auto_deny_over=(edited)
-    self.auto_deny_over = edited.delete "$"
-  end
-  
-
-
   def amounts_are_sensible
     errors.add(:auto_authorize_under, "is higher than the other one") if 
       self.auto_authorize_under and self.auto_deny_over and self.auto_authorize_under > self.auto_deny_over
