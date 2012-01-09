@@ -2,10 +2,43 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
-  allowance: "allowance"
-  current_balance: "Current balance"
-  currency_symbol: "€"
+  allowance: allowance
+  current_balance: Current balance
+  Consumers: Consumers
+  Retailers: Merchants
+  Products: Titles
+  Categories: Categories
+  Purchases: Purchases
+  Settings: Settings
+  Date: Date
+  Time: Time
+  Consumer: User
+  Retailer: Merchant
+  Product: Title
+  Category: Category
+  Amount: Price
+  Authorized: Authorized
+  By: By
+  Reason: Reason
+  Status: Status
+  Pending: Pending
+  PendingPayer: Pending approval
+  Unauthorized: Unauthorized
+  Unauthorized retailer: Unauthorized Merchant
+  Unauthorized Category: Unauthorized Category
+  Unauthorized Product: Unauthorized Title
+  Inappropriate Content: Inappropriate Content
+  Insufficient: Insufficient 
+  Insufficient Balance: Insufficient Balance
+  Just show everything: Just show everything
+  Zero: Zero
+  Zero Balance: Zero Balance
+  Under: Under
+  Under Threshold: Under Threshold
+  Over: Over
+  Over Threshold: Over Threshold
+  ManuallyAuthorized: Manually Authorized
+
   activerecord:
     models:
     attributes:

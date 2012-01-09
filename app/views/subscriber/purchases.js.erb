@@ -4,18 +4,17 @@ $('#purchases').append(
 		'<table id="table">' +
 			'<thead>' +
 				'<tr>' +
-					'<th>Date</th>' +
-					'<th>Consumer</th>' +
-					'<th>Retailer</th>' +
-					'<th>Product</th>' +
-					'<th>Category</th>' +
-					'<th>Amount</th>' +
-					'<th>Authorized</th>' +
-					'<th>By</th>' +
-					'<th>Reason</th>' +
-					'<th>Authenticated</th>' +
-					'<th>By</th>' +
-					'<th>Status</th>' +
+					'<th><%= t 'Date'%></th>' +
+					'<th><%= t 'Time'%></th>' +
+					'<th><%= t 'Consumer' %></th>' +
+					'<th><%= t 'Retailer' %></th>' +
+					'<th><%= t 'Product' %></th>' +
+					'<th><%= t 'Category' %></th>' +
+					'<th><%= t 'Amount' %></th>' +
+					'<th><%= t 'Authorized' %></th>' +
+					'<th><%= t 'By' %></th>' +
+					'<th><%= t 'Reason' %></th>' +
+					'<th><%= t 'Status' %></th>' +
 				'</tr>' +				
 			'</thead>' +
 			'<tbody>' +
@@ -24,10 +23,10 @@ $('#purchases').append(
 		'<div class="right_content purchases_list">' +
 			'<form>' +
 				'<div id="period">' +
-					'<input type="radio" id="radio1" name="radio" /><label for="radio1">Pending</label>' +
-					'<input type="radio" id="radio2" name="radio" /><label for="radio2">Unauthorized</label>' +
-					'<input type="radio" id="radio3" name="radio" /><label for="radio3">Authorized</label>' +
-					'<input type="radio" id="radio4" name="radio" checked="checked"/><label for="radio4">Just show everything</label>' +
+					'<input type="radio" id="radio1" name="radio" checked="checked"/><label for="radio1"><%= t 'Pending' %></label>' +
+					'<input type="radio" id="radio2" name="radio" /><label for="radio2"><%= t 'Unauthorized' %></label>' +
+					'<input type="radio" id="radio3" name="radio" /><label for="radio3"><%= t 'Authorized' %></label>' +
+					'<input type="radio" id="radio4" name="radio"/><label for="radio4"><%= t 'Just show everything' %></label>' +
 				'</div>' +
 		    '</form>' +
 		'</div>');
@@ -53,18 +52,17 @@ $('#purchases').append(
 
 		$('tbody').append(
 		'<tr>' +
-			'<td class="date_cell" id="tb_date_<%= @purchase.id %>"><%= @purchase.date.strftime("%b %d, %Y %I:%M %p") if @purchase.date %></td>' +
+			'<td class="date_cell" id="tb_date_<%= @purchase.id %>"><%= @purchase.date.strftime("%b %d, %Y") if @purchase.date %></td>' +
+			'<td class="date_cell" id="tb_date_<%= @purchase.id %>"><%= @purchase.date.strftime("%I:%M %p") if @purchase.date %></td>' +
 			'<td class="consumer_cell" id="tb_consumer_<%= @purchase.id %>"><%= @purchase.consumer_name %></td>' +
 			'<td class="retailer_cell" id="tb_retailer_<%= @purchase.id %>"><%= @purchase.retailer_name %></td>' +
 			'<td class="product_cell" id="tb_product_<%= @purchase.id %>"><%= @purchase.product_title %></td>' +
 			'<td class="category_cell" id="tb_category_<%= @purchase.id %>"><%= @purchase.category_name %></td>' +
 			'<td class="amount_cell" id="tb_amount_<%= @purchase.id %>"><%= number_to_currency(@purchase.amount) %></td>' +
-			'<td class="date_cell" id="tb_authordate_<%= @purchase.id %>"><%= @purchase.authorization_date.strftime("%b %d, %Y %I:%M %p") if @purchase.authorization_date %></td>' +
+			'<td class="date_cell" id="tb_authordate_<%= @purchase.id %>"><%= @purchase.authorization_date.strftime("%b %d, %Y") if @purchase.authorization_date %></td>' +
 			'<td class="Authorizer_cell" id="tb_authorizer_<%= @purchase.id %>"><%= @authorizer %></td>' +
-			'<td class="authorization_cell" id="tb_authorization_<%= @purchase.id %>"><%= @purchase.authorization_type%></td>' +
+			'<td class="authorization_cell" id="tb_authorization_<%= @purchase.id %>"><%= t @purchase.authorization_type %></td>' +
 			'<td class="date_cell" id="tb_authendate_<%= @purchase.id %>"><%= @purchase.authentication_date.strftime("%b %d, %Y %I:%M %p") if @purchase.authentication_date%></td>' +
-			'<td class="authentication_cell" id="tb_authentication_<%= @purchase.id %>"><%= @purchase.authentication_type%></td>' +
-			'<td class="authorized_cell" id="tb_status_<%= @purchase.id %>">'+
 				'<span class="icon">'+
 					'<% if    @purchase.authorization_type == "ManuallyAuthorized" %>'+
 						'<%= image_tag "/images/fb_like_lit_small.png", :border => "0", :id => "pending_like_lit_#{@purchase.id}", :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like" %>'+
@@ -97,24 +95,25 @@ $(document).ready(function (){
 		"bPaginate": true,
 		"bRetrieve": true,
 		"bJQueryUI": true,
-		"aaSorting": [[0,'desc']],
+		"aaSorting": [[0,'desc'], [1,'desc']],
 		"sPaginationType": "full_numbers"	 		
 	});
 	
-
+	pTable.fnFilter( '<%= t 'PendingPayer' %>' , 9, true, false, false);
+	
 	$('#period label').click(function () {
 		var selection = $(this).children().first().html();
-		if 		(selection == "Pending") {
-			pTable.fnFilter( 'PendingPayer' , 8, true, false, false);
+		if 		(selection == '<%= t 'Pending' %>') {
+			pTable.fnFilter( '<%= t 'PendingPayer' %>' , 9, true, false, false);
 		}
-		else if (selection == "Unauthorized") {
-			pTable.fnFilter( 'Unauthorized|Zero|Insufficient|Over', 8, true, false, false);
+		else if (selection == '<%= t 'Unauthorized' %>') {
+			pTable.fnFilter('<%= t 'Unauthorized'%>|<%= t 'Zero'%>|<%= t 'Insufficient'%>|<%= t 'Over'%>', 9, true, false, false);
 		}
-		else if (selection == "Authorized") {
-			pTable.fnFilter( 'ManuallyAuthorized|Under', 8, true, false, false );
+		else if (selection == '<%= t 'Authorized' %>') {
+			pTable.fnFilter('<%= t 'ManuallyAuthorized'%>|<%= t 'Under'%>', 9, true, false, false );
 		}
 		else {
-			pTable.fnFilter( '', 8, true, false, false );
+			pTable.fnFilter( '', 9, true, false, false );
 		}		
 	}); 
 	

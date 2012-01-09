@@ -2,6 +2,22 @@ class AdminController < ApplicationController
 
 #   before_filter   :check_friend_authenticated    
 
+  def cut_authorization_type
+    
+    Purchase.all.each do |p|
+      if p.authorization_type
+        first = p.authorization_type.split(' ')[0]
+        second = p.authorization_type.split(' ')[1]
+        if first and second
+          updated_type = first + ' ' + second
+          p.update_attributes!(:authorization_type => updated_type)          
+        end        
+      end
+    end
+    
+    redirect_to :action => :index 
+    
+  end
   
   def balance_test
     consumer = Consumer.find(1007)

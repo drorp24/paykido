@@ -2,7 +2,7 @@
 
 <%= form_for :consumer, :url => { :action => :balance_test }, :html => {:id => "allowance_form"}  do |f| %>
 	Allowance:				<%= f.text_field :allowance %>
-	Allowance period:		<%= f.select :allowance_period, Consumer.allowance_period %>
+	Allowance period:		<%= f.select :allowance_period, [["Weekly" , "Weekly"], ["Monthly" , "Monthly"]] %>
 	Allowance change date: 	<%= f.date_select :allowance_change_date %>
 	<%= submit_tag "Update" %>
 <% end %>	

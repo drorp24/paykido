@@ -131,7 +131,7 @@ class SubscriberController < ApplicationController
     @purchases = Purchase.payer_purchases_the_works(@payer.id)      
     session[:purchases] = @purchases
 
-    @max_records = [@consumers.size, @retailers.size, @products.size].max
+#    @max_records = [@consumers.size, @retailers.size, @products.size].max
             
   end
  

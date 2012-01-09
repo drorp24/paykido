@@ -376,13 +376,13 @@ class ConsumerController < ApplicationController
   def authorize_purchase  
        
     if @purchase.product.is_blacklisted(@payer.id) 
-      @purchase.authorization_type = "Unauthorized Product (#{@purchase.product.title})"
+      @purchase.authorization_type = "Unauthorized Product"
       @purchase.authorized = false      
     elsif @purchase.retailer.is_blacklisted(@payer.id) 
-      @purchase.authorization_type = "Unauthorized retailer (#{@purchase.retailer.name})"
+      @purchase.authorization_type = "Unauthorized retailer"
       @purchase.authorized = false      
     elsif @purchase.product.category.is_blacklisted(@payer.id) 
-      @purchase.authorization_type = "Unauthorized Category (#{@purchase.product.category.name})"
+      @purchase.authorization_type = "Unauthorized Category"
       @purchase.authorized = false      
       
     elsif !@consumer.balance or @consumer.balance <= 0
