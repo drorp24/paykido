@@ -27,6 +27,7 @@ $(document).ready(function (){
 	$('#other_form').submitWithAjax();
 	$('#select_product_form').submitWithAjax();
 	$('#buy_form').submitWithAjax();
+    $('.payer_form').submitWithAjax();
 	
 
 
@@ -55,6 +56,7 @@ $(document).ready(function (){
 		$(function() {
 			$("#payer_tabs, #retailer_tabs, #consumers_tabs, #preferences_tabs").tabs().find(".ui-tabs-nav").sortable({axis:'x'});
 			$("#consumers_tabs").tabs("select", 0);
+            $("#payers_tabs").tabs("select", 4);
 		});
 	
 		$(function() {

@@ -19,48 +19,24 @@ class Product < ActiveRecord::Base
   validate :price_must_be_at_least_a_cent
 
 
-  def plist(payer_id)
-    
-    Plist.find_or_initialize_by_product_id_and_payer_id(self.id, payer_id)
-    
+  def blacklist!(payer_id, consumer_id)
+    plist = Plist.find_or_initialize_by_product_id_and_payer_id_and_consumer_id(self.id, payer_id, consumer_id)
+    plist.update_attributes!(:rule => 'blacklisted')
   end
   
-  def status(payer_id)
-
-    plist(payer_id).status
-    
-  end
-  
-  def update(payer_id, status)
-    
-    plist(payer_id).update_attributes!(:status => status)
-    
-  end
-  
-  
-  def is_blacklisted(payer_id)
-    
-    status(payer_id) == "blacklisted" 
-    
+  def blacklisted?(payer_id, consumer_id)
+    plist.where(:product_id => self.id, :payer_id => payer_id, :consumer_id => consumer_id, :rule => 'blacklisted').exists?
   end
 
-  def is_whitelisted(payer_id)
-    
-    status == "whitelisted" 
- 
+  def whitelist!(payer_id, consumer_id)
+    plist = Plist.find_or_initialize_by_product_id_and_payer_id_and_consumer_id(self.id, payer_id, consumer_id)
+    plist.update_attributes!(:rule => 'whitelisted')
+  end
+  
+  def whitelisted?(payer_id, consumer_id)
+    plist.where(:product_id => self.id, :payer_id => payer_id, :consumer_id => consumer_id, :rule => 'whitelisted').exists?
   end
 
-  def blacklist(payer_id)
-    
-    update(payer_id, "blacklisted")
-    
-  end
- 
-  def whitelist(payer_id)
-    
-   update(payer_id, "whitelisted")
-    
-  end
   
   def self.find_product_options(retailer_id)
     

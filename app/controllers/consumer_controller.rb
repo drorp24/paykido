@@ -311,7 +311,7 @@ class ConsumerController < ApplicationController
 #     pay_retailer
       if @purchase.authorized? # and retailer_paid?
         account_for(@purchase.amount)
-      elsif @purchase.authorization_type == "PendingPayer"
+      elsif @purchase.pending?
         ask_for_manual_approval 
       end
       authorization_messages      
@@ -375,13 +375,13 @@ class ConsumerController < ApplicationController
 
   def authorize_purchase  
        
-    if @purchase.product.is_blacklisted(@payer.id) 
+    if @purchase.product.blacklisted?(@payer.id, @consumer.id) 
       @purchase.authorization_type = "Unauthorized Product"
       @purchase.authorized = false      
-    elsif @purchase.retailer.is_blacklisted(@payer.id) 
+    elsif @purchase.retailer.blacklisted?(@payer.id, @consumer.id) 
       @purchase.authorization_type = "Unauthorized retailer"
       @purchase.authorized = false      
-    elsif @purchase.product.category.is_blacklisted(@payer.id) 
+    elsif @purchase.product.category.blacklisted?(@payer.id, @consumer.id) 
       @purchase.authorization_type = "Unauthorized Category"
       @purchase.authorized = false      
       
@@ -399,10 +399,10 @@ class ConsumerController < ApplicationController
       @purchase.authorization_type = "Over Threshold"
       @purchase.authorized = false
       
-    elsif @purchase.authorization_type == "ManuallyAuthorized"
+    elsif @purchase.manually_authorized?
       @purchase.authorized = true
     else
-      @purchase.authorization_type = "PendingPayer"
+      @purchase.make_pending
       @purchase.authorized = false
     end
     
@@ -521,7 +521,7 @@ class ConsumerController < ApplicationController
      if     @purchase.authorized
       @first_line = "#{session[:product_title]} is yours!"
       @second_line = "Thanks for using paykido!"
-     elsif  @purchase.authorization_type == "PendingPayer" 
+     elsif  @purchase.pending?
       @first_line =  "This has to be manually authorized"
       @second_line = "We'll text you as soon as it is over!"
       @second_line = "Please retry if you want a manual approval" if @sms == "failed"

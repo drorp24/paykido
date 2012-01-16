@@ -85,18 +85,3 @@ $('#categories .left_content').html(
 		}
 	};
 	
-
-	$(".category.like").click(function() {
-		selector_id = $(this).attr("id");
-		category_id = selector_id.split('_')[3];
-		new_status = CategorylikeToggleSrc(selector_id);
-		$.ajax({
-			url: 'clist_update/' + category_id + '?new_status=' + new_status,
-			success: function(data){
-				
-			}
-		})
-
-	});
-	
-

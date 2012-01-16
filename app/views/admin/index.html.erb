@@ -1,3 +1,14 @@
+<h3>HTML</h3>
+<div>
+    <a href="/subscriber/purchase/378?approved=true" onclick="return hs.htmlExpand(this, { 
+            objectType: 'ajax', width: '500', 
+            creditsPosition: 'bottom left', headingText: 'Title from onclick', 
+            wrapperClassName: 'titlebar' } )">Ajax</a>
+</div>
+
+<h3>Payer 63</h3>
+<%= debug session[:payer] %>
+
 <h3>Test Balance Calculation</h3>
 
 <%= form_for :consumer, :url => { :action => :balance_test }, :html => {:id => "allowance_form"}  do |f| %>
@@ -14,7 +25,7 @@ Consumer Balance: <%= Consumer.find(281).balance.to_s %>
 
 <%= form_for :consumer, :url => { :action => :allowance_update }, :html => {:id => "allowance_form"}  do |f| %>
 	Allowance:				<%= f.text_field :allowance %>
-	Allowance period:		<%= f.select :allowance_period, Consumer.allowance_period %>
+	Allowance period:		<%= f.select :allowance_period, [["Weekly" , "Weekly"], ["Monthly" , "Monthly"]] %>
 	Allowance change date: 	<%= f.date_select :allowance_change_date %>
 	<%= submit_tag "Update" %>
 <% end %>	

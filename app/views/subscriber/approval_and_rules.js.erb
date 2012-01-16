@@ -1,0 +1,17 @@
+<% if @status == "ok" %>
+    $('.line1').html('<%= "Thank you #{@purchase.payer.name}. "%>');
+    <% if params[:approve] == "1" %>
+        <% if @activity == 'approve' %>
+            $('.line1').append('Purchase approved!');
+            $('#tb_status_<%= @purchase.id %> .icon #status_img').attr('src', '/images/cart.png');
+        <% else %>
+            $('.line1').append('Purchase declined!');
+            $('#tb_status_<%= @purchase.id %> .icon #status_img').attr('src', '/images/lock.png');
+        <% end %>
+    <% end %>
+    <% if params[:list_merchant] == "1" or params[:list_category] == "1" %>
+        $('.line1').append('Rule updated!');
+    <% end %>
+<% else %>
+    $('.line1').html('We are sorry. Server is momentarily down. You may want to try later or contact help desk for details');
+<% end %>

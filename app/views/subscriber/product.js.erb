@@ -86,21 +86,3 @@ $('#products .left_content').html(
 	};
 	
 
-	$(".product.like").click(function() {
-		selector_id = $(this).attr("id");
-		product_id = selector_id.split('_')[3];
-		new_status = ProductlikeToggleSrc(selector_id);
-		$.ajax({
-			url: 'plist_update/' + product_id + '?new_status=' + new_status,
-			success: function(data){
-				
-			}
-		})
-
-	});
-	
-
-
-
-
-

@@ -2,6 +2,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  currency_code: USD
   allowance: allowance
   current_balance: Current balance
   Consumers: Consumers
@@ -38,7 +39,11 @@ en:
   Over: Over
   Over Threshold: Over Threshold
   ManuallyAuthorized: Manually Authorized
-
+  Action: Action
+  Approve: Approve
+  Buy: Buy
+  Decline: Decline
+  Share: Share
   activerecord:
     models:
     attributes:

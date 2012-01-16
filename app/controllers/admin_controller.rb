@@ -2,6 +2,26 @@ class AdminController < ApplicationController
 
 #   before_filter   :check_friend_authenticated    
 
+
+  def set_category_to_1
+    Purchase.all.each {|p| p.update_attributes!(:category_id => 1)}
+    redirect_to :action => :index 
+  end
+
+  def return_to_pending
+    Purchase.where(:payer_id => 63, :authorization_type => 'ManuallyAuthorized').each  do |p|
+      p.authorized = false
+      p.make_pending!
+    end
+    redirect_to :action => :index 
+  end
+
+  def set_payer_to_not_registered
+    payer = Payer.find(63)
+    payer.update_attributes!(:registered => false)
+    redirect_to :action => :index 
+  end
+
   def cut_authorization_type
     
     Purchase.all.each do |p|

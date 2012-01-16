@@ -1,0 +1,30 @@
+<div class="payer_content">
+
+    <div class="text_part">
+
+        <p id="line1" class="line"><%= "Dear #{@payer.name}" %></p>
+        <p id="approval_title" class="title"><%= "#{@consumer.name} asks that you approve this purchase" %></p>
+        <%= form_tag ({:action => :pay_and_show}, :class => "payer_form") do  %>
+        <p id="cb1" class="cb">
+            <%= check_box_tag(:pay) %>
+            <%= label_tag(:pay, "I am ready to buy #{@consumer.name} #{@title} (#{number_to_currency @purchase.amount})") %>
+        </p>
+
+        <p id="registration_title" class="title">Make kids shopping safe with Paykido</p>
+        <p id="line2" class="line"><%= "Let Paykido watch everything #{@consumer.name} buys." %></p>
+        <p id="line3" class="line">Try it and see what it can do for you. It's free!</p>
+        <p id="cb2" class="cb">
+            <%= check_box_tag(:show, "1") %>
+            <%= label_tag(:show, "Show me how Paykido can protect my kid's shopping") %>
+        </p>
+
+        <%= submit_tag "Submit", :class => "fg-button ui-state-default loginbutton ui-very-rounded-corners", :id => "submit" %>
+        <% end %>
+
+    </div>
+
+    <div id="kid" class="pic_part">
+        <%= image_tag "/images/yellowshirt_kid1.png", :id=>"yellowshirtKid",:border => 0 %>
+    </div>
+
+</div>

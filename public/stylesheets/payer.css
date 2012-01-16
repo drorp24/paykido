@@ -1,0 +1,149 @@
+.payer_content {
+    margin: 15px;
+    font-family: Times;
+    font-size: 17px;
+    color: #555;
+
+}
+
+.text_part {
+    display: inline;
+    float: left;
+    width: 406px;
+}
+
+.pic_part {
+    display: inline;
+    float: right;
+}
+
+.title {
+    color: #C25130;
+    font-weight: bold;
+    font-size: 17px;
+
+}
+
+#rules_title, #registration_title {
+    margin-top: 25px;
+    margin-bottom: -7px;
+}
+
+#approval_title {
+    margin-top: 29px;
+    margin-bottom: -8px;
+}
+
+.cb {
+    margin-top: 10px;
+    font-weight: bold;
+
+}
+#cb1 {
+    margin-top: 30px;
+}
+#cb2 {
+    margin-top: 20px;
+}
+
+#cb3 {
+}
+
+.consumerName {
+    font-weight: bold;
+}
+
+#paykidoParentsApprove {
+    position: absolute;
+    bottom: 5px;
+    left: 18px;
+}
+
+#approval, #payment {
+    margin-top: 25px;
+}
+
+#rules p {
+
+}
+
+.line {
+   
+}
+
+#line1 {
+    margin-bottom: 10px;
+    margin-top: -14px;
+    font-size: 17px;
+}
+
+#line2 {
+ 
+}
+
+#line3 {
+
+}
+#line4 {
+    margin-top: -12px;
+}
+  
+img#yellowshirtKid {
+    position: absolute;
+    top: 149px;
+    left: 441px;
+    height: 175px;
+
+}
+
+img#paykidoLogo {
+    position: absolute;
+    left: 420px;
+    top: 0px;
+}
+img#parents_approve {
+    position: absolute;
+    display: inline;
+    margin-left: 3px;
+    margin-top: 32px;
+}
+
+#welcomeline, p#first_line, p#second_line {
+	font-family: Tahoma;
+}
+
+.ui-very-rounded-corners {
+	border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+#submit {
+
+    background: #d7ebf9 url(/themes/Cupertino/images/ui-bg_glass_80_d7ebf9_1x400.png) 50% 50% repeat-x; 
+    color: #FFFFE0;
+    font-size: 22px;
+    height: 34px;
+    width: 127px;
+    z-index: 1000;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -o-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -moz-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+	text-shadow: 0px 1px 1px #fff;
+	text-shadow: 1px -1px #666, 1px 0px #FFF;
+	border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    position: absolute;
+    left: 239px;
+    top: 292px;
+
+
+}
+
+#submit.ui-state-hover {
+	 color: white; 
+}
+

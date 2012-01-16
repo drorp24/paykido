@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111226102832) do
+ActiveRecord::Schema.define(:version => 20120115152414) do
 
   create_table "billings", :force => true do |t|
     t.string    "method",     :null => false
@@ -31,6 +32,8 @@ ActiveRecord::Schema.define(:version => 20111226102832) do
     t.string    "status"
     t.timestamp "created_at"
     t.timestamp "updated_at"
+    t.integer   "consumer_id"
+    t.string    "rule"
   end
 
   create_table "configs", :force => true do |t|
@@ -146,11 +149,13 @@ ActiveRecord::Schema.define(:version => 20111226102832) do
   end
 
   create_table "plists", :force => true do |t|
-    t.integer   "payer_id",   :null => false
-    t.integer   "product_id", :null => false
+    t.integer   "payer_id",    :null => false
+    t.integer   "product_id",  :null => false
     t.string    "status"
     t.timestamp "created_at"
     t.timestamp "updated_at"
+    t.integer   "consumer_id"
+    t.string    "rule"
   end
 
   create_table "products", :force => true do |t|
@@ -184,6 +189,7 @@ ActiveRecord::Schema.define(:version => 20111226102832) do
     t.string    "expected_pin"
     t.string    "location"
     t.integer   "consumer_id"
+    t.integer   "category_id"
   end
 
   create_table "retailers", :force => true do |t|
@@ -194,6 +200,8 @@ ActiveRecord::Schema.define(:version => 20111226102832) do
     t.timestamp "created_at"
     t.timestamp "updated_at"
     t.string    "logo"
+    t.string    "merchant_id"
+    t.string    "merchant_site_id"
   end
 
   create_table "rlists", :force => true do |t|
@@ -202,6 +210,8 @@ ActiveRecord::Schema.define(:version => 20111226102832) do
     t.string    "status"
     t.timestamp "created_at"
     t.timestamp "updated_at"
+    t.integer   "consumer_id"
+    t.string    "rule"
   end
 
   create_table "sessions", :force => true do |t|

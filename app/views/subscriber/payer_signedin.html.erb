@@ -240,7 +240,6 @@
 
 <script type="text/javascript">
 
-
 		viewConsumers  ();
 		viewRetailers  ();
 		viewProducts   ();
@@ -249,6 +248,16 @@
 		viewPhoneAlert (<%= @payer.phone_alert %>);	
 		viewEmailAlert (<%= @payer.email_alert %>);
 
+        <% if !params[:approve].blank? %>
+            $(document).ready(function (){  
+                $('#payer_tabs').tabs("select", 4);
+                url = "purchase/" + <%= params[:approve] %> + "?approved=true"
+                hs.htmlExpand(null, { 
+                        src: url, objectType: 'ajax', 
+                        creditsPosition: 'bottom left',  
+                        wrapperClassName: 'titlebar' } );
+            });
+        <% end %>
 
 	function viewConsumers() {
 		$.ajax({
@@ -406,10 +415,8 @@
 
 	};
 
-
-	
-	
-
-
+    hs.Expander.prototype.onAfterExpand = function() {
+           $('#approval_and_rules').submitWithAjax();    
+    };  
 
 </script>

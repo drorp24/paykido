@@ -2,7 +2,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 100;
+  z-index: 999999;
   text-align: left;
 }
 
@@ -16,6 +16,7 @@
   -webkit-box-shadow:0 0 18px rgba(0,0,0,0.4);
   -moz-box-shadow:0 0 18px rgba(0,0,0,0.4);
   box-shadow:0 0 18px rgba(0,0,0,0.4);
+    z-index: 999999;
 }
 
 #facebox .content {
@@ -28,7 +29,7 @@
   -webkit-border-radius:4px;
   -moz-border-radius:4px;
   border-radius:4px;
-#  background-image: url("/images/tabs_gradient2.png");
+    z-index: 999999;
 }
 
 #facebox .content > p:first-child{

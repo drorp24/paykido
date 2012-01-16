@@ -8,8 +8,16 @@
    	<%= stylesheet_link_tag  "jquery-ui-1.8.1.custom.css", :media => "all" %>
    	<%= stylesheet_link_tag  "jquery.ui.theme.css", :media => "all" %>
   	<%= stylesheet_link_tag  "demo_table_jui.css", :media => "all" %>
-	<%= javascript_include_tag "jquery-1.4.2.min", "jquery-ui-1.8.2.custom.min", "jquery.dataTables.min", "jquery.ui.touch-punch", "old_application" %>
-
+    <%= stylesheet_link_tag "payer.css", :media => "all" %>
+    <%= javascript_include_tag "jquery-1.4.2.min", "jquery-ui-1.8.2.custom.min", "jquery.dataTables.min", "jquery.ui.touch-punch", "old_application" %>
+    <script type="text/javascript" src="/highslide/highslide-full.js"></script>
+    <script type="text/javascript" src="/highslide/highslide.config.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="/highslide/highslide.css" />
+    <!--[if lt IE 7]>
+    <link rel="stylesheet" type="text/css" href="/highslide/highslide-ie6.css" />
+    <![endif]-->
+    
+    
 	<% if session[:user] and session[:user].is_retailer %>
 		<script type="text/javascript" src="http://www.google.com/jsapi"></script>	
 		<script type="text/javascript">google.load("visualization", "1", {packages:["table"]});</script>

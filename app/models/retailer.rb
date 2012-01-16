@@ -13,6 +13,24 @@ class Retailer < ActiveRecord::Base
   has_many :users
 
 
+  def blacklist!(payer_id, consumer_id)
+    rlist = Rlist.find_or_initialize_by_retailer_id_and_payer_id_and_consumer_id(self.id, payer_id, consumer_id)
+    rlist.update_attributes!(:rule => 'blacklisted')
+  end
+  
+  def blacklisted?(payer_id, consumer_id)
+    Rlist.where(:retailer_id => self.id, :payer_id => payer_id, :consumer_id => consumer_id, :rule => 'blacklisted').exists?
+  end
+
+  def whitelist!(payer_id, consumer_id)
+    rlist = Rlist.find_or_initialize_by_retailer_id_and_payer_id_and_consumer_id(self.id, payer_id, consumer_id)
+    rlist.update_attributes!(:rule => 'whitelisted')
+  end
+  
+  def whitelisted?(payer_id, consumer_id)
+    Rlist.where(:retailer_id => self.id, :payer_id => payer_id, :consumer_id => consumer_id, :rule => 'whitelisted').exists?
+  end
+
   def record(amount)
     self.collected += amount
   end
@@ -35,29 +53,5 @@ class Retailer < ActiveRecord::Base
     
   end
   
-  
-  def is_blacklisted(payer_id)
-    
-    status(payer_id) == "blacklisted" 
-    
-  end
-
-  def is_whitelisted(payer_id)
-    
-    status == "whitelisted" 
- 
-  end
-
-  def blacklist(payer_id)
-    
-    update(payer_id, "blacklisted")
-    
-  end
- 
-  def whitelist(payer_id)
-    
-   update(payer_id, "whitelisted")
-    
-  end
-   
+     
 end

@@ -86,17 +86,3 @@ $('#retailers .left_content').html(
 	};
 	
 
-	$(".retailer.like").click(function() {
-		selector_id = $(this).attr("id");
-		retailer_id = selector_id.split('_')[3];
-		new_status = RetailerlikeToggleSrc(selector_id);
-		$.ajax({
-			url: 'rlist_update/' + retailer_id + '?new_status=' + new_status,
-			success: function(data){
-				
-			}
-		})
-
-	});
-	
-

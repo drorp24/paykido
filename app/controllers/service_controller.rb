@@ -1,8 +1,3 @@
-class Safecharge
-  include HTTParty
-  base_uri 'https://secure.safecharge.com'
-end
-
 class ServiceController < ApplicationController
 
 #   before_filter   :check_friend_authenticated    
@@ -10,71 +5,6 @@ class ServiceController < ApplicationController
   
   def index 
         
-  end
-  
-  def invite
-    
-    @user = User.authenticate_by_hp(params[:email], params[:authenticity_token])
-    if @user
-      clear_payer_session if session[:payer] and session[:payer].id  != @user.payer.id 
-      session[:user]  = @user
-      session[:payer] = @payer = @user.payer
-    else
-      flash.now[:notice] = "user or password are incorrect. Please try again!"
-    end
-    
-    render :action => :index
-    
-  end
-
-  def registration   
-
-  end
-    
-  def safecharge_page
-        
-    merchant_site_id = "34721"
-    merchant_id = "4678792034088503828"
-    time_stamp = "2010-08-25%2011:12:52"
-    total_amount = "1"
-    currency = "USD"
-    checksum = "f83c5b1a24e6fbe64dc14a1ff5fe4d8c"
-    item_name_1 = "test"
-    item_amount_1 = "1"
-    item_quantity_1 = "1"
-    version = "3.0.0"
-    success_url = "http://paykido.heroku.com/service/sc_success"
-    error_url = "http://paykido.heroku.com/service/sc_success" 
-    
-    Safecharge.post('/ppp/purchase.do', :query => {
-     :merchant_site_id => merchant_site_id,
-     :merchant_id => merchant_id, 
-     :time_stamp => time_stamp,
-     :total_amount => total_amount,
-     :currency => currency, 
-     :checksum => checksum, 
-     :item_name_1 => item_name_1, 
-     :item_amount_1 => item_amount_1, 
-     :item_quantity_1 => item_quantity_1, 
-     :version => version
-     })
-     
-    redirect_url = "https://secure.safecharge.com/ppp/purchase.do?" +
-      "&merchant_site_id=" + merchant_site_id +
-      "&merchant_id=" + merchant_id +
-      "&time_stamp=" +  time_stamp +  
-      "&total_amount=" + total_amount +
-      "&currency=" + currency + 
-      "&checksum=" + checksum +
-      "&item_name_1=" + item_name_1 +
-      "&item_amount_1=" + item_amount_1 +
-      "&item_quantity_1=" + item_quantity_1 +
-      "&version=" + version +
-      "&success_url=" + success_url +
-      "&error_url=" + error_url 
-                                      
-    redirect_to redirect_url
-    
   end
   
   def keep_sc_success

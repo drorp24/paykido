@@ -12,8 +12,49 @@ class Purchase < ActiveRecord::Base
   validates_numericality_of :amount
   
 #  attr_accessor :authorization_date, :authorization_type
-    
+
+
+  def make_pending
+    self.authorization_type = "PendingPayer"
+  end
+
+  def make_pending!
+    self.update_attributes!(
+      :authorization_type => "PendingPayer")
+  end
   
+  def pending?
+    self.authorization_type == "PendingPayer"
+  end
+
+  def manually_handled?
+    self.authorization_type == "ManuallyAuthorized" or 
+    self.authorization_type == "Unauthorized" or
+    self.authorization_type ==  "PendingPayer"
+  end
+    
+  def manually_authorize!
+    self.update_attributes!(
+      :authorized => true,
+      :authorization_type => "ManuallyAuthorized",
+      :authorization_date => Time.now) 
+  end
+  
+  def manually_authorized?
+    self.authorization_type == "ManualluAuthorized"
+  end
+  
+  def manually_decline!
+    self.update_attributes!(
+      :authorized => false,
+      :authorization_type => "Unauthorized",
+      :authorization_date => Time.now) 
+  end
+  
+  def manually_declined?
+    self.authorization_type == "Unauthorized"
+  end
+
   def self.pending_amt(payer_id)
     self.sum(:amount, :conditions => ["payer_id = ? and authorization_type = ?", payer_id, "PendingPayer"]) 
   end

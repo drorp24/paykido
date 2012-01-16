@@ -15,7 +15,22 @@ class SubscriberController < ApplicationController
     redirect_to :controller => "service", :action => "index"    
   end
   
-    def invite
+  def approve
+    
+    @user = User.authenticate_by_hp(params[:email], params[:authenticity_token])
+    if @user
+      clear_payer_session if session[:payer] and session[:payer].id  != @user.payer.id 
+      session[:user]  = @user
+      session[:payer] = @payer = @user.payer
+    else
+      flash[:notice] = "user or password are incorrect. Please try again!"
+    end
+    
+    redirect_to :action => :payer_signedin
+    
+  end
+
+  def invite
     
     @user = User.authenticate_by_hp(params[:email], params[:authenticity_token])
     if @user
@@ -31,12 +46,12 @@ class SubscriberController < ApplicationController
   end
   
   # for tests only
-    def email
+  def email
       @user = session[:user]
       @consumer = session[:consumer]
       UserMailer.joinin_email(@user, @consumer).deliver
       redirect_to :action => :index
-    end
+  end
 
 
   def signin
@@ -202,6 +217,7 @@ end
   def purchases
     
     @purchases = session[:purchases]
+    @registered = session[:payer].registered?
     
     respond_to do |format|  
       format.js
@@ -300,113 +316,127 @@ end
     end
     
   end 
-  
-  
-  def rlist_update    
-
-   @rlist = Rlist.find_or_initialize_by_payer_id_and_retailer_id(@payer.id, params[:id])
-    unless @rlist.update_attributes(:status => params[:new_status])
-      flash[:notice] = "Server unavailble. Back in a few moments!"
-    end
    
-    respond_to do |format|  
-      format.html { redirect_to :action => 'index' }  
-      format.js  
-    end
-    
-    
-  end
-
-  def plist_update
-    
-   @plist = Plist.find_or_initialize_by_payer_id_and_product_id(@payer.id, params[:id])
-    unless @plist.update_attributes(:status => params[:new_status])
-      flash[:notice] = "Server unavailble. Back in a few moments!"
-    end
-    
-    respond_to do |format|  
-      format.html { redirect_to :action => 'index' }  
-      format.js  
-    end    
-    
-  end
   
-  def clist_update
+  def purchase
     
-   @clist = Clist.find_or_initialize_by_payer_id_and_category_id(@payer.id, params[:id])
-    unless @clist.update_attributes(:status => params[:new_status])
-      flash[:notice] = "Server unavailble. Back in a few moments!"
-    end
-    
-    respond_to do |format|  
-      format.html { redirect_to :action => 'index' }  
-      format.js  
-    end    
-    
-  end
-  
-  def purchase_update
-    
-    @purchase = Purchase.find(params[:id])
+    @purchase = session[:purchase] = Purchase.find(params[:id])
+    @consumer = @purchase.consumer
+    @payer = @purchase.payer
+    @approved = (params[:approved] == 'true')
+    @activity = session[:activity] = (@approved) ?'approve' :'decline'
+    @title = @purchase.product.title
+    @category = @purchase.category.name
+    @merchant = @purchase.retailer.name
 
-    if params[:new_status] and 
-       params[:new_status] != @purchase.authorization_type 
-
-       @purchase.authorized = (params[:new_status] == "ManuallyAuthorized") ?true :false
-       @purchase.authorization_type = params[:new_status]
-       @purchase.authorization_date = Time.now 
+    if @payer.registered?
       
-       unless @purchase.save
-        flash[:notice] = "service is temporarily down. Please hold for a few moments"
-        return
-       end
+      @merchant_whitelisted = @purchase.retailer.whitelisted?(@payer.id, @consumer.id)
+      @merchant_blacklisted = @purchase.retailer.blacklisted?(@payer.id, @consumer.id)
+      @category_whitelisted = @purchase.category.whitelisted?(@payer.id, @consumer.id)
+      @category_blacklisted = @purchase.category.blacklisted?(@payer.id, @consumer.id)
 
-       if Current.policy.send_sms? 
-          inform_consumer_by_sms
-          if @sms == "failed"
-            flash[:notice] = "We're sorry. SMS service is down at the moment!"
-            return    
-          end
-       end
+      render :layout => 'payer', :action => :registered_form
+    else
+      render :layout => 'payer', :action => :nonregistered_form
+    end
+    
+  end
+  
+  def approval_and_rules
+    
+    @purchase = session[:purchase]
+    @activity = session[:activity]
+    @status = "ok"
+
+    if params[:approve] == "1"
+
+      if @activity == 'approve' 
+        @purchase.manually_authorize!
+        #charge payer using SC with stored token (put the code in application_controller so it can be used from consumer)
+        #keep return status and confirmation id in new purchase fields
+        #update consumer 'balance' (@consumer.record(amount)) if succesful
+        #consider putting all above plus inform_consumer in the consumer model, to be used in consumer controller too
+        #@status = "ok"  # or not     
+      else
+        @purchase.manually_decline!
+       end      
+
+      inform_consumer(@purchase, @activity) if @status == "ok"
+      
+    end
+    
+    if params[:list_merchant]
+      if @activity == 'approve'
+        @purchase.retailer.whitelist!(@purchase.payer_id, @purchase.consumer_id)
+      else
+        @purchase.retailer.blacklist!(@purchase.payer_id, @purchase.consumer_id)        
+      end
+    end
+    
+    if params[:list_category]
+      if @activity == 'approve'
+        @purchase.category.whitelist!(@purchase.payer_id, @purchase.consumer_id)
+      else
+        @purchase.category.blacklist!(@purchase.payer_id, @purchase.consumer_id)        
+      end
+    end    
+
+    respond_to do |format|  
+      format.js    
+    end
+    
+  end
+  
+  def inform_consumer(purchase, activity)
+    
+    return unless Current.policy.send_sms?
      
-       respond_to do |format|  
-         format.js  
-       end    
-      
+    if activity == 'approve'
+      message = "Congrats! Your purchase of #{purchase.product.title} has been approved."
+    elsif activity == 'decline'
+      message = "We're Sorry. Your purchase of #{purchase.product.title} is not approved."
+    else
+      return
     end
     
-  end
-    
-  def inform_consumer_by_sms
-            
-    if @purchase.authorization_type == "ManuallyAuthorized"
-      message = "Congrats! Your purchase of #{@purchase.product.title} has been approved."
-     else
-      message = "We're Sorry. Your purchase of #{@purchase.product.title} is not approved."
-    end
-    
-    if phone = @purchase.consumer.billing_phone
+    if phone = purchase.consumer.billing_phone
       sms(phone, message)
-      return if @sms == "failed"
-    end          
- 
-  end   
-
-  
-  def sms(phone, message)
-    
-    api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
-    begin
-      api.send_message(phone, message)
-    rescue 
-      @sms = "failed"
+      if @sms == "failed"
+        flash[:notice] = "We're sorry. SMS service is not available at the moment!"
+        return    
+      end
     end
+
+  end
+  
+  def pay_and_show
+    
+    if params[:pay] == "1"
+
+      purchase = session[:purchase]
+      merchant_site_id = purchase.retailer.merchant_site_id
+      merchant_id = purchase.retailer.merchant_id     
+      item = purchase.product.title
+      amount = purchase.amount
+      currency = t('currency_code')
+      success_url = "http://alpha.paykido.com/service/registration"      
+      error_url = "http://alpha.paykido.com/service/registration"  
+
+      #temp: to have the checksum match      
+      merchant_id = "4678792034088503828" 
+      amount = "1"
+      item = "test" 
+      #temp: to have the checksum match   
+     
+      pay(merchant_site_id, merchant_id, item, amount, currency, success_url, error_url)
+    elsif params[:show] == "1"
+      redirect_to "http://alpha.paykido.com/service/registration"
+    end          
     
   end
+
    
-  
-  
-  
   def retailer_signedin
      
     @sales = Purchase.retailer_sales(@retailer.id)
@@ -420,6 +450,18 @@ end
 
   protected
   
+      
+  def sms(phone, message)
+    
+    api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
+    begin
+      api.send_message(phone, message)
+    rescue 
+      @sms = "failed"
+    end
+    
+  end
+
   def set_payer_session
     
    clear_payer_session if session[:payer] and session[:payer].id  != @user.payer.id 

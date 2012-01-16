@@ -15,7 +15,7 @@ $('#purchases').append(
 					'<th><%= t 'By' %></th>' +
 					'<th><%= t 'Reason' %></th>' +
 					'<th><%= t 'Status' %></th>' +
-				'</tr>' +				
+					'<th><%= t 'Action' %></th>' +				'</tr>' +				
 			'</thead>' +
 			'<tbody>' +
 			'</tbody>' +			
@@ -41,9 +41,7 @@ $('#purchases').append(
 	$('#table').show();
 	<% for @purchase in @purchases %>
 
-		<% if @purchase.authorization_type == "ManuallyAuthorized" or 
-			  @purchase.authorization_type == "Unauthorized" or
-			  @purchase.authorization_type ==  "PendingPayer" %>
+		<% if @purchase.manually_handled? %>
 			<% @authorizer = @payer.name %>
 		<% else %> 
 			<% @authorizer = "Paykido" %>
@@ -52,8 +50,8 @@ $('#purchases').append(
 
 		$('tbody').append(
 		'<tr>' +
-			'<td class="date_cell" id="tb_date_<%= @purchase.id %>"><%= @purchase.date.strftime("%b %d, %Y") if @purchase.date %></td>' +
-			'<td class="date_cell" id="tb_date_<%= @purchase.id %>"><%= @purchase.date.strftime("%I:%M %p") if @purchase.date %></td>' +
+			'<td class="date_cell" id="tb_date_<%= @purchase.id %>"><%= @purchase.date.strftime("%a, %b %d, %Y") if @purchase.date %></td>' +
+			'<td class="time_cell" id="tb_date_<%= @purchase.id %>"><%= @purchase.date.strftime("%I:%M %p") if @purchase.date %></td>' +
 			'<td class="consumer_cell" id="tb_consumer_<%= @purchase.id %>"><%= @purchase.consumer_name %></td>' +
 			'<td class="retailer_cell" id="tb_retailer_<%= @purchase.id %>"><%= @purchase.retailer_name %></td>' +
 			'<td class="product_cell" id="tb_product_<%= @purchase.id %>"><%= @purchase.product_title %></td>' +
@@ -62,22 +60,35 @@ $('#purchases').append(
 			'<td class="date_cell" id="tb_authordate_<%= @purchase.id %>"><%= @purchase.authorization_date.strftime("%b %d, %Y") if @purchase.authorization_date %></td>' +
 			'<td class="Authorizer_cell" id="tb_authorizer_<%= @purchase.id %>"><%= @authorizer %></td>' +
 			'<td class="authorization_cell" id="tb_authorization_<%= @purchase.id %>"><%= t @purchase.authorization_type %></td>' +
-			'<td class="date_cell" id="tb_authendate_<%= @purchase.id %>"><%= @purchase.authentication_date.strftime("%b %d, %Y %I:%M %p") if @purchase.authentication_date%></td>' +
+			'<td class="status_cell" id="tb_status_<%= @purchase.id %>">'+
 				'<span class="icon">'+
-					'<% if    @purchase.authorization_type == "ManuallyAuthorized" %>'+
-						'<%= image_tag "/images/fb_like_lit_small.png", :border => "0", :id => "pending_like_lit_#{@purchase.id}", :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like" %>'+
-					'<% elsif @purchase.authorization_type == "PendingPayer" %>'+
-						'<%= image_tag "/images/fb_like_small.png", :border => "0", :id => "pending_like_unlit_#{@purchase.id}",  :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like" %>'+
-					'<% elsif @purchase.authorized? %>'+
-						'<%= image_tag "/images/approved1.png", :border => "0", :class => "arca_for_table" %>'+
-					'<% elsif    @purchase.authorization_type == "Unauthorized" %>'+
-						'<%= image_tag "/images/fb_dont_lit_small.png", :border => "0", :id => "pending_dislike_lit_#{@purchase.id}",  :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like dislike" %>'+
-					'<% elsif @purchase.authorization_type == "PendingPayer" %>'+
-						'<%= image_tag "/images/fb_dont_small.png", :border => "0", :id => "pending_dislike_unlit_#{@purchase.id}",  :class => "#{(@purchase.authorization_type =="PendingPayer") ?"pending" :"purchase"} like dislike" %>'+
-					'<% elsif !@purchase.authorized? %>'+
-						'<%= image_tag "/images/rejected1.png", :border => "0", :class => "arca_for_table" %>'+
+					'<% if    @purchase.authorized? %>'+
+						'<%= image_tag "/images/cart.png", :id => "status_img", :border => "0" %>'+
+					'<% elsif @purchase.pending? %>'+
+						'<%= image_tag "/images/clock.png", :id => "status_img", :border => "0" %>'+
+					'<% else %>'+
+						'<%= image_tag "/images/lock.png", :id => "status_img", :border => "0" %>'+
 					'<% end %>'+
 				'</span>' +
+			'</td>' +
+			'<td class="action_cell" id="tb_action_<%= @purchase.id %>">'+
+				'<% if @purchase.pending? %>'+
+						'<a href="#" class="icon tooltip navy-tooltip">' +
+							'<%= image_tag "/images/massage.png", :border => "0", :id => "message_#{@purchase.id}", :class => "message" %>' +
+							'<span class="no_decoration"><%= t 'Share' %></span>' +
+						'</a>' +
+					'</span>' +
+					'<% if @registered %>' + 
+						'<a href="#" class="icon tooltip navy-tooltip">' +
+							'<%= image_tag "/images/lock.png", :border => "0", :id => "lock_#{@purchase.id}", :class => "lock" %>' +
+							'<span><%= t 'Decline' %></span>' +
+						'</a>' +
+					'<% end %>' +
+						'<a href="#" class="icon tooltip navy-tooltip">' +
+							'<%= image_tag "/images/cart.png", :border => "0", :id => "cart_#{@purchase.id}", :class => "cart" %>' +
+							'<span><%= if @registered then t('Approve') else t('Buy') end %></span>' +
+						'</a>' +
+				'<% end %>'+
 			'</td>' +
 		'</tr>');
 
@@ -103,13 +114,13 @@ $(document).ready(function (){
 	
 	$('#period label').click(function () {
 		var selection = $(this).children().first().html();
-		if 		(selection == '<%= t 'Pending' %>') {
+		if 		(selection == '<%= 'Pending' %>') {
 			pTable.fnFilter( '<%= t 'PendingPayer' %>' , 9, true, false, false);
 		}
-		else if (selection == '<%= t 'Unauthorized' %>') {
+		else if (selection == '<%= 'Unauthorized' %>') {
 			pTable.fnFilter('<%= t 'Unauthorized'%>|<%= t 'Zero'%>|<%= t 'Insufficient'%>|<%= t 'Over'%>', 9, true, false, false);
 		}
-		else if (selection == '<%= t 'Authorized' %>') {
+		else if (selection == '<%= 'Authorized' %>') {
 			pTable.fnFilter('<%= t 'ManuallyAuthorized'%>|<%= t 'Under'%>', 9, true, false, false );
 		}
 		else {
@@ -117,63 +128,7 @@ $(document).ready(function (){
 		}		
 	}); 
 	
-	
-	function purchaselikeToggleSrc(id) {
-
-		var input = id.split('_');
-		var entity_type = input[0];
-		var clicked_button = input[1];
-		var status = input[2];
-		var entity_id = input[3];
 		
-		
-		if (clicked_button == "like") {
-			button_selector = 			"#"+id;
-			lit_image =  				"/images/fb_like_lit_small.png";
-			unlit_image = 				"/images/fb_like_small.png";
-			other_button  = 			"dislike";
-			other_button_lit_image = 	"/images/fb_dont_lit_small.png";
-			other_button_unlit_image = 	"/images/fb_dont_small.png";
-		} 
-		else {
-			button_selector = 			"#"+id;
-			lit_image = 				"/images/fb_dont_lit_small.png";
-			unlit_image = 				"/images/fb_dont_small.png";
-			other_button = 				"like";
-			other_button_lit_image = 	"/images/fb_like_lit_small.png";
-			other_button_unlit_image = 	"/images/fb_like_small.png";
-		}
-		
-		if ($('#purchase_' + other_button + '_lit_' + entity_id).length) {
-			other_button_selector = '#purchase_' + other_button + '_lit_' + entity_id;
-		}
-		else {
-			other_button_selector = '#purchase_' + other_button + '_unlit_' + entity_id;			
-		}
-		
-		
-		if (status == "lit") {
-			$(button_selector).attr('src', unlit_image);
-			$(button_selector).attr('id', "purchase_" + clicked_button + "_unlit_" + entity_id);
-		}
-		else {
-			$(button_selector).attr('src', lit_image);
-			$(other_button_selector).attr('src', other_button_unlit_image);
-			$(button_selector).attr('id', "purchase_" + clicked_button + "_lit_" + entity_id);
-			$(other_button_selector).attr('id', "purchase_" + other_button + "_unlit_" + entity_id);
-		}
-		
-		if (clicked_button == 'like' && status == 'unlit') {
-			return 'ManuallyAuthorized';
-		}
-		else if (clicked_button == 'dislike' && status == 'unlit') {
-			return 'Unauthorized';
-		}
-		else {
-			return 'PendingPayer';
-		}
-	};
-	
 
 	function update_purchase_table(id, status) {
 
@@ -191,7 +146,7 @@ $(document).ready(function (){
 		var aPos = pTable.fnGetPosition( cell );
 		var aData = pTable.fnGetData( aPos[0] );
 		if (status == "ManuallyAuthorized" || status == "Unauthorized") {
-			aData[ aPos[1] ] = "<%= Time.now.strftime("%b %d, %Y")%>" + " " + get_current_time();
+			aData[ aPos[1] ] = "<%= Time.now.strftime("%b %d, %Y")%>";
 		}
 		else {
 			aData[ aPos[1] ] = "";
@@ -200,37 +155,27 @@ $(document).ready(function (){
 	};
 
 
-
-	$(".pending.like").click(function() {
+	$(".cart, .lock").click(function() {
 		selector_id = $(this).attr("id");
-		purchase_id = selector_id.split('_')[3];
-		new_status = purchaselikeToggleSrc(selector_id);
-		update_purchase_table(purchase_id, new_status);
+		purchase_id = selector_id.split('_')[1];
+		status_selector = '#tb_status_' + purchase_id + ' .icon #status_img';
+		if ($(status_selector).attr('src').split('?')[0] == '/images/cart.png') {return};
+		approved = $(this).hasClass('cart').toString();
+		url = 'purchase/' + purchase_id + '?approved=' + approved
+		title = ' '
+        $('table#hs_table').remove(); 
+        hs.htmlExpand(null, { 
+                    src: url, objectType: 'ajax', 
+                    creditsPosition: 'bottom left', headingText: title, 
+                    wrapperClassName: 'titlebar' } )
+        hs.htmlExpand(null, { 
+                    src: url, objectType: 'ajax', 
+                    creditsPosition: 'bottom left', headingText: title, 
+                    wrapperClassName: 'titlebar' } )
+                     
+        	});
+/*        $('table#hs_table').remove(); */
 
-		$.ajax({
-			url: 'purchase_update/' + purchase_id + '?new_status=' + new_status,
-			success: function(data){
-				
-			}
-		})
-
-	});
-	
-	function get_current_time() {
-		var currentTime = new Date()
-		var hours = currentTime.getHours()
-		var minutes = currentTime.getMinutes()
-		if (minutes < 10){
-		minutes = "0" + minutes
-		}
-		current_time = hours + ":" + minutes + " "
-		if(hours > 11){
-		current_time = current_time + "PM"
-		} else {
-		current_time = current_time + "AM"}
-		return current_time
-	};
-
-
+/*	   $('#hs_table tbody:nth-child(2)').remove(); */ 
 
 });
