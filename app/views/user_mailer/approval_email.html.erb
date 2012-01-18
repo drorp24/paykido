@@ -428,18 +428,17 @@
 							<tr style="border-collapse:collapse;" >
 								<td id="header" class="w640" align="center" bgcolor="#FFFFFF" width="640" style="border-collapse:collapse;" >
 								<div  align="left" style="text-align:left;" ><img id="customHeaderImage" src="http://i2.createsend3.com/ti/j/90/9C5/BD0/223803/images/arca_logo.133517.png" class="w640"  align="top" border="0" style="display:inline;height:auto;line-height:100%;outline-style:none;text-decoration:none;" />
-			    <p style="margin-left: 200px"><span style="font-size: 16px"><strong>Dear <%= @user.name %></strong></span>, <%= @consumer.name %> asked us to tell you about 
-			                                                                                 <%= link_to "Paykido",
+			    <p style="margin-left: 200px"><span style="font-size: 16px"><strong>Dear <%= @user.name %></strong></span>, <%= @consumer.name %> asks you to approve
+			                                                                                 <%= link_to "that purchase",
                                         :host => "alpha.paykido.com",
                                         :controller => "subscriber",
-                                        :action => "invite",
+                                        :action => "approve",
+                                        :purchase_id => @purchase.id,
                                         :name => @user.name,
                                         :authenticity_token => @user.hashed_password,
-                                        :email => @user.email,
-                                        :invited_by => @consumer.name
+                                        :email => @user.email
 %>
-
-			        </p>
+</p>
 					</div></td>
 							</tr>
 							<tr id="twocolumn-content-row" style="border-collapse:collapse;" >

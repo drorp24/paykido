@@ -13,23 +13,6 @@ class ConsumerController < ApplicationController
   #  before_filter :ensure_consumer_authenticated, :except => ["login", "register", "register_callback"]
     
   
-  def register
-    
-  end
-
-  
-  def check_registration_input
-    
-    errors = Hash.new
-    if params[:payer_phone] != "2"
-      errors["payer_phone"] = "wrong"
-    end
-    
-    respond_to do |format|
-      format.json { render :json => errors }
-    end
-    
-  end
   
   def login
     
@@ -40,17 +23,11 @@ class ConsumerController < ApplicationController
   end
   
 
-  def logout
-    
-  end
-
-
   def login_callback
     
     login
     
-    respond_to do |format|  
-      format.html  
+    respond_to do |format|   
       format.js  
     end   
     
@@ -116,34 +93,13 @@ class ConsumerController < ApplicationController
 
   def login_messages
     
-    if @consumer
-      
+    if @consumer     
       @salutation = "Welcome "
       @name = @consumer.name + "!"  
       @pic = "https://graph.facebook.com/#{@consumer.facebook_id}/picture"
       
-      if sms = params[:sms]    # i.e., this is the second time login is invoked (=back from register_callback)
-        if sms == "test" 
-          @first_line = "You are in test mode (no sms)"
-          @second_line = "Use #{session[:username]}/#{session[:password]} to access your subscriber account"
-        elsif sms == "sent" 
-          @first_line = "We sent your parents a registration invite"
-          @second_line = "You can use Paykido as soon as they accept it!"
-        elsif email == "failed"
-          @first_line = "We could not send your parents the invite"
-          @second_line = "check the email address and try again."
-        elsif sms == "failed"
-          @first_line = "We could not send your parents the invite"
-          @second_line = "Try registering again. Note the phone number."
-        else
-          @first_line = "Sorry, service is temporarily down"
-          @second_line = "Please try again in a few moments"
-        end
-      else
-        @first_line = "You're about to buy"
-        @second_line = "#{@product_title} for $#{@product_price}"
-      end
-      
+      @first_line = "You're about to buy"
+      @second_line = "#{@product_title} for $#{@product_price}"
     else
       @salutation = "Hello!"
       @name = nil
@@ -154,21 +110,6 @@ class ConsumerController < ApplicationController
     
   end    
 
-  
-  def save_state
-   
-    
-    session[:last_scroll]   = params[:scroll]
-    session[:product_title] = params[:product].split('@')[0]  
-    session[:product_price] = params[:product].split('@')[1] 
-    
-    respond_to do |format|  
-      format.html { redirect_to "zzz" }  
-      format.js  
-    end
-    
-  end
-    
 
   def clear_session
     session[:consumer]= session[:payer]= session[:retailer]=
@@ -187,11 +128,11 @@ class ConsumerController < ApplicationController
   
 
   
-  def register_callback
+  def register_callback # try making it ajax instead of attempting to redirect 
       
     find_or_create_consumer_and_payer     
     find_or_create_user
-    inform_payer    
+    request_joinin(@user, @consumer)    
     
    session[:friend_authenticated] = true 
     redirect_to :controller => :play, 
@@ -253,37 +194,6 @@ class ConsumerController < ApplicationController
 
   end
   
-  def inform_payer
-     
-    inform_payer_by_email(session[:user], session[:consumer])
-    inform_payer_by_sms(session[:payer], session[:consumer]) 
-    
-  end 
-  
-  def inform_payer_by_email (user, consumer)
-    begin   
-      UserMailer.joinin_email(user, consumer).deliver
-    rescue
-      @email == "failed"
-    end
-  end
-
-  
-  def inform_payer_by_sms (payer, consumer)
-  
-    unless Current.policy.send_sms?
-      @sms = "test"
-      return
-    end
-    
-    message = "Hi #{payer.name}! #{consumer.name} asked us to tell you about Paykido. See our email for details"
-    sms(payer.phone,message)
-    return if @sms == "failed"
-    
-    @sms = "sent"
-  
-  end 
-
     
   #############################################
   #############################################
@@ -298,21 +208,15 @@ class ConsumerController < ApplicationController
       @second_line = "to buy with paykido 1-click!"
       return
     end
-    
-#    unless @payer.registered?
-#      @first_line =  "Please see that your parent completes registration"
-#      @second_line = "to buy with paykido 1-click!"
-#      return      
-#    end
-    
+        
     begin      
       create_purchase
       authorize_purchase
 #     pay_retailer
-      if @purchase.authorized? # and retailer_paid?
-        account_for(@purchase.amount)
-      elsif @purchase.pending?
-        ask_for_manual_approval 
+      if @purchase.authorized? # and retailer_paid (succesfully)?
+        account_for(@purchase)
+      elsif @purchase.requires_manual_approval?
+        request_approval(@user, @consumer, @purchase) 
       end
       authorization_messages      
     rescue
@@ -402,7 +306,7 @@ class ConsumerController < ApplicationController
     elsif @purchase.manually_authorized?
       @purchase.authorized = true
     else
-      @purchase.make_pending
+      @purchase.require_manual_approval
       @purchase.authorized = false
     end
     
@@ -501,8 +405,10 @@ class ConsumerController < ApplicationController
     
   end
   
-  def account_for(amount)
+  def account_for(purchase)
     
+    amount = purchase.amount
+  
     @retailer = session[:retailer] 
     @retailer.record(amount)
     @retailer.save!
@@ -521,10 +427,9 @@ class ConsumerController < ApplicationController
      if     @purchase.authorized
       @first_line = "#{session[:product_title]} is yours!"
       @second_line = "Thanks for using paykido!"
-     elsif  @purchase.pending?
+     elsif  @purchase.requires_manual_approval?
       @first_line =  "This has to be manually authorized"
-      @second_line = "We'll text you as soon as it is over!"
-      @second_line = "Please retry if you want a manual approval" if @sms == "failed"
+      @second_line = "Approval request has been sent"
      elsif !@purchase.authorized 
         @first_line = "This purchase is unauthorized"
         if @purchase.authorization_type == 'Insufficient Balance'
@@ -542,27 +447,26 @@ class ConsumerController < ApplicationController
     
   end  
   
-  def ask_for_manual_approval
+  def request_approval(user, consumer, purchase)
     
-    phone = @payer.phone
-    message = "Hi from Paykido! Do you approve #{@product.title} from #{@retailer.name} for #{number_to_currency(@purchase.amount)} (Y/N)?"
-    sms(phone, message) unless !Current.policy.send_sms?
+    UserMailer.approval_email(user, consumer, purchase).deliver
+
+    message = "Hi from Paykido! #{purchase.consumer.name} asks that you approve #{purchase.product.title} from #{purchase.retailer.name}. See our email for details"
+    sms(purchase.payer.phone, sms_message) 
     
   end
-   
+  
+    def request_joinin(user, consumer)
+     
+    UserMailer.joinin_email(user, consumer).deliver
+
+    message = "Hi #{user.payer.name}! #{onsumer.name} asked us to tell you about Paykido. See our email for details"
+    sms(user.payer.phone, message) 
+    
+  end 
+  
   private
   
-  def sms(phone, message)
-    
-    api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
-    begin
-      api.send_message(phone, message)
-    rescue 
-      @sms = "failed"
-    end
-    
-  end
-
   def ensure_friend_authenticated    
     redirect_to  :controller => 'welcome', :action => 'index' unless session[:friend_authenticated]    
   end

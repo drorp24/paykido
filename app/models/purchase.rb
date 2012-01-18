@@ -14,16 +14,16 @@ class Purchase < ActiveRecord::Base
 #  attr_accessor :authorization_date, :authorization_type
 
 
-  def make_pending
+  def require_manual_approval
     self.authorization_type = "PendingPayer"
   end
 
-  def make_pending!
+  def require_manual_approval!
     self.update_attributes!(
       :authorization_type => "PendingPayer")
   end
   
-  def pending?
+  def requires_manual_approval?
     self.authorization_type == "PendingPayer"
   end
 

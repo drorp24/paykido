@@ -78,6 +78,23 @@ class ApplicationController < ActionController::Base
     
   end
 
-  
+  def sms(phone, message)
+    
+    unless Current.policy.send_sms?
+      return "test"
+    end
+
+    api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
+    begin
+      api.send_message(phone, message)
+    rescue 
+      return false
+    else
+      return "sent"
+    end
+    
+  end
+
+
   #protect_from_forgery
 end

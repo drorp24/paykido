@@ -10,6 +10,16 @@ class SubscriberController < ApplicationController
   before_filter :check_payer_and_set_variables, :except => [:index, :signin, :joinin, :signout, :retailer_signedin]
   before_filter :check_retailer_and_set_variables, :only => [:retailer_signedin]
   
+
+  # for tests only
+  def email
+      @user = session[:user]
+      @consumer = session[:consumer]
+      UserMailer.joinin_email(@user, @consumer).deliver
+      redirect_to :action => :payer_signedin
+  end
+
+
   
   def index
     redirect_to :controller => "service", :action => "index"    
@@ -26,7 +36,7 @@ class SubscriberController < ApplicationController
       flash[:notice] = "user or password are incorrect. Please try again!"
     end
     
-    redirect_to :action => :payer_signedin
+    redirect_to :action => :payer_signedin, :approve => params[:purchase_id]
     
   end
 
@@ -45,14 +55,6 @@ class SubscriberController < ApplicationController
     
   end
   
-  # for tests only
-  def email
-      @user = session[:user]
-      @consumer = session[:consumer]
-      UserMailer.joinin_email(@user, @consumer).deliver
-      redirect_to :action => :index
-  end
-
 
   def signin
     
@@ -390,8 +392,6 @@ end
   
   def inform_consumer(purchase, activity)
     
-    return unless Current.policy.send_sms?
-     
     if activity == 'approve'
       message = "Congrats! Your purchase of #{purchase.product.title} has been approved."
     elsif activity == 'decline'
@@ -401,8 +401,7 @@ end
     end
     
     if phone = purchase.consumer.billing_phone
-      sms(phone, message)
-      if @sms == "failed"
+      unless sms(phone, message)
         flash[:notice] = "We're sorry. SMS service is not available at the moment!"
         return    
       end
@@ -451,17 +450,6 @@ end
   protected
   
       
-  def sms(phone, message)
-    
-    api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
-    begin
-      api.send_message(phone, message)
-    rescue 
-      @sms = "failed"
-    end
-    
-  end
-
   def set_payer_session
     
    clear_payer_session if session[:payer] and session[:payer].id  != @user.payer.id 

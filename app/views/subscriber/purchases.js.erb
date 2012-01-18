@@ -64,7 +64,7 @@ $('#purchases').append(
 				'<span class="icon">'+
 					'<% if    @purchase.authorized? %>'+
 						'<%= image_tag "/images/cart.png", :id => "status_img", :border => "0" %>'+
-					'<% elsif @purchase.pending? %>'+
+					'<% elsif @purchase.requires_manual_approval? %>'+
 						'<%= image_tag "/images/clock.png", :id => "status_img", :border => "0" %>'+
 					'<% else %>'+
 						'<%= image_tag "/images/lock.png", :id => "status_img", :border => "0" %>'+
@@ -72,7 +72,7 @@ $('#purchases').append(
 				'</span>' +
 			'</td>' +
 			'<td class="action_cell" id="tb_action_<%= @purchase.id %>">'+
-				'<% if @purchase.pending? %>'+
+				'<% if @purchase.requires_manual_approval? %>'+
 						'<a href="#" class="icon tooltip navy-tooltip">' +
 							'<%= image_tag "/images/massage.png", :border => "0", :id => "message_#{@purchase.id}", :class => "message" %>' +
 							'<span class="no_decoration"><%= t 'Share' %></span>' +

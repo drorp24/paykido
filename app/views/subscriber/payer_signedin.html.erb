@@ -258,8 +258,8 @@
                         wrapperClassName: 'titlebar' } );
             });
         <% end %>
-
-	function viewConsumers() {
+        
+ 	function viewConsumers() {
 		$.ajax({
 			url: 'consumers',
 			success: function(data){
@@ -415,8 +415,14 @@
 
 	};
 
-    hs.Expander.prototype.onAfterExpand = function() {
-           $('#approval_and_rules').submitWithAjax();    
+    hs.Expander.prototype.onBeforeExpand = function() {
+        $('#approval_and_rules').submitWithAjax();
+        $('#hs_tbody tr').each(function() {
+            if  ($(this).attr('id') != 'hs_tr') {
+             $(this).remove();   
+        }
+        });
+    
     };  
 
 </script>

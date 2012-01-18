@@ -84,7 +84,6 @@ $(document).ready(function (){
 	else {
 		var product_param = $('form').serialize();
 	}
-	$.ajax({url: '/consumer/save_state?scroll=' + $(document).scrollTop() + '&' + product_param});
 
 	$('#login_button').click(function() {
 		if ($('.fb_button_text').html() == 'Register') {

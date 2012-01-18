@@ -11,7 +11,7 @@ class AdminController < ApplicationController
   def return_to_pending
     Purchase.where(:payer_id => 63, :authorization_type => 'ManuallyAuthorized').each  do |p|
       p.authorized = false
-      p.make_pending!
+      p.require_manual_approval!
     end
     redirect_to :action => :index 
   end
