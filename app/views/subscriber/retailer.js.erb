@@ -1,7 +1,6 @@
 $('#retailers .left_content').html(
 	'<p class="inner_content_title">&nbsp;</p>'+
 	'<p class="content-name-left"><%= @retailer.name %></p>'+
-	'<span class="icon">'+
 	'<div class="inner_content_text"></div>'+
 	'<p>'+
 		'<span class=item>Monthly purchase count:</span>'+			
@@ -14,75 +13,5 @@ $('#retailers .left_content').html(
 	'<p>'+
 		'<span class=item>Last purchase:</span>'+			
 		'<span class=content-value><%= @retailer.most_recent.to_date.strftime("%B %d, %Y") %></span>' +
-	'</p>'+
-		'<% if    @retailer.status == "whitelisted" %>'+
-			'<%= image_tag "/images/fb_like_lit_small.png", :id => "retailer_like_lit_#{@retailer.id}", :class => "retailer like" %>'+
-		'<% else %>'+
-			'<%= image_tag "/images/fb_like_small.png", :id => "retailer_like_unlit_#{@retailer.id}",  :class => "retailer like" %>'+
-		'<% end %>'+
-	'</span>'+	
-	'<span class="icon">'+
-		'<% if    @retailer.status == "blacklisted" %>'+
-			'<%= image_tag "/images/fb_dont_lit_small.png", :id => "retailer_dislike_lit_#{@retailer.id}",  :class => "retailer like dislike" %>'+
-		'<% else %>'+
-			'<%= image_tag "/images/fb_dont_small.png", :id => "retailer_dislike_unlit_#{@retailer.id}",  :class => "retailer like dislike" %>'+
-		'<% end %>'+
-	'</span>'
+	'</p>'
 );	
-	function RetailerlikeToggleSrc(id) {
-
-		var input = id.split('_');
-		var entity_type = input[0];
-		var clicked_button = input[1];
-		var status = input[2];
-		var entity_id = input[3];
-		
-		
-		if (clicked_button == "like") {
-			button_selector = 			"#"+id;
-			lit_image =  				"/images/fb_like_lit_small.png";
-			unlit_image = 				"/images/fb_like_small.png";
-			other_button  = 			"dislike";
-			other_button_lit_image = 	"/images/fb_dont_lit_small.png";
-			other_button_unlit_image = 	"/images/fb_dont_small.png";
-		} 
-		else {
-			button_selector = 			"#"+id;
-			lit_image = 				"/images/fb_dont_lit_small.png";
-			unlit_image = 				"/images/fb_dont_small.png";
-			other_button = 				"like";
-			other_button_lit_image = 	"/images/fb_like_lit_small.png";
-			other_button_unlit_image = 	"/images/fb_like_small.png";
-		}
-		
-		if ($('#retailer_' + other_button + '_lit_' + entity_id).length) {
-			other_button_selector = '#retailer_' + other_button + '_lit_' + entity_id;
-		}
-		else {
-			other_button_selector = '#retailer_' + other_button + '_unlit_' + entity_id;			
-		}
-		
-		
-		if (status == "lit") {
-			$(button_selector).attr('src', unlit_image);
-			$(button_selector).attr('id', "retailer_" + clicked_button + "_unlit_" + entity_id);
-		}
-		else {
-			$(button_selector).attr('src', lit_image);
-			$(other_button_selector).attr('src', other_button_unlit_image);
-			$(button_selector).attr('id', "retailer_" + clicked_button + "_lit_" + entity_id);
-			$(other_button_selector).attr('id', "retailer_"  + other_button + "_unlit_" + entity_id);
-		}
-		
-		if (clicked_button == 'like' && status == 'unlit') {
-			return 'whitelisted';
-		}
-		else if (clicked_button == 'dislike' && status == 'unlit') {
-			return 'blacklisted';
-		}
-		else {
-			return '';
-		}
-	};
-	
-

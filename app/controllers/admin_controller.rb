@@ -2,6 +2,11 @@ class AdminController < ApplicationController
 
 #   before_filter   :check_friend_authenticated    
 
+  def retailers    
+    @retailers =  Purchase.payer_retailers_the_works(63)
+    redirect_to :action => :index 
+  end
+
 
   def set_category_to_1
     Purchase.all.each {|p| p.update_attributes!(:category_id => 1)}
