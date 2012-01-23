@@ -37,6 +37,7 @@ class DashboardController < ApplicationController
     
   end
 
+
   private
 
   def find_consumer
@@ -50,5 +51,6 @@ class DashboardController < ApplicationController
     session[:consumer] = @consumer
 
   end
+  
 
 end
