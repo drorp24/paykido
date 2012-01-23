@@ -2,6 +2,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  Consumer amount rules: User Rules - Amounts
   currency_code: USD
   allowance: allowance
   current_balance: Current balance
@@ -9,6 +10,7 @@ en:
   Retailers: Merchants
   Products: Titles
   Categories: Categories
+  Purchase: Purchase
   Purchases: Purchases
   Settings: Settings
   Date: Date

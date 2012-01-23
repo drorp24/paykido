@@ -54,6 +54,15 @@ class Purchase < ActiveRecord::Base
   def manually_declined?
     self.authorization_type == "Unauthorized"
   end
+  
+  def automatically_authorized?
+    self.authorized and !self.manually_handled?
+  end
+  
+  def automatically_declined?
+    !self.authorized and self.authorization_type and !self.manually_handled?
+  end
+  
 
   def self.pending_amt(payer_id)
     self.sum(:amount, :conditions => ["payer_id = ? and authorization_type = ?", payer_id, "PendingPayer"]) 

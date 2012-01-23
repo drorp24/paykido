@@ -1,0 +1,56 @@
+/**
+ ** Message Growl
+**/
+.ui-notify { width:350px; position:fixed; top:10px; right:10px; }
+.ui-notify-message { 
+	padding:10px; 
+	margin-bottom:15px; 
+	-moz-border-radius:5px; 
+	-webkit-border-radius:5px; 
+	-o-border-radius:5px;
+	border-radius:5px;
+}
+
+.ui-notify-message h1 { font-size:14px; margin:0; padding:0 }
+.ui-notify-message p { margin:3px 0; padding:0; line-height:18px }
+.ui-notify-message:last-child { margin-bottom:0 }
+.ui-notify-message-style {
+	background:#DDD;
+	background:-webkit-gradient(linear,left top,left bottom,color-stop(0,#F9F9F9),color-stop(1,#D5D5D5));
+	background:-moz-linear-gradient(top,#F9F9F9,#D5D5D5);
+	background:-o-linear-gradient(#F9F9F9,#D5D5D5);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#F9F9F9',endColorstr='#D5D5D5');
+	
+	-webkit-box-shadow:0 0 7px rgba(0,0,0,.3);
+	-moz-box-shadow:0 0 7px rgba(0,0,0,.3);
+	-o-box-shadow:0 0 7px rgba(0,0,0,.3);
+	box-shadow:0 0 7px rgba(0,0,0,.3);
+	
+	border:1px solid #A8A8A8;
+	color:#333;
+	
+	-webkit-text-shadow:0 0 1px #FFF;
+	-moz-text-shadow:0 0 1px #FFF;
+	-o-text-shadow:0 0 1px #FFF;
+	text-shadow:0 0 1px #FFF;
+	
+	/*
+	background: -moz-linear-gradient(center top , #F9F9F9, #D5D5D5) repeat scroll 0 0 transparent;
+	box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
+	border: 1px solid #A8A8A8;
+	color: #333333;
+	text-shadow: 0 0 1px #FFFFFF;
+	*/ 
+}
+.ui-notify-message-style h1 { color:#333; font-weight:bold; line-height:18px; text-shadow: 0 0 1px #FFFFFF;}
+.ui-notify-message-style p { color:#333 }
+.ui-notify-close { color:#333; text-decoration:underline }
+.ui-notify-click { cursor:pointer }
+.ui-notify-cross { margin-top:-4px; float:right; cursor:pointer; text-decoration:none; font-size:12px; font-weight:bold; text-shadow:0 1px 1px #333; padding:2px }
+.ui-notify-cross:hover { /*color:#ffffab */}
+.ui-notify-cross:active { position:relative; top:1px }
+.with-icon {float:left}
+
+.message h3{
+	line-height:1;
+}

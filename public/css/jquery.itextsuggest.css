@@ -1,0 +1,136 @@
+div.searchcontainer {
+	margin: 0px auto;
+	padding: 0 25px;
+    background-color: #C7CFD4;
+/*    background-image: url('http://alpha.paykido.com/css/svg.php?stops=%23F1F3F4 0%,%23E0E4E7 3%,%23C7CFD4 50%,%23BEC7CD 51%,%23B4BEC6 97%,%238999A5 100%');*/
+    background-image: -o-linear-gradient(top, #F1F3F4, #E0E4E7 3%, #C7CFD4 50%, #BEC7CD 51%, #B4BEC6 97%, #8999A5);
+    background-image: -ms-linear-gradient(top, #F1F3F4, #E0E4E7 3%, #C7CFD4 50%, #BEC7CD 51%, #B4BEC6 97%, #8999A5);
+    background-image: -moz-linear-gradient(top, #F1F3F4, #E0E4E7 3%, #C7CFD4 50%, #BEC7CD 51%, #B4BEC6 97%, #8999A5);
+    background-image: -webkit-gradient(linear,0% 0%,0% 100%,from(#F1F3F4),color-stop(3%,#E0E4E7),color-stop(50%,#C7CFD4),color-stop(51%,#BEC7CD),color-stop(97%,#B4BEC6),to(#8999A5));
+    background-image: -webkit-linear-gradient(top, #F1F3F4, #E0E4E7 3%, #C7CFD4 50%, #BEC7CD 51%, #B4BEC6 97%, #8999A5);
+    background-image: linear-gradient(top, #F1F3F4, #E0E4E7 3%, #C7CFD4 50%, #BEC7CD 51%, #B4BEC6 97%, #8999A5);
+	position: relative;
+    height: 46px;
+}
+
+div.searchbox {
+    background: #FFF url(../images/search.png) 8px 8px no-repeat;
+    -o-border-radius: 16px;
+    -ms-border-radius: 16px;
+    -moz-border-radius: 16px;
+    -webkit-border-radius: 16px;
+    border-radius: 16px;
+    -o-box-shadow: inset 0px 1px 4px rgba(0,0,0,0.8);
+    -ms-box-shadow: inset 0px 1px 4px rgba(0,0,0,0.8);
+    -moz-box-shadow: inset 0px 1px 4px rgba(0,0,0,0.8);
+    -webkit-box-shadow: inset 0px 1px 4px rgba(0,0,0,0.8);
+    box-shadow: inset 0px 1px 4px rgba(0,0,0,0.8);
+    display: block;
+    height: 24px;
+    margin: auto;
+    padding: 4px 14px 1px 24px;
+    position: relative;
+    top: 9px;
+}
+
+div.searchbox input[type=text] {
+	background: transparent;
+    -o-box-shadow: none;
+    -ms-box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+	padding: 0px 5px 0px 5px;
+	margin: 1px 0px 0px 0px;
+	font-size: 12px;
+	border: 0px;
+	width: 100%;
+	outline: none;
+	-webkit-user-select: text;
+	-moz-user-select: text;
+	user-select: text;
+}
+
+div.searchbox .itextsuggestpreloader {
+    background: url(../images/ajax-loader-trans.gif) center center no-repeat;
+    display: block;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+	display: none;
+	top: 3px;
+	right: -7px;
+}
+
+div.searchbox .iTextClearButtonContainer {
+    width: 100%;
+}
+div.searchbox .iTextClearButtonContainer .iTextClearButton {
+    top: 1px;
+    right: -9px;
+}
+.fieldBlurred { color: #999; font-style: italic; }
+.fieldActive { color: #000; }
+
+#itextsuggest {
+	display: none;
+	position: absolute;
+	background: #FFF;
+	-o-border-radius: 3px;
+	-ms-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	-o-box-shadow: rgba(0,0,0,0.3) 0px 0px 4px;
+	-ms-box-shadow: rgba(0,0,0,0.3) 0px 0px 4px;
+	-moz-box-shadow: rgba(0,0,0,0.3) 0px 0px 4px;
+	-webkit-box-shadow: rgba(0,0,0,0.3) 0px 0px 4px;
+	box-shadow: rgba(0,0,0,0.3) 0px 0px 4px;
+	overflow: hidden;
+	z-index: 10000;
+    }
+    #itextsuggest ul {
+        list-style: none;
+        padding: 0px;
+        margin: 0px;
+        }
+        #itextsuggest ul li {
+            display: inline;
+            }
+            #itextsuggest ul li a {
+                display: block;
+                padding: 6px 10px;
+                color: #888;
+                font-size: 12px;
+                font-family: Tahoma;
+                }
+                #itextsuggest ul li a b {
+                    color: #000;
+                    }
+            #itextsuggest ul li a:hover {
+                background-color: #DDD;
+                background-image: -o-linear-gradient(top, #DDD, #CCC);
+                background-image: -ms-linear-gradient(top, #DDD, #CCC);
+                background-image: -moz-linear-gradient(top, #DDD, #CCC);
+                background-image: -webkit-gradient(linear, left top, left bottom, from(#DDD), to(#CCC));
+                background-image: -webkit-linear-gradient(top, #DDD, #CCC);
+                background-image: linear-gradient(top, #DDD, #CCC);
+                filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#DDDDDD,endColorstr=#CCCCCC);
+                color: #FFF;
+                text-shadow: rgba(0,0,0,0.6) 1px 1px 1px;
+                }
+#itextsuggest ul li a.active {
+    background-color: #DDD;
+	background-image: -o-linear-gradient(top, #DDD, #CCC);
+	background-image: -ms-linear-gradient(top, #DDD, #CCC);
+	background-image: -moz-linear-gradient(top, #DDD, #CCC);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#DDD), to(#CCC));
+	background-image: -webkit-linear-gradient(top, #DDD, #CCC);
+	background-image: linear-gradient(top, #DDD, #CCC);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#DDDDDD,endColorstr=#CCCCCC);
+	color: #FFF;
+	text-shadow: rgba(0,0,0,0.6) 1px 1px 1px;
+    }
+    #itextsuggest ul li a.active b {
+        color: #FFF;
+        }

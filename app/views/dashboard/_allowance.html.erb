@@ -1,0 +1,71 @@
+
+<%= javascript_include_tag "jquery-ui-1.8.2.custom.min", "jquery.ui.touch-punch" %>
+
+<%= form_for :consumer, :url => {:action => "consumer_update", :id => @consumer.id}, :html => {:id => "allowance_form"} do |f| %>            
+
+    <table class="full" cellspacing="10">
+        <tbody> 
+            <tr>
+                <td><%= t 'Frequency' %></td>
+                <td class="currValue">
+                    <span id="allowance_period"><%= f.select(:allowance_period, Consumer.human_attribute_name("allowance_period"),{}, :onchange => "$('#allowance_form').submit();" )%></span>                
+                </td>
+                <td class="control">
+                    <span><%= t 'Next grant' %></span>
+                    <span class="form-input"><input type="date" id="next-allowance-date" name="date" placeholder="mm/dd/yyyy" /></span>                            
+                </td>
+            </tr>    
+            <tr></tr>
+            <tr>
+                <td><%= t 'Allowance' %></td>
+                <td class="currValue"><%= f.text_field(:allowance, :onchange => "$('#allowance_form').submit();", :id => "allowance_value") %></td> 
+                <td class="control">
+                    <div class="progress" id="allowance_slider" onclick="$('#allowance_form').submit();"></div>
+                </td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td><%= t 'Auto. authorize under' %></td>
+                <td class="currValue"><%= f.text_field(:auto_authorize_under, :onchange => "$('#allowance_form').submit();", :id => "under_value", :size => 10) %></td>
+                <td class="control">
+                    <div class="progress" id="under_slider" onclick="$('#allowance_form').submit();"></div>
+                </td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td><%= t 'Auto. unauthorize over' %></td>
+                <td class="currValue"><%= f.text_field(:auto_deny_over, :onchange => "$('#allowance_form').submit();", :id => "over_value", :size => 10) %></td>
+                <td class="control">
+                    <div class="progress" id="over_slider" onclick="$('#allowance_form').submit();"></div>
+                </td>
+            </tr>
+    
+        </tbody> 
+    </table> 
+
+<% end %>
+
+<script type="text/javascript"> 
+
+    $('#allowance_form').submitWithAjax(); 
+
+    function showSlider(sliderId, valueId, inputValue) {
+
+        $(function () {
+            $(sliderId).slider({
+                value: inputValue,
+                min: 0,
+                max: 2*inputValue,
+                slide: function(event, ui) {
+                    $(valueId).val(ui.value +'.00');
+                }
+                
+            });
+        });
+    };   
+        
+    showSlider('#allowance_slider', '#allowance_value', <%= @consumer.allowance %>);
+    showSlider('#under_slider', '#under_value', <%= @consumer.auto_authorize_under %>);
+    showSlider('#over_slider', '#over_value', <%= @consumer.auto_deny_over %>);
+
+</script>   

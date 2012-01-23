@@ -1,0 +1,150 @@
+<!-- MEDIA FILTERING -->
+<script type="text/javascript" src="js/jquery.isotope.min.js"></script>
+<script type="text/javascript">
+$.tools.overlay.addEffect("popup",
+
+    function(position, done) {
+        var overlay = this.getOverlay();
+        // compute position
+        var top = $(window).height()/2 - 26;
+        var left = $(window).width()/2 - 26;
+        overlay.addClass('loading')
+            .width(32).height(32)
+            .css({top: top + 'px', left: left + 'px', display: 'block', opacity: 1})
+            .data('oleft', left).data('otop', top)
+    },
+
+    // close function
+    function(done) {
+        var overlay = this.getOverlay();
+        overlay.stop().removeClass('loading').animate({opacity: 0, width: 32, height: 32, left: overlay.data('oleft'), top: overlay.data('otop')}, this.getConf().closeSpeed, 'swing', done);
+    }
+);
+$(document).ready(function(){
+    !$("#overlay").length && $("body").append('<div class="apple_overlay" id="overlay"><img src="images/blank.gif" /></div>');
+    $('#media').isotope({
+        // options
+        itemSelector : 'li',
+        transformsEnabled: false,
+        visibleStyle: { opacity: 1 },
+        hiddenStyle: { opacity: 0 }
+    });
+    setTimeout(function(){
+        $('#filters a').click(function(){
+            var selector = $(this).attr('data-filter');
+            $('#media').isotope({
+                filter: selector,
+                transformsEnabled: false,
+                visibleStyle: { opacity: 1 },
+                hiddenStyle: { opacity: 0 }
+            });
+            $(this).parent().addClass('current').siblings().removeClass('current');
+            return false;
+        }).first().click();
+    }, 2000);
+    
+    $("#media a[rel]").overlay({
+        effect: 'popup',
+        mask: '#ffffff',
+        left: 'center',
+        top: 'center',
+        onBeforeLoad: function() {
+            var overlay = this.getOverlay();
+
+            // grab img element inside content
+            var img = overlay.find("img").fadeOut();
+            var tmp = $('<img />');
+
+            // load the img specified in the trigger
+            img.unbind().width(0).height(0).attr('src', '').css('visibility', 'hidden');
+            tmp.attr('src', this.getTrigger().attr("href")).load(function(){
+                if (overlay.hasClass('loading')) {
+                    var width = this.width > $(window).width()? $(window).width() - 40 : this.width,
+                    height = this.width > $(window).width()? (this.height * width)/this.width : this.height;
+                    
+                    if (height > $(window).height()) {
+                        width = width * ($(window).height()-40) / height;
+                        height = $(window).height()-40;
+                    }
+                    overlay.animate({opacity: 1, width: width, height: height, left: $(window).width()/2 - width/2 - 10, top: ($(window).height()-height)/2}, 'slow', 'swing', function(){
+                        overlay.removeClass('loading').css('overflow', 'visible');
+                    });
+                    img.replaceWith(tmp.css({visibility: 'visible', opacity: 0, width: '100%', height: '100%'}).animate({opacity:1},2000,'swing'));
+                }
+            });
+        },
+        onBeforeClose: function() {
+            this.getOverlay().addClass('closing').find("img").unbind();
+        },
+        onClose: function() {
+            this.getOverlay().removeClass('closing');
+        }
+    });
+});
+</script>
+<!-- MEDIA FILTERING END -->
+                
+<h1 class="page-title">Media</h1>
+<div class="container_12 clearfix leading">
+    <div class="grid_12">
+        <div class="ac">
+            <ul id="filters" class="toolbar clearfix">
+                <li><a href="#" data-filter="*">show all</a></li>
+                <li><a href="#" data-filter=".architecture">Architecture</a></li>
+                <li><a href="#" data-filter=".flowers">Flowers</a></li>
+                <li><a href="#" data-filter=".holiday_wm">Holidays</a></li>
+                <li><a href="#" data-filter=".industrial">Industrial</a></li>
+                <li><a href="#" data-filter=".lifestyle">Lifestyle</a></li>
+                <li><a href="#" data-filter=".nature">Nature</a></li>
+            </ul>
+        </div>
+        <ul id="media" class="display-inline leading clearfix">
+            <li class="architecture"><a href="media/architecture/madness_arch1.jpg" rel="#overlay"><img src="media/thumbs/architecture/madness_arch1.jpg" alt=""/></a></li>
+            <li class="architecture"><a href="media/architecture/madness_arch2.jpg" rel="#overlay"><img src="media/thumbs/architecture/madness_arch2.jpg" alt=""/></a></li>
+            <li class="architecture"><a href="media/architecture/madness_arch3.jpg" rel="#overlay"><img src="media/thumbs/architecture/madness_arch3.jpg" alt=""/></a></li>
+            <li class="architecture"><a href="media/architecture/scottwills_building1.jpg" rel="#overlay"><img src="media/thumbs/architecture/scottwills_building1.jpg" alt=""/></a></li>
+            <li class="architecture"><a href="media/architecture/scottwills_building2.jpg" rel="#overlay"><img src="media/thumbs/architecture/scottwills_building2.jpg" alt=""/></a></li>
+            <li class="architecture"><a href="media/architecture/scottwills_fountain.jpg" rel="#overlay"><img src="media/thumbs/architecture/scottwills_fountain.jpg" alt=""/></a></li>
+            <li class="architecture"><a href="media/architecture/scottwills_gardens.jpg" rel="#overlay"><img src="media/thumbs/architecture/scottwills_gardens.jpg" alt=""/></a></li>
+            <li class="architecture"><a href="media/architecture/scottwills_lichterman.jpg" rel="#overlay"><img src="media/thumbs/architecture/scottwills_lichterman.jpg" alt=""/></a></li>
+            <li class="flowers"><a href="media/flowers/madness_flower1.jpg" rel="#overlay"><img src="media/thumbs/flowers/madness_flower1.jpg" alt=""/></a></li>
+            <li class="flowers"><a href="media/flowers/madness_flower2.jpg" rel="#overlay"><img src="media/thumbs/flowers/madness_flower2.jpg" alt=""/></a></li>
+            <li class="flowers"><a href="media/flowers/random_violet.jpg" rel="#overlay"><img src="media/thumbs/flowers/random_violet.jpg" alt="" /></a></li>
+            <li class="flowers"><a href="media/flowers/scottwills_bee.jpg" rel="#overlay"><img src="media/thumbs/flowers/scottwills_bee.jpg" alt=""/></a></li>
+            <li class="flowers"><a href="media/flowers/scottwills_makeawish.jpg" rel="#overlay"><img src="media/thumbs/flowers/scottwills_makeawish.jpg" alt=""/></a></li>
+            <li class="flowers"><a href="media/flowers/scottwills_plant.jpg" rel="#overlay"><img src="media/thumbs/flowers/scottwills_plant.jpg" alt=""/></a></li>
+            <li class="flowers"><a href="media/flowers/scottwills_whiteflower2.jpg" rel="#overlay"><img src="media/thumbs/flowers/scottwills_whiteflower2.jpg" alt=""/></a></li>
+            <li class="flowers"><a href="media/flowers/scottwills_whiteflowers.jpg" rel="#overlay"><img src="media/thumbs/flowers/scottwills_whiteflowers.jpg" alt=""/></a></li>
+            <li class="holiday_wm"><a href="media/holiday_wm/adfish_beachchair1.jpg" rel="#overlay"><img src="media/thumbs/holiday_wm/adfish_beachchair1.jpg" alt=""/></a></li>
+            <li class="holiday_wm"><a href="media/holiday_wm/cyan_hawksburyriver.jpg" rel="#overlay"><img src="media/thumbs/holiday_wm/cyan_hawksburyriver.jpg" alt=""/></a></li>
+            <li class="holiday_wm"><a href="media/holiday_wm/cyan_river2.jpg" rel="#overlay"><img src="media/thumbs/holiday_wm/cyan_river2.jpg" alt=""/></a></li>
+            <li class="holiday_wm"><a href="media/holiday_wm/madness_beach.jpg" rel="#overlay"><img src="media/thumbs/holiday_wm/madness_beach.jpg" alt=""/></a></li>
+            <li class="holiday_wm"><a href="media/holiday_wm/madness_boat.jpg" rel="#overlay"><img src="media/thumbs/holiday_wm/madness_boat.jpg" alt=""/></a></li>
+            <li class="holiday_wm"><a href="media/holiday_wm/scottwills_sandcastle.jpg" rel="#overlay"><img src="media/thumbs/holiday_wm/scottwills_sandcastle.jpg" alt="" /></a></li>
+            <li class="industrial"><a href="media/industrial/random_gear.jpg" rel="#overlay"><img src="media/thumbs/industrial/random_gear.jpg" alt="" /></a></li>
+            <li class="industrial"><a href="media/industrial/scottwills_code.jpg" rel="#overlay"><img src="media/thumbs/industrial/scottwills_code.jpg" alt="" /></a></li>
+            <li class="industrial"><a href="media/industrial/scottwills_corrosion_hazard.jpg" rel="#overlay"><img src="media/thumbs/industrial/scottwills_corrosion_hazard.jpg" alt="" /></a></li>
+            <li class="industrial"><a href="media/industrial/scottwills_demolition5.jpg" rel="#overlay"><img src="media/thumbs/industrial/scottwills_demolition5.jpg" alt="" /></a></li>
+            <li class="industrial"><a href="media/industrial/scottwills_machinery3.jpg" rel="#overlay"><img src="media/thumbs/industrial/scottwills_machinery3.jpg" alt="" /></a></li>
+            <li class="industrial"><a href="media/industrial/scottwills_machinery4.jpg" rel="#overlay"><img src="media/thumbs/industrial/scottwills_machinery4.jpg" alt="" /></a></li>
+            <li class="industrial"><a href="media/industrial/scottwills_machinery5.jpg" rel="#overlay"><img src="media/thumbs/industrial/scottwills_machinery5.jpg" alt="" /></a></li>
+            <li class="industrial"><a href="media/industrial/scottwills_machinery6.jpg" rel="#overlay"><img src="media/thumbs/industrial/scottwills_machinery6.jpg" alt="" /></a></li>
+            <li class="lifestyle"><a href="media/lifestyle/cyan_businesshandshake.jpg" rel="#overlay"><img src="media/thumbs/lifestyle/cyan_businesshandshake.jpg" alt="" /></a></li>
+            <li class="lifestyle"><a href="media/lifestyle/cyan_coffeegrass.jpg" rel="#overlay"><img src="media/thumbs/lifestyle/cyan_coffeegrass.jpg" alt="" /></a></li>
+            <li class="lifestyle"><a href="media/lifestyle/cyan_laptop.jpg" rel="#overlay"><img src="media/thumbs/lifestyle/cyan_laptop.jpg" alt="" /></a></li>
+            <li class="lifestyle"><a href="media/lifestyle/cyan_sunglasses.jpg" rel="#overlay"><img src="media/thumbs/lifestyle/cyan_sunglasses.jpg" alt="" /></a></li>
+            <li class="lifestyle"><a href="media/lifestyle/madness_car.jpg" rel="#overlay"><img src="media/thumbs/lifestyle/madness_car.jpg" alt="" /></a></li>
+            <li class="lifestyle"><a href="media/lifestyle/scottwills_book.jpg" rel="#overlay"><img src="media/thumbs/lifestyle/scottwills_book.jpg" alt="" /></a></li>
+            <li class="lifestyle"><a href="media/lifestyle/scottwills_calendar2.jpg" rel="#overlay"><img src="media/thumbs/lifestyle/scottwills_calendar2.jpg" alt="" /></a></li>
+            <li class="lifestyle"><a href="media/lifestyle/scottwills_coins.jpg" rel="#overlay"><img src="media/thumbs/lifestyle/scottwills_coins.jpg" alt="" /></a></li>
+            <li class="nature"><a href="media/nature/cyan_tree.jpg" rel="#overlay"><img src="media/thumbs/nature/cyan_tree.jpg" alt="" /></a></li>
+            <li class="nature"><a href="media/nature/scottwills_enchantedcreek.jpg" rel="#overlay"><img src="media/thumbs/nature/scottwills_enchantedcreek.jpg" alt="" /></a></li>
+            <li class="nature"><a href="media/nature/scottwills_leafbug.jpg" rel="#overlay"><img src="media/thumbs/nature/scottwills_leafbug.jpg" alt="" /></a></li>
+            <li class="nature"><a href="media/nature/scottwills_mossytree.jpg" rel="#overlay"><img src="media/thumbs/nature/scottwills_mossytree.jpg" alt="" /></a></li>
+            <li class="nature"><a href="media/nature/scottwills_river1.jpg" rel="#overlay"><img src="media/thumbs/nature/scottwills_river1.jpg" alt="" /></a></li>
+            <li class="nature"><a href="media/nature/scottwills_trees.jpg" rel="#overlay"><img src="media/thumbs/nature/scottwills_trees.jpg" alt="" /></a></li>
+            <li class="nature"><a href="media/nature/scottwills_treetrunk.jpg" rel="#overlay"><img src="media/thumbs/nature/scottwills_treetrunk.jpg" alt="" /></a></li>
+            <li class="nature"><a href="media/nature/scottwills_woodstump.jpg" rel="#overlay"><img src="media/thumbs/nature/scottwills_woodstump.jpg" alt=""/></a></li>
+        </ul>
+    </div>
+</div>

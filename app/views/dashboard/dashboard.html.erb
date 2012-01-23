@@ -1,0 +1,49 @@
+<h1 class="page-title">Dashboard</h1>
+<div class="container_12 clearfix leading">
+    <section class="portlet grid_6 leading"> 
+ 
+        <header class="clearfix">
+            <h2><%= t 'Purchases' %></h2> 
+            <%= image_tag "purchases1.png", :class => "header_icon" %>
+        </header>
+                        
+        <section>
+            <%= render 'purchases' %>
+        </section>
+                        
+    </section> 
+ 
+    <section class="portlet grid_6 leading"> 
+
+        <header>
+            <h2><%= t 'Consumer' %></h2>
+            <%= image_tag "user.png", :class => "header_icon" %>        
+        </header>
+
+        <section class="clearfix">
+            <section class="clearfix">
+            <%= render 'consumer' %> 
+            </section>                           
+        </section>
+ 
+    </section> 
+ 
+    <section class="portlet grid_6 leading"> 
+        
+        <header>
+            <h2><%= t 'Consumer amount rules' %></h2>
+            <%= image_tag "amount_rules.png", :class => "header_icon" %>        
+         </header>
+
+        <section class="clearfix">
+            <section>
+            <%= render 'allowance' %> 
+            </section>                           
+        </section>
+ 
+    </section> 
+
+</div>
+    <div class="clear"></div>
+
+

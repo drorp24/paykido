@@ -1,0 +1,27 @@
+<!-- jQplot CSS -->
+<link rel="stylesheet" media="screen" href="lib/jqplot/jquery.jqplot.min.css" />
+<!-- jQplot CSS END -->
+<div id="chart3"></div>
+    <!-- jQplot SETUP -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="lib/jqplot/excanvas.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="lib/jqplot/jquery.jqplot.min.js"></script>
+    <script type="text/javascript" src="lib/jqplot/plugins/jqplot.meterGaugeRenderer.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+       s1 = [322];
+     
+       plot3 = $.jqplot('chart3',[s1],{
+           seriesDefaults: {
+               renderer: $.jqplot.MeterGaugeRenderer,
+               rendererOptions: {
+                   min: 100,
+                   max: 500,
+                   intervals:[200, 300, 400, 500],
+                   intervalColors:['#cc6666', '#E7E658', '#93b75f' ,'#66cc66' ]
+               }
+           }
+       });
+    });
+</script>

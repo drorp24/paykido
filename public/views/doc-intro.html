@@ -1,0 +1,235 @@
+<link rel="stylesheet" media="screen" href="css/docs.css" />
+<h1 class="page-title">Introduction</h1>
+<div class="container_12 clearfix leading">
+    <div class="grid_12">
+    	<div class="message info"> 
+             <h3>Thank You!</h3> 
+             <p> 
+                 Thank you for purchasing my theme. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form <a href="http://themeforest.net/user/vivantdesigns">here</a>. Thanks so much!
+             </p> 
+         </div>
+    </div>
+    <section class="portlet grid_12 leading docs">
+    	<header>
+    		<h2>vPad - HTML5+CSS3 App Framework</h2>
+    	</header>
+    	<section>
+    		<p>vPad is an easily customizable, feature packed web application framework.</p>
+    		<h4>Features:</h4>
+    		<hr/>
+    		<ol> 
+    			<li>HTML5+CSS3 Compliant</li>
+                <li>Fluid layout - iPhone and iPad friendly</li> 
+                <li>iPhone style contact Lists</li> 
+                <li>iPhone style drilldown side menu</li>
+                <li>Live Search</li>
+                <li>960 grid system</li>
+                <li>iPad style Pop over</li>
+                <li>Gallery</li>
+                <li>Full featured form - clearable textfield, validation (email, website, etc), with tooltip, dropdown, autogrow textarea, with placeholder, autocomplete and a lot more.</li>
+                <li>Step by step wizard</li>
+                <li>Calendar</li>
+                <li>WYSIWYG Editor</li>
+                <li>Thoroughly Skinned elements - progress bar, tabs, accordions, dropdown, checkbox, radiobutton</li>
+                <li>Skinned Notifications and growl messages</li>
+                <li>Fully Documented</li> 
+            </ol>
+            <div class="clear"></div>
+            
+            <h4>Table of Contents:</h4>
+            <hr/>
+    		<ol> 
+    			<li>Setup</li>
+                <li>HTML Structure</li> 
+                <li>CSS Files and structures</li> 
+                <li>Javascript</li>
+                <li>Libraries</li>
+                <li>Sources and credits</li> 
+            </ol>
+            <div class="clear"></div>
+            
+            <h4>Setup</h4>
+            <p> In order to run this template on your machine, make sure to run it from a webserver.
+Ajax will not work properly if the template is opened directly from the filesystem.</p>
+            <div class="clear"></div>
+            
+            <h4>HTML Structure</h4>
+            <p>Vpad uses a fluid layout based on 960 Grid system. It has top menu, left-side navigation menu, content area and footer. The template expands (or compresses) with the browsers window's width which is suitable for users using mobile devices, users with small monitor, or users with wide screens.  </p>
+            <p>Here is the general structure.</p>
+            <img src="images/structure.jpg" width="98%"/>
+            <div class="clear"></div>
+            
+            <h4>CSS Files and structures</h4>
+            <p>These styling sheets are divided into sections for easier editing. If you would like to edit a specific section of the site, simply find the appropriate label in the CSS file, and then scroll down until you find the appropriate style that needs to be edited. The css files used in this template are:</p>
+            <ol class="nostyle">
+            	<li><p class="title" >reset.css</p>
+            		<p>The first one is a generic reset file. Many browser interpret the default behavior of html elements differently. By using a general reset CSS file, we can work round this.</p>
+            	</li>
+            	<li><p class="title" >grids.css</p>
+            		<p>This stylesheet implements a fixed width layout of 960px and is similar to many frameworks you can find on the Internet. Based on the 960 grid framework.</p>
+            	</li>
+            	<li><p class="title" >style.css</p>
+            		<p>Imports device specific style sheet.</p>
+            		<span class="code">general.css</span>
+            		<p>This style sheet contains specific styling for the template structure. It includes the base styles, text styles, header and footer.</p>
+            		<span class="code">tablet.css</span>
+            		<p>A design framework for ipad and other tablets.</p>
+            		<span class="code">mobile.css</span>
+            		<p>Makes the template more readable via mobile device. It makes the site mobile friendly.</p>
+            		<span class="code">wide-mobile.css</span>
+            		<p>Adjust the template layout for wide screen mobile devices.</p>
+            	</li>
+            	<li><p class="title" >ui.css</p>
+            		<p>jQuery UI provides a comprehensive set of core interaction plugins, UI widgets and visual effects that use a jQuery-style, event-driven architecture and a focus on web standards, accessiblity, flexible styling, and user-friendly design. All plugins are tested for compatibility in IE 6.0+, Firefox 3+, Safari 3.1+, Opera 9.6+, and Google Chrome.</p>
+            	</li>
+            	<li><p class="title" >forms.css</p>
+            		<p>Forms.css contains all the needed styling for the template's form.</p>
+            	</li>
+            	<li><p class="title" >notifications.css</p>
+            		<p>Add styling to the message growl</p>
+            	</li>
+            	<li><p class="title" >jquery.uniform.css</p>
+            		<p>This styles controls the look and feel of form elements such as checkboxes, drop down menus, radio buttons, and file upload inputs between all browsers.</p>
+            	</li>
+            	<li><p class="title" >jquery.itextsuggest.css</p>
+            		<p>Style sheet for the search box and the suggestion list.</p>
+            	</li>
+            	<li><p class="title" >jquery.popover.css</p>
+            		<p>Add visual styles to the pop over feature.</p>
+            	</li>
+            	<li><p class="title" >jquery.icontacts.css</p>
+            		<p>Style sheet that is used for the vertical sliding of the contact list.</p>
+            	</li>
+            </ol>
+            
+            <p>We have also added different style sheet for the themes included in this package. These are located in ../css/themes/[name of the theme]/style.css.</p>
+            <ol class="nostyle">
+            	<li>dark/style.css</li>
+            	<li>gray/style.css</li>
+            	<li>lightblue/style.css</li>
+            </ol>
+            
+            <p>The default theme is set to lightblue, to change template theme, simply locate below code from index.html and change it to the desired theme.</p>
+<pre class="code">&lt;link rel=&quot;stylesheet&quot; href=&quot;css/themes/lightblue/style.css&quot; media=&quot;screen&quot; /&gt;</pre>            
+            <div class="clear"></div>
+            
+            
+            <h4>Javascript</h4>
+            <p>Vpad uses the following javascript files:</p>
+            <ol class="nostyle">
+            	<li>
+            		<p class="title" >global.js</p>
+            		<p>This includes all the necessary scripts needed for all the pages.</p>
+            	</li>
+            	<li>
+            		<p class="title" >ie.js</p>
+            		<p>Fixes button mouse actions in IE, and makes use of PIE.js to enable rounded corners, box-shadows and linear-gradients in IE.</p>
+            	</li>
+            	<li><p class="title" >html5.js</p>
+            		<p>HTML5 JavaScript shiv for IE to recognise and style the HTML5 elements. It is a way for non-modern browsers to acknowledge html5 elements such as <span class="code">&lt;article&gt;</span>, <span class="code">&lt;section&gt</span>, etc.</p>
+            	</li>
+            	<li>
+            		<p class="title" >PIE.js</p>
+            		<p>PIE makes Internet Explorer 6-8 capable of rendering several of the most useful CSS3 decoration features.</p>
+            	</li>
+            	<li>
+            		<p class="title" >selectivizr.js</p>
+            		<p>selectivizr is a JavaScript utility that emulates CSS3 pseudo-classes and attribute selectors in Internet Explorer 6-8.</p>
+            	</li>
+            	<li>
+            		<p class="title" >jquery.min.js</p>
+            		<p>jQuery is a fast and concise JavaScript Library that simplifies HTML document traversing, event handling, animating, and Ajax interactions for rapid web development.</p>
+            	</li>
+            	<li>
+            		<p class="title" >jquery.tools.min.js</p>
+            		<p>jQuery Tools is plugin for tooltips, overlays, exposing effects and scrollables. It is minimized and/or packed to reduce the size of the files.</p>
+            	</li>
+            	<li>
+            		<p class="title" >jquery.easing.js</p>
+            		<p>A JQuery extension that allows you to set custom easing types for standard animations. To learn more about jquery.easing, <b>click here</b> </p>
+            	</li>
+            	<li>
+            		<p class="title" >jquery.ui.totop.js</p>
+            		<p>Small jQuery plugin inspired by David Walsh to create a dynamic to-top UI feature.</p>
+            	</li>
+            	<li>
+            		<p class="title" >jquery.itextsuggest.js</p>
+            		<p>iTextsuggest is a smart auto suggest script with highly customizable options. With this plugin a search text box within a web page could be easily converted into a smart suggestion box that would list out all related search entries even sentences.</p>
+            	</li>
+            	<li>
+            		<p class="title" >jquery.hashchange.min.js</p>
+            		<p>This jQuery plugin enables very basic bookmarkable #hash history via a cross-browser HTML5 window.onhashchange event.</p>
+            	</li>
+            	<li>
+            		<p class="title" >jquery.drilldownmenu.js</p>
+            		<p>The jquery drill down menu plugin takes standard nested lists and turns them into iPod style drill down menus.</p>
+            	</li>
+            	<li>
+            		<p class="title" >jquery.autocomplete.js</p>
+            		<p>A Javascript library which provides an autocomplete dropdown which you can attach to one or more form inputs.</p>
+            	</li>
+            	<li>
+            		<p class="title" >jquery.autogrowtextarea.js</p>
+            		<p>The Autogrow Textarea plugin is pretty straightforward. It allows textareas to grow vertically as more and more text is typed in it.</p>
+            	</li>
+            	<li>
+            		<p class="title" >jquery.isotope.min.js</p>
+            		<p>An exquisite javascript for magical layouts. Enables filtering, sorting, and dynamic layouts. Isotope works on a container element with a group of similar child items.</p>
+            	</li>
+            	<li>
+            		<p class="title" >jquery.itextclear.js</p>
+            		<p>A simple javascript that adds clearable feature to any textbox in HTML form. All you need is to call clearable() method on the textbox.</p>
+            	</li>
+            	<li>
+            		<p class="title" >jquery.notify.js</p>
+            		<p>This is a simple Javascript that display Ubuntu like messages or simply growl messages.</p>
+            	</li>
+            	<li>
+            		<p class="title" >jquery.popover.js</p>
+            		<p>JQuery popover is a javascript to create iPad like popovers.</p>
+            	</li>
+            	<li>
+            		<p class="title" >jquery.ui.widget.min.js</p>
+            		<p>This is a jquery used for the growl message.</p>
+            	</li>
+            	<li>
+            		<p class="title" >jquery.uniform.min.js</p>
+            		<p>Uniform masks your standard form controls with custom themed controls. A plugin for jQuery that lets you style select, radio, and checkboxes however you desire.</p>
+            	</li>
+            	<li>
+            		<p class="title" >jquery.icontacts.js</p>
+            		<p>Jquery used for the iPhone style contact list.</p>
+            	</li>
+            	<li>
+            		<p class="title" >jquery.wizard.js</p>
+            		<p>A simple jquery plugin for a javascript wizard flow.</p>
+            	</li>
+            </ol>
+            
+            <div class="clear"></div>
+            
+            <h4>Libraries</h4>
+            <p>This template uses the following libraries:</p>
+            <ul class="nostyle">
+				<li><a href="http://arshaw.com/fullcalendar/">FullCalendar</a> is a jQuery plugin that provides a full-sized, drag & drop calendar. It uses AJAX to fetch events on-the-fly for each month and is easily configured to use your own feed format (an extension is provided for Google Calendar). It is visually customizable and exposes hooks for user-triggered events (like clicking or dragging an event). It is open source and dual licensed under the MIT or GPL Version 2 licenses.</li>
+				<li><a href="http://www.tinymce.com/">TinyMCE</a> - It is a platform independent web based Javascript HTML WYSIWYG editor control released as Open Source under LGPL by Moxiecode Systems AB. It has the ability to convert HTML TEXTAREA fields or other HTML elements to editor instances.</li>
+				<li><a href="http://datatables.net/">Datatables</a> is a plug-in for the jQuery Javascript library. It is a highly flexible tool, based upon the foundations of progressive enhancement, which will add advanced interaction controls to any HTML table. </li>
+				<li><a href="http://www.jqplot.com/">jqPlot</a> is a plotting and charting plugin for the jQuery Javascript framework. jqPlot produces beautiful line, bar and pie charts with many features:</li>
+            </ul>
+            <div class="clear"></div>
+            
+            <h4>Sources and credits</h4>
+            <p>The jQuery and its plugins are licensed under the MIT, GPL Version 2 or BSD licenses. You can read these licenses here:</p>
+			<ul class="nostyle">
+				<li>http://www.opensource.org/licenses/mit-license.php</li>
+				<li>http://www.opensource.org/licenses/gpl-license.php</li>
+            </ul>
+            <div class="clear"></div>
+            
+            <hr/>
+            <p>Once again, thank you so much for purchasing this theme. As I said at the beginning, I'd be glad to help you if you have any questions relating to this theme. No guarantees, but I'll do my best to assist. If you have a more general question relating to the themes on ThemeForest, you might consider visiting the forums and asking your question in the "Item Discussion" section.</p>
+            <em>VivantDesigns</em>
+            <hr/>
+    	</section>
+    </section>
+</div>

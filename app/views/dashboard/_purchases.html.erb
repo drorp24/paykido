@@ -1,0 +1,84 @@
+<!-- DATATABLES CSS -->
+<link rel="stylesheet" media="screen" href="lib/datatables/css/vpad.css" />
+<script type="text/javascript" src="lib/datatables/js/jquery.dataTables.js"></script> 
+
+<script type="text/javascript"> 
+    $(document).ready(function() {
+        $('#example').dataTable( {
+            "sPaginationType": "full_numbers"
+        } );
+    } );
+</script> 
+<!-- DATATABLES CSS END -->
+
+<div id=purchases_filters>
+    <ul class="toolbar clearfix fl">
+        <li>
+            <a href="#" title="Pending" class="filter_button" id="pending-button">
+                <img src="/images/pending.png" alt=""/>
+                <span class="message-count">1</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" title="Authorized" class="filter_button" id="authorized-button">
+                <img src="/images/authorize.png" alt=""/>
+                <span class="message-count">3</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" title="Blocked" class="filter_button" id="blocked-button">
+                <img src="/images/block.png" alt=""/>
+            </a>
+        </li>
+         <li>
+            <a href="#" title="All" class="filter_button" id="all-button">
+                <img src="/images/all.png" alt=""/>
+            </a>
+        </li>
+    </ul>
+    <br />
+</div> 
+<br />   
+<div id="demo" class="clearfix"> 
+    <table class="display leading" id="example"> 
+        <thead> 
+            <tr> 
+                <th><%= image_tag "/images/information.png", :id => "information_th", :class => "th" %></th> 
+                <th><%= t 'Purchase' %></th> 
+                <th><%= t 'Amount' %></th>                                     
+            </tr> 
+        </thead> 
+        <tbody> 
+        <% @purchases.each do |purchase| %>                                
+            <tr> 
+                <td class="status">
+                <% if purchase.requires_manual_approval? %>
+                    <%= image_tag "/images/pending.png", :id => "information_#{purchase.id}", :class => "" %>
+                <% elsif purchase.manually_authorized? %> 
+                    <%= image_tag "/images/approved.png", :id => "information_#{purchase.id}", :class => "" %>
+                <% elsif purchase.manually_declined? %> 
+                    <%= image_tag "/images/declined.png", :id => "information_#{purchase.id}", :class => "" %>
+                <% elsif purchase.automatically_authorized? %> 
+                    <%= image_tag "/images/authorize.png", :id => "information_#{purchase.id}", :class => "" %>
+                <% elsif purchase.automatically_declined? %> 
+                    <%= image_tag "/images/block.png", :id => "information_#{purchase.id}", :class => "" %>
+                <% else %> 
+                    <%= image_tag "/images/error.png", :id => "information_#{purchase.id}", :class => "" %>
+                <% end %>
+                </td> 
+                <td>
+                    <p class="purchase_top_line">
+                        <span><%= link_to purchase.retailer.name, "dashboard/retailer/#{purchase.id}" %></span>
+                        <span><%= link_to purchase.product.title ,"dashboard/product/#{purchase.id}" %></span>
+                    </p>
+                    <p class="purchase_bottom_line">
+                        <span class="cell_date"><%= purchase.date.strftime("%a, %b %d") %></span>
+                        <span><%= link_to purchase.consumer.name, "dashboard/consumer/#{purchase.consumer_id}"  %></span>
+                    </p>
+                </td>
+                <td class="ar"><%= number_to_currency(purchase.amount) %></td>
+            </tr>                                   
+        <% end %>
+        </tbody> 
+    </table> 
+</div>                            

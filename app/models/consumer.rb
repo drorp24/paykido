@@ -20,6 +20,12 @@ class Consumer < ActiveRecord::Base
       self.auto_deny_over ||= 35
   end
 
+  def record_allowance_change
+    self.balance_on_acd = self.balance
+    self.allowance_change_date = Time.now
+    self.purchases_since_acd = 0
+  end
+
   def next_allowance_date
     if self.allowance_period == 'Weekly'
       Time.now.next_week

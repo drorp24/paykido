@@ -1,0 +1,62 @@
+/**
+ *		Mobile Layout: 320px
+ */
+ 
+body {
+    min-width: 320px;
+    overflow-x: hidden;
+}
+
+#wrapper > header {
+    display: none;
+}
+
+#wrapper > header > nav {
+    margin-left: 0;
+}
+
+#wrapper > section > aside {
+    padding: 0;
+    position: relative;
+    width: 100%;
+}
+
+#wrapper > section > aside > nav > ul li {
+    margin: 0;
+}
+
+#wrapper > section > section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 0;
+    width: 100%;
+}
+
+#wrapper > section > section > header .showmenu {
+    display: inline-block;
+    z-index: 100;
+}
+
+/**
+ * wizard
+ */
+.wizard .double label {
+	float:none;
+    margin-right: auto;
+	width:auto;
+}
+
+/**
+ * fullcalendar
+ */
+.fc-header-title h2 {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    font-size: 12px;
+    margin-top: 14px !important;
+}
+.fc-content {
+    margin-top: 20px;
+}

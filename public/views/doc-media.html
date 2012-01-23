@@ -1,0 +1,282 @@
+<link rel="stylesheet" media="screen" href="css/docs.css" />
+<!-- MEDIA FILTERING -->
+<script type="text/javascript" src="js/jquery.isotope.min.js"></script>
+<script type="text/javascript">
+$.tools.overlay.addEffect("popup",
+
+    function(position, done) {
+        var overlay = this.getOverlay();
+        // compute position
+        var top = $(window).height()/2 - 26;
+        var left = $(window).width()/2 - 26;
+        overlay.addClass('loading')
+            .width(32).height(32)
+            .css({top: top + 'px', left: left + 'px', display: 'block', opacity: 1})
+            .data('oleft', left).data('otop', top)
+    },
+
+    // close function
+    function(done) {
+        var overlay = this.getOverlay();
+        overlay.stop().removeClass('loading').animate({opacity: 0, width: 32, height: 32, left: overlay.data('oleft'), top: overlay.data('otop')}, this.getConf().closeSpeed, 'swing', done);
+    }
+);
+$(document).ready(function(){
+    !$("#overlay").length && $("body").append('<div class="apple_overlay" id="overlay"><img src="images/blank.gif" /></div>');
+    setTimeout(function(){
+        $('#media').isotope({
+            // options
+            itemSelector : 'li',
+            transformsEnabled: false,
+            visibleStyle: { opacity: 1 },
+            hiddenStyle: { opacity: 0 }
+        });
+        $('#filters a').click(function(){
+            var selector = $(this).attr('data-filter');
+            $('#media').isotope({
+                filter: selector,
+                transformsEnabled: false,
+                visibleStyle: { opacity: 1 },
+                hiddenStyle: { opacity: 0 }
+            });
+            $(this).parent().addClass('current').siblings().removeClass('current');
+            return false;
+        }).first().click();
+    }, 1000);
+    
+    $("#media a[rel]").overlay({
+        effect: 'popup',
+        mask: '#ffffff',
+        left: 'center',
+        top: 'center',
+        onBeforeLoad: function() {
+            var overlay = this.getOverlay();
+
+            // grab img element inside content
+            var img = overlay.find("img").fadeOut();
+            var tmp = $('<img />');
+
+            // load the img specified in the trigger
+            img.unbind().width(0).height(0).attr('src', '').css('visibility', 'hidden');
+            tmp.attr('src', this.getTrigger().attr("href")).load(function(){
+                if (overlay.hasClass('loading')) {
+                    var width = this.width > $(window).width()? $(window).width() - 40 : this.width,
+                    height = this.width > $(window).width()? (this.height * width)/this.width : this.height;
+                    
+                    if (height > $(window).height()) {
+                        width = width * ($(window).height()-40) / height;
+                        height = $(window).height()-40;
+                    }
+                    overlay.animate({opacity: 1, width: width, height: height, left: $(window).width()/2 - width/2 - 10, top: ($(window).height()-height)/2}, 'slow', 'swing', function(){
+                        overlay.removeClass('loading').css('overflow', 'visible');
+                    });
+                    img.replaceWith(tmp.css({visibility: 'visible', opacity: 0, width: '100%', height: '100%'}).animate({opacity:1},2000,'swing'));
+                }
+            });
+        },
+        onBeforeClose: function() {
+            this.getOverlay().addClass('closing').find("img").unbind();
+        },
+        onClose: function() {
+            this.getOverlay().removeClass('closing');
+        }
+    });
+});
+</script>
+<!-- MEDIA FILTERING END -->
+    
+<h1 class="page-title">Media</h1>
+<div class="container_12 clearfix">
+	<section class="portlet grid_12 leading docs">
+		<header>
+    		<h2>Media</h2>
+    	</header>
+    	<section>
+    		<p>Create a dynamic and intelligent media layouts with sorting, filtering, and re-ordering features using <a href="http://isotope.metafizzy.co/">isotope</a> plugin.</p>
+    		
+    		<p class="title">Options:</p>
+    		<table class="basic-table">
+				<thead>
+					<tr>
+						<th style="width:100px">Option</th>
+						<th>Values</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>itemselector</td>
+						<td>[selector]</td>
+						<td>Restricts Isotope item elements to selector.</td>
+					</tr>
+					<tr>
+						<td>transformsEnabled</td>
+						<td>default: true</td>
+						<td>Isotope uses CSS3 transform to position item elements, when available in the browser. Setting transformsEnabled to false will disable this feature so all browsers use top/left absolute positioning.</td>
+					</tr>
+					<tr>
+						<td>visibleStyle</td>
+						<td>default: { opacity : 1, scale : 1 }</td>
+						<td>The style applied to item elements made visible by Filtering.</td>
+					</tr>
+					<tr>
+						<td>hiddenStyle</td>
+						<td>default: { opacity : 0, scale : 0.001 }</td>
+						<td>The style applied to item elements hidden by Filtering.</td>
+					</tr>
+					<tr>
+						<td>layoutMode</td>
+						<td>default: 'masonry'</td>
+						<td>The way the items are arranged or laid out.</td>
+					</tr>
+					
+				</tbody>
+			</table>
+			<p>Check for complete isotope option <a href="http://isotope.metafizzy.co/docs/options.html">here</a></p>
+			
+    		<p class="title">Method:</p>
+    		<table class="basic-table">
+				<thead>
+					<tr>
+						<th style="width:100px">Method</th>
+						<th>Script</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>addItems</td>
+						<td>.isotope( 'addItems', $items, callback )</td>
+						<td>Adds item elements to the pool of item elements of the container, but does sort, filter or layout.</td>
+					</tr>
+					<tr>
+						<td>appended</td>
+						<td>.isotope( 'appended', $items, callback )</td>
+						<td>Adds item elements via addItems method, then triggers layout just for those new elements. Useful for Infinite Scroll. </td>
+					</tr>
+					<tr>
+						<td>destroy</td>
+						<td>.isotope( 'destroy' )</td>
+						<td>Removes Isotope functionality completely. Returns element back to pre-init state.</td>
+					</tr>
+					<tr>
+						<td>reLayout</td>
+						<td>.isotope( 'reLayout', callback )</td>
+						<td>Resets layout properties and lays-out every item element.</td>
+					</tr>
+					<tr>
+						<td>shuffle</td>
+						<td>.isotope( 'shuffle', callback )</td>
+						<td>Shuffles order of items. Sets sortBy option to 'random'.</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>Check for complete isotope method <a href="http://isotope.metafizzy.co/docs/methods.html">here</a></p>
+    		<p>Isotope methods has the following syntax:</p>
+<pre class="code">
+$(&quot;#container&quot;).isotope(&quot;methodName&quot;, [optionalParameters] )
+</pre>    		
+			
+			<p class="title">Lets get started.</p>
+			<p>Let's start by creating the HTML code. Isotope works on a container element with a group of similar child items.</p>
+<pre class="code">
+&lt;ul id=&quot;media&quot;&gt;
+	&lt;li class=&quot;architecture&quot;&gt;&lt;/li&gt;
+	&lt;li class=&quot;architecture&quot;&gt;&lt;/li&gt;
+	&lt;li class=&quot;architecture&quot;&gt;&lt;/li&gt;
+	&lt;li class=&quot;flowers&quot;&gt;&lt;/li&gt;
+	&lt;li class=&quot;flowers&quot;&gt;&lt;/li&gt;
+	&lt;li class=&quot;holiday_wm&quot;&gt;&lt;/li&gt;
+	&lt;li class=&quot;holiday_wm&quot;&gt;&lt;/li&gt;
+	&lt;li class=&quot;holiday_wm&quot;&gt;&lt;/li&gt;
+	&lt;li class=&quot;holiday_wm&quot;&gt;&lt;/li&gt;
+	&lt;li class=&quot;industrial&quot;&gt;&lt;/li&gt;
+	&lt;li class=&quot;industrial&quot;&gt;&lt;/li&gt;
+	...
+&lt;/ul&gt;
+</pre>
+			<p>Now for the javascript script:</p>
+<pre class="code">
+$('#media').isotope({
+    // options
+    itemSelector : 'li',
+    transformsEnabled: false,
+    visibleStyle: { opacity: 1 },
+    hiddenStyle: { opacity: 0 }
+});
+</pre>	
+			<p>Check out general.css for the following css:</p>
+			<p>Add these styles to your CSS for filtering, animation with CSS transitions, and adding items.</p>
+<pre class="code">
+.isotope-item {
+  z-index: 2;
+}
+
+.isotope-hidden.isotope-item {
+  pointer-events: none;
+  z-index: 1;
+}
+
+.isotope,
+.isotope .isotope-item {
+  -webkit-transition-duration: 0.8s;
+     -moz-transition-duration: 0.8s;
+          transition-duration: 0.8s;
+}
+
+.isotope {
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+          transition-property: height, width;
+}
+
+.isotope .isotope-item {
+  -webkit-transition-property: -webkit-transform, opacity, background, -webkit-box-shadow;
+     -moz-transition-property:    -moz-transform, opacity, background, -moz-box-shadow;
+          transition-property:         transform, opacity, background, box-shadow;
+}
+
+.isotope .isotope-item {
+  -webkit-transition-property: top, left, opacity;
+     -moz-transition-property: top, left, opacity;
+          transition-property: top, left, opacity;
+}
+</pre>			
+					
+			<p>Also don't forget to include the following:</p>
+			<ul class="nostyle">
+				<li>jquery.isotope.min.js</li>
+				<li>javascript 1.4.3 and above</li>
+			</ul>
+			
+    		<p>Sample Usage:</p>
+    		<div class="ac">
+                <ul id="filters" class="toolbar clearfix">
+                    <li><a href="#" data-filter="*">show all</a></li>
+                    <li><a href="#" data-filter=".architecture">Architecture</a></li>
+                    <li><a href="#" data-filter=".flowers">Flowers</a></li>
+                    <li><a href="#" data-filter=".holiday_wm">Holidays</a></li>
+                    <li><a href="#" data-filter=".industrial">Industrial</a></li>
+                </ul>
+            </div>
+            <ul id="media" class="display-inline leading clearfix">
+                <li class="architecture"><a href="media/architecture/madness_arch1.jpg" rel="#overlay"><img src="media/thumbs/architecture/madness_arch1.jpg" /></a></li>
+                <li class="architecture"><a href="media/architecture/madness_arch2.jpg" rel="#overlay"><img src="media/thumbs/architecture/madness_arch2.jpg" /></a></li>
+                <li class="architecture"><a href="media/architecture/madness_arch3.jpg" rel="#overlay"><img src="media/thumbs/architecture/madness_arch3.jpg" /></a></li>
+                <li class="flowers"><a href="media/flowers/scottwills_whiteflower2.jpg" rel="#overlay"><img src="media/thumbs/flowers/scottwills_whiteflower2.jpg" /></a></li>
+                <li class="flowers"><a href="media/flowers/scottwills_whiteflowers.jpg" rel="#overlay"><img src="media/thumbs/flowers/scottwills_whiteflowers.jpg" /></a></li>
+                <li class="holiday_wm"><a href="media/holiday_wm/adfish_beachchair1.jpg" rel="#overlay"><img src="media/thumbs/holiday_wm/adfish_beachchair1.jpg" /></a></li>
+                <li class="holiday_wm"><a href="media/holiday_wm/cyan_hawksburyriver.jpg" rel="#overlay"><img src="media/thumbs/holiday_wm/cyan_hawksburyriver.jpg" /></a></li>
+                <li class="holiday_wm"><a href="media/holiday_wm/cyan_river2.jpg" rel="#overlay"><img src="media/thumbs/holiday_wm/cyan_river2.jpg" /></a></li>
+                <li class="holiday_wm"><a href="media/holiday_wm/madness_beach.jpg" rel="#overlay"><img src="media/thumbs/holiday_wm/madness_beach.jpg" /></a></li>
+                <li class="industrial"><a href="media/industrial/scottwills_machinery5.jpg" rel="#overlay"><img src="media/thumbs/industrial/scottwills_machinery5.jpg" /></a></li>
+                <li class="industrial"><a href="media/industrial/scottwills_machinery6.jpg" rel="#overlay"><img src="media/thumbs/industrial/scottwills_machinery6.jpg" /></a></li>
+            </ul>
+    		
+    		<p>* Check isotope complete documentation <a href="http://isotope.metafizzy.co/docs/introduction.html">here</a>. </p>
+			<p>* Commercial use of Isotope requires purchase of one-time license fee per developer seat. Use in non-commercial and personal applications is free.</p>
+			
+			
+		</section>
+	</section>
+</div>
