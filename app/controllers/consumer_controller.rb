@@ -84,9 +84,10 @@ class ConsumerController < ApplicationController
   
   def find_payer_and_user 
     
-    @payer = session[:payer] = @consumer.payer
-    @user = session[:user] = (@consumer.payer_id) ?(User.where("payer_id = ? and email NOT NULL", @consumer.payer_id).first) :nil
-    
+    unless @consumer.nil?
+      @payer = session[:payer] = @consumer.payer
+      @user = session[:user] = (@consumer.payer_id) ?(User.where("payer_id = ? and email NOT NULL", @consumer.payer_id).first) :nil
+    end
   end
   
   def login_messages
