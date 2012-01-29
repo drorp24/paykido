@@ -25,7 +25,7 @@ class Product < ActiveRecord::Base
   end
   
   def blacklisted?(payer_id, consumer_id)
-    plist.where(:product_id => self.id, :payer_id => payer_id, :consumer_id => consumer_id, :rule => 'blacklisted').exists?
+    Plist.where(:product_id => self.id, :payer_id => payer_id, :consumer_id => consumer_id, :rule => 'blacklisted').exists?
   end
 
   def whitelist!(payer_id, consumer_id)
@@ -34,7 +34,7 @@ class Product < ActiveRecord::Base
   end
   
   def whitelisted?(payer_id, consumer_id)
-    plist.where(:product_id => self.id, :payer_id => payer_id, :consumer_id => consumer_id, :rule => 'whitelisted').exists?
+    Plist.where(:product_id => self.id, :payer_id => payer_id, :consumer_id => consumer_id, :rule => 'whitelisted').exists?
   end
 
   

@@ -55,7 +55,7 @@
             $(sliderId).slider({
                 value: inputValue,
                 min: 0,
-                max: 2*inputValue,
+                max: (inputValue == 0) ?100 :2*inputValue,
                 slide: function(event, ui) {
                     $(valueId).val(ui.value +'.00');
                 }

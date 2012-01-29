@@ -1,0 +1,24 @@
+<div id="container">
+    <div id="default-container">
+        <div class="with-icon"><img alt="info" src="/images/navicons/171.png"></div>
+        <h1>#{title}</h1>
+        <p>#{text}</p>
+    </div>
+
+    <div id="sticky-container">
+        <div class="with-icon"><img alt="info" src="/images/navicons/171.png"></div>
+        <a class="ui-notify-close ui-notify-cross" href="#">x</a>
+        <h1>#{title}</h1>
+        <p>#{text}</p>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+    $("#container").notify();
+
+});
+
+</script>

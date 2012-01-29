@@ -1,57 +1,5 @@
-<!doctype html>
-<!--[if IE 7 ]>   <html lang="en" class="ie7 lte8"> <![endif]--> 
-<!--[if IE 8 ]>   <html lang="en" class="ie8 lte8"> <![endif]--> 
-<!--[if IE 9 ]>   <html lang="en" class="ie9"> <![endif]--> 
-<!--[if gt IE 9]> <html lang="en"> <![endif]-->
-<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
-<head>
-<meta charset="utf-8">
-<!--[if lte IE 9 ]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
 
-<!-- iPad Settings -->
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" /> 
-<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->
-<!-- iPad End -->
-
-<title>vPad</title>
-
-<!-- iOS ICONS -->
-<link rel="apple-touch-icon" href="touch-icon-iphone.png" />
-<link rel="apple-touch-icon" sizes="72x72" href="touch-icon-ipad.png" />
-<link rel="apple-touch-icon" sizes="114x114" href="touch-icon-iphone4.png" />
-<link rel="apple-touch-startup-image" href="touch-startup-image.png">
-<!-- iOS ICONS END -->
-
-<!-- STYLESHEETS -->
-
-<link rel="stylesheet" media="screen" href="/js/reset.css" />
-<link rel="stylesheet" media="screen" href="/js/grids.css" />
-<link rel="stylesheet" media="screen" href="/js/style.css" />
-<link rel="stylesheet" media="screen" href="/js/ui.css" />
-<link rel="stylesheet" media="screen" href="/js/jquery.uniform.css" />
-<link rel="stylesheet" media="screen" href="/js/forms.css" />
-<link rel="stylesheet" media="screen" href="/js/themes/lightblue/style.css" />
-
-<style type = "text/css">
-    #loading-container {position: absolute; top:50%; left:50%;}
-    #loading-content {width:800px; text-align:center; margin-left: -400px; height:50px; margin-top:-25px; line-height: 50px;}
-    #loading-content {font-family: "Helvetica", "Arial", sans-serif; font-size: 18px; color: black; text-shadow: 0px 1px 0px white; }
-    #loading-graphic {margin-right: 0.2em; margin-bottom:-2px;}
-    #loading {background-color:#abc4ff; background-image: -moz-radial-gradient(50% 50%, ellipse closest-side, #abc4ff, #87a7ff 100%); background-image: -webkit-radial-gradient(50% 50%, ellipse closest-side, #abc4ff, #87a7ff 100%); background-image: -o-radial-gradient(50% 50%, ellipse closest-side, #abc4ff, #87a7ff 100%); background-image: -ms-radial-gradient(50% 50%, ellipse closest-side, #abc4ff, #87a7ff 100%); background-image: radial-gradient(50% 50%, ellipse closest-side, #abc4ff, #87a7ff 100%); height:100%; width:100%; overflow:hidden; position: absolute; left: 0; top: 0; z-index: 99999;}
-</style>
-
-<!-- STYLESHEETS END -->
-
-<!--[if lt IE 9]>
-<script src="/js/html5.js"></script>
-<script type="text/javascript" src="/js/selectivizr.js"></script>
-<script type="text/javascript" src="/js/respond.min.js"></script>
-<![endif]-->
-
-</head>
-<body class="login" style="overflow: hidden;">
+<div class="login" style="overflow: hidden;">
     <div id="loading"> 
 
         <script type = "text/javascript"> 
@@ -65,13 +13,13 @@
     <div class="login-box">
     	<section class="login-box-top">
             <header>
-                <h2 class="logo ac">vPad Login</h2>
+                <h2 class="logo ac"></h2>
             </header>
             <section>
-                <form id="form" class="has-validation" action="index" method="post" style="margin-top: 30px">
-                    <div class="user-pass">
-                        <input type="text" id="username" class="full" value="" name="username" required="required" placeholder="Username" />
-                        <input type="password" id="password" class="full" value="" name="password" required="required" placeholder="Password" />
+                <%= form_for :user, :url => {:action => :login}, :html => {:id => "form", :class => "has-validation", :style => "margin-top: 30px"} do |f| %>
+                     <div class="user-pass">
+                        <%= f.text_field :email, :class => "full", :required => "required", :placeholder => "Username" %>
+                        <%= f.password_field :password, :class => "full", :required => "required", :placeholder => "password" %>
                     </div>
                     <p class="clearfix">
                         <span class="fl" style="line-height: 23px;">
@@ -83,7 +31,7 @@
 
                         <button class="fr" type="submit">Login</button>
                     </p>
-                </form>
+                <% end %>
             </section>
     	</section>
 	</div>
@@ -114,5 +62,4 @@
     </script>
     <!-- LOADING SCRIPT -->
 
-</body>
-</html>
+</div>

@@ -8,8 +8,13 @@ class UserMailer < ActionMailer::Base
     @purchase = purchase
 
     email_with_name = "#{@user.name} <#{@user.email}>"
-    mail(:to => email_with_name, :subject => "#{@consumer.name} asks you to approve a purchase")
-
+    begin
+      mail(:to => email_with_name, :subject => "#{@consumer.name} asks you to approve a purchase")
+    rescue
+      return false
+    else
+      return "sent"
+    end
   end
   
   def joinin_email(user, consumer)
@@ -18,7 +23,13 @@ class UserMailer < ActionMailer::Base
     @consumer = consumer
 
     email_with_name = "#{@user.name} <#{@user.email}>"
-    mail(:to => email_with_name, :subject => "#{@consumer.name} wants you to know Paykido!")
+    begin
+      mail(:to => email_with_name, :subject => "#{@consumer.name} wants you to know Paykido!")
+    rescue
+      return false
+    else
+      return "sent"
+    end
 
   end
   

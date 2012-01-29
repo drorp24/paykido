@@ -7,10 +7,23 @@ class DashboardController < ApplicationController
   
   def login
     
+    if request.post?
+           
+      unless session[:user] = User.authenticate(params[:user][:email], params[:user][:password])
+        flash.now[:notice] = "user or password are incorrect. Please try again!"
+        return
+      end
+      
+#     set_payer_session
+      redirect_to :action => :index
+    end
+          
   end
 
   def dashboard
     @purchases = Purchase.where("payer_id = 63").includes(:consumer, :retailer, :product, :category)
+    @pendings = Purchase.where("payer_id = ? and authorization_type = ?", 63, 'PendingPayer').count
+    @payer = Payer.find(63)
     @consumer = Consumer.find(281)
     session[:consumer] = @consumer
   end

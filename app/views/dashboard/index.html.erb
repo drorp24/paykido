@@ -6,123 +6,29 @@
                            "Loading...</p></div>");
         </script> 
 
-    </div> 
+    </div>  
 
     <div id="wrapper">
         <header>
-            <h1><a href="#">vPad</a></h1>
-            <nav>
-                <div class="container_12">
-                    <div class="grid_12">
-                        <ul class="toolbar clearfix fl">
-                            <li>
-                                <a href="#" title="Activity" class="icon-only" id="activity-button">
-                                    <img src="/images/navicons-small/77.png" alt=""/>
-                                    <span class="message-count">1</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" title="Notifications" class="icon-only" id="notifications-button">
-                                    <img src="/images/navicons-small/08.png" alt=""/>
-                                    <span class="message-count">3</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" title="Settings" class="icon-only" id="settings-button">
-                                    <img src="/images/navicons-small/19.png" alt=""/>
-                                </a>
-                            </li>
-                        </ul>
-                        <a href="login" title="Logout" class="button icon-with-text fr"><img src="/images/navicons-small/129.png" alt=""/>Logout</a>
-                        <div class="user-info fr">
-                            Logged in as <a href="#">Administrator</a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            <%= render 'pagehead' %>
         </header>
         
         <section>
             <!-- Sidebar -->
 
             <aside>
-                <nav class="drilldownMenu">
-                    <h1>
-                        <span class="title">Main Menu</span>
-                        <button title="Go Back" class="back">Back</button>
-                    </h1>
-                    <div class="clearfix" id="searchform">
-                        <div class="searchcontainer">
-                            <div class="searchbox" onclick="$(this).find('input').focus();">
-                                <input type="text" name="q" id="q" autocomplete="off" placeholder="Search...">
-                            </div>
-                            <input type="button" value="Cancel" />
-                        </div>
-                        <div class="search_results"></div>
-                    </div>                        
-                    <ul class="tlm">
-                        <li class="hasul"><a href="#"><img src="/images/navicons/111.png" alt=""/><span>Administrator</span></a>
-                            <ul>
-                            	<li><a href="#" title="Users"><img src="/images/navicons/111.png" alt=""/><span>Users</span></a></li>
-                                <li><a href="#" title="Groups"><img src="/images/navicons/112.png" alt=""/><span>Groups</span></a></li>
-                                <li><a href="#" title="Settings"><img src="/images/navicons/106.png" alt=""/><span>Settings</span></a></li>
-                                <li><a href="login.html" title="Logout"><img src="/images/navicons/129.png" alt=""/><span>Logout</span></a></li>
-                            </ul>
-                        </li>
-                        <li class="current"><a href="#dashboard" title="Dashboard"><img src="/images/navicons/81.png" alt=""/><span>Dashboard</span></a></li>
-                        <li><a href="#original_dashboard" title="Original Dashboard"><img src="/images/navicons/123.png" alt=""/><span>Original Dashboard</span></a></li>
-                        <li><a href="#media.html" title="Media"><img src="/images/navicons/42.png" alt=""/><span>Media</span></a></li>
-                        <li class="hasul"><a href="#" title="Forms"><img src="/images/navicons/139.png" alt=""/><span>Forms</span></a>
-                            <ul>
-                                <li><a href="#forms1.html" title="Form Sample 1"><span>Form Sample</span></a></li>
-                                <li><a href="#forms2.html" title="Custom Form Elements"><span>Custom Form Elements</span></a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#wizard.html" title="Wizard"><img src="/images/navicons/165.png" alt=""/><span>Wizard</span></a></li>
-                        <li><a href="#purchases" title="Tables"><img src="/images/navicons/29.png" alt=""/><span>Purchases</span></a></li>
-                        <li class="hasul"><a href="#"><img src="/images/navicons/20.png" alt=""/><span>Widgets</span></a>
-                            <ul>
-                                <li><a href="#calendar.html" title="Calendar"><img src="/images/navicons/83.png" alt=""/><span>Calendar</span></a></li>
-                                <li><a href="#wysiwyg.html" title="WYSIWYG Editor"><img src="/images/navicons/26.png" alt=""/><span>WYSIWYG Editor</span></a></li>
-                            </ul>
-                        </li>
-                        <li class="hasul"><a href="#"><img src="/images/navicons/96.png" alt=""/><span>Documentation</span></a>
-                            <ul>
-                                <li><a href="#doc-intro.html" title="Documentation"><span>Introduction</span></a></li>
-                                <li><a href="#doc-forms.html" title="Documentation"><span>Forms</span></a></li>
-                                <li><a href="#doc-media.html" title="Documentation"><span>Media</span></a></li>
-                                <li><a href="#doc-notifications.html"><span>Notifications</span></a></li>
-                                <li class="hasul"><a href="#"><span>Widgets</span></a>
-                                    <ul>
-                                        <li><a href="#doc-calendar.html" title="Documentation"><span>Calendar</span></a></li>
-                                        <li><a href="#doc-wysiwyg.html" title="Documentation"><span>WYSIWYG</span></a></li>
-                                        <li><a href="#doc-graph.html" title="Documentation"><span>Graph</span></a></li>
-                                        <li><a href="#doc-popover.html" title="Documentation"><span>Pop Over</span></a></li>
-                                        <li><a href="#doc-style.html" title="Documentation"><span>Style</span></a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#doc-wizard.html"><span>Wizard</span></a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
+                <%= render 'sidebar' %>
             </aside>
 
             <!-- Sidebar End -->
 
             <section>
-                <header>
-                    <div class="container_12 clearfix">
-                        <a href="#menu" class="showmenu button">Menu</a>
-                        <h1 class="grid_12">Dashboard</h1>
-                    </div>
-                </header>
                 <section id="main-content" class="clearfix">
                 </section>
                 <footer class="clearfix">
                     <div class="container_12">
                         <div class="grid_12">
-                            Copyright &copy; 2011. Theme by <a target="_blank" href="http://themeforest.net/user/vivantdesigns?ref=vivantdesigns">VivantDesigns</a>
+                            Copyright &copy; 2012. 
                         </div>
                     </div>
                 </footer>
@@ -145,7 +51,10 @@
     <script type="text/javascript" src="/js/jquery.drilldownmenu.js"></script>
     <script type="text/javascript" src="/js/jquery.popover.js"></script>
     <script type="text/javascript" src="/javascripts/application.js"></script>
-    
+    <script type="text/javascript" src="/js/jquery.ui.widget.min.js"></script>   
+    <script type="text/javascript" src="/js/jquery.notify.js"></script>   
+ 
+
     <!--[if lt IE 9]>
     <script type="text/javascript" src="/js/PIE.js"></script>
     <script type="text/javascript" src="/js/ie.js"></script>
@@ -162,73 +71,14 @@
             $('body').removeAttr('style');
         });
     });
-    </script>
+
     <!-- LOADING SCRIPT -->
     
     <!-- POPOVERS SETUP-->
-    <div id="activity-popover" class="popover">
-        <header>
-            Activity
-        </header>
-        <section>
-            <div class="content">
-                <nav>
-                    <ul>
-                        <li class="new"><a><span class="avatar"></span>John Doe created a new project</a></li>
-                        <li class="read"><a><span class="avatar"></span>John Doe created a new project</a></li>
-                        <li class="read"><a><span class="avatar"></span>Jane Doe updated a project</a></li>
-                        <li class="read"><a><span class="avatar"></span>John Doe uploaded a document</a></li>
-                        <li class="read"><a><span class="avatar"></span>John Doe deleted a project</a></li>
-                        <li class="read"><a><span class="avatar"></span>John Doe marked a project as done</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </section>
-    </div>
-    <div id="notifications-popover" class="popover">
-        <header>
-            Notifications
-        </header>
-        <section>
-            <div class="content">
-                <nav>
-                    <ul>
-                        <li class="new"><a><span class="avatar"></span>John Doe created a new project</a></li>
-                        <li class="new"><a><span class="avatar"></span>John Doe created a new project</a></li>
-                        <li class="new"><a><span class="avatar"></span>Jane Doe updated a project</a></li>
-                        <li class="read"><a><span class="avatar"></span>John Doe uploaded a document</a></li>
-                        <li class="read"><a><span class="avatar"></span>John Doe deleted a project</a></li>
-                        <li class="read"><a><span class="avatar"></span>John Doe marked a project as done</a></li>
-                        <li><a href="#notifications.html" title="Notifications">See notification styles and growl like messages...</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </section>
-    </div>
-    <div id="settings-popover" class="popover">
-        <header>
-            Settings
-        </header>
-        <section>
-            <div class="content">
-                <nav>
-                    <ul>
-                        <li><a>Project Settings</a></li>
-                        <li><a>Account Settings</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </section>
-    </div>
-    <script>
-        $(document).ready(function() {
-            $('#activity-button').popover('#activity-popover', {preventRight: true});
-            $('#notifications-button').popover('#notifications-popover', {preventRight: true});
-            $('#settings-button').popover('#settings-popover', {preventRight: true});
 
-            /**
+/*          
              * setup search
-             */
+           
             function googleSearch(q){
                 $('#searchform .searchbox a').fadeOut()
                 $.ajax({
@@ -274,5 +124,6 @@
                 $('.searchbox', $(this).parent()).animate({marginRight: 0}).next().fadeOut();
             });
         });
+          */
     </script>
     <!-- POPOVERS SETUP END-->

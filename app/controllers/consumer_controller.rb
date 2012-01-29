@@ -17,7 +17,8 @@ class ConsumerController < ApplicationController
   def login
     
     find_product
-    find_consumer
+    find_or_create_consumer
+    find_payer_and_user
     login_messages        
     
   end
@@ -57,10 +58,10 @@ class ConsumerController < ApplicationController
   end  
   
 
-  def find_consumer
+  def find_or_create_consumer
     
     if current_facebook_user
-      @consumer = find_consumer_by_facebook_user
+      @consumer = find_or_create_consumer_by_facebook_user
     else
       @consumer = nil 
       clear_session
@@ -69,18 +70,9 @@ class ConsumerController < ApplicationController
   end
   
 
-  def find_consumer_by_facebook_user
+  def find_or_create_consumer_by_facebook_user
     
-    @consumer = Consumer.find_by_facebook_id(current_facebook_user.id)
-    if @consumer
-      @payer = session[:payer] = @consumer.payer   
-    else
-      @consumer = Consumer.new
-      @consumer.facebook_id = current_facebook_user.id
-      @consumer.facebook_access_token = nil
-      @payer = session[:payer] = nil   
-    end
-      
+    @consumer = Consumer.find_or_initialize_by_facebook_id(current_facebook_user.id)
     @consumer.name = @consumer.facebook_user.first_name
     @consumer.pic =  @consumer.facebook_user.large_image_url
     @consumer.tinypic = @consumer.facebook_user.image_url
@@ -90,7 +82,13 @@ class ConsumerController < ApplicationController
     
   end
   
-
+  def find_payer_and_user 
+    
+    @payer = session[:payer] = @consumer.payer
+    @user = session[:user] = (@consumer.payer_id) ?(User.where("payer_id = ? and email NOT NULL", @consumer.payer_id).first) :nil
+    
+  end
+  
   def login_messages
     
     if @consumer     
@@ -237,6 +235,7 @@ class ConsumerController < ApplicationController
 
     @consumer = session[:consumer]
     @payer = session[:payer]
+    @user = session[:user]
     # currently, retailer = Zynga. When invoked thru API the retailer name will be part of the API paramters.
     @retailer = Retailer.find(1)
     @product = Product.find_or_initialize_by_title_and_price(session[:product_title], session[:product_price])
@@ -255,6 +254,7 @@ class ConsumerController < ApplicationController
                                         :payer_id => @payer.id, 
                                         :retailer_id => @retailer.id, 
                                         :product_id => @product.id, 
+                                        :category_id => 1,
                                         :amount => @product.price, 
                                         :date => Time.now, 
                                         :location => generate_location)
@@ -428,8 +428,13 @@ class ConsumerController < ApplicationController
       @first_line = "#{session[:product_title]} is yours!"
       @second_line = "Thanks for using paykido!"
      elsif  @purchase.requires_manual_approval?
-      @first_line =  "This has to be manually authorized"
-      @second_line = "Approval request has been sent"
+       if @email_problem
+          @first_line =  "Approval reuiqred but email is down at the moment"
+          @second_line = "Please try again in a few moments"
+       else  
+        @first_line =  "This has to be manually authorized"
+        @second_line = "Approval request has been sent"
+       end
      elsif !@purchase.authorized 
         @first_line = "This purchase is unauthorized"
         if @purchase.authorization_type == 'Insufficient Balance'
@@ -449,16 +454,28 @@ class ConsumerController < ApplicationController
   
   def request_approval(user, consumer, purchase)
     
-    UserMailer.approval_email(user, consumer, purchase).deliver
-
+    begin
+      UserMailer.approval_email(user, consumer, purchase).deliver
+    rescue
+      @email_problem = true
+    else
+      @email_problem = false
+    end
+      
     message = "Hi from Paykido! #{purchase.consumer.name} asks that you approve #{purchase.product.title} from #{purchase.retailer.name}. See our email for details"
-    sms(purchase.payer.phone, sms_message) 
+    sms(purchase.payer.phone, message) 
     
   end
   
     def request_joinin(user, consumer)
      
-    UserMailer.joinin_email(user, consumer).deliver
+    begin
+      UserMailer.joinin_email(user, consumer).deliver
+    rescue
+      @email_problem = true
+    else
+      @email_problem = false
+    end
 
     message = "Hi #{user.payer.name}! #{onsumer.name} asked us to tell you about Paykido. See our email for details"
     sms(user.payer.phone, message) 

@@ -1,5 +1,5 @@
 body {
-    background: #EAE7E0 url(../../../images/backgrounds/sand.jpg) repeat-x 0 0;
+    background: #EAE7E0 url(../../../images/backgrounds/sand.jpg) repeat-x 0 0; 
 }
 
 /**
@@ -44,6 +44,7 @@ body {
     background-image: linear-gradient(top, #ABCEEE, #8AA8CA);
     zoom: 1;
 }
+
 
 
 /* ======================== WIDGETS ======================== */

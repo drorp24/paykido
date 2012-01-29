@@ -2,7 +2,7 @@
 <%= image_tag "/images/farmville21.png", :id => "farmville2" %>
 <%= image_tag "/images/loading_short.gif", :id => "loading", :style=>"display:none;" %>
 
-<%= form_tag do %>
+<%= form_tag "some_path",  :id => "product_form" do %>
 	<%= radio_button_tag("product", "310 Farm Cash@30.00", false, :class=> "option", :id=>"a") %>
 	<%= radio_button_tag("product", "240 Farm Cash@24.00", false, :class=> "option", :id=>"b", :checked=>"checked") %>
 	<%= radio_button_tag("product", "115 Farm Cash@12.00", false, :class=> "option", :id=>"c") %>
@@ -19,7 +19,7 @@
 $(document).ready(function () {
 
 	$('#arca').click(function() {
-		var url = '/consumer/login?' + $('form').serialize();
+		var url = '/consumer/login?' + $('#product_form').serialize();
 		$.facebox({
 			ajax: url
 		});				

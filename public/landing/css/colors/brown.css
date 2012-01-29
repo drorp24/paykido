@@ -1,0 +1,26 @@
+#logo {
+	background:url("../../img/logo_brown.png");
+}
+a {
+	color:#604830;
+}
+a:hover {
+	color:#604830;
+	border-bottom:#604830 dotted 1px;
+}
+.color {
+	color:#604830;
+}
+.bullet_list_right li {
+	list-style-image: url("../../img/icons/bullet_link_brown.png");
+	border-bottom:#ded3b0 dotted 1px;
+}
+ul.tabs li a:hover {
+	color:#604830;
+}
+#footer a {
+	color:#604830;
+}
+	#footer a:hover {
+		border-bottom:#604830 dotted 1px;
+	}

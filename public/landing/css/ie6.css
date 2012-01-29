@@ -1,0 +1,5 @@
+/* Header positionning fix */
+
+* html,* html body /* IE6 Fixed Position Jitter Fix */{background-image:url(about:blank);background-attachment:fixed;}
+* html #header_wrapper /* IE6 position fixed Top */{position:absolute;bottom:auto;left:0;top:expression(eval(document.documentElement.scrollTop));}
+.button {float:left; margin-left:0; margin-right:15px;}

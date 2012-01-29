@@ -1,0 +1,31 @@
+<div class="grid_6 alpha">
+    <h1 class="name"><%= @consumer.name %></h1>
+    <div class="info">
+        <table class="full" cellspacing="10">
+            <tbody>
+                <tr> 
+                    <td class="consumer_header_1"><%= t 'Allowance' %></td>
+                    <td class="consumer_header_2"><%= number_to_currency @consumer.allowance %></td>
+                    <td class="consumer_header_3"><%= @consumer.allowance_period %></td>
+                </tr>
+                <tr>
+                    <td class="consumer_header_1"><%= t 'Balance' %></td>
+                    <td class="consumer_header_2"><%= number_to_currency @consumer.balance %></td> 
+                    <td class="consumer_header_3">
+                        <div class="progress"><span style="width: 50%;"></span></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table> 
+    </div>
+</div>
+
+<div class="grid_6 omega">
+
+        <% if @consumer.pic?  %>
+            <%= image_tag @consumer.pic, :class =>"pic_or_logo" %>
+        <% else %>
+            <%= image_tag "/images/face_placeholder_small.png", :class =>"pic_or_logo"%>
+        <% end %>
+
+</div>  

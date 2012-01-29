@@ -1,6 +1,10 @@
 <h1 class="page-title">Dashboard</h1>
 <div class="container_12 clearfix leading">
-    <section class="portlet grid_6 leading"> 
+
+    <%= render 'notifications' %>
+    <%= render 'activity_popover' %>
+    
+    <section class="portlet grid_7 leading"> 
  
         <header class="clearfix">
             <h2><%= t 'Purchases' %></h2> 
@@ -13,7 +17,7 @@
                         
     </section> 
  
-    <section class="portlet grid_6 leading"> 
+    <section class="portlet grid_5 leading"> 
 
         <header>
             <h2><%= t 'Consumer' %></h2>
@@ -28,22 +32,6 @@
  
     </section> 
  
-    <section class="portlet grid_6 leading"> 
-        
-        <header>
-            <h2><%= t 'Consumer amount rules' %></h2>
-            <%= image_tag "amount_rules.png", :class => "header_icon" %>        
-         </header>
-
-        <section class="clearfix">
-            <section>
-            <%= render 'allowance' %> 
-            </section>                           
-        </section>
- 
-    </section> 
-
 </div>
     <div class="clear"></div>
-
 

@@ -39,9 +39,10 @@
 <link rel="stylesheet" href="/css/jquery.uniform.css" media="screen" />
 <link rel="stylesheet" href="/css/jquery.popover.css" media="screen">
 <link rel="stylesheet" href="/css/jquery.itextsuggest.css" media="screen">
-<link rel="stylesheet" href="/css/themes/lightblue/style.css" media="screen" />
+<link rel="stylesheet" href="/css/themes/paykido/style.css" media="screen" />
 <link rel="stylesheet" href="/stylesheets/dashboard.css" media="screen" />
-
+<link rel="stylesheet" href="/css/notifications.css" media="screen" />
+ 
 
 
 <style type = "text/css">
@@ -80,22 +81,8 @@
 	   </p>
 	</div>
 <% end -%>
-	
+SIGNIN -->  	
 
-<% if params[:action] != 'index' and session[:user] and session[:user].name %>
-	<span class="login" id="signedin">
-        <% if @user %>
-		  Welcome
-		  <% if @user.is_payer and session[:payer].name? %>
-		      <%= session[:payer].name %>
-		  <% end %> 
-		<% end %>
-	</span>
-	<%= link_to "Sign Out", "/subscriber/signout", :class => "login", :id => "signout" %>
-<% else %>		
-	<%= link_to "Sign In", "/subscriber/signin", :class => "login", :id => "signin" %>
-<% end %>
-SIGNIN -->  
  
 <%= yield :layout %>
 	

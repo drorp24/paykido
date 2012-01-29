@@ -1,37 +1,41 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
-<head> <!--  -->
-  <title>Paykido</title>
-   	<%= stylesheet_link_tag  "subscriber", "service", :media => "all" %>
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Paykido - the new way to pay </title>
 
-   	<%= stylesheet_link_tag  "jquery-ui-1.8.1.custom.css", :media => "all" %>
-   	<%= stylesheet_link_tag  "jquery.ui.theme.css", :media => "all" %>
- 	<%= javascript_include_tag "jquery-1.4.2.min", "jquery-ui-1.8.2.custom.min", "old_application" %>  
+<link   rel="stylesheet" href="/landing/css/layout.css" type="text/css" />
+
+<script type="text/javascript" src="/landing/js/jquery.js" charset="utf-8"></script><!-- jQuery -->
+<!-- <script type="text/javascript" src="/landing/js/scrollto.js" charset="utf-8"></script>--><!-- ScrollTo Plugin -->
+<script type="text/javascript" src="/landing/js/navigation.js" charset="utf-8"></script><!-- One-Page Navigation Plugin -->
+<script type="text/javascript" src="/landing/js/mousewheel.js" charset="utf-8"></script><!-- Mousewheel Plugin -->
+<script type="text/javascript" src="/landing/js/jquery.bxSlider.js" ></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#slider1').bxSlider();
+    $('#slider2').bxSlider();
+    $('#slider3').bxSlider();
+  });
+</script>
+
+<!-- Cufon font replacement script, see instructions in the help file
+<script type="text/javascript" src="js/cufon.js"></script>
+<script type="text/javascript" src="js/Calluna_400.font.js"></script>
+<script type="text/javascript">
+    Cufon.replace('h1, h2, h3, h4, h5, .box_title', {hover: true}); // Modify the classes according to your preferences
+</script>
+-->
+
+<!--[if IE 6]>
+<link rel="stylesheet" href="css/ie6.css" type="text/css" />
+<script src="js/ddbelatedpng.js"></script>
+<![endif]-->
+
 
 </head>	
 
 <body>
-	
-	<% if flash[:notice] -%>
-		<div class="ui-widget message">
-	    	<div id="notice" class="ui-state-error ui-corner-all">
-	    		<p>
-	    			<span class="flash_symbol ui-icon ui-icon-alert"></span>
-					<span class="flash_text"><%= flash[:notice] %></span>
-	    		</p>
-			</div>
-		</div>
-	<% end -%>
-	<% if flash[:message] -%>
-		<div class="ui-widget message">
-	    	<div id="notice" class="ui-state-highlight ui-corner-all">
-	    		<p>
-	    			<span class="flash_symbol ui-icon ui-icon-info"></span>
-					<span class="flash_text"><%= flash[:message] %></span>
-	    		</p>
-			</div>
-		</div>
-	<% end -%>
 	
 
 	<% if params[:action] != 'index' and params[:action] != 'invite' and session[:user] and session[:user].name %>
@@ -47,9 +51,9 @@
 				<% end %> 
 			<% end %>
 		</span>
-		<%= link_to "Sign Out", "/subscriber/signout", :class => "login", :id => "signout" %>
+		<%= link_to "Sign Out", "/service", :class => "login", :id => "signout" %>
 	<% else %>		
-		<%= link_to "Sign In", "/subscriber/signin", :class => "login", :id => "signin" %>
+		<%= link_to "Sign In", "/dashboard/login", :class => "login", :id => "signin" %>
 	<% end %>
 
 

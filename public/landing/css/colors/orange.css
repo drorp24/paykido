@@ -1,0 +1,26 @@
+#logo {
+	background:url("../../img/logo_orange.png");
+}
+a {
+	color:#CC510B;
+}
+a:hover {
+	color:#CC510B;
+	border-bottom:#CC510B dotted 1px;
+}
+.color {
+	color:#CC510B;
+}
+.bullet_list_right li {
+	list-style-image: url("../../img/icons/bullet_link_orange.png");
+	border-bottom:#ffc29d dotted 1px;
+}
+ul.tabs li a:hover {
+	color:#CC510B;
+}
+#footer a {
+	color:#CC510B;
+}
+	#footer a:hover {
+		border-bottom:#CC510B dotted 1px;
+	}

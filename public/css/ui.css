@@ -10,7 +10,7 @@
     box-shadow: 0 2px 3px rgba(0,0,0,0.1);
     }
     .portlet > header {
-        border: 1px solid #CCC;
+        border: 1px solid transparent;
         padding: 10px 20px;
         }
         .portlet > header h2 {
@@ -21,7 +21,7 @@
             margin: 0;
             }
     .portlet > section {
-        border: 1px solid #CCC;
+        border: 1px solid transparent;
         border-top-width: 0;
         padding: 20px;
         }
@@ -370,6 +370,7 @@ button.icon-with-text img,
     margin: 0;
     list-style: none;
     padding: 0;
+    width: 52%;
     }
     .toolbar li {
         display: block;

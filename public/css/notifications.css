@@ -1,7 +1,7 @@
 /**
  ** Message Growl
 **/
-.ui-notify { width:350px; position:fixed; top:10px; right:10px; }
+.ui-notify { width:395px; position:fixed; top:10px; right:10px;     z-index: 1000;}
 .ui-notify-message { 
 	padding:10px; 
 	margin-bottom:15px; 
@@ -9,6 +9,7 @@
 	-webkit-border-radius:5px; 
 	-o-border-radius:5px;
 	border-radius:5px;
+
 }
 
 .ui-notify-message h1 { font-size:14px; margin:0; padding:0 }

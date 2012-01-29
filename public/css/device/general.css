@@ -6,7 +6,7 @@ html, body {
     height: 100%;
 }
 #wrapper {
-    margin: 0 auto;
+/*    margin: 50px auto; */
 }
 
 /**
@@ -17,7 +17,7 @@ body {
     font: normal normal normal 11px/160% 'Lucida Grande', Verdana, Helvetica, Arial, sans-serif;
     margin: 0 auto;
 	-webkit-text-size-adjust: 100%; /* Stops Mobile Safari from auto-adjusting font-sizes */
-    max-width: 1280px;
+/*    max-width: 1280px; */
 }
 
 table {
@@ -165,10 +165,10 @@ body.login {
 .login-box .logo {
     background: transparent url(../../images/logo.png) no-repeat center center;
     display: block;
-    height: 30px;
+/*    height: 30px; */
     margin: 0 auto;
     text-indent: -9999em;
-    width: 90px;
+/*    width: 90px; */
 }
 .login-box form {
     margin:10px 0 20px 0;
@@ -214,8 +214,16 @@ body.login {
  */
 #wrapper > header {
     height: 46px;
-}
 
+/*    background: -o-linear-gradient(top,#555,#313131);
+    background: -ms-linear-gradient(top,#555,#313131);
+    background: -moz-linear-gradient(top,#555,#313131);
+    background: -khtml-linear-gradient(top,#555,#313131);
+    background: -webkit-gradient(linear,0% 0%,0% 100%,from(#555),to(#313131));
+    background: -webkit-linear-gradient(top,#555,#313131);
+    background: linear-gradient(top,#555,#313131); 
+    -pie-background: linear-gradient(top,#555,#313131);*/
+}
 #wrapper > header > h1 {
     background: url(../../images/logo.png) no-repeat 20px center;
 	float: left;
@@ -260,14 +268,14 @@ body.login {
     -khtml-box-shadow: inset 0 0 6px #000;
     -webkit-box-shadow: inset 0 0 6px #000;
     box-shadow: inset 0 0 6px #000;
-    color: #FFF;
+    color: #CFCFCF;
     line-height: 26px;
     margin-right: 10px;
     padding: 0 10px;
 }
 
 #wrapper > header > nav .user-info a {
-    color: #FFF;
+    color: #CFCFCF;
     text-decoration: underline;
 }
 
@@ -279,13 +287,17 @@ body.login {
 }
 
 #wrapper > section > aside {
-    background: transparent url(../../images/sidebar-shadow.png) no-repeat right top;
+/*    background: transparent url(../../images/sidebar-shadow.png) no-repeat right top; */
     bottom: 0;
     left: 0;
 	padding: 0;
 	position: absolute;
     top: 0;
-	width: 320px;
+	width: 220px;
+	margin-top: 3%;
+	height: 824px;
+/*	background: -moz-linear-gradient(center top , #555555, #313131); */
+    background-color: #313131;
 }
 
 #wrapper > section > aside > nav > #searchform {
@@ -295,6 +307,7 @@ body.login {
 
 #wrapper > section > aside > nav > #searchform .searchcontainer {
     background: none;
+    background: -moz-linear-gradient(center top , #555555, #313131) repeat scroll 0 0 transparent;
 }
 
 #wrapper > section > aside > nav > #searchform .searchcontainer input[type=button] {
@@ -386,6 +399,8 @@ body.login {
     -khtml-transition: all 0.3s ease-out;
     -webkit-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
+/*    background: -moz-linear-gradient(center top , #555555, #313131) repeat scroll 0 0 transparent; */
+    background-color: #313131;
 }
 
 #wrapper > section > aside > nav > ul li > a {
@@ -399,14 +414,14 @@ body.login {
 }
 
 #wrapper > section > aside > nav > ul li > a > span {
-	color: #111;
+	color: #CFCFCF;
 	cursor: pointer;
 	display: block;
 	font-size: 14px;
     height: 44px;
     line-height: 44px;
 	padding: 0 25px 0 60px;
-	text-shadow: #FFF 0 1px 1px;
+/*	text-shadow: #FFF 0 1px 1px; */
     -o-transition: all 0.3s ease-out;
     -ms-transition: all 0.3s ease-out;
     -moz-transition: all 0.3s ease-out;
@@ -497,19 +512,19 @@ body.login {
     -khtml-border-radius: 6px 6px 0 0;
     -webkit-border-radius: 6px 6px 0 0;
     border-radius: 6px 6px 0 0;
-	margin-left: 320px;
+	margin-left: 220px;
 }
 
 #wrapper > section > section > header {
 /*    background: url('http://alpha.paykido.com/css/svg.php?stops=%23555555 0%,%23313131 100%'); */
-    background: -o-linear-gradient(top,#555,#313131);
+/*    background: -o-linear-gradient(top,#555,#313131);
     background: -ms-linear-gradient(top,#555,#313131);
     background: -moz-linear-gradient(top,#555,#313131);
     background: -khtml-linear-gradient(top,#555,#313131);
     background: -webkit-gradient(linear,0% 0%,0% 100%,from(#555),to(#313131));
     background: -webkit-linear-gradient(top,#555,#313131);
-    background: linear-gradient(top,#555,#313131);
-    -pie-background: linear-gradient(top,#555,#313131);
+    background: linear-gradient(top,#555,#313131); 
+    -pie-background: linear-gradient(top,#555,#313131);*/
     -o-box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
     -ms-box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
     -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
@@ -528,7 +543,7 @@ body.login {
     -webkit-border-top-right-radius: 2px;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
-    border: 1px solid #333;
+/*    border: 1px solid #333; */
     height: 46px;
     position: relative;
 }
@@ -549,7 +564,7 @@ body.login {
 }
 
 #wrapper > section > section > section {
-    background: #FFF;
+/*    background: #FFF; */
     padding-bottom: 20px;
     position: relative;
     overflow: hidden;

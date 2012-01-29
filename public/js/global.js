@@ -73,7 +73,7 @@ $(document).ready(function() {
         }
     });
 
-    if (!location.href.match(/login\.html$/i)&&(!location.hash||location.hash=='#menu')) {
+    if (!location.href.match(/login$/i)&&(!location.hash||location.hash=='#menu')) {
         location.hash = $('.drilldownMenu .current a').attr("href");
     } else {
         $(window).trigger("hashchange");
@@ -210,3 +210,23 @@ function pageDownloaded(data, id){
 
     $(window).trigger('drilldown');
 }
+
+    function notify(how, msg_title, msg_text) {
+
+        selector = how + "-container"
+        if (how == 'sticky') {
+            $("#container").notify("create",selector, {
+            title: msg_title,
+            text: msg_text
+            },{
+            expires: false,
+            speed: 1000
+            });           
+        } else {
+            $("#container").notify("create",selector, {
+            title: msg_title,
+            text: msg_text
+            });                       
+        }
+    };
+
