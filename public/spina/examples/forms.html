@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width=1024px, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <title>Spina</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/icons.css" />
+    <link rel="stylesheet" href="../css/formalize.css" />
+    <link rel="stylesheet" href="../css/checkboxes.css" />
+    <link rel="stylesheet" href="../css/sourcerer.css" />
+    <link rel="stylesheet" href="../css/jqueryui.css" />
+    <link rel="stylesheet" href="../css/tipsy.css" />
+    <link rel="stylesheet" href="../css/calendar.css" />
+    <link rel="stylesheet" href="../css/tags.css" />
+    <link rel="stylesheet" href="../css/selectboxes.css" />
+    <link rel="stylesheet" href="../css/960.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" media="all and (orientation:portrait)" href="../css/portrait.css" />
+    <link rel="apple-touch-icon" href="../apple-touch-icon-precomposed.png" />
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5shiv.js"></script>
+    <script src="../js/excanvas.js"></script>
+    <![endif]-->
+    
+    <!-- JavaScript -->
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jqueryui.min.js"></script>
+    <script src="../js/jquery.cookies.js"></script>
+    <script src="../js/jquery.pjax.js"></script>
+    <script src="../js/formalize.min.js"></script>
+    <script src="../js/jquery.metadata.js"></script>
+    <script src="../js/jquery.validate.js"></script>
+    <script src="../js/jquery.checkboxes.js"></script>
+    <script src="../js/jquery.chosen.js"></script>
+    <script src="../js/jquery.fileinput.js"></script>
+    <script src="../js/jquery.datatables.js"></script>
+    <script src="../js/jquery.sourcerer.js"></script>
+    <script src="../js/jquery.tipsy.js"></script>
+    <script src="../js/jquery.calendar.js"></script>
+    <script src="../js/jquery.inputtags.min.js"></script>
+    <script src="../js/jquery.wymeditor.js"></script>
+    <script src="../js/jquery.livequery.js"></script>
+    <script src="../js/jquery.flot.min.js"></script>
+    <script src="../js/application.js"></script>
+  </head>
+  
+  <body>
+
+    <!-- Primary navigation -->
+    <nav id="primary">
+      <ul>
+        <li>
+          <a href="#">
+            <span class="icon32 dashboard"></span>
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="icon32 shuffle"></span>
+            UI Elements
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="icon32 pencil"></span>
+            Forms
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="icon32 listicon"></span>
+            Tables
+          </a>
+        </li>
+        <li class="active">
+          <a href="#">
+            <span class="icon32 chart"></span>
+            Charts
+          </a>
+        </li>
+        <li class="bottom">
+          <a href="#">
+            <span class="icon32 quit"></span>
+            Log out
+          </a>
+        </li>
+      </ul>
+    </nav>
+    
+    <!-- Secondary navigation -->
+    <nav id="secondary">
+    
+      <ul>
+        <li><a href="#">Line chart</a></li>
+        <li class="active"><a href="#">Bar chart</a></li>
+        <li><a href="#">Dynamic chart</a></li>
+        <li><a href="#">Complex chart</a></li>
+        <li><a href="#">Pie chart</a></li>
+      </ul>
+      
+      <div id="notifications">
+        <ul>
+        </ul>
+      </div>
+    </nav>
+    
+    <section id="maincontainer">
+      <div id="main" class="container_12">
+      
+        <div class="box">
+          <div class="box-header">
+            <h1>This is a box</h1>
+
+            <ul>
+              <li class="active"><a href="#one">Sample Form</a></li>
+              <li><a href="#two">Tab two</a></li>
+              <li><a href="#three">Active tab</a></li>
+            </ul>
+          </div>
+
+          <div class="box-content">
+            <div class="tab-content" id="one">
+
+              <form action="/" method="post">
+
+                <div class="column-left">
+                  <p>
+                    <input type="text" id="username" placeholder="Username" name="username" class="{validate:{required:true, minlength:3}}" />
+                  </p>
+
+                  <div class="combined">
+                    <p class="large">
+                      <input type="text" id="street" name="street" placeholder="Street" class="{validate: {required:true}}" />
+                    </p>
+                    <p class="small">
+                      <input type="text" id="number" name="number" placeholder="Number" class="{validate: {required:true}}" />
+                    </p>
+                  </div>
+
+                  <p>
+                    <input type="password" name="password" id="password" placeholder="Password" class="{validate:{required:true, minlength:6}}" />
+                  </p>
+
+                  <p>
+                    <input type="password" name="password_confirmfeef" id="password_confirm" placeholder="Confirm Password" class="{validate:{equalTo: '#password'}}" />
+                    <small>Please don't be a retard and use a <a href="#">secure</a> password</small>
+                  </p>
+
+                  <p>
+                    <select name="city" id="city" placeholder="City" class="{validate:{required:true}}">
+                      <option>Nijmegen</option>
+                      <option>Amsterdam</option>
+                      <option>New York</option>
+                    </select>
+                  </p>
+
+                  <p>
+                    <input type="file" id="file" name="file" placeholder="Profile picture" />
+                  </p>
+
+                  <p>
+                    <textarea id="tags" name="tags" class="taginput"></textarea>
+                  </p>
+                </div>
+
+                <div class="column-right">
+                  <p>
+                    <textarea id="textarea" name="textarea" class="{validate:{required:true}}">This is a textarea</textarea>
+                  </p>
+
+                  <div class="column-left">
+                    <p>
+                      <input type="checkbox" name="option1" id="option1" />
+                      <label for="option1">This is an option</label>
+                    </p>
+                    <p>
+                      <input type="checkbox" name="option1" id="option2" />
+                      <label for="option2">Another option</label>
+                    </p>
+                  </div>
+
+                  <div class="column-right">
+                    <p>
+                      <input type="checkbox" name="option3" id="option3" />
+                      <label for="option3">This is also an option</label>
+                    </p>
+                    <p>
+                      <input type="checkbox" name="option4" id="option4" />
+                      <label for="option4">Final option</label>
+                    </p>
+                  </div>
+
+                  <div class="clear"></div>
+
+                  <p>
+                    <input type="text" name="date" class="datepicker {validate:{required:true}}" id="date" placeholder="Date of Birth" class="{validate:{required:true}}" />
+                    <span class="icon calendar"></span>
+                  </p>
+
+                  <div class="column-left">
+                    <p>
+                      <input type="radio" name="radio" id="radio1" />
+                      <label for="radio1">This is an option</label>
+                    </p>
+                    <p>
+                      <input type="radio" name="radio" id="radio2" />
+                      <label for="radio2">Another option</label>
+                    </p>
+                  </div>
+
+                  <div class="column-right">
+                    <p>
+                      <input type="radio" name="radio" id="radio3" />
+                      <label for="radio3">This is also an option</label>
+                    </p>
+                    <p>
+                      <input type="radio" name="radio" id="radio4" />
+                      <label for="radio4">Final option</label>
+                    </p>
+                  </div>
+
+                  <div class="clear"></div>
+
+                  <p class="warning">
+                    Warning: This form consists solely of nonsense.
+                  </p>
+
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non felis non orci congue mollis. Sed euismod magna sed nunc dignissim tincidunt. Maecenas faucibus varius elit.
+                  </p>
+                </div>
+
+                <div class="clear"></div>
+
+                <div class="action_bar">
+                  <input type="submit" class="button blue" value="Submit Post" />
+                  <a href="#modal" class="modal button">Cancel</a>
+                </div>
+
+              </form>
+
+            </div>
+
+            <div class="tab-content" id="two">
+              <p>This is the content of box two.</p>
+            </div>
+
+            <div class="tab-content" id="three">
+              <p>This is the content of box three.</p>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Modal box -->
+        <div class="box" id="modal">
+          <div class="box-header">
+            <h1>Dit is een modal venster</h1>
+          </div>
+
+          <div class="box-content">
+            <p>Blergh awesome.</p>
+
+            <div class="action_bar">
+              <a href="#" class="close button blue">Save changes</a>
+              <a href="#" class="close button">Close modal</a>
+            </div>
+          </div>
+        </div>
+      
+      </div>
+    </section>
+  </body>
+</html>

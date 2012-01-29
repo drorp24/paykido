@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width=1024px, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <title>Spina</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/icons.css" />
+    <link rel="stylesheet" href="../css/formalize.css" />
+    <link rel="stylesheet" href="../css/checkboxes.css" />
+    <link rel="stylesheet" href="../css/sourcerer.css" />
+    <link rel="stylesheet" href="../css/jqueryui.css" />
+    <link rel="stylesheet" href="../css/tipsy.css" />
+    <link rel="stylesheet" href="../css/calendar.css" />
+    <link rel="stylesheet" href="../css/tags.css" />
+    <link rel="stylesheet" href="../css/selectboxes.css" />
+    <link rel="stylesheet" href="../css/960.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" media="all and (orientation:portrait)" href="../css/portrait.css" />
+    <link rel="apple-touch-icon" href="../apple-touch-icon-precomposed.png" />
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5shiv.js"></script>
+    <script src="../js/excanvas.js"></script>
+    <![endif]-->
+    
+    <!-- JavaScript -->
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jqueryui.min.js"></script>
+    <script src="../js/jquery.cookies.js"></script>
+    <script src="../js/jquery.pjax.js"></script>
+    <script src="../js/formalize.min.js"></script>
+    <script src="../js/jquery.metadata.js"></script>
+    <script src="../js/jquery.validate.js"></script>
+    <script src="../js/jquery.checkboxes.js"></script>
+    <script src="../js/jquery.chosen.js"></script>
+    <script src="../js/jquery.fileinput.js"></script>
+    <script src="../js/jquery.datatables.js"></script>
+    <script src="../js/jquery.sourcerer.js"></script>
+    <script src="../js/jquery.tipsy.js"></script>
+    <script src="../js/jquery.calendar.js"></script>
+    <script src="../js/jquery.inputtags.min.js"></script>
+    <script src="../js/jquery.wymeditor.js"></script>
+    <script src="../js/jquery.livequery.js"></script>
+    <script src="../js/jquery.flot.min.js"></script>
+    <script src="../js/application.js"></script>
+  </head>
+  
+  <body>
+
+    <!-- Primary navigation -->
+    <nav id="primary">
+      <ul>
+        <li>
+          <a href="#">
+            <span class="icon32 dashboard"></span>
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="icon32 shuffle"></span>
+            UI Elements
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="icon32 pencil"></span>
+            Forms
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="icon32 listicon"></span>
+            Tables
+          </a>
+        </li>
+        <li class="active">
+          <a href="#">
+            <span class="icon32 chart"></span>
+            Charts
+          </a>
+        </li>
+        <li class="bottom">
+          <a href="#">
+            <span class="icon32 quit"></span>
+            Log out
+          </a>
+        </li>
+      </ul>
+    </nav>
+    
+    <!-- Secondary navigation -->
+    <nav id="secondary">
+    
+      <ul>
+        <li><a href="#">Line chart</a></li>
+        <li class="active"><a href="#">Bar chart</a></li>
+        <li><a href="#">Dynamic chart</a></li>
+        <li><a href="#">Complex chart</a></li>
+        <li><a href="#">Pie chart</a></li>
+      </ul>
+      
+      <div id="notifications">
+        <ul>
+        </ul>
+      </div>
+    </nav>
+    
+    <section id="maincontainer">
+      <div id="main" class="container_12">
+      
+        <div class="quick-actions">
+          <a href="#"><span class="icon32 cart"></span>Purchase template</a>
+        </div>
+        
+        <div class="column-left">
+          <div class="box">
+            <div class="box-header">
+              <h1>Sliders</h1>
+            </div>
+            
+            <div class="box-content">
+              <div class="slider"></div>
+              <div class="slider {range: true, min: 100, max: 400, values: [200, 300]}"></div>
+              <div class="slider {range: true, min: 100, max: 400, values: [120, 150]}"></div>
+              <div class="slider {range: 'min', min: 0, max: 400, value: 50}"></div>
+              <div class="slider {range: true, min: 100, max: 400, values: [120, 150]}"></div>
+            </div>
+          </div>
+          
+          <div class="box">
+            <div class="box-header">
+              <span class="icon16 chart"></span><h1>Statistics</h1>
+            </div>
+        
+            <ul class="statistics">
+              <li>
+                <a href="#">
+                  <span>1.3k</span>
+                  New visitors
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span>23</span>
+                  Returning visitors
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span>16%</span>
+                  Bounce rate
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span>7%</span>
+                  Increase since last month
+                </a>
+              </li>
+            </ul>
+        
+            <div class="action_bar">
+              <a href="#" class="button small"><span class="icon16 export"></span>Export data</a>
+              <a href="#" class="button small"><span class="icon16 print"></span>Print statistics</a>
+            </div>
+          </div>
+          
+          <div class="box">
+            <div class="box-header">
+              <h1>Tooltips</h1>
+            </div>
+
+            <div class="box-content">
+              <p>Tooltips can be applied to pretty much any element by just adding a class 'tooltip'. The content of the title-attribute will be used as the tooltip itself.</p>
+
+              <a href="#" class="button tooltip" title="This is a tooltip!">Tooltip button</a>
+            </div>
+          </div>
+        
+          <div class="box">
+            <div class="box-header">
+              <span class="icon16 eye"></span><h1>Code view</h1>
+            </div>
+        
+            <code class="html"><div class="box">
+        <div class="box-header">
+          <span class="icon16 eye"></span><h1>Code view</h1>
+        </div>
+        
+        <code class="html">
+        ...
+        </code>
+        </div></code>
+        
+          <div class="action_bar">
+            <a href="#" class="button small"><span class="icon16 windows"></span>Open in new window</a>
+            <a href="#" class="button small"><span class="icon16 file"></span>Copy code</a>
+          </div>
+        </div>
+        </div>
+        
+        <div class="column-right">
+          <div class="box">
+            <div class="box-header">
+              <span class="icon16 cog"></span><h1>Vertical sliders</h1>
+            </div>
+          
+            <div class="box-content">
+              <div class="slider-vertical {range: 'min', orientation: 'vertical', value: 10}"></div>
+              <div class="slider-vertical {range: 'min', orientation: 'vertical', value: 40}"></div>
+              <div class="slider-vertical {range: 'min', orientation: 'vertical', value: 22}"></div>
+              <div class="slider-vertical {range: 'min', orientation: 'vertical', value: 84}"></div>
+              <div class="slider-vertical {range: 'min', orientation: 'vertical', value: 50}"></div>
+              <div class="clear"></div>
+              
+              <div class="action_bar">
+                <a href="#" class="button small">Be in control</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="box">
+            <div class="box-header">
+              <h1>Progress bar</h1>
+            </div>
+            
+            <div class="box-content">
+              <div class="progressbar {value: 40}"></div>
+            </div>
+          </div>
+          
+          <div class="box">    
+            <div class="box-header">
+              <h1>Current Hosting Plan</h1>
+            </div>
+        
+            <table>
+              <tbody>
+                <tr>
+                  <td>Webhosting:</td>
+                  <td><strong>VPS Server 1</strong></td>
+                </tr>
+                <tr>
+                  <td>Available space:</td>
+                  <td>239/1000 GB used</td>
+                </tr>
+                <tr>
+                  <td>MySQL databases:</td>
+                  <td class="red">5/5 used</td>
+                </tr>
+                <tr>
+                  <td>Email accounts:</td>
+                  <td class="red">25/25 used</td>
+                </tr>
+                <tr>
+                  <td>Ruby version:</td>
+                  <td>1.9.3</td>
+                </tr>
+                <tr>
+                  <td>Rails version:</td>
+                  <td>3.0.1</td>
+                </tr>
+              </tbody>
+            </table>
+        
+            <div class="action_bar">
+              <a href="#" class="button blue">Upgrade plan</a>
+              <a href="#">Cancel subscription</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="clear"></div>
+
+      </div>
+    </section>
+  </body>
+</html>

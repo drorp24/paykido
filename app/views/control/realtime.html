@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width=1024px, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <title>Spina</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/icons.css" />
+    <link rel="stylesheet" href="../css/formalize.css" />
+    <link rel="stylesheet" href="../css/checkboxes.css" />
+    <link rel="stylesheet" href="../css/sourcerer.css" />
+    <link rel="stylesheet" href="../css/jqueryui.css" />
+    <link rel="stylesheet" href="../css/tipsy.css" />
+    <link rel="stylesheet" href="../css/calendar.css" />
+    <link rel="stylesheet" href="../css/tags.css" />
+    <link rel="stylesheet" href="../css/selectboxes.css" />
+    <link rel="stylesheet" href="../css/960.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" media="all and (orientation:portrait)" href="../css/portrait.css" />
+    <link rel="apple-touch-icon" href="../apple-touch-icon-precomposed.png" />
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5shiv.js"></script>
+    <script src="../js/excanvas.js"></script>
+    <![endif]-->
+    
+    <!-- JavaScript -->
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jqueryui.min.js"></script>
+    <script src="../js/jquery.cookies.js"></script>
+    <script src="../js/jquery.pjax.js"></script>
+    <script src="../js/formalize.min.js"></script>
+    <script src="../js/jquery.metadata.js"></script>
+    <script src="../js/jquery.validate.js"></script>
+    <script src="../js/jquery.checkboxes.js"></script>
+    <script src="../js/jquery.chosen.js"></script>
+    <script src="../js/jquery.fileinput.js"></script>
+    <script src="../js/jquery.datatables.js"></script>
+    <script src="../js/jquery.sourcerer.js"></script>
+    <script src="../js/jquery.tipsy.js"></script>
+    <script src="../js/jquery.calendar.js"></script>
+    <script src="../js/jquery.inputtags.min.js"></script>
+    <script src="../js/jquery.wymeditor.js"></script>
+    <script src="../js/jquery.livequery.js"></script>
+    <script src="../js/jquery.flot.min.js"></script>
+    <script src="../js/application.js"></script>
+  </head>
+  
+  <body>
+
+    <!-- Primary navigation -->
+    <nav id="primary">
+      <ul>
+        <li>
+          <a href="#">
+            <span class="icon32 dashboard"></span>
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="icon32 shuffle"></span>
+            UI Elements
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="icon32 pencil"></span>
+            Forms
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="icon32 listicon"></span>
+            Tables
+          </a>
+        </li>
+        <li class="active">
+          <a href="#">
+            <span class="icon32 chart"></span>
+            Charts
+          </a>
+        </li>
+        <li class="bottom">
+          <a href="#">
+            <span class="icon32 quit"></span>
+            Log out
+          </a>
+        </li>
+      </ul>
+    </nav>
+    
+    <!-- Secondary navigation -->
+    <nav id="secondary">
+    
+      <ul>
+        <li><a href="#">Line chart</a></li>
+        <li class="active"><a href="#">Bar chart</a></li>
+        <li><a href="#">Dynamic chart</a></li>
+        <li><a href="#">Complex chart</a></li>
+        <li><a href="#">Pie chart</a></li>
+      </ul>
+      
+      <div id="notifications">
+        <ul>
+        </ul>
+      </div>
+    </nav>
+    
+    <section id="maincontainer">
+      <div id="main" class="container_12">
+      
+        <script type="text/javascript">
+          $(function () {
+            // we use an inline data source in the example, usually data would
+            // be fetched from a server
+            var data = [], totalPoints = 300;
+            function getRandomData() {
+                if (data.length > 0)
+                    data = data.slice(1);
+
+                // do a random walk
+                while (data.length < totalPoints) {
+                    var prev = data.length > 0 ? data[data.length - 1] : 50;
+                    var y = prev + Math.random() * 10 - 5;
+                    if (y < 0)
+                        y = 0;
+                    if (y > 100)
+                        y = 100;
+                    data.push(y);
+                }
+
+                // zip the generated y values with the x values
+                var res = [];
+                for (var i = 0; i < data.length; ++i)
+                    res.push([i, data[i]])
+                return res;
+            }
+
+            // setup control widget
+            var updateInterval = 30;
+            $("#updateInterval").val(updateInterval).change(function () {
+                var v = $(this).val();
+                if (v && !isNaN(+v)) {
+                    updateInterval = +v;
+                    if (updateInterval < 1)
+                        updateInterval = 1;
+                    if (updateInterval > 2000)
+                        updateInterval = 2000;
+                    $(this).val("" + updateInterval);
+                }
+            });
+
+            // setup plot
+            var options = {
+                series: { shadowSize: 0 }, // drawing is faster without shadows
+                yaxis: { min: 0, max: 100 },
+                xaxis: { show: false },
+                grid: {
+                  borderWidth: 0
+                },
+            };
+
+            var plot = $.plot($("#jflot"), [ getRandomData() ], options);
+
+            function update() {
+                plot.setData([ getRandomData() ]);
+                // since the axes don't change, we don't need to call plot.setupGrid()
+                plot.draw();
+
+                setTimeout(update, updateInterval);
+            }
+
+            update();
+          });
+        </script>
+
+        <div class="box">
+          <div class="box-header">
+            <h1>Realtime Chart</h1>
+          </div>
+
+          <div class="box-content">
+            <div id="jflot" style="width: 100%; height: 300px">
+            </div>
+          </div>
+
+        </div>
+      
+      </div>
+    </section>
+  </body>
+</html>

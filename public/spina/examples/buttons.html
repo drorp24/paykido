@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width=1024px, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <title>Spina</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/icons.css" />
+    <link rel="stylesheet" href="../css/formalize.css" />
+    <link rel="stylesheet" href="../css/checkboxes.css" />
+    <link rel="stylesheet" href="../css/sourcerer.css" />
+    <link rel="stylesheet" href="../css/jqueryui.css" />
+    <link rel="stylesheet" href="../css/tipsy.css" />
+    <link rel="stylesheet" href="../css/calendar.css" />
+    <link rel="stylesheet" href="../css/tags.css" />
+    <link rel="stylesheet" href="../css/selectboxes.css" />
+    <link rel="stylesheet" href="../css/960.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" media="all and (orientation:portrait)" href="../css/portrait.css" />
+    <link rel="apple-touch-icon" href="../apple-touch-icon-precomposed.png" />
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5shiv.js"></script>
+    <script src="../js/excanvas.js"></script>
+    <![endif]-->
+    
+    <!-- JavaScript -->
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/jqueryui.min.js"></script>
+    <script src="../js/jquery.cookies.js"></script>
+    <script src="../js/jquery.pjax.js"></script>
+    <script src="../js/formalize.min.js"></script>
+    <script src="../js/jquery.metadata.js"></script>
+    <script src="../js/jquery.validate.js"></script>
+    <script src="../js/jquery.checkboxes.js"></script>
+    <script src="../js/jquery.chosen.js"></script>
+    <script src="../js/jquery.fileinput.js"></script>
+    <script src="../js/jquery.datatables.js"></script>
+    <script src="../js/jquery.sourcerer.js"></script>
+    <script src="../js/jquery.tipsy.js"></script>
+    <script src="../js/jquery.calendar.js"></script>
+    <script src="../js/jquery.inputtags.min.js"></script>
+    <script src="../js/jquery.wymeditor.js"></script>
+    <script src="../js/jquery.livequery.js"></script>
+    <script src="../js/jquery.flot.min.js"></script>
+    <script src="../js/application.js"></script>
+  </head>
+  
+  <body>
+
+    <!-- Primary navigation -->
+    <nav id="primary">
+      <ul>
+        <li>
+          <a href="#">
+            <span class="icon32 dashboard"></span>
+            Dashboard
+          </a>
+        </li>
+        <li class="active">
+          <a href="#">
+            <span class="icon32 shuffle"></span>
+            UI Elements
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="icon32 pencil"></span>
+            Forms
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="icon32 listicon"></span>
+            Tables
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="icon32 chart"></span>
+            Charts
+          </a>
+        </li>
+        <li class="bottom">
+          <a href="#">
+            <span class="icon32 quit"></span>
+            Log out
+          </a>
+        </li>
+      </ul>
+    </nav>
+    
+    <!-- Secondary navigation -->
+    <nav id="secondary">
+    
+      <ul>
+        <li><a href="#">Line chart</a></li>
+        <li class="active"><a href="#">Bar chart</a></li>
+        <li><a href="#">Dynamic chart</a></li>
+        <li><a href="#">Complex chart</a></li>
+        <li><a href="#">Pie chart</a></li>
+      </ul>
+      
+      <div id="notifications">
+        <ul>
+        </ul>
+      </div>
+    </nav>
+    
+    <section id="maincontainer">
+      <div id="main" class="container_12">
+      
+        <div class="box column-left">
+  <div class="box-header">
+    <h1>Default buttons</h1>
+    <ul>
+      <li class='active'><a href="#buttons">Buttons</a></li>
+      <li><a href="#buttonscode">Code</a></li>
+    </ul>
+  </div>
+  
+  <div class="box-content">
+    <div class="tab-content" id="buttons">
+      <a href="#" class="button">Default button</a>
+      <a href="#" class="button blue">Blue button</a>
+    </div>
+  
+    <div class="tab-content" id="buttonscode">
+      <code class="html"><a href="#" class="button">Default button</a>
+<a href="#" class="button blue">Blue button</a></code>
+    </div>
+  </div>
+</div>
+
+<div class="box column-right">
+  <div class="box-header">
+    <h1>Small buttons</h1>
+    <ul>
+      <li class='active'><a href="#smallbuttons">Buttons</a></li>
+      <li><a href="#smallbuttonscode">Code</a></li>
+    </ul>
+  </div>
+  
+  <div class="box-content">
+    <div class="tab-content" id="smallbuttons">
+      <a href="#" class="button small">Small button</a>
+      <a href="#" class="button small blue">Small blue button</a>
+    </div>
+  
+    <div class="tab-content" id="smallbuttonscode">
+      <code class="html"><a href="#" class="button small">Small button</a>
+<a href="#" class="button small blue">Blue button</a></code>
+    </div>
+  </div>
+</div>
+
+<div class="clear"></div>
+
+<div class="box">
+  <div class="box-header">
+    <h1>Action bar</h1>
+    <ul>
+      <li class='active'><a href="#actionbar">Buttons</a></li>
+      <li><a href="#actionbarcode">Code</a></li>
+    </ul>
+  </div>
+  
+  <div class="box-content">
+    <div class="tab-content" id="actionbar">
+      <p>This is an action bar. Which aligns the buttons nicely at the bottom of the container.
+      
+      <div class="action_bar">
+        <a href="#" class="button blue">Submit post!</a>
+        <a href="#" class="button">Cancel</a>
+        <a href="#" class="button"><span class="icon16 cog"></span> Settings</a>
+        <a href="#" class="button blue">Export data</a>
+        <a href="#">Simple link</a>
+      </div>
+    </div>
+  
+    <div class="tab-content" id="actionbarcode">
+      <code class="html"><div class="action_bar">
+  <a href="#" class="button blue">Submit post!</a>
+  <a href="#" class="button">Cancel</a>
+  <a href="#" class="button small">Small cancel</a>
+  <a href="#" class="button small blue">Small blue cancel</a>
+  <a href="#" class="button"><span class="icon16 cog"></span> Settings</a>
+  <a href="#" class="button blue"><span class="icon16 export"></span> Export data</a>
+  <a href="#" class="button blue"><span class="icon16 export"></span> Simple link</a>
+</div></code>
+    </div>
+  </div>
+</div>
+
+<div class="box">
+  <div class="box-header">
+    <h1>Pictos font* icons</h1>
+  </div>
+  
+  <div class="box-content">
+    <a href="#" class="button"><span class="icon16 dock"></span> dock</a>
+    <a href="#" class="button"><span class="icon16 dropbox"></span> dropbox</a>
+    <a href="#" class="button"><span class="icon16 cloudup"></span> cloudup</a>
+    <a href="#" class="button"><span class="icon16 blocked"></span> blocked</a>
+    <a href="#" class="button"><span class="icon16 lightning"></span> lightning</a>
+    <a href="#" class="button"><span class="icon16 broadcast"></span> broadcast</a>
+    <a href="#" class="button"><span class="icon16 group"></span> group</a>
+    <a href="#" class="button"><span class="icon16 help"></span> help</a>
+    <a href="#" class="button"><span class="icon16 info"></span> info</a>
+    <a href="#" class="button"><span class="icon16 link"></span> link</a>
+    <a href="#" class="button"><span class="icon16 love"></span> love</a>
+    <a href="#" class="button"><span class="icon16 listicon"></span> listicon</a>
+    <a href="#" class="button"><span class="icon16 music"></span> music</a>
+    <a href="#" class="button"><span class="icon16 note"></span> note</a>
+    <a href="#" class="button"><span class="icon16 folder"></span> folder</a>
+    <a href="#" class="button"><span class="icon16 pencil"></span> pencil</a>
+    <a href="#" class="button"><span class="icon16 chat"></span> chat</a>
+    <a href="#" class="button"><span class="icon16 restart"></span> restart</a>
+    <a href="#" class="button"><span class="icon16 search"></span> search</a>
+    <a href="#" class="button"><span class="icon16 time"></span> time</a>
+    <a href="#" class="button"><span class="icon16 switch"></span> switch</a>
+    <a href="#" class="button"><span class="icon16 camera"></span> camera</a>
+    <a href="#" class="button"><span class="icon16 balloon"></span> balloon</a>
+    <a href="#" class="button"><span class="icon16 tools"></span> tools</a>
+    <a href="#" class="button"><span class="icon16 cog"></span> cog</a>
+    <a href="#" class="button"><span class="icon16 tags"></span> tags</a>
+    <a href="#" class="button"><span class="icon16 link2"></span> link2</a>
+    <a href="#" class="button"><span class="icon16 twitter"></span> twitter</a>
+    <a href="#" class="button"><span class="icon16 cloud"></span> cloud</a>
+    <a href="#" class="button"><span class="icon16 delete"></span> delete</a>
+    <a href="#" class="button"><span class="icon16 eye"></span> eye</a>
+    <a href="#" class="button"><span class="icon16 file"></span> file</a>
+    <a href="#" class="button"><span class="icon16 global"></span> global</a>
+    <a href="#" class="button"><span class="icon16 home"></span> home</a>
+    <a href="#" class="button"><span class="icon16 inbox"></span> inbox</a>
+    <a href="#" class="button"><span class="icon16 join"></span> join</a>
+    <a href="#" class="button"><span class="icon16 key"></span> key</a>
+    <a href="#" class="button"><span class="icon16 lens"></span> lens</a>
+    <a href="#" class="button"><span class="icon16 message"></span> message</a>
+    <a href="#" class="button"><span class="icon16 new"></span> new</a>
+    <a href="#" class="button"><span class="icon16 suitcase"></span> suitcase</a>
+    <a href="#" class="button"><span class="icon16 images"></span> images</a>
+    <a href="#" class="button"><span class="icon16 quit"></span> quit</a>
+    <a href="#" class="button"><span class="icon16 export"></span> export</a>
+    <a href="#" class="button"><span class="icon16 star"></span> star</a>
+    <a href="#" class="button"><span class="icon16 plane"></span> plane</a>
+    <a href="#" class="button"><span class="icon16 user"></span> user</a>
+    <a href="#" class="button"><span class="icon16 video"></span> video</a>
+    <a href="#" class="button"><span class="icon16 new"></span> new</a>
+    <a href="#" class="button"><span class="icon16 truck"></span> truck</a>
+    <a href="#" class="button"><span class="icon16 chart"></span> chart</a>
+    <a href="#" class="button"><span class="icon16 pie"></span> pie</a>
+    <a href="#" class="button"><span class="icon16 fullscreen"></span> fullscreen</a>
+    <a href="#" class="button"><span class="icon16 refresh"></span> refresh</a>
+    <a href="#" class="button"><span class="icon16 tick"></span> tick</a>
+    <a href="#" class="button"><span class="icon16 tick2"></span> tick2</a>
+    <a href="#" class="button"><span class="icon16 play"></span> play</a>
+    <a href="#" class="button"><span class="icon16 pause"></span> pause</a>
+    <a href="#" class="button"><span class="icon16 stop"></span> stop</a>
+    <a href="#" class="button"><span class="icon16 forward"></span> forward</a>
+    <a href="#" class="button"><span class="icon16 rewind"></span> rewind</a>
+    <a href="#" class="button"><span class="icon16 minus"></span> minus</a>
+    <a href="#" class="button"><span class="icon16 battery"></span> battery</a>
+    <a href="#" class="button"><span class="icon16 left"></span> left</a>
+    <a href="#" class="button"><span class="icon16 right"></span> right</a>
+    <a href="#" class="button"><span class="icon16 calendar"></span> calendar</a>
+    <a href="#" class="button"><span class="icon16 shuffle"></span> shuffle</a>
+    <a href="#" class="button"><span class="icon16 wifi"></span> wifi</a>
+    <a href="#" class="button"><span class="icon16 dashboard"></span> dashboard</a>
+    <a href="#" class="button"><span class="icon16 dots"></span> dots</a>
+    <a href="#" class="button"><span class="icon16 print"></span> print</a>
+    <a href="#" class="button"><span class="icon16 download"></span> download</a>
+    <a href="#" class="button"><span class="icon16 alert"></span> alert</a>
+    <a href="#" class="button"><span class="icon16 pinpoint"></span> pinpoint</a>
+    <a href="#" class="button"><span class="icon16 trash"></span> trash</a>
+    <a href="#" class="button"><span class="icon16 cart"></span> cart</a>
+    <a href="#" class="button"><span class="icon16 cash"></span> cash</a>
+    <a href="#" class="button"><span class="icon16 flag"></span> flag</a>
+    <a href="#" class="button"><span class="icon16 plus"></span> plus</a>
+    <a href="#" class="button"><span class="icon16 cross"></span> cross</a>
+    <a href="#" class="button"><span class="icon16 lock"></span> lock</a>
+    <a href="#" class="button"><span class="icon16 openlock"></span> openlock</a>
+    <a href="#" class="button"><span class="icon16 minus2"></span> minus2</a>
+    <a href="#" class="button"><span class="icon16 plus2"></span> plus2</a>
+    <a href="#" class="button"><span class="icon16 up"></span> up</a>
+    <a href="#" class="button"><span class="icon16 down"></span> down</a>
+    <a href="#" class="button"><span class="icon16 windows"></span> windows</a>
+    <a href="#" class="button"><span class="icon16 alarm"></span> alarm</a>
+    <a href="#" class="button"><span class="icon16 quote"></span> quote</a>
+    <a href="#" class="button"><span class="icon16 mute"></span> mute</a>
+    <a href="#" class="button"><span class="icon16 sound"></span> sound</a>
+    <a href="#" class="button"><span class="icon16 question"></span> question</a>
+    
+    <br /><br />
+    <p class="warning">
+      *Font not included in my theme due to copyright. I highly recommend going over to <a href="http://pictos.drewwilson.com">pictos.drewwilson.com</a>, you will not regret it.
+    </p>
+  </div>
+</div>
+
+<div class="box">
+  <div class="box-header">
+    <h1>jQuery UI Icons</h1>
+  </div>
+  
+  <div class="box-content">
+    <a href="#" class="button"><span class="ui-icon ui-icon-carat-1-n"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-carat-1-ne"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-carat-1-e"></span> Button</a>
+
+<a href="#" class="button"><span class="ui-icon ui-icon-carat-1-se"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-carat-1-s"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-carat-1-sw"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-carat-1-w"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-carat-1-nw"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-carat-2-n-s"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-carat-2-e-w"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-triangle-1-n"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-triangle-1-ne"></span> Button</a>
+
+<a href="#" class="button"><span class="ui-icon ui-icon-triangle-1-e"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-triangle-1-se"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-triangle-1-s"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-triangle-1-sw"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-triangle-1-w"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-triangle-1-nw"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-triangle-2-n-s"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-triangle-2-e-w"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrow-1-n"></span> Button</a>
+
+<a href="#" class="button"><span class="ui-icon ui-icon-arrow-1-ne"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrow-1-e"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrow-1-se"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrow-1-s"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrow-1-sw"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrow-1-w"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrow-1-nw"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrow-2-n-s"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrow-2-ne-sw"></span> Button</a>
+
+<a href="#" class="button"><span class="ui-icon ui-icon-arrow-2-e-w"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrow-2-se-nw"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowstop-1-n"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowstop-1-e"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowstop-1-s"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowstop-1-w"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowthick-1-n"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowthick-1-ne"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowthick-1-e"></span> Button</a>
+
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowthick-1-se"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowthick-1-s"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowthick-1-sw"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowthick-1-w"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowthick-1-nw"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowthick-2-ne-sw"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowthick-2-e-w"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowthick-2-se-nw"></span> Button</a>
+
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowthickstop-1-n"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowthickstop-1-e"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowthickstop-1-s"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowthickstop-1-w"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowreturnthick-1-w"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowreturnthick-1-n"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowreturnthick-1-e"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowreturnthick-1-s"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowreturn-1-w"></span> Button</a>
+
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowreturn-1-n"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowreturn-1-e"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowreturn-1-s"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowrefresh-1-w"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowrefresh-1-n"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowrefresh-1-e"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrowrefresh-1-s"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrow-4"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-arrow-4-diag"></span> Button</a>
+
+<a href="#" class="button"><span class="ui-icon ui-icon-extlink"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-newwin"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-refresh"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-shuffle"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-transfer-e-w"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-transferthick-e-w"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-folder-collapsed"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-folder-open"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-document"></span> Button</a>
+
+<a href="#" class="button"><span class="ui-icon ui-icon-document-b"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-note"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-mail-closed"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-mail-open"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-suitcase"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-comment"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-person"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-print"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-trash"></span> Button</a>
+
+<a href="#" class="button"><span class="ui-icon ui-icon-locked"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-unlocked"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-bookmark"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-tag"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-home"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-flag"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-calculator"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-cart"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-pencil"></span> Button</a>
+
+<a href="#" class="button"><span class="ui-icon ui-icon-clock"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-disk"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-calendar"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-zoomin"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-zoomout"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-search"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-wrench"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-gear"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-heart"></span> Button</a>
+
+<a href="#" class="button"><span class="ui-icon ui-icon-star"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-link"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-cancel"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-plus"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-plusthick"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-minus"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-minusthick"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-close"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-closethick"></span> Button</a>
+
+<a href="#" class="button"><span class="ui-icon ui-icon-key"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-lightbulb"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-scissors"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-clipboard"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-copy"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-contact"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-image"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-video"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-script"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-alert"></span> Button</a>
+
+<a href="#" class="button"><span class="ui-icon ui-icon-info"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-notice"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-help"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-check"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-bullet"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-radio-off"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-radio-on"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-pin-w"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-pin-s"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-play"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-pause"></span> Button</a>
+
+<a href="#" class="button"><span class="ui-icon ui-icon-seek-next"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-seek-prev"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-seek-end"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-seek-first"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-stop"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-eject"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-volume-off"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-volume-on"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-power"></span> Button</a>
+
+<a href="#" class="button"><span class="ui-icon ui-icon-signal-diag"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-signal"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-battery-0"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-battery-1"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-battery-2"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-battery-3"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-circle-plus"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-circle-minus"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-circle-close"></span> Button</a>
+
+<a href="#" class="button"><span class="ui-icon ui-icon-circle-triangle-e"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-circle-triangle-s"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-circle-triangle-w"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-circle-triangle-n"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-circle-arrow-e"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-circle-arrow-s"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-circle-arrow-w"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-circle-arrow-n"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-circle-zoomin"></span> Button</a>
+
+<a href="#" class="button"><span class="ui-icon ui-icon-circle-zoomout"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-circle-check"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-circlesmall-plus"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-circlesmall-minus"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-circlesmall-close"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-squaresmall-plus"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-squaresmall-minus"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-squaresmall-close"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-grip-dotted-vertical"></span> Button</a>
+
+<a href="#" class="button"><span class="ui-icon ui-icon-grip-dotted-horizontal"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-grip-solid-vertical"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-grip-solid-horizontal"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-gripsmall-diagonal-se"></span> Button</a>
+<a href="#" class="button"><span class="ui-icon ui-icon-grip-diagonal-se"></span> Button</a>
+  </div>
+</div>
+      
+      </div>
+    </section>
+  </body>
+</html>
