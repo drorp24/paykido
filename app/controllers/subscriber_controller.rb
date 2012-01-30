@@ -7,7 +7,7 @@ require 'httparty'
 class SubscriberController < ApplicationController
 
 #  before_filter :check_friend_authenticated
-  before_filter :check_payer_and_set_variables, :except => [:index, :signin, :joinin, :signout, :retailer_signedin]
+  before_filter :check_payer_and_set_variables, :except => [:index, :invite, :signin, :joinin, :signout, :retailer_signedin]
   before_filter :check_retailer_and_set_variables, :only => [:retailer_signedin]
   
 
@@ -42,15 +42,15 @@ class SubscriberController < ApplicationController
 
   def invite
     
-#    @user = User.authenticate_by_hp(params[:email], params[:authenticity_token])
-#    if @user
+    @user = User.authenticate_by_hp(params[:email], params[:authenticity_token])
+    if @user
     @user = User.find(108)
       clear_payer_session if session[:payer] and session[:payer].id  != @user.payer.id 
       session[:user]  = @user
       session[:payer] = @payer = @user.payer
-#    else
-#      flash[:notice] = "user or password are incorrect. Please try again!"
-#    end
+    else
+      flash[:notice] = "user or password are incorrect. Please try again!"
+    end
     
     redirect_to :action => :payer_signedin, :name => params[:name], :invited_by => params[:invited_by]
     
