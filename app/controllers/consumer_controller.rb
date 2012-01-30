@@ -478,7 +478,7 @@ class ConsumerController < ApplicationController
       @email_problem = false
     end
 
-    message = "Hi #{user.payer.name}! #{onsumer.name} asked us to tell you about Paykido. See our email for details"
+    message = "Hi #{user.payer.name}! #{consumer.name} asked us to tell you about Paykido. See our email for details"
     sms(user.payer.phone, message) 
     
   end 
