@@ -38,23 +38,23 @@
 <body>
 	
 
-	<% if params[:action] != 'index' and params[:action] != 'invite' and session[:user] and session[:user].name %>
-		<span class="login" id="signedin">
-			<% if @user %>
-				Welcome
-				<% if @user.is_payer and session[:payer].name? %>
-					<%= session[:payer].name %>
-				<% elsif @user.is_retailer and session[:retailer].name? %>
-					<%= session[:retailer].name %>
-				<% else %>
-					<%= session[:user].name %>
-				<% end %> 
-			<% end %>
-		</span>
-		<%= link_to "Sign Out", "/service", :class => "login", :id => "signout" %>
-	<% else %>		
-		<%= link_to "Sign In", "/dashboard/login", :class => "login", :id => "signin" %>
-	<% end %>
+    <% if params[:action] != 'index' and params[:action] != 'invite' and session[:user] and session[:user].name %>
+        <span class="login" id="signedin">
+            <% if @user %>
+                Welcome
+                <% if @user.is_payer and session[:payer].name? %>
+                    <%= session[:payer].name %>
+                <% elsif @user.is_retailer and session[:retailer].name? %>
+                    <%= session[:retailer].name %>
+                <% else %>
+                    <%= session[:user].name %>
+                <% end %> 
+            <% end %>
+        </span>
+        <%= link_to "Sign Out", "/subscriber/signout", :class => "login", :id => "signout" %>
+    <% else %>      
+        <%= link_to "Sign In", "/subscriber/signin", :class => "login", :id => "signin" %>
+    <% end %>
 
 
     <%= yield :layout %>
