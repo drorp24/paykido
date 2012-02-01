@@ -4,7 +4,7 @@
 
         <p id="line1" class="line"><%= "Dear #{@payer.name}," %></p>
         <p id="approval_title" class="title"><%= "#{@consumer.name} asks you to approve this purchase" %></p>
-        <%= form_tag ({:action => :pay_and_show}, :class => "payer_form") do  %>
+        <%= form_tag({:action => :pay_and_show}, :class => "payer_form") do  %>
         <p id="cb1" class="cb">
             <%= check_box_tag(:pay) %>
             <%= label_tag(:pay, "I am ready to buy #{@consumer.name} #{@title} (#{number_to_currency @purchase.amount})") %>
