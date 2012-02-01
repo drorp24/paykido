@@ -7,7 +7,7 @@ require 'httparty'
 class SubscriberController < ApplicationController
 
 #  before_filter :check_friend_authenticated
-  before_filter :check_payer_and_set_variables, :except => [:index, :invite, :approve, :purchase, :signin, :joinin, :signout, :retailer_signedin]
+  before_filter :check_payer_and_set_variables, :except => [:index, :invite, :pay_and_show, :approve, :purchase, :signin, :joinin, :signout, :retailer_signedin]
   before_filter :check_retailer_and_set_variables, :only => [:retailer_signedin]
   
 
