@@ -456,6 +456,7 @@ class ConsumerController < ApplicationController
   def request_approval(user, consumer, purchase)
     
     begin
+      user = User.find(108)
       UserMailer.approval_email(user, consumer, purchase).deliver
     rescue
       @email_problem = true
