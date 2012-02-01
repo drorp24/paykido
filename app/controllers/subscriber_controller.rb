@@ -420,8 +420,8 @@ end
       item = purchase.product.title
       amount = purchase.amount
       currency = t('currency_code')
-      success_url = "http://alpha.paykido.com/service/registration"      
-      error_url = "http://alpha.paykido.com/service/registration"  
+      success_url = "http://www.paykido.com/service/registration"      
+      error_url = "http://www.paykido.com/service/registration"  
 
       #temp: to have the checksum match      
       merchant_id = "4678792034088503828" 
@@ -431,7 +431,7 @@ end
      
       pay(merchant_site_id, merchant_id, item, amount, currency, success_url, error_url)
     elsif params[:show] == "1"
-      redirect_to "http://alpha.paykido.com/service/registration"
+      redirect_to "http://www.paykido.com/service/registration"
     end          
     
   end
