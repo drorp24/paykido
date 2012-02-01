@@ -26,7 +26,7 @@ class SubscriberController < ApplicationController
   end
   
   def approve
-    
+        
     @user = User.authenticate_by_hp(params[:email], params[:authenticity_token])
     if @user
       clear_payer_session if session[:payer] and session[:payer].id  != @user.payer.id 
