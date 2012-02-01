@@ -86,7 +86,7 @@ class ConsumerController < ApplicationController
     
     unless @consumer.nil?
       @payer = session[:payer] = @consumer.payer
-      @user = session[:user] = (@consumer.payer_id) ?(User.where("payer_id = ? and email NOT NULL", @consumer.payer_id).first) :nil
+      @user = session[:user] = (@consumer.payer_id) ?(User.where("payer_id = ? and email IS NOT NULL", @consumer.payer_id).first) :nil
     end
   end
   
