@@ -2,6 +2,17 @@ class AdminController < ApplicationController
 
 #   before_filter   :check_friend_authenticated    
 
+  def set_allowance_every
+    Consumer.all.each {|consumer| 
+      if consumer.allowance_period == 'Monthly'
+        consumer.update_attributes!(:allowance_every => 1)
+      elsif consumer.allowance_period == 'Weekly'
+        consumer.update_attributes!(:allowance_every => 0)
+      end
+      }
+     redirect_to :action => :index 
+  end
+
   def retailers    
     @retailers =  Purchase.payer_retailers_the_works(63)
     redirect_to :action => :index 

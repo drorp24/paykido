@@ -2,6 +2,9 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  Next Grant: Next Grant
+  Balance: Balance
+  Allowance: Allowance
   Consumer amount rules: User Rules - Amounts
   currency_code: USD
   allowance: allowance
@@ -51,6 +54,8 @@ en:
     attributes:
       consumer:
         allowance_period: [["Weekly" , "Weekly"], ["Monthly" , "Monthly"]]
+        allowance_day_of_week: [["Mon", 0], ["Tue", 1], ["Wed", 2], ["Thu", 3], ["Fri", 4], ["Sat", 5], ["Sun", 6]]
+        next_allowance_date: "%m/%d/%Y"
   number:
     format:
       separator: ","
@@ -73,6 +78,7 @@ en:
       short: "%d %b"
       long: "%d %B, %Y"
       weekday: "%a, %d %b"
+      slash: "%m/%d/%Y"
 
     day_names:
       - Sunday

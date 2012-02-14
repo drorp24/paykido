@@ -9,6 +9,34 @@ class Consumer < ActiveRecord::Base
     :class_name =>  'PayerRule' ,
     :order =>       'created_at DESC'
     
+  validate :amounts_are_sensible
+  
+  def amounts_are_sensible
+    errors[:base] << "amounts cannot overlap" if 
+      self.auto_authorize_under and self.auto_deny_over and self.auto_authorize_under > self.auto_deny_over
+  end
+
+  def allowance_display
+    
+  end
+  def allowance_display=(value)
+    
+  end
+  
+  def auto_deny_over_display
+    
+  end
+  def auto_deny_over_display=(value)
+    
+  end
+  
+  def auto_authorize_under_display
+    
+  end
+  def auto_authorize_under_display=(value)
+    
+  end
+
   after_initialize :init
   def init
       self.allowance  ||= 0           
@@ -18,6 +46,14 @@ class Consumer < ActiveRecord::Base
       self.purchases_since_acd ||= 0
       self.auto_authorize_under ||= 0
       self.auto_deny_over ||= 35
+  end
+
+  def allowance_day_of_week
+    self.allowance_every
+  end
+  
+  def allowance_day_of_week=(value)
+    self.allowance_every = value
   end
 
   def record_allowance_change

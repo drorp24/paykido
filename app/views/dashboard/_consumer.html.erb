@@ -54,7 +54,7 @@
             <tr></tr>
             <tr>
                 <td><%= t 'Auto. unauthorize over' %></td>
-                <td class="currValue"><%= f.text_field(:auto_deny_over, :onchange => "$('#allowance_form').submit();", :id => "over_value", :size => 10) %></td>
+                <td class="currValue"><%= f.text_field(:auto_deny_over, :id => "over_value", :size => 10) %></td>
                 <td class="control">
                     <div class="progress" id="over_slider" onclick="$('#allowance_form').submit();"></div>
                 </td>
@@ -67,7 +67,6 @@
 </div>
 <script type="text/javascript"> 
 
-    $('#allowance_form').submitWithAjax(); 
 
     function showSlider(sliderId, valueId, inputValue) {
 
@@ -77,6 +76,7 @@
                 min: 0,
                 max: (inputValue == 0) ?100 :2*inputValue,
                 slide: function(event, ui) {
+                    alert('evet = '+ event + ' ui = ' + ui);
                     $(valueId).val(ui.value +'.00');
                 }
                 

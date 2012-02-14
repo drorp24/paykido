@@ -41,7 +41,7 @@ class Purchase < ActiveRecord::Base
   end
   
   def manually_authorized?
-    self.authorization_type == "ManualluAuthorized"
+    self.authorization_type == "ManuallyAuthorized"
   end
   
   def manually_decline!

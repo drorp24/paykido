@@ -3,6 +3,15 @@ class ControlController < ApplicationController
 
   def index
     
+    @purchases = Purchase.where("payer_id = 63").includes(:consumer, :retailer, :product, :category)
+    @pendings = Purchase.where("payer_id = ? and authorization_type = ?", 63, 'PendingPayer').count
+    @payer = Payer.find(63)
+    @consumer = Consumer.find(281)
+    @name = @consumer.name
+    session[:consumer] = @consumer
+
+    render :layout => false
+    
   end
   
   def login
@@ -20,32 +29,27 @@ class ControlController < ApplicationController
           
   end
 
-  def dashboard
-    @purchases = Purchase.where("payer_id = 63").includes(:consumer, :retailer, :product, :category)
-    @pendings = Purchase.where("payer_id = ? and authorization_type = ?", 63, 'PendingPayer').count
-    @payer = Payer.find(63)
-    @consumer = Consumer.find(281)
-    session[:consumer] = @consumer
-  end
   
   def consumer_update
     
     find_consumer
-
+    
     if params[:consumer] 
-      if  params[:consumer][:allowance] or params[:consumer][:allowance_period]
+      if  (params[:consumer][:allowance] and params[:consumer][:allowance] != @consumer.allowance) or (params[:consumer][:allowance_period] and params[:consumer][:allowance_period] != @consumer.allowance_period)
             @consumer.record_allowance_change
       end
-      if @consumer.update_attributes!(params[:consumer])
+      if @consumer.update_attributes(params[:consumer])
           session[:consumer] = @consumer
       else
-          flash[:notice] = "Invalid... please try again!"
-          return
+          @error = @consumer.errors[:base][0]
+          @consumer = session[:consumer]= Consumer.find(@consumer.id)
       end
     end
         
     respond_to do |format|  
-      format.js  
+      format.js
+      format.html {redirect_to zzz}
+       
     end
     
   end

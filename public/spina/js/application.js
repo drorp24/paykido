@@ -1,5 +1,6 @@
 $('document').ready(function() {
-  
+
+
   /*******
     PJAX UNCOMMENT THIS FOR PJAX FUNCTIONALITY
   *******/

@@ -183,6 +183,7 @@ section#maincontainer {
 
 #notifications ul li span {
   margin-right: 4px;
+  padding-left: 16px;
 }
 
 #notifications .time {
@@ -190,7 +191,7 @@ section#maincontainer {
   font-size: 11px;
   position: absolute;
   right: 4px;
-  top: 5px;
+  top: 0px;
 }
 
 /* Quick actions */
@@ -287,7 +288,7 @@ section#maincontainer {
   width: 16px;
   margin-left: 14px;
   margin-right: -3px;
-  margin-top: 11px;
+  margin-top: 13px;
 }
 
 .box-header h1 {
@@ -583,7 +584,7 @@ tbody tr:last-child td:last-child {
 tbody tr td, thead tr th {
   border-left: 1px solid #fff;
   border-right: 1px solid #f4f4f4;
-  padding: 12px 14px;
+  padding: 0px 14px;
   position: relative;
   text-align: left;
 }
@@ -617,7 +618,7 @@ thead {
 .dataTables_filter {
   position: absolute;
   right: 14px;
-  top: -32px;
+  top: -99px;
 }
 
 .dataTables_filter label {
@@ -893,6 +894,15 @@ input.button {
 }
 
 .button .icon16 {
+  float: left;
+  height: 16px;
+  width: 16px;
+  margin-left: -1px;
+  margin-right: 8px;
+  margin-top: 7px;
+}
+
+td .icon16 {
   float: left;
   height: 16px;
   width: 16px;
@@ -1180,7 +1190,8 @@ a {
 
 p {
   line-height: 20px;
-  margin-bottom: 14px;
+  margin-bottom: 7px;
+  margin-top: 7px;
 }
 
 blockquote {

@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120115152414) do
+ActiveRecord::Schema.define(:version => 20120211120534) do
 
   create_table "billings", :force => true do |t|
     t.string    "method",     :null => false
@@ -62,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20120115152414) do
     t.decimal  "purchases_since_acd"
     t.decimal  "auto_authorize_under"
     t.decimal  "auto_deny_over"
+    t.integer  "allowance_every"
   end
 
   add_index "consumers", ["billing_phone"], :name => "index_consumers_on_billing_phone"

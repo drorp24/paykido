@@ -412,8 +412,8 @@ class ConsumerController < ApplicationController
   
     @retailer = session[:retailer] 
     @retailer.record(amount)
-    @retailer.save!
-    session[:retailer] = @retailer
+#    @retailer.save!
+#    session[:retailer] = @retailer
     
     @consumer = session[:consumer]
     @consumer.record(amount)

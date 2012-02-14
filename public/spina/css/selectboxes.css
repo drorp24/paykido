@@ -21,7 +21,7 @@
 }
 /* @end */
 
-/* @group Single Chosen */
+/* @group Single Chosen ORIGINAL
 .chzn-container-single .chzn-single {
   background-color: #fff;
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #efefef), color-stop(0.5, white));
@@ -48,7 +48,39 @@
   padding: 0 0 0 11px;
   color: #666;
   text-decoration: none;
-}
+} */
+
+/* @group Single Chosen MINE */
+.chzn-container-single .chzn-single {
+  background-color: #fff;
+    background: url(../img/input_bg.png) repeat-x #fdfdfd;
+
+/*  background-image: -webkit-linear-gradient(center bottom, #efefef 100%, white 50%);
+  background-image: -moz-linear-gradient(center bottom, #efefef 100%, white 50%);
+  background-image: -o-linear-gradient(top, #efefef 100%,#ffffff 50%);
+  background-image: -ms-linear-gradient(top, #efefef 100%,#ffffff 50%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efefef', endColorstr='#ffffff',GradientType=0 );
+  background-image: linear-gradient(top, #efefef 100%,#ffffff 50%);
+*/
+  -webkit-border-radius: 2px;
+  -moz-border-radius   : 2px;
+  border-radius        : 2px;
+  -moz-background-clip   : padding;
+  -webkit-background-clip: padding-box;
+  background-clip        : padding-box;
+  border: 1px solid #d9d9d9;
+  border-bottom: 1px solid #ccc;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  height: 31px;
+  line-height: 31px;
+  padding: 0 0 0 9px;
+  color: #666;
+  text-decoration: none;
+} 
+
 .chzn-container-single .chzn-single span {
   margin-right: 26px;
   display: block;
