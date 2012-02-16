@@ -35,15 +35,20 @@ class ControlController < ApplicationController
     find_consumer
     
     if params[:consumer] 
-      if  (params[:consumer][:allowance] and params[:consumer][:allowance] != @consumer.allowance) or (params[:consumer][:allowance_period] and params[:consumer][:allowance_period] != @consumer.allowance_period)
-            @consumer.record_allowance_change
-      end
+
+      allowance_changed = true if params[:consumer][:allowance] and params[:consumer][:allowance] != @consumer.allowance
+      period_changed = true if params[:consumer][:allowance_period] and params[:consumer][:allowance_period] != @consumer.allowance_period    
+          
+      @consumer.record_allowance_change if allowance_changed or period_changed
       if @consumer.update_attributes(params[:consumer])
+          @consumer.update_defaults if period_changed
+          @consumer.save!
           session[:consumer] = @consumer
       else
           @error = @consumer.errors[:base][0]
           @consumer = session[:consumer]= Consumer.find(@consumer.id)
       end
+
     end
         
     respond_to do |format|  

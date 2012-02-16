@@ -17,3 +17,4 @@ $('#over_display').val('<%= number_to_currency @consumer.auto_deny_over %>');
 $('#allowance').val('<%= @consumer.allowance %>');
 $('#under').val('<%= @consumer.auto_authorize_under %>');
 $('#over').val('<%= @consumer.auto_deny_over %>');
+$('#next-allowance-date').val('<%= l @consumer.next_allowance_date, :format => :slash %>');

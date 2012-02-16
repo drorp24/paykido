@@ -44,7 +44,7 @@
         <% if @consumer.allowance_period == "Weekly" %>
             <span class="allowance day"><%= f.select(:allowance_day_of_week, Consumer.human_attribute_name("allowance_day_of_week"), :onchange => "$('#allowance_form').submit();")%></span>                
         <% elsif @consumer.allowance_period == "Monthly" %>
-            <span class="allowance day"><%= select_day(@consumer.allowance_every, :onchange => "$('#allowance_form').submit();")%></span>                
+            <span class="allowance day"><%= f.select(:allowance_every, Consumer.allowance_days_of_month)%></span>                
         <% end %>
         </div>
 
@@ -102,7 +102,7 @@ $('document').ready(function() {
     showSlider('#under', <%= @consumer.auto_authorize_under %>, 'min', 0, 100);
     showSlider('#over', <%= @consumer.auto_deny_over %>, 'max', 0, 100);
     
-    $('#allowance_day, #consumer_allowance_day_of_week, #date_day').change(function () {
+    $('#allowance_day, #consumer_allowance_day_of_week, #consumer_allowance_every').change(function () {
         $('#allowance_form').submit();
     });
     
@@ -115,40 +115,27 @@ $('document').ready(function() {
                 '</span>');
             $('#consumer_allowance_day_of_week').val(0);
             $('select').chosen();
+            $('#allowance_day, #consumer_allowance_day_of_week, #consumer_allowance_every').change(function () {
+            $('#allowance_form').submit();
+    });
+
         }
         else {
             $('#every').empty();
             $('#every').html(
                 '<span class="allowance day">' +
-                    <%= select_day(@consumer.allowance_every, :onchange => "$('#allowance_form').submit();")%> +
+                    <%= select(:consumer, :allowance_every, Consumer.allowance_days_of_month)%> +
                 '</span>'); 
             $('#date_day').val(1);
             $('select').chosen();                               
+            $('#allowance_day, #consumer_allowance_day_of_week, #consumer_allowance_every').change(function () {
+            $('#allowance_form').submit();
+    });
+
         }
         $('#allowance_form').submit();     
     });
     
-    $('.chzn-single').change(function () {
-        if ($('#consumer_allowance_period option:selected').html() == 'Weekly') {
-            $('#every').empty();
-            $('#every').html(
-                '<span class="allowance day">' + 
-                    <%= select(:consumer, :allowance_day_of_week, Consumer.human_attribute_name('allowance_day_of_week'), :onchange => "$('#allowance_form').submit();", :value => 0) %> +
-                '</span>');
-            $('#consumer_allowance_day_of_week').val(0);
-            $('select').chosen();
-        }
-        else {
-            $('#every').empty();
-            $('#every').html(
-                '<span class="allowance day">' +
-                    <%= select_day(@consumer.allowance_every, :onchange => "$('#allowance_form').submit();")%> +
-                '</span>'); 
-            $('#date_day').val(1);
-            $('select').chosen();                               
-        }
-        $('#allowance_form').submit();     
-    });
-    
+   
 })
 </script>   

@@ -129,5 +129,12 @@ en:
       - :day
       - :month
       - :year
+  date:
+    formats:
+      default: "%d-%m-%Y"
+      short: "%d %b"
+      long: "%d %B, %Y"
+      weekday: "%a, %d %b"
+      slash: "%m/%d/%Y"
 
 
