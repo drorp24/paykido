@@ -1,3 +1,74 @@
+.popover > section > .content > nav > ul > li {
+    text-align: center;
+}
+
+.retailer_name {
+    
+}
+
+.whitelist {
+    background-image: url('/images/star.png');
+    padding-left: 22px;
+    padding-top: 7px;
+}
+.whitelist.unmarked, .whitelist.marked:hover {
+    background-position: 0px 2px;
+}
+
+.whitelist.marked, .whitelist.unmarked:hover {
+    background-position: 0px -23px;
+}
+
+.purchase_line .icon16 {
+    padding-left: 16px;
+    padding-top: 2px;
+    margin-left: 5%;
+}
+
+.purchase_line input[type="checkbox"] {
+    margin-left: 20%;
+}
+
+.sectiontitle {
+    font-family: Tahoma, sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 36px;
+}
+
+.purchase_value {
+    margin-left: 5%;
+    
+}
+
+.purchase_title {
+    text-transform: uppercase;
+    
+}
+
+.purchase_line {
+    
+}
+
+.purchase_info {
+    margin-top: 5%;    
+}
+
+.header {
+    
+}
+
+.recommendation {
+    
+}
+.approval_buttons {
+    margin-right: 0px;
+}
+
+.purchaseButton {
+    width: 7em;
+}
+    
 #under_slider .ui-slider-range {
     background-image: -moz-linear-gradient(center top , #6DB66D, #FEFEFE);
     border-top: 0.5px solid #999999;
@@ -43,7 +114,7 @@
 }
 
 .content-header {
-    height: 120px;
+    min-height: 120px;
 }
 
 .mr {
@@ -65,7 +136,7 @@
     border-radius: 7px;
     height: 7px;
     background: url("/spina/img/slider_bg.png") repeat-x scroll 0 0 transparent;      filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#555555', endColorstr='#e9e9e9');
-    margin: 10px;
+    margin-top: 10px;
 }
 
 .progress span {
@@ -94,18 +165,26 @@
     width: 20%;
 }
 
-.big {
-    font-size: 24px;
-    font-weight: bold;
+.product {
+    font-size: 22px;
     height: 40px;
     text-shadow: 0 1px 0 #FFFFFF;
+    margin-top: 7%;
+    color: #888;
 
 }
-.medium {
+.price {
+    font-size: 26px;
+    text-shadow: 0 1px 0 #FFFFFF;
+    font-weight: bold;
+
+}
+
+.retailer {
     font-size: 18px;
     text-shadow: 0 1px 0 #FFFFFF;
-    margin-left: 8px;
-
+    margin-bottom: 10%;
+    margin-left: 1%;
 }
 .formtitle {
     font-variant: small-caps;
@@ -197,8 +276,15 @@ td.status {
     width: 15px;
 }
 
-.pic_or_logo {
+.pic {
     width: 100px;
+}
+
+.logo {
+    float: right;
+    margin-top: 4%;
+    margin-right: 6%;
+    
 }
 
 .greyedOut {
@@ -271,13 +357,14 @@ td.status {
     }
 
 .action_bar.filters {
-    margin-top: -5px;
-    margin-bottom: 20px;
+    margin-top: 4%;
+    margin-bottom: -1%;
+    margin-left: 0%;
     background: none;
 }
 
 .filters .button{
-    margin-left: -1px;
+    margin-left: 8px;
 }
 
 .photo {

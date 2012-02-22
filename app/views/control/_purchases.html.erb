@@ -1,3 +1,8 @@
+<div class="box-header">
+    <span class="icon16 cart"></span>
+    <h1><%= t 'Purchases' %></h1> 
+</div>
+
 <div class="action_bar filters">
     <a href="#" class="small button" id="pending-button">
         <span class="icon16 question"></span>
@@ -9,8 +14,8 @@
         Approved
     </a>
     <a href="#" class="small button" id="blocked-button">
-        <span class="icon16 cross"></span>
-        Unapproved
+        <span class="icon16 blocked"></span>
+        Blocked
     </a>
     <a href="#" class="small button" id="all-button">
         <span class="icon16 refresh"></span>
@@ -18,101 +23,142 @@
     </a>
 </div> 
   
-    <table id="purchases"> 
-        <thead> 
-            <tr> 
-                <th>Date invisible</th>
-                <th>Auth type invisible</th>
-                <th>
-                <th>
-                <th>
-                <th>                             
-            </tr> 
-        </thead> 
-        <tbody> 
-        <% @purchases.each do |purchase| %>                                
-            <tr> 
-                <td><%= purchase.date %></td>
-                <td><%= purchase.authorization_type %></td>
-                <td class="status">
+<table id="purchases"> 
+    <thead> 
+        <tr> 
+            <th>Date invisible</th>
+            <th>Auth type invisible</th>
+            <th>
+            <th>
+            <th>
+            <th>                             
+        </tr> 
+    </thead> 
+    <tbody> 
+    <% @purchases.each do |purchase| %>                                
+        <tr> 
+            <td><%= purchase.date %></td>
+            <td><%= purchase.authorization_type %></td>
+            <td class="status">
+            <% if purchase.requires_manual_approval? %>
+                <span class="icon16 question tooltip" title="Requires your approval"></span>
+            <% elsif purchase.manually_authorized? %> 
+                <span class="icon16 tick2 tooltip" title="You approved it"></span>
+            <% elsif purchase.manually_declined? %> 
+                <span class="icon16 cross tooltip" title="You declined it"></span>
+            <% elsif purchase.automatically_authorized? %> 
+                <span class="icon16 openlock tooltip" title="Approved based upon your rules"></span>
+            <% elsif purchase.automatically_declined? %> 
+                <span class="icon16 lock tooltip" title="<%= t purchase.authorization_type %>"></span>
+            <% else %> 
+                <span class="icon16 alert tooltip" title="Well this was not supposed to happen"></span>
+            <% end %>
+            </td>
+            <td>
+                <p class="purchase_top_line">
+                    <span><%= link_to purchase.product.title ,"dashboard/product/#{purchase.id}" %></span>
+                    <span>by</span>
+                    <span><%= link_to purchase.retailer.name, "dashboard/retailer/#{purchase.id}" %></span>
+                </p>
+                <p class="purchase_bottom_line">
+                    <span class="cell_date"><%= purchase.date.strftime("%a, %b %d") %></span>
+                    <span><%= link_to purchase.consumer.name, "dashboard/consumer/#{purchase.consumer_id}"  %></span>
+                </p>
+            </td>
+            <td class="ar"><%= number_to_currency(purchase.amount) %></td>
+            <td class="approval_buttons">
                 <% if purchase.requires_manual_approval? %>
-                    <span class="icon16 question tooltip" title="Requires your approval"></span>
-                <% elsif purchase.manually_authorized? %> 
-                    <span class="icon16 tick2 tooltip" title="You approved it"></span>
-                <% elsif purchase.manually_declined? %> 
-                    <span class="icon16 cross tooltip" title="You declined it"></span>
-                <% elsif purchase.automatically_authorized? %> 
-                    <span class="icon16 openlock tooltip" title="Approved based upon your rules"></span>
-                <% elsif purchase.automatically_declined? %> 
-                    <span class="icon16 lock tooltip" title="<%= t purchase.authorization_type %>"></span>
-                <% else %> 
-                    <span class="icon16 alert tooltip" title="Well this was not supposed to happen"></span>
+                <p class="purchase_top_line">
+                    <a href='<%= "control/purchase/#{purchase.id}" %>' class=" button small greyedOut purchaseButton approve" title="Approve" id=<%= "approve_#{purchase.id}"%>>
+                        <span class="icon16 tick2"></span>
+                        Approve
+                    </a>
+                </p>
+                <p class="purchase_bottom_line">
+                     <a href="#" class="button small greyedOut purchaseButton decline" title="Decline" id=<%= "decline_#{purchase.id}"%>>
+                        <span class="icon16 blocked"></span>
+                        Block
+                    </a>
+                </p>
                 <% end %>
-                </td>
-                <td>
-                    <p class="purchase_top_line">
-                        <span><%= link_to purchase.product.title ,"dashboard/product/#{purchase.id}" %></span>
-                        <span>by</span>
-                        <span><%= link_to purchase.retailer.name, "dashboard/retailer/#{purchase.id}" %></span>
-                    </p>
-                    <p class="purchase_bottom_line">
-                        <span class="cell_date"><%= purchase.date.strftime("%a, %b %d") %></span>
-                        <span><%= link_to purchase.consumer.name, "dashboard/consumer/#{purchase.consumer_id}"  %></span>
-                    </p>
-                </td>
-                <td class="ar"><%= number_to_currency(purchase.amount) %></td>
-                <td class="approve_icons">
-                    <% if purchase.requires_manual_approval? %>
-                        <span class="icon16 tick2 tooltip greyedOut" title="Approve" id=<%= "approve_#{purchase.id}"%>></span>
-                        <span class="icon16 cross tooltip greyedOut" title="Decline" id=<%= "decline_#{purchase.id}"%>></span>
-                   <% end %>
-                </td>                    
-            </tr>                                   
-        <% end %>
-        </tbody> 
-    </table> 
+            </td>                    
+        </tr>                                   
+    <% end %>
+    </tbody> 
+</table> 
+
+<div id="pending_reminder" class="popover">
+    <header>
+        Dror needs your approval
+    </header>
+    <section>
+        <div class="content">
+            <nav>
+                <ul>
+                    <li class="new"><a><span class="avatar"><%= image_tag "https://graph.facebook.com/733552507/picture?type=large" %></span>These purchases are for your approval</a></li>
+                   <li class="instruction">See how Paykido can protect your kids and budget</li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+</div>
+
 
 <script type="text/javascript"> 
 
-    $(document).ready(function() {
+$(document).ready(function() {
 
-       pTable = $('#purchases').dataTable( {
-            "sPaginationType": "full_numbers",
-            "aoColumnDefs": [
-            { "bVisible": false, "aTargets": [ 0,1 ] }
-            ],
-            "aaSorting": [[0,'desc']]
-        } );
-            
-        $('.action_bar.filters a').removeClass('blue');
-        $('#pending-button').addClass('blue');
-        pTable.fnFilter( 'PendingPayer' , 1, true, false, false);            
-            
-        $('#pending-button').click(function () {
-                $('.action_bar.filters a').removeClass('blue');
-                $(this).addClass('blue');
-                 pTable.fnFilter( 'PendingPayer' , 1, true, false, false);
-        });
-    
-        $('#authorized-button').click(function () {
-                $('.action_bar.filters a').removeClass('blue');
-                $(this).addClass('blue');
-                pTable.fnFilter('ManuallyAuthorized|Under', 1, true, false, false );
-        });
-    
-        $('#blocked-button').click(function () {
-                $('.action_bar.filters a').removeClass('blue');
-                $(this).addClass('blue');
-                pTable.fnFilter('Unauthorized|Zero|Insufficient|Over', 1, true, false, false);
-        });
-    
-         $('#all-button').click(function () {
-                $('.action_bar.filters a').removeClass('blue');
-                $(this).addClass('blue');
-                pTable.fnFilter( '', 1, true, false, false );
-        });
-    
-    }); 
+    $('.message-count').popover('#pending_reminder');
+    $('.message-count').trigger('open.popover');  
+               
+    $('.purchase_top_line a').pjax({
+        container: '#dashboard_right',
+        success: function(data) {
+            $('input[type=checkbox], input[type=radio]').each(function() {
+              if($(this).siblings('label').length > 0) {
+                $(this).prettyCheckboxes();
+              }
+            });
+
+        }
+    });
+
+   pTable = $('#purchases').dataTable( {
+        "sPaginationType": "full_numbers",
+        "aoColumnDefs": [
+        { "bVisible": false, "aTargets": [ 0,1 ] }
+        ],
+        "aaSorting": [[0,'desc']]
+    } );
+        
+    $('.action_bar.filters a').removeClass('blue');
+    $('#pending-button').addClass('blue');
+    pTable.fnFilter( 'PendingPayer' , 1, true, false, false);            
+        
+    $('#pending-button').click(function () {
+            $('.action_bar.filters a').removeClass('blue');
+            $(this).addClass('blue');
+             pTable.fnFilter( 'PendingPayer' , 1, true, false, false);
+    });
+
+    $('#authorized-button').click(function () {
+            $('.action_bar.filters a').removeClass('blue');
+            $(this).addClass('blue');
+            pTable.fnFilter('ManuallyAuthorized|Under', 1, true, false, false );
+    });
+
+    $('#blocked-button').click(function () {
+            $('.action_bar.filters a').removeClass('blue');
+            $(this).addClass('blue');
+            pTable.fnFilter('Unauthorized|Zero|Insufficient|Over', 1, true, false, false);
+    });
+
+     $('#all-button').click(function () {
+            $('.action_bar.filters a').removeClass('blue');
+            $(this).addClass('blue');
+            pTable.fnFilter( '', 1, true, false, false );
+    });
+});
 
 </script> 
 <!-- Notify and create bubble 

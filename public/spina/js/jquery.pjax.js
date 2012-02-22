@@ -87,8 +87,8 @@ $.pjax = function( options ) {
     throw "pjax container must be a string selector!"
 
   var defaults = {
-    timeout: 650,
-    push: true,
+    timeout: 3000,
+    push: false,
     replace: false,
     // We want the browser to maintain two separate internal caches: one for
     // pjax'd partial page loads and one for normal page loads. Without

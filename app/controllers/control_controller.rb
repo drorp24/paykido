@@ -14,6 +14,13 @@ class ControlController < ApplicationController
     
   end
   
+  def consumer # temp - delete!
+    @consumer = Consumer.find(281)
+    @name = @consumer.name
+    
+    render :layout => false
+  end
+  
   def login
     
     if request.post?
@@ -58,7 +65,40 @@ class ControlController < ApplicationController
     end
     
   end
+  
+    def approval
+    
+    @purchase = session[:purchase] = Purchase.find(params[:id])
+    @consumer = @purchase.consumer
+    @payer = @purchase.payer
+    @approved = (params[:approved] == 'true')
+    @activity = session[:activity] = (@approved) ?'approve' :'decline'
+    @title = @purchase.product.title
+    @category = @purchase.category.name
+    @merchant = @purchase.retailer.name
 
+    if @payer.registered?
+      
+      @merchant_whitelisted = @purchase.retailer.whitelisted?(@payer.id, @consumer.id)
+      @merchant_blacklisted = @purchase.retailer.blacklisted?(@payer.id, @consumer.id)
+      @category_whitelisted = @purchase.category.whitelisted?(@payer.id, @consumer.id)
+      @category_blacklisted = @purchase.category.blacklisted?(@payer.id, @consumer.id)
+    end
+    
+  end
+
+  def purchase
+    
+    @purchase = Purchase.find(params[:id])
+    @retailer_name = @purchase.retailer.name
+    @retailer_logo = @purchase.retailer.logo
+    @product_title = @purchase.product.title
+    @amount = @purchase.amount
+    @category = @purchase.category.name
+
+    render :layout => false
+    
+  end
 
   private
 

@@ -1,0 +1,79 @@
+<div class="box-header">
+    <span class="icon16 user"></span>     
+    <h1><%= t 'Purchase' %></h1>   
+</div>
+    
+<div class="box-content">
+
+    <div class="header clearfix">
+        <div class="column-left content-header relative clearfix">
+            <p class="product">
+                <%= @product_title %>
+            </p>
+            <p class="price">
+                <span id="allowance_header"><%= number_to_currency @amount %></span>
+            </p>
+            <br />
+            <p>
+                <span class="retailer_name"><%= @retailer_name %></span>
+                <span class="fr"><a id="whitelist_retailer" href='#'>
+                    <span class="whitelist marked"></span>
+                </a></span>
+            </p>
+            <p><div class="progress"><span style="width: 50%;"></span></div></p>
+            <p class="recommendation">Recommended by 74% of our users</p>    
+        </div>
+        <div class="column-right content-header relative">
+            <p class="small logo">
+                <% if @retailer_logo  %>
+                    <%= image_tag @retailer_logo, :class => "logo" %>
+                <% end %>
+            </p>            
+        </div>
+
+    </div>
+    
+    <p class="sectiontitle">About the purchase</p>
+    <div class="purchase_info">
+        <%= form_tag do %>
+            <p class="purchase_line">
+                <span class="purchase_title"><%= t 'Retailer'%>:</span>
+                <span class="purchase_value"><%= @retailer_name %></span>
+                <span><a id="whitelist_retailer" href='#'>
+                    <span class="whitelist unmarked"></span>
+                </a></span>
+                <span>Automatically approve</span>
+                <span><a href='#' id="always_approve_q">
+                    <span class="icon16 question"></span>
+                </a></span>
+            </p>
+
+        <% end %>
+    </div>
+    
+</div>
+
+<div id="always_approve_help" class="popover">
+    <header>
+        Set a Rule
+    </header>
+    <section>
+        <div class="content">
+            <nav>
+                <ul>
+                    <li class="new"><a><span class="avatar"><%= image_tag "https://graph.facebook.com/733552507/picture?type=large" %></span>Have Paykido always approve zynga for Dror</a></li>
+                    <li class="instruction">Click 'star' to activate</li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+</div>
+
+<script type="text/javascript"> 
+$('document').ready(function() {
+
+    $('#always_approve_q').popover('#always_approve_help', {preventBottom: true});
+    $('#always_approve_q').trigger('open.popover');  
+    $('#whitelist_retailer').click(function() {alert('click')});
+})
+</script>

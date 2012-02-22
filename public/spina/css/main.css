@@ -584,7 +584,7 @@ tbody tr:last-child td:last-child {
 tbody tr td, thead tr th {
   border-left: 1px solid #fff;
   border-right: 1px solid #f4f4f4;
-  padding: 0px 14px;
+  padding: 12px 14px;
   position: relative;
   text-align: left;
 }

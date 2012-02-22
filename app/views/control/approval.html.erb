@@ -1,0 +1,36 @@
+<div class="box" id="approval"> 
+ 
+    <div class="box-header">
+        <span class="icon16 cart"></span>
+        <h1><%= t 'For your approval' %></h1> 
+    </div>
+                    
+
+    <table>
+        <tbody>
+            <tr>
+                <td><%= t 'Category' %></td>
+                <td><%= t @purchase.category.name %></td>
+            </tr>
+            <tr>
+                <td><%= t 'Merchant' %></td>
+                <td><%= t @purchase.retailer.name %></td>
+            </tr>
+            <tr>
+                <td><%= t 'Title' %></td>
+                <td><%= t @purchase.product.title %></td>
+            </tr>
+             <tr>
+                <td><%= t 'Price' %></td>
+                <td><%= number_to_currency @purchase.amount %></td>
+            </tr>
+       </tbody>
+    </table>
+
+    <div class="action_bar">
+        <a class="button blue" href=#>Approve</a>
+        <a class="button" href=#>Decline</a>
+        <a class="close button" href=#>Close Window</a>
+    </div>
+                    
+</div> 

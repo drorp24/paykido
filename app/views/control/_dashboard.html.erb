@@ -1,29 +1,14 @@
     <div class="box-content">
     
-        <div class="box grid_6 alpha purchase_height"> 
-     
-            <div class="box-header">
-                <span class="icon16 cart"></span>
-                <h1><%= t 'Purchases' %></h1> 
-            </div>
-                            
-            <div class="box-content">
-                <%= render 'purchases' %>
-            </div>
+        <div class="box grid_6 alpha purchase_height" id="dashboard_left"> 
+
+            <%= render 'purchases' %>
                             
         </div> 
      
-        <div class="box grid_6 omega purchase_height"> 
+        <div class="box grid_6 omega purchase_height" id="dashboard_right"> 
     
-            <div class="box-header">
-                <span class="icon16 user"></span>     
-                <h1><%= t 'Consumer' %></h1>   
-                <span class="fr mr"><h1><%= @name %></h1></span>
-            </div>
-    
-            <div class="box-content">
-                <%= render 'consumer' %>                         
-            </div>
+            <%= render 'consumer' %>                         
      
         </div> 
     
