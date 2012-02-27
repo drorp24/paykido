@@ -2,6 +2,13 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  Merchant Type: Merchant Type
+  Product Type: Product Typeo
+  Online Games: Online Games
+  Virtual Goods: Virtual Goods
+  approval_rule_heading: Have Paykido always approve %{retailer} for %{consumer}
+  approval_rule_instructions: Click OK button to activate
+  Always approve: Always approve %{property}
   Next Grant: Next Grant
   Balance: Balance
   Allowance: Allowance

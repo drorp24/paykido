@@ -2,6 +2,11 @@ class AdminController < ApplicationController
 
 #   before_filter   :check_friend_authenticated    
 
+  def populate_title
+    Purchase.all.each {|purchase| purchase.update_attributes!(:title => 'farmville')}
+    redirect_to :action => :index 
+  end
+
   def set_allowance_every
     Consumer.all.each {|consumer| 
       if consumer.allowance_period == 'Monthly'

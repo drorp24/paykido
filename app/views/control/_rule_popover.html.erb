@@ -1,0 +1,23 @@
+<div id="approval_rule_help" class="popover">
+    <header>
+        Set a Rule
+    </header>
+    <section>
+        <div class="content">
+            <nav>
+                <ul>
+                    <li class="new"><a><span class="avatar"><%= image_tag "https://graph.facebook.com/733552507/picture?type=large" %></span><%= t 'approval_rule_heading', :consumer => @consumer.name, :retailer => @retailer_name %></a></li>
+                    <li class="instruction"><%= t 'approval_rule_instructions'%></li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+</div>
+
+<script type="text/javascript"> 
+$('document').ready(function() {
+
+    $('#approval_rule_q').popover('#approval_rule_help', {preventBottom: true});
+
+})
+</script>

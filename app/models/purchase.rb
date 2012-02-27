@@ -1,4 +1,5 @@
 class Purchase < ActiveRecord::Base
+  serialize :properties
 
 #  versioned
   
@@ -6,13 +7,83 @@ class Purchase < ActiveRecord::Base
   belongs_to :payer
   belongs_to :retailer
   belongs_to :product
+  belongs_to :title
   has_one :category, :through => :product
   
-  validates_presence_of :consumer_id, :payer_id, :retailer_id, :product_id, :amount, :date
-  validates_numericality_of :amount
+#  validates_presence_of :consumer_id, :payer_id, :retailer_id, :product_id, :amount, :date
+#  validates_numericality_of :amount
   
 #  attr_accessor :authorization_date, :authorization_type
 
+  def self.create_new!(payer, consumer, retailer, title, product, price)
+    
+    retailer_id = Retailer.find_or_create_by_name(retailer).id
+    title_id =    Title.find_or_create_by_name(title).id
+    product_id =  Product.find_or_create_by_title(product).id
+    category_id = Product.find_by_title(product).category_id || 1
+    title_rec =   Title.find_by_name(title)
+    
+    self.create!(:payer_id => payer.id,
+                 :consumer_id => consumer.id,
+                 :retailer_id => retailer_id,
+                 :title_id => title_id,
+                 :product_id => product_id,
+                 :category_id => category_id,
+                 :amount => price,
+                 :date => Time.now,
+                 :properties => {
+                    "retailer_id" =>  retailer_id,
+                    "title_id" =>     title_id,
+                    "category_id" =>  category_id,
+                    "esrb_rating" =>  title_rec.esrb_rating,
+                    "pegi_rating" =>  title_rec.pegi_rating
+                  }
+                  )
+  end
+
+
+  def authorize!
+       
+    self.authorized = false
+
+    self.properties.each {|property,value| 
+      if self.consumer.blacklisted?(property, value)  
+        self.authorization_type = "Unauthorized " + key
+        self.authorization_date = Time.now
+        self.save!
+        return
+      end
+    }
+          
+    if self.consumer.balance <= 0
+      self.authorization_type = "Zero Balance"  
+    elsif self.consumer.balance < self.amount
+      self.authorization_type = "Insufficient Balance"
+    elsif self.amount <= self.consumer.auto_authorize_under
+      self.authorization_type = "Under Threshold"
+      self.authorized = true
+    elsif self.amount > self.consumer.auto_deny_over
+      self.authorization_type = "Over Threshold"
+      
+    else
+      
+      self.properties.each {|property,value| 
+        if self.consumer.whitelisted?(property, value)  
+          self.authorization_type = "Authorized " + key
+          self.authorized = true
+          self.authorization_date = Time.now
+          self.save!
+          return
+        end
+    }
+
+      self.require_manual_approval
+    end
+    
+    self.authorization_date = Time.now
+    self.save!
+    
+  end  
 
   def require_manual_approval
     self.authorization_type = "PendingPayer"
@@ -63,6 +134,14 @@ class Purchase < ActiveRecord::Base
     !self.authorized and self.authorization_type and !self.manually_handled?
   end
   
+  def account_for!
+    
+    amount = self.amount
+  
+    self.retailer.record!(amount)    
+    self.consumer.record!(amount)
+   
+  end
 
   def self.pending_amt(payer_id)
     self.sum(:amount, :conditions => ["payer_id = ? and authorization_type = ?", payer_id, "PendingPayer"]) 
@@ -85,49 +164,12 @@ class Purchase < ActiveRecord::Base
     self.count :conditions => ["payer_id = ? and authorization_type = ? and consumer_id is not ?", payer_id, "PendingPayer", nil]
   end
   
-  def self.by_product_id(payer_id, product_id)
-    self.find_all_by_product_id(product_id, 
-              :conditions => ["payer_id = ? and authorized = ? and authentication_date is not ?", payer_id, true, nil],
-              :select => "id, retailer_id, product_id, amount, date, authorized")
-  end
-  
-  def self.by_retailer_id(payer_id, retailer_id)
-    self.find_all_by_retailer_id(retailer_id, 
-              :conditions => ["payer_id = ? and authorized = ? and authentication_date is not ?", payer_id, true, nil],
-              :select => "id, retailer_id, product_id, amount, date, authorized")
-  end
-  
   def self.full_list(payer_id)
     self.find_all_by_payer_id(payer_id,
               :select => "id, retailer_id, product_id, amount, date, authorized")
   end
   
     
-  def self.payer_top_products(payer_id, limit)
-    self.sum   :amount,
-               :conditions => ["payer_id = ? and authorized = ? and authentication_date is not ?", payer_id, true, nil], 
-               :group => "product_id" ,
-               :order => "amount desc",
-               :limit => limit
-
-  end
-
-   def self.payer_top_retailers(payer_id, limit)
-    self.sum   :amount,
-               :conditions => ["payer_id = ? and authorized = ? and authentication_date is not ?", payer_id, true, nil], 
-               :group => "retailer_id" ,
-               :order => "amount desc", 
-               :limit => limit
-  end
-  
-  def self.payer_top_categories(payer_id)
-    self.sum   :amount,
-               :conditions => ["payer_id = ? and authorized = ? and authentication_date is not ?", payer_id, true, nil],
-               :joins => "inner join products on purchases.product_id = products.id",
-               :group => "category_id",
-               :order => "amount desc"
-  end
-  
   def self.payer_retailers(payer_id)
     self.find_all_by_payer_id(payer_id, :select => "DISTINCT retailer_id")
   end
@@ -147,17 +189,9 @@ class Purchase < ActiveRecord::Base
   def self.retailer_sales(retailer_id)
     self.find_all_by_retailer_id(retailer_id, 
         :joins  =>      "inner join products on purchases.product_id = products.id inner join categories on products.category_id = categories.id",
-        :select =>      "products.title, categories.name, location, date, amount, authorized, authorization_type, payer_id, product_id")
+        :select =>      "products.title, categories.name, date, amount, authorized, authorization_type, payer_id, product_id")
   end
  
-  def self.retailer_top_categories(retailer_id)
-    self.sum   :amount,
-               :conditions => ["retailer_id = ? and authorized = ? and authentication_date is not ?", retailer_id, true, nil],
-               :joins => "inner join products on purchases.product_id = products.id inner join categories on products.category_id = categories.id",
-               :group => "categories.name, purchases.amount",
-               :order => "amount desc"
-  end 
-
   def self.payer_purchases_by_consumers(payer_id, month)
     self.sum   :amount,
                :conditions => ["payer_id = ? and date('%m') = ?", payer_id, month],
@@ -214,7 +248,7 @@ class Purchase < ActiveRecord::Base
   def self.payer_purchases_the_works(payer_id)
     self.find_all_by_payer_id(payer_id, 
                :joins  =>      "inner join products on purchases.product_id = products.id inner join categories on products.category_id = categories.id inner join consumers on purchases.consumer_id = consumers.id inner join retailers on purchases.retailer_id = retailers.id",
-               :select =>      "purchases.id, consumers.id as consumer_id, consumers.name as consumer_name, retailers.id as retailer_id, retailers.name as retailer_name, retailers.logo as retailer_logo, products.id as product_id, products.title as product_title, categories.id as category_id, categories.name as category_name, amount, date, authentication_type, authentication_date, authorized, authorization_type, authorization_date, location",
+               :select =>      "purchases.id, consumers.id as consumer_id, consumers.name as consumer_name, retailers.id as retailer_id, retailers.name as retailer_name, retailers.logo as retailer_logo, products.id as product_id, products.title as product_title, categories.id as category_id, categories.name as category_name, amount, date, authorized, authorization_type, authorization_date",
                :order =>       "date desc")
 
   end

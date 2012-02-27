@@ -15,12 +15,12 @@ end
 
 gem 'clickatell'
 gem 'json'
-gem 'facebooker2'
+gem 'facebooker2', "~> 0.0.16"
 gem 'paypal_adaptive'
 gem 'ruby_core_source'
 gem 'heroku'
 gem 'taps'
-gem 'multi_json'
+gem 'multi_json', "~> 1.0.3"
 gem 'httparty'
 
 gem 'thin'

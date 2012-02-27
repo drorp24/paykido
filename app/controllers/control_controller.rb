@@ -1,41 +1,41 @@
-
 class ControlController < ApplicationController
 
-  def index
-    
-    @purchases = Purchase.where("payer_id = 63").includes(:consumer, :retailer, :product, :category)
-    @pendings = Purchase.where("payer_id = ? and authorization_type = ?", 63, 'PendingPayer').count
-    @payer = Payer.find(63)
-    @consumer = Consumer.find(281)
-    @name = @consumer.name
-    session[:consumer] = @consumer
+# 3 types of activities:
+# => full page (e.g., control/dashboard)  triggered by sub-menu     return html   (default render)      ajax by Spina
+# => pane replace (e.g., purchase)        trigered by link on page  return html   render layout false   ajax by me
+# => update act(e.g., approve, whitelist) triggered by by button    return js     format js             ajax by me
 
-    render :layout => false
-    
-  end
-  
-  def consumer # temp - delete!
-    @consumer = Consumer.find(281)
-    @name = @consumer.name
-    
-    render :layout => false
-  end
-  
+
+
+  before_filter :check_and_restore_payer_session, :except => [:login, :logout]
+
   def login
     
     if request.post?
            
-      unless session[:user] = User.authenticate(params[:user][:email], params[:user][:password])
+      unless session[:payer] = Payer.authenticate(params[:username], params[:password])
         flash.now[:notice] = "user or password are incorrect. Please try again!"
+        redirect_to :controller => 'landing', :action => 'index'
         return
       end
       
-#     set_payer_session
-      redirect_to :action => :index
+      session[:consumer] = Consumer.find(281)         # temporary. No consumer is needed. Dashboard starts with family
+      redirect_to :action => 'dashboard'
     end
           
   end
+   
+  def logout
+    
+  end 
+  
+  def dashboard
 
+    @purchases = Purchase.where("payer_id = ?", @payer.id).includes(:consumer, :retailer, :product, :category)
+    @pendings = @purchases.where("authorization_type = ?",'PendingPayer').count
+    @name = @consumer.name
+
+  end    
   
   def consumer_update
     
@@ -66,8 +66,8 @@ class ControlController < ApplicationController
     
   end
   
-    def approval
-    
+  def approval
+  
     @purchase = session[:purchase] = Purchase.find(params[:id])
     @consumer = @purchase.consumer
     @payer = @purchase.payer
@@ -76,13 +76,14 @@ class ControlController < ApplicationController
     @title = @purchase.product.title
     @category = @purchase.category.name
     @merchant = @purchase.retailer.name
-
-    if @payer.registered?
-      
+  
+    if @payer.registered?     
       @merchant_whitelisted = @purchase.retailer.whitelisted?(@payer.id, @consumer.id)
       @merchant_blacklisted = @purchase.retailer.blacklisted?(@payer.id, @consumer.id)
       @category_whitelisted = @purchase.category.whitelisted?(@payer.id, @consumer.id)
       @category_blacklisted = @purchase.category.blacklisted?(@payer.id, @consumer.id)
+      @product_whitelisted = @purchase.product.whitelisted?(@payer.id, @consumer.id)
+      @product_blacklisted = @purchase.product.blacklisted?(@payer.id, @consumer.id)
     end
     
   end
@@ -90,28 +91,39 @@ class ControlController < ApplicationController
   def purchase
     
     @purchase = Purchase.find(params[:id])
+    @amount = @purchase.amount
+    @consumer = @purchase.consumer
+    
     @retailer_name = @purchase.retailer.name
     @retailer_logo = @purchase.retailer.logo
-    @product_title = @purchase.product.title
-    @amount = @purchase.amount
-    @category = @purchase.category.name
 
     render :layout => false
     
   end
+  
+  def rule
+    
+    
+  end
 
   private
+  
+ def check_and_restore_payer_session    
+   check_payer_session
+   restore_payer_session    
+  end
 
-  def find_consumer
-    
-    if session[:consumer] and session[:consumer].id == params[:id]
-      @consumer = session[:consumer]
-     else
-      @consumer = Consumer.find(params[:id])
-    end
-   
-    session[:consumer] = @consumer
-
+  def check_payer_session    
+    unless session[:payer]  
+      flash[:message] = "Please sign in with payer credentials"
+      reset_session
+      redirect_to  :controller => 'landing', :action => 'index'
+    end 
+  end  
+  
+  def restore_payer_session    
+    @payer = session[:payer]            
+    @consumer = session[:consumer]     
   end
   
 

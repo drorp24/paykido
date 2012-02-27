@@ -69,15 +69,15 @@
             <td class="approval_buttons">
                 <% if purchase.requires_manual_approval? %>
                 <p class="purchase_top_line">
-                    <a href='<%= "control/purchase/#{purchase.id}" %>' class=" button small greyedOut purchaseButton approve" title="Approve" id=<%= "approve_#{purchase.id}"%>>
+                    <a href='<%= "purchase/#{purchase.id}" %>' class=" button small greyedOut actionButton approve" id=<%= "approve_#{purchase.id}"%>>
                         <span class="icon16 tick2"></span>
-                        Approve
+                        OK
                     </a>
                 </p>
                 <p class="purchase_bottom_line">
-                     <a href="#" class="button small greyedOut purchaseButton decline" title="Decline" id=<%= "decline_#{purchase.id}"%>>
+                     <a href="#" class="button small greyedOut actionButton decline"  id=<%= "decline_#{purchase.id}"%>>
                         <span class="icon16 blocked"></span>
-                        Block
+                        NO
                     </a>
                 </p>
                 <% end %>
@@ -95,8 +95,8 @@
         <div class="content">
             <nav>
                 <ul>
-                    <li class="new"><a><span class="avatar"><%= image_tag "https://graph.facebook.com/733552507/picture?type=large" %></span>These purchases are for your approval</a></li>
-                   <li class="instruction">See how Paykido can protect your kids and budget</li>
+                    <li class="new"><a><span class="avatar"><%= image_tag "https://graph.facebook.com/733552507/picture?type=large" %></span>These purchases await your manual approval</a></li>
+                   <li class="instruction">See an easier way to protect your kids and budget</li>
                 </ul>
             </nav>
         </div>
@@ -108,7 +108,7 @@
 
 $(document).ready(function() {
 
-    $('.message-count').popover('#pending_reminder');
+    $('.message-count').popover('#pending_reminder', {preventRight: true, preventBottom: true});
     $('.message-count').trigger('open.popover');  
                
     $('.purchase_top_line a').pjax({

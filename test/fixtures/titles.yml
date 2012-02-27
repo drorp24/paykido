@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  esrb_rating: MyString
+  esrb_descriptor: MyString
+  posc: false
+  pegi_age_rating_id: 1
+  pegi_descriptor_id: 1
+
+two:
+  name: MyString
+  esrb_rating: MyString
+  esrb_descriptor: MyString
+  posc: false
+  pegi_age_rating_id: 1
+  pegi_descriptor_id: 1

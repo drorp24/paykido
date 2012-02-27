@@ -31,8 +31,9 @@ class Retailer < ActiveRecord::Base
     Rlist.where(:retailer_id => self.id, :payer_id => payer_id, :consumer_id => consumer_id, :rule => 'whitelisted').exists?
   end
 
-  def record(amount)
+  def record!(amount)
     self.collected += amount
+    self.save!
   end
   
   def rlist(payer_id)

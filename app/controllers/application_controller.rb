@@ -95,6 +95,95 @@ class ApplicationController < ActionController::Base
     
   end
 
+  def pay_retailer     # choose which gw to use
+    
+    retailer_paid = true if safecharge_gw == "APPROVED"
+     
+  end
+
+  def paypal_gw
+    
+    pay_request = PaypalAdaptive::Request.new
+    
+    data = {
+    "returnUrl" => "",
+    "requestEnvelope" => {"errorLanguage" => "en_US"},
+    "currencyCode"=>"USD",
+    "cancelUrl"=>"",
+    "senderEmail" => "drorp1_1297098617_per@yahoo.com",
+    "receiverList"=>{"receiver"=>
+        [{"email"=>"drorp2_1297098512_biz@yahoo.com", "amount"=>""}]},
+    "actionType"=>"PAY",
+    "trackingId" => "",
+    "preapprovalKey" => session[:preapprovalKey],
+    "ipnNotificationUrl"=>""    }
+    
+    pay_response = pay_request.pay(data)
+    
+    if pay_response.success?
+      flash[:message] = "Thank you!"
+      @retailer_paid = true
+      redirect_to ""
+    else
+      puts pay_response.errors.first['message']
+      flash[:message] = pay_response.errors.first['message']
+      retailer_paid = false
+      redirect_to ""
+    end    
+    
+  end 
+  
+  def safecharge_gw
+        
+    sg_NameOnCard = "John Smith"
+    sg_CardNumber = "1234567812345678"
+    sg_ExpMonth = "12"
+    sg_ExpYear = "24"
+    sg_CVV2 = "123"
+    sg_TransType = "Sale"
+    sg_Currency = "USD"
+    sg_Amount = @product.price.to_s
+    sg_ClientLoginID = "Paykido_TRX"
+    sg_ClientPassword = "password"
+    sg_ResponseFormat = "4"
+    sg_FirstName = @payer.name
+    sg_LastName = @payer.family || "Smith"
+    sg_Address = "1000 Pine Grove"
+    sg_City = "Milpitas"
+    sg_Zip = "92535"
+    sg_Country = "US"
+    sg_Phone = "2131234567"
+    sg_IPAddress = request.remote_ip
+    sg_Email = @payer.email || "johnsmith@yahoo.com"
+    
+    gw = Safecharge.get('/service.asmx/Process', :query => {
+     :sg_NameOnCard => sg_NameOnCard,
+     :sg_CardNumber => sg_CardNumber, 
+     :sg_ExpMonth => sg_ExpMonth,
+     :sg_ExpYear => sg_ExpYear,
+     :sg_CVV2 => sg_CVV2, 
+     :sg_TransType => sg_TransType, 
+     :sg_Currency => sg_Currency, 
+     :sg_Amount => sg_Amount, 
+     :sg_ClientLoginID => sg_ClientLoginID, 
+     :sg_ClientPassword => sg_ClientPassword,
+     :sg_ResponseFormat => sg_ResponseFormat,
+     :sg_FirstName => sg_FirstName,
+     :sg_LastName => sg_LastName,
+     :sg_Address => sg_Address,
+     :sg_City => sg_City,
+     :sg_Zip => sg_Zip,
+     :sg_Country => sg_Country,
+     :sg_Phone => sg_Phone,
+     :sg_IPAddress => sg_IPAddress,
+     :sg_Email => sg_Email     
+     })
+     
+     @gw_reason = gw[:Response][:Reason]
+     @gw_status = gw[:Response][:Status]
+    
+  end
+
 
   #protect_from_forgery
 end

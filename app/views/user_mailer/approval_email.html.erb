@@ -428,15 +428,15 @@
 							<tr style="border-collapse:collapse;" >
 								<td id="header" class="w640" align="center" bgcolor="#FFFFFF" width="640" style="border-collapse:collapse;" >
 								<div  align="left" style="text-align:left;" ><img id="customHeaderImage" src="http://i2.createsend3.com/ti/j/90/9C5/BD0/223803/images/arca_logo.133517.png" class="w640"  align="top" border="0" style="display:inline;height:auto;line-height:100%;outline-style:none;text-decoration:none;" />
-			    <p style="margin-left: 200px"><span style="font-size: 16px"><strong>Dear <%= @user.name %></strong></span>, <%= @consumer.name %> asks you to approve
+			    <p style="margin-left: 200px"><span style="font-size: 16px"><strong>Dear <%= @payer.name %></strong></span>, <%= @consumer.name %> asks you to approve
 			                                                                                 <%= link_to "that purchase",
                                         :host => "www.paykido.com",
                                         :controller => "subscriber",
                                         :action => "approve",
                                         :purchase_id => @purchase.id,
-                                        :name => @user.name,
-                                        :authenticity_token => @user.hashed_password,
-                                        :email => @user.email
+                                        :name => @payer.name,
+                                        :authenticity_token => @payer.hashed_password,
+                                        :email => @payer.email
 %>
 </p>
 					</div></td>
@@ -643,12 +643,12 @@
 																		<p style="margin-bottom:15px;" >
 																			Click
 																			<%= link_to "Discover Paykido",
-                                        :host => "alpha.paykido.com",
+                                        :host => "www.paykido.com",
                                         :controller => "subscriber",
                                         :action => "invite",
-                                        :name => @user.name,
-                                        :authenticity_token => @user.hashed_password,
-                                        :email => @user.email,
+                                        :name => @payer.name,
+                                        :authenticity_token => @payer.hashed_password,
+                                        :email => @payer.email,
                                         :invited_by => @consumer.name
 %>
 																			and start controlling what your kids buy.

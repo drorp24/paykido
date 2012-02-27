@@ -3,6 +3,7 @@ class Consumer < ActiveRecord::Base
   
   belongs_to :payer
   has_many :purchases
+  has_many :rules
   
   has_many  :payer_rules
   has_one :most_recent_payer_rule,
@@ -16,6 +17,24 @@ class Consumer < ActiveRecord::Base
       self.auto_authorize_under and self.auto_deny_over and self.auto_authorize_under > self.auto_deny_over
   end
 
+  def blacklist!(property, value)
+    rule = Rule.find_or_initialize_by_payer_id_and_consumer_id_and_property_and_value(self.payer_id, self.id, property, value)
+    rule.update_attributes!(:action => 'blacklisted')
+  end
+  
+  def blacklisted?(property, value)
+    Rule.where(:payer_id => self.payer_id, :consumer_id => self.id, :property => property, :value => value, :action => 'blacklisted').exists?
+  end
+
+  def whitelist!(property, value)
+    rule = Rule.find_or_initialize_by_payer_id_and_consumer_id_and_property_and_value(self.payer_id, self.id, property, value)
+    rule.update_attributes!(:action => 'whitelisted')
+  end
+  
+  def whitelisted?(property, value)
+    Rule.where(:payer_id => self.payer_id, :consumer_id => self.id, :property => property, :value => value, :action => 'whitelisted').exists?
+  end
+  
   def allowance_display
     
   end
@@ -108,8 +127,9 @@ class Consumer < ActiveRecord::Base
     end           
   end
     
-  def record(amount)
+  def record!(amount)
     self.purchases_since_acd += amount
+    self.save!
   end
   
   def create_def_payer_rule!

@@ -1,13 +1,13 @@
 class UserMailer < ActionMailer::Base
   default :from => "info@paykido.com"
  
-  def approval_email(user, consumer, purchase)
+  def approval_email(purchase)
 
-    @user = user
-    @consumer = consumer
+    @payer = purchase.payer
+    @consumer = purchase.consumer
     @purchase = purchase
 
-    email_with_name = "#{@user.name} <#{@user.email}>"
+    email_with_name = "#{@payer.name} <#{@payer.email}>"
     begin
       mail(:to => email_with_name, :subject => "#{@consumer.name} asks you to approve a purchase")
     rescue
@@ -17,12 +17,12 @@ class UserMailer < ActionMailer::Base
     end
   end
   
-  def joinin_email(user, consumer)
+  def joinin_email(payer, consumer)
 
-    @user = user
+    @payer = payer
     @consumer = consumer
 
-    email_with_name = "#{@user.name} <#{@user.email}>"
+    email_with_name = "#{@payer.name} <#{@payer.email}>"
     begin
       mail(:to => email_with_name, :subject => "#{@consumer.name} wants you to know Paykido!")
     rescue

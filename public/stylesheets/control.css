@@ -1,3 +1,76 @@
+.rule.property .whitelist {
+    margin-left: 1em;
+}
+.help_q {
+    float: right;
+    margin-right: -15%;
+    margin-top: 2%;
+}
+
+.help_q a span{
+    margin-left: 10px;
+    padding: 2px 0px 1px 15px;
+    
+}
+
+#approval_rule_q {
+    
+}
+
+.action_bar.actions {
+    background: none;
+    display: inline;
+    float: right;
+    margin-right: 6%;
+    padding: 0;
+    margin-top: 0;
+}
+
+.rule {
+    font-family: Tahoma, sans-serif;     
+}
+.rule.instruction {
+    margin-top: 16px;       
+}
+
+.rule.property{
+    margin-top: 45px;
+    font-size: 1.4em;   
+}
+
+.property_name {
+    font-size: 22px;
+    position: relative;
+    top: -3px;
+}
+
+.rule.header {
+    font-size: 1.5em;
+    font-weight: bold;
+ 
+}
+
+#new_rule {
+    width: 70%;
+    margin-left: 20%;
+}
+
+#new_rule .box-content {
+
+}
+
+tr:hover {
+ 
+}
+
+.approval_buttons p a {
+    visibility: hidden;
+}
+
+tr:hover .approval_buttons p a{
+    visibility: visible;
+}
+
 .popover > section > .content > nav > ul > li {
     text-align: center;
 }
@@ -8,6 +81,7 @@
 
 .whitelist {
     background-image: url('/images/star.png');
+    background-repeat: no-repeat;
     padding-left: 22px;
     padding-top: 7px;
 }
@@ -19,12 +93,6 @@
     background-position: 0px -23px;
 }
 
-.purchase_line .icon16 {
-    padding-left: 16px;
-    padding-top: 2px;
-    margin-left: 5%;
-}
-
 .purchase_line input[type="checkbox"] {
     margin-left: 20%;
 }
@@ -32,18 +100,22 @@
 .sectiontitle {
     font-family: Tahoma, sans-serif;
     font-size: 22px;
-    font-weight: bold;
     margin-top: 36px;
+    color: #999;
 }
 
 .purchase_value {
     margin-left: 5%;
-    
+    font-size: 22px;
+    color: #477DAE;
+    font-stretch:
 }
 
 .purchase_title {
     text-transform: uppercase;
-    
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: bold;
 }
 
 .purchase_line {
@@ -65,8 +137,9 @@
     margin-right: 0px;
 }
 
-.purchaseButton {
-    width: 7em;
+.actionButton {
+    width: 4em;
+    margin-left: 1.5em;
 }
     
 #under_slider .ui-slider-range {
@@ -288,19 +361,19 @@ td.status {
 }
 
 .greyedOut {
-     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
 
   /* IE 5-7 */
-  filter: alpha(opacity=30);
+  filter: alpha(opacity=50);
 
   /* Netscape */
-  -moz-opacity: 0.3;
+  -moz-opacity: 0.5;
 
   /* Safari 1.x */
-  -khtml-opacity: 0.3;
+  -khtml-opacity: 0.5;
 
   /* Good browsers */
-  opacity: 0.3;
+  opacity: 0.5;
 
 }
 

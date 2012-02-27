@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120211120534) do
+ActiveRecord::Schema.define(:version => 20120227175832) do
 
   create_table "billings", :force => true do |t|
     t.string    "method",     :null => false
@@ -72,6 +72,15 @@ ActiveRecord::Schema.define(:version => 20120211120534) do
     t.boolean   "online"
     t.timestamp "created_at"
     t.timestamp "updated_at"
+  end
+
+  create_table "infos", :force => true do |t|
+    t.integer  "key"
+    t.string   "title"
+    t.string   "description"
+    t.string   "logo"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "items", :force => true do |t|
@@ -146,6 +155,8 @@ ActiveRecord::Schema.define(:version => 20120211120534) do
     t.decimal   "pp_maxAmountPerPayment"
     t.string    "pp_pinType"
     t.string    "family"
+    t.string    "hashed_password"
+    t.string    "salt"
   end
 
   create_table "plists", :force => true do |t|
@@ -172,24 +183,20 @@ ActiveRecord::Schema.define(:version => 20120211120534) do
   add_index "products", ["title"], :name => "index_products_on_title"
 
   create_table "purchases", :force => true do |t|
-    t.integer   "payer_id",            :null => false
-    t.integer   "retailer_id",         :null => false
-    t.integer   "product_id",          :null => false
-    t.decimal   "amount",              :null => false
-    t.timestamp "date",                :null => false
-    t.timestamp "authorization_date"
-    t.string    "authorization_type"
-    t.date      "billing_date"
-    t.integer   "billing_type"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.timestamp "authentication_date"
-    t.text      "authentication_type"
-    t.boolean   "authorized"
-    t.string    "expected_pin"
-    t.string    "location"
-    t.integer   "consumer_id"
-    t.integer   "category_id"
+    t.integer  "payer_id",           :null => false
+    t.integer  "retailer_id",        :null => false
+    t.integer  "product_id",         :null => false
+    t.decimal  "amount",             :null => false
+    t.datetime "date",               :null => false
+    t.datetime "authorization_date"
+    t.string   "authorization_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "authorized"
+    t.integer  "consumer_id"
+    t.integer  "category_id"
+    t.string   "properties"
+    t.integer  "title_id"
   end
 
   create_table "retailers", :force => true do |t|
@@ -214,6 +221,18 @@ ActiveRecord::Schema.define(:version => 20120211120534) do
     t.string    "rule"
   end
 
+  create_table "rules", :force => true do |t|
+    t.integer  "payer_id"
+    t.integer  "consumer_id"
+    t.string   "entity"
+    t.integer  "entity_id"
+    t.string   "action"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "property"
+    t.string   "value"
+  end
+
   create_table "sessions", :force => true do |t|
     t.string    "session_id", :null => false
     t.text      "data"
@@ -223,6 +242,17 @@ ActiveRecord::Schema.define(:version => 20120211120534) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "titles", :force => true do |t|
+    t.string   "name"
+    t.string   "esrb_rating"
+    t.string   "esrb_descriptor"
+    t.boolean  "posc"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "pegi_rating"
+    t.string   "pegi_descriptor"
+  end
 
   create_table "users", :force => true do |t|
     t.string    "name"

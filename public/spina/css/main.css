@@ -582,8 +582,8 @@ tbody tr:last-child td:last-child {
 }
 
 tbody tr td, thead tr th {
-  border-left: 1px solid #fff;
-  border-right: 1px solid #f4f4f4;
+/*  border-left: 1px solid #fff;
+  border-right: 1px solid #f4f4f4; */
   padding: 12px 14px;
   position: relative;
   text-align: left;
@@ -617,11 +617,28 @@ thead {
 
 .dataTables_filter {
   position: absolute;
-  right: 14px;
-  top: -99px;
+  right: 2.5em;
+  top: -86px;
+  background-color: #F0F0F0;
+  -o-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -webkit-border-radius: 16px;
+  border-radius: 16px;
+  -o-box-shadow: inset 0 1px 3px rgba(0,0,0,0.6), 0 1px 0px rgba(255,255,255,0.2);
+  -ms-box-shadow: inset 0 1px 3px rgba(0,0,0,0.6), 0 1px 0px rgba(255,255,255,0.2);
+  -moz-box-shadow: inset 0 1px 3px rgba(0,0,0,0.6), 0 1px 0px rgba(255,255,255,0.2);
+  -webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,0.6), 0 1px 0px rgba(255,255,255,0.2);
+   box-shadow: inset 0 1px 2px rgba(0,0,0,0.6), 0 1px 0px rgba(255,255,255,0.2);
+   padding-left: 1em;
+   padding-right: 1em;
+ 
+
 }
 
-.dataTables_filter label {
+.dataTables_filter label input {
+    color: #999;
+    font-size: 1.1em;
 }
 
 .dataTables_filter label .icon {

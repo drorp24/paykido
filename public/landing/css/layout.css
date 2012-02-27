@@ -5,6 +5,22 @@ Item URI : http://themeforest.net/item/pixelstudio-an-elegant-scrolling-onepage-
 Version : 2.0
 */
 
+.login {
+    position: absolute;
+    top: 36px;
+    font-size: 1.2em;
+    color: #666;    
+}
+
+#signin, #signedin {
+    right: -15%;
+    
+}
+
+#signout {
+    
+}
+
 /*
 
 TABLE OF CONTENTS

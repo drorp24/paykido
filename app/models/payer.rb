@@ -11,6 +11,7 @@ class Payer < ActiveRecord::Base
   has_many  :products, :through => :purchases
   has_many  :consumers
   has_many  :users
+  has_many :rules
   
   attr_accessor :password_confirmation
   
@@ -59,15 +60,42 @@ class Payer < ActiveRecord::Base
     self.phone = edited.gsub(/[^0-9]/,"")
   end
 
- 
-#  attr_accessor :exists
-#  attr_accessor :balance, :user,:hashed_password
+
+  def self.authenticate(email, password)
+    payer = self.find_by_email(email)
+    if payer
+      return nil unless payer.salt
+      expected_password = encrypted_password(password, payer.salt)
+      if payer.hashed_password != expected_password
+        payer = nil
+      end
+    end
+    payer
+  end
   
-#  def initialize
-#    super()
-#    @balance = 0
-#    @user = rand.to_s
-#    @hashed_password = rand.to_s
-#  end
-   
+  
+  # 'password' is a virtual attribute
+  
+  def password
+    @password
+  end
+  
+  def password=(pwd)
+    @password = pwd
+    return if pwd.blank?
+    create_new_salt
+    self.hashed_password = Payer.encrypted_password(self.password, self.salt)
+  end
+  
+
+private
+
+  def create_new_salt
+    self.salt = self.object_id.to_s + rand.to_s
+  end
+  
+  def self.encrypted_password(password, salt)
+    string_to_hash = password + "wibble" + salt
+    Digest::SHA1.hexdigest(string_to_hash)
+  end
 end
