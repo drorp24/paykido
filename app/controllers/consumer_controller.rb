@@ -37,8 +37,8 @@ class ConsumerController < ApplicationController
 
   def get_purchase_parameters
     
-    session[:retailer] = 'zynga'
-    session[:title] = 'farmville'
+    session[:retailer] = 'zynga'          # check it exists in the retailer table   
+    session[:title] = 'farmville'         # check it exists in the title table
     
     if params[:product]
       @product = params[:product].split('@')[0]
@@ -164,7 +164,7 @@ class ConsumerController < ApplicationController
     
   def buy
     
-    begin 
+#    begin 
            
       @purchase = session[:purchase] = 
       Purchase.create_new!(session[:payer], session[:consumer], session[:retailer], session[:title], session[:product], session[:price])
@@ -177,10 +177,6 @@ class ConsumerController < ApplicationController
         request_approval(@purchase)                   #replace with purchase.request_approval - no need for any param then
       end
       authorization_messages      
-    rescue
-      @first_line = "Your online connection is lost"
-      @second_line = "Please try again later"
-    end    
     
     respond_to do |format|  
       format.html {  }  
@@ -193,7 +189,7 @@ class ConsumerController < ApplicationController
   def authorization_messages
     
      if     @purchase.authorized
-      @first_line = "#{session[:product_title]} is yours!"
+      @first_line = "#{session[:product]} is yours!"
       @second_line = "Thanks for using paykido!"
      elsif  @purchase.requires_manual_approval?
        if @email_problem
@@ -230,7 +226,7 @@ class ConsumerController < ApplicationController
       @email_problem = false
     end
       
-    message = "Hi from Paykido! #{purchase.consumer.name} asks that you approve #{purchase.product.title} from #{purchase.retailer.name}. See our email for details"
+    message = "Hi from Paykido! #{purchase.consumer.name} asks that you approve #{purchase.product} from #{purchase.retailer.name}. See our email for details"
     sms(purchase.payer.phone, message) 
     
   end

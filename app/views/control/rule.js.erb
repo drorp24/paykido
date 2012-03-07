@@ -1,0 +1,6 @@
+<% if @error %>
+    notification('<%= @error %>', true, 'user', true)
+<% else %>
+    $("a#<%= params[:instruction] %>[data-property='<%= params[:property]%>']").removeClass('greyedOut regular').addClass('blue');
+    notification('Rule succesfully updated', false, 'user', true)
+<% end %>

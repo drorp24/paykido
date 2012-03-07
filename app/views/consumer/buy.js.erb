@@ -1,5 +1,7 @@
 $('#name').empty();
-<% if @purchase and @purchase.authorized? %>
+<% if @error %>
+    $('#salutation').html('Sorry...');
+<% elsif @purchase and @purchase.authorized? %>
 	$('#salutation').html('Congratulations!');
 <% elsif @purchase and @purchase.requires_manual_approval? %>
 	$('#salutation').html('Wait...');

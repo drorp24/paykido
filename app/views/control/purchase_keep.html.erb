@@ -13,10 +13,10 @@
         <div class="grid_7 content-header relative">
             <p class="retailer_info">
                 <td class="retailer_logo">
-                    <% if @retailer_logo  %>
-                        <%= image_tag @retailer_logo %>
+                    <% if retailer_logo = @purchase.retailer.logo  %>
+                        <%= image_tag retailer_logo %>
                     <% else %>
-                        <%= @retailer_name %>
+                        <%= @purchase.retailer.name %>
                     <% end %>
                 </td>
                 <span class="star_rating tooltip" title="Recommended by 74% of Paykido users"></span>
@@ -52,12 +52,14 @@
                         <% end %>
                     </td>
                     <td class="actions">
-                        <a id="decline" href="#new_rule" data-consumer="<%= @purchase.consumer_id %>" data-instruction="decline" data-property="<%= property %>" data-value="<%= value %>" class="modal small button rule <%= (@consumer.blacklisted?(property,value)) ?'blue' :'regular greyedOut' %>">
-                            <span class="icon16 blacklist"></span>NO
-                        </a>
-                        <a id="approve" href="#new_rule" data-consumer="<%= @purchase.consumer_id %>" data-instruction="approve" data-property="<%= property %>" data-value="<%= value %>" class="modal small button rule <%= (@consumer.whitelisted?(property,value)) ?'blue' :'regular greyedOut' %>">
-                            <span class="icon16 whitelist"></span>OK
-                        </a>
+                        <% rule = @purchase.consumer.rule(property, value) %>
+                        <% if rule == -1 %>
+                            <div id="slider" href="#new_rule" data-consumer="<%= @purchase.consumer_id %>" data-property="<%= property %>" data-value="<%= value %>" class="slider {value: -1, change: function(event, ui) {update_rule($(this))}, range: 'min', min: -1, max: 1}"></div>
+                        <% elsif rule == 0 %>
+                            <div id="slider" href="#new_rule" data-consumer="<%= @purchase.consumer_id %>" data-property="<%= property %>" data-value="<%= value %>" class="slider {value: 0, change: function(event, ui) {update_rule($(this))}, range: 'min', min: -1, max: 1}"></div>
+                        <% elsif rule == 1 %>
+                            <div id="slider" href="#new_rule" data-consumer="<%= @purchase.consumer_id %>" data-property="<%= property %>" data-value="<%= value %>" class="slider {value: 1, change: function(event, ui) {update_rule($(this))}, range: 'min', min: -1, max: 1}"></div>                        
+                        <% end %>
                     </td>
                     <td>
                         <a href='#' id="approval_rule_q">
@@ -84,29 +86,38 @@
 
 <script type="text/javascript">
 
-$('document').ready(function() {
+   function update_rule(obj) {
    
-   $('.tooltip').tipsy({gravity: 's'});
-    
-   $('.rule.button').click(function () {
-       
-       var instruction = $(this).attr('data-instruction');
-       var property =    $(this).attr('data-property');
-       var value =       $(this).attr('data-value');
-       var consumer =    $(this).attr('data-consumer');       
+       slider_val =  obj.slider('value');
+            if (slider_val == -1) {instruction = "decline"} 
+       else if (slider_val == 0)  {instruction = "ask about"} 
+       else                       {instruction = "approve"}
+       property =    obj.attr('data-property');
+       value =       obj.attr('data-value');
+       consumer =    obj.attr('data-consumer');  
+         
        $('.instruction').html(instruction);
        $('.property').html(property);
        $('.value').html(value);
        $('#create_rule').attr('data-url', 'rule?instruction=' + instruction + '&property=' + property + '&value=' + value + '&consumer=' + consumer);
-       
-    });  
-    
+   
+   };  
+
     $('#create_rule').click(function() {
         $.ajax($(this).attr('data-url'));
         $('#modalcontainer > div').hide();
-        $('#overlay').hide();
+        $('#overlay').hide();  
+    }); 
 
-    }) 
+$('document').ready(function() {
+   
+    $('.tooltip').tipsy({gravity: 's'});
+    $(".slider").each(function() {
+      var options = $(this).metadata();
+      $(this).slider(options, {
+        animate: true
+      });
+    });
         
 })
 </script>

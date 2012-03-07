@@ -31,7 +31,8 @@ class ControlController < ApplicationController
   
   def dashboard
 
-    @purchases = Purchase.where("payer_id = ?", @payer.id).includes(:consumer, :retailer, :product, :category)
+    # change to info
+    @purchases = Purchase.where("payer_id = ?", @payer.id).includes(:consumer, :retailer)
     @pendings = @purchases.where("authorization_type = ?",'PendingPayer').count
     @name = @consumer.name
 
@@ -73,7 +74,7 @@ class ControlController < ApplicationController
     @payer = @purchase.payer
     @approved = (params[:approved] == 'true')
     @activity = session[:activity] = (@approved) ?'approve' :'decline'
-    @title = @purchase.product.title
+    @title = @purchase.product
     @category = @purchase.category.name
     @merchant = @purchase.retailer.name
   
@@ -91,11 +92,6 @@ class ControlController < ApplicationController
   def purchase
     
     @purchase = Purchase.find(params[:id])
-    @amount = @purchase.amount
-    @consumer = @purchase.consumer
-    
-    @retailer_name = @purchase.retailer.name
-    @retailer_logo = @purchase.retailer.logo
 
     render :layout => false
     
@@ -103,6 +99,21 @@ class ControlController < ApplicationController
   
   def rule
     
+    consumer = Consumer.find(params[:consumer])
+    
+    if params[:instruction] == 'approve'
+      consumer.whitelist!(params[:property], params[:value])
+    elsif params[:instruction] == 'decline' 
+      consumer.blacklist!(params[:property], params[:value])
+    elsif params[:instruction] == 'ask about'
+      consumer.noRule!(params[:property], params[:value]) 
+    else
+      @error = 'invalid activity' 
+    end
+  
+    respond_to do |format|  
+      format.js     
+    end
     
   end
 

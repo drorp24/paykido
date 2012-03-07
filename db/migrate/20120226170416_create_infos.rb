@@ -1,7 +1,7 @@
 class CreateInfos < ActiveRecord::Migration
   def change
     create_table :infos do |t|
-      t.integer :key
+      t.string :key,  :null => false
       t.string :title
       t.string :description
       t.string :logo

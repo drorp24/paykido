@@ -1,20 +1,155 @@
-.rule.property .whitelist {
-    margin-left: 1em;
+.fl {
+    float: left;
 }
-.help_q {
+
+.purchase_line .actions a.regular {
+    visibility: hidden;
+}
+
+.purchase_line:hover .actions a.regular {
+    visibility: visible;
+}
+
+.purchase_line .actions a.blue {
+    visibility: visible;
+}
+
+
+.actions {
+    width: 12em;
+}
+
+.actions #approve {
     float: right;
-    margin-right: -15%;
+}
+
+.actions #decline {
+    margin-left: 1.5em;
+}
+.rule.property_value {
+    color: #4C82B3;
+}
+
+.icon32 {
+
+    width: 32px;
+    height: 32px;
+    margin-left: 1em;
+    margin-top: 4px;
+}
+
+#new_rule h1 {
+    font-size: 18px;
+}
+
+.purchase_info td {
+    padding: 0 0;
+}
+
+body {
+    font-family: 'ubuntu', sans-serif;
+
+}
+.shadow {
+    text-shadow: 0 1px 0 #FFFFFF
+}
+
+body#paykido .tooltip {
+    text-shadow: none;
+}
+
+.help {
+    background-image: url(/spina/img/icons/question_32_16.png);
+    padding-left: 1.5em;
+    margin-left: 1em;
+    vertical-align: text-bottom;
+}
+
+.whitelist {
+    background-image: url(/spina/img/icons/tick_32_16.png);
+
+}
+.blacklist {
+    background-image: url(/spina/img/icons/delete_32_16.png);
+}
+
+.blue .whitelist, .blue .blacklist {
+    background-position: 100%;
+}
+
+
+.help.fr {
+    height: 1.4em;
+}
+
+.approval_rate {
+    color: #888;
+}
+
+.approval_text {
+    font-size: 18px;
+}
+.approval_percent {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.like {
+    background: url('/images/Thumbs-up-icon.png'), no-repeat;
+    background-repeat: no-repeat;
+    padding-left: 2em;
+    vertical-align: top;
+}
+
+.retailer_info {
+    margin-top: 1em;
+}
+
+.retailer_info .small.button {
+    float: right;
+    padding-left: 0.5em;
+    vertical-align: top;
+}
+
+.star_rating {
+    background-image: url('/images/star_rating.png');
+    background-repeat: no-repeat;
+    padding-left: 6em;
+    vertical-align: top;
+}
+
+#purchases td {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 15px;
+} 
+
+.retailer.whitelist.fr {
+    padding-top: 23px;
+}
+
+.retailer_logo img {
     margin-top: 2%;
 }
 
-.help_q a span{
-    margin-left: 10px;
-    padding: 2px 0px 1px 15px;
-    
+.purchase_logo {
+    font-size: 20px;
+    text-align: center;
+    color: #4C82B3;
+    color: #A3D643;
+    color: #4678A6;
+/*    color: #5186B4; */
 }
 
-#approval_rule_q {
-    
+.purchase_logo img{
+    height: 35px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.rule.property .whitelist {
+    margin-left: 1em;
 }
 
 .action_bar.actions {
@@ -27,15 +162,16 @@
 }
 
 .rule {
-    font-family: Tahoma, sans-serif;     
+ 
 }
-.rule.instruction {
-    margin-top: 16px;       
+.rule.instructions {
+    margin-top: 16px; 
+    font-size: 13px;      
 }
 
-.rule.property{
+.rule.property_value {
     margin-top: 45px;
-    font-size: 1.4em;   
+    font-size: 2em;   
 }
 
 .property_name {
@@ -45,13 +181,13 @@
 }
 
 .rule.header {
-    font-size: 1.5em;
+    font-size: 2em;
     font-weight: bold;
  
 }
 
 #new_rule {
-    width: 70%;
+    width: 75%;
     margin-left: 20%;
 }
 
@@ -78,61 +214,54 @@ tr:hover .approval_buttons p a{
 .retailer_name {
     
 }
-
-.whitelist {
-    background-image: url('/images/star.png');
-    background-repeat: no-repeat;
-    padding-left: 22px;
-    padding-top: 7px;
-}
-.whitelist.unmarked, .whitelist.marked:hover {
-    background-position: 0px 2px;
-}
-
-.whitelist.marked, .whitelist.unmarked:hover {
-    background-position: 0px -23px;
-}
-
 .purchase_line input[type="checkbox"] {
     margin-left: 20%;
 }
 
 .sectiontitle {
-    font-family: Tahoma, sans-serif;
-    font-size: 22px;
-    margin-top: 36px;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 16px;
     color: #999;
+    margin-bottom: -12px;
 }
 
 .purchase_value {
     margin-left: 5%;
-    font-size: 22px;
+    font-size: 20px;
     color: #477DAE;
     font-stretch:
 }
 
 .purchase_title {
     text-transform: uppercase;
-    font-size: 18px;
-    line-height: 28px;
-    font-weight: bold;
+    font-size: 16px;
+/*    font-weight: bold; */
 }
 
 .purchase_line {
-    
+    height: 50px;
 }
 
 .purchase_info {
     margin-top: 5%;    
 }
 
+.purchase_info tr {
+    border-bottom: 1px solid #DFDFDF;
+    border-top: 1px solid #FFFFFF;
+    
+}
+.purchase_info tbody tr:nth-child(2n+1) td {
+    background: none;
+    border-bottom: 1px solid #DFDFDF;
+    border-top: 1px solid #FFFFFF;
+
+}
+
 .header {
     
 }
 
-.recommendation {
-    
-}
 .approval_buttons {
     margin-right: 0px;
 }
@@ -240,16 +369,20 @@ tr:hover .approval_buttons p a{
 
 .product {
     font-size: 22px;
-    height: 40px;
+    height: 36px;
     text-shadow: 0 1px 0 #FFFFFF;
     margin-top: 7%;
     color: #888;
 
 }
 .price {
-    font-size: 26px;
+    font-size: 28px;
     text-shadow: 0 1px 0 #FFFFFF;
     font-weight: bold;
+    font-family:"Lucida Grande";
+/*    color: #4E83B3; */
+ /*   color: #5186B4; */
+/*    color: #778899; */
 
 }
 

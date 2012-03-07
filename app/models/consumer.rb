@@ -16,6 +16,18 @@ class Consumer < ActiveRecord::Base
     errors[:base] << "amounts cannot overlap" if 
       self.auto_authorize_under and self.auto_deny_over and self.auto_authorize_under > self.auto_deny_over
   end
+  
+  def rule(property, value)
+    rule = Rule.find_by_payer_id_and_consumer_id_and_property_and_value(self.payer_id, self.id, property, value)
+    return 0 unless rule
+    if rule.action == 'blacklisted'
+      return -1
+    elsif rule.action == 'whitelisted'
+      return 1
+    else
+      return 0
+    end
+  end
 
   def blacklist!(property, value)
     rule = Rule.find_or_initialize_by_payer_id_and_consumer_id_and_property_and_value(self.payer_id, self.id, property, value)
@@ -33,6 +45,11 @@ class Consumer < ActiveRecord::Base
   
   def whitelisted?(property, value)
     Rule.where(:payer_id => self.payer_id, :consumer_id => self.id, :property => property, :value => value, :action => 'whitelisted').exists?
+  end
+  
+  def noRule!(property, value)
+    rule = Rule.find_or_initialize_by_payer_id_and_consumer_id_and_property_and_value(self.payer_id, self.id, property, value)
+    rule.update_attributes!(:action => '')
   end
   
   def allowance_display

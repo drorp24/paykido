@@ -328,7 +328,7 @@ end
     @payer = @purchase.payer
     @approved = (params[:approved] == 'true')
     @activity = session[:activity] = (@approved) ?'approve' :'decline'
-    @title = @purchase.product.title
+    @title = @purchase.product
     @category = @purchase.category.name
     @merchant = @purchase.retailer.name
 
@@ -394,9 +394,9 @@ end
   def inform_consumer(purchase, activity)
     
     if activity == 'approve'
-      message = "Congrats! Your purchase of #{purchase.product.title} has been approved."
+      message = "Congrats! Your purchase of #{purchase.product} has been approved."
     elsif activity == 'decline'
-      message = "We're Sorry. Your purchase of #{purchase.product.title} is not approved."
+      message = "We're Sorry. Your purchase of #{purchase.product} is not approved."
     else
       return
     end
@@ -417,7 +417,7 @@ end
       purchase = session[:purchase]
       merchant_site_id = purchase.retailer.merchant_site_id
       merchant_id = purchase.retailer.merchant_id     
-      item = purchase.product.title
+      item = purchase.product
       amount = purchase.amount
       currency = t('currency_code')
       success_url = "http://www.paykido.com/service/registration"      

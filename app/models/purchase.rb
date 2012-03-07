@@ -6,8 +6,8 @@ class Purchase < ActiveRecord::Base
   belongs_to :consumer
   belongs_to :payer
   belongs_to :retailer
-  belongs_to :product
-  belongs_to :title
+#  belongs_to :product
+#  belongs_to :title
   has_one :category, :through => :product
   
 #  validates_presence_of :consumer_id, :payer_id, :retailer_id, :product_id, :amount, :date
@@ -18,23 +18,22 @@ class Purchase < ActiveRecord::Base
   def self.create_new!(payer, consumer, retailer, title, product, price)
     
     retailer_id = Retailer.find_or_create_by_name(retailer).id
-    title_id =    Title.find_or_create_by_name(title).id
-    product_id =  Product.find_or_create_by_title(product).id
-    category_id = Product.find_by_title(product).category_id || 1
     title_rec =   Title.find_by_name(title)
+    product_id =  Product.find_or_create_by_title(product).id   # bck compat.
     
     self.create!(:payer_id => payer.id,
                  :consumer_id => consumer.id,
                  :retailer_id => retailer_id,
-                 :title_id => title_id,
-                 :product_id => product_id,
-                 :category_id => category_id,
+                 :product_id => product_id,             # not needed anymore - left for bck compat. (/service)
+                 :category_id => 3,                     # not needed anymore - left for bck compat. (/service) 
+                 :product => product,
+                 :title => title,                 
                  :amount => price,
                  :date => Time.now,
                  :properties => {
-                    "retailer_id" =>  retailer_id,
-                    "title_id" =>     title_id,
-                    "category_id" =>  category_id,
+                    "retailer" =>  retailer,
+                    "title" =>     title,
+                    "category" =>     title_rec.category,                                   
                     "esrb_rating" =>  title_rec.esrb_rating,
                     "pegi_rating" =>  title_rec.pegi_rating
                   }
@@ -137,9 +136,9 @@ class Purchase < ActiveRecord::Base
   def account_for!
     
     amount = self.amount
-  
-    self.retailer.record!(amount)    
+    
     self.consumer.record!(amount)
+    self.retailer.record!(amount)    
    
   end
 

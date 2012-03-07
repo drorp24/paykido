@@ -2,13 +2,20 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  category: Category
+  retailer: Merchant
+  title: Title
+  esrb_rating: ESRB Rating
+  pegi_rating: PEGI Rating
   Merchant Type: Merchant Type
   Product Type: Product Typeo
   Online Games: Online Games
   Virtual Goods: Virtual Goods
-  approval_rule_heading: Have Paykido always approve %{retailer} for %{consumer}
-  approval_rule_instructions: Click OK button to activate
-  Always approve: Always approve %{property}
+  approval_rule_heading: Have Paykido enforce your rules for %{consumer}
+  approval_rule_instructions1: Drag to the right to automatically approve it 
+  approval_rule_instructions2: Drag to the left to automatically decline it 
+  signedup only: Available for signed up users only
+  Rule Title: Always %{action} %{property}
   Next Grant: Next Grant
   Balance: Balance
   Allowance: Allowance

@@ -56,7 +56,7 @@
             </td>
             <td>
                 <p class="purchase_top_line">
-                    <span><%= link_to purchase.product.title ,"dashboard/product/#{purchase.id}" %></span>
+                    <span><%= link_to purchase.product ,"dashboard/product/#{purchase.id}" %></span>
                     <span>by</span>
                     <span><%= link_to purchase.retailer.name, "dashboard/retailer/#{purchase.id}" %></span>
                 </p>
@@ -76,7 +76,7 @@
                 </p>
                 <p class="purchase_bottom_line">
                      <a href="#" class="button small greyedOut actionButton decline"  id=<%= "decline_#{purchase.id}"%>>
-                        <span class="icon16 blocked"></span>
+                        <span class="icon16 cross"></span>
                         NO
                     </a>
                 </p>

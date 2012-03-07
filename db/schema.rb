@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120227175832) do
+ActiveRecord::Schema.define(:version => 20120228112410) do
 
   create_table "billings", :force => true do |t|
     t.string    "method",     :null => false
@@ -75,12 +75,13 @@ ActiveRecord::Schema.define(:version => 20120227175832) do
   end
 
   create_table "infos", :force => true do |t|
-    t.integer  "key"
+    t.string   "key",         :limit => nil
     t.string   "title"
     t.string   "description"
     t.string   "logo"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "value"
   end
 
   create_table "items", :force => true do |t|
@@ -197,6 +198,8 @@ ActiveRecord::Schema.define(:version => 20120227175832) do
     t.integer  "category_id"
     t.string   "properties"
     t.integer  "title_id"
+    t.string   "product"
+    t.string   "title"
   end
 
   create_table "retailers", :force => true do |t|
@@ -252,6 +255,7 @@ ActiveRecord::Schema.define(:version => 20120227175832) do
     t.datetime "updated_at"
     t.string   "pegi_rating"
     t.string   "pegi_descriptor"
+    t.string   "category"
   end
 
   create_table "users", :force => true do |t|

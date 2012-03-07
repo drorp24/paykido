@@ -8,7 +8,7 @@
     <div class="header clearfix">
         <div class="grid_5 content-header relative clearfix">
             <p class="product"><%= @purchase.product %></p>
-            <p class="price"><%= number_to_currency @purchase.amount %></p>
+            <p class="price"><%= number_to_currency @amount %></p>
         </div>
         <div class="grid_7 content-header relative">
             <p class="retailer_info">
@@ -52,11 +52,11 @@
                         <% end %>
                     </td>
                     <td class="actions">
-                        <a id="decline" href="#new_rule" data-consumer="<%= @purchase.consumer_id %>" data-instruction="decline" data-property="<%= property %>" data-value="<%= value %>" class="modal small button rule <%= (@consumer.blacklisted?(property,value)) ?'blue' :'regular greyedOut' %>">
-                            <span class="icon16 blacklist"></span>NO
-                        </a>
                         <a id="approve" href="#new_rule" data-consumer="<%= @purchase.consumer_id %>" data-instruction="approve" data-property="<%= property %>" data-value="<%= value %>" class="modal small button rule <%= (@consumer.whitelisted?(property,value)) ?'blue' :'regular greyedOut' %>">
                             <span class="icon16 whitelist"></span>OK
+                        </a>
+                        <a id="decline" href="#new_rule" data-consumer="<%= @purchase.consumer_id %>" data-instruction="decline" data-property="<%= property %>" data-value="<%= value %>" class="modal small button rule <%= (@consumer.blacklisted?(property,value)) ?'blue' :'regular greyedOut' %>">
+                            <span class="icon16 blacklist"></span>NO
                         </a>
                     </td>
                     <td>

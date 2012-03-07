@@ -1,5 +1,5 @@
 class Title < ActiveRecord::Base
   
-    has_many    :purchases
+#    has_many    :purchases
     
 end

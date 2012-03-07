@@ -22,10 +22,10 @@ $('document').ready(function() {
           });
         });
       
-        $('.close').click(function() {
+    $('.close').click(function() {
       $('#modalcontainer > div').hide();
       $('#overlay').hide();
-    
+
       return false;
     });    
 

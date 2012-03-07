@@ -2,6 +2,12 @@ class AdminController < ApplicationController
 
 #   before_filter   :check_friend_authenticated    
 
+
+  def populate_product_title
+    Purchase.all.each {|purchase| purchase.update_attributes!(:product => Product.find(purchase.product_id).title, :title => 'farmville')}
+    redirect_to :action => :index 
+  end
+
   def populate_title
     Purchase.all.each {|purchase| purchase.update_attributes!(:title => 'farmville')}
     redirect_to :action => :index 

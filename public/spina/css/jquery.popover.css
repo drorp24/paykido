@@ -143,7 +143,7 @@
                     white-space: nowrap;
                     }
                     .popover > section > .content > nav > ul > li a span.avatar {
-                        background: #CCC url(../images/navicons/111.png) center center no-repeat;
+                        background: #CCC url(../img/icons/user_32.png) center center no-repeat;
                         box-shadow: 0px 0px 3px #111;
                         display: block;
                         float: left;
@@ -152,7 +152,7 @@
                         margin: 10px 10px 10px 0px;
                         }
                         .popover > section > .content > nav > ul > li a span.avatar img {
-                            background: #CCC url(../images/navicons/111.png) center center no-repeat;
+                            background: #CCC url(../img/icons/user_32.png) center center no-repeat;
                             box-shadow: 0px 0px 3px #111;
                             display: block;
                             float: left;

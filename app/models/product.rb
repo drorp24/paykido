@@ -4,7 +4,7 @@ class Product < ActiveRecord::Base
   
   has_many    :items
   has_many    :retailers, :through => :items
-  has_many    :purchases
+#  has_many    :purchases
      
   has_many :plists
   has_many :payers, :through => :plists    # to be used for queries such as "who blacklists me" (not likely)
@@ -43,7 +43,7 @@ class Product < ActiveRecord::Base
     Item.find_all_by_retailer_id(retailer_id,
          :joins  =>  "inner join products on items.product_id = products.id",
          :select =>  "products.id, products.title, products.price",
-         :order => "products.price DESC").map {|product| [product.title + " " + number_to_currency(product.price), product.id]}
+         :order => "products.price DESC").map {|product| [product + " " + number_to_currency(product.price), product.id]}
     
   end
   
