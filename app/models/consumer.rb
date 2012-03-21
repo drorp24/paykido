@@ -111,10 +111,10 @@ class Consumer < ActiveRecord::Base
   def next_allowance_date
 
     if self.allowance_period == 'Weekly'
-      @next_allowance_date = Date.today.beginning_of_week.advance(:days => self.allowance_day_of_week || 0)
+      @next_allowance_date = Date.today.beginning_of_week.advance(:days => self.allowance_day_of_week.to_i || 0)
       @next_allowance_date = @next_allowance_date.advance(:weeks => 1) if @next_allowance_date < Date.today
     elsif self.allowance_period == 'Monthly'
-      @next_allowance_date = Time.now.next_month.change(:day => self.allowance_every || 0)
+      @next_allowance_date = Time.now.next_month.change(:day => self.allowance_every.to_i || 0)
     else
       @next_allowance_date = nil
     end 
