@@ -1,0 +1,62 @@
+<head>
+<html>
+  <title>Paykido</title>
+	<%= stylesheet_link_tag "consumer.css", :media => "all" %>
+	<%= stylesheet_link_tag "paykido-api.css", :media => "all" %>
+   	<%= stylesheet_link_tag  "jquery-ui-1.8.1.custom.css", :media => "all" %>
+ 	<%= javascript_include_tag "jquery-1.4.2.min", "jquery-ui-1.8.2.custom.min", "paykido-api", "jquery.url", "old_application" %>
+ 
+</head>	
+<body id="main">
+<div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '270198159687016', // App ID
+//      channelUrl : '//localhost:3000/channel.html', // Channel File
+      status     : true, // check login status
+      cookie     : true, // enable cookies to allow the server to access the session
+      xfbml      : true  // parse XFBML
+    });
+
+    // Additional initialization code here
+  };
+
+  // Load the SDK Asynchronously
+  (function(d){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document));
+</script>
+
+
+<% result = request.env['HTTP_USER_AGENT'] %>
+<% version = result.split('MSIE')[1].split(' ').first if result =~ /MSIE/%>
+<% if result =~ /MSIE/ and version.to_i < 9 %>
+   	<div id="ajax_message">
+		<p id="first_line" class="text">To pay with Paykido, please use</p>
+		<p id="second_line" class="text">Internet Explorer 9 or any different browser</p>		
+	</div>
+
+<% else %>
+
+<script>
+//(function(d, s, id) {
+//  var js, fjs = d.getElementsByTagName(s)[0];
+//  if (d.getElementById(id)) return;
+//  js = d.createElement(s); js.id = id;
+//  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=270198159687016";
+//  fjs.parentNode.insertBefore(js, fjs);
+//}(document, 'script', 'facebook-jssdk'));
+</script>
+	<% if flash[:notice] -%><div id="notice"><%= flash[:notice] %></div<% end -%>
+	
+	<%= yield :layout %>
+
+<% end %>
+</body>
+</html>
+

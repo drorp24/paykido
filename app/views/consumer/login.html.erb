@@ -1,56 +1,61 @@
-<div id="window_content">
-
-	<div id="logo">
-		<%= image_tag "/images/arca_logo.png", :id=>"logoimg",:border => 0 %>
-	</div>	
-		
-	<div id="welcome_message" class="text">
-		<div id="welcomeline" class="text">
-			<span id="salutation"><%= @salutation %></span>
-			<span id="name"><%= @name %></span>
+<div id="window_content" class="clearfix">
+	<div class="fl left">
+		<div id="logo">
+			<%= image_tag "/images/arca_logo.png", :id=>"logoimg",:border => 0 %>
+		</div>	
+			
+		<div id="welcome_message" class="text">
+			<div id="welcomeline" class="text">
+				<span id="salutation"><%= @salutation %></span>
+				<span id="name"><%= @name %></span>
+			</div>
+			<div id="login_button" class="text">
+				<fb:login-button perms="offline_access" 
+								 registration-url="#registration"
+								 onlogin="$.ajax({url: 'http://<%= request.host + ':' + request.port.to_s %>/consumer/login_callback'});"
+								 autologoutlink="true"
+								 V="2" />
+	 		</div>
 		</div>
-		<div id="login_button" class="text">
-			<fb:login-button perms="offline_access" 
-							 registration-url="#registration"
-							 onlogin="$.ajax({url: 'http://<%= request.host + ':' + request.port.to_s %>/consumer/login_callback'});"
-							 autologoutlink="true"
-							 V="2" />
+	   	<div id="ajax_message">
+			<p id="first_line" class="text"><%= @first_line %><span id="action"></span></p>
+			<p id="second_line" class="text"><%= @second_line %></p>		
 		</div>
- 	</div>
-
-   	<div id="ajax_message">
-		<p id="first_line" class="text"><%= @first_line %><span id="action"></span></p>
-		<p id="second_line" class="text"><%= @second_line %></p>		
-	</div>
-	
-	<div id="buy" class="box">
-		<%= form_for :consumer, :url => {:action => :buy}, :html => {:id => "buy_form"} do |f| %>
-			<%= submit_tag "Click to Buy", :id=> "buy_button", :class => "fg-button ui-state-default loginbutton ui-very-rounded-corners" %>
-		<% end %>
-	</div>
 		
-	<div id="pic-n-like">
-	<div id="pic">
-		<% if @pic %>
-			<%= image_tag @pic %>
-		<% end %>
+		<div id="buy" class="box">
+			<%= form_for :consumer, :url => {:action => :buy}, :html => {:id => "buy_form"} do |f| %>
+				<%= submit_tag "Click to Buy", :id=> "buy_button", :class => "fg-button ui-state-default loginbutton ui-very-rounded-corners" %>
+			<% end %>
+		</div>
+			
+		<div id="pic-n-like">
+			<div id="pic">
+				<% if @pic %>
+					<%= image_tag @pic %>
+				<% end %>
+			</div>
+		</div>
 	</div>
-	<div id="like" class="box">
-		<fb:like href="www.paykido.com" show_faces="true" width="300" font=""></fb:like>
+	<div class="fr right">
+		<div id="like" class="box">
+			<fb:like-box href="http://www.facebook.com/pages/Paykido/175298209224744" width="292" height="500" show_faces="true" stream="true" header="true"></fb:like-box>
+		</div>
 	</div>
-	</div>
+</div>
 
 </div>
 		
 <div id="registration" style="display: none;">
 	<fb:registration  
-		width="300" 
+		width="292" 
+		fb_register="true"
 		redirect-uri="http://<%= request.host + ':' + request.port.to_s %>/consumer/register_callback"  
 		fields='[
 			{ "name":"name"},
-			{ "name":"consumer_phone",  "description":"Your mobile phone (e.g., 2131234567)",  		"type":"text"},
+			{"name":"birthday"},
+			{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
 			{ "name":"payer_name",     "description":"Your parent name",  "type":"text"},
-			{ "name":"payer_phone",     "description":"Your parent mobile phone (e.g., 2131234567)",  "type":"text"},
+			{ "name":"payer_phone",     "description":"Your parent mobile # (e.g., 2131234567)",  "type":"text"},
 			{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
 		]' 
 		>
@@ -64,13 +69,7 @@
 
 $(document).ready(function (){ 
 
-	var sms_param = $.url.param("sms");
-	if (sms_param == "failed") {
-		FB.api({ method: 'Auth.revokeAuthorization' }, 
-        	function(response) {
-
-                              });
-	}		
+	FB.XFBML.parse();
 
 	var url_product_param = $.url.param("product");
 	var url_desc_param = $.url.param("desc");
@@ -90,9 +89,6 @@ $(document).ready(function (){
 			$('#registration').attr('style', 'display:block');			
 		}
 	})
-	$('input[name="payer_phone"]').blur(function() {
-		alert('oy vaavoy');
-		});
 });
 
 </script>

@@ -1,3 +1,448 @@
+body {
+    font-family: 'ubuntu', sans-serif;
+
+}
+.shadow {
+    text-shadow: 0 1px 0 #FFFFFF
+}
+
+#welcomeline, p#first_line, p#second_line {
+
+}
+
+.ui-very-rounded-corners {
+	border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+
+#stop, #go {
+	width: 57px;
+	height: 57px;
+	position: absolute;
+	top: 152px;
+	left:24px;
+}
+#pic-n-like {
+	height: 70px;
+
+}
+
+#pic {
+	float: left;
+	width: 15%
+}
+
+#like {
+	float: right;
+	width: 78%;
+	margin-top: 26px;
+	height: 35px;
+}
+ 
+#registration {
+	position: absolute;
+	left: 329px;
+	top:36px;
+
+}
+
+a {
+	text-decoration: none;
+	color: gray;
+}
+
+a:hover {
+	color: black;
+}
+
+p#first_line {
+	margin-bottom: 18px;
+	margin-top: 0;
+	
+}
+p#second_line {
+	margin: 0;
+
+}
+input.fg-button {
+	height: 45px;
+	font-size: 16px;
+	margin-left:auto;
+	margin-right:auto;
+	text-shadow: 0px -1px 0px #0078AE;
+	font-size: 20px;
+	width: 100%;
+
+}
+
+img.fb_profile_pic_rendered {
+	margin-top: 1px;
+}
+
+#window_content {
+	margin-left: 13px;
+	margin-right: 13px;
+/*	width: 345px; */
+}
+
+#logo img#logoimg  {
+	
+	margin-left: -12px;	
+	margin-top: 12px;
+}
+
+.right {
+	float: right;
+}
+
+.ui-accordion .ui-accordion-header a.fb_link {
+	display: inline;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.ui-accordion-icons .ui-accordion-header a.fb_link {
+	display: inline;
+	padding-left: 0;
+	padding-right: 0;
+}
+form, .text {
+/*	font-family: Lucida Grande,Lucida Sans,Arial,sans-serif; */
+	font-size: 16px;
+	color: #637BAD;
+}
+
+
+.rightflush {
+	float: right;
+}
+
+
+.box {
+}
+
+
+#welcome_message {
+	margin-bottom: 16px;
+	margin-top:34px;
+
+}
+
+#welcomeline {	
+	display: inline;
+	vertical-align: sub;
+	color: #637BAD;
+	font-size: 18px;
+	float: left;
+
+}
+
+#login_button {
+
+	float: right;
+}
+
+#ajax_message {
+
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 110px;
+	text-align: center;
+	width: 100%
+}
+
+#product_selection {
+}
+
+#buy {
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+	margin-bottom: 50px;
+	margin-top: 20px;
+	
+}
+
+
+/*
+a.fb_link {
+	text-decoration: none;
+	color: gray;
+	font: "Arial Black"
+}
+*/
+
+/*
+a.fb_button  {
+
+	position: absolute;
+	top:150px;
+	left: 141px;
+}
+
+*/
+
+#fancybox-inner {
+	height:1000px;
+}
+
+
+.status_line {
+/*	font-family: Arial; */
+	font-size: 17px;
+	text-align: center;
+	color: orange;
+	margin-top: 17px;
+}
+
+.message_line {
+/*	font-family: Arial; */
+	font-size: 17px;
+	text-align: center;
+	margin-top: -18px;
+		color: orange;	
+}
+
+#pin, #consumer_billing_phone {
+	margin-top: 1px;	
+}
+
+#welcome {
+	margin-left: 30px;
+}
+
+h2 {
+/*	font-family:"Arial Rounded MT Bold"; */
+}
+
+
+a#link_to_how {
+	position:absolute;
+        /* IE 8 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=0)";
+
+        /* IE 6,7 */
+	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+	top:342px;
+	left:35px;
+	width: 304px;
+	height: 60px;
+	opacity:0;
+	color: transparent;
+}
+
+img#no_sms_service {
+	position:absolute;
+	top:390px;
+	left:45px;
+	width:280px;
+	height:60px;
+}
+
+/*
+This is what determines the modal window size
+*/
+/*
+#payment_window {
+	background-color:#6b727a;
+	background-image:url(/images/payment_window_background3.png);
+	background-color:black;
+	padding-top:30px;
+	height:365px;
+	height:343px;
+	height:338px;
+	height:320px;
+	width:385px;
+	width:384px;
+	z-index: 3000;
+}
+*/
+
+#input {
+	position:absolute;
+	top:200px;
+	left:5px;
+}
+
+
+#step {
+	float:left;
+	margin-left:30px;
+
+}
+
+#input_field {
+	float:left;
+	margin-left:15px;
+}
+
+#product_selected {
+	float:left;
+	margin-left:40px;
+	font-size:10pt;
+}
+
+
+#step_input {
+
+
+}
+
+#submit_button {
+	width:30px;
+	margin-left:50px;
+}
+
+#step_title {
+	float:left;
+	height:20px;
+	padding-top:10px;
+	padding-left:15px;
+/*	font:"Arial Rounded MT Bold"; */
+	font-size:11pt;
+	font-weight:600;
+}
+
+
+#message {
+
+	height:90px;
+}
+
+#marketing {
+	height:50px
+	width:200px;
+	margin-top:40px;
+	margin-bottom:20px;
+}
+
+#new {
+	color:red;
+	font-weight:bold;
+	font-size:12pt;
+	font-style:italic;
+}
+
+#marketing_line {
+	font-weight:bold;
+	font-size:11pt;	
+}
+
+#marketing_line p span a{
+	text-align:center;
+}
+
+#link_to_service {
+	color:red;
+	text-decoration:none;
+}
+
+a {
+/*	color:blue;*/
+/*	text-decoration:underline;*/
+}
+
+#save_colors {
+	background-color:#faf9c9;
+	background-color:#ecf1ff;
+	background-color:#fefac7;
+	background-color:#eefeb8;
+	background-color:#fef9bc;
+	background-color:#dddfff;
+	background-color:#e8e8ff;
+}
+
+#notice {
+	border: 2px solid red;
+	padding: 1em;
+	margin-bottom: 2em;
+	background-color: #f0f0f0 ;
+/*	font: bold smaller sans-serif; */
+}
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+.fieldWithErrors {
+padding: 2px;
+background-color: red;
+display: table;
+}
+
+#buy_button {
+
+    background: #d7ebf9 url(/themes/Cupertino/images/ui-bg_glass_80_d7ebf9_1x400.png) 50% 50% repeat-x; 
+    color: #FFFFE0;
+    font-size: 24px;
+    height: 45px;
+    width: 175px;
+    z-index: 1000;
+        margin-top: 38px;
+    margin-left: -19px;
+    margin-bottom: 50px;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -o-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -moz-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);}
+	text-shadow: 0px 1px 1px #fff;
+	-webkit-text-shadow: 0px 1px 1px #fff;
+	-mox-text-shadow: 0px 1px 1px #fff;
+	text-shadow: -1px -1px #666, 1px 1px #FFF;
+	border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+
+}
+
+#buy_button.ui-state-hover {
+	 color: white; 
+}
+.clearfix:after
+{
+	clear: both;
+	content: '.';
+	display: block;
+	visibility: hidden;
+	height: 0;
+}
+
+.clearfix
+{
+	display: inline-block;
+}
+
+* html .clearfix
+{
+	height: 1%;
+}
+
+.clearfix
+{
+	display: block;
+}
+.fl {
+	float: left;
+}
+.left {
+	width: 280px;
+}
+.fr {
+	float: right;
+}
+.right {
+	position: relative;
+	left: -70px;
+}
 #facebox {
   position: absolute;
   top: 0;
@@ -21,8 +466,8 @@
 
 #facebox .content {
   display:table;
-  width: 370px;
-  height: 410px;
+  width: 630px;
+  height: 530px;
   padding: 10px;
   background: #F9F8F5;
   background-color: white;

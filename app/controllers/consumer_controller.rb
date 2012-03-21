@@ -63,12 +63,15 @@ class ConsumerController < ApplicationController
 
   def find_or_create_consumer
     
-    if current_facebook_user
-      @consumer = find_or_create_consumer_by_facebook_user
-    else
-      @consumer = nil 
-      reset_session
-   end    
+    begin
+      if current_facebook_user
+        @consumer = find_or_create_consumer_by_facebook_user
+      else
+        @consumer = session[:consumer] = nil 
+      end 
+    rescue Mogli::Client::OAuthException
+        @consumer = session[:consumer] = nil 
+    end         
     
   end
   
@@ -102,7 +105,7 @@ class ConsumerController < ApplicationController
       @salutation = "Hello!"
       @name = nil
       @pic = nil
-      @first_line =  "You have selected #{@product}"
+      @first_line =  "You selected #{session[:product]} for #{session[:price]}"
       @second_line = "Login or register, and get it in one click"
     end
     

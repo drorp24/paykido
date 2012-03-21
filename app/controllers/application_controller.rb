@@ -84,8 +84,8 @@ class ApplicationController < ActionController::Base
       return "test"
     end
 
-    api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
     begin
+      api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
       api.send_message(phone, message)
     rescue 
       return false

@@ -1,32 +1,32 @@
 <head>
 <html>
   <title>Paykido</title>
-	<%= stylesheet_link_tag "consumer.css", :media => "all" %>
 	<%= stylesheet_link_tag "paykido-api.css", :media => "all" %>
    	<%= stylesheet_link_tag  "jquery-ui-1.8.1.custom.css", :media => "all" %>
  	<%= javascript_include_tag "jquery-1.4.2.min", "jquery-ui-1.8.2.custom.min", "paykido-api", "jquery.url", "old_application" %>
-
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+ 
 </head>	
 <body id="main">
-
-<% result = request.env['HTTP_USER_AGENT'] %>
-<% version = result.split('MSIE')[1].split(' ').first if result =~ /MSIE/%>
-<% if result =~ /MSIE/ and version.to_i < 9 %>
-   	<div id="ajax_message">
-		<p id="first_line" class="text">To pay with Paykido, please use</p>
-		<p id="second_line" class="text">Internet Explorer 9 or any different browser</p>		
-	</div>
-
-<% else %>
-
-	  <div id="fb-root"></div>
-	  <%=fb_connect_async_js %>
-
-	<% if flash[:notice] -%><div id="notice"><%= flash[:notice] %></div<% end -%>
 	
-	<%= yield :layout %>
-
-<% end %>
+	<div id="fb-root"></div>
+	<%=fb_connect_async_js %>
+	
+	<% result = request.env['HTTP_USER_AGENT'] %>
+	<% version = result.split('MSIE')[1].split(' ').first if result =~ /MSIE/%>
+	<% if result =~ /MSIE/ and version.to_i < 9 %>
+	   	<div id="ajax_message">
+			<p id="first_line" class="text">To pay with Paykido, please use</p>
+			<p id="second_line" class="text">Internet Explorer 9 or any different browser</p>		
+		</div>
+	
+	<% else %>
+	
+		<% if flash[:notice] -%><div id="notice"><%= flash[:notice] %></div<% end -%>
+		
+		<%= yield :layout %>
+	
+	<% end %>
 </body>
 </html>
 

@@ -23,7 +23,7 @@ gem 'taps'
 gem 'multi_json', "~> 1.0.3"
 gem 'httparty'
 
-gem 'thin'
+#gem 'thin'
 
 # Gems used only for assets and not required
 # in production environments by default.

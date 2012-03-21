@@ -22,7 +22,15 @@ $(document).ready(function () {
 		var url = '/consumer/login?' + $('#product_form').serialize();
 		$.facebox({
 			ajax: url
-		});				
+		});
+
+/*        hs.htmlExpand(null, { 
+                src: url, objectType: 'ajax', 
+                creditsPosition: 'bottom left',  
+                wrapperClassName: 'titlebar' } );
+*/		
+
+/*		window.location = url; // to test it without the lightbox */ 				
 	})
 
 });

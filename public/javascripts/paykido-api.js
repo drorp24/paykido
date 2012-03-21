@@ -176,6 +176,7 @@
     $.facebox.settings.imageTypesRegexp = new RegExp('\.(' + imageTypes + ')$', 'i')
 
     if (settings) $.extend($.facebox.settings, settings)
+    $('#facebox').remove();
     $('body').append($.facebox.settings.faceboxHtml)
 
     var preload = [ new Image(), new Image() ]
