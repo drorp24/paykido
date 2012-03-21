@@ -82,6 +82,7 @@ class ConsumerController < ApplicationController
     @consumer.name = @consumer.facebook_user.first_name
     @consumer.pic =  @consumer.facebook_user.large_image_url
     @consumer.tinypic = @consumer.facebook_user.image_url
+    @consumer.allowance_every = 0 unless @consumer.allowance_every
     @consumer.save!
     
     session[:consumer] = @consumer
