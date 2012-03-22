@@ -10,59 +10,40 @@
 	<%= radio_button_tag("product", "25 Farm Cash@3.00", false, :class=> "option", 	:id=>"e") %>
 <% end %>
 
-
-<img src="/images/paykido_button.png" id="arca" border=0 alt=""/>
-
+<a href="http://<%= request.host + ':' + request.port.to_s %>/consumer/login?
+	merchant=Zynga&
+	app=Farmville&
+	product=Gold%20Membership&
+	amount=6.99&
+	currency=EUR&
+	userid=131827&
+	mode=T&
+	tid=US-131827-20101019232716&
+	hash=df659d502af5151a2edd18e2ebb50ba3" 
+	rel="paykido">
+	<img src="http://www.paykido.com/images/paykido_button.png" id="paykido_button" alt="paykido"/>
+</a>
 
 <script type="text/javascript">
-	
+/*	
 $(document).ready(function () {
 
-	$('#arca').click(function() {
-		var url = '/consumer/login?' + $('#product_form').serialize();
+	$('a[rel*=facebox]').click(function() {
+		var url = '/consumer/login?mode=demo&' + $('#product_form').serialize();  
+		var url = $(this).attr("href")
 		$.facebox({
 			ajax: url
 		});
 
-/*        hs.htmlExpand(null, { 
+        hs.htmlExpand(null, { 
                 src: url, objectType: 'ajax', 
                 creditsPosition: 'bottom left',  
                 wrapperClassName: 'titlebar' } );
-*/		
+		
 
-/*		window.location = url; // to test it without the lightbox */ 				
+		window.location = url; // to test it without the lightbox 				
+
 	})
 
-});
-
-
-window.onload = function() {
-    
-	set_scroll();
-	
-	var product_param = $.url.param("product");
-	var sms_param = $.url.param("sms");
-	if (product_param) {
-		
-		var url = '/consumer/login?product=' + product_param + "&sms=" + sms_param;
-		$.facebox({ 
-			ajax:  url	
-		})
-	};
-
-}
-
-// if query string in URL contains scroll=nnn, then scroll position will be restored
-function set_scroll(){
-    // get query string parameter with "?"
-    var search = window.location.search;
-    // if query string exists
-    if (search){
-        // find scroll parameter in query string
-        var matches = /scroll=(\d+)/.exec(search);
-        // jump to the scroll position if scroll parameter exists
-        if (matches) window.scrollTo(0, matches[1]);
-    }
-}
-
+*/
 </script>

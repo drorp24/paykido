@@ -28,6 +28,7 @@
         <tr> 
             <th>Date invisible</th>
             <th>Auth type invisible</th>
+            <th>Authorized invisible</th>
             <th>
             <th>
             <th>
@@ -39,6 +40,7 @@
         <tr> 
             <td><%= purchase.date %></td>
             <td><%= purchase.authorization_type %></td>
+            <td><%= purchase.authorized %></td>
             <td class="status">
             <% if purchase.requires_manual_approval? %>
                 <span class="icon16 question tooltip" title="Requires your approval"></span>
@@ -126,7 +128,7 @@ $(document).ready(function() {
    pTable = $('#purchases').dataTable( {
         "sPaginationType": "full_numbers",
         "aoColumnDefs": [
-        { "bVisible": false, "aTargets": [ 0,1 ] }
+        { "bVisible": false, "aTargets": [ 0,1,2 ] }
         ],
         "aaSorting": [[0,'desc']]
     } );
@@ -144,13 +146,13 @@ $(document).ready(function() {
     $('#authorized-button').click(function () {
             $('.action_bar.filters a').removeClass('blue');
             $(this).addClass('blue');
-            pTable.fnFilter('ManuallyAuthorized|Under', 1, true, false, false );
+            pTable.fnFilter('Whitelisted|ManuallyAuthorized|Always|Under', 2, true, false, false );
     });
 
     $('#blocked-button').click(function () {
             $('.action_bar.filters a').removeClass('blue');
             $(this).addClass('blue');
-            pTable.fnFilter('Unauthorized|Zero|Insufficient|Over', 1, true, false, false);
+            pTable.fnFilter('Blacklisted|Low|High|Unauthorized|Zero|Insufficient|Over', 1, true, false, false);
     });
 
      $('#all-button').click(function () {

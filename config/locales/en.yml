@@ -2,6 +2,13 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  Blacklisted: not allowed
+  Whitelisted: Whitelisted
+  Unauthorized: Unauthorized
+  PendingPayer: Pending Approval
+  Too Low: Too Low
+  Always Approved: Always Approved
+  Too High: Too High
   category: Category
   retailer: Merchant
   title: Title

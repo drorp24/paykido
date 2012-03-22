@@ -1,96 +1,86 @@
 /*
- * hello
- * Facebox (for jQuery)
- * version: 1.2 (05/05/2008)
- * @requires jQuery v1.2 or later
- *
- * Examples at http://famspam.com/facebox/
- *
- * Licensed under the MIT:
- *   http://www.opensource.org/licenses/mit-license.php
- *
- * Copyright 2007, 2008 Chris Wanstrath [ chris@ozmm.org ]
+ * Paykido Payment Window API for merchants and IPSP
  *
  * Usage:
  *
  *  jQuery(document).ready(function() {
- *    jQuery('a[rel*=facebox]').facebox()
+ *    jQuery('a[rel*=paykido]').paykido()
  *  })
  *
- *  <a href="#terms" rel="facebox">Terms</a>
+ *  <a href="#terms" rel="paykido">Terms</a>
  *    Loads the #terms div in the box
  *
- *  <a href="terms.html" rel="facebox">Terms</a>
+ *  <a href="terms.html" rel="paykido">Terms</a>
  *    Loads the terms.html page in the box
  *
- *  <a href="terms.png" rel="facebox">Terms</a>
+ *  <a href="terms.png" rel="paykido">Terms</a>
  *    Loads the terms.png image in the box
  *
  *
  *  You can also use it programmatically:
  *
- *    jQuery.facebox('some html')
- *    jQuery.facebox('some html', 'my-groovy-style')
+ *    jQuery.paykido('some html')
+ *    jQuery.paykido('some html', 'my-groovy-style')
  *
- *  The above will open a facebox with "some html" as the content.
+ *  The above will open a paykido with "some html" as the content.
  *
- *    jQuery.facebox(function($) {
- *      $.get('blah.html', function(data) { $.facebox(data) })
+ *    jQuery.paykido(function($) {
+ *      $.get('blah.html', function(data) { $.paykido(data) })
  *    })
  *
  *  The above will show a loading screen before the passed function is called,
  *  allowing for a better ajaxy experience.
  *
- *  The facebox function can also display an ajax page, an image, or the contents of a div:
+ *  The paykido function can also display an ajax page, an image, or the contents of a div:
  *
- *    jQuery.facebox({ ajax: 'remote.html' })
- *    jQuery.facebox({ ajax: 'remote.html' }, 'my-groovy-style')
- *    jQuery.facebox({ image: 'stairs.jpg' })
- *    jQuery.facebox({ image: 'stairs.jpg' }, 'my-groovy-style')
- *    jQuery.facebox({ div: '#box' })
- *    jQuery.facebox({ div: '#box' }, 'my-groovy-style')
+ *    jQuery.paykido({ ajax: 'remote.html' })
+ *    jQuery.paykido({ ajax: 'remote.html' }, 'my-groovy-style')
+ *    jQuery.paykido({ image: 'stairs.jpg' })
+ *    jQuery.paykido({ image: 'stairs.jpg' }, 'my-groovy-style')
+ *    jQuery.paykido({ div: '#box' })
+ *    jQuery.paykido({ div: '#box' }, 'my-groovy-style')
  *
- *  Want to close the facebox?  Trigger the 'close.facebox' document event:
+ *  Want to close the paykido?  Trigger the 'close.paykido' document event:
  *
- *    jQuery(document).trigger('close.facebox')
+ *    jQuery(document).trigger('close.paykido')
  *
- *  Facebox also has a bunch of other hooks:
+ *  paykido also has a bunch of other hooks:
  *
- *    loading.facebox
- *    beforeReveal.facebox
- *    reveal.facebox (aliased as 'afterReveal.facebox')
- *    init.facebox
- *    afterClose.facebox
+ *    loading.paykido
+ *    beforeReveal.paykido
+ *    reveal.paykido (aliased as 'afterReveal.paykido')
+ *    init.paykido
+ *    afterClose.paykido
  *
  *  Simply bind a function to any of these hooks:
  *
- *   $(document).bind('reveal.facebox', function() { ...stuff to do after the facebox and contents are revealed... })
+ *   $(document).bind('reveal.paykido', function() { ...stuff to do after the paykido and contents are revealed... })
  *
  */
 (function($) {
-  $.facebox = function(data, klass) {
-    $.facebox.loading()
+  $.paykido = function(data, klass) {
+    $.paykido.loading()
 
-    if (data.ajax) fillFaceboxFromAjax(data.ajax, klass)
-    else if (data.image) fillFaceboxFromImage(data.image, klass)
-    else if (data.div) fillFaceboxFromHref(data.div, klass)
+    if (data.ajax) fillpaykidoFromAjax(data.ajax, klass)
+    else if (data.image) fillpaykidoFromImage(data.image, klass)
+    else if (data.div) fillpaykidoFromHref(data.div, klass)
     else if ($.isFunction(data)) data.call($)
-    else $.facebox.reveal(data, klass)
+    else $.paykido.reveal(data, klass)
   }
 
   /*
-   * Public, $.facebox methods
+   * Public, $.paykido methods
    */
 
-  $.extend($.facebox, {
+  $.extend($.paykido, {
     settings: {
       opacity      : 0.4,
       overlay      : true,
       loadingImage : '/images/fbloading.gif',
       closeImage   : '/images/closelabel.png',
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
-      faceboxHtml  : '\
-    <div id="facebox" style="display:none;"> \
+      paykidoHtml  : '\
+    <div id="paykido" style="display:none;"> \
       <div class="popup"> \
         <div class="content"> \
         </div> \
@@ -101,37 +91,37 @@
 
     loading: function() {
       init()
-      if ($('#facebox .loading').length == 1) return true
+      if ($('#paykido .loading').length == 1) return true
       showOverlay()
 
-      $('#facebox .content').empty()
-      $('#facebox .body').children().hide().end().
-        append('<div class="loading"><img src="'+$.facebox.settings.loadingImage+'"/></div>')
+      $('#paykido .content').empty()
+      $('#paykido .body').children().hide().end().
+        append('<div class="loading"><img src="'+$.paykido.settings.loadingImage+'"/></div>')
 
-      $('#facebox').css({
+      $('#paykido').css({
         top:	getPageScroll()[1] + (getPageHeight() / 10),
         left:	$(window).width() / 2 - 205
       }).show()
 
-      $(document).bind('keydown.facebox', function(e) {
-        if (e.keyCode == 27) $.facebox.close()
+      $(document).bind('keydown.paykido', function(e) {
+        if (e.keyCode == 27) $.paykido.close()
         return true
       })
-      $(document).trigger('loading.facebox')
+      $(document).trigger('loading.paykido')
     },
 
     reveal: function(data, klass) {
-      $(document).trigger('beforeReveal.facebox')
-      if (klass) $('#facebox .content').addClass(klass)
-      $('#facebox .content').append(data)
-      $('#facebox .loading').remove()
-      $('#facebox .body').children().fadeIn('normal')
-      $('#facebox').css('left', $(window).width() / 2 - ($('#facebox .popup').width() / 2))
-      $(document).trigger('reveal.facebox').trigger('afterReveal.facebox')
+      $(document).trigger('beforeReveal.paykido')
+      if (klass) $('#paykido .content').addClass(klass)
+      $('#paykido .content').append(data)
+      $('#paykido .loading').remove()
+      $('#paykido .body').children().fadeIn('normal')
+      $('#paykido').css('left', $(window).width() / 2 - ($('#paykido .popup').width() / 2))
+      $(document).trigger('reveal.paykido').trigger('afterReveal.paykido')
     },
 
     close: function() {
-      $(document).trigger('close.facebox')
+      $(document).trigger('close.paykido')
       return false
     }
   })
@@ -140,56 +130,55 @@
    * Public, $.fn methods
    */
 
-  $.fn.facebox = function(settings) {
+  $.fn.paykido = function(settings) {
     if ($(this).length == 0) return
 
     init(settings)
 
     function clickHandler() {
-      $.facebox.loading(true)
+      $.paykido.loading(true)
 
-      // support for rel="facebox.inline_popup" syntax, to add a class
-      // also supports deprecated "facebox[.inline_popup]" syntax
-      var klass = this.rel.match(/facebox\[?\.(\w+)\]?/)
+      // support for rel="paykido.inline_popup" syntax, to add a class
+      // also supports deprecated "paykido[.inline_popup]" syntax
+      var klass = this.rel.match(/paykido\[?\.(\w+)\]?/)
       if (klass) klass = klass[1]
 
-      fillFaceboxFromHref(this.href, klass)
+      fillpaykidoFromHref(this.href, klass)
       return false
     }
 
-    return this.bind('click.facebox', clickHandler)
+    return this.bind('click.paykido', clickHandler)
   }
 
   /*
    * Private methods
    */
 
-  // called one time to setup facebox on this page
+  // called one time to setup paykido on this page
   function init(settings) {
-    if ($.facebox.settings.inited) return true
-    else $.facebox.settings.inited = true
+    if ($.paykido.settings.inited) return true
+    else $.paykido.settings.inited = true
 
-    $(document).trigger('init.facebox')
+    $(document).trigger('init.paykido')
     makeCompatible()
 
-    var imageTypes = $.facebox.settings.imageTypes.join('|')
-    $.facebox.settings.imageTypesRegexp = new RegExp('\.(' + imageTypes + ')$', 'i')
+    var imageTypes = $.paykido.settings.imageTypes.join('|')
+    $.paykido.settings.imageTypesRegexp = new RegExp('\.(' + imageTypes + ')$', 'i')
 
-    if (settings) $.extend($.facebox.settings, settings)
-    $('#facebox').remove();
-    $('body').append($.facebox.settings.faceboxHtml)
+    if (settings) $.extend($.paykido.settings, settings)
+    $('body').append($.paykido.settings.paykidoHtml)
 
     var preload = [ new Image(), new Image() ]
-    preload[0].src = $.facebox.settings.closeImage
-    preload[1].src = $.facebox.settings.loadingImage
+    preload[0].src = $.paykido.settings.closeImage
+    preload[1].src = $.paykido.settings.loadingImage
 
-    $('#facebox').find('.b:first, .bl').each(function() {
+    $('#paykido').find('.b:first, .bl').each(function() {
       preload.push(new Image())
       preload.slice(-1).src = $(this).css('background-image').replace(/url\((.+)\)/, '$1')
     })
 
-    $('#facebox .close').click($.facebox.close)
-    $('#facebox .close_image').attr('src', $.facebox.settings.closeImage)
+    $('#paykido .close').click($.paykido.close)
+    $('#paykido .close_image').attr('src', $.paykido.settings.closeImage)
   }
 
   // getPageScroll() by quirksmode.com
@@ -223,12 +212,12 @@
 
   // Backwards compatibility
   function makeCompatible() {
-    var $s = $.facebox.settings
+    var $s = $.paykido.settings
 
     $s.loadingImage = $s.loading_image || $s.loadingImage
     $s.closeImage = $s.close_image || $s.closeImage
     $s.imageTypes = $s.image_types || $s.imageTypes
-    $s.faceboxHtml = $s.facebox_html || $s.faceboxHtml
+    $s.paykidoHtml = $s.paykido_html || $s.paykidoHtml
   }
 
   // Figures out what you want to display and displays it
@@ -236,48 +225,48 @@
   //     div: #id
   //   image: blah.extension
   //    ajax: anything else
-  function fillFaceboxFromHref(href, klass) {
+  function fillpaykidoFromHref(href, klass) {
     // div
     if (href.match(/#/)) {
       var url    = window.location.href.split('#')[0]
       var target = href.replace(url,'')
       if (target == '#') return
-      $.facebox.reveal($(target).html(), klass)
+      $.paykido.reveal($(target).html(), klass)
 
     // image
-    } else if (href.match($.facebox.settings.imageTypesRegexp)) {
-      fillFaceboxFromImage(href, klass)
+    } else if (href.match($.paykido.settings.imageTypesRegexp)) {
+      fillpaykidoFromImage(href, klass)
     // ajax
     } else {
-      fillFaceboxFromAjax(href, klass)
+      fillpaykidoFromAjax(href, klass)
     }
   }
 
-  function fillFaceboxFromImage(href, klass) {
+  function fillpaykidoFromImage(href, klass) {
     var image = new Image()
     image.onload = function() {
-      $.facebox.reveal('<div class="image"><img src="' + image.src + '" /></div>', klass)
+      $.paykido.reveal('<div class="image"><img src="' + image.src + '" /></div>', klass)
     }
     image.src = href
   }
 
-  function fillFaceboxFromAjax(href, klass) {
-    $.get(href, function(data) { $.facebox.reveal(data, klass) })
+  function fillpaykidoFromAjax(href, klass) {
+    $.get(href, function(data) { $.paykido.reveal(data, klass) })
   }
 
   function skipOverlay() {
-    return $.facebox.settings.overlay == false || $.facebox.settings.opacity === null
+    return $.paykido.settings.overlay == false || $.paykido.settings.opacity === null
   }
 
   function showOverlay() {
     if (skipOverlay()) return
 
-    if ($('#facebox_overlay').length == 0)
-      $("body").append('<div id="facebox_overlay" class="facebox_hide"></div>')
+    if ($('#paykido_overlay').length == 0)
+      $("body").append('<div id="paykido_overlay" class="paykido_hide"></div>')
 
-    $('#facebox_overlay').hide().addClass("facebox_overlayBG")
-      .css('opacity', $.facebox.settings.opacity)
-      .click(function() { $(document).trigger('close.facebox') })
+    $('#paykido_overlay').hide().addClass("paykido_overlayBG")
+      .css('opacity', $.paykido.settings.opacity)
+      .click(function() { $(document).trigger('close.paykido') })
       .fadeIn(200)
     return false
   }
@@ -285,10 +274,10 @@
   function hideOverlay() {
     if (skipOverlay()) return
 
-    $('#facebox_overlay').fadeOut(200, function(){
-      $("#facebox_overlay").removeClass("facebox_overlayBG")
-      $("#facebox_overlay").addClass("facebox_hide")
-      $("#facebox_overlay").remove()
+    $('#paykido_overlay').fadeOut(200, function(){
+      $("#paykido_overlay").removeClass("paykido_overlayBG")
+      $("#paykido_overlay").addClass("paykido_hide")
+      $("#paykido_overlay").remove()
     })
 
     return false
@@ -298,12 +287,12 @@
    * Bindings
    */
 
-  $(document).bind('close.facebox', function() {
-    $(document).unbind('keydown.facebox')
-    $('#facebox').fadeOut(function() {
-      $('#facebox .content').removeClass().addClass('content')
-      $('#facebox .loading').remove()
-      $(document).trigger('afterClose.facebox')
+  $(document).bind('close.paykido', function() {
+    $(document).unbind('keydown.paykido')
+    $('#paykido').fadeOut(function() {
+      $('#paykido .content').removeClass().addClass('content')
+      $('#paykido .loading').remove()
+      $(document).trigger('afterClose.paykido')
     })
     hideOverlay()
   })

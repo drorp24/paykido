@@ -1,12 +1,20 @@
 $('#name').empty();
+$('#buy_button').remove();
+$('#status_line').show();
 <% if @error %>
     $('#salutation').html('Sorry...');
 <% elsif @purchase and @purchase.authorized? %>
-	$('#salutation').html('Congratulations!');
+	$('#salutation').html('Congrats!');
+	$('.status_icon').addClass("approved");
+	$('.status_text').html('Approved');
 <% elsif @purchase and @purchase.requires_manual_approval? %>
 	$('#salutation').html('Wait...');
+	$('.status_icon').addClass("pending");
+	$('.status_text').html('Pending Approval');
 <% elsif @purchase and !@purchase.authorized %>
 	$('#salutation').html('Sorry...');
+	$('.status_icon').addClass("declined");
+	$('.status_text').html('Declined');
 <% end %>
 $('#ajax_message #first_line').html("<%= @first_line %>");
 $('#ajax_message #second_line').html("<%= @second_line %>");

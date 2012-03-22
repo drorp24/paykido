@@ -37,26 +37,19 @@ class ConsumerController < ApplicationController
 
   def get_purchase_parameters
     
-    session[:retailer] = 'zynga'          # check it exists in the retailer table   
-    session[:title] = 'farmville'         # check it exists in the title table
+    if params[:mode] and params[:mode] == 'demo'
+      session[:retailer] = 'zynga'          # check it exists in the retailer table   
+      session[:title] = 'farmville'         # check it exists in the title table
+      session[:product] = params[:product].split('@')[0]
+      session[:price] = params[:product].split('@')[1]
+    elsif params[:merchant]
+      session[:retailer] = params[:merchant]
+      session[:title] = params[:app]
+      session[:product] = params[:product]
+      session[:price] = params[:amount]
+    end
     
-    if params[:product]
-      @product = params[:product].split('@')[0]
-    elsif params[:desc]     
-      @product = params[:desc]
-    else
-      @product = session[:product]
-    end
-    session[:product] = @product
-     
-    if params[:product]
-      @price = params[:product].split('@')[1]
-    elsif params[:amount]
-      @price = params[:amount]
-    else
-      @price = session[:price]
-    end
-    session[:price] = @price
+    session[:params] = params
             
   end  
   
@@ -100,14 +93,14 @@ class ConsumerController < ApplicationController
       @name = @consumer.name + "!"  
       @pic = "https://graph.facebook.com/#{@consumer.facebook_id}/picture"
       
-      @first_line = "You're about to buy"
-      @second_line = "#{@product} for $#{@price}"
+      @first_line = "You selected #{session[:product]}"
+      @second_line = "Click to buy it"
     else
       @salutation = "Hello!"
       @name = nil
       @pic = nil
-      @first_line =  "You selected #{session[:product]} for #{session[:price]}"
-      @second_line = "Login or register, and get it in one click"
+      @first_line =  "You selected #{session[:product]}"
+      @second_line = "Login or register, then click to buy"
     end
     
   end      
@@ -171,7 +164,7 @@ class ConsumerController < ApplicationController
 #    begin 
            
       @purchase = session[:purchase] = 
-      Purchase.create_new!(session[:payer], session[:consumer], session[:retailer], session[:title], session[:product], session[:price])
+      Purchase.create_new!(session[:payer], session[:consumer], session[:retailer], session[:title], session[:product], session[:price], session[:params])
                                           
       @purchase.authorize!
       if @purchase.authorized?                        # and @purchase.paid? (succesfully)?
@@ -192,30 +185,35 @@ class ConsumerController < ApplicationController
 
   def authorization_messages
     
-     if     @purchase.authorized
+    if    @purchase.authorized
+
       @first_line = "#{session[:product]} is yours!"
-      @second_line = "Thanks for using paykido!"
-     elsif  @purchase.requires_manual_approval?
+      @second_line = "Thanks for using paykido"
+
+     elsif @purchase.requires_manual_approval?
+
        if @email_problem
           @first_line =  "Approval reuiqred but email is down at the moment"
           @second_line = "Please try again in a few moments"
        else  
-        @first_line =  "This has to be manually authorized"
-        @second_line = "Approval request has been sent"
+          @first_line =  "This has to be manually authorized"
+          @second_line = "Approval request has been sent"
        end
+
      elsif !@purchase.authorized 
+
         @first_line = "This purchase is unauthorized"
-        if @purchase.authorization_type == 'Insufficient Balance'
-          @second_line = "Balance is too low ($#{@purchase.consumer.balance})."
-        else
-          @second_line = "#{@purchase.authorization_type}"
-        end      
+        @second_line = "#{t @purchase.authorization_property}: #{@purchase.authorization_value} is #{t @purchase.authorization_type}"
+    
 #    elsif !retailer_paid?
 #     @first_line =  "[retailer was not paid message]"
 #     @second_line = "[retailer was not paid message]"      
+
      else
-      @first_line = "Paykido is momentarily down"
-      @second_line = "Please try again soon"     
+
+        @first_line = "Paykido is momentarily down"
+        @second_line = "Please try again soon"     
+
     end  
     
   end  

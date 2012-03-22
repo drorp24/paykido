@@ -26,6 +26,10 @@
 			<%= form_for :consumer, :url => {:action => :buy}, :html => {:id => "buy_form"} do |f| %>
 				<%= submit_tag "Click to Buy", :id=> "buy_button", :class => "fg-button ui-state-default loginbutton ui-very-rounded-corners" %>
 			<% end %>
+			<div id="status_line">
+				<span class="status_icon"></span>
+				<span class="status_text"></span>
+			</div>
 		</div>
 			
 		<div id="pic-n-like">

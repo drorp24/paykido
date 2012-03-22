@@ -2,38 +2,7 @@ body {
     font-family: 'ubuntu', sans-serif;
 
 }
-#status_line {
-	display: none;
-	margin-left: -13px;
-	margin-top: 58px;
-}
-.approved {
-	background-image: url(/spina/img/icons/tick_32.png);
-}
-.declined {
-	background-image: url(/spina/img/icons/delete_32.png);
-}
-.pending {
-	background-image: url(/spina/img/icons/question_32.png);
-}
-		
-.translation_missing {
-    color: purple;
-}
 
-.status_icon {
-	width: 32px;
-	height: 32px;
-	display: inline-block;
-}
-
-.status_text {
-	color: #666;
-	position: relative;
-	bottom: 8px;
-	left: 15px;
-	font-size: 20px;
-}
 .shadow {
     text-shadow: 0 1px 0 #FFFFFF
 }
@@ -63,9 +32,8 @@ body {
 }
 
 #pic {
-	position: absolute;
-	bottom: 33px;
-	left:130px;
+	float: left;
+	width: 15%
 }
 
 #like {
@@ -182,7 +150,7 @@ form, .text {
 
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 125px;
+	margin-top: 110px;
 	text-align: center;
 	width: 100%
 }
@@ -413,15 +381,15 @@ display: table;
 
 #buy_button {
 
-	position: absolute;
-	top: 327px;
-	left: 70px;
     background: #d7ebf9 url(/themes/Cupertino/images/ui-bg_glass_80_d7ebf9_1x400.png) 50% 50% repeat-x; 
     color: #FFFFE0;
     font-size: 24px;
     height: 45px;
     width: 175px;
     z-index: 1000;
+        margin-top: 38px;
+    margin-left: -19px;
+    margin-bottom: 50px;
 	box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
    -o-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
    -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
@@ -434,6 +402,7 @@ display: table;
     border-bottom-right-radius: 25px;
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
+
 }
 
 #buy_button.ui-state-hover {
@@ -475,7 +444,7 @@ display: table;
 	position: relative;
 	left: -70px;
 }
-#paykido {
+#facebox {
   position: absolute;
   top: 0;
   left: 0;
@@ -484,7 +453,7 @@ display: table;
 }
 
 
-#paykido .popup{
+#facebox .popup{
   position:relative;
   border:10px solid rgba(0,0,0,0);
   -webkit-border-radius:5px;
@@ -496,7 +465,7 @@ display: table;
     z-index: 999999;
 }
 
-#paykido .content {
+#facebox .content {
   display:table;
   width: 630px;
   height: 530px;
@@ -509,14 +478,14 @@ display: table;
     z-index: 999999;
 }
 
-#paykido .content > p:first-child{
+#facebox .content > p:first-child{
   margin-top:0;
 }
-#paykido .content > p:last-child{
+#facebox .content > p:last-child{
   margin-bottom:0;
 }
 
-#paykido .close{
+#facebox .close{
   position:absolute;
   top:5px;
   right:5px;
@@ -524,27 +493,27 @@ display: table;
   background:#F7FBFF;
   background-color: white;
 }
-#paykido .close img{
+#facebox .close img{
   opacity:0.3;
 }
-#paykido .close:hover img{
+#facebox .close:hover img{
   opacity:1.0;
 }
 
-#paykido .loading {
+#facebox .loading {
   text-align: center;
 }
 
-#paykido .image {
+#facebox .image {
   text-align: center;
 }
 
-#paykido img {
+#facebox img {
   border: 0;
   margin: 0;
 }
 
-#paykido_overlay {
+#facebox_overlay {
   position: fixed;
   top: 0px;
   left: 0px;
@@ -552,11 +521,11 @@ display: table;
   width:100%;
 }
 
-.paykido_hide {
+.facebox_hide {
   z-index:-100;
 }
 
-.paykido_overlayBG {
+.facebox_overlayBG {
   background-color: #000;
   z-index: 99;
 }

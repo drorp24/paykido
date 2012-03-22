@@ -15,10 +15,10 @@ class Purchase < ActiveRecord::Base
   
 #  attr_accessor :authorization_date, :authorization_type
 
-  def self.create_new!(payer, consumer, retailer, title, product, price)
+  def self.create_new!(payer, consumer, retailer, title, product, price, params)
     
     retailer_id = Retailer.find_or_create_by_name(retailer).id
-    title_rec =   Title.find_by_name(title)
+    title_rec =   Title.find_or_create_by_name(title)
     product_id =  Product.find_or_create_by_title(product).id   # bck compat.
     
     self.create!(:payer_id => payer.id,
@@ -36,6 +36,17 @@ class Purchase < ActiveRecord::Base
                     "category" =>     title_rec.category,                                   
                     "esrb_rating" =>  title_rec.esrb_rating,
                     "pegi_rating" =>  title_rec.pegi_rating
+                  },
+                  :params => {
+                    "merchant" => params[:merchant],
+                    "app" => params[:app],
+                    "product" => params[:product],
+                    "amount" => params[:amount],
+                    "currency" => params[:currency],
+                    "userid" => params[:userid],
+                    "mode" => params[:mode],
+                    "tid" => params[:tid],
+                    "hash" => params[:hash]
                   }
                   )
   end
@@ -47,7 +58,9 @@ class Purchase < ActiveRecord::Base
 
     self.properties.each {|property,value| 
       if self.consumer.blacklisted?(property, value)  
-        self.authorization_type = "Unauthorized " + key
+        self.authorization_property = property
+        self.authorization_value = value
+        self.authorization_type = "Blacklisted"
         self.authorization_date = Time.now
         self.save!
         return
@@ -55,20 +68,30 @@ class Purchase < ActiveRecord::Base
     }
           
     if self.consumer.balance <= 0
-      self.authorization_type = "Zero Balance"  
+      self.authorization_property = "Balance"
+      self.authorization_value = self.consumer.balance
+      self.authorization_type = "Unauthorized"  
     elsif self.consumer.balance < self.amount
-      self.authorization_type = "Insufficient Balance"
+      self.authorization_property = "Balance"
+      self.authorization_value = self.consumer.balance
+      self.authorization_type = "Too Low"
     elsif self.amount <= self.consumer.auto_authorize_under
+      self.authorization_property = "Amount"
+      self.authorization_value = self.amount
       self.authorization_type = "Under Threshold"
       self.authorized = true
     elsif self.amount > self.consumer.auto_deny_over
-      self.authorization_type = "Over Threshold"
+      self.authorization_property = "Amount"
+      self.authorization_value = self.amount
+      self.authorization_type = "Too High"
       
     else
       
       self.properties.each {|property,value| 
         if self.consumer.whitelisted?(property, value)  
-          self.authorization_type = "Authorized " + key
+          self.authorization_property = property
+          self.authorization_value = value
+          self.authorization_type = "Whitelisted"
           self.authorized = true
           self.authorization_date = Time.now
           self.save!

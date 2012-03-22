@@ -1,4 +1,13 @@
-#arca:hover {
+#paykido_button {
+
+	position: absolute;
+	top:939px;
+	left:481px;
+
+}
+
+
+#paykido_button:hover {
 	cursor: pointer;
 }
 
@@ -46,15 +55,6 @@ form {
 	width: 50px;
 	
 }
-
-#arca {
-
-	position: absolute;
-	top:939px;
-	left:481px;
-
-}
-
 #fancybox-inner {
 	height:1000px;
 }
