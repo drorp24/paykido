@@ -73,26 +73,14 @@
 
 $(document).ready(function (){ 
 
-	FB.XFBML.parse();
-
-	var url_product_param = $.url.param("product");
-	var url_desc_param = $.url.param("desc");
-	var url_amount_param = $.url.param("amount");
-	if (url_product_param) {
-		var product_param = 'product=' + url_product_param; 
-	}
-    else if (url_desc_param && url_amount_param) {
-		var product_param = 'product=' + url_desc_param + '@' + url_amount_param; 		
-	}
-	else {
-		var product_param = $('form').serialize();
-	}
-
 	$('#login_button').click(function() {
 		if ($('.fb_button_text').html() == 'Register') {
 			$('#registration').attr('style', 'display:block');			
 		}
-	})
+	});
+	
+	FB.XFBML.parse(); 
+
 });
 
 </script>
