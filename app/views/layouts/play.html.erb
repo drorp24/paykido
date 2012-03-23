@@ -1,67 +1,33 @@
-<!DOCTYPE html>
 <html>
-<head>
-  <title>Paykido</title>
-<%= stylesheet_link_tag "play.css", :media => "all" %>
-<%= stylesheet_link_tag "paykido-api.css", "consumer", :media => "all" %>
-<%= javascript_include_tag  "jquery-1.4.2.min", "jquery-ui-1.8.2.custom.min", "paykido-api", "jquery.url", "old_application" %>
-    <script type="text/javascript" src="/highslide/highslide-full.js"></script>
-    <script type="text/javascript" src="/highslide/highslide.config.js" charset="utf-8"></script>
-    <link rel="stylesheet" type="text/css" href="/highslide/highslide.css" />
-    <!--[if lt IE 7]>
-    <link rel="stylesheet" type="text/css" href="/highslide/highslide-ie6.css" />
-    <![endif]-->
-
-<script type="text/javascript">
-
-	$(document).bind('loading.facebox', function() {
-		$('div#facebox').hide();
-		$('#loading').show();	
-		});
-
-	$(document).bind('afterReveal.facebox', function() {
-		$('#facebox').show();
-		$('#loading').hide();
-		});
-
-	$(document).bind('afterClose.facebox', function() {
-		});
-
-    $(document).ready(function($){
-		$('a[rel*=paykido]').paykido();
-       });
-
-	$('iframe').load(function() {
-	  	
-		
-		});		
-
-</script> 
-            
-</head>	
-<body id="farmville">
-
-
-<script>
-//(function(d, s, id) {
-//  var js, fjs = d.getElementsByTagName(s)[0];
-//  if (d.getElementById(id)) return;
-//  js = d.createElement(s); js.id = id;
-//  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=270198159687016";
-//  fjs.parentNode.insertBefore(js, fjs);
-//}(document, 'script', 'facebook-jssdk'));
-</script>
-     <!-- START:flash -->
-      <% if flash[:notice] -%>
-        <div id="notice"><%= flash[:notice] %></div>
-      <% end -%>
-      <!-- END:flash -->
-
-      <%= yield :layout %>
-
-</body>
-
+	<head>
+	  <title>Paykido</title>
+		<%= stylesheet_link_tag "play.css", :media => "all" %>
+		<%= stylesheet_link_tag "paykido-api.css", "consumer", :media => "all" %>
+		<%= javascript_include_tag  "jquery-1.4.2.min", "jquery-ui-1.8.2.custom.min", "paykido-api", "jquery.url", "old_application" %>
+	    <script type="text/javascript" src="/highslide/highslide-full.js"></script>
+	    <script type="text/javascript" src="/highslide/highslide.config.js" charset="utf-8"></script>
+	    <link rel="stylesheet" type="text/css" href="/highslide/highslide.css" />
+	    <!--[if lt IE 7]>
+	    <link rel="stylesheet" type="text/css" href="/highslide/highslide-ie6.css" />
+	    <![endif]-->
+	
+		<script type="text/javascript">
+		    $(document).ready(function($){
+				$('a[rel*=paykido]').paykido();
+		       });
+		</script> 	            
+	</head>	
+	<body id="farmville">
+	
+	     <!-- START:flash -->
+	      <% if flash[:notice] -%>
+	        <div id="notice"><%= flash[:notice] %></div>
+	      <% end -%>
+	      <!-- END:flash -->
+	
+	      <%= yield :layout %>
+	
+	</body>
 </html>
-
 
 

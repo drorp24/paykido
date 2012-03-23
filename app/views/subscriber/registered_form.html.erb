@@ -4,7 +4,7 @@
 
         <p id="line1" class="line line1"><%= "Welcome #{@payer.name}" %></p>
         <p id="approval_title" class="title"><%= "#{@activity.capitalize} this purchase" %></p>
-        <%= form_tag ({:action => :approval_and_rules}, :id => "approval_and_rules", :class => "payer_form") do  %>
+        <%= form_tag(:action => "approval_and_rules", :id => "approval_and_rules", :class => "payer_form") do  %>
         <p id="cb1" class="cb">
             <%= check_box_tag(:approve) %>
             <%= label_tag(:approve, "#{@activity.capitalize} #{@consumer.name} to purchase #{@title} for #{number_to_currency @purchase.amount}") %>

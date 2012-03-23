@@ -114,10 +114,9 @@ class ConsumerController < ApplicationController
   def register_callback # try making it ajax instead of attempting to redirect (looks like facebook doesnt allow) 
       
     find_or_create_consumer_and_payer     
-    request_joinin(@payer, @consumer)    
-    
-   session[:friend_authenticated] = true 
-   redirect_to :controller => :play, :action => :index
+    flash[:notice] = "email problem" unless request_joinin(@payer, @consumer)    
+    redirect_to :controller => :play, :action => :index
+
   end
   
   
@@ -233,18 +232,16 @@ class ConsumerController < ApplicationController
     
   end
   
-    def request_joinin(payer, consumer)
-     
-    begin
-      UserMailer.joinin_email(payer, consumer).deliver
-    rescue
-      @email_problem = true
-    else
-      @email_problem = false
+  def request_joinin(payer, consumer)     
+
+    unless UserMailer.joinin_email(payer, consumer).deliver
+      return false
     end
 
-    message = "Hi #{payer.name}! #{consumer.name} asked us to tell you about Paykido. See our email for details"
-    sms(payer.phone, message) 
+    if Current.policy.send_sms?
+      message = "Hi #{payer.name}! #{consumer.name} asked us to tell you about Paykido. See our email for details"
+      sms(payer.phone, message)
+    end 
     
   end 
   

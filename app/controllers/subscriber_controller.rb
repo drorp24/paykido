@@ -329,15 +329,15 @@ end
     @approved = (params[:approved] == 'true')
     @activity = session[:activity] = (@approved) ?'approve' :'decline'
     @title = @purchase.product
-    @category = @purchase.category.name
+    @category = "online games"
     @merchant = @purchase.retailer.name
 
     if @payer.registered?
       
       @merchant_whitelisted = @purchase.retailer.whitelisted?(@payer.id, @consumer.id)
       @merchant_blacklisted = @purchase.retailer.blacklisted?(@payer.id, @consumer.id)
-      @category_whitelisted = @purchase.category.whitelisted?(@payer.id, @consumer.id)
-      @category_blacklisted = @purchase.category.blacklisted?(@payer.id, @consumer.id)
+      @category_whitelisted = false
+      @category_blacklisted = false
 
       render :layout => 'payer', :action => :registered_form
     else

@@ -8,7 +8,7 @@ class Purchase < ActiveRecord::Base
   belongs_to :retailer
 #  belongs_to :product
 #  belongs_to :title
-  has_one :category, :through => :product
+  has_one :category
   
 #  validates_presence_of :consumer_id, :payer_id, :retailer_id, :product_id, :amount, :date
 #  validates_numericality_of :amount
