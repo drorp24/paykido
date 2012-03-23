@@ -26,15 +26,15 @@ class SubscriberController < ApplicationController
    if request.post?
      
       @payer = Payer.authenticate(params[:payer][:email], params[:payer][:password])
-      unless @payer
+
+      if @payer
+        set_payer_session(@payer)
+        redirect_to :action => :payer_signedin
+      else
         reset_session
         flash[:notice] = params[:payer][:email] + ' ' + params[:payer][:password]
         redirect_to :controller => "service", :action => "index"
-        return
       end
-      
-      set_payer_session(@payer)
-      redirect_to :action => :payer_signedin
       
    end
    
@@ -42,14 +42,14 @@ class SubscriberController < ApplicationController
  
   def invite
     
-    @payer = Payer.authenticate_by_hp(params[:email], params[:authenticity_token])
+    @payer = Payer.authenticate_by_hashed_password(params[:authenticity_token])
 
     if @payer
       set_payer_session(@payer)
       redirect_to :action => :payer_signedin, :name => params[:name], :invited_by => params[:invited_by]
     else
-      flash[:notice] = "user or password are incorrect. Please try again!"
       reset_session
+      flash[:notice] = params[:authenticity_token]
       redirect_to :controller => "service", :action => "index"
     end
     

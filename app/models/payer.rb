@@ -90,6 +90,10 @@ class Payer < ActiveRecord::Base
     payer
   end
   
+  def self.authenticate_by_hashed_password(hash)
+    payer = self.find_by_hashed_password(hash)
+  end
+
   # 'password' is a virtual attribute
   
   def password
