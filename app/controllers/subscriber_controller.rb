@@ -10,16 +10,6 @@ class SubscriberController < ApplicationController
   before_filter :check_payer_and_set_variables, :except => [:index, :invite, :pay_and_show, :approve, :purchase, :signin, :joinin, :signout, :retailer_signedin]
   before_filter :check_retailer_and_set_variables, :only => [:retailer_signedin]
   
-
-  # for tests only
-  def email
-      @user = session[:user]
-      @consumer = session[:consumer]
-      UserMailer.joinin_email(@user, @consumer).deliver
-      redirect_to :action => :payer_signedin
-  end
-
-
   
   def index
     redirect_to :controller => "service", :action => "index"    
@@ -27,97 +17,44 @@ class SubscriberController < ApplicationController
   
   def approve
         
-    @user = User.find(108)
-    if @user
-      clear_payer_session if session[:payer] and session[:payer].id  != @user.payer.id 
-      session[:user]  = @user
-      session[:payer] = @payer = @user.payer
-    else
-      flash[:notice] = "user or password are incorrect. Please try again!"
-    end
-    
     redirect_to :action => :payer_signedin, :approve => params[:purchase_id]
     
   end
-
-  def invite
-    
-    @user = User.authenticate_by_hp(params[:email], params[:authenticity_token])
-    if @user
-    @user = User.find(108)
-      clear_payer_session if session[:payer] and session[:payer].id  != @user.payer.id 
-      session[:user]  = @user
-      session[:payer] = @payer = @user.payer
-    else
-      flash[:notice] = "user or password are incorrect. Please try again!"
-    end
-    
-    redirect_to :action => :payer_signedin, :name => params[:name], :invited_by => params[:invited_by]
-    
-  end
-  
 
   def signin
     
    if request.post?
      
-      @user = User.authenticate(params[:user][:email], params[:user][:password])
-      unless @user
-        flash.now[:notice] = "user or password are incorrect. Please try again!"
+      @payer = Payer.authenticate(params[:payer][:email], params[:payer][:password])
+      unless @payer
+        reset_session
+        flash[:notice] = params[:payer][:email] + ' ' + params[:payer][:password]
+        redirect_to :controller => "service", :action => "index"
         return
       end
       
-     if @user.is_payer
-        set_payer_session
-        redirect_to :action => :payer_signedin
-      elsif @user.is_retailer
-        set_retailer_session
-        redirect_to :action => :retailer_signedin
-      elsif @user.is_administrator
-        redirect_to :action => :administrator_signedin
-      elsif @user.is_friend
-        flash.now[:notice] = "Please use a valid payer user, not the Beta invitation user"      
-      else
-        flash.now[:notice] = "Please use a valid payer user"      
-     end
+      set_payer_session(@payer)
+      redirect_to :action => :payer_signedin
       
    end
    
   end
  
+  def invite
+    
+    @payer = Payer.authenticate_by_hp(params[:email], params[:authenticity_token])
 
-  def joinin
-
-    if request.post?
-          
-      @user = User.new(params[:user])
-      @user.affiliation = "payer"
-      @user.role = "primary"
-      @user.payer = Payer.new() 
-     
-      set_payer_session
-     
-      if @user.save
-        session[:user] = @user     
-        payer = @user.payer
-        session[:payer] = payer                  
-        redirect_to :action => "payer_signedin"
-      else
-        if @user.errors.on(:name) == "has already been taken"
-            flash.now[:notice] = "User name is taken. Try a differet one!"
-        elsif @user.errors.on(:password) == "doesn't match confirmation"
-            flash.now[:notice] = "password/confirmation mismatch. Try again!"
-        else
-            flash.now[:notice] = "something's missing. Please try again!"
-        end
-      end
-      
+    if @payer
+      set_payer_session(@payer)
+      redirect_to :action => :payer_signedin, :name => params[:name], :invited_by => params[:invited_by]
+    else
+      flash[:notice] = "user or password are incorrect. Please try again!"
+      reset_session
+      redirect_to :controller => "service", :action => "index"
     end
-
+    
   end
-  
-
-  
+   
   def signout
     
     #session is cleared upon next signin, provided it's not the same user/payer
@@ -451,12 +388,10 @@ end
   protected
   
       
-  def set_payer_session
+  def set_payer_session(payer)
     
-   clear_payer_session if session[:payer] and session[:payer].id  != @user.payer.id 
- 
-   session[:user]  = @user
-   session[:payer] = @payer = @user.payer
+   reset_session if session[:payer] and session[:payer].id  != @payer.id 
+   session[:payer] = payer
 
  end
   
@@ -471,7 +406,7 @@ end
     
     unless session[:payer]  
       flash[:message] = "Please sign in with payer credentials"
-      clear_payer_session
+      reset_session
       redirect_to  :action => 'index'
     end   
     
@@ -484,42 +419,6 @@ end
   end
 
 
-  
-  def set_retailer_session
-    
-   clear_retailer_session if session[:retailer] and session[:retailer].id  != @user.retailer.id 
-
-   session[:user]     = @user
-   session[:retailer] = @retailer = @user.retailer
-
- end
-  
-  def check_retailer_and_set_variables
-    
-   refresh_retailer_variables_from_session
-    
-  end
-  
-  def check_retailer_is_signedin
-    
-    unless session[:retailer]
-      flash[:message] = "Please sign in with retailer credentials"
-      clear_retailer_session
-      redirect_to  :action => 'index'
-    end
-    
-  end
-  
-  def check_admininstrator_is_signedin
-    
-    unless session[:user] and session[:user].is_administrator
-      flash[:message] = "Please sign in with administrator credentials"
-      clear_session
-      redirect_to  :action => 'index'
-    end
-    
-  end
-  
   
   def find_consumer
     
@@ -573,34 +472,10 @@ end
 
   def refresh_payer_variables_from_session
     
-    @user =       session[:user]
     @payer =      session[:payer]
 
   end
 
-  def refresh_retailer_variables_from_session
-    
-    @user =       session[:user]
-    @retailer =      session[:retailer]
-
-  end
-
-  
-  def clear_payer_session
-    session[:user] = session[:payer] =
-    session[:consumers] = session[:consumer] =  
-    session[:retailers] = session[:retailer] = 
-    session[:products] = session[:product] =
-    session[:categories] = session[:category] =
-    session[:purchases] = session[:purchase] =
-    nil
-  end
-  
-  def clear_retailer_session
-    session[:user] = session[:retailer] = session[:same_as_last_retailer] = nil    
-  end
-  
-  
   def preapproval
     
     preapproval_request = PaypalAdaptive::Request.new

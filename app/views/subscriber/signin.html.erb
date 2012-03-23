@@ -9,7 +9,7 @@
 			<div class="inner_content">	
 				<p class="inner_content_title">Sign In</p>
 				<div class="inner_content_indented">
-					<%= form_for :user, :url => {:action => :signin}, :html => {:id => "login"} do |f| %>
+					<%= form_for :payer, :url => {:action => :signin}, :html => {:id => "login"} do |f| %>
 					  	<%= f.text_field :email, :size => 15, :placeholder => "user email", :class => "formfield" %>
 					  	<%= f.password_field :password, :size => 15, :placeholder => "password", :class => "formfield inline" %>
 						<span class="small_note inline"><%= link_to "Forgot password?",nil,:class=>"inline" %></span>

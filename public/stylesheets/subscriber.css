@@ -418,10 +418,11 @@ img#gradient_wrap {
 
 #notice {
 	position: absolute;
-	top: -97px;
+/*	top: -97px; */
 	height: 24px;
 	width:1162px;
 	left: 2px;
+	z-index: 1;
 }
 
 .flash_text{

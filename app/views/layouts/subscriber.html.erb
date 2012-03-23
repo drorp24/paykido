@@ -63,19 +63,8 @@
 	<% end -%>
 	
 
-	<% if params[:action] != 'index' and session[:user] and session[:user].name %>
-		<span class="login" id="signedin">
-			<% if @user %>
-				Welcome
-				<% if @user.is_payer and session[:payer].name? %>
-					<%= session[:payer].name %>
-				<% elsif @user.is_retailer and session[:retailer].name? %>
-					<%= session[:retailer].name %>
-				<% else %>
-					<%= session[:user].name %>
-				<% end %> 
-			<% end %>
-		</span>
+	<% if params[:action] != 'index' and session[:payer] and session[:payer].name %>
+		<span class="login" id="signedin"><%= "Welcome #{session[:payer].name}" %></span>
 		<%= link_to "Sign Out", "/subscriber/signout", :class => "login", :id => "signout" %>
 	<% else %>		
 		<%= link_to "Sign In", "/subscriber/signin", :class => "login", :id => "signin" %>

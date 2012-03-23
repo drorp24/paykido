@@ -18,6 +18,14 @@ class Payer < ActiveRecord::Base
 #  validates_numericality_of :phone, :allow_nil => true
 #  validates_length_of :phone, :is => 10, :allow_nil => true
   
+  def remember_me
+    @remember_me
+  end
+  
+  def remember_me=(rm)
+    
+  end
+
   def phone_alert_human
     (self.phone_alert) ?"Off":"On"                                        #reversed for color...
   end
@@ -73,6 +81,14 @@ class Payer < ActiveRecord::Base
     payer
   end
   
+  def self.authenticate_by_hp(email, hash)
+    payer = self.find_by_email(email)
+    return unless payer
+    if payer.hashed_password != hash
+      payer = nil
+    end
+    payer
+  end
   
   # 'password' is a virtual attribute
   
