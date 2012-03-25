@@ -15,12 +15,6 @@ class SubscriberController < ApplicationController
     redirect_to :controller => "service", :action => "index"    
   end
   
-  def approve
-        
-    redirect_to :action => :payer_signedin, :approve => params[:purchase_id]
-    
-  end
-
   def signin
     
    if request.post?
@@ -32,7 +26,7 @@ class SubscriberController < ApplicationController
         redirect_to :action => :payer_signedin
       else
         reset_session
-        flash[:notice] = params[:payer][:email] + ' ' + params[:payer][:password]
+        flash[:notice] = "User or password are incorrect. Please try again."
         redirect_to :controller => "service", :action => "index"
       end
       
@@ -49,12 +43,29 @@ class SubscriberController < ApplicationController
       redirect_to :action => :payer_signedin, :name => params[:name], :invited_by => params[:invited_by]
     else
       reset_session
-      flash[:notice] = params[:authenticity_token]
+      flash[:notice] = "User or password are incorrect. Please try again."
       redirect_to :controller => "service", :action => "index"
     end
     
   end
    
+  def approve
+        
+    @payer = Payer.authenticate_by_hashed_password(params[:authenticity_token])
+
+    if @payer
+      set_payer_session(@payer)
+      redirect_to :action => :payer_signedin, :approve => params[:purchase_id]
+    else
+      reset_session
+      flash[:notice] = "User or password are incorrect. Please try again."
+      redirect_to :controller => "service", :action => "index"
+    end
+    
+  end
+
+
+
   def signout
     
     #session is cleared upon next signin, provided it's not the same user/payer

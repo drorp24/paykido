@@ -64,7 +64,7 @@ body {
 
 #pic {
 	position: absolute;
-	bottom: 33px;
+	bottom: 41px;
 	left:130px;
 }
 
@@ -78,6 +78,7 @@ body {
 #registration {
 	position: absolute;
 	left: 329px;
+/*	left: 0; */
 	top:36px;
 
 }

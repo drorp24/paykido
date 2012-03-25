@@ -1,7 +1,7 @@
 $('#salutation').html('<%= @salutation %>');
 $('#name').html('<%= @name %>');
 <% if @pic %>
-	$('#pic').attr('src', '<%= @pic %>');
+	$('#pic').html('<%= image_tag @pic %>');
 <% else %>
 	$('#pic').empty();
 <% end %>

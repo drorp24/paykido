@@ -32,12 +32,10 @@
 			</div>
 		</div>
 			
-		<div id="pic-n-like">
-			<div id="pic">
-				<% if @pic %>
-					<%= image_tag @pic %>
-				<% end %>
-			</div>
+		<div id="pic">
+			<% if @pic %>
+				<%= image_tag @pic %>
+			<% end %>
 		</div>
 	</div>
 	<div class="fr right">
@@ -62,9 +60,27 @@
 			{ "name":"payer_phone",     "description":"Your parent mobile # (e.g., 2131234567)",  "type":"text"},
 			{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
 		]' 
-		>
+		onvalidate="validate_async">
 	</fb:registration>
 </div>
+<script>
+// FACEBOOK BUG - ERROR MESSAGE NOT RENDERED WHEN WIDGET WIDTH < 520
+// Otherwise payer's email should be checked for uniqueness
+// There should actually be a different way to warn for this, since a window should appear
+// Facebook (when working) will not let it
+/*
+function validate_async(form, cb) {
+  $.getJSON('http://graph.facebook.com/' + form.payer_email + '?callback=?', 
+    function(response) {
+      if (response.error) {
+        // Username isn't taken, let the form submit
+        cb({payer_email: 'That username is taken'});
+      }
+      cb({payer_email: 'That username is taken'});
+  });
+}
+*/
+</script>
 <script type="text/javascript">
 
 	<% unless @consumer %>
