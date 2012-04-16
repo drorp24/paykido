@@ -7,7 +7,7 @@
     <a href="#" class="small button" id="pending-button">
         <span class="icon16 question"></span>
         Pending
-        <span class="message-count"><%= @pendings %></span>
+        <span class="message-count"><%= @pendings_count %></span>
     </a>
     <a href="#" class="small button" id="authorized-button">
         <span class="icon16 tick2"></span>
@@ -146,7 +146,7 @@ $(document).ready(function() {
     $('#authorized-button').click(function () {
             $('.action_bar.filters a').removeClass('blue');
             $(this).addClass('blue');
-            pTable.fnFilter('Whitelisted|ManuallyAuthorized|Always|Under', 2, true, false, false );
+            pTable.fnFilter('Whitelisted|ManuallyAuthorized|Always|Under', 1, true, false, false );
     });
 
     $('#blocked-button').click(function () {
@@ -162,18 +162,4 @@ $(document).ready(function() {
     });
 });
 
-</script> 
-<!-- Notify and create bubble 
-<script type="text/javascript">
-
-$(document).ready(function () {
-
-     <% if @pendings > 0 %>
-        <% message =  "There are #{@pendings} purchases awaiting your approval. " %>
-        <% message += "You can save your time and money if you use Paykido. See how." unless @payer.registered? %>
-        notify('sticky', '<%= "#{@consumer.name} needs your approval" %>', '<%= message %>');
-    <% end %>   
-
-    })
-</script> 
--->                         
+</script>

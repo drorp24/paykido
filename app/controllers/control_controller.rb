@@ -19,7 +19,6 @@ class ControlController < ApplicationController
         return
       end
       
-      session[:consumer] = Consumer.find(281)         # temporary. No consumer is needed. Dashboard starts with family
       redirect_to :action => 'dashboard'
     end
           
@@ -31,10 +30,10 @@ class ControlController < ApplicationController
   
   def dashboard
 
-    # change to info
     @purchases = Purchase.where("payer_id = ?", @payer.id).includes(:consumer, :retailer)
-    @pendings = @purchases.where("authorization_type = ?",'PendingPayer').count
-    @name = @consumer.name
+    @pendings = @purchases.where("authorization_type = ?",'PendingPayer')
+    @pendings_count = @pendings.count
+    @purchase = Purchase.find(445) # Temporary. Should be @pendings[0]                    
 
   end    
   
@@ -67,28 +66,6 @@ class ControlController < ApplicationController
     
   end
   
-  def approval
-  
-    @purchase = session[:purchase] = Purchase.find(params[:id])
-    @consumer = @purchase.consumer
-    @payer = @purchase.payer
-    @approved = (params[:approved] == 'true')
-    @activity = session[:activity] = (@approved) ?'approve' :'decline'
-    @title = @purchase.product
-    @category = @purchase.category.name
-    @merchant = @purchase.retailer.name
-  
-    if @payer.registered?     
-      @merchant_whitelisted = @purchase.retailer.whitelisted?(@payer.id, @consumer.id)
-      @merchant_blacklisted = @purchase.retailer.blacklisted?(@payer.id, @consumer.id)
-      @category_whitelisted = @purchase.category.whitelisted?(@payer.id, @consumer.id)
-      @category_blacklisted = @purchase.category.blacklisted?(@payer.id, @consumer.id)
-      @product_whitelisted = @purchase.product.whitelisted?(@payer.id, @consumer.id)
-      @product_blacklisted = @purchase.product.blacklisted?(@payer.id, @consumer.id)
-    end
-    
-  end
-
   def purchase
     
     @purchase = Purchase.find(params[:id])
@@ -119,7 +96,7 @@ class ControlController < ApplicationController
 
   private
   
- def check_and_restore_payer_session    
+  def check_and_restore_payer_session    
    check_payer_session
    restore_payer_session    
   end
