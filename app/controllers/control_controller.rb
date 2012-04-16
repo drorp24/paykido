@@ -33,7 +33,9 @@ class ControlController < ApplicationController
     @purchases = Purchase.where("payer_id = ?", @payer.id).includes(:consumer, :retailer)
     @pendings = @purchases.where("authorization_type = ?",'PendingPayer')
     @pendings_count = @pendings.count
-    @purchase = Purchase.find(445) # Temporary. Should be @pendings[0]                    
+
+    @purchase = Purchase.find(445) # Temporary. Should be @pendings[0]
+    @consumer = @purchase.consumer                    
 
   end    
   
@@ -60,8 +62,6 @@ class ControlController < ApplicationController
         
     respond_to do |format|  
       format.js
-      format.html {redirect_to zzz}
-       
     end
     
   end

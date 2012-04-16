@@ -40,7 +40,7 @@
     <table class="purchase_info">
         <tbody>
         <%= form_tag do %>
-            <% if @purchase.properties %>
+            <% if @purchase.properties %>    
             <% @purchase.properties.sort.each do |property, value| %>
                 <tr class="purchase_line">
                     <td class="purchase_title"><%= t property %>:</td>
@@ -76,7 +76,7 @@
         <p>Approve by... at... reason:....</p>
     </div>
 
- <%= render 'rule_popover' %> 
+<%= render 'rule_popover' %> 
 
 <%= render 'rule_modal' %>
 
