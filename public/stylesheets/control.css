@@ -19,14 +19,14 @@
     width: 12em;
 }
 
-.actions #approve {
+.actions #whitelist {
     float: right;
 }
 
-.actions #decline {
+.actions #blacklist {
     margin-left: 1.5em;
 }
-.rule.property_value {
+.rule.name {
     color: #4C82B3;
 }
 
@@ -164,12 +164,13 @@ body#paykido .tooltip {
 .rule {
  
 }
-.rule.instructions {
+.rule.actions {
     margin-top: 16px; 
-    font-size: 13px;      
+    font-size: 13px;
+    width: 100%;      
 }
 
-.rule.property_value {
+.rule.name {
     margin-top: 45px;
     font-size: 2em;   
 }
@@ -187,7 +188,7 @@ body#paykido .tooltip {
 }
 
 #new_rule {
-    width: 75%;
+    width: 80%;
     margin-left: 20%;
 }
 
@@ -293,7 +294,7 @@ tr:hover .approval_buttons p a{
 }
 
 .purchase_height {
-    height: 810px;
+    height: 939px;
 }
 
 .allowance.date_picker {

@@ -9,11 +9,6 @@ end
 
 class ConsumerController < ApplicationController
   
-  #  before_filter :ensure_friend_authenticated
-  #  before_filter :ensure_consumer_authenticated, :except => ["login", "register", "register_callback"]
-    
-  
-  
   def login
     
     get_purchase_parameters
@@ -38,8 +33,8 @@ class ConsumerController < ApplicationController
   def get_purchase_parameters
     
     if params[:mode] and params[:mode] == 'demo'
-      session[:retailer] = 'zynga'          # check it exists in the retailer table   
-      session[:title] = 'farmville'         # check it exists in the title table
+      session[:retailer] = 'zynga'             
+      session[:title] = 'farmville'         
       session[:product] = params[:product].split('@')[0]
       session[:price] = params[:product].split('@')[1]
     elsif params[:merchant]
@@ -111,7 +106,7 @@ class ConsumerController < ApplicationController
   
 
   
-  def register_callback # try making it ajax instead of attempting to redirect (looks like facebook doesnt allow) 
+  def register_callback  
       
     find_or_create_consumer_and_payer     
     flash[:notice] = "email problem" unless request_joinin(@payer, @consumer)    
@@ -160,22 +155,19 @@ class ConsumerController < ApplicationController
     
   def buy
     
-#    begin 
-           
       @purchase = session[:purchase] = 
       Purchase.create_new!(session[:payer], session[:consumer], session[:retailer], session[:title], session[:product], session[:price], session[:params])
                                           
       @purchase.authorize!
-      if @purchase.authorized?                        # and @purchase.paid? (succesfully)?
-#       pay_retailer                                  # @purchase.pay!
-        @purchase.account_for!                        # if payment was succesful!       
+      if @purchase.authorized?                        
+#       @purchase.pay!                                  
+        @purchase.account_for!                        # if payment was succesful       
       elsif @purchase.requires_manual_approval?
-        request_approval(@purchase)                   #replace with purchase.request_approval - no need for any param then
+        request_approval(@purchase)                   #replace with purchase.request_approval (move to model)
       end
       authorization_messages      
     
     respond_to do |format|  
-      format.html {  }  
       format.js  
     end
     
@@ -184,7 +176,7 @@ class ConsumerController < ApplicationController
 
   def authorization_messages
     
-    if    @purchase.authorized
+    if    @purchase.authorized?
 
       @first_line = "#{session[:product]} is yours!"
       @second_line = "Thanks for using paykido"
@@ -245,10 +237,5 @@ class ConsumerController < ApplicationController
     
   end 
   
-  private
-  
-  def ensure_friend_authenticated    
-    redirect_to  :controller => 'welcome', :action => 'index' unless session[:friend_authenticated]    
-  end
       
 end

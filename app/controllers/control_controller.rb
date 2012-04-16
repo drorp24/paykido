@@ -74,19 +74,10 @@ class ControlController < ApplicationController
     
   end
   
-  def rule
+  def set_rule
     
-    consumer = Consumer.find(params[:consumer])
-    
-    if params[:instruction] == 'approve'
-      consumer.whitelist!(params[:property], params[:value])
-    elsif params[:instruction] == 'decline' 
-      consumer.blacklist!(params[:property], params[:value])
-    elsif params[:instruction] == 'ask about'
-      consumer.noRule!(params[:property], params[:value]) 
-    else
-      @error = 'invalid activity' 
-    end
+    consumer = Consumer.find(params[:consumer])   
+    consumer.set_rule!(params[:property], params[:value], params[:rule])
   
     respond_to do |format|  
       format.js     

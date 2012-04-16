@@ -52,10 +52,10 @@
                         <% end %>
                     </td>
                     <td class="actions">
-                        <a id="decline" href="#new_rule" data-consumer="<%= @purchase.consumer_id %>" data-instruction="decline" data-property="<%= property %>" data-value="<%= value %>" class="modal small button rule <%= (@consumer.blacklisted?(property,value)) ?'blue' :'regular greyedOut' %>">
+                        <a id="blacklist" href="#new_rule" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule="blacklist" data-property="<%= property %>" data-value="<%= value %>" class="modal small button rule <%= (@consumer.blacklisted?(property,value)) ?'blue' :'regular greyedOut' %>">
                             <span class="icon16 blacklist"></span>NO
                         </a>
-                        <a id="approve" href="#new_rule" data-consumer="<%= @purchase.consumer_id %>" data-instruction="approve" data-property="<%= property %>" data-value="<%= value %>" class="modal small button rule <%= (@consumer.whitelisted?(property,value)) ?'blue' :'regular greyedOut' %>">
+                        <a id="whitelist" href="#new_rule" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule="whitelist" data-property="<%= property %>" data-value="<%= value %>" class="modal small button rule <%= (@consumer.whitelisted?(property,value)) ?'blue' :'regular greyedOut' %>">
                             <span class="icon16 whitelist"></span>OK
                         </a>
                     </td>
@@ -88,14 +88,20 @@ $('document').ready(function() {
     
    $('.rule.button').click(function () {
        
-       var instruction = $(this).attr('data-instruction');
+       var rule = 		 $(this).attr('data-rule');
        var property =    $(this).attr('data-property');
        var value =       $(this).attr('data-value');
        var consumer =    $(this).attr('data-consumer');       
-       $('.instruction').html(instruction);
+       var name =    	 $(this).attr('data-name');       
+       $('.action').html(function () {
+       		if 		(rule == 'whitelist') {return 'authorize'}
+       		else if (rule == 'blacklist') {return 'decline'} 
+       		else if (rule = '') {return 'ask about'}
+       });
        $('.property').html(property);
        $('.value').html(value);
-       $('#create_rule').attr('data-url', 'rule?instruction=' + instruction + '&property=' + property + '&value=' + value + '&consumer=' + consumer);
+       $('.name').html(name);
+       $('#create_rule').attr('data-url', 'set_rule?rule=' + rule + '&property=' + property + '&value=' + value + '&consumer=' + consumer);
        
     });  
     

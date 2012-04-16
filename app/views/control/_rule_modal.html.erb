@@ -7,18 +7,19 @@
     <div class="box-content">
         <div class="rule header">
             Always
-            <span class="instruction"></span>
+            <span class="action"></span>
             <span class="property"></span>
-        </div>
-        <div class="rule property_value">
             <span class="value"></span>
         </div>
-        <div class="rule instructions">
+        <div class="rule name">
+            <span class="name"></span>
+        </div>
+        <div class="rule actions">
             <% if @payer.registered? %>
-                <p>Paykido will automatically <span class="instruction"></span> purchases whose <span class="property"></span> is <span class="value"></span></p>
-                <p>Click <strong>YES</strong> to activate rule</p>
+                <p>Paykido will automatically <span class="action"></span> purchases attempted by <span class="name"></span> whose <span class="property"></span> is <span class="value"></span>.</p>
+                <p>Click <strong>YES</strong> to activate rule.</p>
             <% else %>
-                <p>Paykido will automatically <span class="instruction"></span> purchases whose <span class="property"></span> is <span class="value"></span></p>
+                <p>Paykido will automatically <span class="action"></span> purchases whose <span class="property"></span> is <span class="value"></span></p>
                 <p>Note: You need to <strong>SIGN-UP</strong> if you want to use Paykido Rules</p>
             <% end %>
         </div>

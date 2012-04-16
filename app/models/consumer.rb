@@ -4,19 +4,7 @@ class Consumer < ActiveRecord::Base
   belongs_to :payer
   has_many :purchases
   has_many :rules
-  
-  has_many  :payer_rules
-  has_one :most_recent_payer_rule,
-    :class_name =>  'PayerRule' ,
-    :order =>       'created_at DESC'
-    
-  validate :amounts_are_sensible
-  
-  def amounts_are_sensible
-    errors[:base] << "amounts cannot overlap" if 
-      self.auto_authorize_under and self.auto_deny_over and self.auto_authorize_under > self.auto_deny_over
-  end
-  
+      
   def rule(property, value)
     rule = Rule.find_by_payer_id_and_consumer_id_and_property_and_value(self.payer_id, self.id, property, value)
     return 0 unless rule
@@ -27,6 +15,18 @@ class Consumer < ActiveRecord::Base
     else
       return 0
     end
+  end
+  
+  def set_rule!(property, value, rule) 
+
+    if rule == 'whitelist'
+      self.whitelist!(property, value)
+    elsif rule == 'blacklist' 
+      self.blacklist!(property, value)
+    elsif rule == ''
+      self.no_rule!(property, value) 
+    end
+
   end
 
   def blacklist!(property, value)
@@ -47,7 +47,7 @@ class Consumer < ActiveRecord::Base
     Rule.where(:payer_id => self.payer_id, :consumer_id => self.id, :property => property, :value => value, :action => 'whitelisted').exists?
   end
   
-  def noRule!(property, value)
+  def no_rule!(property, value)
     rule = Rule.find_or_initialize_by_payer_id_and_consumer_id_and_property_and_value(self.payer_id, self.id, property, value)
     rule.update_attributes!(:action => '')
   end
