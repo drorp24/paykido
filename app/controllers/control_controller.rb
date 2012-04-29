@@ -13,13 +13,12 @@ class ControlController < ApplicationController
     
     if request.post?
            
-      unless session[:payer] = Payer.authenticate(params[:username], params[:password])
-        flash.now[:notice] = "user or password are incorrect. Please try again!"
-        redirect_to :controller => 'landing', :action => 'index'
-        return
+      if session[:payer] = Payer.authenticate(params[:username], params[:password])
+        redirect_to :action => 'dashboard'
+      else
+        flash.now[:notice] = "Incorrect user or password. Please try again!"
       end
       
-      redirect_to :action => 'dashboard'
     end
           
   end
@@ -34,7 +33,7 @@ class ControlController < ApplicationController
     @pendings = @purchases.where("authorization_type = ?",'PendingPayer')
     @pendings_count = @pendings.count
 
-    @purchase = Purchase.find(445) # Temporary. Should be @pendings[0]
+    @purchase = Purchase.find(446) # Temporary. Should be @pendings[0]
     @consumer = @purchase.consumer                    
 
   end    

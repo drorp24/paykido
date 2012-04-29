@@ -10,6 +10,8 @@
 	<%= radio_button_tag("product", "25 Farm Cash@3.00", false, :class=> "option", 	:id=>"e") %>
 <% end %>
 
+<img src="/images/paykido_button.png" id="paykido_button" border=0 alt=""/>
+<!-- 
 <a href="http://<%= request.host + ':' + request.port.to_s %>/consumer/login?
 	merchant=Zynga&
 	app=Farmville&
@@ -23,18 +25,17 @@
 	rel="paykido">
 	<img src="http://www.paykido.com/images/paykido_button.png" id="paykido_button" alt="paykido"/>
 </a>
-
+-->
 <script type="text/javascript">
-/*	
+
 $(document).ready(function () {
 
-	$('a[rel*=facebox]').click(function() {
+	$('#paykido_button').click(function() {
 		var url = '/consumer/login?mode=demo&' + $('#product_form').serialize();  
-		var url = $(this).attr("href")
-		$.facebox({
+		$.paykido({
 			ajax: url
 		});
-
+/*	
         hs.htmlExpand(null, { 
                 src: url, objectType: 'ajax', 
                 creditsPosition: 'bottom left',  
@@ -42,8 +43,9 @@ $(document).ready(function () {
 		
 
 		window.location = url; // to test it without the lightbox 				
-
-	})
-
 */
+	});
+});
+
+
 </script>

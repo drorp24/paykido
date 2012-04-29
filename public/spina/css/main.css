@@ -18,6 +18,11 @@ body#login {
   background: url(../img/login_bg.png);
 }
 
+#login_error {
+	position: absolute;
+	top: 125px;
+	left: 10px;
+}
 /* Primary navigation */
 
 nav#primary {
