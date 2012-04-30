@@ -4,8 +4,8 @@ body {
 }
 #status_line {
 	display: none;
-	margin-left: -13px;
 	margin-top: 58px;
+	text-align: center;
 }
 .approved {
 	background-image: url(/spina/img/icons/tick_32.png);
@@ -194,7 +194,7 @@ form, .text {
 #buy {
 	margin-left: auto;
 	margin-right: auto;
-	width: 50%;
+	width: 100%;
 	margin-bottom: 50px;
 	margin-top: 20px;
 	
