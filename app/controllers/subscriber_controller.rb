@@ -36,7 +36,7 @@ class SubscriberController < ApplicationController
  
   def invite
     
-    @payer = Payer.authenticate_by_hashed_password(params[:authenticity_token])
+    @payer = Payer.authenticate_by_token(params[:email], params[:authenticity_token])
 
     if @payer
       set_payer_session(@payer)

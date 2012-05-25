@@ -81,19 +81,10 @@ class Payer < ActiveRecord::Base
     payer
   end
   
-  def self.authenticate_by_hp(email, hash)
-    payer = self.find_by_email(email)
-    return unless payer
-    if payer.hashed_password != hash
-      payer = nil
-    end
-    payer
+  def self.authenticate_by_token(email, hash)     # temporarily replacing what devise will do using user and token
+    payer = self.find_by_email_and_hashed_password(email, hash)
   end
   
-  def self.authenticate_by_hashed_password(hash)
-    payer = self.find_by_hashed_password(hash)
-  end
-
   # 'password' is a virtual attribute
   
   def password

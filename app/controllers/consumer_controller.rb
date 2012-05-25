@@ -1,12 +1,3 @@
-require 'rubygems'
-require 'clickatell'
-class Safecharge
-  include HTTParty
-  base_uri 'https://test.safecharge.com'
-  format :xml
-end
-
-
 class ConsumerController < ApplicationController
   
   def login
@@ -124,18 +115,19 @@ class ConsumerController < ApplicationController
     
     if facebook_params_user_id = facebook_params['user_id']
       @consumer = Consumer.find_or_initialize_by_facebook_id(facebook_params_user_id)   
-    elsif current_facebook_user #probably never true for some reason
+    elsif current_facebook_user #probably never true
       @consumer = Consumer.find_or_initialize_by_facebook_id(current_facebook_user.id)
     else # this shouldn't happen 
       @consumer = session[:consumer] || Consumer.new
     end 
     
     @payer = @consumer.payer || Payer.find_or_initialize_by_email(facebook_params['registration']['payer_email'])
-    @payer.update_attributes!(
+    @payer.update_attributes(
           :name => facebook_params['registration']['payer_name'], 
           :email => facebook_params['registration']['payer_email'], 
-          :phone => facebook_params['registration']['payer_phone'])    
-
+          :phone => facebook_params['registration']['payer_phone'])
+    @payer.password= "1"     # TEMP: till devise will handle it properly, accessing the account uses payer's hashed_password as token   
+    @payer.save!
     @consumer.update_attributes!(
           :name => facebook_params['registration']['name'].split(' ')[0],
           :payer_id => @payer.id, 
@@ -163,7 +155,7 @@ class ConsumerController < ApplicationController
 #       @purchase.pay!                                  
         @purchase.account_for!                        # if payment was succesful       
       elsif @purchase.requires_manual_approval?
-        request_approval(@purchase)                   #replace with purchase.request_approval (move to model)
+        request_approval(@purchase)                   #replace with purchase.request_approval
       end
       authorization_messages      
     
@@ -230,7 +222,7 @@ class ConsumerController < ApplicationController
       return false
     end
 
-    if Current.policy.send_sms?
+    if Current.policy.send_sms?     
       message = "Hi #{payer.name}! #{consumer.name} asked us to tell you about Paykido. See our email for details"
       sms(payer.phone, message)
     end 

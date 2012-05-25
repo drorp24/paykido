@@ -1,20 +1,12 @@
 class Purchase < ActiveRecord::Base
+
   serialize :properties
 
-#  versioned
-  
   belongs_to :consumer
   belongs_to :payer
   belongs_to :retailer
-#  belongs_to :product
-#  belongs_to :title
-  has_one :category
+  has_one    :category      # bck compat. delete after throwing alpha.
   
-#  validates_presence_of :consumer_id, :payer_id, :retailer_id, :product_id, :amount, :date
-#  validates_numericality_of :amount
-  
-#  attr_accessor :authorization_date, :authorization_type
-
   def self.create_new!(payer, consumer, retailer, title, product, price, params)
     
     retailer_id = Retailer.find_or_create_by_name(retailer).id
@@ -24,8 +16,8 @@ class Purchase < ActiveRecord::Base
     self.create!(:payer_id => payer.id,
                  :consumer_id => consumer.id,
                  :retailer_id => retailer_id,
-                 :product_id => product_id,             # not needed anymore - left for bck compat. (/service)
-                 :category_id => 3,                     # not needed anymore - left for bck compat. (/service) 
+                 :product_id => product_id,             # not needed anymore - left for bck compat to alpha (/service)
+                 :category_id => 3,                     # not needed anymore - left for bck compat to alpha (/service) 
                  :product => product,
                  :title => title,                 
                  :amount => price,
@@ -164,6 +156,8 @@ class Purchase < ActiveRecord::Base
     self.retailer.record!(amount)    
    
   end
+
+######### OBSOLETE - NEXT CLEAN
 
   def self.pending_amt(payer_id)
     self.sum(:amount, :conditions => ["payer_id = ? and authorization_type = ?", payer_id, "PendingPayer"]) 

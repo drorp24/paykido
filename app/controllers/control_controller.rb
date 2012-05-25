@@ -2,15 +2,16 @@ class ControlController < ApplicationController
 
 # 3 types of activities:
 # => full page (e.g., control/dashboard)  triggered by sub-menu     return html   (default render)      ajax by Spina
-# => pane replace (e.g., purchase)        trigered by link on page  return html   render layout false   ajax by me
-# => update act(e.g., approve, whitelist) triggered by by button    return js     format js             ajax by me
+# => pane replace (e.g., purchase)        trigered by link on page  return html   render layout false   ajax call
+# => update act(e.g., approve, whitelist) triggered by by button    return js     format js             ajax call
 
 
 
-  before_filter :check_and_restore_payer_session, :except => [:login, :logout]
+  before_filter :check_and_restore_payer_session, :except => [:login, :logout, :access]
 
-  def login
-    
+
+  def login     # (use devise for authentication)
+
     if request.post?
            
       if session[:payer] = Payer.authenticate(params[:username], params[:password])
@@ -27,6 +28,19 @@ class ControlController < ApplicationController
     
   end 
   
+  def access       # access account (using token) to perform some manual activity
+      
+    if @payer = Payer.authenticate_by_token(params[:email], params[:token])
+      session[:payer] = @payer
+      redirect_to :action => 'dashboard', :consumer => params[:consumer], :activity => params[:activity]
+    else
+      reset_session
+      flash[:notice] = "Incorrect user or password. Please try again!"
+      redirect_to :action => 'login'
+    end
+  
+  end   
+
   def dashboard
 
     @purchases = Purchase.where("payer_id = ?", @payer.id).includes(:consumer, :retailer)
@@ -44,6 +58,7 @@ class ControlController < ApplicationController
     
     if params[:consumer] 
 
+      # do these checks in the model too
       allowance_changed = true if params[:consumer][:allowance] and params[:consumer][:allowance] != @consumer.allowance
       period_changed = true if params[:consumer][:allowance_period] and params[:consumer][:allowance_period] != @consumer.allowance_period    
           
@@ -95,7 +110,7 @@ class ControlController < ApplicationController
     unless session[:payer]  
       flash[:message] = "Please sign in with payer credentials"
       reset_session
-      redirect_to  :controller => 'landing', :action => 'index'
+      redirect_to  :controller => 'home', :action => 'index'
     end 
   end  
   

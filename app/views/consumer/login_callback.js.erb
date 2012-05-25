@@ -8,3 +8,5 @@ $('#name').html('<%= @name %>');
 $('#ajax_message #first_line').html("<%= @first_line %>");
 $('#ajax_message #second_line').html("<%= @second_line %>");
 $('#login_button').unbind('click');
+$('#login_button').hide();
+$('#registration').attr('style', 'display:block');

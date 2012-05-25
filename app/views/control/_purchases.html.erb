@@ -91,14 +91,14 @@
 
 <div id="pending_reminder" class="popover">
     <header>
-        Dror needs your approval
+        <%= "#{@consumer.name} needs your #{params[:activity]}" %>
     </header>
     <section>
         <div class="content">
             <nav>
                 <ul>
-                    <li class="new"><a><span class="avatar"><%= image_tag "https://graph.facebook.com/733552507/picture?type=large" %></span>These purchases await your manual approval</a></li>
-                   <li class="instruction">Register and let Paykido protect your kids and budget</li>
+                    <li class="new"><a><span class="avatar"><%= image_tag @consumer.tinypic %></span><%= "Please confirm you are #{@consumer.name}'s parent"%></a></li>
+                   <li class="instruction">Start using the service as soon as you confirm!</li>
                 </ul>
             </nav>
         </div>
