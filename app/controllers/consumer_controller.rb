@@ -100,7 +100,7 @@ class ConsumerController < ApplicationController
   def register_callback  
       
     find_or_create_consumer_and_payer     
-    flash[:notice] = "email problem" unless request_joinin(@payer, @consumer)    
+    flash[:notice] = "email problem" unless request_consumer_confirmation(@payer, @consumer)    
     redirect_to :controller => :play, :action => :index
 
   end
@@ -155,7 +155,7 @@ class ConsumerController < ApplicationController
 #       @purchase.pay!                                  
         @purchase.account_for!                        # if payment was succesful       
       elsif @purchase.requires_manual_approval?
-        request_approval(@purchase)                   #replace with purchase.request_approval
+        request_purchase_approval(@purchase)                   #replace with purchase.request_purchase_approval
       end
       authorization_messages      
     
@@ -179,11 +179,11 @@ class ConsumerController < ApplicationController
           @first_line =  "Approval reuiqred but email is down at the moment"
           @second_line = "Please try again in a few moments"
        else  
-          @first_line =  "This has to be manually authorized"
+          @first_line =  "This has to be approved by parent"
           @second_line = "Approval request has been sent"
        end
 
-     elsif !@purchase.authorized 
+     elsif @purchase.unauthorized? 
 
         @first_line = "This purchase is unauthorized"
         @second_line = "#{t @purchase.authorization_property}: #{@purchase.authorization_value} is #{t @purchase.authorization_type}"
@@ -201,10 +201,10 @@ class ConsumerController < ApplicationController
     
   end  
   
-  def request_approval(purchase)
+  def request_purchase_approval(purchase)
     
     begin
-      UserMailer.approval_email(purchase).deliver
+      UserMailer.purchase_approval_email(purchase).deliver
     rescue
       @email_problem = true
     else
@@ -216,16 +216,14 @@ class ConsumerController < ApplicationController
     
   end
   
-  def request_joinin(payer, consumer)     
+  def request_consumer_confirmation(payer, consumer)     
 
-    unless UserMailer.joinin_email(payer, consumer).deliver
+    unless UserMailer.consumer_confirmation_email(payer, consumer).deliver
       return false
     end
 
-    if Current.policy.send_sms?     
-      message = "Hi #{payer.name}! #{consumer.name} asked us to tell you about Paykido. See our email for details"
-      sms(payer.phone, message)
-    end 
+    message = "Hi #{payer.name}! #{consumer.name} asked us to tell you about Paykido. See our email for details"
+    sms(payer.phone, message)
     
   end 
   

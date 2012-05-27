@@ -15,9 +15,10 @@ class Payer < ActiveRecord::Base
   
   attr_accessor :password_confirmation
   
-#  validates_numericality_of :phone, :allow_nil => true
-#  validates_length_of :phone, :is => 10, :allow_nil => true
-  
+  def purchases
+    Purchase.where("payer_id = ?", self.id).includes(:consumer, :retailer)
+  end
+
   def remember_me
     @remember_me
   end

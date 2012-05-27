@@ -1,0 +1,26 @@
+<div id="approval_popover" class="popover">
+    <header>
+        <%= t 'approval_heading' %>
+    </header>
+    <section>
+		<div class="content">
+			<nav>
+				<ul>
+               		<li class="new">
+		            	<% if @consumer.tinypic %>		<!-- move to a helper -->
+		            		<span class="consumer avatar fl"><%= image_tag @consumer.tinypic %></span>
+		            	<% else %>
+		            		<span class="consumer icon32 user fl"></span>
+		            	<% end %>
+                   		<span><%= t 'approval_first_line', :name => @consumer.name, :count => @pendings_count %></span>
+               		</li>
+                    <li class="instructions">
+                    	<a><%= t 'approval_second_line' %></a>
+                	</li>
+
+                </ul>
+            </nav>
+        </div>
+    </section>
+</div>
+

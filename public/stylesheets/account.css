@@ -1,3 +1,52 @@
+.consumer.active.confirmed a .avatar.fr img{   //find a uniform way of returning positive feedback on an element
+    -webkit-transition: border, -webkit-box-shadow, 0.5s ease;
+    -moz-transition: border, -moz-box-shadow, 0.5s ease;
+    -ms-transition:0.5s ease;
+    -o-transition:0.5s ease;
+    transition:border, box-shadow, 0.5s ease;
+
+	box-shadow: 0 0 12px #111;
+	-moz-box-shadow: 0 0 12px #111;
+	-webkit-box-shadow: 0 0 12px #111;
+	
+	border: 2px solid green;
+	position: relative;
+	top: -2px;
+	right: -2px;
+}
+
+#confirmation_modal {
+	width: 424px;
+}
+
+}
+
+.consumer.icon32.user {
+	margin-top: 11px;
+}
+
+.consumer.avatar img{
+	position: absolute;
+	top: 51px;
+	left: 10px;
+}
+
+.login {
+	float: right;
+	margin-right: 3%;
+	margin-top: 7px;
+}
+.secondary_name {
+	line-height: 32px;
+	
+}
+.avatar img {
+	width: 32px;
+	height: 32px;
+	box-shadow: 0 0 3px #111111;
+	-moz-box-shadow: 0 0 3px #111111;
+	-webkit-box-shadow: 0 0 3px #111111;
+}
 .fl {
     float: left;
 }

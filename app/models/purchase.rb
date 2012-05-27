@@ -5,7 +5,6 @@ class Purchase < ActiveRecord::Base
   belongs_to :consumer
   belongs_to :payer
   belongs_to :retailer
-  has_one    :category      # bck compat. delete after throwing alpha.
   
   def self.create_new!(payer, consumer, retailer, title, product, price, params)
     
@@ -16,13 +15,11 @@ class Purchase < ActiveRecord::Base
     self.create!(:payer_id => payer.id,
                  :consumer_id => consumer.id,
                  :retailer_id => retailer_id,
-                 :product_id => product_id,             # not needed anymore - left for bck compat to alpha (/service)
-                 :category_id => 3,                     # not needed anymore - left for bck compat to alpha (/service) 
                  :product => product,
                  :title => title,                 
                  :amount => price,
                  :date => Time.now,
-                 :properties => {
+                 :properties => {                                  #properties are the black/whitelistable items
                     "retailer" =>  retailer,
                     "title" =>     title,
                     "category" =>     title_rec.category,                                   
@@ -43,6 +40,8 @@ class Purchase < ActiveRecord::Base
                   )
   end
 
+  # terminology:  'authorize'/'unauthorize' is used when Paykido programmatically authorizes purchase.
+  #               'approve'/'decline' is used when a human being (parent) authorizes it (or not).
 
   def authorize!
        
@@ -99,52 +98,52 @@ class Purchase < ActiveRecord::Base
     
   end  
 
-  def require_manual_approval
+  def require_approval
     self.authorization_type = "PendingPayer"
   end
 
-  def require_manual_approval!
+  def require_approval!
     self.update_attributes!(
       :authorization_type => "PendingPayer")
   end
   
-  def requires_manual_approval?
+  def requires_approval?
     self.authorization_type == "PendingPayer"
   end
 
   def manually_handled?
-    self.authorization_type == "ManuallyAuthorized" or 
-    self.authorization_type == "Unauthorized" or
+    self.authorization_type == "Approved" or 
+    self.authorization_type == "Declined" or
     self.authorization_type ==  "PendingPayer"
   end
     
-  def manually_authorize!
+  def approve!
     self.update_attributes!(
       :authorized => true,
-      :authorization_type => "ManuallyAuthorized",
+      :authorization_type => "Approved",
       :authorization_date => Time.now) 
   end
   
-  def manually_authorized?
-    self.authorization_type == "ManuallyAuthorized"
+  def approved?
+    self.authorization_type == "Approved"
   end
   
-  def manually_decline!
+  def decline!
     self.update_attributes!(
       :authorized => false,
-      :authorization_type => "Unauthorized",
+      :authorization_type => "Declined",
       :authorization_date => Time.now) 
   end
   
-  def manually_declined?
-    self.authorization_type == "Unauthorized"
+  def declined?
+    self.authorization_type == "Declined"       
   end
   
-  def automatically_authorized?
+  def authorized?
     self.authorized and !self.manually_handled?
   end
   
-  def automatically_declined?
+  def unauthorized?
     !self.authorized and self.authorization_type and !self.manually_handled?
   end
   
@@ -157,118 +156,4 @@ class Purchase < ActiveRecord::Base
    
   end
 
-######### OBSOLETE - NEXT CLEAN
-
-  def self.pending_amt(payer_id)
-    self.sum(:amount, :conditions => ["payer_id = ? and authorization_type = ?", payer_id, "PendingPayer"]) 
-  end
-  
-  def self.pending_trxs(payer_id)
-    self.find_all_by_payer_id(payer_id, 
-      :conditions => ["authorization_type = ? and consumer_id is not ?", "PendingPayer", nil ],
-      :order => "date desc")
-  end
-  
-  def self.pending_cnt(payer_id)
-    pending = self.pending_trxs(payer_id)
-    counter = pending.size
-    purchase_id = pending[0].id if counter == 1
-    return counter, purchase_id
-  end
-  
-  def self.pending_count(payer_id)
-    self.count :conditions => ["payer_id = ? and authorization_type = ? and consumer_id is not ?", payer_id, "PendingPayer", nil]
-  end
-  
-  def self.full_list(payer_id)
-    self.find_all_by_payer_id(payer_id,
-              :select => "id, retailer_id, product_id, amount, date, authorized")
-  end
-  
-    
-  def self.payer_retailers(payer_id)
-    self.find_all_by_payer_id(payer_id, :select => "DISTINCT retailer_id")
-  end
-  
-
-  def self.payer_products(payer_id)
-    self.find_all_by_payer_id(payer_id, :select => "DISTINCT product_id")
-  end
-  
-  def self.payer_categories(payer_id)
-    self.find_all_by_payer_id(payer_id, 
-        :joins  => "inner join products on purchases.product_id = products.id",
-        :group  => "category_id",
-        :select => "DISTINCT category_id")
-  end
-
-  def self.retailer_sales(retailer_id)
-    self.find_all_by_retailer_id(retailer_id, 
-        :joins  =>      "inner join products on purchases.product_id = products.id inner join categories on products.category_id = categories.id",
-        :select =>      "products.title, categories.name, date, amount, authorized, authorization_type, payer_id, product_id")
-  end
- 
-  def self.payer_purchases_by_consumers(payer_id, month)
-    self.sum   :amount,
-               :conditions => ["payer_id = ? and date('%m') = ?", payer_id, month],
-               :joins => "inner join consumers on purchases.consumer_id = consumer.id",
-               :group => "purchases.consumer_id",
-               :select => ("consumer_id, consumers.name, amount")
-
-  
-  end
-
-  def self.payer_consumers_the_works(payer_id)
-    self.find_all_by_payer_id(payer_id, 
-              :conditions => ["authorized = ?", true],
-              :group =>       "purchases.consumer_id, consumers.id, consumers.name, consumers.balance, consumers.pic",
-              :joins  =>      "inner join consumers on purchases.consumer_id = consumers.id",
-              :select =>      "consumers.id, name, balance, pic, sum(amount) as sum_amount, count(*) as purchase_count, max(date) as most_recent",
-              :order =>       "sum_amount desc")
-              
-
-  end
-
-  def self.payer_retailers_the_works(payer_id)
-    self.find_all_by_payer_id(payer_id, 
-              :conditions => ["authorized = ?", true],
-              :group =>       "purchases.retailer_id, retailers.id, retailers.name, retailers.logo",
-              :joins  =>      "inner join retailers on purchases.retailer_id = retailers.id",
-              :select =>      "retailers.id, retailers.name, retailers.logo, sum(amount) as total_amount, count(*) as purchase_count, max(date) as most_recent",
-              :order =>       "total_amount desc")
-              
-
-  end
-
-  def self.payer_products_the_works(payer_id)
-    self.find_all_by_payer_id(payer_id, 
-              :conditions => ["authorized = ?", true],
-              :group =>       "purchases.product_id, products.id, products.title, products.logo",
-              :joins  =>      "inner join products on purchases.product_id = products.id",
-              :select =>      "products.id, products.title, products.logo, sum(amount) as total_amount, count(*) as purchase_count, max(date) as most_recent",
-              :order =>       "total_amount desc")
-
-  end
-
-  def self.payer_categories_the_works(payer_id)
-    self.find_all_by_payer_id(payer_id, 
-              :conditions => ["authorized = ?", true],
-              :group =>       "purchases.category_id, categories.id, categories.name, categories.logo",
-              :joins  =>      "inner join categories on purchases.category_id = categories.id",
-              :select =>      "categories.id, categories.name, categories.logo, sum(amount) as total_amount, count(*) as purchase_count, max(date) as most_recent",
-              :order =>       "total_amount desc")
-
-  end
-
-  
-  def self.payer_purchases_the_works(payer_id)
-    self.find_all_by_payer_id(payer_id, 
-               :joins  =>      "inner join products on purchases.product_id = products.id inner join categories on products.category_id = categories.id inner join consumers on purchases.consumer_id = consumers.id inner join retailers on purchases.retailer_id = retailers.id",
-               :select =>      "purchases.id, consumers.id as consumer_id, consumers.name as consumer_name, retailers.id as retailer_id, retailers.name as retailer_name, retailers.logo as retailer_logo, products.id as product_id, products.title as product_title, categories.id as category_id, categories.name as category_name, amount, date, authorized, authorization_type, authorization_date",
-               :order =>       "date desc")
-
-  end
-
-  
-   
 end

@@ -42,15 +42,15 @@
             <td><%= purchase.authorization_type %></td>
             <td><%= purchase.authorized %></td>
             <td class="status">
-            <% if purchase.requires_manual_approval? %>
+            <% if purchase.requires_approval? %>
                 <span class="icon16 question tooltip" title="Requires your approval"></span>
-            <% elsif purchase.manually_authorized? %> 
+            <% elsif purchase.approved? %> 
                 <span class="icon16 tick2 tooltip" title="You approved it"></span>
-            <% elsif purchase.manually_declined? %> 
+            <% elsif purchase.declined? %> 
                 <span class="icon16 cross tooltip" title="You declined it"></span>
-            <% elsif purchase.automatically_authorized? %> 
+            <% elsif purchase.authorized? %> 
                 <span class="icon16 openlock tooltip" title="Approved based upon your rules"></span>
-            <% elsif purchase.automatically_declined? %> 
+            <% elsif purchase.unauthorized? %> 
                 <span class="icon16 lock tooltip" title="<%= t purchase.authorization_type %>"></span>
             <% else %> 
                 <span class="icon16 alert tooltip" title="Well this was not supposed to happen"></span>
@@ -89,32 +89,20 @@
     </tbody> 
 </table> 
 
-<div id="pending_reminder" class="popover">
-    <header>
-        <%= "#{@consumer.name} needs your #{params[:activity]}" %>
-    </header>
-    <section>
-        <div class="content">
-            <nav>
-                <ul>
-                    <li class="new"><a><span class="avatar"><%= image_tag @consumer.tinypic %></span><%= "Please confirm you are #{@consumer.name}'s parent"%></a></li>
-                   <li class="instruction">Start using the service as soon as you confirm!</li>
-                </ul>
-            </nav>
-        </div>
-    </section>
-</div>
-
+<%= render 'approval_popover' %>
 
 <script type="text/javascript"> 
 
 $(document).ready(function() {
 
-    $('.message-count').popover('#pending_reminder', {preventRight: true, preventBottom: true});
-    $('.message-count').trigger('open.popover');
+	// trigger the approval popover
+    $('.message-count').popover('#approval_popover', {preventLeft: true, preventBottom: true});
+	// these 2 lines should be removed once popover acts as it should 
+    $('.message-count').trigger('open.popover');      
 	window.setTimeout("$('#pending_reminder').fadeOut('slow')", 5000);
                
-    $('.purchase_top_line a').pjax({
+	// these lines should be removed either - .pjax functionality is 'lost'. Probably related to the above problem.
+    $('.purchase_top_line a').pjax({				 
         container: '#dashboard_right',
         success: function(data) {
             $('input[type=checkbox], input[type=radio]').each(function() {
@@ -126,6 +114,8 @@ $(document).ready(function() {
         }
     });
 
+
+// DataTables (http://datatables.net/)
    pTable = $('#purchases').dataTable( {
         "sPaginationType": "full_numbers",
         "aoColumnDefs": [
@@ -138,6 +128,10 @@ $(document).ready(function() {
     $('#pending-button').addClass('blue');
     pTable.fnFilter( 'PendingPayer' , 1, true, false, false);            
         
+
+//	The following is in charge of the 4 filter buttons
+//	Filtering is currently silly (based on 'authorization_type' column) - should be replaced by 'authorized' column.
+
     $('#pending-button').click(function () {
             $('.action_bar.filters a').removeClass('blue');
             $(this).addClass('blue');
@@ -147,13 +141,13 @@ $(document).ready(function() {
     $('#authorized-button').click(function () {
             $('.action_bar.filters a').removeClass('blue');
             $(this).addClass('blue');
-            pTable.fnFilter('Whitelisted|ManuallyAuthorized|Always|Under', 1, true, false, false );
+            pTable.fnFilter('Whitelisted|Approved|Authorized|Always|Under', 1, true, false, false );
     });
 
     $('#blocked-button').click(function () {
             $('.action_bar.filters a').removeClass('blue');
             $(this).addClass('blue');
-            pTable.fnFilter('Blacklisted|Low|High|Unauthorized|Zero|Insufficient|Over', 1, true, false, false);
+            pTable.fnFilter('Blacklisted|Low|High|Unauthorized|Declined|Zero|Insufficient|Over', 1, true, false, false);
     });
 
      $('#all-button').click(function () {

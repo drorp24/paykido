@@ -1,7 +1,7 @@
 class UserMailer < ActionMailer::Base
   default :from => "info@paykido.com"
  
-  def approval_email(purchase)
+  def purchase_approval_email(purchase)
 
     @payer = purchase.payer
     @consumer = purchase.consumer
@@ -17,7 +17,7 @@ class UserMailer < ActionMailer::Base
     end
   end
   
-  def joinin_email(payer, consumer)
+  def consumer_confirmation_email(payer, consumer)
 
     @payer = payer
     @consumer = consumer

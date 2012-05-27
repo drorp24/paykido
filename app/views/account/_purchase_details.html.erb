@@ -22,7 +22,7 @@
                 <span class="star_rating tooltip" title="Recommended by 82% of Paykido users"></span>
                 <span class="tooltip" title="Recommend this merchant">
                     <a href="#" class="small button">
-                        <span class="like">Like</span>
+                        <span class="like">Recommend</span>
                     </a>
                 </span>            
             </p>
@@ -65,6 +65,11 @@
                         </a>
                     </td> 
                 </tr>
+                
+			<%= render 'rule_popover' %> 
+			
+			<%= render 'rule_modal' %>
+
             <% end %>
             <% end %>   
         <% end %>
@@ -75,10 +80,6 @@
     <div class="approval_info">
         <p>Approve by... at... reason:....</p>
     </div>
-
-<%= render 'rule_popover' %> 
-
-<%= render 'rule_modal' %>
 
 <script type="text/javascript">
 
@@ -101,11 +102,12 @@ $('document').ready(function() {
        $('.property').html(property);
        $('.value').html(value);
        $('.name').html(name);
-       $('#create_rule').attr('data-url', 'set_rule?rule=' + rule + '&property=' + property + '&value=' + value + '&consumer=' + consumer);
+       $('#create_rule').attr('data-url', 'consumer_rule_set?rule=' + rule + '&property=' + property + '&value=' + value + '&consumer=' + consumer);
        
     });  
     
-    $('#create_rule').click(function() {
+	// find a better way to ajaxify calls from modal window
+    $('#create_rule').click(function() {     
         $.ajax($(this).attr('data-url'));
         $('#modalcontainer > div').hide();
         $('#overlay').hide();

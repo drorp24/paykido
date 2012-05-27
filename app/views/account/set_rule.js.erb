@@ -3,5 +3,5 @@
 <% else %>
     $("a[data-property='<%= params[:property]%>']").removeClass('blue').addClass('greyedOut regular');
     $("a#<%= params[:rule] %>[data-property='<%= params[:property]%>']").removeClass('greyedOut regular').addClass('blue');
-    notification("<%= "#{params[:property]} #{params[:value]} was #{(params[:rule] == '') ?'cleared' :params[:rule]+ 'ed'}" %>", false, 'user', true)
+    notification("<%= "#{params[:property]} #{params[:value]} was #{(params[:rule] == '') ?'cleared' :params[:rule]+ 'ed'}" %>", false, 'pencil', true)
 <% end %>

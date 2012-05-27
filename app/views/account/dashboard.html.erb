@@ -1,0 +1,85 @@
+<!-- Primary navigation -->
+<nav id="primary">
+  <ul>
+    <li class="active">
+      <a href="#">
+        <span class="icon32 dashboard"></span>
+        Dashboard
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <span class="icon32 shuffle"></span>
+        Communication
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <span class="icon32 pencil"></span>
+        Rules
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <span class="icon32 user"></span>
+        People
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <span class="icon32 chart"></span>
+        Charts
+      </a>
+    </li>
+    <li class="bottom">
+      <a href="/account/logout">
+        <span class="icon32 quit"></span>
+        Log out
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<!-- Secondary navigation -->
+<nav id="secondary">
+
+	<ul>
+		<li>
+            <a href="">
+            	<span class="secondary_name"><%= "#{(session[:payer].name) ? session[:payer].name + "'s Family" : "Family"}" %></span>
+        	</a>
+        </li>
+    <% @payer.consumers.each do |consumer| %>
+        <li class="consumer <%= "active" if (@consumer and @consumer.name == consumer.name) %>">
+            <a href="">
+            	<span class="secondary_name"><%= consumer.name %></span>
+            	<% if consumer.tinypic %>
+            		<span class="avatar fr"><%= image_tag consumer.tinypic %></span>
+            	<% else %>
+            		<span class="icon32 user fr"></span>
+            	<% end %>
+            	
+        	</a>
+        </li>
+    <% end %>
+     </ul>
+  
+  <div id="notifications">
+    <ul>
+    </ul>
+  </div>
+</nav>
+
+<section id="maincontainer">
+  <div id="main" class="container_12">
+  
+    <!-- Main Area Here -->
+    
+    <% if params[:activity] == 'confirmation' %>
+    	<%= render :partial => 'confirmation_popover' %>
+	<% elsif @purchases.any? %>
+    	<%= render 'dashboard' %>
+	<% end %>
+  
+  </div>
+</section>

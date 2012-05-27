@@ -3,6 +3,10 @@ class Safecharge
   base_uri 'https://secure.safecharge.com'
 end
 
+# Most of this controller handles the API between Paykido and the Payment Service Providers (PSP) it intergates with
+# It should be dealt with only upon integration (July 2012)
+# Currently it contains two PSPs: SafeCharge (SC) and PayPal
+# The code should be moved to controllers per each PSP
 
 class ApplicationController < ActionController::Base
   before_filter :set_locale
@@ -80,10 +84,6 @@ class ApplicationController < ActionController::Base
 
   def sms(phone, message)
     
-    unless Current.policy.send_sms?
-      return "test"
-    end
-
     begin
       api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
       api.send_message(phone, message)

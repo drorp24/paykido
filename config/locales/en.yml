@@ -2,6 +2,14 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  confirmation_heading: Welcome %{payer_name} and %{consumer_name}!
+  confirmation_1: Hi %{payer_name}.  %{consumer_name} wants to use Paykido.
+  confirmation_2: We want to verify that %{name} is indeed your kid
+  confirmation_3: Click here to confirm that you are %{name}'s parent
+  confirmation_4: Click here to see how Paykido protects your kid   
+  approval_second_line: Click here to see how Paykido can do it for you!
+  approval_first_line: -%{name} needs you to approve %{count} purchases
+  approval_heading: Approve Purchases
   Blacklisted: not allowed
   Whitelisted: Whitelisted
   Unauthorized: Unauthorized

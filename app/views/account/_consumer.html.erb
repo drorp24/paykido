@@ -31,7 +31,7 @@
         </div>
     </div>  
     <div class="grid_12">
-        <%= form_for :consumer, :url => {:action => "consumer_update", :id => @consumer.id}, :html => {:id => "allowance_form"} do |f| %>            
+        <%= form_for :consumer, :url => {:action => "consumer_allowance_change", :id => @consumer.id}, :html => {:id => "allowance_form"} do |f| %>            
     
             <p class="label">
                 <span><%= t 'Allowance' %></span>
