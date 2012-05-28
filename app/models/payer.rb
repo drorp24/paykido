@@ -1,74 +1,20 @@
-require 'digest/sha1'
+require 'digest/sha1'                           # remove once Devise is in
 
 class Payer < ActiveRecord::Base
-  has_many  :payer_rules
-  has_one :most_recent_payer_rule,
-    :class_name =>  'PayerRule' ,
-    :order =>       'created_at DESC'
 
-  has_many  :purchases
-  has_many  :retailers, :through => :purchases
-  has_many  :products, :through => :purchases
   has_many  :consumers
-  has_many  :users
-  has_many :rules
+  has_many  :purchases
+  has_many  :rules                              # family-default rules (as opposed to consumer rules)
   
-  attr_accessor :password_confirmation
+  attr_accessor :password_confirmation          # remove once Devise is in
   
-  def purchases
+  def purchases_with_info
     Purchase.where("payer_id = ?", self.id).includes(:consumer, :retailer)
   end
 
-  def remember_me
-    @remember_me
-  end
-  
-  def remember_me=(rm)
-    
-  end
-
-  def phone_alert_human
-    (self.phone_alert) ?"Off":"On"                                        #reversed for color...
-  end
-  
-  def phone_alert_human=(value)
-    if value == "On" then self.phone_alert = false else self.phone_alert = true end   #reversed for color...
-  end    
-    
-  def email_alert_human
-    (self.email_alert) ?"Off":"On"                                        #reversed for color...
-  end
-  
-  def email_alert_human=(value)
-    if value == "On" then self.email_alert = false else self.email_alert = true end  #reversed for color...
-  end    
-
-  def self.phone_alert_frequency
-    [["as soon as it happens ","as it occurs"],["once an hour " , "once an hour"],["twice a day ", "twice a day"]]
-  end
-  
-  def self.phone_events
-    [["of every purchase" , "any purchase"],["of every buy request", "authorizations"]]            
-  end
-
-  def self.email_alert_frequency
-    [["twice weekly","twice weekly"], ["once a day" , "once a day"], ["on a weekly basis", "on a weekly basis"],
-     ["once a month", "once a month"]]
-
-  end
-  
-  def self.email_events
-    [["all purchases" , "purchases"], ["special activities" , "special activities"],["offers & promotions", "offers and promos"]]            
-  end
-
-  def edited_phone
-      number_to_phone(self.phone, :area_code => true)
-  end
-  
-  def edited_phone=(edited)
-    self.phone = edited.gsub(/[^0-9]/,"")
-  end
-
+  ##############################################
+  # remove all the following once Devise is in #
+  ##############################################
 
   def self.authenticate(email, password)
     payer = self.find_by_email(email)
@@ -82,12 +28,10 @@ class Payer < ActiveRecord::Base
     payer
   end
   
-  def self.authenticate_by_token(email, hash)     # temporarily replacing what devise will do using user and token
+  def self.authenticate_by_token(email, hash)     
     payer = self.find_by_email_and_hashed_password(email, hash)
   end
-  
-  # 'password' is a virtual attribute
-  
+    
   def password
     @password
   end
@@ -99,6 +43,13 @@ class Payer < ActiveRecord::Base
     self.hashed_password = Payer.encrypted_password(self.password, self.salt)
   end
   
+  def remember_me       
+    @remember_me
+  end
+  
+  def remember_me=(rm)
+    
+  end
 
 private
 

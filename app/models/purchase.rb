@@ -1,41 +1,40 @@
 class Purchase < ActiveRecord::Base
 
-  serialize :properties
+  serialize :properties               #properties are the black/whitelistable items
 
-  belongs_to :consumer
-  belongs_to :payer
-  belongs_to :retailer
+  belongs_to  :consumer
+  belongs_to  :payer
+  belongs_to  :retailer
   
-  def self.create_new!(payer, consumer, retailer, title, product, price, params)
+  def self.create_new!(payer, consumer, retailer, title, product, amount, params)
     
     retailer_id = Retailer.find_or_create_by_name(retailer).id
     title_rec =   Title.find_or_create_by_name(title)
-    product_id =  Product.find_or_create_by_title(product).id   # bck compat.
     
-    self.create!(:payer_id => payer.id,
-                 :consumer_id => consumer.id,
-                 :retailer_id => retailer_id,
-                 :product => product,
-                 :title => title,                 
-                 :amount => price,
-                 :date => Time.now,
-                 :properties => {                                  #properties are the black/whitelistable items
-                    "retailer" =>  retailer,
-                    "title" =>     title,
+    self.create!(:payer_id =>         payer.id,
+                 :consumer_id =>      consumer.id,
+                 :retailer_id =>      retailer_id,
+                 :title =>            title,    
+                 :product =>          product,             
+                 :amount =>           amount,
+                 :date =>             Time.now,
+                 :properties => {                                  
+                    "retailer" =>     retailer,
+                    "title" =>        title,
                     "category" =>     title_rec.category,                                   
                     "esrb_rating" =>  title_rec.esrb_rating,
                     "pegi_rating" =>  title_rec.pegi_rating
                   },
                   :params => {
-                    "merchant" => params[:merchant],
-                    "app" => params[:app],
-                    "product" => params[:product],
-                    "amount" => params[:amount],
-                    "currency" => params[:currency],
-                    "userid" => params[:userid],
-                    "mode" => params[:mode],
-                    "tid" => params[:tid],
-                    "hash" => params[:hash]
+                    "merchant" =>     params[:merchant],
+                    "app" =>          params[:app],
+                    "product" =>      params[:product],
+                    "amount" =>       params[:amount],
+                    "currency" =>     params[:currency],
+                    "userid" =>       params[:userid],
+                    "mode" =>         params[:mode],
+                    "tid" =>          params[:tid],
+                    "hash" =>         params[:hash]
                   }
                   )
   end
@@ -61,11 +60,11 @@ class Purchase < ActiveRecord::Base
     if self.consumer.balance <= 0
       self.authorization_property = "Balance"
       self.authorization_value = self.consumer.balance
-      self.authorization_type = "Unauthorized"  
+      self.authorization_type = "insufficient"  
     elsif self.consumer.balance < self.amount
       self.authorization_property = "Balance"
       self.authorization_value = self.consumer.balance
-      self.authorization_type = "Too Low"
+      self.authorization_type = "insufficient"
     elsif self.amount <= self.consumer.auto_authorize_under
       self.authorization_property = "Amount"
       self.authorization_value = self.amount
@@ -90,7 +89,7 @@ class Purchase < ActiveRecord::Base
         end
     }
 
-      self.require_manual_approval
+      self.require_approval
     end
     
     self.authorization_date = Time.now
@@ -117,6 +116,16 @@ class Purchase < ActiveRecord::Base
     self.authorization_type ==  "PendingPayer"
   end
     
+  def approval!(params)
+    if params[:activity] == 'approved'
+      self.approve!
+    elsif params[:activity] == 'declined'
+      self.decline!
+    else
+      return false
+    end
+  end
+
   def approve!
     self.update_attributes!(
       :authorized => true,
@@ -147,13 +156,8 @@ class Purchase < ActiveRecord::Base
     !self.authorized and self.authorization_type and !self.manually_handled?
   end
   
-  def account_for!
-    
-    amount = self.amount
-    
-    self.consumer.record!(amount)
-    self.retailer.record!(amount)    
-   
+  def account_for!   
+    self.consumer.deduct!(self.amount)   
   end
 
 end

@@ -1,3 +1,5 @@
+<!--  THIS IS A FAKE CHECKOUT PAGE -->
+
 <%= image_tag "/images/farmville1.png", :id => "farmville1" %>
 <%= image_tag "/images/farmville21.png", :id => "farmville2" %>
 <%= image_tag "/images/loading_short.gif", :id => "loading", :style=>"display:none;" %>
@@ -11,7 +13,9 @@
 <% end %>
 
 <img src="/images/paykido_button.png" id="paykido_button" border=0 alt=""/>
-<!-- 
+
+<!--  THIS IS HOW PAYKIDO SHOULD BE INVOKED BY PSP OR MERCHANT (SEE DOCUMENT)
+
 <a href="http://<%= request.host + ':' + request.port.to_s %>/consumer/login?
 	merchant=Zynga&
 	app=Farmville&
@@ -26,24 +30,18 @@
 	<img src="http://www.paykido.com/images/paykido_button.png" id="paykido_button" alt="paykido"/>
 </a>
 -->
+
 <script type="text/javascript">
 
 $(document).ready(function () {
+
+<!--  AND THIS IS HOW IT IS CURRENTLY CALLED FOR DEMO PURPOSES -->
 
 	$('#paykido_button').click(function() {
 		var url = '/consumer/login?mode=demo&' + $('#product_form').serialize();  
 		$.paykido({
 			ajax: url
 		});
-/*	
-        hs.htmlExpand(null, { 
-                src: url, objectType: 'ajax', 
-                creditsPosition: 'bottom left',  
-                wrapperClassName: 'titlebar' } );
-		
-
-		window.location = url; // to test it without the lightbox 				
-*/
 	});
 });
 

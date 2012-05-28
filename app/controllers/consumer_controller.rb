@@ -18,8 +18,7 @@ class ConsumerController < ApplicationController
       format.js  
     end   
     
-  end
-  
+  end  
 
   def get_purchase_parameters
     
@@ -154,7 +153,7 @@ class ConsumerController < ApplicationController
       if @purchase.authorized?                        
 #       @purchase.pay!                                  
         @purchase.account_for!                        # if payment was succesful       
-      elsif @purchase.requires_manual_approval?
+      elsif @purchase.requires_approval?
         request_purchase_approval(@purchase)                   #replace with purchase.request_purchase_approval
       end
       authorization_messages      
@@ -173,7 +172,7 @@ class ConsumerController < ApplicationController
       @first_line = "#{session[:product]} is yours!"
       @second_line = "Thanks for using paykido"
 
-     elsif @purchase.requires_manual_approval?
+     elsif @purchase.requires_approval?
 
        if @email_problem
           @first_line =  "Approval reuiqred but email is down at the moment"

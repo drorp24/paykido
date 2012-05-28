@@ -6,12 +6,12 @@ class Consumer < ActiveRecord::Base
       
   after_initialize :init
   def init
-      self.allowance  ||= 0           
+      self.allowance  ||= 10          
       self.allowance_period ||= 'Weekly'
       self.allowance_change_date ||= Time.now
       self.balance_on_acd ||= 0
       self.purchases_since_acd ||= 0
-      self.auto_authorize_under ||= 0
+      self.auto_authorize_under ||= 5
       self.auto_deny_over ||= 35
   end
 
@@ -23,26 +23,18 @@ class Consumer < ActiveRecord::Base
     Purchase.where("consumer_id = ? and authorization_type = ?",self.id, 'PendingPayer').count
   end
 
-  def rule(property, value)
-    rule = Rule.find_by_payer_id_and_consumer_id_and_property_and_value(self.payer_id, self.id, property, value)
-    return 0 unless rule
-    if rule.action == 'blacklisted'
-      return -1
-    elsif rule.action == 'whitelisted'
-      return 1
-    else
-      return 0
-    end
-  end
-  
-  def rule_set!(property, value, rule) 
+  def rule_set!(params) 
 
+    property = params[:property]
+    value = params[:value]
+    rule = params[:rule]
+ 
     if rule == 'whitelist'
       self.whitelist!(property, value)
     elsif rule == 'blacklist' 
       self.blacklist!(property, value)
     elsif rule == ''
-      self.no_rule!(property, value) 
+      self.reset!(property, value) 
     end
 
   end
@@ -65,32 +57,11 @@ class Consumer < ActiveRecord::Base
     Rule.where(:payer_id => self.payer_id, :consumer_id => self.id, :property => property, :value => value, :action => 'whitelisted').exists?
   end
   
-  def no_rule!(property, value)
+  def reset!(property, value)
     rule = Rule.find_or_initialize_by_payer_id_and_consumer_id_and_property_and_value(self.payer_id, self.id, property, value)
     rule.update_attributes!(:action => '')
   end
   
-  def allowance_display
-    
-  end
-  def allowance_display=(value)
-    
-  end
-  
-  def auto_deny_over_display
-    
-  end
-  def auto_deny_over_display=(value)
-    
-  end
-  
-  def auto_authorize_under_display
-    
-  end
-  def auto_authorize_under_display=(value)
-    
-  end
-
   def allowance_day_of_week
     self.allowance_every
   end
@@ -118,8 +89,6 @@ class Consumer < ActiveRecord::Base
  
   def balance
 
-    return @balance if @balance
-    
     self.balance_on_acd        ||= 0
     self.allowance             ||= 0
     self.purchases_since_acd   ||= 0
@@ -129,11 +98,11 @@ class Consumer < ActiveRecord::Base
  
   end
 
-  def periods_since_acd
-    if allowance_period == 'Weekly'
-      (Time.now.strftime("%Y").to_i * 52 + Time.now.strftime("%W").to_i) - (allowance_change_date.strftime("%Y").to_i * 52 + allowance_change_date.strftime("%W").to_i)
+  def periods_since_acd                     # ToDo: correct calculation by allowance_day_of_week/month            
+    if allowance_period == 'Weekly'         
+      (Time.now.strftime("%Y").to_i * 52 + Time.now.strftime("%W").to_i) - (allowance_change_date.strftime("%Y").to_i * 52 + allowance_change_date.strftime("%W").to_i) + 1
     elsif allowance_period == 'Monthly'
-      (Time.now.strftime("%Y").to_i * 12 + Time.now.strftime("%m").to_i) - (allowance_change_date.strftime("%Y").to_i * 12 + allowance_change_date.strftime("%m").to_i)
+      (Time.now.strftime("%Y").to_i * 12 + Time.now.strftime("%m").to_i) - (allowance_change_date.strftime("%Y").to_i * 12 + allowance_change_date.strftime("%m").to_i) + 1
     else
       nil 
     end           
@@ -153,16 +122,15 @@ class Consumer < ActiveRecord::Base
 
   end
 
-  def record!(amount)
+  def deduct!(amount)
     self.purchases_since_acd += amount
     self.save!
   end
   
-  def confirm!            #ToDo: add the property to consumer
+  def confirm!            #ToDo: record on consumer and check upon purchase
     
   end
   
-
   def facebook_user 
     unless @facebook_user 
       @facebook_user = Mogli::User.find(facebook_id,Mogli::Client.new(facebook_access_token, nil)) 
@@ -171,5 +139,26 @@ class Consumer < ActiveRecord::Base
     @facebook_user 
   end 
   
+  def allowance_display
+    
+  end
+  def allowance_display=(value)
+    
+  end
+  
+  def auto_deny_over_display
+    
+  end
+  def auto_deny_over_display=(value)
+    
+  end
+  
+  def auto_authorize_under_display
+    
+  end
+  def auto_authorize_under_display=(value)
+    
+  end
+
   
 end

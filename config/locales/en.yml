@@ -6,15 +6,16 @@ en:
   confirmation_1: Hi %{payer_name}.  %{consumer_name} wants to use Paykido.
   confirmation_2: We want to verify that %{name} is indeed your kid
   confirmation_3: Click here to confirm that you are %{name}'s parent
-  confirmation_4: Click here to see how Paykido protects your kid   
-  approval_second_line: Click here to see how Paykido can do it for you!
-  approval_first_line: -%{name} needs you to approve %{count} purchases
-  approval_heading: Approve Purchases
+  confirmation_4: Click here to see how Paykido protects your kid
+  approval_heading: Approve %{name}'s Purchases   
+  approval_1: There are purchases waiting for approval
+  approval_2: OK each purchase to approve it
+  approval_3: Click here to make it safer and easier with rules!
   Blacklisted: not allowed
   Whitelisted: Whitelisted
   Unauthorized: Unauthorized
   PendingPayer: Pending Approval
-  Too Low: Too Low
+  insufficient: insufficient
   Always Approved: Always Approved
   Too High: Too High
   category: Category

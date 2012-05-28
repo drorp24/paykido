@@ -38,12 +38,11 @@ class AccountController < ApplicationController
   def dashboard
 
     @purchases = @consumer.purchases_with_info
-    @purchase = @purchases[0] if @purchases.any?
     @pendings_count = @consumer.pendings_count
 
   end    
   
-  def consumer_confirm      # some actions in this controller are "REST ready". RESTify if needed.
+  def consumer_confirm      # some actions in this controller are "REST like". RESTify if needed.
 
     @consumer.confirm!
      
@@ -53,9 +52,9 @@ class AccountController < ApplicationController
     
   end
 
-  def purchase_approve
+  def purchase_approval
 
-    @purchase.approve!
+#    @purchase.approval!(params)
      
     respond_to do |format|  
       format.js
@@ -75,7 +74,7 @@ class AccountController < ApplicationController
   
   def consumer_rule_set
     
-    @consumer.rule_set!(params[:property], params[:value], params[:rule])
+    @consumer.rule_set!(params)
   
     respond_to do |format|  
       format.js     
@@ -87,7 +86,7 @@ class AccountController < ApplicationController
     
     @purchase = Purchase.find(params[:id])
 
-    render :layout => false               # or find another way (partial?) to make 'purchase' refresh only one pane in the entire page
+    render :partial => 'purchase_details', :layout => false               # or find another way (partial?) to make 'purchase' refresh only one pane in the entire page
     
   end
   

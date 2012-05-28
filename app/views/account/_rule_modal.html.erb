@@ -1,5 +1,5 @@
 <div id="new_rule" class="box rule_modal">
-    <div class="box-header">
+    <div class="box-header modal-header">
         <span class="icon32 new fl"></span>
         <h1>new rule</h1>
     </div>
@@ -16,12 +16,21 @@
         </div>
         <div class="rule actions">
             <p>Paykido will automatically <span class="action"></span> purchases attempted by <span class="name"></span> whose <span class="property"></span> is <span class="value"></span>.</p>
-            <p>Click <strong>YES</strong> to activate rule.</p>
+            <p>Click <strong>Activate</strong> to activate rule.</p>
         </div>
         <div class="action_bar">            
-            <a id="create_rule" href='#' class= "blue button">Yes</a>
+            <a id="create_rule" href='#' class= "blue button">Activate</a>
             <a href="#" class="close button">No</a>
         </div>
     </div>
     
 </div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+
+	$('#create_rule').act_as_modal();
+
+})
+
+</script>

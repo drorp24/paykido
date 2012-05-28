@@ -1,12 +1,6 @@
 class HomeController < ApplicationController
-
  
-  def index 
-        
-  end
-  
-  def comingsoon
-    
-  end
+  def index        
+  end  
   
 end

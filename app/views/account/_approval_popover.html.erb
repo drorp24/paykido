@@ -1,6 +1,6 @@
 <div id="approval_popover" class="popover">
     <header>
-        <%= t 'approval_heading' %>
+        <%= t 'approval_heading', :name => @consumer.name %>
     </header>
     <section>
 		<div class="content">
@@ -12,12 +12,14 @@
 		            	<% else %>
 		            		<span class="consumer icon32 user fl"></span>
 		            	<% end %>
-                   		<span><%= t 'approval_first_line', :name => @consumer.name, :count => @pendings_count %></span>
+                   		<span><%= t 'approval_1', :name => @consumer.name, :count => @pendings_count %></span>
                		</li>
                     <li class="instructions">
-                    	<a><%= t 'approval_second_line' %></a>
+                    	<%= t 'approval_2' %>
                 	</li>
-
+                    <li class="instructions">
+                    	<a><%= t 'approval_3' %></a>
+                	</li>
                 </ul>
             </nav>
         </div>

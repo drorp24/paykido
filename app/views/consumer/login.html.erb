@@ -63,11 +63,12 @@
 		>
 	</fb:registration>
 </div>
-<script>
-// FACEBOOK BUG - ERROR MESSAGE NOT RENDERED WHEN WIDGET WIDTH < 520
-// Otherwise payer's email should be checked for uniqueness
-// There should actually be a different way to warn for this, since a window should appear
-// Facebook (when working) will not let it
+
+
+<script type="text/javascript">
+
+// VALIDATION CHECKS: CHECK EMAILS ARE UNIQUE, PHONE NUMBERS VALID ETC
+// Facebook bug prohibits error message to show on screen if widget width < 520 px
 /*
 function validate_async(form, cb) {
   $.getJSON('http://graph.facebook.com/' + form.payer_email + '?callback=?', 
@@ -80,21 +81,22 @@ function validate_async(form, cb) {
   });
 }
 */
-</script>
-<script type="text/javascript">
 
+$(document).ready(function (){ 
+
+	// disable buy button unless registered: handle with Devise
 	<% unless @consumer %>
 		$('#buy_button').addClass("ui-state-hover").blur();
 	<% end %>
 
-$(document).ready(function (){ 
-
+	// reveal facebook registration form as soon as 'register' is clicked
 	$('#login_button').click(function() {
 		if ($('.fb_button_text').html() == 'Register') {
 			$('#registration').attr('style', 'display:block');			
 		}
 	});
 	
+	// explicit rendering of XFBML: required because of the lightbox
 	FB.XFBML.parse(); 
 
 });

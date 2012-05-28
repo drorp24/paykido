@@ -1,0 +1,35 @@
+<div id="approval_modal" class="box">
+    <div class="box-header modal-header">
+        <span class="icon32 tick fl"></span>
+        <h1>Manual Approval</h1>
+    </div>
+  
+    <div class="box-content">
+        <div class="rule header">
+            I 
+            <span class="action"></span>
+        </div>
+        <div class="rule name">
+            <span class="product"></span>
+            <span class="price"></span>
+        </div>
+        <div class="rule actions">
+            <p>I <span class="action"></span> <span class="consumer_name"></span> to buy this product in <span class="modal_title"></span> by <span class="modal_retailer"></span>.</p>
+        </div>
+        <div class="action_bar">            
+            <a id="approval_button" href='' class= "blue button"><span class="activity"></span></a>
+            <a href="#" class="close button">Cancel</a>
+			<a href=''>See <strong>here</strong> how you can make it easier and safer with rules</a>
+        </div>
+    </div>
+    
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+
+	$('#approval_button').act_as_modal();
+
+})
+
+</script>

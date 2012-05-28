@@ -36,9 +36,9 @@
         </tr> 
     </thead> 
     <tbody> 
-    <% @purchases.each do |purchase| %>                                
-        <tr> 
-            <td><%= purchase.date %></td>
+    <% @purchases.each do |purchase| %> 
+        <tr class="purchase_row" data-href=<%= "purchase/#{purchase.id}" %> > 
+            <td ><%= purchase.date %></td>
             <td><%= purchase.authorization_type %></td>
             <td><%= purchase.authorized %></td>
             <td class="status">
@@ -64,55 +64,82 @@
                 </p>
                 <p class="purchase_bottom_line">
                     <span class="cell_date"><%= purchase.date.strftime("%a, %b %d") %></span>
+          			<span>by</span>
                     <span><%= link_to purchase.consumer.name, "dashboard/consumer/#{purchase.consumer_id}"  %></span>
                 </p>
             </td>
             <td class="ar"><%= number_to_currency(purchase.amount) %></td>
             <td class="approval_buttons">
-                <% if purchase.requires_manual_approval? %>
+                <% if purchase.requires_approval? %>
                 <p class="purchase_top_line">
-                    <a href='' class=" button small greyedOut actionButton approve" id=<%= "approve_#{purchase.id}"%>>
+                    <a href='#approval_modal' class="modal approval button small greyedOut actionButton approve" data-purchase="<%= purchase.id %>" data-action="approve" data-product="<%= purchase.product %>" data-price="<%= number_to_currency purchase.amount %>" data-consumer="<%= purchase.consumer.name %>" data-retailer="<%= purchase.retailer.name %>" data-title="<%= purchase.title %>">
                         <span class="icon16 tick2"></span>
                         OK
                     </a>
                 </p>
                 <p class="purchase_bottom_line">
-                     <a href="#" class="button small greyedOut actionButton decline"  id=<%= "decline_#{purchase.id}"%>>
+                     <a href="#approval_modal" class="modal approval button small greyedOut actionButton decline" data-purchase="<%= purchase.id %>"  data-action="do not approve" data-product="<%= purchase.product %>" data-price="<%= number_to_currency purchase.amount %>" data-consumer="<%= purchase.consumer.name %>" data-retailer="<%= purchase.retailer.name %>" data-title="<%= purchase.title %>">
                         <span class="icon16 cross"></span>
                         NO
                     </a>
                 </p>
                 <% end %>
-            </td>                    
-        </tr>                                   
+            </td>                     
+        </tr>
+                      
     <% end %>
     </tbody> 
 </table> 
 
-<%= render 'approval_popover' %>
+<% if @pendings_count > 0  %>
+	<%= render 'approval_popover' %>
+	<%= render 'approval_modal' %>
+<% end %>
 
 <script type="text/javascript"> 
 
 $(document).ready(function() {
 
-	// trigger the approval popover
-    $('.message-count').popover('#approval_popover', {preventLeft: true, preventBottom: true});
-	// these 2 lines should be removed once popover acts as it should 
-    $('.message-count').trigger('open.popover');      
-	window.setTimeout("$('#pending_reminder').fadeOut('slow')", 5000);
-               
-	// these lines should be removed either - .pjax functionality is 'lost'. Probably related to the above problem.
-    $('.purchase_top_line a').pjax({				 
-        container: '#dashboard_right',
-        success: function(data) {
-            $('input[type=checkbox], input[type=radio]').each(function() {
-              if($(this).siblings('label').length > 0) {
-                $(this).prettyCheckboxes();
-              }
-            });
+/// populate the values in the manual approval modal and the href to follow if OK is clicked	    
+   $('.approval.button').click(function () {
+       
+       var purchase = 	 $(this).attr('data-purchase');
+       var action = 	 $(this).attr('data-action');
+       var product =     $(this).attr('data-product');
+       var price =       $(this).attr('data-price');
+       var consumer =    $(this).attr('data-consumer');       
+       var retailer =    $(this).attr('data-retailer');       
+       var title = 		 $(this).attr('data-title'); 
+       var activity =	 (action == 'approve') ? 'approved' : 'declined';      
 
-        }
-    });
+       $('.action').html(action);
+       $('.product').html(product);
+       $('.price').html(price);
+       $('.consumer_name').html(consumer);
+       $('.modal_retailer').html(retailer);
+       $('.modal_title').html(title);
+       $('.activity').html(activity);
+
+       $('#approval_button').attr('data-href','purchase_approval?purchase=' + purchase + '&activity=' + activity);
+
+    });  
+    
+
+
+//  Trigger the approval popover
+    $('#pending-button').popover('#approval_popover', {preventBottom: true, preventRight: true});
+	// these 2 lines should be removed once popover acts as it should 
+    $('#pending-button').trigger('open.popover');      
+	window.setTimeout("$('#approval_popover').fadeOut('slow')", 10000);
+               
+    $('.purchase_row').click(function () {
+    	url = $(this).attr('data-href')
+		$.pjax({
+		  url: url,
+		  container: '#dashboard_right'
+		})
+	})
+
 
 
 // DataTables (http://datatables.net/)
@@ -123,13 +150,19 @@ $(document).ready(function() {
         ],
         "aaSorting": [[0,'desc']]
     } );
-        
-    $('.action_bar.filters a').removeClass('blue');
+
+
+//	Set the default filter to either be pending or all	
+	$('.action_bar.filters a').removeClass('blue');        
+<% if @pendings_count > 0  %>
     $('#pending-button').addClass('blue');
-    pTable.fnFilter( 'PendingPayer' , 1, true, false, false);            
+    pTable.fnFilter( 'PendingPayer' , 1, true, false, false);
+<% else %>
+    $('#all-button').addClass('blue');
+    pTable.fnFilter( '', 1, true, false, false );
+<% end %>            
         
 
-//	The following is in charge of the 4 filter buttons
 //	Filtering is currently silly (based on 'authorization_type' column) - should be replaced by 'authorized' column.
 
     $('#pending-button').click(function () {

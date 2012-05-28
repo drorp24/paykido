@@ -677,9 +677,10 @@ thead {
 .dataTables_info {
   color: #949494;
   display: inline;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 30px;
   text-shadow: 0 1px 0 #fff;
+  margin-left: 10px;
 }
 
 .dataTables_paginate {
@@ -687,6 +688,7 @@ thead {
   float: right;
   line-height: 30px;
   text-shadow: 0 1px 0 #fff;
+  margin-right: 10px;
 }
 
 .dataTables_paginate .paginate_active {

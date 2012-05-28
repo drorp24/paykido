@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  payer_id: MyString
-  billing_phone: MyString
-
-two:
-  payer_id: MyString
-  billing_phone: MyString

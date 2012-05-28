@@ -7,7 +7,7 @@ $('#status_line').show();
 	$('#salutation').html('Congrats!');
 	$('.status_icon').addClass("approved");
 	$('.status_text').html('Approved');
-<% elsif @purchase and @purchase.requires_manual_approval? %>
+<% elsif @purchase and @purchase.requires_approval? %>
 	$('#salutation').html('Wait...');
 	$('.status_icon').addClass("pending");
 	$('.status_text').html('Pending Approval');

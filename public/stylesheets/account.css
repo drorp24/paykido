@@ -1,3 +1,13 @@
+tr:hover {
+	background-color: white;
+}
+a {
+	text-decoration: none;
+}
+#approval_modal {
+	width: 510px;
+}
+
 .consumer.active.confirmed a .avatar.fr img{   //find a uniform way of returning positive feedback on an element
     -webkit-transition: border, -webkit-box-shadow, 0.5s ease;
     -moz-transition: border, -moz-box-shadow, 0.5s ease;
@@ -87,7 +97,7 @@
     margin-top: 4px;
 }
 
-#new_rule h1 {
+.modal-header h1 {
     font-size: 18px;
 }
 
@@ -164,6 +174,7 @@ body#paykido .tooltip {
     background-image: url('/images/star_rating.png');
     background-repeat: no-repeat;
     padding-left: 6em;
+    padding-bottom: 5px;
     vertical-align: top;
 }
 
@@ -271,7 +282,7 @@ tr:hover .approval_buttons p a{
 .sectiontitle {
     font-family: 'Ubuntu', sans-serif;
     font-size: 16px;
-    color: #999;
+    color: #000;
     margin-bottom: -12px;
 }
 
@@ -318,7 +329,7 @@ tr:hover .approval_buttons p a{
 
 .actionButton {
     width: 4em;
-    margin-left: 1.5em;
+    margin-left: 2em;
 }
     
 #under_slider .ui-slider-range {
@@ -417,7 +428,7 @@ tr:hover .approval_buttons p a{
     width: 20%;
 }
 
-.product {
+.retailer {
     font-size: 22px;
     height: 36px;
     text-shadow: 0 1px 0 #FFFFFF;
@@ -426,9 +437,10 @@ tr:hover .approval_buttons p a{
 
 }
 .price {
-    font-size: 28px;
+    font-size: 22px;
     text-shadow: 0 1px 0 #FFFFFF;
     font-weight: bold;
+    margin-left: 3px;
 /*    color: #4E83B3; */
  /*   color: #5186B4; */
 /*    color: #778899; */
@@ -438,8 +450,9 @@ tr:hover .approval_buttons p a{
 .retailer {
     font-size: 18px;
     text-shadow: 0 1px 0 #FFFFFF;
-    margin-bottom: 10%;
-    margin-left: 1%;
+}
+.product {
+	margin-left: 3px;	
 }
 .formtitle {
     font-variant: small-caps;

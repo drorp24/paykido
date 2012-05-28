@@ -1,13 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  key: 1
-  title: MyString
-  description: MyString
-  logo: MyString
+  key: "pegi_rating"
+  value: "3"
+  title: "PEGI3"
+  description: "The content of games given this rating is considered suitable for all age groups. Some violence in a comical context (typically Bugs Bunny or Tom & Jerry cartoon-like forms of violence) is acceptable. The child should not be able to associate the character on the screen with real life characters, they should be totally fantasy. The game should not contain any sounds or pictures that are likely to scare or frighten young children. No bad language should be heard. "
+  logo: "PEGI3.png"
 
 two:
-  key: 1
-  title: MyString
-  description: MyString
-  logo: MyString
+  key: "esrb_rating"
+  value: "E"
+  title: "EVERYONE"
+  description: "Titles rated E (Everyone) have content that may be suitable for ages 6 and older. Titles in this category may contain minimal cartoon, fantasy or mild violence and/or infrequent use of mild language."
+  logo: "E.png"
