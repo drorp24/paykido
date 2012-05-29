@@ -1,6 +1,6 @@
 class Purchase < ActiveRecord::Base
 
-  serialize :properties               #properties are the black/whitelistable items
+  serialize :properties               
 
   belongs_to  :consumer
   belongs_to  :payer
@@ -18,7 +18,7 @@ class Purchase < ActiveRecord::Base
                  :product =>          product,             
                  :amount =>           amount,
                  :date =>             Time.now,
-                 :properties => {                                  
+                 :properties => {                                     # properties are the black/whitelistable items           
                     "retailer" =>     retailer,
                     "title" =>        title,
                     "category" =>     title_rec.category,                                   
@@ -26,7 +26,7 @@ class Purchase < ActiveRecord::Base
                     "pegi_rating" =>  title_rec.pegi_rating
                   },
                   :params => {
-                    "merchant" =>     params[:merchant],
+                    "merchant" =>     params[:merchant],              # the params passed to Paykido upon invocation
                     "app" =>          params[:app],
                     "product" =>      params[:product],
                     "amount" =>       params[:amount],
@@ -40,7 +40,7 @@ class Purchase < ActiveRecord::Base
   end
 
   # terminology:  'authorize'/'unauthorize' is used when Paykido programmatically authorizes purchase.
-  #               'approve'/'decline' is used when a human being (parent) authorizes it (or not).
+  #               'approve'/'decline' is used when a human being (parent) authorizes it himself.
 
   def authorize!
        
@@ -111,8 +111,8 @@ class Purchase < ActiveRecord::Base
   end
 
   def manually_handled?
-    self.authorization_type == "Approved" or 
-    self.authorization_type == "Declined" or
+    self.authorization_type ==  "Approved" or 
+    self.authorization_type ==  "Declined" or
     self.authorization_type ==  "PendingPayer"
   end
     
@@ -156,6 +156,23 @@ class Purchase < ActiveRecord::Base
     !self.authorized and self.authorization_type and !self.manually_handled?
   end
   
+  def request_approval
+    
+    begin
+      UserMailer.purchase_approval_email(self).deliver
+    rescue
+      return false
+    end
+      
+    begin
+      message = "Hi from Paykido! #{self.consumer.name} asks that you approve #{self.product} from #{self.retailer.name}. See our email for details"
+      Sms.send(self.payer.phone, message) 
+    rescue
+      return false
+    end
+     
+  end
+
   def account_for!   
     self.consumer.deduct!(self.amount)   
   end

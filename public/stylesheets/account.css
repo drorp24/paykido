@@ -1,3 +1,10 @@
+td.purchase_details {
+	
+}
+
+#purchases tr.purchase_row td.purchase_price {
+	
+}
 tr:hover {
 	background-color: white;
 }
@@ -5,7 +12,7 @@ a {
 	text-decoration: none;
 }
 #approval_modal {
-	width: 510px;
+	width: 520px;
 }
 
 .consumer.active.confirmed a .avatar.fr img{   //find a uniform way of returning positive feedback on an element
@@ -89,12 +96,18 @@ a {
     color: #4C82B3;
 }
 
-.icon32 {
+.status .icon32 {
 
-    width: 32px;
-    height: 32px;
-    margin-left: 1em;
-    margin-top: 4px;
+	position: relative;
+	bottom: 7px;
+    margin-left: 0.4em;
+    padding-bottom: 10px;
+    padding-left: 30px;
+}
+
+.icon32 {
+	padding-bottom: 32px;
+	padding-left: 32px;
 }
 
 .modal-header h1 {
@@ -115,6 +128,10 @@ body {
 
 body#paykido .tooltip {
     text-shadow: none;
+}
+
+body#paykido .tooltip.large {
+    font-size: 20px;
 }
 
 .help {
@@ -324,7 +341,7 @@ tr:hover .approval_buttons p a{
 }
 
 .approval_buttons {
-    margin-right: 0px;
+    padding-right: 34px;
 }
 
 .actionButton {
@@ -411,15 +428,15 @@ tr:hover .approval_buttons p a{
     height: 5px;
 
         background-color: #EEE;
-        background-image: -o-linear-gradient(top, #FEFEFE, #6DB66D);
-        background-image: -ms-linear-gradient(top, #FEFEFE, #6DB66D);
-        background-image: -moz-linear-gradient(top, #FEFEFE, #6DB66D);
-        background-image: -webkit-gradient(linear, left top, left bottom, from(#FEFEFE), to(#6DB66D));
-        background-image: -webkit-linear-gradient(top, #FEFEFE, #6DB66D);
-        background-image: linear-gradient(top, #FEFEFE, #6DB66D);
+        background-image: -o-linear-gradient(top, #6DB66D, #FEFEFE);
+        background-image: -ms-linear-gradient(top, #6DB66D, #FEFEFE);
+        background-image: -moz-linear-gradient(top, #6DB66D, #FEFEFE );
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#6DB66D), to(#FEFEFE));
+        background-image: -webkit-linear-gradient(top, #6DB66D, #FEFEFE);
+        background-image: linear-gradient(top, #6DB66D, #FEFEFE);
         display: block;
         border-top: 0.5px solid #999;
-        border-bottom: 0.5px solid #999;}
+        border-bottom: 0.5px solid #6DB66D;}
 
 #allowance_display, #over_display, #under_display {
     background: transparent;

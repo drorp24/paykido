@@ -2,5 +2,5 @@
     notification('<%= @error %>', true, 'user', true)
 <% else %>
 	$('.consumer.active').addClass('confirmed');
-    notification("<%= "#{@consumer.name} confirmed by #{@payer.name}"%>", false, 'user', true)
+    notification("<%= "#{@consumer.name} was confirmed by #{@payer.name}"%>", false, 'user', true)
 <% end %>

@@ -47,6 +47,7 @@
 		<li>
             <a href="">
             	<span class="secondary_name"><%= "#{(session[:payer].name) ? session[:payer].name + "'s Family" : "Family"}" %></span>
+				<span class="icon32 home fr"><span>
         	</a>
         </li>
     <% @payer.consumers.each do |consumer| %>

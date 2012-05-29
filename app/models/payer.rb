@@ -11,6 +11,24 @@ class Payer < ActiveRecord::Base
   def purchases_with_info
     Purchase.where("payer_id = ?", self.id).includes(:consumer, :retailer)
   end
+  
+  def request_confirmation(consumer)     
+
+    begin
+      UserMailer.consumer_confirmation_email(self, consumer).deliver
+    rescue
+      return false
+    end
+
+    begin
+      message = "Hi #{self.name}! #{consumer.name} asked us to tell you about Paykido. See our email for details"
+      Sms.send(self.phone, message)
+    rescue
+      return false
+    end
+    
+  end 
+
 
   ##############################################
   # remove all the following once Devise is in #

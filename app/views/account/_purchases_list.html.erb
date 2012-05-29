@@ -10,11 +10,11 @@
         <span class="message-count"><%= @pendings_count %></span>
     </a>
     <a href="#" class="small button" id="authorized-button">
-        <span class="icon16 tick2"></span>
+        <span class="icon16 tick"></span>
         Approved
     </a>
     <a href="#" class="small button" id="blocked-button">
-        <span class="icon16 blocked"></span>
+        <span class="icon16 delete"></span>
         Blocked
     </a>
     <a href="#" class="small button" id="all-button">
@@ -41,22 +41,22 @@
             <td ><%= purchase.date %></td>
             <td><%= purchase.authorization_type %></td>
             <td><%= purchase.authorized %></td>
-            <td class="status">
+            <td class="status" data-purchase="<%= purchase.id %>">
             <% if purchase.requires_approval? %>
-                <span class="icon16 question tooltip" title="Requires your approval"></span>
+                <span class="icon32 question large tooltip" title="Requires your manual approval"></span>
             <% elsif purchase.approved? %> 
-                <span class="icon16 tick2 tooltip" title="You approved it"></span>
+                <span class="icon32 tick2 large tooltip" title="Manually approved"></span>
             <% elsif purchase.declined? %> 
-                <span class="icon16 cross tooltip" title="You declined it"></span>
+                <span class="icon32 cross large tooltip" title="Manually declined"></span>
             <% elsif purchase.authorized? %> 
-                <span class="icon16 openlock tooltip" title="Approved based upon your rules"></span>
+                <span class="icon32 plus2 large tooltip" title="<%= "Authorized according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></span>
             <% elsif purchase.unauthorized? %> 
-                <span class="icon16 lock tooltip" title="<%= t purchase.authorization_type %>"></span>
+                <span class="icon32 minus large tooltip" title="<%= "Unauthorized according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></span>
             <% else %> 
-                <span class="icon16 alert tooltip" title="Well this was not supposed to happen"></span>
+                <span class="icon32 alert large tooltip" title="Well this was not supposed to happen"></span>
             <% end %>
             </td>
-            <td>
+            <td class="purchase_details">
                 <p class="purchase_top_line">
                     <span><%= link_to purchase.product ,"dashboard/product/#{purchase.id}" %></span>
                     <span>by</span>
@@ -68,7 +68,7 @@
                     <span><%= link_to purchase.consumer.name, "dashboard/consumer/#{purchase.consumer_id}"  %></span>
                 </p>
             </td>
-            <td class="ar"><%= number_to_currency(purchase.amount) %></td>
+            <td class="purchase_price"><%= number_to_currency(purchase.amount) %></td>
             <td class="approval_buttons">
                 <% if purchase.requires_approval? %>
                 <p class="purchase_top_line">
@@ -100,7 +100,7 @@
 
 $(document).ready(function() {
 
-/// populate the values in the manual approval modal and the href to follow if OK is clicked	    
+/// populate the values in the approval modal text and the href to follow if button is clicked	    
    $('.approval.button').click(function () {
        
        var purchase = 	 $(this).attr('data-purchase');
@@ -146,9 +146,15 @@ $(document).ready(function() {
    pTable = $('#purchases').dataTable( {
         "sPaginationType": "full_numbers",
         "aoColumnDefs": [
-        { "bVisible": false, "aTargets": [ 0,1,2 ] }
-        ],
-        "aaSorting": [[0,'desc']]
+	        { "bVisible": false, "aTargets": [ 0,1,2 ] },
+	        { "sWidth": "10%", "aTargets": [ 3]},
+	        { "sWidth": "60%", "aTargets": [ 4 ]},
+ 	        { "sWidth": "20%", "aTargets": [ 5 ]},
+ 	        { "sWidth": "10%", "aTargets": [ 6 ]},
+       ],
+        "aaSorting": [
+        	[0,'desc']
+    	]
     } );
 
 

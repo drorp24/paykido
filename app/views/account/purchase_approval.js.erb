@@ -1,0 +1,7 @@
+<% if @error %>
+    notification('<%= @error %>', true, 'user', true)
+<% else %>
+    notification("<%= "purchase has been #{params[:activity]}" %>", false, 'tick	', true)
+    $('td.status[data-purchase="<%= @purchase.id %>"] span').removeClass("question").addClass("<%= (params[:activity] == 'approved') ? 'tick2' : 'cross' %>")
+	$('.message-count').html($('.message-count').html()/1 - 1)
+<% end %>

@@ -3,7 +3,7 @@ class AccountController < ApplicationController
   before_filter :check_and_restore_session, :except => [:login, :logout, :access]
 
 
-  def login       # (replace with Devise user/pass authentication)
+  def login       # (replace with Devise user based authentication)
 
     if request.post?          
       if session[:payer] = Payer.authenticate(params[:username], params[:password])
@@ -15,7 +15,7 @@ class AccountController < ApplicationController
 
   end
    
-  def logout       # (replace with Devise user/pass authentication)
+  def logout       # (replace with Devise user based authentication)
 
     reset_session
     redirect_to :controller => 'home', :action => 'index'
@@ -42,7 +42,7 @@ class AccountController < ApplicationController
 
   end    
   
-  def consumer_confirm      # some actions in this controller are "REST like". RESTify if needed.
+  def consumer_confirm      
 
     @consumer.confirm!
      
@@ -54,7 +54,7 @@ class AccountController < ApplicationController
 
   def purchase_approval
 
-#    @purchase.approval!(params)
+    @purchase.approval!(params)
      
     respond_to do |format|  
       format.js
@@ -86,11 +86,10 @@ class AccountController < ApplicationController
     
     @purchase = Purchase.find(params[:id])
 
-    render :partial => 'purchase_details', :layout => false               # or find another way (partial?) to make 'purchase' refresh only one pane in the entire page
+    render :partial => 'purchase_details', :layout => false
     
   end
   
-
 
   private
   
@@ -125,7 +124,6 @@ class AccountController < ApplicationController
     end
     session[:purchase] = @purchase
     
-  end
-  
+  end  
 
 end
