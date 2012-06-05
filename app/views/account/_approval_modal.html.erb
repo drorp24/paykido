@@ -18,7 +18,7 @@
         </div>
         <!--
         <br /><p class="rules_title">Rules</p>
-        <% if @purchase and @purchase.properties.any? %>
+        <% if @purchase and @purchase.properties and @purchase.properties.any? %>
 			<%= form_tag "some_path",  :id => "rules_form" do %>
 		        <% @purchase.properties.sort.each do |property, value| %>
 		        	<p>
