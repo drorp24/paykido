@@ -1210,6 +1210,7 @@ a {
   color: #999;
   outline: none;
   -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
 }
 
 p {

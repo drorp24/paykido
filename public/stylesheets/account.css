@@ -1,17 +1,24 @@
+.purchase_row td.status {
+	padding-left: 10px;
+}
+
+label.list {
+	display: inline;
+}
 td.purchase_details {
-	
+	width: 265px;
 }
 
 #purchases tr.purchase_row td.purchase_price {
-	
+	width: 65px;
 }
 tr:hover {
 	background-color: white;
 }
-a {
+body#paykido  a {
 	text-decoration: none;
 }
-#approval_modal {
+#approval_modal.box {  //doesnt work!
 	width: 520px;
 }
 
@@ -92,8 +99,12 @@ a {
 .actions #blacklist {
     margin-left: 1.5em;
 }
-.rule.name {
+.rule.name, .rules_title {
     color: #4C82B3;
+}
+
+.rules_title {
+	font-size: 14px;
 }
 
 .status .icon32 {
@@ -279,6 +290,7 @@ tr:hover {
 
 .approval_buttons p a {
     visibility: hidden;
+    margin-left: 0;
 }
 
 tr:hover .approval_buttons p a{
@@ -340,9 +352,11 @@ tr:hover .approval_buttons p a{
     
 }
 
-.approval_buttons {
+td.approval_buttons {
     padding-right: 34px;
+    padding-left: 0;
 }
+
 
 .actionButton {
     width: 4em;

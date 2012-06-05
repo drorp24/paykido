@@ -6,9 +6,9 @@
 
 <%= form_tag "some_path",  :id => "product_form" do %>
 	<%= radio_button_tag("product", "310 Farm Cash@30.00", false, :class=> "option", :id=>"a") %>
-	<%= radio_button_tag("product", "240 Farm Cash@24.00", false, :class=> "option", :id=>"b", :checked=>"checked") %>
+	<%= radio_button_tag("product", "240 Farm Cash@24.00", false, :class=> "option", :id=>"b") %>
 	<%= radio_button_tag("product", "115 Farm Cash@12.00", false, :class=> "option", :id=>"c") %>
-	<%= radio_button_tag("product", "55 Farm Cash@6.00", false, :class=> "option", 	:id=>"d") %>
+	<%= radio_button_tag("product", "55 Farm Cash@6.00", false, :class=> "option", 	:id=>"d", :checked=>"checked") %>
 	<%= radio_button_tag("product", "25 Farm Cash@3.00", false, :class=> "option", 	:id=>"e") %>
 <% end %>
 

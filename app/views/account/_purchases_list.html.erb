@@ -15,7 +15,7 @@
     </a>
     <a href="#" class="small button" id="blocked-button">
         <span class="icon16 delete"></span>
-        Blocked
+        Denied
     </a>
     <a href="#" class="small button" id="all-button">
         <span class="icon16 refresh"></span>
@@ -46,8 +46,8 @@
                 <span class="icon32 question large tooltip" title="Requires your manual approval"></span>
             <% elsif purchase.approved? %> 
                 <span class="icon32 tick2 large tooltip" title="Manually approved"></span>
-            <% elsif purchase.declined? %> 
-                <span class="icon32 cross large tooltip" title="Manually declined"></span>
+            <% elsif purchase.denied? %> 
+                <span class="icon32 cross large tooltip" title="Manually denied"></span>
             <% elsif purchase.authorized? %> 
                 <span class="icon32 plus2 large tooltip" title="<%= "Authorized according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></span>
             <% elsif purchase.unauthorized? %> 
@@ -78,7 +78,7 @@
                     </a>
                 </p>
                 <p class="purchase_bottom_line">
-                     <a href="#approval_modal" class="modal approval button small greyedOut actionButton decline" data-purchase="<%= purchase.id %>"  data-action="do not approve" data-product="<%= purchase.product %>" data-price="<%= number_to_currency purchase.amount %>" data-consumer="<%= purchase.consumer.name %>" data-retailer="<%= purchase.retailer.name %>" data-title="<%= purchase.title %>">
+                     <a href="#approval_modal" class="modal approval button small greyedOut actionButton deny" data-purchase="<%= purchase.id %>"  data-action="do not approve" data-product="<%= purchase.product %>" data-price="<%= number_to_currency purchase.amount %>" data-consumer="<%= purchase.consumer.name %>" data-retailer="<%= purchase.retailer.name %>" data-title="<%= purchase.title %>">
                         <span class="icon16 cross"></span>
                         NO
                     </a>
@@ -110,7 +110,8 @@ $(document).ready(function() {
        var consumer =    $(this).attr('data-consumer');       
        var retailer =    $(this).attr('data-retailer');       
        var title = 		 $(this).attr('data-title'); 
-       var activity =	 (action == 'approve') ? 'approved' : 'declined';      
+       var activity =	 (action == 'approve') ? 'approved' : 'denied';      
+       var always =	 	 (action == 'approve') ? 'approve' : 'deny';      
 
        $('.action').html(action);
        $('.product').html(product);
@@ -119,6 +120,7 @@ $(document).ready(function() {
        $('.modal_retailer').html(retailer);
        $('.modal_title').html(title);
        $('.activity').html(activity);
+       $('.always').html(always);
 
        $('#approval_button').attr('data-href','purchase_approval?purchase=' + purchase + '&activity=' + activity);
 
@@ -147,10 +149,10 @@ $(document).ready(function() {
         "sPaginationType": "full_numbers",
         "aoColumnDefs": [
 	        { "bVisible": false, "aTargets": [ 0,1,2 ] },
-	        { "sWidth": "10%", "aTargets": [ 3]},
-	        { "sWidth": "60%", "aTargets": [ 4 ]},
+	        { "sWidth": "0%", "aTargets": [ 3]},
+	        { "sWidth": "80%", "aTargets": [ 4 ]},
  	        { "sWidth": "20%", "aTargets": [ 5 ]},
- 	        { "sWidth": "10%", "aTargets": [ 6 ]},
+ 	        { "sWidth": "0%", "aTargets": [ 6 ]},
        ],
         "aaSorting": [
         	[0,'desc']
@@ -186,7 +188,7 @@ $(document).ready(function() {
     $('#blocked-button').click(function () {
             $('.action_bar.filters a').removeClass('blue');
             $(this).addClass('blue');
-            pTable.fnFilter('Blacklisted|Low|High|Unauthorized|Declined|Zero|Insufficient|Over', 1, true, false, false);
+            pTable.fnFilter('Blacklisted|Low|High|Unauthorized|Denied|Zero|Insufficient|Over', 1, true, false, false);
     });
 
      $('#all-button').click(function () {

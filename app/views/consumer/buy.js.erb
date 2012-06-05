@@ -13,8 +13,8 @@ $('#status_line').show();
 	$('.status_text').html('Pending Approval');
 <% elsif @purchase and !@purchase.authorized %>
 	$('#salutation').html('Sorry...');
-	$('.status_icon').addClass("declined");
-	$('.status_text').html('Declined');
+	$('.status_icon').addClass("denied");
+	$('.status_text').html('Denied');
 <% end %>
 $('#ajax_message #first_line').html("<%= @first_line %>");
 $('#ajax_message #second_line').html("<%= @second_line %>");

@@ -40,7 +40,7 @@ class Purchase < ActiveRecord::Base
   end
 
   # terminology:  'authorize'/'unauthorize' is used when Paykido programmatically authorizes purchase.
-  #               'approve'/'decline' is used when a human being (parent) authorizes it himself.
+  #               'approve'/'deny' is used when a human being (parent) authorizes it himself.
 
   def authorize!
        
@@ -112,18 +112,29 @@ class Purchase < ActiveRecord::Base
 
   def manually_handled?
     self.authorization_type ==  "Approved" or 
-    self.authorization_type ==  "Declined" or
+    self.authorization_type ==  "Denied" or
     self.authorization_type ==  "PendingPayer"
   end
     
   def approval!(params)
     if params[:activity] == 'approved'
       self.approve!
-    elsif params[:activity] == 'declined'
-      self.decline!
+      message = "Congrats! "
+    elsif params[:activity] == 'denied'
+      self.deny!
+      message = "We are sorry. "
     else
       return false
     end
+    
+    begin
+      message += "Your parent has just #{params[:activity]} your purchase request. "
+      message += "The item is yours!" if params[:activity] == 'approved'
+      Sms.send(self.consumer.billing_phone, message) 
+    rescue
+      return false
+    end
+ 
   end
 
   def approve!
@@ -137,15 +148,15 @@ class Purchase < ActiveRecord::Base
     self.authorization_type == "Approved"
   end
   
-  def decline!
+  def deny!
     self.update_attributes!(
       :authorized => false,
-      :authorization_type => "Declined",
+      :authorization_type => "Denied",
       :authorization_date => Time.now) 
   end
   
-  def declined?
-    self.authorization_type == "Declined"       
+  def denied?
+    self.authorization_type == "Denied"       
   end
   
   def authorized?

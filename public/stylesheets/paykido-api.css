@@ -10,7 +10,7 @@ body {
 .approved {
 	background-image: url(/spina/img/icons/tick_32.png);
 }
-.declined {
+.denied {
 	background-image: url(/spina/img/icons/delete_32.png);
 }
 .pending {
