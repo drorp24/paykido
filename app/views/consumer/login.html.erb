@@ -24,13 +24,14 @@
 		
 		<div id="buy" class="box">
 			<%= form_for :consumer, :url => {:action => :buy}, :html => {:id => "buy_form"} do |f| %>
-				<%= submit_tag "Click to Buy", :id=> "buy_button", :class => "fg-button ui-state-default loginbutton ui-very-rounded-corners" %>
+				<%= submit_tag "Click to Buy", :id=> "buy_button", :class => "widget_button fg-button ui-state-default loginbutton ui-very-rounded-corners" %>
 			<% end %>
 			<div id="status_line">
 				<span class="status_icon"></span>
 				<span class="status_text"></span>
 			</div>
 		</div>
+
 			
 		<div id="pic">
 			<% if @pic %>
@@ -39,6 +40,25 @@
 		</div>
 	</div>
 	<div class="fr right">
+		<div id="invite" class="box">
+		   	<div id="invite_message">
+				<p id="invite_head" class="text">Spread the word - earn credits!</p>
+				<p id="invite_1" class="text">Enjoying Paykido? Tell your friends!</p>		
+				<p id="invite_2" class="text">Let them know they can start buying</p>		
+				<p id="invite_3" class="text">independently and safely.</p>		
+				<p id="invite_4" class="text"></p>	
+			</div>
+			<div id="invite_button">	
+				<p>
+				    <input type="button"
+				      onclick="sendRequestViaMultiFriendSelector(); return false;"
+				      value="Invite friends!"
+				      class="widget_button fg-button ui-state-default loginbutton ui-very-rounded-corners"
+				      id="buy_button"
+				    />
+				</p>
+			</div>
+		</div>
 		<div id="like" class="box">
 			<fb:like-box href="http://www.facebook.com/pages/Paykido/175298209224744" width="292" height="500" show_faces="true" stream="true" header="true"></fb:like-box>
 		</div>
@@ -81,6 +101,27 @@ function validate_async(form, cb) {
   });
 }
 */
+
+function sendRequestViaMultiFriendSelector() {
+        FB.ui({method: 'apprequests',
+          message: 'Hi! Paykido is a super-cool service that lets kids buy with a click!',
+          data: 'dror',
+          title:'Spread the word and earn credits!'
+        }, 
+        function(response)  {
+          if (response.request)  {
+          	invites = response.to.length
+        	alert('Thanks! ' + invites + ' more points for you!')
+          }
+      }
+);
+      }
+      
+function requestCallback(response) {
+        // Handle callback here
+        alert('you sent it to ' + response.request_ids.length)
+      }
+
 
 $(document).ready(function (){ 
 

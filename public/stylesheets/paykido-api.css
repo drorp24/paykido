@@ -2,6 +2,21 @@ body {
     font-family: 'ubuntu', sans-serif;
 
 }
+#invite {
+	position: absolute;	
+	right: -58px;
+	top: 121px;
+	text-align: center;
+}
+
+#invite_message {
+}
+#invite_head {
+	font-size: 20px;
+}
+#invite_button {
+}
+
 #status_line {
 	display: none;
 	margin-top: 58px;
@@ -145,7 +160,7 @@ img.fb_profile_pic_rendered {
 }
 form, .text {
 /*	font-family: Lucida Grande,Lucida Sans,Arial,sans-serif; */
-	font-size: 16px;
+	font-size: 14px;
 	color: #637BAD;
 }
 
@@ -412,6 +427,12 @@ a {
 padding: 2px;
 background-color: red;
 display: table;
+}
+
+#invite_button #buy_button {
+	position: absolute;
+	top: 195px;
+	left: 50px;
 }
 
 #buy_button {
