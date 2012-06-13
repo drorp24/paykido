@@ -1,3 +1,4 @@
+
 body {
     font-family: 'ubuntu', sans-serif;
 
@@ -8,13 +9,28 @@ body {
 	top: 121px;
 	text-align: center;
 }
+#invite_button {
+    background: #d7ebf9 url(/themes/Cupertino/images/ui-bg_glass_80_d7ebf9_1x400.png) 50% 50% repeat-x; 
+    color: #FFFFE0;
+    font-size: 24px;
+    height: 45px;
+    width: 175px;
+    z-index: 1000;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -o-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+   -moz-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
+    z-index: 1000;
+    position: absolute;
+    top: 197px;
+    right: 50px;
+}	
+
 
 #invite_message {
 }
 #invite_head {
 	font-size: 20px;
-}
-#invite_button {
 }
 
 #status_line {
@@ -362,7 +378,7 @@ This is what determines the modal window size
 }
 
 #marketing {
-	height:50px
+	height:50px;
 	width:200px;
 	margin-top:40px;
 	margin-bottom:20px;
@@ -427,12 +443,6 @@ a {
 padding: 2px;
 background-color: red;
 display: table;
-}
-
-#invite_button #buy_button {
-	position: absolute;
-	top: 195px;
-	left: 50px;
 }
 
 #buy_button {

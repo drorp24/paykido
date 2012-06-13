@@ -48,13 +48,13 @@
 				<p id="invite_3" class="text">independently and safely.</p>		
 				<p id="invite_4" class="text"></p>	
 			</div>
-			<div id="invite_button">	
+			<div id="invite_div">	
 				<p>
 				    <input type="button"
 				      onclick="sendRequestViaMultiFriendSelector(); return false;"
 				      value="Invite friends!"
 				      class="widget_button fg-button ui-state-default loginbutton ui-very-rounded-corners"
-				      id="buy_button"
+				      id="invite_button"
 				    />
 				</p>
 			</div>
@@ -117,12 +117,6 @@ function sendRequestViaMultiFriendSelector() {
 );
       }
       
-function requestCallback(response) {
-        // Handle callback here
-        alert('you sent it to ' + response.request_ids.length)
-      }
-
-
 $(document).ready(function (){ 
 
 	// disable buy button unless registered: handle with Devise
@@ -133,7 +127,8 @@ $(document).ready(function (){
 	// reveal facebook registration form as soon as 'register' is clicked
 	$('#login_button').click(function() {
 		if ($('.fb_button_text').html() == 'Register') {
-			$('#registration').attr('style', 'display:block');			
+			$('#registration').attr('style', 'display:block');
+			$('#invite_button').hide();			
 		}
 	});
 	
