@@ -118,10 +118,10 @@ class Purchase < ActiveRecord::Base
     
   def approval!(params)
     if params[:activity] == 'approved'
-      self.approve!
+      self.approve!(params)
       message = "Congrats! "
     elsif params[:activity] == 'denied'
-      self.deny!
+      self.deny!(params)
       message = "We are sorry. "
     else
       return false
@@ -137,22 +137,45 @@ class Purchase < ActiveRecord::Base
  
   end
 
-  def approve!
+  def approve!(params=nil)
     self.update_attributes!(
       :authorized => true,
       :authorization_type => "Approved",
       :authorization_date => Time.now) 
+      
+    # temporary - get one hash of 'properties' from the form and iterate over it without knowing what it includes
+    return unless params
+    params.each do |property, value|
+      if property == 'retailer' or
+         property == 'title' or
+         property == 'category' or
+         property == 'esrb_rating' or
+         property == 'pegi_rating'
+      self.consumer.whitelist!(property, self.properties[property])
+      end 
+    end
   end
   
   def approved?
     self.authorization_type == "Approved"
   end
   
-  def deny!
+  def deny!(params=nil!)
     self.update_attributes!(
       :authorized => false,
       :authorization_type => "Denied",
       :authorization_date => Time.now) 
+    # temporary - get one hash of 'properties' from the form and iterate over it without knowing what it includes
+    return unless params
+    params.each do |property, value|
+      if property == 'retailer' or
+         property == 'title' or
+         property == 'category' or
+         property == 'esrb_rating' or
+         property == 'pegi_rating'
+      self.consumer.blacklist!(property, self.properties[property])
+      end 
+    end
   end
   
   def denied?
