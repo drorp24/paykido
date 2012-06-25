@@ -8,7 +8,7 @@
 				<span class="icon32 home fr"><span>
         	<% end %>
         </li>
-    <% @payer.consumers.each do |consumer| %>
+    	<% @payer.consumers.each do |consumer| %>
         <li class="consumer <%= "active" if (@consumer and @consumer.id == consumer.id) %>">
             <%= link_to consumer_purchases_path(consumer) do %>
             	<span class="secondary_name"><%= consumer.name %></span>
@@ -20,25 +20,19 @@
             	
         	<% end %>
         </li>
-    <% end %>
-     </ul>
+    	<% end %>
+	</ul>
   
-  <div id="notifications">
-    <ul>
-    </ul>
-  </div>
+	<div id="notifications">
+	    <ul>
+	    </ul>
+	</div>
 </nav>
 
 <section id="maincontainer">
   <div id="main" class="container_12">
   
-    <!-- Main Area Here -->
-    
-    <% if params[:activity] == 'confirmation' %>
-    	<%= render :partial => 'confirmation_popover' %>
-	<% elsif @purchases.any? %>
-    	<%= render 'dashboard' %>
-	<% end %>
+	<%= render :partial => 'index' %>
   
   </div>
 </section>

@@ -8,10 +8,6 @@ class Payer < ActiveRecord::Base
   
   attr_accessor :password_confirmation          # remove once Devise is in
   
-  def purchases_with_info
-    Purchase.where("payer_id = ?", self.id).includes(:consumer, :retailer)
-  end
-  
   def request_confirmation(consumer)     
 
     begin

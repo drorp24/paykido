@@ -6,6 +6,15 @@ class Purchase < ActiveRecord::Base
   belongs_to  :payer
   belongs_to  :retailer
   
+
+  def self.with_info(payer_id, consumer_id)
+    if consumer_id
+      Purchase.where("consumer_id = ?", consumer_id).includes(:consumer, :retailer).all
+    else
+      Purchase.where("payer_id = ?", payer_id).includes(:consumer, :retailer).all
+    end
+  end
+
   def self.create_new!(payer, consumer, retailer, title, product, amount, params)
     
     retailer_id = Retailer.find_or_create_by_name(retailer).id
@@ -116,27 +125,6 @@ class Purchase < ActiveRecord::Base
     self.authorization_type ==  "PendingPayer"
   end
     
-  def approval!(params)
-    if params[:activity] == 'approved'
-      self.approve!(params)
-      message = "Congrats! "
-    elsif params[:activity] == 'denied'
-      self.deny!(params)
-      message = "We are sorry. "
-    else
-      return false
-    end
-    
-    begin
-      message += "Your parent has just #{params[:activity]} your purchase request. "
-      message += "The item is yours!" if params[:activity] == 'approved'
-      Sms.send(self.consumer.billing_phone, message) 
-    rescue
-      return false
-    end
- 
-  end
-
   def approve!(params=nil)
     self.update_attributes!(
       :authorized => true,
@@ -154,6 +142,14 @@ class Purchase < ActiveRecord::Base
       self.consumer.whitelist!(property, self.properties[property])
       end 
     end
+    
+    begin
+      message = "Congrats! Your parent has just approved your purchase request. The item is yours!"
+      Sms.send(self.consumer.billing_phone, message) 
+    rescue
+      return false
+    end
+
   end
   
   def approved?
@@ -176,6 +172,14 @@ class Purchase < ActiveRecord::Base
       self.consumer.blacklist!(property, self.properties[property])
       end 
     end
+    
+    begin
+      message = "We are sorry. Your parent has just declined your purchase request."
+      Sms.send(self.consumer.billing_phone, message) 
+    rescue
+      return false
+    end
+
   end
   
   def denied?

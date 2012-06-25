@@ -5,6 +5,7 @@ $('document').ready(function() {
     PJAX UNCOMMENT THIS FOR PJAX FUNCTIONALITY
   *******/
   
+
    $('nav#primary a').click(function() {
        window.location = $(this).attr("href");
        return false;

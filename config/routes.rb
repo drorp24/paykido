@@ -1,4 +1,21 @@
 Arca::Application.routes.draw do
+  resources :purchases do
+    member do
+      get 'approve'
+    end
+  end
+
+  resources :consumers do
+    resources :purchases
+  end
+
+  resources :payers do
+    resources :purchases
+  end
+
+  match 'g2s/ppp/:status' => 'g2s#ppp_callback'
+  match 'g2s/dmn/:status' => 'g2s#dmn'
+
   match ':controller(/:action(/:id))'
   # The priority is based upon order of creation:
   # first created -> highest priority.

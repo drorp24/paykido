@@ -15,14 +15,6 @@ class Consumer < ActiveRecord::Base
       self.auto_deny_over ||= 35
   end
 
-  def purchases_with_info
-    Purchase.where("consumer_id = ?", self.id).includes(:consumer, :retailer)
-  end
-  
-  def pendings_count
-    Purchase.where("consumer_id = ? and authorization_type = ?",self.id, 'PendingPayer').count
-  end
-
   def rule_set!(params) 
 
     property = params[:property]

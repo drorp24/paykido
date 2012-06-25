@@ -7,7 +7,7 @@ class AccountController < ApplicationController
 
     if request.post?          
       if session[:payer] = Payer.authenticate(params[:username], params[:password])
-        redirect_to :action => 'dashboard'
+        redirect_to purchases_path
       else
         flash.now[:notice] = "Incorrect user or password. Please try again!"
       end      
@@ -26,7 +26,7 @@ class AccountController < ApplicationController
 
     if @payer = Payer.authenticate_by_token(params[:email], params[:token])
       session[:payer] = @payer
-      redirect_to :action => 'dashboard', :consumer => params[:consumer], :activity => params[:activity]
+      redirect_to :action => 'dashboard', :consumer => params[:consumer], :activity => params[:activity] #action should also be a parameter
     else
       reset_session
       flash[:notice] = "Incorrect user or password. Please try again!"
@@ -35,13 +35,6 @@ class AccountController < ApplicationController
 
   end   
 
-  def dashboard
-
-    @purchases = @consumer.purchases_with_info
-    @pendings_count = @consumer.pendings_count
-
-  end    
-  
   def consumer_confirm      
 
     @consumer.confirm!
@@ -52,16 +45,6 @@ class AccountController < ApplicationController
     
   end
 
-  def purchase_approval
-
-    @purchase.approval!(params)
-     
-    respond_to do |format|  
-      format.js
-    end
-    
-  end
-  
   def consumer_allowance_change
     
     @consumer.allowance_change!(params[:consumer])        
@@ -104,12 +87,13 @@ class AccountController < ApplicationController
         
     @payer = session[:payer]            
 
-    if params[:consumer] 
-      @consumer = Consumer.find(params[:consumer])
-    elsif session[:consumer]
-      @consumer = session[:consumer]
+    #once I switch to RESTful controllers, params[:id] would be the id of the right resource
+    if params[:id]
+      @consumer = Consumer.find(params[:id])
+    elsif params[:consumer]
+     @consumer = Consumer.find(params[:consumer])
     else
-      @consumer = @payer.consumers.first     
+      @consumer = nil     
     end
     session[:consumer] = @consumer
     
