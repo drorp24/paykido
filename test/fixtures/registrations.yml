@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  NameOnCard: MyString
+  CCToken: MyString
+  ExpMonth: MyString
+  ExpYear: MyString
+  TransactionID: 1
+  FirstName: MyString
+  LastName: MyString
+  Address: MyString
+  City: MyString
+  State: MyString
+  Zip: MyString
+  Country: MyString
+  Phone: MyString
+  IPAddress: MyString
+  Email: MyString
+
+two:
+  NameOnCard: MyString
+  CCToken: MyString
+  ExpMonth: MyString
+  ExpYear: MyString
+  TransactionID: 1
+  FirstName: MyString
+  LastName: MyString
+  Address: MyString
+  City: MyString
+  State: MyString
+  Zip: MyString
+  Country: MyString
+  Phone: MyString
+  IPAddress: MyString
+  Email: MyString

@@ -5,6 +5,7 @@ class Purchase < ActiveRecord::Base
   belongs_to  :consumer
   belongs_to  :payer
   belongs_to  :retailer
+  has_many    :transactions
   
 
   def self.with_info(payer_id, consumer_id)

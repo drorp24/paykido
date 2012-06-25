@@ -1,4 +1,4 @@
-Arca::Application.routes.draw do
+Paykido::Application.routes.draw do
   resources :purchases do
     member do
       get 'approve'

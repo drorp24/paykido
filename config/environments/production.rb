@@ -1,5 +1,19 @@
-Arca::Application.configure do
+Paykido::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
+
+  # G2S Integration
+  config.merchant_id = 136515662095334027
+  config.merchant_site_id = 79871
+  config.secret_key = 'lDovmOBmoHSCvCXxOSDNmJmjaKuTKcuFU767pi1p9yKXfVJb6FKquxrcVVMv7gh1' 
+  config.version = '3.0.0'
+  config.sg_VendorID = 75381
+  config.sg_MerchantName = 'G2S - Paykido'
+  config.sg_MerchantPhoneNumber = '972542343220'
+  config.sg_WebSiteID = 79871
+  config.sg_ClientLoginID = 'G2STestExtTRX'
+  config.sg_ClientPassword = 'Wf7s9a2VsR'
+  config.sg_Descriptor = 'Paykido - safe payment for kids'
+  config.sg_TransType = 'Sale'   
 
   # Code is not reloaded between requests
   config.cache_classes = true

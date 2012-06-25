@@ -5,8 +5,19 @@ class Payer < ActiveRecord::Base
   has_many  :consumers
   has_many  :purchases
   has_many  :rules                              # family-default rules (as opposed to consumer rules)
+  has_many  :registrations
   
+   
   attr_accessor :password_confirmation          # remove once Devise is in
+  
+  def registered?
+    self.registrations.any?
+  end
+  
+  def registration
+    return unless self.registered?
+    self.registrations.first
+  end
   
   def request_confirmation(consumer)     
 

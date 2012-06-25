@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  merchant_id: 1
+  merchant_site_id: 1
+  secret_key: MyString
+  ppp_version: MyString
+  sg_VendorID: MyString
+  sg_MerchantName: MyString
+  sg_WebSiteID: MyString
+  sg_ClientLoginID: MyString
+  sg_ClientPassword: MyString
+
+two:
+  merchant_id: 1
+  merchant_site_id: 1
+  secret_key: MyString
+  ppp_version: MyString
+  sg_VendorID: MyString
+  sg_MerchantName: MyString
+  sg_WebSiteID: MyString
+  sg_ClientLoginID: MyString
+  sg_ClientPassword: MyString

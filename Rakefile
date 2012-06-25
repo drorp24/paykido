@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Arca::Application.load_tasks
+Paykido::Application.load_tasks

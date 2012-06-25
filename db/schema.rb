@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120527182126) do
+ActiveRecord::Schema.define(:version => 20120625183151) do
 
   create_table "consumers", :force => true do |t|
     t.string   "billing_phone"
@@ -78,16 +78,15 @@ ActiveRecord::Schema.define(:version => 20120527182126) do
   end
 
   create_table "purchases", :force => true do |t|
-    t.integer  "payer_id",               :null => false
-    t.integer  "consumer_id",            :null => false
-    t.integer  "retailer_id",            :null => false
-    t.decimal  "amount",                 :null => false
-    t.date     "date",                   :null => false
+    t.integer  "payer_id",                            :null => false
+    t.decimal  "amount",                              :null => false
+    t.date     "date",                                :null => false
     t.datetime "authorization_date"
     t.string   "authorization_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "authorized"
+    t.integer  "consumer_id"
     t.integer  "category_id"
     t.string   "properties"
     t.integer  "title_id"
@@ -96,6 +95,31 @@ ActiveRecord::Schema.define(:version => 20120527182126) do
     t.text     "params"
     t.string   "authorization_property"
     t.string   "authorization_value"
+    t.integer  "retailer_id"
+    t.integer  "PPP_TransactionID",      :limit => 8
+    t.string   "currency"
+  end
+
+  create_table "registrations", :force => true do |t|
+    t.integer  "payer_id"
+    t.string   "status"
+    t.string   "NameOnCard"
+    t.string   "CCToken"
+    t.string   "ExpMonth"
+    t.string   "ExpYear"
+    t.integer  "TransactionID", :limit => 8
+    t.string   "CVV2"
+    t.string   "FirstName"
+    t.string   "LastName"
+    t.string   "Address"
+    t.string   "City"
+    t.string   "State"
+    t.string   "Zip"
+    t.string   "Country"
+    t.string   "Phone"
+    t.string   "Email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "retailers", :force => true do |t|
@@ -142,6 +166,43 @@ ActiveRecord::Schema.define(:version => 20120527182126) do
     t.string   "pegi_rating"
     t.string   "pegi_descriptor"
     t.string   "category"
+  end
+
+  create_table "transactions", :force => true do |t|
+    t.integer  "purchase_id"
+    t.string   "ppp_status"
+    t.integer  "PPP_TransactionID", :limit => 8
+    t.integer  "responsechecksum"
+    t.integer  "TransactionID",     :limit => 8
+    t.string   "status"
+    t.string   "userid"
+    t.string   "customData"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "Email"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "country"
+    t.string   "state"
+    t.string   "city"
+    t.string   "zip"
+    t.string   "phone1"
+    t.string   "nameOnCard"
+    t.string   "cardNumber"
+    t.string   "expMonth"
+    t.string   "expYear"
+    t.string   "token"
+    t.string   "CVV2"
+    t.string   "IPAddress"
+    t.string   "ExErrCode"
+    t.string   "ErrCode"
+    t.string   "AuthCode"
+    t.string   "message"
+    t.string   "responseTimeStamp"
+    t.string   "Reason"
+    t.string   "ReasonCode"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
