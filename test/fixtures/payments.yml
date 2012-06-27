@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  purchase_id: 1
+  CustomData: MyString
+  UserID: 1
+  ClientUniqueID: 1
+  TransactionID: 1
+  Status: MyString
+  AuthCode: MyString
+  Reason: MyString
+  ErrCode: MyString
+  ExErrCode: MyString
+  Token: MyString
+  Params: MyText
+
+two:
+  purchase_id: 1
+  CustomData: MyString
+  UserID: 1
+  ClientUniqueID: 1
+  TransactionID: 1
+  Status: MyString
+  AuthCode: MyString
+  Reason: MyString
+  ErrCode: MyString
+  ExErrCode: MyString
+  Token: MyString
+  Params: MyText

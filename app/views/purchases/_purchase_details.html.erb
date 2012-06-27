@@ -117,7 +117,7 @@ $('document').ready(function() {
        var name =    	 $(this).attr('data-name');       
        $('.action').html(function () {
        		if 		(rule == 'whitelist') {return 'authorize'}
-       		else if (rule == 'blacklist') {return 'deny'} 
+       		else if (rule == 'blacklist') {return 'decline'} 
        		else if (rule = '') {return 'ask about'}
        });
        $('.property').html(property);

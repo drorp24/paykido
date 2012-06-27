@@ -1,8 +1,43 @@
-
 body {
     font-family: 'ubuntu', sans-serif;
 
 }
+
+#loadingZone {
+    height: 100px;
+    position: absolute;
+    bottom: 10px;
+    width: 85%;
+}
+
+.loading-indicator {
+    height: 80px;
+    width: 80px;
+    background: url( '/images/loading-bars.gif' );
+    background-repeat: no-repeat;
+    background-position: center center;
+
+}
+
+.loading-indicator-overlay {
+    background-color: #FFFFFF;
+    opacity: 0.6;
+    filter: alpha(opacity = 60);
+}
+
+#merchant_headline {
+    font-size: 18px;   
+}
+
+#register_headline {
+    font-weight: bold;
+    font-size: 12px;
+    margin-bottom: 8px;
+    margin-left: 5px;
+    margin-top: 20px;
+}
+	
+
 #invite {
 	position: absolute;	
 	right: -58px;
@@ -41,13 +76,17 @@ body {
 .approved {
 	background-image: url(/spina/img/icons/tick_32.png);
 }
-.denied {
+.declined {
 	background-image: url(/spina/img/icons/delete_32.png);
 }
 .pending {
 	background-image: url(/spina/img/icons/question_32.png);
 }
 		
+.failed {
+    background-image: url(/spina/img/icons/cross_32.png);
+}
+
 .translation_missing {
     color: purple;
 }
@@ -55,14 +94,16 @@ body {
 .status_icon {
 	width: 32px;
 	height: 32px;
-	display: inline-block;
+	position: absolute;
+	left: 43%;
+	top: 130px;
 }
 
 .status_text {
 	color: #666;
-	position: relative;
-	bottom: 8px;
-	left: 15px;
+	position: absolute;
+	top: 190px;
+	left: 36%;
 	font-size: 20px;
 }
 .shadow {
@@ -74,10 +115,10 @@ body {
 }
 
 .ui-very-rounded-corners {
-	border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+	border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
 
@@ -95,8 +136,8 @@ body {
 
 #pic {
 	position: absolute;
-	bottom: 41px;
-	left:130px;
+	top: 50px;
+	left:252px;
 }
 
 #like {
@@ -108,9 +149,11 @@ body {
  
 #registration {
 	position: absolute;
-	left: 329px;
+	left: 329px;    /* that matches the double pane paradigm */
+	left: 17px;
 /*	left: 0; */
-	top:36px;
+	top:36px;  /* that matches the double pane paradigm */
+	top: -4px;
 
 }
 
@@ -156,7 +199,8 @@ img.fb_profile_pic_rendered {
 #logo img#logoimg  {
 	
 	margin-left: -12px;	
-	margin-top: 12px;
+	margin-top: 44px;
+	width: 50%;
 }
 
 .right {
@@ -455,7 +499,6 @@ display: table;
     font-size: 24px;
     height: 45px;
     width: 175px;
-    z-index: 1000;
 	box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
    -o-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
    -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
@@ -532,8 +575,10 @@ display: table;
 
 #paykido .content {
   display:table;
-  width: 630px;
+  width: 630px;   /* this is the size required for double pane (invite friends etc) */
+  width: 293px;
   height: 530px;
+  height: 488px;
   padding: 10px;
   background: #F9F8F5;
   background-color: white;

@@ -258,13 +258,13 @@ $('document').ready(function() {
     /********************
       Pretty checkboxes
     ********************/
-  
+/*  multiplies the pretty checkboxes on the purchase approval modal window 
     $('input[type=checkbox], input[type=radio]').each(function() {
       if($(this).siblings('label').length > 0) {
         $(this).prettyCheckboxes();
       }
     });
-  
+*/  
     /**********************
       Pretty select boxes
     **********************/

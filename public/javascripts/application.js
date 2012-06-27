@@ -28,7 +28,7 @@ $(document).ready(function (){
         $(this).unbind();
         $(this).click(function() { 
             url = $(this).attr('data-href')
-            if (('#rules_form').length) {url += '&' + $('#rules_form').serialize()}
+            if (('#rules_form').length) {url += '?' + $('#rules_form').serialize()}
             $.ajax(url);
             $('#modalcontainer > div').hide(); // not clear why this isn't working when either of the button clicked
             $('#overlay').hide();

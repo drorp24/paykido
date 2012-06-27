@@ -38,7 +38,10 @@
 				<%= image_tag @pic %>
 			<% end %>
 		</div>
+		
+		<div id="loadingZone"></div>
 	</div>
+<!-- Right pane - test in a clone and deploy only when ready. Make registration hide the new small modal! 
 	<div class="fr right">
 		<div id="invite" class="box">
 		   	<div id="invite_message">
@@ -63,18 +66,19 @@
 			<fb:like-box href="http://www.facebook.com/pages/Paykido/175298209224744" width="292" height="500" show_faces="true" stream="true" header="true"></fb:like-box>
 		</div>
 	</div>
+	-->
 </div>
 
 </div>
 		
 <div id="registration" style="display: none;">
+	<p id="register_headline" class="text">Register to Paykido and buy with one click</p>
 	<fb:registration  
 		width="292" 
 		fb_register="true"
 		redirect-uri="http://<%= request.host + ':' + request.port.to_s %>/consumer/register_callback"  
 		fields='[
 			{ "name":"name"},
-			{"name":"birthday"},
 			{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
 			{ "name":"payer_name",     "description":"Your parent name",  "type":"text"},
 			{ "name":"payer_phone",     "description":"Your parent mobile # (e.g., 2131234567)",  "type":"text"},
@@ -119,10 +123,38 @@ function sendRequestViaMultiFriendSelector() {
       
 $(document).ready(function (){ 
 
+var dror;
+	FB.getLoginStatus(function(response) {
+	  if (response.status === 'connected') {
+	    // the user is logged in and has authenticated your
+	    // app, and response.authResponse supplies
+	    // the user's ID, a valid access token, a signed
+	    // request, and the time the access token 
+	    // and signed request each expire
+	     dror = response.authResponse.userID;
+
+	    var accessToken = response.authResponse.accessToken;
+	    $('#registration').attr('style', 'display:none');
+	  } else if (response.status === 'not_authorized') {
+	    // the user is logged in to Facebook, 
+	    // but has not authenticated your app
+	  } else {
+	    // the user isn't logged in to Facebook.
+	  }
+	 });
+	 
+	alert(dror);
+
 	// disable buy button unless registered: handle with Devise
 	<% unless @consumer %>
 		$('#buy_button').addClass("ui-state-hover").blur();
+		$('#buy_button').attr("disabled", true);
 	<% end %>
+	
+
+	$('#buy_button').click(function () {
+		$('#loadingZone').addClass('loading-indicator');
+	})
 
 	// reveal facebook registration form as soon as 'register' is clicked
 	$('#login_button').click(function() {
@@ -132,7 +164,7 @@ $(document).ready(function (){
 		}
 	});
 	
-	// explicit rendering of XFBML: required because of the lightbox
+	// explicit rendering of XFBML: required because of the lightbox. Without it, Chrome will not display the blue button.
 	FB.XFBML.parse(); 
 
 });

@@ -22,16 +22,23 @@ class ConsumerController < ApplicationController
 
   def get_purchase_parameters
     
-    if params[:mode] and params[:mode] == 'demo'
+  
+    if params[:demo] and params[:demo] == 'demo'
       session[:retailer] = 'zynga'             
       session[:title] = 'farmville'         
       session[:product] = params[:product].split('@')[0]
-      session[:price] = params[:product].split('@')[1]
+      session[:amount] = params[:product].split('@')[1]
+      session[:demo] = true
     elsif params[:merchant]
       session[:retailer] = params[:merchant]
-      session[:title] = params[:app]
       session[:product] = params[:product]
-      session[:price] = params[:amount]
+      session[:amount] = params[:amount]
+      session[:currency] = params[:currency]
+      session[:userid] = params[:userid]
+      session[:mode] = params[:mode]
+      session[:hash] = params[:hash]
+      session[:PP_TransactionID] = params[:PP_TransactionID]
+      session[:referrer] = params[:referrer]
     end
     
     session[:params] = params
@@ -83,7 +90,7 @@ class ConsumerController < ApplicationController
       @name = nil
       @pic = nil
       @first_line =  "You selected #{session[:product]}"
-      @second_line = "Login or register, then click to buy"
+      @second_line = "Click Login or Register to start buying"
     end
     
   end      
@@ -138,28 +145,53 @@ class ConsumerController < ApplicationController
   #############################################
     
   def buy
+  #  notify/approve/inform (make it DRY by having them all in the model)
                                               
     create_purchase  
 
     @purchase.authorize!
-    if @purchase.authorized?                        
-#     @purchase.pay!                                  
-      @purchase.account_for!  # if @purchase.paid?       
+    
+    if @purchase.authorized? 
+      status = 'approved'                
+      @purchase.pay_by_token!                                
+      if @purchase.paid_by_token?
+        @purchase.notify_merchant
+        @purchase.approve!
+        @purchase.account_for! 
+      else
+        status = 'failed'
+      end             
     elsif @purchase.requires_approval?
+      status = 'pending'
       @purchase.request_approval          
+    elsif @purchase.unauthorized?
+      status = 'declined'
+    else             
+      @purchase.notify_consumer('something', 'happenned') 
     end
     
-    authorization_messages      
-    
-    respond_to do |format|  
-      format.js  
-    end
+    @purchase.notify_consumer('programmatic', status)
+
+    redirect_to session[:referrer]  + '?status=' + status
     
   end
   
   def create_purchase
+
+    # note it depends on the kid staying in the same session
+    # it would be better and provide better BI if purchase were created upon login, like consumer
+     
     @purchase = session[:purchase] = 
-    Purchase.create_new!(session[:payer], session[:consumer], session[:retailer], session[:title], session[:product], session[:price], session[:params])    
+    Purchase.create_new!(session[:payer], 
+                         session[:consumer], 
+                         session[:retailer], 
+                         session[:title], 
+                         session[:product], 
+                         session[:amount], 
+                         session[:currency], 
+                         session[:PP_TransactionID],
+                         session[:params])    
+
   end
 
   def authorization_messages

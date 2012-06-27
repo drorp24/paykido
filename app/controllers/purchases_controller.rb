@@ -23,9 +23,45 @@ class PurchasesController < ApplicationController
       
   end
   
-  def approve    # callback after G2S PP returned succesfully
 
-    @purchase = Purchase.find[:id]
+  def approve
+    
+    @purchase = Purchase.find(params[:id])
+    @purchase.set_rules!(params)
+    
+    if @purchase.payer.registered?
+      @purchase.pay_by_token!
+      if @purchase.paid_by_token?
+        @purchase.notify_merchant
+        @purchase.approve!
+        @purchase.account_for! 
+        status = 'approved'
+      else
+        status = 'failed'
+      end
+      @purchase.notify_consumer('manual', status)
+             
+    else
+      redirect_to @purchase.g2spp   
+      # then the dmn would take care of the notify/approve/inform (make it DRY by having them all in the model)
+    end
+
+  end
+
+  def decline
+    
+    @purchase = Purchase.find(params[:id])
+    @purchase.set_rules!(params)
+    
+    @purchase.decline!
+    @purchase.notify_consumer('manual', 'declined')
+
+  end
+
+
+  def approve1    # callback after G2S PP returned succesfully
+
+    @purchase = Purchase.find(params[:id])
     @purchase.approve!(params)
      
     respond_to do |format|  
@@ -33,8 +69,6 @@ class PurchasesController < ApplicationController
     end
     
   end
-  
-
 
   # GET /purchases/1
   # GET /purchases/1.json
@@ -112,14 +146,13 @@ class PurchasesController < ApplicationController
   
   def check_and_restore_session  
  
-    unless session[:payer]            # replace with Devise  
+    # replace with Devise  
+    unless @payer = session[:payer] or @payer = Payer.authenticate_by_token(params[:email], params[:token]) 
       flash[:message] = "Please sign in with payer credentials"
       reset_session
       redirect_to  :controller => 'home', :action => 'index'
       return
     end
-        
-    @payer = session[:payer] 
 
   end
   

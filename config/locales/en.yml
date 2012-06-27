@@ -29,7 +29,7 @@ en:
   Virtual Goods: Virtual Goods
   approval_rule_heading: Have Paykido enforce your rules for %{consumer}
   approval_rule_instructions1: Drag to the right to automatically approve it 
-  approval_rule_instructions2: Drag to the left to automatically deny it 
+  approval_rule_instructions2: Drag to the left to automatically decline it 
   signedup only: Available for signed up users only
   Rule Title: Always %{action} %{property}
   Next Grant: Next Grant
@@ -78,6 +78,7 @@ en:
   Approve: Approve
   Buy: Buy
   Deny: Deny
+  Decline: Decline
   Share: Share
   activerecord:
     models:

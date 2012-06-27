@@ -1,9 +1,12 @@
 Paykido::Application.routes.draw do
+
   resources :purchases do
     member do
-      get 'approve'
+      get 'approve', 'decline'
     end
   end
+
+  match 'products/:id', :to => 'catalog#view'
 
   resources :consumers do
     resources :purchases

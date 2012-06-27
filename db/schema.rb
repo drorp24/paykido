@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120625183151) do
+ActiveRecord::Schema.define(:version => 20120626143215) do
 
   create_table "consumers", :force => true do |t|
     t.string   "billing_phone"
@@ -52,29 +52,29 @@ ActiveRecord::Schema.define(:version => 20120625183151) do
     t.boolean  "exists"
     t.string   "name"
     t.string   "email"
-    t.string   "pin"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "phone"
-    t.boolean  "phone_alert"
     t.boolean  "email_alert"
-    t.string   "phone_alert_frequency"
-    t.string   "email_alert_frequency"
-    t.string   "phone_events"
-    t.string   "email_events"
-    t.integer  "billing_id"
-    t.string   "skype"
-    t.string   "facebook"
-    t.boolean  "registered"
-    t.string   "pp_preapprovalKey"
-    t.datetime "pp_startingDate"
-    t.datetime "pp_endingDate"
-    t.integer  "pp_maxNumberOfPayments"
-    t.decimal  "pp_maxAmountPerPayment"
-    t.string   "pp_pinType"
-    t.string   "family"
     t.string   "hashed_password"
     t.string   "salt"
+  end
+
+  create_table "payments", :force => true do |t|
+    t.integer  "purchase_id"
+    t.string   "CustomData"
+    t.integer  "UserID"
+    t.integer  "ClientUniqueID"
+    t.integer  "TransactionID"
+    t.string   "Status"
+    t.string   "AuthCode"
+    t.string   "Reason"
+    t.string   "ErrCode"
+    t.string   "ExErrCode"
+    t.string   "Token"
+    t.text     "Params"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "purchases", :force => true do |t|
@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(:version => 20120625183151) do
     t.string   "authorization_property"
     t.string   "authorization_value"
     t.integer  "retailer_id"
-    t.integer  "PPP_TransactionID",      :limit => 8
+    t.integer  "PP_TransactionID",       :limit => 8
     t.string   "currency"
   end
 
@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(:version => 20120625183151) do
     t.string   "CCToken"
     t.string   "ExpMonth"
     t.string   "ExpYear"
-    t.integer  "TransactionID", :limit => 8
+    t.integer  "TransactionID",     :limit => 8
     t.string   "CVV2"
     t.string   "FirstName"
     t.string   "LastName"
@@ -120,6 +120,13 @@ ActiveRecord::Schema.define(:version => 20120625183151) do
     t.string   "Email"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "ExErrCode"
+    t.string   "ErrCode"
+    t.string   "AuthCode"
+    t.string   "messgae"
+    t.string   "responseTimeStamp"
+    t.string   "Reason"
+    t.string   "ReasonCode"
   end
 
   create_table "retailers", :force => true do |t|

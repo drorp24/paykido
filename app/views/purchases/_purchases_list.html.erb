@@ -15,7 +15,7 @@
     </a>
     <a href="#" class="small button" id="blocked-button">
         <span class="icon16 delete"></span>
-        Denied
+        Declined
     </a>
     <a href="#" class="small button" id="all-button">
         <span class="icon16 refresh"></span>
@@ -46,8 +46,8 @@
                 <span class="icon32 question large tooltip" title="Requires your manual approval"></span>
             <% elsif purchase.approved? %> 
                 <span class="icon32 tick2 large tooltip" title="Manually approved"></span>
-            <% elsif purchase.denied? %> 
-                <span class="icon32 cross large tooltip" title="Manually denied"></span>
+            <% elsif purchase.declined? %> 
+                <span class="icon32 cross large tooltip" title="Manually declined"></span>
             <% elsif purchase.authorized? %> 
                 <span class="icon32 plus2 large tooltip" title="<%= "Authorized according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></span>
             <% elsif purchase.unauthorized? %> 
@@ -78,7 +78,7 @@
                     </a>
                 </p>
                 <p class="purchase_bottom_line">
-                     <a href="#approval_modal" class="modal approval button small greyedOut actionButton deny" data-purchase="<%= purchase.id %>"  data-action="do not approve" data-product="<%= purchase.product %>" data-price="<%= number_to_currency purchase.amount %>" data-consumer="<%= purchase.consumer.name %>" data-retailer="<%= purchase.retailer.name %>" data-title="<%= purchase.title %>">
+                     <a href="#approval_modal" class="modal approval button small greyedOut actionButton decline" data-purchase="<%= purchase.id %>"  data-action="do not approve" data-product="<%= purchase.product %>" data-price="<%= number_to_currency purchase.amount %>" data-consumer="<%= purchase.consumer.name %>" data-retailer="<%= purchase.retailer.name %>" data-title="<%= purchase.title %>">
                         <span class="icon16 cross"></span>
                         NO
                     </a>
@@ -110,8 +110,8 @@ $(document).ready(function() {
        var consumer =    $(this).attr('data-consumer');       
        var retailer =    $(this).attr('data-retailer');       
        var title = 		 $(this).attr('data-title'); 
-       var activity =	 (action == 'approve') ? 'approved' : 'denied';      
-       var always =	 	 (action == 'approve') ? 'approve' : 'deny';      
+       var activity =	 (action == 'approve') ? 'approved' : 'declined';      
+       var always =	 	 (action == 'approve') ? 'approve' : 'decline';      
 
        $('.action').html(action);
        $('.product').html(product);
@@ -122,7 +122,7 @@ $(document).ready(function() {
        $('.activity').html(activity);
        $('.always').html(always);
 
-       $('#approval_button').attr('data-href','purchase_approval?purchase=' + purchase + '&activity=' + activity);
+       $('#approval_button').attr('data-href','purchases/' + purchase + '/' + action);
 
     });  
     
@@ -131,9 +131,11 @@ $(document).ready(function() {
 //  Trigger the approval popover
     $('#pending-button').popover('#approval_popover', {preventBottom: true, preventRight: true});
 
-	// these 2 lines should be removed once popover acts as it should 
-    //$('#pending-button').trigger('open.popover');      
-	//window.setTimeout("$('#approval_popover').fadeOut('slow')", 500);
+	// these lines should be removed once popover acts as it should 
+	<% if params[:activity] == 'approval' %>
+	    $('#pending-button').trigger('open.popover');      
+		window.setTimeout("$('#approval_popover').fadeOut('slow')", 2000);
+	<% end %>
                
     $('.purchase_row').click(function () {
     	url = $(this).attr('data-href')
@@ -190,7 +192,7 @@ $(document).ready(function() {
     $('#blocked-button').click(function () {
             $('.action_bar.filters a').removeClass('blue');
             $(this).addClass('blue');
-            pTable.fnFilter('Blacklisted|Low|High|Unauthorized|Denied|Zero|Insufficient|Over', 1, true, false, false);
+            pTable.fnFilter('Blacklisted|Low|High|Unauthorized|Declined|Zero|Insufficient|Over', 1, true, false, false);
     });
 
      $('#all-button').click(function () {

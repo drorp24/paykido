@@ -3,13 +3,12 @@
   <title>Paykido</title>
 	<%= stylesheet_link_tag "paykido-api.css", :media => "all" %>
    	<%= stylesheet_link_tag  "jquery-ui-1.8.1.custom.css", :media => "all" %>
- 	<%= javascript_include_tag "jquery-1.4.2.min", "jquery-ui-1.8.2.custom.min", "paykido-api", "jquery.url", "old_application" %>
+ 	<%= javascript_include_tag "jquery-1.4.2.min", "jquery-ui-1.8.2.custom.min", "paykido-api", "jquery.url", "jquery.showLoading", "old_application" %>
     <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
  
 </head>	
 <body id="main">
 	
-	<div id="fb-root"></div>
 	<%=fb_connect_async_js %>
 	
 	<% result = request.env['HTTP_USER_AGENT'] %>

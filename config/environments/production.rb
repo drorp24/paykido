@@ -1,6 +1,10 @@
 Paykido::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+  # Environment-dependent, app-level policy
+  config.send_sms = true
+  config.rules_require_registration = true
+
   # G2S Integration
   config.merchant_id = 136515662095334027
   config.merchant_site_id = 79871

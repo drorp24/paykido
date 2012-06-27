@@ -1,4 +1,4 @@
-<!--  THIS IS A FAKE CHECKOUT PAGE -->
+<!--  THIS IS  FAKE CHECKOUT PAGE -->
 
 <%= image_tag "/images/farmville1.png", :id => "farmville1" %>
 <%= image_tag "/images/farmville21.png", :id => "farmville2" %>
@@ -14,18 +14,17 @@
 
 <img src="/images/paykido_button.png" id="paykido_button" border=0 alt=""/>
 
-<!--  THIS IS HOW PAYKIDO SHOULD BE INVOKED BY PSP OR MERCHANT (SEE DOCUMENT)
 
 <a href="http://<%= request.host + ':' + request.port.to_s %>/consumer/login?
 	merchant=Zynga&
-	app=Farmville&
 	product=Gold%20Membership&
 	amount=6.99&
 	currency=EUR&
 	userid=131827&
 	mode=T&
-	tid=US-131827-20101019232716&
-	hash=df659d502af5151a2edd18e2ebb50ba3" 
+	PP_TransactionID=12345&
+	hash=df659d502af5151a2edd18e2ebb50ba3&
+	referrer=http://localhost:3000/play" 
 	rel="paykido">
 	<img src="http://www.paykido.com/images/paykido_button.png" id="paykido_button" alt="paykido"/>
 </a>
@@ -35,14 +34,26 @@
 
 $(document).ready(function () {
 
+<% if params[:status] %>
+
+	$('#paykido .content').height(300);
+	$.paykido('<div id=window_content><p class=text id=merchant_headline>Thank you! Merchant informed.</p><span class=status_icon>h</span><span class=status_text></span></div>');
+	$('.status_icon').addClass("<%= params[:status] %>");
+	$('.status_text').html('<%= params[:status] %>');
+
+
+<% end %>
+
+
 <!--  AND THIS IS HOW IT IS CURRENTLY CALLED FOR DEMO PURPOSES -->
 
-	$('#paykido_button').click(function() {
-		var url = '/consumer/login?mode=demo&' + $('#product_form').serialize();  
+/*	$('#paykido_button').click(function() {
+		var url = '/consumer/login?demo=demo&' + $('#product_form').serialize();  
 		$.paykido({
 			ajax: url
 		});
 	});
+*/
 });
 
 

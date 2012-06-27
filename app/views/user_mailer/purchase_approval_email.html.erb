@@ -431,11 +431,9 @@
 			    <p style="margin-left: 200px"><span style="font-size: 16px"><strong>Dear <%= @payer.name %></strong></span>, <%= @consumer.name %> asks you to approve
 			                                                                                 <%= link_to "that purchase",
                                         :host => "www.paykido.com",
-                                        :controller => "account",
-                                        :action => "access",
+                                        :controller => "purchases",
                                         :email => @payer.email,
                                         :token => @payer.hashed_password,
-                                        :purchase => @purchase.id,
                                         :activity => "approval"
 %>
 </p>
@@ -643,12 +641,10 @@
 																		<p style="margin-bottom:15px;" >
 																			Click
 																			<%= link_to "Discover Paykido",
-                                        :host => "www.paykido.com",
-                                        :controller => "account",
-                                        :action => "access",
+                                       :host => "www.paykido.com",
+                                        :controller => "purchases",
                                         :email => @payer.email,
                                         :token => @payer.hashed_password,
-                                        :purchase => @purchase.id,
                                         :activity => "approval"
 %>
 																			and start controlling what your kids buy.

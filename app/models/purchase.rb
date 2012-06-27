@@ -5,7 +5,9 @@ class Purchase < ActiveRecord::Base
   belongs_to  :consumer
   belongs_to  :payer
   belongs_to  :retailer
+  
   has_many    :transactions
+  has_many    :payments
   
 
   def self.with_info(payer_id, consumer_id)
@@ -16,7 +18,7 @@ class Purchase < ActiveRecord::Base
     end
   end
 
-  def self.create_new!(payer, consumer, retailer, title, product, amount, params)
+  def self.create_new!(payer, consumer, retailer, title, product, amount, currency, transactionID, params)
     
     retailer_id = Retailer.find_or_create_by_name(retailer).id
     title_rec =   Title.find_or_create_by_name(title)
@@ -27,6 +29,8 @@ class Purchase < ActiveRecord::Base
                  :title =>            title,    
                  :product =>          product,             
                  :amount =>           amount,
+                 :currency =>         currency,
+                 :PP_TransactionID => transactionID,
                  :date =>             Time.now,
                  :properties => {                                     # properties are the black/whitelistable items           
                     "retailer" =>     retailer,
@@ -43,17 +47,54 @@ class Purchase < ActiveRecord::Base
                     "currency" =>     params[:currency],
                     "userid" =>       params[:userid],
                     "mode" =>         params[:mode],
-                    "tid" =>          params[:tid],
-                    "hash" =>         params[:hash]
+                    "PP_TransactionID" =>          params[:PP_TransactionID],
+                    "hash" =>         params[:hash],
+                    "referrer" =>     params[:referrer]
                   }
                   )
   end
 
   # terminology:  'authorize'/'unauthorize' is used when Paykido programmatically authorizes purchase.
-  #               'approve'/'deny' is used when a human being (parent) authorizes it himself.
+  #               'approve'/'decline' is used when a human being (parent) authorizes it himself.
+
+  def g2spp
+    # return the url to redirect to for manual payment including all parameters
+  end
+
+  def pay_by_token!
+    # call the token interface here with payer's saved Token and TransactionID (registration)
+    # have Nokogiri parse the returned xml/string and update the @purchase accordingly
+
+    return false unless self.payer.registered?
+    
+  end
+  
+  def paid_by_token?
+    # inquires on the return value that pay_by_token inserted to @purchase
+  end
+  
+  def notify_merchant
+    # call the PP backend with purchase's saved original PP_TransactionID
+    # transaction identified by PP_TransactionID will change its status to either 'pending' or 'approved' 
+  end
+  
+  def set_rules!(params)
+    # implement the rules parent has set while manually approving the purchase
+    # params should contain a normal hash and for that 
+  end
 
   def authorize!
        
+    unless self.payer.registered? and Paykido::Application.config.rules_require_registration
+      self.authorized = false
+      self.authorization_property = "registration"
+      self.authorization_value = "missing"
+      self.require_approval
+      self.authorization_date = Time.now
+      self.save!
+      return      
+    end
+
     self.authorized = false
 
     self.properties.each {|property,value| 
@@ -122,69 +163,82 @@ class Purchase < ActiveRecord::Base
 
   def manually_handled?
     self.authorization_type ==  "Approved" or 
-    self.authorization_type ==  "Denied" or
+    self.authorization_type ==  "Declined" or
     self.authorization_type ==  "PendingPayer"
   end
     
-  def approve!(params=nil)
+  def approve!
     self.update_attributes!(
       :authorized => true,
       :authorization_type => "Approved",
-      :authorization_date => Time.now) 
-      
+      :authorization_date => Time.now)       
+  end
+  
+  def set_rules!(params=nil)
+
     # temporary - get one hash of 'properties' from the form and iterate over it without knowing what it includes
-    return unless params
+    return unless params and params.any?
     params.each do |property, value|
       if property == 'retailer' or
          property == 'title' or
          property == 'category' or
          property == 'esrb_rating' or
          property == 'pegi_rating'
-      self.consumer.whitelist!(property, self.properties[property])
+      self.consumer.whitelist!(property, self.properties[property])  # params would include whether to blacklist or whitelist too
       end 
     end
+        
+  end
+  
+  def notify_consumer (mode, status)
+    
+    return false unless mode and status
+    
+    if mode == 'manual'
+      if      status == 'approved'
+        message = "Congrats, #{self.consumer.name}! Your parent has just approved your purchase request. The item is yours!"
+      elsif    status == 'declined'  
+        message = "We are sorry. Your parent has just declinedd your purchase request."
+      elsif   status == 'failed'  
+        message = "We are sorry. Something went wrong while trying to approve your purchase. Please contact Paykido help desk for details"  
+      else
+        return false  
+      end 
+    else
+      if      status == 'approved' 
+        message = "Congrats, #{self.consumer.name}! Paykido just approved your purchase request. The item is yours!"
+      elsif   status == 'declined'   
+        message = "We are sorry. This purchase is not compliant with you parents rules!"
+      elsif   status == 'failed'  
+        message = "We are sorry. Something went wrong while trying to approve your purchase. Please contact Paykido help desk for details"  
+      elsif   status == 'pending'  
+        message = "Wait... This requires manual approved. We'll notify you once it gets approved!"  
+      else
+        return false  
+      end 
+    end    
     
     begin
-      message = "Congrats! Your parent has just approved your purchase request. The item is yours!"
       Sms.send(self.consumer.billing_phone, message) 
     rescue
       return false
     end
-
-  end
+ 
+  end     
   
   def approved?
     self.authorization_type == "Approved"
   end
   
-  def deny!(params=nil!)
+  def decline!(params=nil!)
     self.update_attributes!(
       :authorized => false,
-      :authorization_type => "Denied",
+      :authorization_type => "Declined",
       :authorization_date => Time.now) 
-    # temporary - get one hash of 'properties' from the form and iterate over it without knowing what it includes
-    return unless params
-    params.each do |property, value|
-      if property == 'retailer' or
-         property == 'title' or
-         property == 'category' or
-         property == 'esrb_rating' or
-         property == 'pegi_rating'
-      self.consumer.blacklist!(property, self.properties[property])
-      end 
-    end
-    
-    begin
-      message = "We are sorry. Your parent has just declined your purchase request."
-      Sms.send(self.consumer.billing_phone, message) 
-    rescue
-      return false
-    end
-
   end
   
-  def denied?
-    self.authorization_type == "Denied"       
+  def declined?
+    self.authorization_type == "Declined"       
   end
   
   def authorized?

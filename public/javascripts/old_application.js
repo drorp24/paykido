@@ -26,7 +26,7 @@ $(document).ready(function (){
 	$('#community_form').submitWithAjax();
 	$('#other_form').submitWithAjax();
 	$('#select_product_form').submitWithAjax();
-	$('#buy_form').submitWithAjax();
+//	$('#buy_form').submitWithAjax();
     $('.payer_form').submitWithAjax();
 	
 

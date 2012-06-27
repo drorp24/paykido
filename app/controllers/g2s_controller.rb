@@ -11,13 +11,20 @@ end
 class G2sController < ActionController::Base
 
   def ppp_callback    ## /ppp/<status>
-    # return to originating page and produce the proper message
+    # return back to originating page: whether settings or purchases (dashboard)
     # (data itself is taken from dmn, though some of it is in the returned params)
-    
+
+    # redirect (or render?) this or the other
+        
   end
   
   def dmn
-    # return status to G2S if anything is wrong (e.g., hash not ok etc)
+    # read dmn and store the properties in either a. registration or b. transaction
+    # do not count on session to include anything to 'remind' of the context
+    # instead, use the custom field to 'remind' the server what the context is
+    
+    # if this is a (succesful) transaction, notify/approve/inform (make it DRY by having them all in the model)
+    # dont render anything or redirect anywhere
     
   end
 
@@ -89,57 +96,12 @@ class G2sController < ActionController::Base
     
   end
 
-  def sms(phone, message)
-    
-    begin
-      api = Clickatell::API.authenticate('3224244', 'drorp24', 'dror160395')
-      api.send_message(phone, message)
-    rescue 
-      return false
-    else
-      return "sent"
-    end
-    
-  end
-
   def pay_retailer     # choose which gw to use
     
     retailer_paid = true if safecharge_gw == "APPROVED"
      
   end
 
-  def paypal_gw
-    
-    pay_request = PaypalAdaptive::Request.new
-    
-    data = {
-    "returnUrl" => "",
-    "requestEnvelope" => {"errorLanguage" => "en_US"},
-    "currencyCode"=>"USD",
-    "cancelUrl"=>"",
-    "senderEmail" => "drorp1_1297098617_per@yahoo.com",
-    "receiverList"=>{"receiver"=>
-        [{"email"=>"drorp2_1297098512_biz@yahoo.com", "amount"=>""}]},
-    "actionType"=>"PAY",
-    "trackingId" => "",
-    "preapprovalKey" => session[:preapprovalKey],
-    "ipnNotificationUrl"=>""    }
-    
-    pay_response = pay_request.pay(data)
-    
-    if pay_response.success?
-      flash[:message] = "Thank you!"
-      @retailer_paid = true
-      redirect_to ""
-    else
-      puts pay_response.errors.first['message']
-      flash[:message] = pay_response.errors.first['message']
-      retailer_paid = false
-      redirect_to ""
-    end    
-    
-  end 
-  
   def safecharge_gw
         
     sg_NameOnCard = "John Smith"

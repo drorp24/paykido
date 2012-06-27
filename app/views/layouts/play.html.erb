@@ -1,16 +1,8 @@
 <html>
 	<head>
 	  <title>Paykido</title>
-		<%= stylesheet_link_tag "play.css", :media => "all" %>
-		<%= stylesheet_link_tag "paykido-api.css", "consumer", :media => "all" %>
-		<%= javascript_include_tag  "jquery-1.4.2.min", "jquery-ui-1.8.2.custom.min", "paykido-api", "jquery.url", "old_application" %>
-	    <script type="text/javascript" src="/highslide/highslide-full.js"></script>
-	    <script type="text/javascript" src="/highslide/highslide.config.js" charset="utf-8"></script>
-	    <link rel="stylesheet" type="text/css" href="/highslide/highslide.css" />
-	    <!--[if lt IE 7]>
-	    <link rel="stylesheet" type="text/css" href="/highslide/highslide-ie6.css" />
-	    <![endif]-->
-	
+		<%= stylesheet_link_tag "play.css", "paykido-api.css" %>
+		<%= javascript_include_tag  "jquery-1.4.2.min","paykido-api" %>
 		<script type="text/javascript">
 		    $(document).ready(function($){
 				$('a[rel*=paykido]').paykido();
@@ -18,13 +10,7 @@
 		</script> 	            
 	</head>	
 	<body id="farmville">
-	
-	     <!-- START:flash -->
-	      <% if flash[:notice] -%>
-	        <div id="notice"><%= flash[:notice] %></div>
-	      <% end -%>
-	      <!-- END:flash -->
-	
+		
 	      <%= yield :layout %>
 	
 	</body>
