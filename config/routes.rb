@@ -10,6 +10,10 @@ Paykido::Application.routes.draw do
 
   resources :consumers do
     resources :purchases
+    member do
+      get 'confirm'
+      post 'confirm'
+    end
   end
 
   resources :payers do

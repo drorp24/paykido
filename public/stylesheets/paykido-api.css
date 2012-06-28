@@ -2,6 +2,17 @@ body {
     font-family: 'ubuntu', sans-serif;
 
 }
+#name, #first_line, #second_line {
+    font-size: 14px;
+    line-height: 25px;
+}
+#logo_and_pic {
+}
+
+#name_and_login {
+    margin-top: 50px;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #77d5f7; background: #0078ae url(/images/ui-bg_glass_45_0078ae_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #ffffff; }
 
 #loadingZone {
     height: 100px;
@@ -137,7 +148,7 @@ body {
 #pic {
 	position: absolute;
 	top: 50px;
-	left:252px;
+	left:240px;
 }
 
 #like {
@@ -198,9 +209,9 @@ img.fb_profile_pic_rendered {
 
 #logo img#logoimg  {
 	
-	margin-left: -12px;	
-	margin-top: 44px;
-	width: 50%;
+	margin-left: -11px;	
+	margin-top: 39px;
+	width: 68%;
 }
 
 .right {
@@ -220,7 +231,7 @@ img.fb_profile_pic_rendered {
 }
 form, .text {
 /*	font-family: Lucida Grande,Lucida Sans,Arial,sans-serif; */
-	font-size: 14px;
+	font-size: 18px;
 	color: #637BAD;
 }
 
@@ -255,10 +266,9 @@ form, .text {
 }
 
 #ajax_message {
-
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 125px;
+    position: absolute;
+    top: 242px;
+	margin-left: -23px;
 	text-align: center;
 	width: 100%
 }
@@ -267,11 +277,7 @@ form, .text {
 }
 
 #buy {
-	margin-left: auto;
-	margin-right: auto;
 	width: 100%;
-	margin-bottom: 50px;
-	margin-top: 20px;
 	
 }
 
@@ -621,6 +627,7 @@ display: table;
 #paykido img {
   border: 0;
   margin: 0;
+  width: 125%
 }
 
 #paykido_overlay {

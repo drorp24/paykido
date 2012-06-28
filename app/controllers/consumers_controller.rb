@@ -1,4 +1,23 @@
 class ConsumersController < ApplicationController
+
+  before_filter :check_and_restore_session    
+# before_filter :set_long_expiry_headers    # consider moving to application controller
+
+  def confirm      
+
+    @consumer = Consumer.find(params[:id])
+    if request.post?          
+      @consumer.confirm!
+       
+      respond_to do |format|  
+        format.js
+      end
+    else
+      render :index    
+    end
+    
+  end
+
   # GET /consumers
   # GET /consumers.json
   def index

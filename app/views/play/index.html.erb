@@ -5,11 +5,13 @@
 <%= image_tag "/images/loading_short.gif", :id => "loading", :style=>"display:none;" %>
 
 <%= form_tag "some_path",  :id => "product_form" do %>
-	<%= radio_button_tag("product", "310 Farm Cash@30.00", false, :class=> "option", :id=>"a") %>
-	<%= radio_button_tag("product", "240 Farm Cash@24.00", false, :class=> "option", :id=>"b") %>
-	<%= radio_button_tag("product", "115 Farm Cash@12.00", false, :class=> "option", :id=>"c") %>
-	<%= radio_button_tag("product", "55 Farm Cash@6.00", false, :class=> "option", 	:id=>"d", :checked=>"checked") %>
-	<%= radio_button_tag("product", "25 Farm Cash@3.00", false, :class=> "option", 	:id=>"e") %>
+	<div id="selection">
+		<%= radio_button_tag("product", "30.00", false, :class=> "option", :id=>"a") %>
+		<%= radio_button_tag("product", "24.00", false, :class=> "option", :id=>"b") %>
+		<%= radio_button_tag("product", "12.00", false, :class=> "option", :id=>"c") %>
+		<%= radio_button_tag("product", "6.00", false, :class=> "option", 	:id=>"d", :checked=>"checked") %>
+		<%= radio_button_tag("product", "3.00", false, :class=> "option", 	:id=>"e") %>		
+	</div>
 <% end %>
 
 <img src="/images/paykido_button.png" id="paykido_button" border=0 alt=""/>
@@ -17,8 +19,8 @@
 
 <a href="http://<%= request.host + ':' + request.port.to_s %>/consumer/login?
 	merchant=Zynga&
-	product=Gold%20Membership&
-	amount=6.99&
+	product=Farm%20Cash&
+	amount=6.00&
 	currency=EUR&
 	userid=131827&
 	mode=T&
@@ -28,33 +30,36 @@
 	rel="paykido">
 	<img src="http://www.paykido.com/images/paykido_button.png" id="paykido_button" alt="paykido"/>
 </a>
--->
+
 
 <script type="text/javascript">
 
 $(document).ready(function () {
+	// Emulate product selection (here: product radio button) 
+	//	initial value
+		var value = $("input:checked[name=product]").val();
+	    var ref = $("a").attr("href");
+		var par = "amount=" + value + '&';
+	    ref = ref.replace(/\amount.*?\&/, par);
+	    $("a").attr("href", ref);
 
-<% if params[:status] %>
-
-	$('#paykido .content').height(300);
-	$.paykido('<div id=window_content><p class=text id=merchant_headline>Thank you! Merchant informed.</p><span class=status_icon>h</span><span class=status_text></span></div>');
-	$('.status_icon').addClass("<%= params[:status] %>");
-	$('.status_text').html('<%= params[:status] %>');
-
-
-<% end %>
-
-
-<!--  AND THIS IS HOW IT IS CURRENTLY CALLED FOR DEMO PURPOSES -->
-
-/*	$('#paykido_button').click(function() {
-		var url = '/consumer/login?demo=demo&' + $('#product_form').serialize();  
-		$.paykido({
-			ajax: url
-		});
+	// every time it changes
+	$("input:radio[name=product]").click(function() {
+	    var value = $(this).val();
+	    var ref = $("a").attr("href");
+		var par = "amount=" + value + '&';
+	    ref = ref.replace(/\amount.*?\&/, par);
+	    $("a").attr("href", ref);
 	});
-*/
+
+
+	//Emulate merchant notification
+	<% if params[:status] %>
+		$('#paykido .content').height(300);
+		$.paykido('<div id=window_content><p class=text id=merchant_headline>Thank you! Merchant informed.</p><span class=status_icon>h</span><span class=status_text></span></div>');
+		$('.status_icon').addClass("<%= params[:status] %>");
+		$('.status_text').html('<%= params[:status] %>');
+	<% end %>
+
 });
-
-
 </script>

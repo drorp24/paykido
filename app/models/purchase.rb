@@ -39,18 +39,7 @@ class Purchase < ActiveRecord::Base
                     "esrb_rating" =>  title_rec.esrb_rating,
                     "pegi_rating" =>  title_rec.pegi_rating
                   },
-                  :params => {
-                    "merchant" =>     params[:merchant],              # the params passed to Paykido upon invocation
-                    "app" =>          params[:app],
-                    "product" =>      params[:product],
-                    "amount" =>       params[:amount],
-                    "currency" =>     params[:currency],
-                    "userid" =>       params[:userid],
-                    "mode" =>         params[:mode],
-                    "PP_TransactionID" =>          params[:PP_TransactionID],
-                    "hash" =>         params[:hash],
-                    "referrer" =>     params[:referrer]
-                  }
+                  :params => params                                   # keep them as accepted
                   )
   end
 

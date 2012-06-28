@@ -35,16 +35,6 @@ class AccountController < ApplicationController
 
   end   
 
-  def consumer_confirm      
-
-    @consumer.confirm!
-     
-    respond_to do |format|  
-      format.js
-    end
-    
-  end
-
   def consumer_allowance_change
     
     @consumer.allowance_change!(params[:consumer])        

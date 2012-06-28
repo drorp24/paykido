@@ -55,7 +55,7 @@ class Consumer < ActiveRecord::Base
   end
   
   def allowance_day_of_week
-    self.allowance_every
+    self.allowance_every || 0
   end
   
   def allowance_day_of_week=(value)

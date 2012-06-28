@@ -1,100 +1,8 @@
 class ConsumerController < ApplicationController
   
   def login
-    
-    get_purchase_parameters
-    find_or_create_consumer
-    find_payer
-    login_messages        
-    
+        
   end
-  
-
-  def login_callback
-    
-    login
-    
-    respond_to do |format|   
-      format.js  
-    end   
-    
-  end  
-
-  def get_purchase_parameters
-    
-  
-    if params[:demo] and params[:demo] == 'demo'
-      session[:retailer] = 'zynga'             
-      session[:title] = 'farmville'         
-      session[:product] = params[:product].split('@')[0]
-      session[:amount] = params[:product].split('@')[1]
-      session[:demo] = true
-    elsif params[:merchant]
-      session[:retailer] = params[:merchant]
-      session[:product] = params[:product]
-      session[:amount] = params[:amount]
-      session[:currency] = params[:currency]
-      session[:userid] = params[:userid]
-      session[:mode] = params[:mode]
-      session[:hash] = params[:hash]
-      session[:PP_TransactionID] = params[:PP_TransactionID]
-      session[:referrer] = params[:referrer]
-    end
-    
-    session[:params] = params
-            
-  end    
-
-  def find_or_create_consumer
-    
-    begin
-      if current_facebook_user
-        @consumer = find_or_create_consumer_by_facebook_user
-      else
-        @consumer = session[:consumer] = nil 
-      end 
-    rescue Mogli::Client::OAuthException
-        @consumer = session[:consumer] = nil 
-    end         
-    
-  end
-  
-
-  def find_or_create_consumer_by_facebook_user
-    
-    @consumer = Consumer.find_or_initialize_by_facebook_id(current_facebook_user.id)
-    @consumer.name = @consumer.facebook_user.first_name
-    @consumer.pic =  @consumer.facebook_user.large_image_url
-    @consumer.tinypic = @consumer.facebook_user.image_url
-    @consumer.allowance_every = 0 unless @consumer.allowance_every   # temp
-    @consumer.save!
-    
-    session[:consumer] = @consumer
-    
-  end
-  
-  def find_payer
-    @payer = session[:payer] = @consumer.payer unless @consumer.nil?
-  end
-  
-  def login_messages
-    
-    if @consumer     
-      @salutation = "Welcome "
-      @name = @consumer.name + "!"  
-      @pic = "https://graph.facebook.com/#{@consumer.facebook_id}/picture"      
-      @first_line = "You selected #{session[:product]}"
-      @second_line = "Click to buy it"
-    else
-      @salutation = "Hello!"
-      @name = nil
-      @pic = nil
-      @first_line =  "You selected #{session[:product]}"
-      @second_line = "Click Login or Register to start buying"
-    end
-    
-  end      
-       
   #############################################
   
   def register_callback  
@@ -102,10 +10,9 @@ class ConsumerController < ApplicationController
     find_or_create_consumer_and_payer     
     @payer.request_confirmation(@consumer)    
 
-    redirect_to :controller => :play, :action => :index    
+    redirect_to session[:referrer]  + '?status=' + 'registering'    
 
-  end
-  
+  end  
   
   def find_or_create_consumer_and_payer
     
@@ -147,6 +54,7 @@ class ConsumerController < ApplicationController
   def buy
   #  notify/approve/inform (make it DRY by having them all in the model)
                                               
+    find_consumer_and_payer
     create_purchase  
 
     @purchase.authorize!
@@ -176,40 +84,37 @@ class ConsumerController < ApplicationController
     
   end
   
+  def find_consumer_and_payer
+    
+    # ToDo: buy is no possible unless consumer has authorized (register_callback) Paykido
+    # Consumer with that facebook id must exists after consumer registration. If not it's an error.
+    @consumer = Consumer.find_or_initialize_by_facebook_id(params[:facebook_id])
+    @consumer.name = params[:name]
+    @consumer.pic =  params[:pic]
+    @consumer.save!
+    
+    # ToDo: no session needed - delete
+    session[:consumer] = @consumer
+    @payer = session[:payer] = @consumer.payer unless @consumer.nil?
+  end
+
+
   def create_purchase
 
     # note it depends on the kid staying in the same session
     # it would be better and provide better BI if purchase were created upon login, like consumer
      
     @purchase = session[:purchase] = 
-    Purchase.create_new!(session[:payer], 
-                         session[:consumer], 
-                         session[:retailer], 
-                         session[:title], 
-                         session[:product], 
-                         session[:amount], 
-                         session[:currency], 
-                         session[:PP_TransactionID],
-                         session[:params])    
+    Purchase.create_new!(@payer, 
+                         @consumer, 
+                         params[:merchant], 
+                         params[:app], 
+                         params[:product], 
+                         params[:amount], 
+                         params[:currency], 
+                         params[:PP_TransactionID],
+                         params)    
 
   end
 
-  def authorization_messages
-    
-    if @purchase.authorized?
-      @first_line = "#{session[:product]} is yours!"
-      @second_line = "Thanks for using paykido"
-    elsif @purchase.requires_approval?
-      @first_line =  "This has to be approved by parent"
-      @second_line = "Approval request has been sent"
-    elsif @purchase.unauthorized? 
-      @first_line = "This purchase is unauthorized"
-      @second_line = "#{t @purchase.authorization_property}: #{@purchase.authorization_value} is #{t @purchase.authorization_type}"    
-#   elsif !retailer_paid?
-#     @first_line =  t 'payment_problem_1'
-#     @second_line = t 'payment_problem_2'     
-    end  
-    
-  end    
-      
 end

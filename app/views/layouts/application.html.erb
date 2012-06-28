@@ -70,13 +70,13 @@
 		<!-- Primary navigation -->
 		<nav id="primary">
   			<ul>
-		    	<li class="active">
+		    	<li <%= "class=active" if ["purchases"].include? controller.controller_name  %>>
 		      		<a href="#">
 				        <span class="icon32 dashboard"></span>
 				        Dashboard
 			      	</a>
 			    </li>
-			    <li>
+			    <li <%= "class=active" if ["consumers"].include? controller.controller_name  %>>
 			      	<a href="#">
 			        	<span class="icon32 cog"></span>
 			        	Settings

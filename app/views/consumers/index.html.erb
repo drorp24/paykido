@@ -1,21 +1,43 @@
-<h1>Listing consumers</h1>
+<!-- Secondary navigation -->
+<nav id="secondary">
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+	<ul>
+		<li <%= "class=active" unless @consumer %>>
+            <%= link_to purchases_path do %>
+            	<span class="secondary_name"><%= "#{(session[:payer].name) ? session[:payer].name + "'s Family" : "Family"}" %></span>
+				<span class="icon32 home fr"><span>
+        	<% end %>
+        </li>
+    	<% @payer.consumers.each do |consumer| %>
+        <li class="consumer <%= "active" if (@consumer and @consumer.id == consumer.id) %>">
+            <%= link_to consumer_purchases_path(consumer) do %>
+            	<span class="secondary_name"><%= consumer.name %></span>
+            	<% if consumer.tinypic %>
+            		<span class="avatar fr"><%= image_tag consumer.tinypic %></span>
+            	<% else %>
+            		<span class="icon32 user fr"></span>
+            	<% end %>
+            	
+        	<% end %>
+        </li>
+    	<% end %>
+	</ul>
+  
+	<div id="notifications">
+	    <ul>
+	    </ul>
+	</div>
+</nav>
 
-<% @consumers.each do |consumer| %>
-  <tr>
-    <td><%= link_to 'Show', consumer %></td>
-    <td><%= link_to 'Edit', edit_consumer_path(consumer) %></td>
-    <td><%= link_to 'Destroy', consumer, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
 
-<br />
+    <% if controller.action_name == 'confirm' %>
+    	<%= render :partial => 'confirmation_popover' %>
+	<% end %>
 
-<%= link_to 'New Consumer', new_consumer_path %>
+<section id="maincontainer">
+  <div id="main" class="container_12">
+  
+	<%= render :partial => 'index' %>
+  
+  </div>
+</section>

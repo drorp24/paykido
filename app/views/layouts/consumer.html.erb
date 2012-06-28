@@ -1,16 +1,119 @@
-<head>
 <html>
+<head>
+
   <title>Paykido</title>
 	<%= stylesheet_link_tag "paykido-api.css", :media => "all" %>
-   	<%= stylesheet_link_tag  "jquery-ui-1.8.1.custom.css", :media => "all" %>
- 	<%= javascript_include_tag "jquery-1.4.2.min", "jquery-ui-1.8.2.custom.min", "paykido-api", "jquery.url", "jquery.showLoading", "old_application" %>
+ 	<%= javascript_include_tag "jquery-1.4.2.min", "jquery.showLoading" %>
     <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
  
 </head>	
 <body id="main">
 	
-	<%=fb_connect_async_js %>
-	
+<div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : <%= Paykido::Application.config.app_id %>, // App ID
+      status     : true, // check login status
+      cookie     : true, // enable cookies to allow the server to access the session
+      xfbml      : true  // parse XFBML
+    });
+
+    // Additional initialization code here
+	FB.getLoginStatus(function(response) {
+	  if (response.status === 'connected') {
+	    // the user is logged in and has authenticated your
+	    // app, and response.authResponse supplies
+	    // the user's ID, a valid access token, a signed
+	    // request, and the time the access token 
+	    // and signed request each expire
+	    userid = response.authResponse.userID;
+	    accessToken = response.authResponse.accessToken;
+	    // find a way to add these as 2 parameters to the buy (put them in a hidden form field and serialize for instance)
+	    connected(userid, accessToken);
+	  } else if (response.status === 'not_authorized') {
+	    // the user is logged in to Facebook, 
+	    // but has not authenticated your app
+	    not_authorized();
+	  } else {
+	    // the user isn't logged in to Facebook.
+	    unknown();
+	  }
+	 });
+
+	FB.Event.subscribe('auth.login', function(response) {
+	   login();
+	});
+	FB.Event.subscribe('auth.logout', function(response) {
+	   logout();
+	});
+	FB.Event.subscribe('auth.authResponseChange', function(response) {
+	  if (response.status === 'connected') {
+	    userid = response.authResponse.userID;
+	    accessToken = response.authResponse.accessToken;
+	    // find a way to add these as 2 parameters to the buy (put them in a hidden form field and serialize for instance)
+	    connected(userid, accessToken);
+	  } else if (response.status === 'not_authorized') {
+	    not_authorized();
+	  } else {
+	    unknown();
+	  }
+	});
+
+	function login(){
+	   FB.api('/me', function(response) {
+	   });
+	}
+
+	function logout(){
+	}
+
+	function connected(userid, accessToken){
+
+	   	$('#registration').hide();
+  		$('#first_line').html('<%= "you selected #{params[:product]} for #{params[:amount]} #{params[:currency]}" %>');
+  		$('#second_line').html('Click to buy it!');
+		$('#buy_button').removeAttr("disabled");
+	   	FB.api('/me', {fields: "id,first_name,picture"}, function(response) {
+	      $('#name').html('Welcome, '+response.first_name+"!");
+	      $('#profile_picture').attr("src", response.picture);
+	      $('#profile_picture').show();
+		  var action = $('#buy_form').attr('action') +
+		  				'&facebook_id=' + userid + 
+		  				'&name=' + response.first_name +
+		  				'&pic=' + response.picture;
+		  $('#buy_form').attr('action', action);
+	   });
+	}
+	function not_authorized(){
+
+	   	$('#registration').show();
+		$('#buy_button').attr("disabled", "disabled");
+	}
+	function unknown(userid, accessToken){
+
+		$('#registration').hide();
+      	$('#name').html('Hello!');
+      	$('#profile_picture').hide();
+      	$('#first_line').html('Login to start using Paykido!');
+      	$('#buy_button').attr("disabled", "disabled");
+
+	}
+
+  };
+
+  // Load the SDK Asynchronously
+  (function(d){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document));
+   
+   FB.XFBML.parse(); 
+</script>	
+
 	<% result = request.env['HTTP_USER_AGENT'] %>
 	<% version = result.split('MSIE')[1].split(' ').first if result =~ /MSIE/%>
 	<% if result =~ /MSIE/ and version.to_i < 9 %>

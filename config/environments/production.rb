@@ -1,7 +1,12 @@
 Paykido::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
-  # Environment-dependent, app-level policy
+  # Facebook
+  config.app_id = '402586589783096'
+  config.secret = '59791d5435202fe1f5eb69a872c0438a' 
+  config.api_key = '402586589783096'
+
+  # Policy
   config.send_sms = true
   config.rules_require_registration = true
 
