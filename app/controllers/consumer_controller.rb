@@ -10,7 +10,7 @@ class ConsumerController < ApplicationController
     find_or_create_consumer_and_payer     
     @payer.request_confirmation(@consumer)    
 
-    redirect_to session[:referrer]  + '?status=' + 'registering'    
+    redirect_to params[:referrer]  + '?status=' + 'registering'    
 
   end  
   

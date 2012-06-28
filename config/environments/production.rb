@@ -22,7 +22,8 @@ Paykido::Application.configure do
   config.sg_ClientLoginID = 'G2STestExtTRX'
   config.sg_ClientPassword = 'Wf7s9a2VsR'
   config.sg_Descriptor = 'Paykido - safe payment for kids'
-  config.sg_TransType = 'Sale'   
+  config.sg_TransType = 'Sale'
+  config.referrer = 'https://secure.gate2shop.com/ppp/purchase.do'   
 
   # Code is not reloaded between requests
   config.cache_classes = true

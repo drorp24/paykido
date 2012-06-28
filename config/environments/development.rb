@@ -22,7 +22,8 @@ Paykido::Application.configure do
   config.sg_ClientLoginID = 'G2STestExtTRX'
   config.sg_ClientPassword = 'Wf7s9a2VsR'
   config.sg_Descriptor = 'Paykido - safe payment for kids'
-  config.sg_TransType = 'Sale'   
+  config.sg_TransType = 'Sale' 
+  config.referrer = 'localhost:3000/play'  
 
   # In the development environment your application's code is reloaded on
   # every request.  This slows down response time but is perfect for development
