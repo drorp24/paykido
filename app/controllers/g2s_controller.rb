@@ -17,7 +17,10 @@ class G2sController < ActionController::Base
     # redirect (or render?) this or the other
     # store in advance and use here the purchase id and dont count on session!
     if params[:customField1] == 'payment'
+      logger.debug "before"
       logger.debug params
+      logger.debug params.inspect
+      logger.debug "after"
       redirect_to purchases_path(:activity => 'pp_callback', :parameters => params)
     end
         
