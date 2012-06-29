@@ -7,9 +7,9 @@ en:
   confirmation_2: We want to verify that %{name} is indeed your kid
   confirmation_3: Click here to confirm that you are %{name}'s parent
   confirmation_4: Click here to see how Paykido protects your kid
-  approval_heading: Approve %{name}'s Purchases   
-  approval_1: There are purchases waiting for approval
-  approval_2: OK each purchase to approve it
+  approval_heading: Please approve these purchases   
+  approval_1: There are %{count} purchases awaiting your approval
+  approval_2: Click each purchase for details
   approval_3: Click here to make it safer and easier with rules!
   Blacklisted: not allowed
   Whitelisted: Whitelisted

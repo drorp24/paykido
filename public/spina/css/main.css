@@ -574,10 +574,11 @@ table tbody tr:last-child {
   border-bottom: none;
 }
 
+/*
 tbody tr:nth-child(odd) td {
   background: #fdfdfd;
 }
-
+*/
 tbody tr:last-child td:first-child {
   border-bottom-left-radius: 3px;
 }

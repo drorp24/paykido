@@ -3,10 +3,11 @@
 
 $(document).ready(function (){  
  
+/*
     jQuery.ajaxSetup({  
          'beforeSend': function (xhr) {xhr.setRequestHeader("Accept", "text/javascript")}  
     });    
-    
+*/    
     jQuery.fn.submitWithAjax = function () {  
         this.submit(function () {  
             $.post($(this).attr('action'), $(this).serialize(), null, "script");  
@@ -33,6 +34,7 @@ $(document).ready(function (){
             $('#modalcontainer > div').hide(); // not clear why this isn't working when either of the button clicked
             $('#overlay').hide();
         })  
+        
     }
          
 });

@@ -9,15 +9,11 @@ class PurchasesController < ApplicationController
   def index
 
     @purchases = Purchase.with_info(@payer.id, params[:consumer_id])
-    if @purchases.any?      
-      @purchase = @purchases[0]
-      @pendings_count = @purchases.count{|purchase| purchase.authorization_type == 'PendingPayer'}
-    else
-      @purchase = nil
-      @pendings_count = 0      
-    end
-
-    render :partial => 'index' if request.xhr?    #otherwise it will render index that contains the full page
+    @pendings = @purchases.where("authorization_type == 'PendingPayer'")
+    @pendings_count = @pendings.count
+    @purchase = (@pendings_count > 0) ? @pendings.last : @purchases.last
+    
+    render :partial => 'index' if request.headers['X-PJAX']    #otherwise it will render index that contains the full page
       
   end
   
@@ -40,7 +36,7 @@ class PurchasesController < ApplicationController
       @purchase.notify_consumer('manual', status)
              
     else
-      redirect_to @purchase.g2spp   
+      redirect_to @purchase.g2spp('payment')   
       # then the dmn would take care of the notify/approve/inform (make it DRY by having them all in the model)
     end
 
@@ -72,12 +68,9 @@ class PurchasesController < ApplicationController
   # GET /purchases/1.json
   def show
 
-    @purchases = Purchase.find(params[:id])
+    @purchase = Purchase.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @purchase }
-    end
+    render :partial => 'show'
   end
 
   # GET /purchases/new

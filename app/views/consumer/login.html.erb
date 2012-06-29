@@ -106,20 +106,11 @@ function validate_async(form, cb) {
       
 $(document).ready(function (){ 
 	 
-	// disable buy button unless registered: handle with Devise
 	// loading indicator
 	$('#buy_button').click(function () {
 		$('#loadingZone').addClass('loading-indicator');
 	})
 
-	// reveal facebook registration form as soon as 'register' is clicked
-	/*
-	$('#login_button').click(function() {
-		if ($('.fb_button_text').html() == 'Register') {
-			$('#registration').attr('style', 'display:block');
-		}
-	});
-*/
 	// invite friends
 	function sendRequestViaMultiFriendSelector() {
         FB.ui({method: 'apprequests',

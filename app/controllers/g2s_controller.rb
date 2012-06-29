@@ -15,6 +15,9 @@ class G2sController < ActionController::Base
     # (data itself is taken from dmn, though some of it is in the returned params)
 
     # redirect (or render?) this or the other
+    if params[:customField1] == 'payment'
+      redirect_to purchases_path, :activity => 'pp_callback', :status => params[:ppp_status], :error => params[:Error]
+    end
         
   end
   

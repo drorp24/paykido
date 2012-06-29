@@ -1,18 +1,14 @@
 <div id="approval_popover" class="popover">
     <header>
-        <%= t 'approval_heading', :name => @purchase.consumer.name %>
+        <%= t 'approval_heading' %>
     </header>
     <section>
 		<div class="content">
 			<nav>
 				<ul>
                		<li class="new">
-		            	<% if @purchase.consumer.tinypic %>		<!-- move to a helper -->
-		            		<span class="consumer avatar fl"><%= image_tag @purchase.consumer.tinypic %></span>
-		            	<% else %>
-		            		<span class="consumer icon32 user fl"></span>
-		            	<% end %>
-                   		<span><%= t 'approval_1', :name => @purchase.consumer.name, :count => @pendings_count %></span>
+		            	<span class="consumer icon32 user fl"></span>
+                   		<span><%= t 'approval_1', :count => @pendings_count %></span>
                		</li>
                     <li class="instructions">
                     	<%= t 'approval_2' %>

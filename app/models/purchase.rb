@@ -1,3 +1,4 @@
+require 'digest/md5'
 class Purchase < ActiveRecord::Base
 
   serialize :properties               
@@ -12,10 +13,14 @@ class Purchase < ActiveRecord::Base
 
   def self.with_info(payer_id, consumer_id)
     if consumer_id
-      Purchase.where("consumer_id = ?", consumer_id).includes(:consumer, :retailer).all
+      Purchase.where("consumer_id = ?", consumer_id).includes(:consumer, :retailer)
     else
-      Purchase.where("payer_id = ?", payer_id).includes(:consumer, :retailer).all
+      Purchase.where("payer_id = ?", payer_id).includes(:consumer, :retailer)
     end
+  end
+  
+  def pending
+    self.count{|purchase| purchase.authorization_type == 'PendingPayer'}
   end
 
   def self.create_new!(payer, consumer, retailer, title, product, amount, currency, transactionID, params)
@@ -46,10 +51,40 @@ class Purchase < ActiveRecord::Base
   # terminology:  'authorize'/'unauthorize' is used when Paykido programmatically authorizes purchase.
   #               'approve'/'decline' is used when a human being (parent) authorizes it himself.
 
-  def g2spp
+  def g2spp(purpose)
     # return the url to redirect to for manual payment including all parameters
+    
+    time_stamp = Time.now.strftime('%Y-%m-%e %H:%M:%S')
+
+       
+      "https://secure.Gate2Shop.com/ppp/purchase.do?" +
+      "merchant_id=" + Paykido::Application.config.merchant_id + "&" +
+      "merchant_site_id=" + Paykido::Application.config.merchant_site_id + "&" +
+      "total_amount=" + "6.00" + "&" +
+      "currency=" + self.currency + "&" +
+      "item_name_1=" + CGI.escape(self.product) + "&" +
+      "item_amount_1=" + "6.00" + "&" +
+      "item_quantity_1=" + "1" + "&" +
+      "time_stamp=" + CGI.escape(time_stamp) + "&" +
+      "version=" +   Paykido::Application.config.version + "&" +
+      "customField1=" + purpose + "&" +
+      "checksum=" + self.checksum(time_stamp)
+    
   end
 
+  def checksum(time_stamp)
+    str = Paykido::Application.config.secret_key +
+          Paykido::Application.config.merchant_id +
+          self.currency +
+          "6.00" +
+          CGI.escape(self.product) +
+          "6.00" +
+          "1" +
+          CGI.escape(time_stamp)
+          
+    Digest::MD5.hexdigest(str)           
+  end
+  
   def pay_by_token!
     # call the token interface here with payer's saved Token and TransactionID (registration)
     # have Nokogiri parse the returned xml/string and update the @purchase accordingly

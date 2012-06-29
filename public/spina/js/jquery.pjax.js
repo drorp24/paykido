@@ -43,7 +43,7 @@ $.fn.pjax = function( container, options ) {
       return true
 
     var defaults = {
-      url: this.href,
+      url: this.href || $(this).attr('data-href'),
       container: $(this).attr('data-pjax'),
       clickedElement: $(this)
     }
@@ -88,7 +88,7 @@ $.pjax = function( options ) {
 
   var defaults = {
     timeout: 3000,
-    push: false,
+    push: false,   // since most times it brings one pane, and then refreshing screen creates an awkward page
     replace: false,
     // We want the browser to maintain two separate internal caches: one for
     // pjax'd partial page loads and one for normal page loads. Without

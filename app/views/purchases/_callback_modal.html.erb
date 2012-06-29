@@ -1,0 +1,33 @@
+<div id="callback" class="box rule_modal">
+    <div class="box-header modal-header">
+        <span class="icon32 info fl"></span>
+        <h1>Information</h1>
+    </div>
+  
+    <div class="box-content">
+        <div class="rule header">
+            <%= params[:status] %>
+        </div>
+         <div class="rule actions">
+            <p><span class="message"><%= params[:message] %></span>.</p>
+        </div>
+        <div class="action_bar">            
+            <a id="create_rule" href='#' class= "blue button close">OK</a>
+        </div>
+    </div>
+    
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+
+	$('#callback').act_as_modal();
+    $('.close').click(function() {
+      $('#modalcontainer > div').hide();
+      $('#overlay').hide();
+      $('#callback').hide();
+    })
+
+})
+
+</script>

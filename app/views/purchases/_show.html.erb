@@ -1,6 +1,6 @@
 <div class="box-header">
     <td class="icon16 user"></td>     
-    <h1><%= t 'Purchase' %></h1>   
+    <h1><%= t 'Purchaser' %></h1>   
 </div>
     
 <div class="box-content">
@@ -35,6 +35,19 @@
         </div>
 
     </div>
+
+	<% if @purchase.requires_approval? %>
+	<div id="approval_buttons" class="fr">
+	    <%= link_to approve_purchase_path(@purchase), :class => "small blue button" do %>
+	        <span class="icon16 tick"></span>
+	        Approve
+	    <% end %>
+	    <%= link_to decline_purchase_path(@purchase), :class => "small blue button" do %>
+	        <span class="icon16 delete"></span>
+	        Decline
+	    <% end %>
+	</div>
+	<% end %> 
     
     <p class="sectiontitle">About the purchase</p>
     <table class="purchase_info">
@@ -51,6 +64,7 @@
                             <%= value %>
                         <% end %>
                     </td>
+                    <% if value != nil %>
                     <td class="actions">
                         <a id="blacklist" href="#new_rule" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule="blacklist" data-property="<%= property %>" data-value="<%= value %>" class="modal small button rule <%= (@purchase.consumer.blacklisted?(property,value)) ?'blue' :'regular greyedOut' %>">
                             <span class="icon16 blacklist"></span>NO
@@ -64,6 +78,7 @@
                             <span class="help fr"></span>
                         </a>
                     </td> 
+                    <% end %>
                 </tr>
                 
 

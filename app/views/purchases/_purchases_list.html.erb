@@ -32,12 +32,11 @@
             <th>
             <th>
             <th>
-            <th>                             
         </tr> 
     </thead> 
     <tbody> 
     <% @purchases.each do |purchase| %> 
-        <tr class="purchase_row" data-href=<%= "purchase/#{purchase.id}" %> > 
+        <tr class="purchase_row" data-href=<%= purchase_path(purchase) %> > 
             <td ><%= purchase.date %></td>
             <td><%= purchase.authorization_type %></td>
             <td><%= purchase.authorized %></td>
@@ -69,94 +68,54 @@
                 </p>
             </td>
             <td class="purchase_price"><%= number_to_currency(purchase.amount) %></td>
-            <td class="approval_buttons">
-                <% if purchase.requires_approval? %>
-                <p class="purchase_top_line">
-                    <a href='#approval_modal' class="modal approval button small greyedOut actionButton approve" data-purchase="<%= purchase.id %>" data-action="approve" data-product="<%= purchase.product %>" data-price="<%= number_to_currency purchase.amount %>" data-consumer="<%= purchase.consumer.name %>" data-retailer="<%= purchase.retailer.name %>" data-title="<%= purchase.title %>">
-                        <span class="icon16 tick2"></span>
-                        OK
-                    </a>
-                </p>
-                <p class="purchase_bottom_line">
-                     <a href="#approval_modal" class="modal approval button small greyedOut actionButton decline" data-purchase="<%= purchase.id %>"  data-action="do not approve" data-product="<%= purchase.product %>" data-price="<%= number_to_currency purchase.amount %>" data-consumer="<%= purchase.consumer.name %>" data-retailer="<%= purchase.retailer.name %>" data-title="<%= purchase.title %>">
-                        <span class="icon16 cross"></span>
-                        NO
-                    </a>
-                </p>
-                <% end %>
-            </td>                     
         </tr>
                       
     <% end %>
     </tbody> 
 </table> 
 
-<% if @pendings_count > 0  %>
-	<%= render 'approval_popover' %>
-	<%= render 'approval_modal' %>
+<% if params[:activity] == 'approval' and @pendings_count > 0 %>
+	<%= render 'approval_popover'%>
 <% end %>
 
 <script type="text/javascript"> 
 
 $(document).ready(function() {
 
-/// populate the values in the approval modal text and the href to follow if button is clicked	    
-   $('.approval.button').click(function () {
-       
-       var purchase = 	 $(this).attr('data-purchase');
-       var action = 	 $(this).attr('data-action');
-       var product =     $(this).attr('data-product');
-       var price =       $(this).attr('data-price');
-       var consumer =    $(this).attr('data-consumer');       
-       var retailer =    $(this).attr('data-retailer');       
-       var title = 		 $(this).attr('data-title'); 
-       var activity =	 (action == 'approve') ? 'approved' : 'declined';      
-       var always =	 	 (action == 'approve') ? 'approve' : 'decline';      
-
-       $('.action').html(action);
-       $('.product').html(product);
-       $('.price').html(price);
-       $('.consumer_name').html(consumer);
-       $('.modal_retailer').html(retailer);
-       $('.modal_title').html(title);
-       $('.activity').html(activity);
-       $('.always').html(always);
-
-       $('#approval_button').attr('data-href','purchases/' + purchase + '/' + action);
-
-    });  
-    
-
-
-//  Trigger the approval popover
-    $('#pending-button').popover('#approval_popover', {preventBottom: true, preventRight: true});
-
-	// these lines should be removed once popover acts as it should 
-	<% if params[:activity] == 'approval' %>
+	//  Trigger the approval popover
+	// the 2 last lines should be removed once popover acts as it should 
+	<% if params[:activity] == 'approval' and @pendings_count > 0 %>
+    	$('#pending-button').popover('#approval_popover', {preventBottom: true, preventRight: true});
 	    $('#pending-button').trigger('open.popover');      
 		window.setTimeout("$('#approval_popover').fadeOut('slow')", 2000);
 	<% end %>
-               
-    $('.purchase_row').click(function () {
-    	url = $(this).attr('data-href')
-		$.pjax({
-		  url: url,
-		  container: '#dashboard_right'
-		  // what about adding init as they do after calling pjax?
-		})
-	})
+	
+	<% if params[:activity] == 'pp_callback' %>
+		<% if params[:status] == 'FAIL' %>
+		    notification('<%= "Purchase failed: #{params[:message]}" %>', true, 'cart', true)
+		<% else %>
+		    notification("<%= "Purchase paid thank you!"%>", false, 'cart', true)
+		<% end %>
+	<% end %>
 
+	//ajax the href/data-href content when clicked into specified container
+	$('.purchase_row').pjax("#dashboard_right");
 
+    //indicte active tr line
+    $('#purchases .purchase_row:nth-child(2)').addClass('active');
+    $('#purchases tr').click(function() {
+    	$('#purchases tr').removeClass('active');
+    	$(this).addClass('active');
+    })           
 
-// DataTables (http://datatables.net/)
-   pTable = $('#purchases').dataTable( {
+	// DataTables (http://datatables.net/)
+	pTable = $('#purchases').dataTable( {
         "sPaginationType": "full_numbers",
         "aoColumnDefs": [
 	        { "bVisible": false, "aTargets": [ 0,1,2 ] },
 	        { "sWidth": "0%", "aTargets": [ 3]},
 	        { "sWidth": "80%", "aTargets": [ 4 ]},
  	        { "sWidth": "20%", "aTargets": [ 5 ]},
- 	        { "sWidth": "0%", "aTargets": [ 6 ]},
        ],
         "aaSorting": [
         	[0,'desc']
@@ -164,18 +123,20 @@ $(document).ready(function() {
     } );
 
 
-//	Set the default filter to either be pending or all	
+	// Filtering - replace later with tabs
+	
+	//	Set the default filter to either be pending or all	
 	$('.action_bar.filters a').removeClass('blue');        
-<% if @pendings_count > 0  %>
-    $('#pending-button').addClass('blue');
-    pTable.fnFilter( 'PendingPayer' , 1, true, false, false);
-<% else %>
-    $('#all-button').addClass('blue');
-    pTable.fnFilter( '', 1, true, false, false );
-<% end %>            
+	<% if @pendings_count > 0  %>
+    	$('#pending-button').addClass('blue');
+    	pTable.fnFilter( 'PendingPayer' , 1, true, false, false);
+	<% else %>
+    	$('#all-button').addClass('blue');
+    	pTable.fnFilter( '', 1, true, false, false );
+	<% end %>            
         
 
-//	Filtering is currently silly (based on 'authorization_type' column) - should be replaced by 'authorized' column.
+	//	Filtering is currently silly (based on 'authorization_type' column) - should be replaced by 'authorized' column.
 
     $('#pending-button').click(function () {
             $('.action_bar.filters a').removeClass('blue');
