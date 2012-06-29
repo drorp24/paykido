@@ -22,6 +22,7 @@ Paykido::Application.routes.draw do
 
   match 'g2s/ppp/:status' => 'g2s#ppp_callback'
   match 'g2s/dmn/:status' => 'g2s#dmn'
+  match 'login' => 'account#login', :as => :login
 
   match ':controller(/:action(/:id))'
   # The priority is based upon order of creation:

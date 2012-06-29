@@ -1,3 +1,50 @@
+		<!-- Primary navigation -->
+		<nav id="primary">
+  			<ul>
+		    	<li <%= "class=active" if ["purchases"].include? controller.controller_name  %>>
+		      		<%= link_to payer_purchases_path(@payer) do %>
+				        <span class="icon32 dashboard"></span>
+				        Dashboard
+			      	<% end %>
+			    </li>
+			    <li <%= "class=active" if ["consumers"].include? controller.controller_name  %>>
+			      	<a href="#">
+			        	<span class="icon32 cog"></span>
+			        	Settings
+			      	</a>
+			    </li>
+			    <li>
+			      	<a href="#">
+			        	<span class="icon32 shuffle"></span>
+			        	Communication
+			      	</a>
+			    </li>
+			    <li>
+			      	<a href="#">
+			        	<span class="icon32 pencil"></span>
+			        	Rules
+			      	</a>
+			    </li>
+			    <li>
+			      	<a href="#">
+			        	<span class="icon32 user"></span>
+			        	People
+			      	</a>
+			    </li>
+			    <li>
+			      	<a href="#">
+			        	<span class="icon32 chart"></span>
+			        	Charts
+			      	</a>
+			    </li>
+			    <li class="bottom">
+			      	<a href="/account/logout">
+			        	<span class="icon32 quit"></span>
+			        	Log out
+			      	</a>
+			    </li>
+  			</ul>
+		</nav>
 <!-- Secondary navigation -->
 <nav id="secondary">
 

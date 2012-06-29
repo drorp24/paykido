@@ -13,14 +13,26 @@ class ApplicationController < ActionController::Base
   
   def check_and_restore_session  
  
-    # replace with Devise  
-    unless @payer = session[:payer] or @payer = Payer.authenticate_by_token(params[:email], params[:token]) 
-      flash[:message] = "Please sign in with payer credentials"
-      reset_session
-      redirect_to  :controller => 'home', :action => 'index'
+    # Have Devise run the user session 
+    # Every call should include payer_id, consumer_id and/or purchase_id
+    
+    if params[:payer_id]
+      @payer = Payer.find(params[:payer_id])
+    elsif params[:email] and params[:token]
+      @payer = Payer.authenticate_by_token(params[:email], params[:token])
+    elsif params[:consumer_id]
+      @consumer = Consumer.find(params[:consumer_id])
+      @payer = @consumer.payer
+    elsif params[:purchase_id]
+      @purchase = Purchase.find(params[:purchase_id])
+      @consumer = @purchase.consumer
+      @payer = @consumer.payer
+    else
+      flash[:error] = "no id provided"
+      redirect_to root_path
       return
     end
-
+     
   end
   
   def set_long_expiry_headers

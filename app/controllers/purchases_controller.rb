@@ -1,6 +1,7 @@
 class PurchasesController < ApplicationController
 
-  before_filter :check_and_restore_session    
+  before_filter :check_and_restore_session 
+  
 # before_filter :set_long_expiry_headers    # consider moving to application controller
 
   # GET /consumers/:consumer_id/purchases ("link_to payer_purchases_path(@payer)")
@@ -12,8 +13,6 @@ class PurchasesController < ApplicationController
   # Otherwise, 2. all purchases of given consumers, or 3. payer
   def find_purchases
     
-    flash[:error] = "id missing" unless params[:payer_id] or params[:consumer_id] or params[:id]
-
     @purchases = Purchase.with_info(params[:payer_id], params[:consumer_id], params[:id]) 
     @pendings = @purchases.where("authorization_type = 'PendingPayer'")
     @pendings_count = @pendings.count
@@ -46,8 +45,14 @@ class PurchasesController < ApplicationController
   def show
 
     find_purchases      # fully RESTfull. pjax frequently brings a full page. Better for caching, enables history.
-    find_consumer     
-    @purchase = Purchase.find(params[:id])
+    find_consumer 
+    begin    
+      @purchase = Purchase.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = "No such purchase exists"
+      redirect_to (params[:consumer_id]) ?consumer_purchases_path(params[:consumer_id]) :payer_purchases_path(params[:payer_id])
+      return
+    end
 
     if request.headers['X-PJAX']
       render :partial => 'show'
