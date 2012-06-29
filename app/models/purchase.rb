@@ -60,10 +60,10 @@ class Purchase < ActiveRecord::Base
       "https://secure.Gate2Shop.com/ppp/purchase.do?" +
       "merchant_id=" + Paykido::Application.config.merchant_id + "&" +
       "merchant_site_id=" + Paykido::Application.config.merchant_site_id + "&" +
-      "total_amount=" + "6.00" + "&" +
+      "total_amount=" + "6" + "&" +
       "currency=" + self.currency + "&" +
       "item_name_1=" + CGI.escape(self.product) + "&" +
-      "item_amount_1=" + "6.00" + "&" +
+      "item_amount_1=" + "6" + "&" +
       "item_quantity_1=" + "1" + "&" +
       "time_stamp=" + CGI.escape(time_stamp) + "&" +
       "version=" +   Paykido::Application.config.version + "&" +
@@ -76,9 +76,9 @@ class Purchase < ActiveRecord::Base
     str = Paykido::Application.config.secret_key +
           Paykido::Application.config.merchant_id +
           self.currency +
-          "6.00" +
+          "6" +
           CGI.escape(self.product) +
-          "6.00" +
+          "6" +
           "1" +
           CGI.escape(time_stamp)
           
