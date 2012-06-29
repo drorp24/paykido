@@ -68,10 +68,10 @@
 		<nav id="primary">
   			<ul>
 		    	<li <%= "class=active" if ["purchases"].include? controller.controller_name  %>>
-		      		<a href="#">
+		      		<%= link_to payer_purchases_path(@payer) do %>
 				        <span class="icon32 dashboard"></span>
 				        Dashboard
-			      	</a>
+			      	<% end %>
 			    </li>
 			    <li <%= "class=active" if ["consumers"].include? controller.controller_name  %>>
 			      	<a href="#">
@@ -116,3 +116,11 @@
       
   </body>
 </html>
+<script>
+	$(document).ready(function () {
+	<% if flash[:error]  %>
+		    notification('<%= flash[:error] %>', false, 'alert', true)
+	<% end %>
+
+	})
+</script>

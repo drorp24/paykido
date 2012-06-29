@@ -3,20 +3,59 @@ class PurchasesController < ApplicationController
   before_filter :check_and_restore_session    
 # before_filter :set_long_expiry_headers    # consider moving to application controller
 
-  # GET /consumers/:consumer_id/purchases
-  # GET /purchases
+  # GET /consumers/:consumer_id/purchases ("link_to payer_purchases_path(@payer)")
+  # GET /payers/:payer_id/purchases       ("link_tp consumer_purchases_path(@consumer)")
+  # GET /purchases 
 
-  def index
+  # shared by both index and show. 
+  # Priority: 1. if *only* :id is present - all purchases of that consumer whose purchase is his 
+  # Otherwise, 2. all purchases of given consumers, or 3. payer
+  def find_purchases
+    
+    flash[:error] = "id missing" unless params[:payer_id] or params[:consumer_id] or params[:id]
 
-    @purchases = Purchase.with_info(@payer.id, params[:consumer_id])
+    @purchases = Purchase.with_info(params[:payer_id], params[:consumer_id], params[:id]) 
     @pendings = @purchases.where("authorization_type = 'PendingPayer'")
     @pendings_count = @pendings.count
-    @purchase = (@pendings_count > 0) ? @pendings.last : @purchases.last
+        
+  end
+  
+  def find_consumer
+
+    unless params[:payer_id]
+      @consumer = (params[:consumer_id]) ?Consumer.find(params[:consumer_id]) :Purchase.find(params[:id]).consumer
+    end
+
+  end
+
+  def index
     
-    render :partial => 'index' if request.headers['X-PJAX']    #otherwise it will render index that contains the full page
+    find_purchases
+    find_consumer
+    # purchase is decided by the client
+    
+    render :partial => 'index' if request.headers['X-PJAX'] # otherwise the full 'index'  
       
   end
   
+
+  # GET /consumers/:consumer_id/purchases/1 ("link_to payer_purchase_path(@consumer, @purchase)")
+  # GET /payers/:payer_id/purchases/1       ("link_tp consumer_purchase_path(@payer, @purchase)")
+  # GET /purchases/1
+  # GET /purchases/1.json
+  def show
+
+    find_purchases      # fully RESTfull. pjax frequently brings a full page. Better for caching, enables history.
+    find_consumer     
+    @purchase = Purchase.find(params[:id])
+
+    if request.headers['X-PJAX']
+      render :partial => 'show'
+    else
+      render 'index'  
+    end
+    
+  end
 
   def approve
     
@@ -63,16 +102,7 @@ class PurchasesController < ApplicationController
     end
     
   end
-
-  # GET /purchases/1
-  # GET /purchases/1.json
-  def show
-
-    @purchase = Purchase.find(params[:id])
-
-    render :partial => 'show'
-  end
-
+  
   # GET /purchases/new
   # GET /purchases/new.json
   def new

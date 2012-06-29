@@ -36,11 +36,11 @@
     </thead> 
     <tbody> 
     <% @purchases.each do |purchase| %> 
-        <tr class="purchase_row" data-href=<%= purchase_path(purchase) %> > 
+        <tr class="purchase_row" data-href=<%= (params[:payer_id]) ?payer_purchase_path(@payer, purchase) :consumer_purchase_path(@consumer, purchase) %> data-purchase=<%= purchase.id %> > 
             <td ><%= purchase.date %></td>
             <td><%= purchase.authorization_type %></td>
             <td><%= purchase.authorized %></td>
-            <td class="status" data-purchase="<%= purchase.id %>">
+            <td class="status">
             <% if purchase.requires_approval? %>
                 <span class="icon32 question large tooltip" title="Requires your manual approval"></span>
             <% elsif purchase.approved? %> 
@@ -60,6 +60,7 @@
                     <span><%= link_to purchase.product ,"dashboard/product/#{purchase.id}" %></span>
                     <span>by</span>
                     <span><%= link_to purchase.retailer.name, "dashboard/retailer/#{purchase.id}" %></span>
+                    <span><%= purchase.id %></span>
                 </p>
                 <p class="purchase_bottom_line">
                     <span class="cell_date"><%= purchase.date.strftime("%a, %b %d") %></span>
@@ -92,21 +93,11 @@ $(document).ready(function() {
 	
 	<% if params[:status]  %>
 		<% if params[:status] == 'failure' %>
-		    notification('<%= "Failed: #{params[:error]}" %>', true, 'cart', true)
+		    notification('<%= "Failed: #{params[:Error]}" %>', false, 'alert', true)
 		<% else %>
 		    notification("<%= "Purchase paid thank you!"%>", false, 'cart', true)
 		<% end %>
 	<% end %>
-
-	//ajax the href/data-href content when clicked into specified container
-	$('.purchase_row').pjax("#dashboard_right");
-
-    //indicte active tr line
-    $('#purchases .purchase_row:nth-child(2)').addClass('active');
-    $('#purchases tr').click(function() {
-    	$('#purchases tr').removeClass('active');
-    	$(this).addClass('active');
-    })           
 
 	// DataTables (http://datatables.net/)
 	pTable = $('#purchases').dataTable( {
@@ -161,6 +152,33 @@ $(document).ready(function() {
             $(this).addClass('blue');
             pTable.fnFilter( '', 1, true, false, false );
     });
+    
+
+	// Purchase row + detail selection
+
+	//ajax the href/data-href content when clicked into specified container
+	$('.purchase_row').pjax("#dashboard_right");
+
+    //indicte active tr line
+    $('#purchases tr').click(function() {
+    	$('#purchases tr').removeClass('active');
+    	$(this).addClass('active');
+    })           
+
+	// INIT - highlight the proper purchase line and show the purchase details pane 
+	// proper purchase: either the one in the parameter or the first one in the screen
+	<% if params[:id] %>
+    	proper_tr = $('#purchases tr[data-purchase=<%= params[:id] %>]')
+	<% else %>
+		proper_tr = $('#purchases tbody tr:first')
+	<% end %>
+    $('#purchases tr').removeClass('active');
+    proper_tr.addClass('active');
+	proper_tr.pjax("#dashboard_right");
+	$.pjax({
+	  url: proper_tr.attr('data-href'),
+	  container: '#dashboard_right'
+	})
 });
 
 </script>

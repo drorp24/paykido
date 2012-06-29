@@ -11,8 +11,10 @@ class Purchase < ActiveRecord::Base
   has_many    :payments
   
 
-  def self.with_info(payer_id, consumer_id)
-    if consumer_id
+  def self.with_info(payer_id, consumer_id, purchase_id)
+    if purchase_id and !consumer_id and !payer_id
+      Purchase.where("consumer_id = ?", Purchase.find(purchase_id).consumer_id).includes(:consumer, :retailer)      
+    elsif consumer_id
       Purchase.where("consumer_id = ?", consumer_id).includes(:consumer, :retailer)
     else
       Purchase.where("payer_id = ?", payer_id).includes(:consumer, :retailer)
@@ -68,6 +70,7 @@ class Purchase < ActiveRecord::Base
       "time_stamp=" + CGI.escape(time_stamp) + "&" +
       "version=" +   Paykido::Application.config.version + "&" +
       "customField1=" + purpose + "&" +
+      "customField2=" + self.id.to_s + 
       "checksum=" + self.checksum(time_stamp)
     
   end

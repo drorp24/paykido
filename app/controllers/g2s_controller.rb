@@ -17,14 +17,12 @@ class G2sController < ActionController::Base
     # redirect (or render?) this or the other
     # store in advance and use here the purchase id and dont count on session!
     if params[:customField1] == 'payment'
-      logger.info "before"
-      logger.info params
-      logger.info params.inspect
-      logger.info "after"
-#      parameters = params.except(:action, :controller)
-#      parameters(:status => params[:status])
-#      redirect_to purchases_path(parameters)
-redirect_to purchases_path(params.except(:action, :controller))
+      @purchase = Purchase.find(params[:customField2.to_i]) if params[:customField2]
+      if @purchase
+        redirect_to purchase_url(@purchase, params.except(:action, :controller))
+      else
+        redirect_to payer_purchases_url(@payer, params.except(:action, :controller))
+      end
     end
         
   end

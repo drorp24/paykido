@@ -88,7 +88,7 @@ $.pjax = function( options ) {
 
   var defaults = {
     timeout: 3000,
-    push: false,   // since most times it brings one pane, and then refreshing screen creates an awkward page
+    push: true,   // return to false if I pjax replace just one pane
     replace: false,
     // We want the browser to maintain two separate internal caches: one for
     // pjax'd partial page loads and one for normal page loads. Without

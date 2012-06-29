@@ -5,8 +5,10 @@ class AccountController < ApplicationController
 
   def login       # (replace with Devise user based authentication)
 
+  # ToDo: Get rid of session, once all app is RESTful
+
     if request.post?          
-      if session[:payer] = Payer.authenticate(params[:username], params[:password])
+      if @payer = session[:payer] = Payer.authenticate(params[:username], params[:password])
         redirect_to purchases_path
       else
         flash.now[:notice] = "Incorrect user or password. Please try again!"

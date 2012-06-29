@@ -13,6 +13,7 @@
                     <% else %>
                         <%= @purchase.retailer.name %>
                     <% end %>
+                    <%= @purchase.id %>
 			</p>
 			<p class="product"><%= @purchase.product %></p>
             <p class="price"><%= number_to_currency @purchase.amount %></p>
