@@ -16,7 +16,7 @@ class G2sController < ActionController::Base
 
     # redirect (or render?) this or the other
     if params[:customField1] == 'payment'
-      redirect_to purchases_path, :activity => 'pp_callback', :status => params[:ppp_status], :error => params[:Error]
+      redirect_to purchases_path(:activity => 'pp_callback', :status => params[:ppp_status], :error => params[:Error])
     end
         
   end

@@ -92,7 +92,7 @@ $(document).ready(function() {
 	
 	<% if params[:activity] == 'pp_callback' %>
 		<% if params[:status] == 'FAIL' %>
-		    notification('<%= "Purchase failed: #{params[:message]}" %>', true, 'cart', true)
+		    notification('<%= "Failed: #{params[:error]}" %>', true, 'cart', true)
 		<% else %>
 		    notification("<%= "Purchase paid thank you!"%>", false, 'cart', true)
 		<% end %>
