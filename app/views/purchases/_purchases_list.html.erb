@@ -90,8 +90,8 @@ $(document).ready(function() {
 		window.setTimeout("$('#approval_popover').fadeOut('slow')", 2000);
 	<% end %>
 	
-	<% if params[:activity] == 'pp_callback' %>
-		<% if params[:status] == 'FAIL' %>
+	<% if params[:status]  %>
+		<% if params[:status] == 'failure' %>
 		    notification('<%= "Failed: #{params[:error]}" %>', true, 'cart', true)
 		<% else %>
 		    notification("<%= "Purchase paid thank you!"%>", false, 'cart', true)
