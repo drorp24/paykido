@@ -9,7 +9,7 @@ class PurchasesController < ApplicationController
   def index
 
     @purchases = Purchase.with_info(@payer.id, params[:consumer_id])
-    @pendings = @purchases.where("authorization_type == 'PendingPayer'")
+    @pendings = @purchases.where("authorization_type = 'PendingPayer'")
     @pendings_count = @pendings.count
     @purchase = (@pendings_count > 0) ? @pendings.last : @purchases.last
     
