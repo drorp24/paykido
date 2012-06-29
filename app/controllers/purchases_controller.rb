@@ -18,10 +18,12 @@ class PurchasesController < ApplicationController
         
   end
   
-  def find_consumer
+  def find_consumer       # if relevant (not necessarily true)
 
-    unless params[:payer_id]
-      @consumer = (params[:consumer_id]) ?Consumer.find(params[:consumer_id]) :Purchase.find(params[:id]).consumer
+    if params[:consumer_id] 
+      @consumer = Consumer.find(params[:consumer_id]) 
+    elsif params[:id]
+      @consumer = Purchase.find(params[:id]).consumer
     end
 
   end

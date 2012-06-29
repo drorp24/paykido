@@ -129,6 +129,10 @@ nav#secondary ul li.active .icon32 {
     background-position: 100% center;
 }
 
+nav#secondary ul li.active .icon32.home {
+    background-position: 100% center;
+}
+
 nav#secondary ul li:first-child a {
   border-top: none;
 }

@@ -8,8 +8,8 @@ class AccountController < ApplicationController
   # ToDo: Get rid of session, once all app is RESTful
 
     if request.post?          
-      if @payer = session[:payer] = Payer.authenticate(params[:username], params[:password])
-        redirect_to purchases_path
+      if @payer = Payer.authenticate(params[:username], params[:password])
+        redirect_to payer_purchases_path(@payer)
       else
         flash.now[:notice] = "Incorrect user or password. Please try again!"
       end      

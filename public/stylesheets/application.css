@@ -101,6 +101,14 @@ body#paykido  a {
 	-moz-box-shadow: 0 0 3px #111111;
 	-webkit-box-shadow: 0 0 3px #111111;
 }
+.active .avatar img {
+    width: 32px;
+    height: 32px;
+    box-shadow: 0 0 5px #fff;
+    -moz-box-shadow: 0 0 5px #fff;
+    -webkit-box-shadow: 0 0 5px #fff;
+}
+
 .fl {
     float: left;
 }
