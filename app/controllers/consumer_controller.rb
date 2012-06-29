@@ -80,7 +80,7 @@ class ConsumerController < ApplicationController
     
     @purchase.notify_consumer('programmatic', status)
 
-    redirect_to session[:referrer]  + '?status=' + status
+    redirect_to params[:referrer]  + '?status=' + status
     
   end
   

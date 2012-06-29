@@ -10,7 +10,7 @@ class RemoveFieldsFromPayer < ActiveRecord::Migration
     remove_column :payers, :exists
     remove_column :payers, :pin
     remove_column :payers, :phone_alert
-    remove_column :payers, :email_alertan
+    remove_column :payers, :email_alert
     remove_column :payers, :phone_alert_frequency 
     remove_column :payers, :email_alert_frequency
     remove_column :payers, :phone_events
