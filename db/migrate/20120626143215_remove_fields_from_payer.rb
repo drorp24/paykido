@@ -7,7 +7,7 @@ class RemoveFieldsFromPayer < ActiveRecord::Migration
     remove_column :payers, :pp_maxAmountPerPayment
     remove_column :payers, :pp_pinType
     remove_column :payers, :family
-    remove_column :payers, :existsn
+    remove_column :payers, :exists
     remove_column :payers, :pin
     remove_column :payers, :phone_alert
     remove_column :payers, :email_alertan
