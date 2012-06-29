@@ -4,7 +4,7 @@
 	<ul>
 		<li <%= "class=active" unless @consumer %>>
             <%= link_to purchases_path do %>
-            	<span class="secondary_name"><%= "#{(session[:payer].name) ? session[:payer].name + "'s Family" : "Family"}" %></span>
+            	<span class="secondary_name"><%= "#{(@payer.name) ? @payer.name + "'s Family" : "Family"}" %></span>
 				<span class="icon32 home fr"><span>
         	<% end %>
         </li>
