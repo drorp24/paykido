@@ -21,7 +21,7 @@ class G2sController < ActionController::Base
       logger.debug params
       logger.debug params.inspect
       logger.debug "after"
-      redirect_to purchases_path(:activity => 'pp_callback', :parameters => params)
+      redirect_to purchases_path(:activity => 'pp_callback',  params)
     end
         
   end
