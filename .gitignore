@@ -16,3 +16,9 @@
 *.tmp*
 .sass-cache/
 public/assets/
+
+# Ignore database YAML
+/config/database.yml
+
+#Ignore Mac files
+.DS_Store
