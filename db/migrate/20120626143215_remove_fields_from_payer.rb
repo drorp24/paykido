@@ -11,14 +11,14 @@ class RemoveFieldsFromPayer < ActiveRecord::Migration
     remove_column :payers, :pin
     remove_column :payers, :phone_alert
     remove_column :payers, :email_alert
-    remove_column :payers, :phone_alert_frequency 
+    remove_column :payers, :phone_alert_frequency
     remove_column :payers, :email_alert_frequency
     remove_column :payers, :phone_events
     remove_column :payers, :email_events
     remove_column :payers, :billing_id
     remove_column :payers, :skype
     remove_column :payers, :facebook
-    remove_column :payers, :exists
+   # remove_column :payers, :exists
 
   end
 
@@ -41,7 +41,7 @@ class RemoveFieldsFromPayer < ActiveRecord::Migration
     add_column :payers, :billing_id,                :string
     add_column :payers, :skype,                     :string
     add_column :payers, :facebook,                  :string
-    add_column :payers, :exists,                    :boolean
+  #  add_column :payers, :exists,                    :boolean
 
   end
 end
