@@ -10,7 +10,9 @@ group :production do
   gem "pg"
 end
 group :development, :test do
- # gem 'sqlite3'
+  gem 'sqlite3'
+  gem 'taps'
+  gem 'heroku'
 end
 
 gem 'clickatell'
@@ -18,8 +20,6 @@ gem 'json'
 gem 'facebooker2', "~> 0.0.16"
 gem 'paypal_adaptive'
 gem 'ruby_core_source'
-gem 'heroku'
-gem 'taps'
 gem 'multi_json', "~> 1.0.3"
 gem 'httparty'
 
