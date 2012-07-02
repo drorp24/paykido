@@ -7,6 +7,7 @@ load "config/recipes/postgresql"
 load "config/recipes/nodejs"
 load "config/recipes/rbenv"
 load "config/recipes/check"
+load "config/recipes/utils"
 
 server "50.116.63.241", :web, :app, :db, primary: true
 
@@ -17,7 +18,7 @@ set :deploy_via, :remote_cache
 set :use_sudo, false
 
 set :scm, "git"
-set :repository, "git@github.com:drorp24/#{application}.git"
+set :repository, "https://github.com/drorp24/paykido.git"
 set :branch, "master"
 
 default_run_options[:pty] = true
