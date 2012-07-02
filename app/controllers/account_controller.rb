@@ -24,6 +24,10 @@ class AccountController < ApplicationController
 
   end 
   
+  def settings
+    render 
+  end
+  
   def access       # (replace with Devise token-based authentication)     
 
     if @payer = Payer.authenticate_by_token(params[:email], params[:token])

@@ -1,0 +1,43 @@
+
+<!-- Secondary navigation -->
+<nav id="secondary">
+
+	<ul>
+		<li class=active>
+            <%= link_to payer_path(@payer) do %>
+            	<span class="secondary_name">Security</span>
+				<span class="icon32 lock fr"><span>
+        	<% end %>
+        </li>    	
+		<li>
+            <%= link_to payer_notifications_path(@payer) do %>
+            	<span class="secondary_name">Notifications</span>
+				<span class="icon32 flag fr"><span>
+        	<% end %>
+        </li>    	
+		<li  >
+            <%= link_to payer_registrations_path(@payer) do %>
+            	<span class="secondary_name">Authorizations</span>
+				<span class="icon32 file fr"><span>
+        	<% end %>
+        </li>    	
+		<li>
+            <%= link_to payer_path(@payer) do %>
+            	<span class="secondary_name">Communication</span>
+				<span class="icon32 twitter fr"><span>
+        	<% end %>
+        </li>    	
+	</ul>
+  
+	<div id="notifications">
+	    <ul>
+	    </ul>
+	</div>
+</nav>
+
+<section id="maincontainer">
+  <div id="main" class="container_12">
+  
+  
+  </div>
+</section>

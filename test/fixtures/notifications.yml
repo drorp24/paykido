@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  payer_id: 1
+  event: MyString
+  medium: MyString
+  data: MyString
+  frequency: MyString
+
+two:
+  payer_id: 1
+  event: MyString
+  medium: MyString
+  data: MyString
+  frequency: MyString

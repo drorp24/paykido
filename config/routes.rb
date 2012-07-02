@@ -1,5 +1,8 @@
 Paykido::Application.routes.draw do
 
+    resources :notifications
+    resources :registrations
+
   resources :purchases do
     member do
       get 'approve', 'decline'
@@ -17,7 +20,12 @@ Paykido::Application.routes.draw do
   end
 
   resources :payers do
+    member do
+      get 'set'
+    end
     resources :purchases
+    resources :notifications
+    resources :registrations
   end
 
   match 'g2s/ppp/:status' => 'g2s#ppp_callback'

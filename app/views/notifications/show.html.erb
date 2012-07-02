@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Payer:</b>
+  <%= @notification.payer_id %>
+</p>
+
+<p>
+  <b>Event:</b>
+  <%= @notification.event %>
+</p>
+
+<p>
+  <b>Medium:</b>
+  <%= @notification.medium %>
+</p>
+
+<p>
+  <b>Data:</b>
+  <%= @notification.data %>
+</p>
+
+<p>
+  <b>Frequency:</b>
+  <%= @notification.frequency %>
+</p>
+
+
+<%= link_to 'Edit', edit_notification_path(@notification) %> |
+<%= link_to 'Back', notifications_path %>
