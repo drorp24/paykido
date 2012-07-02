@@ -8,6 +8,9 @@ gem 'rails', '3.1.3'
 group :production do
   # gems specifically for Heroku go here
   gem "pg"
+  # Use unicorn as the web server
+ gem 'unicorn'
+
 end
 group :development, :test do
   gem 'sqlite3'
@@ -38,8 +41,6 @@ gem 'httparty'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
-# Use unicorn as the web server
-# gem 'unicorn'
 
 # Deploy with Capistrano
  gem 'capistrano'
