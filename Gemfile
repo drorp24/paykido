@@ -9,7 +9,8 @@ group :production do
   # gems specifically for Heroku go here
   gem "pg"
   # Use unicorn as the web server
- gem 'unicorn'
+  gem 'unicorn'
+
 
 end
 group :development, :test do
@@ -18,6 +19,7 @@ group :development, :test do
   gem 'heroku'
 end
 
+gem 'newrelic_rpm'
 gem 'clickatell'
 gem 'json'
 gem 'facebooker2', "~> 0.0.16"
