@@ -63,7 +63,6 @@ class ConsumerController < ApplicationController
       status = 'approved'                
       @purchase.pay_by_token!                                
       if @purchase.paid_by_token?
-        @purchase.notify_merchant
         @purchase.approve!
         @purchase.account_for! 
       else
@@ -75,9 +74,10 @@ class ConsumerController < ApplicationController
     elsif @purchase.unauthorized?
       status = 'declined'
     else             
-      @purchase.notify_consumer('something', 'happenned') 
+      status = 'unknown' 
     end
     
+    @purchase.notify_merchant(status) unless status == 'failed'
     @purchase.notify_consumer('programmatic', status)
 
     redirect_to params[:referrer]  + '?status=' + status

@@ -32,6 +32,8 @@ class PurchasesController < ApplicationController
     
     find_purchases
     find_consumer
+    @purchase.notify_merchant('approved') if params[:Status] and params[:Status] == 'APPROVED'
+    
     # purchase is decided by the client
     
     render :partial => 'index' if request.headers['X-PJAX'] # otherwise the full 'index'  
@@ -71,10 +73,10 @@ class PurchasesController < ApplicationController
     if @purchase.payer.registered?
       @purchase.pay_by_token!
       if @purchase.paid_by_token?
-        @purchase.notify_merchant
+        status = 'approved'
+        @purchase.notify_merchant(status)
         @purchase.approve!
         @purchase.account_for! 
-        status = 'approved'
       else
         status = 'failed'
       end

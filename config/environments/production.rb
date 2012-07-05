@@ -24,6 +24,7 @@ Paykido::Application.configure do
   config.sg_Descriptor = 'Paykido - safe payment for kids'
   config.sg_TransType = 'Sale'
   config.referrer = 'https://secure.gate2shop.com/ppp/purchase.do'   
+  config.populate_test_fields = false  
 
   # Code is not reloaded between requests
   config.cache_classes = true

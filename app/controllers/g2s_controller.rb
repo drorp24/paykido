@@ -18,6 +18,9 @@ class G2sController < ActionController::Base
     # store in advance and use here the purchase id and dont count on session!
     if params[:customField1] == 'payment'
         redirect_to purchase_url(params[:customField2].to_i, params.except(:action, :controller))
+    else
+      flash[:error] = ""
+      redirect_to root_path
     end
         
   end
@@ -29,6 +32,15 @@ class G2sController < ActionController::Base
     
     # if this is a (succesful) transaction, notify/approve/inform (make it DRY by having them all in the model)
     # dont render anything or redirect anywhere
+    logger.info "DMN was called!"
+
+    if params[:customField1] == 'payment'
+      @purchase.transactions.create_new!(params)      
+    elsif params[:customField1] == 'approval'
+      @payer.registrations.create_new!
+    else
+      return false   
+    end
     
   end
 

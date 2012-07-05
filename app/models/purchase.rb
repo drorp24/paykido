@@ -1,4 +1,5 @@
 require 'digest/md5'
+require 'uri'
 class Purchase < ActiveRecord::Base
 
   serialize :properties               
@@ -55,23 +56,40 @@ class Purchase < ActiveRecord::Base
 
   def g2spp(purpose)
     # return the url to redirect to for manual payment including all parameters
-    
-    time_stamp = Time.now.strftime('%Y-%m-%e %H:%M:%S')
 
+    time_stamp = Time.now.strftime('%Y-%m-%d %H:%M:%S')
        
+      URI.escape(
       "https://secure.Gate2Shop.com/ppp/purchase.do?" +
       "merchant_id=" + Paykido::Application.config.merchant_id + "&" +
       "merchant_site_id=" + Paykido::Application.config.merchant_site_id + "&" +
-      "total_amount=" + "6" + "&" +
+      "total_amount=" + self.amount.to_s + "&" +
       "currency=" + self.currency + "&" +
-      "item_name_1=" + CGI.escape(self.product) + "&" +
-      "item_amount_1=" + "6" + "&" +
+      "item_name_1=" + self.product + "&" +
+      "item_amount_1=" + self.amount.to_s + "&" +
       "item_quantity_1=" + "1" + "&" +
-      "time_stamp=" + CGI.escape(time_stamp) + "&" +
+      "time_stamp=" + time_stamp + "&" +
       "version=" +   Paykido::Application.config.version + "&" +
       "customField1=" + purpose + "&" +
-      "customField2=" + self.id.to_s + 
-      "checksum=" + self.checksum(time_stamp)
+      "customField2=" + self.id.to_s + "&" +
+      "checksum=" + self.checksum(time_stamp) + test_fields
+      )
+    
+  end
+  
+  def test_fields
+
+    return unless Paykido::Application.config.populate_test_fields
+    
+    "&first_name=Dror" +
+    "&last_name=Poliak" +
+    "&email=drorp24@gmail.com" +
+    "&address1=Shamgar 23" +
+    "&city=Tel Aviv" +
+    "&country=Israel" +
+    "&zip=69935" +
+    "&phone1=0542343220" +
+    "&merchantLocale=en_US"
     
   end
 
@@ -79,13 +97,13 @@ class Purchase < ActiveRecord::Base
     str = Paykido::Application.config.secret_key +
           Paykido::Application.config.merchant_id +
           self.currency +
-          "6" +
-          CGI.escape(self.product) +
-          "6" +
+          self.amount.to_s +
+          self.product +
+          self.amount.to_s +
           "1" +
-          CGI.escape(time_stamp)
+          time_stamp
           
-    Digest::MD5.hexdigest(str)           
+    Digest::MD5.hexdigest(str)          
   end
   
   def pay_by_token!
@@ -100,7 +118,7 @@ class Purchase < ActiveRecord::Base
     # inquires on the return value that pay_by_token inserted to @purchase
   end
   
-  def notify_merchant
+  def notify_merchant(status)
     # call the PP backend with purchase's saved original PP_TransactionID
     # transaction identified by PP_TransactionID will change its status to either 'pending' or 'approved' 
   end
