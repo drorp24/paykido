@@ -8,4 +8,13 @@ namespace :utils do
       break if stream == :err
     end
   end
+
+desc "Remote console on the production appserver"
+task :console, :roles => ENV['ROLE'] || :web do
+  hostname = find_servers_for_task(current_task).first
+  puts "Connecting to #{hostname}"
+  exec "ssh -l #{user} #{hostname} -t 'source ~/.profile && cd #{current_path} && bundle exec rails c #{rails_env}'"
+end
+
+
 end
