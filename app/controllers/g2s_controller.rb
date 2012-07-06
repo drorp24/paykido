@@ -18,7 +18,7 @@ class G2sController < ApplicationController
     # redirect (or render?) this or the other
     # store in advance and use here the purchase id and dont count on session!
     
-      redirect_to "localhost:3000/play" 
+      redirect_to "http://localhost:3000/play" 
       return
     
 
