@@ -11,7 +11,7 @@ end
 
 class G2sController < ApplicationController
 
-  before_filter :set_host_to_redirect_to
+  before_filter :set_host_and_payer
 
   def ppp_callback    ## /ppp/<status>
     # return back to originating page: whether settings or purchases (dashboard)
@@ -177,7 +177,11 @@ class G2sController < ApplicationController
 
   private
   
-  def set_host_to_redirect_to
+  def set_host_and_payer
+    
+    if params[:customField1] and params[:customField1] == 'registration'
+      @payer = Payer.find(params[:customField2])
+    end
     
     if params[:nameOnCard] and params[:nameOnCard] == 'local'
       default_url_options[:host] = "localhost:3000"
