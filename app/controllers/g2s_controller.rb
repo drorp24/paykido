@@ -3,6 +3,8 @@ class Safecharge
   base_uri 'https://secure.safecharge.com'
 end
 
+  before_filter :check_and_restore_session  
+
 # Most of this controller handles the API between Paykido and the Payment Service Providers (PSP) it intergates with
 # It should be dealt with only upon integration (July 2012)
 # Currently it contains two PSPs: SafeCharge (SC) and PayPal
@@ -34,7 +36,7 @@ class G2sController < ActionController::Base
     # dont render anything or redirect anywhere
     logger.info "DMN was called!"
 
-    redirect_to dmn_path(params.except(:action, :controller)) if Rails.env.development?
+    redirect_to dmn_url(params.except(:action, :controller)) if Rails.env.development?
     if params[:customField1] == 'payment'
       @purchase.transactions.create_new!(params)
       # notify/approve/inform      
