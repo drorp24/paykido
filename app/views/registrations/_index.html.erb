@@ -1,0 +1,20 @@
+<h1>Account Registration</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @payer.registrations.each do |registration| %>
+  <tr>
+    <td>Gate2Shop</td>
+    <td>Credit card registered</td>
+    <td><%= link_to 'Edit', edit_payer_registration_path(registration) %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<%= link_to 'New Registration', new_payer_registration_path unless @payer.registered? %>

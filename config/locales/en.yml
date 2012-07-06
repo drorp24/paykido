@@ -2,6 +2,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  locale: en_US
   confirmation_heading: Welcome %{payer_name} and %{consumer_name}!
   confirmation_1: Hi %{payer_name}.  %{consumer_name} wants to use Paykido.
   confirmation_2: We want to verify that %{name} is indeed your kid
@@ -36,7 +37,6 @@ en:
   Balance: Balance
   Allowance: Allowance
   Consumer amount rules: User Rules - Amounts
-  currency_code: USD
   allowance: allowance
   current_balance: Current balance
   Consumers: Consumers
@@ -86,7 +86,7 @@ en:
       consumer:
         allowance_period: [["Weekly" , "Weekly"], ["Monthly" , "Monthly"]]
         allowance_day_of_week: [["Mon", 0], ["Tue", 1], ["Wed", 2], ["Thu", 3], ["Fri", 4], ["Sat", 5], ["Sun", 6]]
-        next_allowance_date: "%m/%d/%Y"
+        next_allowance_date: "%m/%d/%Y" 
   number:
     format:
       separator: ","
@@ -95,6 +95,7 @@ en:
       significant: false
       strip_insignificant_zeros: false
     currency:
+      code: EUR
       format:
         format: "%n %u"
         unit: "€"

@@ -23,6 +23,8 @@ class G2sController < ApplicationController
     if params[:customField1] == 'payment'
         redirect_to purchase_url(params[:customField2].to_i, params.except(:action, :controller))
     elsif params[:customField1] == 'registration'
+      @payer.create_registration!(params)
+      redirect_to payer_registrations_url(params[:customField2].to_i, params.except(:action, :controller))
     else
       flash[:error] = ""
       redirect_to root_path

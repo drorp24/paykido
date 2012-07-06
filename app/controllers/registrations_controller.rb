@@ -1,9 +1,13 @@
 class RegistrationsController < ApplicationController
+
+  before_filter :check_and_restore_session  
+
+
   # GET /registrations
   # GET /registrations.json
   def index
-    @registrations = Registration.all
-
+    @registrations = @payer.registrations
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @registrations }
@@ -13,7 +17,6 @@ class RegistrationsController < ApplicationController
   # GET /registrations/1
   # GET /registrations/1.json
   def show
-    @registration = Registration.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,17 +27,12 @@ class RegistrationsController < ApplicationController
   # GET /registrations/new
   # GET /registrations/new.json
   def new
-    @registration = Registration.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @registration }
-    end
+    redirect_to @payer.g2spp
   end
 
   # GET /registrations/1/edit
   def edit
-    @registration = Registration.find(params[:id])
+
   end
 
   # POST /registrations
@@ -42,15 +40,6 @@ class RegistrationsController < ApplicationController
   def create
     @registration = Registration.new(params[:registration])
 
-    respond_to do |format|
-      if @registration.save
-        format.html { redirect_to @registration, notice: 'Registration was successfully created.' }
-        format.json { render json: @registration, status: :created, location: @registration }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @registration.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # PUT /registrations/1
@@ -80,4 +69,26 @@ class RegistrationsController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  private
+  
+  def check_and_restore_session  
+ 
+    # Have Devise run the user session 
+    # Every call should include payer_id, consumer_id and/or purchase_id
+    
+    super
+    
+    if params[:id]
+      begin    
+        @registration = Registration.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        flash[:error] = "No such registration id"
+        redirect_to root_path
+        return
+      end 
+    end           
+
+  end
+
 end

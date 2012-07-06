@@ -1,6 +1,6 @@
 class PurchasesController < ApplicationController
 
-# before_filter :set_long_expiry_headers    # consider moving to application controller
+  before_filter :check_and_restore_session  
 
   # GET /consumers/:consumer_id/purchases ("link_to payer_purchases_path(@payer)")
   # GET /payers/:payer_id/purchases       ("link_tp consumer_purchases_path(@consumer)")
@@ -70,7 +70,7 @@ class PurchasesController < ApplicationController
       @purchase.notify_consumer('manual', status)
              
     else
-      redirect_to @purchase.g2spp('payment')   
+      redirect_to @purchase.g2spp   
       # then the dmn would take care of the notify/approve/inform (make it DRY by having them all in the model)
     end
 
@@ -87,17 +87,6 @@ class PurchasesController < ApplicationController
   end
 
 
-  def approve1    # callback after G2S PP returned succesfully
-
-    @purchase = Purchase.find(params[:id])
-    @purchase.approve!(params)
-     
-    respond_to do |format|  
-      format.js
-    end
-    
-  end
-  
   # GET /purchases/new
   # GET /purchases/new.json
   def new
@@ -156,7 +145,33 @@ class PurchasesController < ApplicationController
       format.html { redirect_to purchases_url }
       format.json { head :ok }
     end
-  end  
+  end
+
+  private
+
+  def check_and_restore_session  
+ 
+    # Have Devise run the user session 
+    # Every call should include payer_id, consumer_id and/or purchase_id
+    
+    super
+    
+    if params[:id]
+      begin    
+        @purchase = Purchase.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        flash[:error] = "No such purchase id"
+        redirect_to root_path
+        return
+      end 
+    end           
+
+    if @purchase
+      @consumer ||= @purchase.consumer
+      @payer ||= @payer
+    end      
+
+  end
 
 
 end

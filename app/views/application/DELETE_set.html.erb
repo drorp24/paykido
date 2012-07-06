@@ -3,7 +3,13 @@
 <nav id="secondary">
 
 	<ul>
-		<li class=active>
+		<li class=active >
+            <%= link_to payer_registrations_path(@payer) do %>
+            	<span class="secondary_name">Registration</span>
+				<span class="icon32 file fr"><span>
+        	<% end %>
+        </li>    	
+		<li >
             <%= link_to payer_path(@payer) do %>
             	<span class="secondary_name">Security</span>
 				<span class="icon32 lock fr"><span>
@@ -13,12 +19,6 @@
             <%= link_to payer_notifications_path(@payer) do %>
             	<span class="secondary_name">Notifications</span>
 				<span class="icon32 flag fr"><span>
-        	<% end %>
-        </li>    	
-		<li  >
-            <%= link_to payer_registrations_path(@payer) do %>
-            	<span class="secondary_name">Authorizations</span>
-				<span class="icon32 file fr"><span>
         	<% end %>
         </li>    	
 		<li>
@@ -41,3 +41,12 @@
   
   </div>
 </section>
+<script type="text/javascript"> 
+
+$(document).ready(function() {
+	
+	// Highlight the selected sub-menu option
+	
+
+});
+</script>

@@ -54,6 +54,7 @@
  
 
 	<%= link_to "Sign In", "/account/login", :class => "login", :id => "signin" unless params[:action] == 'login' %>  <!-- replace with Devise -->
+	<p class="login" id="error"><%= flash[:error]  %></p>
 
     
   </div>

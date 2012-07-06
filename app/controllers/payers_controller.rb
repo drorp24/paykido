@@ -1,28 +1,27 @@
 class PayersController < ApplicationController
 
-  before_filter :check_and_restore_session    
-# before_filter :set_long_expiry_headers    # consider moving to application controller
-
+  before_filter :check_and_restore_session  
  
-  def set
-    
-  end
 
-  private 
-
+  private
+  
   def check_and_restore_session  
  
     # Have Devise run the user session 
     # Every call should include payer_id, consumer_id and/or purchase_id
     
+    super
+    
     if params[:id]
-      @payer = Payer.find(params[:id])
-    elsif params[:email] and params[:token]
-      @payer = Payer.authenticate_by_token(params[:email], params[:token])
-    end
-     
+      begin    
+        @payer = Payer.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        flash[:error] = "No such payer id"
+        redirect_to root_path
+        return
+      end 
+    end           
+
   end
   
-
- 
 end

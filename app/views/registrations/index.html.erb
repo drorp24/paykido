@@ -1,21 +1,53 @@
-<h1>Listing registrations</h1>
+<%= render 'primary_navigation' %>
+<!-- Secondary navigation -->
+<nav id="secondary">
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+	<ul>
+		<li class=active >
+            <%= link_to payer_registrations_path(@payer) do %>
+            	<span class="secondary_name">Registration</span>
+				<span class="icon32 file fr"><span>
+        	<% end %>
+        </li>    	
+		<li >
+            <%= link_to payer_path(@payer) do %>
+            	<span class="secondary_name">Security</span>
+				<span class="icon32 lock fr"><span>
+        	<% end %>
+        </li>    	
+		<li>
+            <%= link_to payer_notifications_path(@payer) do %>
+            	<span class="secondary_name">Notifications</span>
+				<span class="icon32 flag fr"><span>
+        	<% end %>
+        </li>    	
+		<li>
+            <%= link_to payer_path(@payer) do %>
+            	<span class="secondary_name">Communication</span>
+				<span class="icon32 twitter fr"><span>
+        	<% end %>
+        </li>    	
+	</ul>
+  
+	<div id="notifications">
+	    <ul>
+	    </ul>
+	</div>
+</nav>
 
-<% @registrations.each do |registration| %>
-  <tr>
-    <td><%= link_to 'Show', registration %></td>
-    <td><%= link_to 'Edit', edit_registration_path(registration) %></td>
-    <td><%= link_to 'Destroy', registration, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
+<section id="maincontainer">
+  <div id="main" class="container_12">
 
-<br />
+		<%= render 'index' %>  
+  
+  </div>
+</section>
+<script type="text/javascript"> 
 
-<%= link_to 'New Registration', new_registration_path %>
+$(document).ready(function() {
+	
+	// Highlight the selected sub-menu option
+	
+
+});
+</script>

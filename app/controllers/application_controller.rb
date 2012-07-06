@@ -6,33 +6,45 @@ class ApplicationController < ActionController::Base
 
   layout :set_layout
 
+  private
+
   def set_locale
-    I18n.locale = params[:locale] 
+    I18n.locale = params[:locale] || I18n.t('locale')
   end
 
-  private
   def check_and_restore_session  
  
     # Have Devise run the user session 
     # Every call should include payer_id, consumer_id and/or purchase_id
     
     if params[:payer_id]
-      @payer = Payer.find(params[:payer_id])
-    elsif params[:email] and params[:token]
-      @payer = Payer.authenticate_by_token(params[:email], params[:token])
+      begin    
+        @payer = Payer.find(params[:payer_id])
+      rescue ActiveRecord::RecordNotFound
+        flash[:error] = "No such payer"
+        return
+      end
     end
+      
+    if params[:email] and params[:token]
+      begin    
+        @payer = Payer.authenticate_by_token(params[:email], params[:token])
+      rescue ActiveRecord::RecordNotFound
+        flash[:error] = "No such token"
+        redirect_to root_path
+        return
+      end      
+    end
+
     if params[:consumer_id]
-      @consumer = Consumer.find(params[:consumer_id])
+      begin    
+        @consumer = Consumer.find(params[:consumer_id])
+      rescue ActiveRecord::RecordNotFound
+        flash[:error] = "No such consumer"
+        redirect_to root_path
+        return
+      end            
     end
-    if params[:id]
-      @purchase = Purchase.find(params[:id])
-    end
-    if params[:customField2]
-      @purchase = Purchase.find(params[:customField2])
-    end
-    
-    @consumer ||= @purchase.consumer if @purchase
-    @payer ||=    @purchase.payer if @purchase
      
   end
 

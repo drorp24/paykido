@@ -11,7 +11,84 @@ class Payer < ActiveRecord::Base
    
   attr_accessor :password_confirmation          # remove once Devise is in
   
+  def g2spp
+    # return the url to redirect to for manual payment including all parameters
+
+    time_stamp = Time.now.strftime('%Y-%m-%d %H:%M:%S')
+       
+      URI.escape(
+      "https://secure.Gate2Shop.com/ppp/purchase.do?" +
+      "merchant_id=" + Paykido::Application.config.merchant_id + "&" +
+      "merchant_site_id=" + Paykido::Application.config.merchant_site_id + "&" +
+      "total_amount=" + "0" + "&" +
+      "currency=" + 'EUR' + "&" +
+      "item_name_1=" + "registration" + "&" +
+      "item_amount_1=" + "0" + "&" +
+      "item_quantity_1=" + "1" + "&" +
+      "time_stamp=" + time_stamp + "&" +
+      "version=" +   Paykido::Application.config.version + "&" +
+      "customField1=" + "registration" + "&" +
+      "customField2=" + self.id.to_s + "&" +
+      "&merchantLocale=" + I18n.locale.to_s + "&" +
+      "checksum=" + self.checksum(time_stamp) + test_fields
+      )
+    
+  end
+  
+  def test_fields
+
+    return "" unless Paykido::Application.config.populate_test_fields
+    
+    "&first_name=Dror" +
+    "&last_name=Poliak" +
+    "&email=drorp24@yahoo.com" +
+    "&address1=Shamgar 23" +
+    "&city=Tel Aviv" +
+    "&country=Israel" +
+    "&zip=69935" +
+    "&phone1=0542343220"
+    
+  end
+
+  def checksum(time_stamp)
+    str = Paykido::Application.config.secret_key +
+          Paykido::Application.config.merchant_id +
+          'EUR' +
+          "0" +
+          "registration" +
+          "0" +
+          "1" +
+          time_stamp
+          
+    Digest::MD5.hexdigest(str)          
+  end
+
+
   def create_registration!(params)
+    self.registrations.create!( 
+        :status => params[:status],
+        :NameOnCard => params[:nameOnCard],
+        :CCToken => params[:Token],
+        :ExpMonth => params[:expMonth],
+        :ExpYear => params[:expYear],
+        :TransactionID => params[:TransactionID],
+        :FirstName => params[:first_name],
+        :LastName => params[:last_name],
+        :Address1 => params[:address1],
+        :City => params[:city],
+        :State => params[:state],
+        :Country => params[:country],
+        :Zip => params[:zip],
+        :Phone => params[:phone1],
+        :Email => params[:Email],
+        :ExErrCode => params[:ExErrCode],
+        :ErrCode => params[:ErrCode],
+        :AuthCode => params[:AuthCode],
+        :message => params[:message],
+        :responseTimeStamp => params[:responseTimeStamp],
+        :Reason => params[:Reason],
+        :ReasonCode => params[:ReasonCode]
+    )
     
   end
 

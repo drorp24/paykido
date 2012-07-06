@@ -8,7 +8,7 @@
 	      	<% end %>
 	    </li>
 	    <li <%= "class=active" if ["consumers", "payers"].include? controller.controller_name  %>>
-	      	<%= link_to set_payer_path(@payer) do%>
+	      	<%= link_to payer_registrations_path(@payer) do%>
 	        	<span class="icon32 cog"></span>
 	        	Settings
 	      	<% end %>

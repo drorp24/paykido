@@ -84,21 +84,6 @@
 $(document).ready(function() {
 
 
-	// INIT - highlight the proper purchase line and show the purchase details pane 
-	// proper purchase: either the one in the parameter or the first one in the screen
-	<% if params[:id] %>
-    	proper_tr = $('#purchases tr[data-purchase=<%= params[:id] %>]')
-	<% else %>
-		proper_tr = $('#purchases tbody tr:first')
-	<% end %>
-    $('#purchases tr').removeClass('active');
-    proper_tr.addClass('active');
-	proper_tr.pjax("#dashboard_right");
-	$.pjax({
-	  url: proper_tr.attr('data-href'),
-	  container: '#dashboard_right'
-	})
-
 	// Purchase row + detail selection
 
 	//ajax the href/data-href content when clicked into specified container
@@ -181,6 +166,21 @@ $(document).ready(function() {
             pTable.fnFilter( '', 1, true, false, false );
     });
     
+	// INIT - highlight the proper purchase line and show the purchase details pane 
+	// proper purchase: either the one in the parameter or the first one in the screen
+	<% if params[:id] %>
+    	proper_tr = $('#purchases tr[data-purchase=<%= params[:id] %>]')
+	<% else %>
+		proper_tr = $('#purchases tbody tr:first')
+	<% end %>
+    $('#purchases tr').removeClass('active');
+    proper_tr.addClass('active');
+	proper_tr.pjax("#dashboard_right");
+	$.pjax({
+	  url: proper_tr.attr('data-href'),
+	  container: '#dashboard_right'
+	})
+
 
 });
 

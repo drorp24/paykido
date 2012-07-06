@@ -15,36 +15,37 @@ class Purchase < ActiveRecord::Base
 
   def create_transaction!(params)    
 
-    self.transactions.create!( :ppp_status =>  params[:ppp_status],
-                  :PPP_TransactionID => params[:PPP_TransactionID],
-                  :responsechecksum => params[:responsechecksum],
-                  :TransactionID => params[:TransactionID],
-                  :status => params[:status],
-                  :userid => params[:userid],
-                  :first_name => params[:first_name],
-                  :last_name => params[:last_name],
-                  :Email => params[:Email],
-                  :address1 => params[:address1],
-                  :address2 => params[:address2],
-                  :country => params[:country],
-                  :state => params[:state],
-                  :city => params[:city],
-                  :zip => params[:zip],
-                  :phone1 => params[:phone1],
-                  :nameOnCard => params[:nameOnCard],
-                  :cardNumber => params[:cardNumber],
-                  :expMonth => params[:expMonth],
-                  :expYear => params[:expYear],
-                  :token => params[:token],
-                  :IPAddress => params[:IPAddress],
-                  :ExErrCode => params[:ExErrCode],
-                  :ErrCode => params[:ErrCode],
-                  :AuthCode => params[:AuthCode],
-                  :message => params[:message],
-                  :responseTimeStamp => params[:responseTimeStamp],
-                  :Reason => params[:Reason],
-                  :ReasonCode => params[:ReasonCode]
-                  )                                                      
+    self.transactions.create!( 
+        :ppp_status =>  params[:ppp_status],
+        :PPP_TransactionID => params[:PPP_TransactionID],
+        :responsechecksum => params[:responsechecksum],
+        :TransactionID => params[:TransactionID],
+        :status => params[:status],
+        :userid => params[:userid],
+        :first_name => params[:first_name],
+        :last_name => params[:last_name],
+        :Email => params[:Email],
+        :address1 => params[:address1],
+        :address2 => params[:address2],
+        :country => params[:country],
+        :state => params[:state],
+        :city => params[:city],
+        :zip => params[:zip],
+        :phone1 => params[:phone1],
+        :nameOnCard => params[:nameOnCard],
+        :cardNumber => params[:cardNumber],
+        :expMonth => params[:expMonth],
+        :expYear => params[:expYear],
+        :token => params[:token],
+        :IPAddress => params[:IPAddress],
+        :ExErrCode => params[:ExErrCode],
+        :ErrCode => params[:ErrCode],
+        :AuthCode => params[:AuthCode],
+        :message => params[:message],
+        :responseTimeStamp => params[:responseTimeStamp],
+        :Reason => params[:Reason],
+        :ReasonCode => params[:ReasonCode]
+      )                                                      
         
   end
 
@@ -91,7 +92,7 @@ class Purchase < ActiveRecord::Base
   # terminology:  'authorize'/'unauthorize' is used when Paykido programmatically authorizes purchase.
   #               'approve'/'decline' is used when a human being (parent) authorizes it himself.
 
-  def g2spp(purpose)
+  def g2spp
     # return the url to redirect to for manual payment including all parameters
 
     time_stamp = Time.now.strftime('%Y-%m-%d %H:%M:%S')
@@ -100,16 +101,16 @@ class Purchase < ActiveRecord::Base
       "https://secure.Gate2Shop.com/ppp/purchase.do?" +
       "merchant_id=" + Paykido::Application.config.merchant_id + "&" +
       "merchant_site_id=" + Paykido::Application.config.merchant_site_id + "&" +
-      "total_amount=" + self.amount.to_s + "&" +
-      "currency=" + (self.currency || 'CUR') + "&" +
+      "total_amount=" + amount + "&" +
+      "currency=" + self.currency + "&" +
       "item_name_1=" + self.product + "&" +
       "item_amount_1=" + self.amount.to_s + "&" +
       "item_quantity_1=" + "1" + "&" +
       "time_stamp=" + time_stamp + "&" +
       "version=" +   Paykido::Application.config.version + "&" +
-      "customField1=" + purpose + "&" +
+      "customField1=" + "payment" + "&" +
       "customField2=" + self.id.to_s + "&" +
-      "&merchantLocale=en_US" + "&" +
+      "&merchantLocale=" + I18n.locale + "&" +
       "checksum=" + self.checksum(time_stamp) + test_fields
       )
     
