@@ -109,6 +109,7 @@ class Purchase < ActiveRecord::Base
       "version=" +   Paykido::Application.config.version + "&" +
       "customField1=" + purpose + "&" +
       "customField2=" + self.id.to_s + "&" +
+      "&merchantLocale=en_US" +
       "checksum=" + self.checksum(time_stamp) + test_fields
       )
     
@@ -125,8 +126,7 @@ class Purchase < ActiveRecord::Base
     "&city=Tel Aviv" +
     "&country=Israel" +
     "&zip=69935" +
-    "&phone1=0542343220" +
-    "&merchantLocale=en_US"
+    "&phone1=0542343220"
     
   end
 
