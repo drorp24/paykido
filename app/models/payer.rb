@@ -74,7 +74,7 @@ class Payer < ActiveRecord::Base
         :TransactionID => params[:TransactionID],
         :FirstName => params[:first_name],
         :LastName => params[:last_name],
-        :Address1 => params[:address1],
+        :Address => params[:address1],
         :City => params[:city],
         :State => params[:state],
         :Country => params[:country],
