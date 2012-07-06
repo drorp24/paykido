@@ -7,11 +7,8 @@ class RegistrationsController < ApplicationController
   # GET /registrations.json
   def index
     @registrations = @payer.registrations
-    
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @registrations }
-    end
+        
+    render :partial => 'index' if request.headers['X-PJAX'] # otherwise the full 'index'  
   end
 
   # GET /registrations/1

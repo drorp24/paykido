@@ -1,19 +1,22 @@
 <h1>Account Registration</h1>
 
 <table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @payer.registrations.each do |registration| %>
-  <tr>
-    <td>Gate2Shop</td>
-    <td>Credit card registered</td>
-    <td><%= link_to 'Edit', edit_payer_registration_path(registration) %></td>
-  </tr>
-<% end %>
+	<thead> 
+	  <tr>
+	    <th></th>
+	    <th></th>
+	    <th></th>
+	  </tr>
+  	</thead>
+	<tbody>
+		<% @payer.registrations.each do |registration| %>
+		  <tr>
+		    <td>Gate2Shop</td>
+		    <td>Credit card registered</td>
+		    <td><%= link_to 'Edit', edit_payer_registration_path(registration) %></td>
+		  </tr>
+		<% end %>
+	</tbody>
 </table>
 
 <br />
