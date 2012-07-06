@@ -3,7 +3,6 @@ class Safecharge
   base_uri 'https://secure.safecharge.com'
 end
 
-  before_filter :check_and_restore_session  
 
 # Most of this controller handles the API between Paykido and the Payment Service Providers (PSP) it intergates with
 # It should be dealt with only upon integration (July 2012)
@@ -11,6 +10,8 @@ end
 # The code should be moved to controllers per each PSP
 
 class G2sController < ActionController::Base
+
+  before_filter :check_and_restore_session  
 
   def ppp_callback    ## /ppp/<status>
     # return back to originating page: whether settings or purchases (dashboard)
