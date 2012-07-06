@@ -13,6 +13,43 @@ class Purchase < ActiveRecord::Base
   
   scope :pending, where(:authorization_type => 'PendingPayer')
 
+  def create_transaction!(params)    
+
+    self.transactions.create!( :ppp_status =>  params[:ppp_status],
+                  :PPP_TransactionID => params[:PPP_TransactionID],
+                  :responsechecksum => params[:responsechecksum],
+                  :TransactionID => params[:TransactionID],
+                  :status => params[:status],
+                  :userid => params[:userid],
+                  :first_name => params[:first_name],
+                  :last_name => params[:last_name],
+                  :Email => params[:Email],
+                  :address1 => params[:address1],
+                  :address2 => params[:address2],
+                  :country => params[:country],
+                  :state => params[:state],
+                  :city => params[:city],
+                  :zip => params[:zip],
+                  :phone1 => params[:phone1],
+                  :nameOnCard => params[:nameOnCard],
+                  :cardNumber => params[:cardNumber],
+                  :expMonth => params[:expMonth],
+                  :expYear => params[:expYear],
+                  :token => params[:token],
+                  :IPAddress => params[:IPAddress],
+                  :ExErrCode => params[:ExErrCode],
+                  :ErrCode => params[:ErrCode],
+                  :AuthCode => params[:AuthCode],
+                  :message => params[:message],
+                  :responseTimeStamp => params[:responseTimeStamp],
+                  :Reason => params[:Reason],
+                  :ReasonCode => params[:ReasonCode]
+                  )                                                      
+    
+    
+  end
+
+
   def self.with_info(payer_id, consumer_id, purchase_id)
     if purchase_id and !consumer_id and !payer_id
       Purchase.where("consumer_id = ?", Purchase.find(purchase_id).consumer_id).includes(:consumer, :retailer)      
