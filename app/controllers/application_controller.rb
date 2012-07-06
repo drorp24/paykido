@@ -9,8 +9,6 @@ class ApplicationController < ActionController::Base
     I18n.locale = params[:locale] 
   end
 
-  private
-
   def check_and_restore_session  
  
     # Have Devise run the user session 
