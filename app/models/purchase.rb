@@ -109,7 +109,7 @@ class Purchase < ActiveRecord::Base
       "version=" +   Paykido::Application.config.version + "&" +
       "customField1=" + purpose + "&" +
       "customField2=" + self.id.to_s + "&" +
-      "&merchantLocale=en_US" +
+      "&merchantLocale=en_US" + "&" +
       "checksum=" + self.checksum(time_stamp) + test_fields
       )
     
