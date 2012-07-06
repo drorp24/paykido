@@ -84,8 +84,8 @@ class Payer < ActiveRecord::Base
         :ExErrCode => params[:ExErrCode],
         :ErrCode => params[:ErrCode],
         :AuthCode => params[:AuthCode],
-        :message => params[:message],
         :responseTimeStamp => params[:responseTimeStamp],
+        :messgae => params[:message],
         :Reason => params[:Reason],
         :ReasonCode => params[:ReasonCode]
     )
