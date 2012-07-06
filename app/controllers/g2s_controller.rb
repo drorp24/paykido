@@ -34,8 +34,10 @@ class G2sController < ActionController::Base
     # dont render anything or redirect anywhere
     logger.info "DMN was called!"
 
+    redirect_to dmn_path(params.except(:action, :controller)) if Rails.env.development?
     if params[:customField1] == 'payment'
-      @purchase.transactions.create_new!(params)      
+      @purchase.transactions.create_new!(params)
+      # notify/approve/inform      
     elsif params[:customField1] == 'approval'
       @payer.registrations.create_new!
     else
