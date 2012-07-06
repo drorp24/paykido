@@ -1,6 +1,5 @@
 class PurchasesController < ApplicationController
 
-  before_filter :check_and_restore_session  # DELETE THIS - USE THE APPLICATION GENERIC VERSION ONLY 
 # before_filter :set_long_expiry_headers    # consider moving to application controller
 
   # GET /consumers/:consumer_id/purchases ("link_to payer_purchases_path(@payer)")
@@ -18,20 +17,9 @@ class PurchasesController < ApplicationController
         
   end
   
-  def find_consumer       # if relevant (not necessarily true)
-
-    if params[:consumer_id] 
-      @consumer = Consumer.find(params[:consumer_id]) 
-    elsif params[:id]
-      @consumer = Purchase.find(params[:id]).consumer
-    end
-
-  end
-
   def index
     
     find_purchases
-    find_consumer
     @purchase.notify_merchant('approved') if params[:Status] and params[:Status] == 'APPROVED'
     
     # purchase is decided by the client
@@ -48,7 +36,6 @@ class PurchasesController < ApplicationController
   def show
 
     find_purchases      # fully RESTfull. pjax frequently brings a full page. Better for caching, enables history.
-    find_consumer 
     begin    
       @purchase = Purchase.find(params[:id])
     rescue ActiveRecord::RecordNotFound
@@ -169,30 +156,7 @@ class PurchasesController < ApplicationController
       format.html { redirect_to purchases_url }
       format.json { head :ok }
     end
-  end
-
-  private
-
-  def check_and_restore_session  
- 
-    # Have Devise run the user session 
-    # Every call should include payer_id, consumer_id and/or purchase_id
-    
-    if params[:payer_id]
-      @payer = Payer.find(params[:payer_id])
-    elsif params[:email] and params[:token]
-      @payer = Payer.authenticate_by_token(params[:email], params[:token])
-    elsif params[:consumer_id]
-      @consumer = Consumer.find(params[:consumer_id])
-      @payer = @consumer.payer
-    elsif params[:id]
-      @purchase = Purchase.find(params[:id])
-      @consumer = @purchase.consumer
-      @payer = @consumer.payer
-    end
-     
-  end
-  
+  end  
 
 
 end
