@@ -1,6 +1,9 @@
 Paykido::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+  # General
+  config.hostname = 'www.paykido.com'
+
   # Facebook
   config.app_id = '402586589783096'
   config.secret = '59791d5435202fe1f5eb69a872c0438a' 

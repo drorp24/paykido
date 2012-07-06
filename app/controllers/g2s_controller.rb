@@ -11,6 +11,8 @@ end
 
 class G2sController < ApplicationController
 
+  before_filter :set_host_to_redirect_to
+
   def ppp_callback    ## /ppp/<status>
     # return back to originating page: whether settings or purchases (dashboard)
     # (data itself is taken from dmn, though some of it is in the returned params)
@@ -19,7 +21,6 @@ class G2sController < ApplicationController
     # store in advance and use here the purchase id and dont count on session!
     
     if params[:customField1] == 'payment'
-        default_url_options[:host] = "localhost:3000" if params[:nameOnCard] and params[:nameOnCard] == 'local'
         redirect_to purchase_url(params[:customField2].to_i, params.except(:action, :controller))
     elsif params[:customField1] == 'registration'
     else
@@ -36,14 +37,11 @@ class G2sController < ApplicationController
     
     # if this is a (succesful) transaction, notify/approve/inform (make it DRY by having them all in the model)
     # dont render anything or redirect anywhere
-    logger.info "DMN was called!"
-
-    redirect_to dmn_url(params.except(:action, :controller)) if Rails.env.development?
     if params[:customField1] == 'payment'
       @purchase.create_transaction!(params)
       # notify/approve/inform      
-    elsif params[:customField1] == 'approval'
-      @payer.registrations.create_new!
+    elsif params[:customField1] == 'registration'
+      @payer.create_registration!(params)
     else
       return false   
     end
@@ -175,6 +173,16 @@ class G2sController < ApplicationController
     
   end
 
+  private
+  
+  def set_host_to_redirect_to
+    
+    if params[:nameOnCard] and params[:nameOnCard] == 'local'
+      default_url_options[:host] = "localhost:3000"
+    else 
+      default_url_options[:host] = Paykido::Application.config.hostname
+    end
 
-  #protect_from_forgery
+  end
+  
 end

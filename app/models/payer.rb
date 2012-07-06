@@ -11,13 +11,16 @@ class Payer < ActiveRecord::Base
    
   attr_accessor :password_confirmation          # remove once Devise is in
   
+  def create_registration!(params)
+    
+  end
+
   def registered?
     self.registrations.any?
   end
   
   def registration
-    return unless self.registered?
-    self.registrations.first
+    self.registrations.first if self.registrations.any?
   end
   
   def request_confirmation(consumer)     
