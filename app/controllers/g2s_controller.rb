@@ -19,7 +19,7 @@ class G2sController < ApplicationController
     # store in advance and use here the purchase id and dont count on session!
     
     if params[:customField1] == 'payment'
-        redirect_to purchase_url(params[:customField2].to_i, params.except(:action, :controller), :host => 'localhost:3000')
+        redirect_to purchase_path(params[:customField2].to_i, params.except(:action, :controller), :host => 'localhost:3000')
     else
       flash[:error] = ""
       redirect_to root_path
