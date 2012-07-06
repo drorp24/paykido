@@ -45,8 +45,7 @@ class Purchase < ActiveRecord::Base
                   :Reason => params[:Reason],
                   :ReasonCode => params[:ReasonCode]
                   )                                                      
-    
-    
+        
   end
 
 
@@ -121,7 +120,7 @@ class Purchase < ActiveRecord::Base
     
     "&first_name=Dror" +
     "&last_name=Poliak" +
-    "&email=drorp24@gmail.com" +
+    "&email=drorp24@yahoo.com" +
     "&address1=Shamgar 23" +
     "&city=Tel Aviv" +
     "&country=Israel" +
