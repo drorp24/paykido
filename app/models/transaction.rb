@@ -4,7 +4,7 @@ class Transaction < ActiveRecord::Base
   
   def create!(params)
     
-super
+
     self.create!( :ppp_status =>  params[:ppp_status],
                   :PPP_TransactionID => params[:PPP_TransactionID],
                   :responsechecksum => params[:responsechecksum],
