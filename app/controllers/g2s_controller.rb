@@ -11,8 +11,6 @@ end
 
 class G2sController < ActionController::Base
 
-  before_filter :check_and_restore_session  
-
   def ppp_callback    ## /ppp/<status>
     # return back to originating page: whether settings or purchases (dashboard)
     # (data itself is taken from dmn, though some of it is in the returned params)

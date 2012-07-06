@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
 
+  before_filter :check_and_restore_session  
   before_filter :set_locale
   include Facebooker2::Rails::Controller
 
@@ -9,6 +10,7 @@ class ApplicationController < ActionController::Base
     I18n.locale = params[:locale] 
   end
 
+  private
   def check_and_restore_session  
  
     # Have Devise run the user session 
