@@ -20,7 +20,7 @@ class G2sController < ApplicationController
     
     if params[:customField1] == 'payment'
       default_url_options[:host] = "localhost:3000"
-        redirect_to purchase_path(params[:customField2].to_i, params.except(:action, :controller))
+        redirect_to purchase_url(params[:customField2].to_i, params.except(:action, :controller))
     else
       flash[:error] = ""
       redirect_to root_path
