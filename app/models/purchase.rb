@@ -116,7 +116,7 @@ class Purchase < ActiveRecord::Base
   
   def test_fields
 
-    return unless Paykido::Application.config.populate_test_fields
+    return "" unless Paykido::Application.config.populate_test_fields
     
     "&first_name=Dror" +
     "&last_name=Poliak" +
