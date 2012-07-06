@@ -19,6 +19,11 @@ class G2sController < ActionController::Base
 
     # redirect (or render?) this or the other
     # store in advance and use here the purchase id and dont count on session!
+    if Rails.env.development?
+      redirect_to "localhost:3000/play" 
+      return
+    end
+
     if params[:customField1] == 'payment'
         redirect_to purchase_url(params[:customField2].to_i, params.except(:action, :controller))
     else
