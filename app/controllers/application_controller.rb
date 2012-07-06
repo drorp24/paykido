@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
     end
     
     @consumer ||= @purchase.consumer if @purchase
-    @payer ||=    @consumer.payer if @consumer
+    @payer ||=    @purchase.payer if @purchase
      
   end
 

@@ -9,7 +9,7 @@ end
 # Currently it contains two PSPs: SafeCharge (SC) and PayPal
 # The code should be moved to controllers per each PSP
 
-class G2sController < ActionController::Base
+class G2sController < ApplicationController::Base
 
   def ppp_callback    ## /ppp/<status>
     # return back to originating page: whether settings or purchases (dashboard)

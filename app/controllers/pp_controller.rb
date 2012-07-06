@@ -1,4 +1,4 @@
-class PpController < ActionController::Base
+class PpController < ApplicationController::Base
 
 
 
