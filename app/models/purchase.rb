@@ -101,7 +101,7 @@ class Purchase < ActiveRecord::Base
       "merchant_id=" + Paykido::Application.config.merchant_id + "&" +
       "merchant_site_id=" + Paykido::Application.config.merchant_site_id + "&" +
       "total_amount=" + self.amount.to_s + "&" +
-      "currency=" + self.currency || 'CUR' + "&" +
+      "currency=" + (self.currency || 'CUR') + "&" +
       "item_name_1=" + self.product + "&" +
       "item_amount_1=" + self.amount.to_s + "&" +
       "item_quantity_1=" + "1" + "&" +
