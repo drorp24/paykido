@@ -2,8 +2,9 @@ class Transaction < ActiveRecord::Base
 
   belongs_to  :purchase
   
-  def create_new!(params)
+  def create!(params)
     
+super
     self.create!( :ppp_status =>  params[:ppp_status],
                   :PPP_TransactionID => params[:PPP_TransactionID],
                   :responsechecksum => params[:responsechecksum],

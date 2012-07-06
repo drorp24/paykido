@@ -1,6 +1,6 @@
 class PurchasesController < ApplicationController
 
-  before_filter :check_and_restore_session  
+  before_filter :check_and_restore_session  # DELETE THIS - USE THE APPLICATION GENERIC VERSION ONLY 
 # before_filter :set_long_expiry_headers    # consider moving to application controller
 
   # GET /consumers/:consumer_id/purchases ("link_to payer_purchases_path(@payer)")
@@ -13,7 +13,7 @@ class PurchasesController < ApplicationController
   def find_purchases
     
     @purchases = Purchase.with_info(params[:payer_id], params[:consumer_id], params[:id]) 
-    @pendings = @purchases.where("authorization_type = 'PendingPayer'")
+    @pendings = @purchases.pending
     @pendings_count = @pendings.count
         
   end

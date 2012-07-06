@@ -11,6 +11,7 @@ class Purchase < ActiveRecord::Base
   has_many    :transactions
   has_many    :payments
   
+  scope :pending, where(:authorization_type => 'PendingPayer')
 
   def self.with_info(payer_id, consumer_id, purchase_id)
     if purchase_id and !consumer_id and !payer_id

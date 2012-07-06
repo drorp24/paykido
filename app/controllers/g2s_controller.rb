@@ -42,7 +42,7 @@ class G2sController < ApplicationController
 
     redirect_to dmn_url(params.except(:action, :controller)) if Rails.env.development?
     if params[:customField1] == 'payment'
-      @purchase.transactions.create_new!(params)
+      @purchase.transactions.create!(params)
       # notify/approve/inform      
     elsif params[:customField1] == 'approval'
       @payer.registrations.create_new!
