@@ -7,26 +7,13 @@ class RegistrationsController < ApplicationController
   # GET /registrations.json
   def index
     @registrations = @payer.registrations
-        
-    render :partial => 'index' if request.headers['X-PJAX'] # otherwise the full 'index'  
-  end
-
-  def register
-    @payer.create_registration!(params)
-    
-    redirect_to :index
-
   end
 
 
   # GET /registrations/1
   # GET /registrations/1.json
   def show
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @registration }
-    end
+    @registration = Registration.find(params[:id])
   end
 
   # GET /registrations/new

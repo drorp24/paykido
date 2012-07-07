@@ -17,6 +17,13 @@ $('document').ready(function() {
          init();
        }
      });
+
+     $('a').pjax({
+       container: '#main',
+       success: function(data) {
+         init();
+       }
+     });
   
   /******************
     Tablet rotation

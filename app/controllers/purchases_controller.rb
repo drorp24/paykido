@@ -21,10 +21,6 @@ class PurchasesController < ApplicationController
     
     find_purchases
     @purchase.notify_merchant('approved') if params[:Status] and params[:Status] == 'APPROVED'
-    
-    # purchase is decided by the client
-    
-    render :partial => 'index' if request.headers['X-PJAX'] # otherwise the full 'index'  
       
   end
   
@@ -54,24 +50,28 @@ class PurchasesController < ApplicationController
 
   def approve
     
-    @purchase = Purchase.find(params[:id])
-    @purchase.set_rules!(params)
-    
-    if @purchase.payer.registered?
-      @purchase.pay_by_token!
-      if @purchase.paid_by_token?
-        status = 'approved'
-        @purchase.notify_merchant(status)
-        @purchase.approve!
-        @purchase.account_for! 
-      else
-        status = 'failed'
-      end
-      @purchase.notify_consumer('manual', status)
-             
-    else
+    unless @purchase.payer.registered?
       redirect_to @purchase.g2spp   
       # then the dmn would take care of the notify/approve/inform (make it DRY by having them all in the model)
+      return            
+    end
+
+    @purchase.set_rules!(params)
+
+    @purchase.pay_by_token!
+    if @purchase.paid_by_token?
+      status = 'approved'
+      @purchase.notify_merchant(status)
+      @purchase.approve!
+      @purchase.account_for! 
+    else
+      status = 'failed'
+    end
+
+    @purchase.notify_consumer('manual', status)
+
+    respond_to do |format|  
+      format.js
     end
 
   end
@@ -165,11 +165,6 @@ class PurchasesController < ApplicationController
         return
       end 
     end           
-
-    if @purchase
-      @consumer ||= @purchase.consumer
-      @payer ||= @payer
-    end      
 
   end
 

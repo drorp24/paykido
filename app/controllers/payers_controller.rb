@@ -2,6 +2,13 @@ class PayersController < ApplicationController
 
   before_filter :check_and_restore_session  
  
+  def register
+    @payer.create_registration!(params)
+    
+    redirect_to payer_registrations_path(@payer)
+
+  end
+
 
   private
   

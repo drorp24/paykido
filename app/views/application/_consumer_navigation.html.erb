@@ -1,0 +1,26 @@
+
+<!-- Secondary navigation -->
+<nav id="secondary">
+
+	<ul>
+		<li <%= "class=active" unless @consumer %>>
+            <%= link_to payer_purchases_path(@payer) do %>
+            	<span class="secondary_name"><%= "#{(@payer.name) ? @payer.name + "'s Family" : "Family"}" %></span>
+				<span class="icon32 home fr"><span>
+        	<% end %>
+        </li>
+    	<% @payer.consumers.each do |consumer| %>
+        <li class="consumer <%= "active" if (@consumer and @consumer.id == consumer.id) %>">
+            <%= link_to consumer_purchases_path(consumer) do %>
+            	<span class="secondary_name"><%= consumer.name %></span>
+            	<% if consumer.tinypic %>
+            		<span class="avatar fr"><%= image_tag consumer.tinypic %></span>
+            	<% else %>
+            		<span class="icon32 user fr"></span>
+            	<% end %>
+            	
+        	<% end %>
+        </li>
+    	<% end %>
+	</ul>
+</nav>

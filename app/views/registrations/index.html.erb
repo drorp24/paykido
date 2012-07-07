@@ -1,53 +1,29 @@
-<%= render 'primary_navigation' %>
-<!-- Secondary navigation -->
-<nav id="secondary">
-
-	<ul>
-		<li class=active >
-            <%= link_to payer_registrations_path(@payer) do %>
-            	<span class="secondary_name">Registration</span>
-				<span class="icon32 file fr"><span>
-        	<% end %>
-        </li>    	
-		<li >
-            <%= link_to payer_path(@payer) do %>
-            	<span class="secondary_name">Security</span>
-				<span class="icon32 lock fr"><span>
-        	<% end %>
-        </li>    	
-		<li>
-            <%= link_to payer_notifications_path(@payer) do %>
-            	<span class="secondary_name">Notifications</span>
-				<span class="icon32 flag fr"><span>
-        	<% end %>
-        </li>    	
-		<li>
-            <%= link_to payer_path(@payer) do %>
-            	<span class="secondary_name">Communication</span>
-				<span class="icon32 twitter fr"><span>
-        	<% end %>
-        </li>    	
-	</ul>
-  
-	<div id="notifications">
-	    <ul>
-	    </ul>
-	</div>
-</nav>
-
+<% unless params[:_pjax] %>
+	<%= render 'primary_navigation' %>
+	<%= render 'setting_navigation' %>
+	<%= render 'notification_area'  %>
 <section id="maincontainer">
-  <div id="main" class="container_12">
+	<div id="main" class="container_12">
+<% end %>
 
-		<%= render 'index' %>  
-  
+	<%= render :partial => 'page_head', :locals => {:title => 'Account Registration'} %>
+	
+	<table>
+		<tbody>
+			<% @payer.registrations.each do |registration| %>
+			  <tr>
+			    <td><%= registration.NameOnCard %></td>
+			    <td>Credit card registered</td>
+			    <td><%= link_to 'Details', payer_registration_path(@payer, registration) %></td>
+			  </tr>
+			<% end %>
+		</tbody>
+	</table>
+	
+	<br />
+	<%= link_to 'Register to Paykido - it\'s free!', new_payer_registration_path unless @payer.registered? %>
+
+<% unless params[:_pjax] %>  
   </div>
 </section>
-<script type="text/javascript"> 
-
-$(document).ready(function() {
-	
-	// Highlight the selected sub-menu option
-	
-
-});
-</script>
+<% end %>

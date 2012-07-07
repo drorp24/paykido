@@ -1,3 +1,17 @@
+.page_head {
+    height: 41px;   
+}
+
+.page_head h1, a {
+    display: inline;
+}
+.page_head a {
+    float: right;
+    font-size: 16px;
+    line-height: 23px;
+    margin-right: 2%;
+}
+
 #callback {
     position: absolute;
     right: 37%;

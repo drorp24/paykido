@@ -2,7 +2,6 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  locale: en_US
   confirmation_heading: Welcome %{payer_name} and %{consumer_name}!
   confirmation_1: Hi %{payer_name}.  %{consumer_name} wants to use Paykido.
   confirmation_2: We want to verify that %{name} is indeed your kid

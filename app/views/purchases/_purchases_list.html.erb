@@ -57,15 +57,15 @@
             </td>
             <td class="purchase_details">
                 <p class="purchase_top_line">
-                    <span><%= link_to purchase.product ,"dashboard/product/#{purchase.id}" %></span>
+                    <span><%= link_to purchase.product ,"#" %></span>
                     <span>by</span>
-                    <span><%= link_to purchase.retailer.name, "dashboard/retailer/#{purchase.id}" %></span>
+                    <span><%= link_to purchase.retailer.name, "#" %></span>
                     <span><%= purchase.id %></span>
                 </p>
                 <p class="purchase_bottom_line">
                     <span class="cell_date"><%= purchase.date.strftime("%a, %b %d") %></span>
           			<span>by</span>
-                    <span><%= link_to purchase.consumer.name, "dashboard/consumer/#{purchase.consumer_id}"  %></span>
+                    <span><%= link_to purchase.consumer.name, "#"  %></span>
                 </p>
             </td>
             <td class="purchase_price"><%= number_to_currency(purchase.amount) %></td>
@@ -92,6 +92,8 @@ $(document).ready(function() {
 		window.setTimeout("$('#approval_popover').fadeOut('slow')", 2000);
 	<% end %>
 	
+
+	// Notify the return status upon redirect back from PP
 	<% if params[:status]  %>
 		<% if params[:status] == 'failure' %>
 		    notification('<%= "Failed: #{params[:Error]}" %>', false, 'alert', true)

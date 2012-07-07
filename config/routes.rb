@@ -1,5 +1,7 @@
 Paykido::Application.routes.draw do
 
+  resources :registrations
+
   resources :payers do
     resources :purchases
     resources :notifications

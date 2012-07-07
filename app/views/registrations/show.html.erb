@@ -1,5 +1,13 @@
-<p id="notice"><%= notice %></p>
+<%= render :partial => 'page_head', :locals => {:title => 'Registration Details'} %>
+<table>
+	<tbody>
+		<% @registration.attributes.each do |name, value| %>
+		  <tr>
+		    <td><%= name %></td>
+		    <td><%= value %></td>
+		  </tr>
+		<% end %>
+	</tbody>
+</table>
 
-
-<%= link_to 'Edit', edit_registration_path(@registration) %> |
-<%= link_to 'Back', registrations_path %>
+<br />
