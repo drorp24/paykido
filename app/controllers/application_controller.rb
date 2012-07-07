@@ -39,6 +39,7 @@ class ApplicationController < ActionController::Base
     if params[:consumer_id]
       begin    
         @consumer = Consumer.find(params[:consumer_id])
+        @payer = @consumer.payer
       rescue ActiveRecord::RecordNotFound
         flash[:error] = "No such consumer"
         redirect_to root_path

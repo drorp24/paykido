@@ -11,6 +11,14 @@ class RegistrationsController < ApplicationController
     render :partial => 'index' if request.headers['X-PJAX'] # otherwise the full 'index'  
   end
 
+  def register
+    @payer.create_registration!(params)
+    
+    redirect_to :index
+
+  end
+
+
   # GET /registrations/1
   # GET /registrations/1.json
   def show
@@ -34,10 +42,6 @@ class RegistrationsController < ApplicationController
 
   # POST /registrations
   # POST /registrations.json
-  def create
-    @registration = Registration.new(params[:registration])
-
-  end
 
   # PUT /registrations/1
   # PUT /registrations/1.json

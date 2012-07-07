@@ -84,18 +84,6 @@
 $(document).ready(function() {
 
 
-	// Purchase row + detail selection
-
-	//ajax the href/data-href content when clicked into specified container
-	$('.purchase_row').pjax("#dashboard_right");
-
-    //indicte active tr line
-    $('#purchases tr').click(function() {
-    	$('#purchases tr').removeClass('active');
-    	$(this).addClass('active');
-    })           
-
-
 	//  Trigger the approval popover
 	// the 2 last lines should be removed once popover acts as it should 
 	<% if params[:activity] == 'approval' and @pendings_count > 0 %>
@@ -166,6 +154,17 @@ $(document).ready(function() {
             pTable.fnFilter( '', 1, true, false, false );
     });
     
+	// Purchase row + detail selection
+
+	//ajax the href/data-href content when clicked into specified container
+	$('.purchase_row').pjax("#dashboard_right");  // have .purchase_row (tr, not a) behave as a/pjax/data-href
+
+    //indicte active tr line
+    $('#purchases tr').click(function() {
+    	$('#purchases tr').removeClass('active');
+    	$(this).addClass('active');
+    })           
+
 	// INIT - highlight the proper purchase line and show the purchase details pane 
 	// proper purchase: either the one in the parameter or the first one in the screen
 	<% if params[:id] %>
@@ -175,8 +174,8 @@ $(document).ready(function() {
 	<% end %>
     $('#purchases tr').removeClass('active');
     proper_tr.addClass('active');
-	proper_tr.pjax("#dashboard_right");
-	$.pjax({
+//	proper_tr.pjax("#dashboard_right");   // (guess) when ajax needs to be invoked that has href-data the other form below works only
+	$.pjax({                              // without it the programmatic first invocation doesnt work.
 	  url: proper_tr.attr('data-href'),
 	  container: '#dashboard_right'
 	})

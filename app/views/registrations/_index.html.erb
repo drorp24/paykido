@@ -1,17 +1,10 @@
 <h1>Account Registration</h1>
 
 <table>
-	<thead> 
-	  <tr>
-	    <th></th>
-	    <th></th>
-	    <th></th>
-	  </tr>
-  	</thead>
 	<tbody>
 		<% @payer.registrations.each do |registration| %>
 		  <tr>
-		    <td>Gate2Shop</td>
+		    <td><%= registration.NameOnCard %></td>
 		    <td>Credit card registered</td>
 		    <td><%= link_to 'Edit', edit_payer_registration_path(@payer, registration) %></td>
 		  </tr>
@@ -20,4 +13,4 @@
 </table>
 
 <br />
-<%= link_to 'New Registration', new_payer_registration_path unless @payer.registered? %>
+<%= link_to 'Register to Paykido - it\'s free!', new_payer_registration_path unless @payer.registered? %>

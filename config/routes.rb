@@ -4,6 +4,10 @@ Paykido::Application.routes.draw do
     resources :purchases
     resources :notifications
     resources :registrations
+    member do
+      get 'register'
+    end
+
   end
 
   resources :consumers do

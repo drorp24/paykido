@@ -15,6 +15,7 @@ class Payer < ActiveRecord::Base
     # return the url to redirect to for manual payment including all parameters
 
     time_stamp = Time.now.strftime('%Y-%m-%d %H:%M:%S')
+    item_name = "Registration (no payment)"
        
       URI.escape(
       "https://secure.Gate2Shop.com/ppp/purchase.do?" +
@@ -22,7 +23,7 @@ class Payer < ActiveRecord::Base
       "merchant_site_id=" + Paykido::Application.config.merchant_site_id + "&" +
       "total_amount=" + "0" + "&" +
       "currency=" + 'EUR' + "&" +
-      "item_name_1=" + "registration" + "&" +
+      "item_name_1=" + item_name + "&" +
       "item_amount_1=" + "0" + "&" +
       "item_quantity_1=" + "1" + "&" +
       "time_stamp=" + time_stamp + "&" +
@@ -30,7 +31,7 @@ class Payer < ActiveRecord::Base
       "customField1=" + "registration" + "&" +
       "customField2=" + self.id.to_s + "&" +
       "&merchantLocale=" + I18n.locale.to_s + "&" +
-      "checksum=" + self.checksum(time_stamp) + test_fields
+      "checksum=" + self.checksum(time_stamp, item_name) + test_fields
       )
     
   end
@@ -50,12 +51,12 @@ class Payer < ActiveRecord::Base
     
   end
 
-  def checksum(time_stamp)
+  def checksum(time_stamp, item_name)
     str = Paykido::Application.config.secret_key +
           Paykido::Application.config.merchant_id +
           'EUR' +
           "0" +
-          "registration" +
+          item_name +
           "0" +
           "1" +
           time_stamp

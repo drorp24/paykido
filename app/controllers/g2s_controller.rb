@@ -14,17 +14,14 @@ class G2sController < ApplicationController
   before_filter :set_host_and_payer
 
   def ppp_callback    ## /ppp/<status>
-    # return back to originating page: whether settings or purchases (dashboard)
-    # (data itself is taken from dmn, though some of it is in the returned params)
 
-    # redirect (or render?) this or the other
-    # store in advance and use here the purchase id and dont count on session!
+    # redirect to originating page according to context: registration or purchase
+    # no counting on any session - payer & purchase id are returned in the callback paramteres
     
     if params[:customField1] == 'payment'
         redirect_to purchase_url(params[:customField2].to_i, params.except(:action, :controller))
     elsif params[:customField1] == 'registration'
-      @payer.create_registration!(params)
-      redirect_to payer_registrations_url(params[:customField2].to_i, params.except(:action, :controller))
+        redirect_to register_payer_url(params[:customField2].to_i, params.except(:action, :controller))
     else
       flash[:error] = ""
       redirect_to root_path
