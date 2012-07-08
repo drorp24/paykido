@@ -187,16 +187,17 @@ class Purchase < ActiveRecord::Base
       :sg_ClientUniqueID => self.id
     }).inspect
 
+    self.transactions.create!( 
+      :TransactionID => token_response[:result][:TransactionID],
+      :status => token_response[:result][:status],
+      :ExErrCode => token_response[:result][:ExErrCode],
+      :ErrCode => token_response[:result][:ErrCode],
+      :AuthCode => token_response[:result][:AuthCode],
+      :Reason => token_response[:result][:Reason]
+    )                                                      
+
     if token_response[:result][:Status] == 'Approved'
       @paid_by_token = true
-      self.transactions.create!( 
-        :TransactionID => token_response[:result][:TransactionID],
-        :status => token_response[:result][:status],
-        :ExErrCode => token_response[:result][:ExErrCode],
-        :ErrCode => token_response[:result][:ErrCode],
-        :AuthCode => token_response[:result][:AuthCode],
-        :Reason => token_response[:result][:Reason]
-      )                                                      
     end
 
   end
