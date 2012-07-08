@@ -11,6 +11,7 @@
 <table>
 	<tbody>
 		<% @registration.attributes.each do |name, value| %>
+		  <% next if name == 'id' or name == 'payer_id' %>
 		  <tr>
 		    <td><%= name %></td>
 		    <td><%= value %></td>

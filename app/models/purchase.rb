@@ -1,5 +1,12 @@
 require 'digest/md5'
 require 'uri'
+
+class Token
+  include HTTParty
+  format :xml
+  base_uri 'https://test.safecharge.com'
+end
+
 class Purchase < ActiveRecord::Base
 
   serialize :properties               
@@ -146,19 +153,99 @@ class Purchase < ActiveRecord::Base
   
   def pay_by_token!
     # call the token interface here with payer's saved Token and TransactionID (registration)
-    # have Nokogiri parse the returned xml/string and update the @purchase accordingly
 
-    return false unless self.payer.registered?
+    return false unless self.payer.registered?    
+    registration = self.payer.registration
+
+    token_response  = Token.post('/service.asmx/Process', :query => {
+      :sg_VendorID  => Paykido::Application.config.sg_VendorID,  
+      :sg_MerchantName  => Paykido::Application.config.sg_MerchantName, 
+      :sg_MerchantPhoneNumber  => Paykido::Application.config.sg_MerchantPhoneNumber, 
+      :sg_WebSiteID  => Paykido::Application.config.sg_WebSiteID , 
+      :sg_ClientLoginID  => Paykido::Application.config.sg_ClientLoginID ,
+      :sg_ClientPassword  => Paykido::Application.config.sg_ClientPassword , 
+      :sg_Descriptor  => Paykido::Application.config.sg_Descriptor ,
+      :sg_NameOnCard => registration.NameOnCard ,
+      :sg_CCToken => registration.CCToken  ,
+      :sg_ExpMonth => registration.ExpMonth ,
+      :sg_ExpYear => registration.ExpYear  ,
+      :sg_TransType => 'Sale' ,
+      :sg_Currency  => self.currency ,
+      :sg_Amount  => self.amount ,
+      :sg_TransactionID => registration.TransactionID ,
+      :sg_Rebill => "1",
+      :sg_FirstName  => registration.FirstName ,
+      :sg_LastName  => registration.LastName ,
+      :sg_Address  => registration.Address ,
+      :sg_City  => registration.City ,
+      :sg_State  => registration.State ,
+      :sg_Zip  => registration.State ,
+      :sg_Country  => registration.Country ,
+      :sg_Phone  => registration.Phone ,
+#      :sg_IPAddress  => request.remote_ip, 
+      :sg_Email  => registration.Email,
+      :sg_ClientUniqueID => self.id
+    }).inspect
+
+    if token_response[:result][:Status] == 'Approved'
+      @paid_by_token = true
+      self.transactions.create!( 
+        :TransactionID => token_response[:result][:TransactionID],
+        :status => token_response[:result][:status],
+        :ExErrCode => token_response[:result][:ExErrCode],
+        :ErrCode => token_response[:result][:ErrCode],
+        :AuthCode => token_response[:result][:AuthCode],
+        :Reason => token_response[:result][:Reason]
+      )                                                      
+    end
+
+  end
+  
+  
+  def paid_by_token?
+    @paid_by_token
+  end
+
+
+  def token_request  # DELETE
+  # note: assumes self.payer.registered otherwise it will fail
+    
+
+    URI.escape(
+      Paykido::Application.config.token_gateway + 
+      "sg_VendorID=" + Paykido::Application.config.sg_VendorID + "&" + 
+      "sg_MerchantName=" + Paykido::Application.config.sg_MerchantName + "&" +
+      "sg_MerchantPhoneNumber=" + Paykido::Application.config.sg_MerchantPhoneNumber + "&" +
+      "sg_WebSiteID=" + Paykido::Application.config.sg_WebSiteID + "&" + 
+      "sg_ClientLoginID=" + Paykido::Application.config.sg_ClientLoginID + "&" +
+      "sg_ClientPassword=" + Paykido::Application.config.sg_ClientPassword + "&" + 
+      "sg_Descriptor=" + Paykido::Application.config.sg_Descriptor + "&" +
+      "sg_NameOnCard" + registration.NameOnCard + "&" +
+      "sg_CCToken" + registration.CCToken + "&" + 
+      "sg_ExpMonth" + registration.ExpMonth + "&" +
+      "sg_ExpYear" + registration.ExpYear + "&" + 
+      "sg_TransType=Sale&" + 
+      "sg_Currency=" + self.currency + "&" +
+      "sg_Amount=" + self.amount + "&" +
+      "sg_TransactionID" + registration.TransactionID + "&" +
+      "sg_Rebill=1&" +
+      "sg_FirstName=" + registration.FirstName + "&" +
+      "sg_LastName=" + registration.LastName + "&" +
+      "sg_Address=" + registration.Address + "&" +
+      "sg_City=" + registration.City + "&" +
+      "sg_State=" + registration.State + "&" +
+      "sg_Zip=" + registration.State + "&" +
+      "sg_Country=" + registration.Country + "&" +
+      "sg_Phone=" + registration.Phone + "&" +
+      "sg_IPAddress=" + request.remote_ip + "&" +
+      "sg_Email=" + registration.Email
+      )      
     
   end
   
-  def paid_by_token?
-    # inquires on the return value that pay_by_token inserted to @purchase
-  end
-  
   def notify_merchant(status)
-    # call the PP backend with purchase's saved original PP_TransactionID
-    # transaction identified by PP_TransactionID will change its status to either 'pending' or 'approved' 
+    # update PP backend with a transaction's new status: 'pending', 'approved' or 'declined' (PP_TransactionID)  
+    return if status == 'failed'
   end
   
   def set_rules!(params)

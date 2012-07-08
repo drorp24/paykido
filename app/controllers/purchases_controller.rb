@@ -61,13 +61,13 @@ class PurchasesController < ApplicationController
     @purchase.pay_by_token!
     if @purchase.paid_by_token?
       status = 'approved'
-      @purchase.notify_merchant(status)
       @purchase.approve!
       @purchase.account_for! 
     else
       status = 'failed'
     end
 
+    @purchase.notify_merchant(status)
     @purchase.notify_consumer('manual', status)
 
     respond_to do |format|  
