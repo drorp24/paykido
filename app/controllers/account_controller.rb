@@ -1,14 +1,12 @@
 class AccountController < ApplicationController
 
-  before_filter :check_and_restore_session, :except => [:login, :logout, :access]
-
-
   def login       # (replace with Devise user based authentication)
 
   # ToDo: Get rid of session, once all app is RESTful
 
     if request.post?          
       if @payer = Payer.authenticate(params[:username], params[:password])
+        session[:payer_id] = @payer.id
         redirect_to payer_purchases_path(@payer)
       else
         flash.now[:notice] = "Incorrect user or password. Please try again!"
@@ -69,41 +67,5 @@ class AccountController < ApplicationController
     
   end
   
-
-  private
-  
-  def check_and_restore_session  
- 
-    unless session[:payer]            # replace with Devise  
-      flash[:message] = "Please sign in with payer credentials"
-      reset_session
-      redirect_to  :controller => 'home', :action => 'index'
-      return
-    end
-        
-    @payer = session[:payer]            
-
-    #once I switch to RESTful controllers, params[:id] would be the id of the right resource
-    if params[:id]
-      @consumer = Consumer.find(params[:id])
-    elsif params[:consumer]
-     @consumer = Consumer.find(params[:consumer])
-    else
-      @consumer = nil     
-    end
-    session[:consumer] = @consumer
-    
-    if params[:purchase] 
-      @purchase = Purchase.find(params[:purchase])
-    elsif session[:purchase]
-      @purchase = session[:purchase]
-    elsif @consumer
-      @purchase = @consumer.purchases.first
-    else
-      @purchase = @payer.purchases.first         
-    end
-    session[:purchase] = @purchase
-    
-  end  
 
 end

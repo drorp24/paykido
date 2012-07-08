@@ -155,13 +155,17 @@ class PurchasesController < ApplicationController
     # Every call should include payer_id, consumer_id and/or purchase_id
     
     super
-    
+    if flash[:error]
+      redirect_to login_path 
+      return
+    end
+        
     if params[:id]
       begin    
         @purchase = Purchase.find(params[:id])
       rescue ActiveRecord::RecordNotFound
         flash[:error] = "No such purchase id"
-        redirect_to root_path
+        redirect_to :controller => "home", :action => "routing_error"
         return
       end 
     end           

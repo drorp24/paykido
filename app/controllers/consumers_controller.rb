@@ -1,8 +1,5 @@
 class ConsumersController < ApplicationController
 
-  before_filter :check_and_restore_session    
-# before_filter :set_long_expiry_headers    # consider moving to application controller
-
   def confirm      
 
     @consumer = Consumer.find(params[:id])

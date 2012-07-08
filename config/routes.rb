@@ -28,6 +28,8 @@ Paykido::Application.routes.draw do
 
   match 'g2s/ppp/:status' => 'g2s#ppp_callback'
   match 'g2s/dmn/:status' => 'g2s#dmn', :as => :dmn
+  
+  match 'login' => 'account#login', :as => :login
 
   match ':controller(/:action(/:id))'
   # The priority is based upon order of creation:
@@ -80,6 +82,9 @@ Paykido::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
    root :to => 'home#index'
+   
+     match "*a", :to => "home#routing_error"
+
 
   # See how all your routes lay out with "rake routes"
 
