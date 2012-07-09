@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
     # Have Devise run the user session 
     # Every call should include payer_id, consumer_id and/or purchase_id
 
+    flash[:error] = nil
     if params[:payer_id]
       begin    
         @payer = Payer.find(params[:payer_id])
