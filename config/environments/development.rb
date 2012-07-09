@@ -5,7 +5,7 @@ Paykido::Application.configure do
   config.hostname = 'www.paykido.com'
   config.environment = 'dev'
 
-  # Facebook
+  # Facebook (for server-side facebooker, make identical changes at facebooker.yml)
   config.app_id = '232989173487232'
   config.secret = '42f044c4da4907db4bbe4b7dd6f14077' 
   config.api_key = '232989173487232'

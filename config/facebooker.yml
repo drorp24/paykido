@@ -2,10 +2,10 @@ development:
   app_id: 232989173487232
   secret: 42f044c4da4907db4bbe4b7dd6f14077 
   api_key: 232989173487232
-test:
-  app_id: 136459893116661
-  secret: c51423412567be5e6d4c21f73a239df1
-  api_key: 136459893116661
+staging:
+  app_id: 294773230578790
+  secret: 669dac0d2d3cded22cdead73526e87bd
+  api_key: 294773230578790
 production:
   app_id:  402586589783096
   secret:  59791d5435202fe1f5eb69a872c0438a   
