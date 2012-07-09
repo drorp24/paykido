@@ -3,6 +3,7 @@ Paykido::Application.configure do
 
   # General
   config.hostname = 'www.paykido.com'
+  config.environment = 'prod'
 
   # Facebook
   config.app_id = '402586589783096'

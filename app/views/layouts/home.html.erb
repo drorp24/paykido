@@ -55,6 +55,7 @@
 
 	<%= link_to "Sign In", login_path, :class => "login", :id => "signin" unless params[:action] == 'login' %>  <!-- replace with Devise -->
 	<p class="login" id="error"><%= flash[:error]  %></p>
+	<p class="login" id="environment"><%= Paykido::Application.config.environment %></p>
 
     
   </div>

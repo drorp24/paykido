@@ -5,6 +5,11 @@ Item URI : http://themeforest.net/item/pixelstudio-an-elegant-scrolling-onepage-
 Version : 2.0
 */
 
+#environment {
+    position: absolute;
+    left: -6%;
+}
+
 .oops {
     width: 100%;
     margin-left: auto;

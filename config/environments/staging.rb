@@ -3,12 +3,12 @@ Paykido::Application.configure do
 
   # General
   config.hostname = 'www.paykido.com'
-  config.environment = 'dev'
+  config.environment = 'staging'
 
   # Facebook
-  config.app_id = '232989173487232'
-  config.secret = '42f044c4da4907db4bbe4b7dd6f14077' 
-  config.api_key = '232989173487232'
+  config.app_id = '294773230578790'
+  config.secret = '669dac0d2d3cded22cdead73526e87bd' 
+  config.api_key = '294773230578790'
 
   # Policy
   config.send_sms = false
