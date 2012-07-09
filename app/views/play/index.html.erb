@@ -14,7 +14,7 @@
 	</div>
 <% end %>
 
-<a href="http://<%= (request.port == 80) ? 'www.paykido.com' : 'localhost:3000' %>/consumer/login?
+<a href="http://<%= request.host + ':' + request.port.to_s %>/consumer/login?
 	merchant=Zynga&
 	product=Farm%20Cash&
 	amount=6.00&
