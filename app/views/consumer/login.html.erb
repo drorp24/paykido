@@ -106,10 +106,90 @@ function validate_async(form, cb) {
       
 $(document).ready(function (){ 
 	 
-	// loading indicator
-	$('#buy_button').click(function () {
-		$('#loadingZone').addClass('loading-indicator');
-	})
+    // Additional initialization code here
+	FB.getLoginStatus(function(response) {
+	  if (response.status === 'connected') {
+	    // the user is logged in and has authenticated your
+	    // app, and response.authResponse supplies
+	    // the user's ID, a valid access token, a signed
+	    // request, and the time the access token 
+	    // and signed request each expire
+	    userid = response.authResponse.userID;
+	    accessToken = response.authResponse.accessToken;
+	    // find a way to add these as 2 parameters to the buy (put them in a hidden form field and serialize for instance)
+	    connected(userid, accessToken);
+	  } else if (response.status === 'not_authorized') {
+	    // the user is logged in to Facebook, 
+	    // but has not authenticated your app
+	    not_authorized();
+	  } else {
+	    // the user isn't logged in to Facebook.
+	    unknown();
+	  }
+	 });
+	FB.Event.subscribe('auth.login', function(response) {
+	   login();
+	});
+	FB.Event.subscribe('auth.logout', function(response) {
+	   logout();
+	});
+	FB.Event.subscribe('auth.authResponseChange', function(response) {
+	  if (response.status === 'connected') {
+	    userid = response.authResponse.userID;
+	    accessToken = response.authResponse.accessToken;
+	    // find a way to add these as 2 parameters to the buy (put them in a hidden form field and serialize for instance)
+	    connected(userid, accessToken);
+	  } else if (response.status === 'not_authorized') {
+	    not_authorized();
+	  } else {
+	    unknown();
+	  }
+	});
+	function login(){
+	   FB.api('/me', function(response) {
+	   });
+	}
+
+	function logout(){
+	}
+
+
+	function connected(userid, accessToken){
+
+	   	$('#registration').hide();
+  		$('#first_line').html('<%= "you selected #{params[:product]} for #{params[:amount]} #{params[:currency]}" %>');
+  		$('#second_line').html('Click to buy it!');
+		$('#buy_button').removeAttr("disabled");
+	   	FB.api('/me', {fields: "id,first_name,picture"}, function(response) {
+	      $('#name').html('Welcome, '+response.first_name+"!");
+	      $('#profile_picture').attr("src", response.picture);
+	      $('#profile_picture').show();
+		  var action = $('#buy_form').attr('action') +
+		  				'&facebook_id=' + userid + 
+		  				'&name=' + response.first_name +
+		  				'&pic=' + response.picture;
+		  $('#buy_form').attr('action', action);
+	   });
+	}
+
+	function not_authorized(){
+		$('#login_button').hide();
+	   	$('#registration').show();
+	   	FB.XFBML.parse(); 
+		$('#buy_button').attr("disabled", "disabled");
+	}
+
+	function unknown(userid, accessToken){
+
+		$('#login_button').show();
+		$('#registration').hide();
+ 	   	FB.XFBML.parse(); 
+     	$('#name').html('Hello!');
+      	$('#profile_picture').hide();
+      	$('#first_line').html('Login to start using Paykido!');
+      	$('#buy_button').attr("disabled", "disabled");
+
+	}
 
 	// invite friends
 	function sendRequestViaMultiFriendSelector() {
