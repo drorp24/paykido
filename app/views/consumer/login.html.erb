@@ -1,71 +1,48 @@
 <div id="window_content" class="clearfix">
-	<div class="fl left">
-		<div id="logo_and_pic">
-			<span id="logo">
-				<%= image_tag "/images/arca_logo.png", :id=>"logoimg",:border => 0 %>
-			</span>	
-			<span id="pic">
-				<%= image_tag @pic, :id => 'profile_picture', :style => 'display: none' %>
-			</span>
-		</div>
-		<div id="name_and_login">
-			<span id="name" class="text"></span>		
-			<span id="login_button" class="text">
-				<fb:login-button perms="offline_access" 
-								 autologoutlink="true"
-								 V="2" />
-	 		</span>
-		</div>
-	   	<div id="ajax_message">
-			<p id="first_line" class="text"></p>
-			<p id="second_line" class="text"></p>		
-		</div>		
-		<div id="buy" class="box">
-			<%= form_for :consumer, :url => {:action => :buy, 
-											 :merchant 	=> params[:merchant],
-											 :product	=> params[:product],
-											 :app 		=> params[:app],
-											 :amount   	=> params[:amount],
-											 :currency 	=> params[:currency],
-											 :userid   	=> params[:userid],
-											 :mode      => params[:mode],
-											 :PP_TransactionID => params[:PP_TransactionID],
-											 :hash		=> params[:hash],
-											 :referrer	=> params[:referrer] 
-											 }, :html => {:id => "buy_form"} do |f| %>
-				<%= submit_tag "Click to Buy", :id=> "buy_button", :class => "widget_button fg-button ui-state-default loginbutton ui-very-rounded-corners" %>
-			<% end %>
-		</div>
-		<div id="loadingZone"></div>
+	<div id="logo_and_pic">
+		<span id="logo">
+			<%= image_tag "/images/arca_logo.png", :id=>"logoimg",:border => 0 %>
+		</span>	
+		<span id="pic">
+			<%= image_tag @pic, :id => 'profile_picture', :style => 'display: none' %>
+		</span>
 	</div>
-
-	<!-- Right pane - test in a clone and deploy only when ready. Make registration hide the new small modal! 
-	<div class="fr right">
-		<div id="invite" class="box">
-		   	<div id="invite_message">
-				<p id="invite_head" class="text">Spread the word - earn credits!</p>
-				<p id="invite_1" class="text">Enjoying Paykido? Tell your friends!</p>		
-				<p id="invite_2" class="text">Let them know they can start buying</p>		
-				<p id="invite_3" class="text">independently and safely.</p>		
-				<p id="invite_4" class="text"></p>	
-			</div>
-			<div id="invite_div">	
-				<p>
-				    <input type="button"
-				      onclick="sendRequestViaMultiFriendSelector(); return false;"
-				      value="Invite friends!"
-				      class="widget_button fg-button ui-state-default loginbutton ui-very-rounded-corners"
-				      id="invite_button"
-				    />
-				</p>
-			</div>
+	<div id="name_and_login">
+		<span id="name" class="text"></span>		
+		<span id="login_button" class="text">
+			<fb:login-button></fb:login-button>
+ 		</span>
+	</div>
+   	<div id="ajax_message">
+		<p id="first_line" class="text"></p>
+		<p id="second_line" class="text"></p>		
+	</div>		
+	<div id="buy" class="box">
+		<%= form_for :consumer, :url => {:action => :buy, 
+										 :merchant 	=> params[:merchant],
+										 :product	=> params[:product],
+										 :app 		=> params[:app],
+										 :amount   	=> params[:amount],
+										 :currency 	=> params[:currency],
+										 :userid   	=> params[:userid],
+										 :mode      => params[:mode],
+										 :PP_TransactionID => params[:PP_TransactionID],
+										 :hash		=> params[:hash],
+										 :referrer	=> params[:referrer] 
+										 }, :html => {:id => "buy_form"} do |f| %>
+			<%= submit_tag "Get it now", :id=> "buy_button", :class => "widget_button fg-button ui-state-default loginbutton ui-very-rounded-corners" %>
+		<% end %>
+	</div>
+	<div id="loadingZone"></div>
+	<div id="facepile_and_invite">
+		<p id="invite_title" class="text"></p>
+		<div id="facepile">
+			<fb:facepile app_id="<%= Paykido::Application.config.app_id %>"  max_rows="2" width="300"></fb:facepile>
 		</div>
-		<div id="like" class="box">
-			<fb:like-box href="http://www.facebook.com/pages/Paykido/175298209224744" width="292" height="500" show_faces="true" stream="true" header="true"></fb:like-box>
+		<div id="invite" class="text">
+		    Invite your friends and earn credits!
 		</div>
 	</div>
-	-->
-
 </div>
 		
 <div id="registration" style="display: none;">
@@ -106,6 +83,28 @@ function validate_async(form, cb) {
       
 $(document).ready(function (){ 
 	 
+	// invite friends
+	$('#invite').click(function() {
+		sendRequestViaMultiFriendSelector();
+	});
+
+	function sendRequestViaMultiFriendSelector() {
+        FB.ui({method: 'apprequests',
+          message: 'Hi! Paykido is a super-cool service that lets kids buy with a click!',
+          data: 'dror',
+          title:'Spread the word and earn credits!'
+        }, 
+        function(response)  {
+          if (response.request)  {
+          	invites = response.to.length
+        	alert('Thanks! ' + invites + ' more points for you!')
+          }
+      	}
+		);
+  	}
+
+
+
     // Additional initialization code here
 	FB.getLoginStatus(function(response) {
 	  if (response.status === 'connected') {
@@ -156,9 +155,10 @@ $(document).ready(function (){
 
 	function connected(userid, accessToken){
 
+		$('#login_button').hide();
 	   	$('#registration').hide();
+//	   	FB.XFBML.parse(); 
   		$('#first_line').html('<%= "you selected #{params[:product]} for #{params[:amount]} #{params[:currency]}" %>');
-  		$('#second_line').html('Click to buy it!');
 		$('#buy_button').removeAttr("disabled");
 	   	FB.api('/me', {fields: "id,first_name,picture"}, function(response) {
 	      $('#name').html('Welcome, '+response.first_name+"!");
@@ -190,22 +190,6 @@ $(document).ready(function (){
       	$('#buy_button').attr("disabled", "disabled");
 
 	}
-
-	// invite friends
-	function sendRequestViaMultiFriendSelector() {
-        FB.ui({method: 'apprequests',
-          message: 'Hi! Paykido is a super-cool service that lets kids buy with a click!',
-          data: 'dror',
-          title:'Spread the word and earn credits!'
-        }, 
-        function(response)  {
-          if (response.request)  {
-          	invites = response.to.length
-        	alert('Thanks! ' + invites + ' more points for you!')
-          }
-      	}
-		);
-  	}
 
 	
 //  explicit rendering of XFBML: required because of the lightbox. Without it, Chrome will not display the blue button.

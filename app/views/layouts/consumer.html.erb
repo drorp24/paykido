@@ -72,9 +72,9 @@ $(document).ready(function (){
 
 	function connected(userid, accessToken){
 
+		$('#login_button').hide();
 	   	$('#registration').hide();
   		$('#first_line').html('<%= "you selected #{params[:product]} for #{params[:amount]} #{params[:currency]}" %>');
-  		$('#second_line').html('Click to buy it!');
 		$('#buy_button').removeAttr("disabled");
 	   	FB.api('/me', {fields: "id,first_name,picture"}, function(response) {
 	      $('#name').html('Welcome, '+response.first_name+"!");
@@ -123,8 +123,7 @@ $(document).ready(function (){
 	<% version = result.split('MSIE')[1].split(' ').first if result =~ /MSIE/%>
 	<% if result =~ /MSIE/ and version.to_i < 9 %>
 	   	<div id="ajax_message">
-			<p id="first_line" class="text">To pay with Paykido, please use</p>
-			<p id="second_line" class="text">Internet Explorer 9 or any different browser</p>		
+			<p id="first_line" class="text">Please use IE9 or any different browser</p>
 		</div>
 	
 	<% else %>

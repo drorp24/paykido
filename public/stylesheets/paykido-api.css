@@ -2,6 +2,35 @@ body {
     font-family: 'ubuntu', sans-serif;
 
 }
+
+#invite:hover {
+    cursor: pointer;
+}
+
+#invite_title {
+    position: absolute;
+    bottom: 114px;
+    color: #666;
+    font-size: 14px;
+    width: 72%;
+    text-align: center;
+}
+
+#facepile_and_invite {
+    margin-left: auto;
+    margin-right: auto;
+    width: 89%;    
+}
+#facepile {
+    position: absolute;
+    bottom: 55px;
+}
+
+#name {
+    position: absolute;
+    top: 100px;    
+}
+
 #name, #first_line, #second_line {
     font-size: 14px;
     line-height: 25px;
@@ -15,9 +44,9 @@ body {
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #77d5f7; background: #0078ae url(/images/ui-bg_glass_45_0078ae_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #ffffff; }
 
 #loadingZone {
-    height: 100px;
+    height: 32px;
     position: absolute;
-    bottom: 10px;
+    bottom: 141px;
     width: 85%;
 }
 
@@ -51,9 +80,8 @@ body {
 
 #invite {
 	position: absolute;	
-	right: -58px;
-	top: 121px;
-	text-align: center;
+	bottom: 19px;
+	font-size: 14px;
 }
 #invite_button {
     background: #d7ebf9 url(/themes/Cupertino/images/ui-bg_glass_80_d7ebf9_1x400.png) 50% 50% repeat-x; 
@@ -167,19 +195,18 @@ body {
 	top: -4px;
 
 }
-
+/*
 a {
 	text-decoration: none;
 	color: gray;
 }
-
+*/
 a:hover {
 	color: black;
 }
 
 p#first_line {
-	margin-bottom: 18px;
-	margin-top: 0;
+	margin-top: -40px;
 	
 }
 p#second_line {
@@ -210,7 +237,7 @@ img.fb_profile_pic_rendered {
 #logo img#logoimg  {
 	
 	margin-left: -11px;	
-	margin-top: 39px;
+	margin-top: 28px;
 	width: 68%;
 }
 
@@ -498,13 +525,13 @@ display: table;
 #buy_button {
 
 	position: absolute;
-	top: 327px;
-	left: 70px;
+	top: 276px;
+    left: 81px;
     background: #d7ebf9 url(/themes/Cupertino/images/ui-bg_glass_80_d7ebf9_1x400.png) 50% 50% repeat-x; 
     color: #FFFFE0;
     font-size: 24px;
     height: 45px;
-    width: 175px;
+    width: 156px;
 	box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
    -o-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
    -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);

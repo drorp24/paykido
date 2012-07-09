@@ -2,6 +2,7 @@
 
 <%= image_tag "/images/farmville1.png", :id => "farmville1" %>
 <%= image_tag "/images/farmville21.png", :id => "farmville2" %>
+<p id="environment"><%= Paykido::Application.config.environment %></p>
 
 <%= form_tag "some_path",  :id => "product_form" do %>
 	<div id="selection">
@@ -13,7 +14,7 @@
 	</div>
 <% end %>
 
-<a href="http://www.paykido.com/consumer/login?
+<a href="http://<%= Paykido::Application.config.hostname %>/consumer/login?
 	merchant=Zynga&
 	product=Farm%20Cash&
 	amount=6.00&

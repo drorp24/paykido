@@ -2,7 +2,7 @@ Paykido::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # General
-  config.hostname = 'www.paykido.com'
+  config.hostname = 'localhost:3000'
   config.environment = 'dev'
 
   # Facebook (for server-side facebooker, make identical changes at facebooker.yml)

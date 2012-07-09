@@ -1,3 +1,10 @@
+#environment {
+    position: absolute;
+    z-index: 1000;
+    color: #666;
+    left: 31%;
+}
+
 #paykido_button {
 
 	position: absolute;
