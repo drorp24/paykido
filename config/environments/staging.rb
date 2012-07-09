@@ -2,7 +2,7 @@ Paykido::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # General
-  config.hostname = 'paykido-beta.heroku.com'
+  config.hostname = 'paykido-beta.herokuapp.com'
   config.environment = 'beta'
 
   # Facebook (for server-side facebooker, make identical changes at facebooker.yml)
@@ -49,7 +49,7 @@ Paykido::Application.configure do
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
-  config.logger = Logger.new(STDOUT)
+#  config.logger = Logger.new(STDOUT)
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin

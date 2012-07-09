@@ -74,6 +74,7 @@ $(document).ready(function (){
 
 		$('#login_button').hide();
 	   	$('#registration').hide();
+	   	FB.XFBML.parse(); 
   		$('#first_line').html('<%= "you selected #{params[:product]} for #{params[:amount]} #{params[:currency]}" %>');
 		$('#buy_button').removeAttr("disabled");
 	   	FB.api('/me', {fields: "id,first_name,picture"}, function(response) {
