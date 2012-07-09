@@ -1,43 +1,18 @@
-<!-- Secondary navigation -->
-<nav id="secondary">
-
-	<ul>
-		<li <%= "class=active" unless @consumer %>>
-            <%= link_to purchases_path do %>
-            	<span class="secondary_name"><%= "#{(@consumer.payer.name) ? @consumer.payer.name + "'s Family" : "Family"}" %></span>
-				<span class="icon32 home fr"><span>
-        	<% end %>
-        </li>
-    	<% @payer.consumers.each do |consumer| %>
-        <li class="consumer <%= "active" if (@consumer and @consumer.id == consumer.id) %>">
-            <%= link_to consumer_purchases_path(consumer) do %>
-            	<span class="secondary_name"><%= consumer.name %></span>
-            	<% if consumer.tinypic %>
-            		<span class="avatar fr"><%= image_tag consumer.tinypic %></span>
-            	<% else %>
-            		<span class="icon32 user fr"></span>
-            	<% end %>
-            	
-        	<% end %>
-        </li>
-    	<% end %>
-	</ul>
-  
-	<div id="notifications">
-	    <ul>
-	    </ul>
-	</div>
-</nav>
-
-
-    <% if controller.action_name == 'confirm' %>
-    	<%= render :partial => 'confirmation_popover' %>
-	<% end %>
-
+<% unless params[:_pjax] %>
+	<%= render 'primary_navigation' %>
+	<%= render 'consumer_navigation' %>
+	<%= render 'notification_area'  %>
 <section id="maincontainer">
-  <div id="main" class="container_12">
+	<div id="main" class="container_12">
+<% end %>
+
+
+<% if controller.action_name == 'confirm' %>
+   	<%= render :partial => 'confirmation_popover' %>
+<% end %>
+
   
-	<%= render :partial => 'index' %>
-  
+<% unless params[:_pjax] %>  
   </div>
 </section>
+<% end %>

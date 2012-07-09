@@ -99,6 +99,11 @@ class Purchase < ActiveRecord::Base
   # terminology:  'authorize'/'unauthorize' is used when Paykido programmatically authorizes purchase.
   #               'approve'/'decline' is used when a human being (parent) authorizes it himself.
 
+  def requires_manual_payment?
+    Paykido::Application.config.always_pay_manually or
+    !self.payer.registered?
+  end
+
   def g2spp
     # return the url to redirect to for manual payment including all parameters
 
@@ -108,7 +113,7 @@ class Purchase < ActiveRecord::Base
       "https://secure.Gate2Shop.com/ppp/purchase.do?" +
       "merchant_id=" + Paykido::Application.config.merchant_id + "&" +
       "merchant_site_id=" + Paykido::Application.config.merchant_site_id + "&" +
-      "total_amount=" + amount + "&" +
+      "total_amount=" + amount.to_s + "&" +
       "currency=" + self.currency + "&" +
       "item_name_1=" + self.product + "&" +
       "item_amount_1=" + self.amount.to_s + "&" +
@@ -117,7 +122,7 @@ class Purchase < ActiveRecord::Base
       "version=" +   Paykido::Application.config.version + "&" +
       "customField1=" + "payment" + "&" +
       "customField2=" + self.id.to_s + "&" +
-      "&merchantLocale=" + I18n.locale + "&" +
+      "&merchantLocale=" + I18n.locale.to_s + "&" +
       "checksum=" + self.checksum(time_stamp) + test_fields
       )
     
@@ -256,7 +261,7 @@ class Purchase < ActiveRecord::Base
 
   def authorize!
        
-    unless self.payer.registered? and Paykido::Application.config.rules_require_registration
+    unless self.payer.registered? 
       self.authorized = false
       self.authorization_property = "registration"
       self.authorization_value = "missing"

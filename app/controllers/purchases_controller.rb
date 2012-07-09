@@ -50,13 +50,10 @@ class PurchasesController < ApplicationController
 
   def approve
     
-    unless @purchase.payer.registered?
-      redirect_to @purchase.g2spp   
-      # then the dmn would take care of the notify/approve/inform (make it DRY by having them all in the model)
+    if @purchase.requires_manual_payment?
+      redirect_to @purchase.g2spp         # then the dmn would take care of the notify/approve/inform if succesful 
       return            
     end
-
-    @purchase.set_rules!(params)
 
     @purchase.pay_by_token!
     if @purchase.paid_by_token?
@@ -69,6 +66,8 @@ class PurchasesController < ApplicationController
 
     @purchase.notify_merchant(status)
     @purchase.notify_consumer('manual', status)
+
+    @purchase.set_rules!(params)
 
     respond_to do |format|  
       format.js

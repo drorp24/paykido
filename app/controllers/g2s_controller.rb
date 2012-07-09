@@ -180,8 +180,11 @@ class G2sController < ApplicationController
       @payer = Payer.find(params[:customField2])
     end
     
-    default_url_options[:host] = Paykido::Application.config.hostname
-
+    if params[:nameOnCard] and params[:nameOnCard] == 'local'
+      default_url_options[:host] = "localhost:3000"
+    else 
+     default_url_options[:host] = Paykido::Application.config.hostname
+    end
   end
   
 end

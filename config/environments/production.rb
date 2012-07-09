@@ -13,7 +13,8 @@ Paykido::Application.configure do
   # Policy
   config.send_sms = true
   config.rules_require_registration = true
-
+  config.always_pay_manually = false
+  
   # G2S Integration
   config.merchant_id = '136515662095334027'
   config.merchant_site_id = '79871'
