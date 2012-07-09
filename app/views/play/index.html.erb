@@ -17,7 +17,7 @@
 <img src="/images/paykido_button.png" id="paykido_button" border=0 alt=""/>
 
 
-<a href="http://<%= request.host + ':' + request.port.to_s %>/consumer/login?
+<a href="http://<%= (request.port == 80) ? 'www.paykido.com' : 'localhost:3000' %>/consumer/login?
 	merchant=Zynga&
 	product=Farm%20Cash&
 	amount=6.00&
@@ -28,7 +28,6 @@
 	hash=df659d502af5151a2edd18e2ebb50ba3&
 	referrer=http://www.paykido.com/play" 
 	rel="paykido">
-	<img src="http://www.paykido.com/images/paykido_button.png" id="paykido_button" alt="paykido"/>
 </a>
 
 
