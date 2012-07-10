@@ -192,6 +192,9 @@ class Purchase < ActiveRecord::Base
       :sg_ClientUniqueID => self.id
     }).inspect
 
+    self.properties = token_response
+    self.save!
+if false
     self.transactions.create!( 
       :TransactionID => token_response[:result][:TransactionID],
       :status => token_response[:result][:status],
@@ -204,6 +207,7 @@ class Purchase < ActiveRecord::Base
     if token_response[:result][:Status] == 'Approved'
       @paid_by_token = true
     end
+end
 
   end
   
