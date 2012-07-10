@@ -6,7 +6,10 @@ class PayersController < ApplicationController
     @payer.create_registration!(params)
     
     redirect_to payer_registrations_path(@payer)
-
+  end
+  
+  def show
+    
   end
 
 

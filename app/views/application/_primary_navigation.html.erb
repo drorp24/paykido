@@ -2,9 +2,9 @@
 <nav id="primary">
 	<ul>
 	    <li class="menu" id="people_menu" >
-	      	<%= link_to payer_registrations_path(@payer) do%>
-	        	<span class="icon32 user"></span>
-	        	People
+	      	<%= link_to payer_consumers_path(@payer) do%>
+	        	<span class="icon32 group"></span>
+	        	Family
 	      	<% end %>
 	    </li>
 
@@ -14,17 +14,17 @@
 		        Dashboard
 	      	<% end %>
 	    </li>
+	    <li class="menu" id="rules_menu" >
+     		<%= link_to payer_rules_path(@payer) do %>
+	        	<span class="icon32 pencil"></span>
+	        	Rules
+	      	<% end %>
+	    </li>
 	    <li class="menu" id="setting_menu" >
 	      	<%= link_to payer_registrations_path(@payer) do%>
 	        	<span class="icon32 cog"></span>
 	        	Settings
 	      	<% end %>
-	    </li>
-	    <li>
-	      	<a href="#">
-	        	<span class="icon32 pencil"></span>
-	        	Rules
-	      	</a>
 	    </li>
 	    <li>
 	      	<a href="#">

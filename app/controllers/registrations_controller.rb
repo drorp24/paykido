@@ -13,7 +13,7 @@ class RegistrationsController < ApplicationController
   # GET /registrations/1
   # GET /registrations/1.json
   def show
-    @registration = Registration.find(params[:id])
+
   end
 
   # GET /registrations/new

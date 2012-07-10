@@ -17,12 +17,7 @@ class ConsumersController < ApplicationController
   # GET /consumers
   # GET /consumers.json
   def index
-    @consumers = Consumer.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @consumers }
-    end
+    @consumers = @payer.consumers
   end
 
   # GET /consumers/1

@@ -4,14 +4,29 @@
 
 	<ul>
 		<li <%= "class=active" unless @consumer %>>
-            <%= link_to payer_purchases_path(@payer) do %>
+			<% if params[:controller] == 'purchases' %>
+				<% path = payer_purchases_path(@payer)  %>
+			<% elsif params[:controller] == 'consumers' %>
+				<% path = payer_path(@payer)  %>
+			<% elsif params[:controller] == 'rules' %>
+				<% path = payer_rules_path(@payer)  %>
+			<% end %>	
+
+            <%= link_to path do %>
             	<span class="secondary_name"><%= "#{(@payer.name) ? @payer.name + "'s Family" : "Family"}" %></span>
 				<span class="icon32 home fr"><span>
         	<% end %>
         </li>
     	<% @payer.consumers.each do |consumer| %>
         <li class="consumer <%= "active" if (@consumer and @consumer.id == consumer.id) %>">
-            <%= link_to consumer_purchases_path(consumer) do %>
+			<% if params[:controller] == 'purchases' %>
+				<% path = consumer_purchases_path(consumer)  %>
+			<% elsif params[:controller] == 'consumers' or params[:controller] == 'payers'%>
+				<% path = consumer_path(consumer)  %>
+			<% elsif params[:controller] == 'rules' %>
+				<% path = consumer_rules_path(consumer)  %>
+			<% end %>	
+			<%= link_to path do %>
             	<span class="secondary_name"><%= consumer.name %></span>
             	<% if consumer.tinypic %>
             		<span class="avatar fr"><%= image_tag consumer.tinypic %></span>
@@ -34,8 +49,13 @@
 	
 $(document).ready(function () {
 	$('.menu').removeClass('active');
-	<% if request.action == 'purchases' %>
-	$('#dashboard_menu').addClass('active');
+	<% if params[:controller] == 'purchases' %>
+		$('#dashboard_menu').addClass('active');
+	<% elsif params[:controller] == 'consumers' %>
+		$('#people_menu').addClass('active');
+	<% elsif params[:controller] == 'rules' %>
+		$('#rules_menu').addClass('active');
+	<% end %>	
 })	
 	
 </script>

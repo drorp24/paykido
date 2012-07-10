@@ -1,5 +1,7 @@
 Paykido::Application.routes.draw do
 
+  resources :rules
+
   resources :registrations
 
 
@@ -9,7 +11,9 @@ Paykido::Application.routes.draw do
     end
   end
   resources :payers do
+    resources :consumers
     resources :purchases
+    resources :rules
     resources :notifications
     resources :registrations
     member do
@@ -19,6 +23,7 @@ Paykido::Application.routes.draw do
   end
 
   resources :consumers do
+    resources :rules
     resources :purchases
     member do
       get 'confirm', 'confirmed'
