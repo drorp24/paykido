@@ -29,21 +29,19 @@ class PurchasesController < ApplicationController
   # GET /payers/:payer_id/purchases/1       ("link_tp consumer_purchase_path(@payer, @purchase)")
   # GET /purchases/1
   # GET /purchases/1.json
+
+  # since the entire page includes all payer's purchases too, it's better that 'show' brings them too.
+  # it enables caching the entire page and enables pjax history. Besides, pjax sometimes brings an entire page.
+  # the payer's purchases is a cached DB query, and once a certain purchase is brought the entire page is cached at the web server level
+  
   def show
 
-    find_purchases      # fully RESTfull. pjax frequently brings a full page. Better for caching, enables history.
-    begin    
-      @purchase = Purchase.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      flash[:error] = "No such purchase exists"
-      redirect_to (params[:consumer_id]) ?consumer_purchases_path(params[:consumer_id]) :payer_purchases_path(params[:payer_id])
-      return
-    end
+    find_purchases      
 
     if request.headers['X-PJAX']
       render :partial => 'show'
     else
-      render 'index'  
+      render 'index'
     end
     
   end
@@ -166,6 +164,15 @@ class PurchasesController < ApplicationController
         flash[:error] = "No such purchase id"
         redirect_to :controller => "home", :action => "routing_error"
         return
+      else
+        unless @payer 
+          @payer = @purchase.payer
+          unless @payer.id == session[:payer_id]
+            flash[:error] = "Please log in first"
+            redirect_to login_path
+            return
+          end
+        end
       end 
     end           
 

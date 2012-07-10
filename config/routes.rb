@@ -2,6 +2,12 @@ Paykido::Application.routes.draw do
 
   resources :registrations
 
+
+  resources :purchases do
+    member do
+      get 'approve', 'decline'
+    end
+  end
   resources :payers do
     resources :purchases
     resources :notifications
@@ -17,12 +23,6 @@ Paykido::Application.routes.draw do
     member do
       get 'confirm'
       post 'confirm'
-    end
-  end
-
-  resources :purchases do
-    member do
-      get 'approve', 'decline'
     end
   end
 
