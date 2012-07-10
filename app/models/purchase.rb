@@ -3,7 +3,7 @@ require 'uri'
 
 class Token
   include HTTParty
-  format :xml
+
   base_uri 'https://test.safecharge.com'
 end
 

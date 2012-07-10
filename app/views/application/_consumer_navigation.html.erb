@@ -34,6 +34,7 @@
 	
 $(document).ready(function () {
 	$('.menu').removeClass('active');
+	<% if request.action == 'purchases' %>
 	$('#dashboard_menu').addClass('active');
 })	
 	
