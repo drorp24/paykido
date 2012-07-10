@@ -19,9 +19,19 @@ $(document).ready(function() {
 	    notification('<%= "Failed: #{params[:Error]}" %>', false, 'alert', true)
 	<% else %>
 	    notification("<%= "Purchase paid thank you!"%>", false, 'cart', true)
+//		some visual indication on purchase
 	<% end %>
 <% end %>
 
+// Purchase approval-token-payment status
+<% if params[:notify] and params[:notify] == 'approval' %>
+	<% if params[:status] == 'success' %>
+	    notification("<%= "Purchase paid!"%>", false, 'user', true)
+//		some visual indication on purchase
+	<% else %>
+	    notification('<%= "Payment failed" %>', false, 'alert', true)
+	<% end %>
+<% end %>
 	
 })
 

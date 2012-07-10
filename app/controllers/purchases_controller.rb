@@ -67,9 +67,7 @@ class PurchasesController < ApplicationController
 
     @purchase.set_rules!(params)
 
-    respond_to do |format|  
-      format.js
-    end
+    redirect_to payer_purchases_path(@payer, :notify => 'approval', :status => "success", :_pjax => true)  
 
   end
 

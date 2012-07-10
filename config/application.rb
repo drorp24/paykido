@@ -45,5 +45,8 @@ module Paykido
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    
+    # insert content length into header for post requests (g2s token)
+    config.middleware.use Rack::ContentLength
   end
 end
