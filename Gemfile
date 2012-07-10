@@ -15,10 +15,10 @@ group :production do
 end
 group :development, :test do
   gem 'sqlite3'
-  gem 'taps'
   gem 'heroku'
 end
 
+gem 'taps'
 gem 'newrelic_rpm'
 gem 'clickatell'
 gem 'json'

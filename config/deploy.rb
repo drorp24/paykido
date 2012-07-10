@@ -9,6 +9,7 @@ load "config/recipes/rbenv"
 load "config/recipes/check"
 load "config/recipes/utils"
 load "config/recipes/rake"
+load "config/recipes/taps"
 
 server "50.116.63.241", :web, :app, :db, primary: true
 
