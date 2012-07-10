@@ -12,8 +12,8 @@
             <p>By clicking 'I confirm' below, I confirm that I am <%= @consumer.name%>'s parent.</p>
         </div>
         <div class="action_bar">            
-            <a id="consumer_confirm" href='#' class= "blue button">I confirm</a>
-            <a href="#" class="close button">I don't</a>
+            <%= link_to "I confirm", confirmed_consumer_path(@consumer), :class => "blue button" %>
+            <%= link_to "I don't", "#", :class => "close button" %>
         </div>
     </div>
     
@@ -24,8 +24,7 @@
 $(document).ready(function () {
 
 	// find a better way to ajaxify calls from modal window
-    $('#consumer_confirm').click(function() {     
-    $.ajax("consumer_confirm");
+    $('.action_bar').click(function() {     
     $('#modalcontainer > div').hide();
     $('#overlay').hide();
 

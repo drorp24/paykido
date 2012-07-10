@@ -21,7 +21,7 @@ Paykido::Application.routes.draw do
   resources :consumers do
     resources :purchases
     member do
-      get 'confirm'
+      get 'confirm', 'confirmed'
       post 'confirm'
     end
   end

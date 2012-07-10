@@ -1,7 +1,7 @@
 <% unless params[:_pjax] %>
 	<%= render 'primary_navigation' %>
 	<%= render 'setting_navigation' %>
-	<%= render 'notification_area'  %>
+
 <section id="maincontainer">
 	<div id="main" class="container_12">
 <% end %>
@@ -27,3 +27,5 @@
   </div>
 </section>
 <% end %>
+
+<%= render 'notifications' %>

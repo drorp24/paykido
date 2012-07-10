@@ -1,13 +1,20 @@
 <!-- Primary navigation -->
 <nav id="primary">
 	<ul>
-    	<li <%= "class=active" if ["purchases"].include? controller.controller_name  %>>
+	    <li class="menu" id="people_menu" >
+	      	<%= link_to payer_registrations_path(@payer) do%>
+	        	<span class="icon32 user"></span>
+	        	People
+	      	<% end %>
+	    </li>
+
+    	<li class="menu" id="dashboard_menu" >
       		<%= link_to payer_purchases_path(@payer) do %>
 		        <span class="icon32 dashboard"></span>
 		        Dashboard
 	      	<% end %>
 	    </li>
-	    <li <%= "class=active" if ["consumers", "payers"].include? controller.controller_name  %>>
+	    <li class="menu" id="setting_menu" >
 	      	<%= link_to payer_registrations_path(@payer) do%>
 	        	<span class="icon32 cog"></span>
 	        	Settings
@@ -17,12 +24,6 @@
 	      	<a href="#">
 	        	<span class="icon32 pencil"></span>
 	        	Rules
-	      	</a>
-	    </li>
-	    <li>
-	      	<a href="#">
-	        	<span class="icon32 user"></span>
-	        	People
 	      	</a>
 	    </li>
 	    <li>
@@ -39,3 +40,4 @@
 	    </li>
 	</ul>
 </nav>
+

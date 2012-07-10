@@ -93,15 +93,6 @@ $(document).ready(function() {
 	<% end %>
 	
 
-	// Notify the return status upon redirect back from PP
-	<% if params[:status]  %>
-		<% if params[:status] == 'failure' %>
-		    notification('<%= "Failed: #{params[:Error]}" %>', false, 'alert', true)
-		<% else %>
-		    notification("<%= "Purchase paid thank you!"%>", false, 'cart', true)
-		<% end %>
-	<% end %>
-
 	// DataTables (http://datatables.net/)
 	pTable = $('#purchases').dataTable( {
         "sPaginationType": "full_numbers",

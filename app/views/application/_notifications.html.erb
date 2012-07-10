@@ -1,0 +1,28 @@
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+// Consumer confirmation status
+<% if params[:notify] and params[:notify] == 'confirmation' %>
+	<% if params[:status] == 'success' %>
+	    notification("<%= "Consumer confirmed!"%>", false, 'user', true)
+		$('.consumer.active').addClass('confirmed');
+	<% else %>
+	    notification('<%= "Failed to confirm consumer" %>', false, 'alert', true)
+	<% end %>
+<% end %>
+
+
+// PP return status
+<% if params[:status] and params[:Error] %>
+	<% if params[:status] == 'failure' %>
+	    notification('<%= "Failed: #{params[:Error]}" %>', false, 'alert', true)
+	<% else %>
+	    notification("<%= "Purchase paid thank you!"%>", false, 'cart', true)
+	<% end %>
+<% end %>
+
+	
+})
+
+</script>

@@ -3,14 +3,15 @@ class ConsumersController < ApplicationController
   before_filter :check_and_restore_session  
 
   def confirm      
+    render :index    
+  end
+  
+  def confirmed
 
-    if request.get?          
-      render :index
-    else
-      @consumer.confirm!
-      redirect_to payer_registrations_path(@payer)   
-    end
-    
+    @consumer.confirm!
+
+    redirect_to consumer_path(@consumer, :notify => 'confirmation', :status => "success", :_pjax => true)  
+
   end
 
   # GET /consumers
@@ -27,12 +28,7 @@ class ConsumersController < ApplicationController
   # GET /consumers/1
   # GET /consumers/1.json
   def show
-    @consumer = Consumer.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @consumer }
-    end
   end
 
   # GET /consumers/new

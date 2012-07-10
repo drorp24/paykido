@@ -1,14 +1,14 @@
 <% unless params[:_pjax] %>
 	<%= render 'primary_navigation' %>
 	<%= render 'consumer_navigation' %>
-	<%= render 'notification_area'  %>
+
 <section id="maincontainer">
 	<div id="main" class="container_12">
 <% end %>
 
 
 <% if controller.action_name == 'confirm' %>
-   	<%= render :partial => 'confirmation_popover' %>
+   	<%= render 'confirmation_popover' %>
 <% end %>
 
   
@@ -16,3 +16,5 @@
   </div>
 </section>
 <% end %>
+
+<%= render 'notifications' %>

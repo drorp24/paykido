@@ -73,9 +73,9 @@ body#paykido  a {
     -o-transition:0.5s ease;
     transition:border, box-shadow, 0.5s ease;
 
-	box-shadow: 0 0 12px #111;
-	-moz-box-shadow: 0 0 12px #111;
-	-webkit-box-shadow: 0 0 12px #111;
+	box-shadow: 0 0 12px #FFF;
+	-moz-box-shadow: 0 0 12px #FFF;
+	-webkit-box-shadow: 0 0 12px #FFF;
 	
 	border: 2px solid green;
 	position: relative;
