@@ -1,5 +1,5 @@
 
-<!-- Secondary navigation -->
+<!-- Secondary navigation 
 <nav id="secondary">
 
 	<ul>
@@ -18,25 +18,24 @@
         	<% end %>
         </li>
     	<% @payer.consumers.each do |consumer| %>
-        <li class="consumer <%= "active" if (@consumer and @consumer.id == consumer.id) %>">
-			<% if params[:controller] == 'purchases' %>
-				<% path = consumer_purchases_path(consumer)  %>
-			<% elsif params[:controller] == 'consumers' or params[:controller] == 'payers'%>
-				<% path = consumer_path(consumer)  %>
-			<% elsif params[:controller] == 'rules' %>
-				<% path = consumer_rules_path(consumer)  %>
-			<% end %>	
-			<%= link_to path do %>
-            	<span class="secondary_name"><%= consumer.name %></span>
-            	<% if consumer.tinypic %>
-            		<span class="avatar fr"><%= image_tag consumer.tinypic %></span>
-            	<% else %>
-            		<span class="icon32 user fr"></span>
-            	<% end %>
-            	
-        	<% end %>
-        </li>
-
+	        <li class="consumer <%= "active" if (@consumer and @consumer.id == consumer.id) %>">
+				<% if params[:controller] == 'purchases' %>
+					<% path = consumer_purchases_path(consumer)  %>
+				<% elsif params[:controller] == 'consumers' or params[:controller] == 'payers' %>
+					<% path = consumer_path(consumer)  %>
+				<% elsif params[:controller] == 'rules' %>
+					<% path = consumer_rules_path(consumer)  %>
+				<% end %>	
+				<%= link_to path do %>
+	            	<span class="secondary_name"><%= consumer.name %></span>
+	            	<% if consumer.tinypic %>
+	            		<span class="avatar fr"><%= image_tag consumer.tinypic %></span>
+	            	<% else %>
+	            		<span class="icon32 user fr"></span>
+	            	<% end %>           	
+	        	<% end %>
+	        </li>
+    	<% end %>
 	</ul>
   
 	<div id="notifications">
@@ -59,3 +58,4 @@ $(document).ready(function () {
 })	
 	
 </script>
+-->
