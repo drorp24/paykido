@@ -3,7 +3,7 @@ Paykido::Application.configure do
 
   # General
   config.hostname = 'paykido-beta.herokuapp.com'
-  config.environment = 'beta'
+  config.environment = 'edge'
 
   # Facebook (for server-side facebooker, make identical changes at facebooker.yml)
   config.app_id = '294773230578790'
