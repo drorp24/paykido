@@ -192,7 +192,7 @@ class Purchase < ActiveRecord::Base
       :sg_ClientUniqueID => self.id
     }).inspect
 
-    self.properties = token_response
+    self.params = token_response
     self.save!
 if false
     self.transactions.create!( 
