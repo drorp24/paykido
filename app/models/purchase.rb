@@ -3,7 +3,7 @@ require 'uri'
 
 class Token
   include HTTParty
-
+  format :xml
   base_uri 'https://test.safecharge.com'
 end
 
@@ -191,9 +191,9 @@ class Purchase < ActiveRecord::Base
       :sg_Email  => registration.Email,
       :sg_ClientUniqueID => self.id
     }).inspect
-
-    self.params = token_response
-    self.save!
+self.params = token_response
+self.save!
+#     
 if false
     self.transactions.create!( 
       :TransactionID => token_response[:result][:TransactionID],
