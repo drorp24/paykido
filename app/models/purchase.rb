@@ -162,7 +162,7 @@ class Purchase < ActiveRecord::Base
     return false unless self.payer.registered?    
     registration = self.payer.registration
 
-    token_response  = Token.post('/service.asmx/Process', :query => {
+    token_response  = Token.post('/service.asmx/Process', :body => {
       :sg_VendorID  => Paykido::Application.config.sg_VendorID,  
       :sg_MerchantName  => Paykido::Application.config.sg_MerchantName, 
       :sg_MerchantPhoneNumber  => Paykido::Application.config.sg_MerchantPhoneNumber, 
