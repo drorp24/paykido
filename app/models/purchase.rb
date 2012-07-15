@@ -163,7 +163,7 @@ class Purchase < ActiveRecord::Base
     registration = self.payer.registration
 
     begin
-    token_response  = Token.post('/service.asmx/Process', :body => {
+    token_response  = Token.get('/service.asmx/Process', :query => {
       :sg_VendorID  => Paykido::Application.config.sg_VendorID,  
       :sg_MerchantName  => Paykido::Application.config.sg_MerchantName, 
       :sg_MerchantPhoneNumber  => Paykido::Application.config.sg_MerchantPhoneNumber, 
