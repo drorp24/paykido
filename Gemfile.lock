@@ -85,8 +85,6 @@ GEM
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
     newrelic_rpm (3.4.0.1)
-    nokogiri (1.5.5)
-    nokogiri (1.5.5-x86-mingw32)
     paypal_adaptive (0.2.8)
       json (~> 1.6.0)
       jsonschema (~> 2.0.0)
@@ -170,7 +168,6 @@ DEPENDENCIES
   json
   multi_json (~> 1.0.3)
   newrelic_rpm
-  nokogiri
   paypal_adaptive
   pg
   rails (= 3.1.3)
