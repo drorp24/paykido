@@ -30,8 +30,8 @@ class G2sController < ApplicationController
       @purchase.create_transaction!(params)
       # notify/approve/inform      
     elsif params[:customField1] == 'registration'
-      @payer.create_registration!(params)
-    redirect_to payer_registrations_path(@payer, :notify => 'registration', :status => "success")
+      a = 1 /0
+#      @payer.create_registration!(params)
     else
       return false   
     end
