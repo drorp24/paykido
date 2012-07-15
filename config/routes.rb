@@ -32,7 +32,7 @@ Paykido::Application.routes.draw do
   end
 
   match 'g2s/ppp/:status' => 'g2s#ppp_callback'
-  match 'g2s/dmn/:status' => 'g2s#dmn', :as => :dmn
+  match 'g2s/dmn/:status' => 'g2s#dmn'
   
   match 'login' => 'account#login', :as => :login
 
