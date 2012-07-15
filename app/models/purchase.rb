@@ -163,7 +163,7 @@ class Purchase < ActiveRecord::Base
     registration = self.payer.registration
 
     begin
-    token_response  = Token.get('/service.asmx/Process', :query => {
+    token_response  = Token.post('/service.asmx/Process', :body => {
       :sg_VendorID  => Paykido::Application.config.sg_VendorID,  
       :sg_MerchantName  => Paykido::Application.config.sg_MerchantName, 
       :sg_MerchantPhoneNumber  => Paykido::Application.config.sg_MerchantPhoneNumber, 
@@ -172,7 +172,7 @@ class Purchase < ActiveRecord::Base
       :sg_ClientPassword  => Paykido::Application.config.sg_ClientPassword , 
       :sg_Descriptor  => Paykido::Application.config.sg_Descriptor ,
       :sg_NameOnCard => registration.NameOnCard ,
-      :sg_CCToken => registration.CCToken  ,
+      :sg_CCToken => "RwBzAFAAZABQAFcAbgBJAG8AZgBhAFYAagBCAFcARQBsAHYAdAB7AD4AbQBbAGwANgB3AGkAPwBYADUAYABQAGUATwBAACMAQwB3AGoAWQBxACkAMwA"  ,
       :sg_ExpMonth => "09" ,
       :sg_ExpYear => "12"  ,
       :sg_TransType => 'Sale' ,
