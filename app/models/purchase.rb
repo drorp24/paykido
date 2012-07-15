@@ -3,7 +3,7 @@ require 'uri'
 
 class Token
   include HTTParty
-
+  format :xml
   base_uri 'https://test.safecharge.com'
 end
 
@@ -191,7 +191,7 @@ class Purchase < ActiveRecord::Base
 #      :sg_IPAddress  => request.remote_ip, 
       :sg_Email  => "drorp24@gmail.com",
       :sg_ClientUniqueID => self.id
-    }).inspect
+    })
     rescue => e
       @paid_by_token = false
       self.transactions.create!(:status => e)
