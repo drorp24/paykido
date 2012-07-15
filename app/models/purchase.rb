@@ -191,12 +191,12 @@ class Purchase < ActiveRecord::Base
 #      :sg_IPAddress  => request.remote_ip, 
       :sg_Email  => registration.Email,
       :sg_ClientUniqueID => self.id
-    })
+    }).inspect
     rescue => e
       @paid_by_token = false
       self.transactions.create!(:status => e)
     else
-      self.transactions.create!(:status => "ok")
+      self.transactions.create!(:Reason => token_response)
     end
      
 if false
