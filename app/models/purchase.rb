@@ -196,7 +196,7 @@ class Purchase < ActiveRecord::Base
       @paid_by_token = false
       self.transactions.create!(:status => e)
     else
-      self.transactions.create!(:Reason => token_response)
+      self.transactions.create!(:status => token_response)
     end
      
 if false
