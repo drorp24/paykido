@@ -47,7 +47,7 @@ class G2sController < ApplicationController
     end
     
     if params[:customField1] and params[:customField1] == 'payment'
-      @purchase = Purchase.find(params[:customField1])
+      @purchase = Purchase.find(params[:customField2])
     end
     
     if params[:nameOnCard] and params[:nameOnCard] == 'local'

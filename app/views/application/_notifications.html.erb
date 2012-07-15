@@ -2,6 +2,18 @@
 
 $(document).ready(function() {
 
+// can decide here what gets an intrusive message as well
+
+// Payer registration status
+<% if params[:notify] and params[:notify] == 'registration' %>
+	<% if params[:status] == 'success' %>
+	    notification("<%= "Successfully registered!"%>", false, 'file', true)
+		$('.consumer.active').addClass('confirmed');
+	<% else %>
+	    notification('<%= "Registration failed" %>', false, 'alert', true)
+	<% end %>
+<% end %>
+
 // Consumer confirmation status
 <% if params[:notify] and params[:notify] == 'confirmation' %>
 	<% if params[:status] == 'success' %>

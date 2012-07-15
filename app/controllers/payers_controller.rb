@@ -5,7 +5,7 @@ class PayersController < ApplicationController
   def register
     @payer.create_registration!(params)
     
-    redirect_to payer_registrations_path(@payer)
+    redirect_to payer_registrations_path(@payer, :notify => 'registration', :status => "success")
   end
   
   def show

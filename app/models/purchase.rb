@@ -162,6 +162,7 @@ class Purchase < ActiveRecord::Base
     return false unless self.payer.registered?    
     registration = self.payer.registration
 
+    begin
     token_response  = Token.post('/service.asmx/Process', :body => {
       :sg_VendorID  => Paykido::Application.config.sg_VendorID,  
       :sg_MerchantName  => Paykido::Application.config.sg_MerchantName, 
@@ -191,6 +192,9 @@ class Purchase < ActiveRecord::Base
       :sg_Email  => registration.Email,
       :sg_ClientUniqueID => self.id
     }).inspect
+    rescue
+      @paid_by_token = false
+    end
 self.params = token_response
 self.save!
 #     
