@@ -53,7 +53,7 @@ class PurchasesController < ApplicationController
       return            
     end
 
-    @purchase.pay_by_token!
+    @purchase.pay_by_token!(request.remote_ip)
     if @purchase.paid_by_token?
       status = 'approved'
       @purchase.approve!
@@ -65,9 +65,9 @@ class PurchasesController < ApplicationController
     @purchase.notify_merchant(status)
     @purchase.notify_consumer('manual', status)
 
-    @purchase.set_rules!(params)
+#    @purchase.set_rules!(params)
 
-    redirect_to payer_purchases_path(@payer, :notify => 'approval', :status => status)  
+    redirect_to payer_purchases_path(@payer, :notify => 'approval', :status => status, :_pjax => true)  
 
   end
 

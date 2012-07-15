@@ -60,7 +60,7 @@ class ConsumerController < ApplicationController
     @purchase.authorize!
     
     if @purchase.authorized? 
-      @purchase.pay_by_token!                                
+      @purchase.pay_by_token!(request.remote_ip)                                
       if @purchase.paid_by_token?
         status = 'approved'                
         @purchase.approve!

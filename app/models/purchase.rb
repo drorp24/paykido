@@ -156,7 +156,7 @@ class Purchase < ActiveRecord::Base
     Digest::MD5.hexdigest(str)          
   end
   
-  def pay_by_token!
+  def pay_by_token!(ip)
     # call the token interface here with payer's saved Token and TransactionID (registration)
 
     return false unless self.payer.registered?    
@@ -188,7 +188,7 @@ class Purchase < ActiveRecord::Base
       :sg_Zip  => registration.State ,
       :sg_Country  => registration.Country ,
       :sg_Phone  => registration.Phone ,
-#      :sg_IPAddress  => request.remote_ip, 
+      :sg_IPAddress  => ip, 
       :sg_Email  => "drorp24@gmail.com",
       :sg_ClientUniqueID => self.id
     })
