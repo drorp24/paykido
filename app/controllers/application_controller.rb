@@ -1,20 +1,16 @@
 class ApplicationController < ActionController::Base
 
   before_filter :check_and_restore_session  
-#  before_filter :set_locale
+  before_filter :set_locale
   include Facebooker2::Rails::Controller
 
   layout :set_layout
 
   private
 
-#  def set_locale
-#    I18n.locale ||= params[:locale] 
-#  end
-
-#  def default_url_options
-#    {:locale => I18n.locale}
-#  end
+  def set_locale
+    I18n.locale ||= params[:locale] 
+  end
 
   def check_and_restore_session 
  
