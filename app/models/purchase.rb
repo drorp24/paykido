@@ -1,6 +1,5 @@
 require 'digest/md5'
 require 'uri'
-require 'nokogiri'
 
 class Token
   include HTTParty
@@ -164,8 +163,7 @@ class Purchase < ActiveRecord::Base
     registration = self.payer.registration
 
     begin
-    token_response  = Nokogiri::XML(
-      Token.post('/service.asmx/Process', :body => {
+    token_response  = Token.post('/service.asmx/Process', :body => {
       :sg_VendorID  => Paykido::Application.config.sg_VendorID,  
       :sg_MerchantName  => Paykido::Application.config.sg_MerchantName, 
       :sg_MerchantPhoneNumber  => Paykido::Application.config.sg_MerchantPhoneNumber, 
@@ -193,18 +191,12 @@ class Purchase < ActiveRecord::Base
 #      :sg_IPAddress  => request.remote_ip, 
       :sg_Email  => registration.Email,
       :sg_ClientUniqueID => self.id
-    }))
+    }).inspect
     rescue => e
       @paid_by_token = false
       self.transactions.create!(:status => e)
     else
-      if token_response.errors.length > 0
-        @paid_by_token = false
-        self.transactions.create!(:status => "illegal xml")
-      else
-        @paid_by_token = true
-        self.transactions.create!(:status => token_response)
-      end
+      self.transactions.create!(:status => token_response)
     end
      
 if false
