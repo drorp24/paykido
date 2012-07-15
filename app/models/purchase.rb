@@ -189,7 +189,7 @@ class Purchase < ActiveRecord::Base
       :sg_Country  => registration.Country ,
       :sg_Phone  => registration.Phone ,
 #      :sg_IPAddress  => request.remote_ip, 
-      :sg_Email  => registration.Email,
+      :sg_Email  => "drorp24@gmail.com",
       :sg_ClientUniqueID => self.id
     }).inspect
     rescue => e
