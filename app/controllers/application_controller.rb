@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
     I18n.locale ||= params[:locale] 
   end
 
+  def default_url_options
+    {:locale => I18n.locale}
+  end
+
   def check_and_restore_session 
  
     # Have Devise run the user session 

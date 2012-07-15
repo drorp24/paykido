@@ -192,12 +192,11 @@ class Purchase < ActiveRecord::Base
       :sg_Email  => registration.Email,
       :sg_ClientUniqueID => self.id
     }).inspect
-    rescue
+    rescue => e
       @paid_by_token = false
+      self.transactions.create!(:status => e)
     end
-self.params = token_response
-self.save!
-#     
+     
 if false
     self.transactions.create!( 
       :TransactionID => token_response[:result][:TransactionID],
