@@ -214,7 +214,7 @@ class Purchase < ActiveRecord::Base
       :TransactionID => response["TransactionID"],
       :status => response["Status"],
       :AuthCode => response["AuthCode"],
-#      :Reason => response["ReasonCodes"]["Reason"]["code"],
+      :Reason => response["ReasonCodes"]["Reason"]["code"],
       :ExErrCode => response["ExErrCode"],
       :ErrCode => response["ErrCode"]
     )                                                      
