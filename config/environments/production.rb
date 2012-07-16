@@ -63,7 +63,7 @@ Paykido::Application.configure do
 
   # See everything in the log (default is :info)
    config.log_level = :debug
-   Rails.logger = Le.new('aaf8d373-25c3-4620-bb20-c274d574f0b5', 'li482-241/Rails')
+   config.logger = Le.new('aaf8d373-25c3-4620-bb20-c274d574f0b5', 'li482-241/Rails')
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
 
