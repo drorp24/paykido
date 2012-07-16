@@ -58,9 +58,9 @@ class Purchase < ActiveRecord::Base
 
 
   def self.with_info(payer_id, consumer_id, purchase_id)
-    Paykido::Application.config.logger.info("In purchase model. information message")
-    Paykido::Application.config.logger.warn("In purchase model. warning message")
-    aykido::Application.config.logger.debug("In purchase model. debug message")  
+    Rails.logger.info("In purchase model. information message")
+    Rails.logger.warn("In purchase model. warning message")
+    Rails.logger.debug("In purchase model. debug message")  
     if purchase_id and !consumer_id and !payer_id
       Purchase.where("consumer_id = ?", Purchase.find(purchase_id).consumer_id).includes(:consumer, :retailer)      
     elsif consumer_id
