@@ -37,10 +37,7 @@ class PurchasesController < ApplicationController
   def show
 
     find_purchases    
-    Rails.logger.info("In purchase/show. information message")
-    Rails.logger.warn("In purchase/show. warning message")
-    Rails.logger.debug("In purchase/show. debug message")  
-
+puts "something"
     if request.headers['X-PJAX']
       render :partial => 'show'
     else
