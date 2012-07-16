@@ -199,9 +199,7 @@ class Purchase < ActiveRecord::Base
       @paid_by_token = false
       self.transactions.create!(:status => e)
     else
-      Rails.logger.info("token_response: " + token_response)
-      Rails.logger.info("token_response.inspect: " + token_response.inspect)
-      Rails.logger.info("token_response.response: " + token_response.response)
+      Rails.logger.info(token_response.inspect)
    end
      
 if false
