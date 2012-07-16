@@ -37,7 +37,7 @@ $(document).ready(function() {
 
 // Purchase approval-token-payment status
 <% if params[:notify] and params[:notify] == 'approval' %>
-	<% if params[:status] == 'success' %>
+	<% if params[:status] == 'success' || params[:status] == 'approved' %>
 	    notification("<%= "Purchase paid!"%>", false, 'user', true)
 //		some visual indication on purchase
 	<% else %>
