@@ -37,7 +37,7 @@ class PurchasesController < ApplicationController
   def show
 
     find_purchases    
-puts "something"
+
     if request.headers['X-PJAX']
       render :partial => 'show'
     else

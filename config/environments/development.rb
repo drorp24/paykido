@@ -29,6 +29,7 @@ Paykido::Application.configure do
   config.sg_ClientPassword = 'Wf7s9a2VsR'
   config.sg_Descriptor = 'Paykido - safe payment for kids'
   config.sg_TransType = 'Sale' 
+  config.sg_Version = '4.0.2'
   config.referrer = 'localhost:3000/play'
   config.populate_test_fields = true  
 

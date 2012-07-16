@@ -191,14 +191,18 @@ class Purchase < ActiveRecord::Base
       :sg_Phone  => registration.Phone ,
       :sg_IPAddress  => ip, 
       :sg_Email  => "drorp24@gmail.com",            ######
-      :sg_ClientUniqueID => self.id
+      :sg_ClientUniqueID => self.id,
+      :sg_Version => Paykido::Application.config.sg_Version,
+      :sg_ResponseFormat => "4"
     })
     rescue => e
       @paid_by_token = false
       self.transactions.create!(:status => e)
     else
-      self.transactions.create!(:status => token_response)
-    end
+      Rails.logger.info("token_response: " + token_response)
+      Rails.logger.info("token_response.inspect: " + token_response.inspect)
+      Rails.logger.info("token_response.response: " + token_response.response)
+   end
      
 if false
     self.transactions.create!( 
