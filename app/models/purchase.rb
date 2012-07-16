@@ -65,6 +65,10 @@ class Purchase < ActiveRecord::Base
     else
       Purchase.where("payer_id = ?", payer_id).includes(:consumer, :retailer)
     end
+    Rails.logger.info("In purchase model. information message")
+    Rails.logger.warn("In purchase model. warning message")
+    Rails.logger.debug("In purchase model. debug message")  
+
   end
   
   def pending
@@ -172,9 +176,9 @@ class Purchase < ActiveRecord::Base
       :sg_ClientPassword  => Paykido::Application.config.sg_ClientPassword , 
       :sg_Descriptor  => Paykido::Application.config.sg_Descriptor ,
       :sg_NameOnCard => registration.NameOnCard ,
-      :sg_CCToken => "RwBzAFAAZABQAFcAbgBJAG8AZgBhAFYAagBCAFcARQBsAHYAdAB7AD4AbQBbAGwANgB3AGkAPwBYADUAYABQAGUATwBAACMAQwB3AGoAWQBxACkAMwA"  ,
-      :sg_ExpMonth => "09" ,
-      :sg_ExpYear => "12"  ,
+      :sg_CCToken => registration.CCToken  ,
+      :sg_ExpMonth => "09" ,                        ######
+      :sg_ExpYear => "12"  ,                        ######
       :sg_TransType => 'Sale' ,
       :sg_Currency  => self.currency ,
       :sg_Amount  => self.amount ,
@@ -189,7 +193,7 @@ class Purchase < ActiveRecord::Base
       :sg_Country  => registration.Country ,
       :sg_Phone  => registration.Phone ,
       :sg_IPAddress  => ip, 
-      :sg_Email  => "drorp24@gmail.com",
+      :sg_Email  => "drorp24@gmail.com",            ######
       :sg_ClientUniqueID => self.id
     })
     rescue => e

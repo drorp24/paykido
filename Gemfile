@@ -27,6 +27,7 @@ gem 'paypal_adaptive'
 gem 'ruby_core_source'
 gem 'multi_json', "~> 1.0.3"
 gem 'httparty'
+gem 'le', '1.6'
 
 #gem 'thin'
 
