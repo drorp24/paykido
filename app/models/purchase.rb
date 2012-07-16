@@ -203,21 +203,23 @@ class Purchase < ActiveRecord::Base
     else
       Rails.logger.info("token was succesfull. Following is the response:")
       Rails.logger.info(token_response.inspect)
-    end
+   end
    
     response = token_response.parsed_response["Response"]
-
+      Rails.logger.info("Following is the returned Status:")
+      Rails.logger.info(response["Status"])
+ 
     self.transactions.create!( 
       :type => 'token',
-      :TransactionID => response[:TransactionID],
-      :status => response[:Status],
-      :AuthCode => response[:AuthCode],
-#      :Reason => response[:ReasonCodes][:Reason][:code],
-      :ExErrCode => response[:ExErrCode],
-      :ErrCode => response[:ErrCode]
+      :TransactionID => response["TransactionID"],
+      :status => response["Status"],
+      :AuthCode => response["AuthCode"],
+#      :Reason => response["ReasonCodes"]["Reason"]["code"],
+      :ExErrCode => response["ExErrCode"],
+      :ErrCode => response["ErrCode"]
     )                                                      
 
-    @paid_by_token = true if response[:Status] == 'APPROVED'
+    @paid_by_token = response["Status"] == 'APPROVED'
 
   end
   
