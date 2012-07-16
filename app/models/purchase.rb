@@ -58,6 +58,9 @@ class Purchase < ActiveRecord::Base
 
 
   def self.with_info(payer_id, consumer_id, purchase_id)
+    Rails.logger.info("In purchase model. information message")
+    Rails.logger.warn("In purchase model. warning message")
+    Rails.logger.debug("In purchase model. debug message")  
     if purchase_id and !consumer_id and !payer_id
       Purchase.where("consumer_id = ?", Purchase.find(purchase_id).consumer_id).includes(:consumer, :retailer)      
     elsif consumer_id
@@ -65,9 +68,6 @@ class Purchase < ActiveRecord::Base
     else
       Purchase.where("payer_id = ?", payer_id).includes(:consumer, :retailer)
     end
-    Rails.logger.info("In purchase model. information message")
-    Rails.logger.warn("In purchase model. warning message")
-    Rails.logger.debug("In purchase model. debug message")  
 
   end
   
