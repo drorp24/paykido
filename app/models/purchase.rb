@@ -208,7 +208,7 @@ class Purchase < ActiveRecord::Base
     response = token_response.parsed_response["Response"]
  
     self.transactions.create!( 
-      :type => 'token',
+      :trx_type => 'token',
       :TransactionID => response["TransactionID"],
       :status => response["Status"],
       :AuthCode => response["AuthCode"],

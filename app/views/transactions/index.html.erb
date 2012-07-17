@@ -12,7 +12,7 @@
 		<tbody>
 			<% @transactions.each do |transaction| %>
 			  <tr>
-			    <td><%= transaction.type %></td>
+			    <td><%= transaction.trx_type %></td>
 			    <td><%= transaction.created_at %></td>
 			    <td><%= link_to 'Details', payer_purchase_transaction_path(@payer, @purchase, transaction) %></td>
 			  </tr>
