@@ -9,8 +9,12 @@
 <%= render :partial => 'page_head', :locals => {:title => 'Transaction Details'} %>
 <table>
 	<tbody>
+		  <tr>
+		    <td>Type</td>
+		    <td><%= @transaction.trx_type %></td>
+		  </tr>
 		<% @transaction.attributes.each do |name, value| %>
-		  <% next if name == 'id' or name == 'payer_id' %>
+		  <% next if name == 'id' or name == 'payer_id' or name == 'trx_type' or !value %>
 		  <tr>
 		    <td><%= name %></td>
 		    <td><%= value %></td>
