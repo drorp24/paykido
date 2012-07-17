@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
     if params[:payer_id]
       begin    
         @payer = Payer.find(params[:payer_id])
+        @name = @payer.name 
       rescue ActiveRecord::RecordNotFound
         flash[:error] = "No such payer. Please log in."
         return
@@ -39,6 +40,7 @@ class ApplicationController < ActionController::Base
     if params[:email] and params[:token]
       begin    
         @payer = Payer.authenticate_by_token(params[:email], params[:token])
+        @name = @payer.name 
       rescue ActiveRecord::RecordNotFound
         flash[:error] = "No such token"
         return
@@ -48,6 +50,7 @@ class ApplicationController < ActionController::Base
     if params[:consumer_id]
       begin    
         @consumer = Consumer.find(params[:consumer_id])
+        @name = @consumer.name
         @payer = @consumer.payer
       rescue ActiveRecord::RecordNotFound
         flash[:error] = "No such consumer"

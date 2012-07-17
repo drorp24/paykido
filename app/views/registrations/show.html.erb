@@ -6,7 +6,7 @@
 	<div id="main" class="container_12">
 <% end %>
 
-<%= render :partial => 'page_head', :locals => {:title => 'Registration Details'} %>
+<%= render :partial => 'page_head', :locals => {:title => 'Registration Details', :backPath => payer_registrations_path(@payer)} %>
 <table>
 	<tbody>
 		<% @registration.attributes.each do |name, value| %>
