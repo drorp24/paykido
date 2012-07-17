@@ -6,7 +6,7 @@
 	<div id="main" class="container_12">
 <% end %>
 
-	<%= render :partial => 'page_head', :locals => {:title => 'Purchase Transactions'} %>
+	<%= render :partial => 'page_head', :locals => {:title => 'Purchase Transactions', :path => payer_purchases_path(@payer)} %>
 	
 	<table>
 		<tbody>

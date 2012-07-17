@@ -11,6 +11,7 @@ Paykido::Application.routes.draw do
       get 'approve', 'decline'
     end
   end
+
   resources :payers do
     resources :consumers
     resources :purchases do
@@ -19,10 +20,6 @@ Paykido::Application.routes.draw do
     resources :rules
     resources :notifications
     resources :registrations
-    member do
-      get 'register'
-    end
-
   end
 
   resources :consumers do
