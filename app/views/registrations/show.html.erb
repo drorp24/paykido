@@ -10,7 +10,11 @@
 <table>
 	<tbody>
 		<% @registration.attributes.each do |name, value| %>
-		  <% next if name == 'id' or name == 'payer_id' %>
+		  <tr>
+		    <td>Card Number</td>
+		    <td><%= @registration.cardNumber %></td>
+		  </tr>
+		  <% next if name == 'id' or name == 'payer_id' or name == 'cardNumber' or !value %>
 		  <tr>
 		    <td><%= name %></td>
 		    <td><%= value %></td>

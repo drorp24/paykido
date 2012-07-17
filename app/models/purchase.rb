@@ -174,8 +174,8 @@ class Purchase < ActiveRecord::Base
       :sg_Descriptor  => Paykido::Application.config.sg_Descriptor ,
       :sg_NameOnCard => registration.NameOnCard ,
       :sg_CCToken => registration.CCToken  ,
-      :sg_ExpMonth => "09" ,                        ######
-      :sg_ExpYear => "12"  ,                        ######
+      :sg_ExpMonth => registration.ExpMonth ,                       
+      :sg_ExpYear => registration.ExpYear  ,                        
       :sg_TransType => 'Sale' ,
       :sg_Currency  => self.currency ,
       :sg_Amount  => self.amount ,
@@ -190,7 +190,7 @@ class Purchase < ActiveRecord::Base
       :sg_Country  => registration.Country ,
       :sg_Phone  => registration.Phone ,
       :sg_IPAddress  => ip, 
-      :sg_Email  => "drorp24@gmail.com",            ######
+      :sg_Email  => registration.Email,           
       :sg_ClientUniqueID => self.id,
       :sg_Version => Paykido::Application.config.sg_Version,
       :sg_ResponseFormat => "4"

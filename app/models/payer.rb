@@ -67,7 +67,7 @@ class Payer < ActiveRecord::Base
 
   def create_registration!(params)
     self.registrations.create!( 
-        :status => params[:status],
+        :status => params[:Status],
         :NameOnCard => params[:nameOnCard],
         :CCToken => params[:Token],
         :ExpMonth => params[:expMonth],
@@ -81,14 +81,19 @@ class Payer < ActiveRecord::Base
         :Country => params[:country],
         :Zip => params[:zip],
         :Phone => params[:phone1],
-        :Email => params[:Email],
+        :Email => params[:email],
         :ExErrCode => params[:ExErrCode],
         :ErrCode => params[:ErrCode],
         :AuthCode => params[:AuthCode],
         :responseTimeStamp => params[:responseTimeStamp],
         :messgae => params[:message],
         :Reason => params[:Reason],
-        :ReasonCode => params[:ReasonCode]
+        :ReasonCode => params[:ReasonCode],
+        :ppp_status => params[:ppp_status],
+        :PPP_TransactionID => params[:PPP_TransactionID],
+        :client_ip => params[:client_ip],
+        :cardNumber => params[:cardNumber],
+        :uniqueCC => params[:uniqueCC]
     )
     
   end
