@@ -17,11 +17,8 @@ class PurchasesController < ApplicationController
         
   end
   
-  def index
-    
+  def index    
     find_purchases
-    @purchase.notify_merchant('approved') if params[:Status] and params[:Status] == 'APPROVED'
-      
   end
   
 

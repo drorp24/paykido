@@ -1,15 +1,15 @@
 <% unless params[:_pjax] %>
 	<%= render 'primary_navigation'  %>
-	<%= render 'setting_navigation' %>
+	<%= render 'consumer_navigation' %>
 
 <section id="maincontainer">
 	<div id="main" class="container_12">
 <% end %>
 
-<%= render :partial => 'page_head', :locals => {:title => 'Registration Details'} %>
+<%= render :partial => 'page_head', :locals => {:title => 'Transaction Details'} %>
 <table>
 	<tbody>
-		<% @registration.attributes.each do |name, value| %>
+		<% @transaction.attributes.each do |name, value| %>
 		  <% next if name == 'id' or name == 'payer_id' %>
 		  <tr>
 		    <td><%= name %></td>

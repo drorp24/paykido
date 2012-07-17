@@ -6,13 +6,16 @@ Paykido::Application.routes.draw do
 
 
   resources :purchases do
+    resources :transactions
     member do
       get 'approve', 'decline'
     end
   end
   resources :payers do
     resources :consumers
-    resources :purchases
+    resources :purchases do
+      resources :transactions
+    end
     resources :rules
     resources :notifications
     resources :registrations

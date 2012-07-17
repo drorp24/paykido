@@ -206,8 +206,6 @@ class Purchase < ActiveRecord::Base
    end
    
     response = token_response.parsed_response["Response"]
-      Rails.logger.info("Following is the returned Status:")
-      Rails.logger.info(response["Status"])
  
     self.transactions.create!( 
       :type => 'token',
