@@ -1,9 +1,121 @@
-.page_head {
-    height: 41px;   
+#space_before_registration_form {
+    margin-top: 46px;    
 }
 
-.page_head h1, a {
+label:first-child {
+    margin-top: 10px;
+}
+
+label, input {
+    display: block;
+}
+
+#new_registration input {
+    width: 275px;
+    margin-bottom: 10px;
+    margin-top: 2px;
+}
+
+#new_registration input[type="submit"] {
+    height: 70px;
+    font-size: 26px;
+    font-weight: 100;
+    font-family: ubuntu;
+    text-transform: lowercase;
+    margin-top: 37px;
+}
+.content-box {
+    clear: both;
+    float: left;
+    margin: 13px 0 25px;
+    width: 580px;
+}
+.content-box-top {
+    background: url("/images/box-content-top.png") no-repeat scroll 0 0 transparent;
+    clear: both;
+    float: left;
+    height: 5px;
+    width: 580px;
+}
+.content-box-announcement {
+    background: url("/images/box-content-middle.png") repeat scroll 0 0 transparent;
+    clear: both;
+    float: left;
+    padding: 5px 20px;
+    width: 540px;
+    height: 145px;
+}
+.content-box-bottom {
+    background: url("/images/box-content-bottom.png") no-repeat scroll 0 0 transparent;
+    clear: both;
+    float: left;
+    height: 5px;
+    width: 580px;
+}
+
+.feature_overview {
+    font-size: 16px;
+}
+
+.feature_text {
     display: inline;
+    font-size: 19px;
+}
+
+.feature {
+    
+}
+
+
+.marketial img {
+    margin-bottom: -18px;
+}
+
+
+.marketial {
+    margin-left: 24px;
+    font-size: 14px;
+}
+
+td.navigation_icon {
+    width: 15px;
+}
+
+table.navigation {
+    border-collapse: separate;
+}
+
+.page_head {
+    height: 51px;  
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding;
+  -o-background-clip: padding-box;
+  -ms-background-clip: padding-box;
+  -khtml-background-clip: padding-box;
+  background-clip: padding-box;
+  background: #dddddd url('../images/button.png') repeat-x;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #dddddd));
+  background-image: -webkit-linear-gradient(#ffffff, #dddddd);
+  background-image: -moz-linear-gradient(#ffffff, #dddddd);
+  background-image: -o-linear-gradient(#ffffff, #dddddd);
+  background-image: -ms-linear-gradient(#ffffff, #dddddd);
+  background-image: linear-gradient(#ffffff, #dddddd);
+  outline: 0;
+  overflow: visible;
+  padding: 3px 10px;
+  width: auto;
+  *padding-top: 2px;
+  *padding-bottom: 0;
+  margin-bottom: 20px;
+}
+
+.page_head h1 {
+    display: inline;
+    text-shadow: 0 1px 0 #FFFFFF;
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 56px;
+    margin-left: 13px;
 }
 .page_head a {
     float: right;
@@ -59,6 +171,13 @@ td.purchase_details {
 tr:hover {
 	background-color: white;
 }
+tr#noWhite:hover {
+    background-color: transparent;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#44FFFFFF,endColorstr=#44FFFFFF);
+    zoom: 1;
+
+}
+
 body#paykido  a {
 	text-decoration: none;
 }

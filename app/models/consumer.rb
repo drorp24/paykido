@@ -119,8 +119,14 @@ class Consumer < ActiveRecord::Base
     self.save!
   end
   
-  def confirm!            #ToDo: record on consumer and check upon purchase
-    
+  def confirm!            
+    self.confirmed = true
+    self.confirmed_at = Time.now
+    self.save!
+  end
+  
+  def confirmed?
+    self.confirmed
   end
   
   def facebook_user 

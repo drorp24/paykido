@@ -14,8 +14,23 @@
 			<% end %>	
 
             <%= link_to path do %>
-            	<span class="secondary_name"><%= "#{(@payer.name) ? @payer.name + "'s Family" : "Family"}" %></span>
-				<span class="icon32 home fr"><span>
+	            <table class="navigation">
+	            	<tbody>
+	            		<tr id="noWhite">
+	            			<td class="navigation_icon">
+	            				<% if @payer.registered? %>
+	            					<i class="icon-certificate icon-grey"></i>
+	        					<% end %>
+	            			</td>
+	            			<td>
+	            				<span class="secondary_name"><%= "#{(@payer.name) ? @payer.name : "Account"}" %></span>	
+	        				</td>
+	        				<td>
+	        					<span class="icon32 home fr"><span>
+	        				</td>
+	            		</tr>
+	            	</tbody>
+	            </table>
         	<% end %>
         </li>
     	<% @payer.consumers.each do |consumer| %>
@@ -30,12 +45,27 @@
 					<% path = consumer_purchase_transactions_path(consumer, @purchase)  %>
 				<% end %>	
 				<%= link_to path do %>
-	            	<span class="secondary_name"><%= consumer.name %></span>
-	            	<% if consumer.tinypic %>
-	            		<span class="avatar fr"><%= image_tag consumer.tinypic %></span>
-	            	<% else %>
-	            		<span class="icon32 user fr"></span>
-	            	<% end %>           	
+		            <table class="navigation">
+		            	<tbody>
+		            		<tr id="noWhite">
+		            			<td class="navigation_icon">
+		            				<% if true %>
+		            					<i class="icon-ok-circle icon-grey"></i>
+		        					<% end %>
+		            			</td>
+		            			<td>
+					            	<span class="secondary_name"><%= consumer.name %></span>
+				            	</td>
+				            	<td>			            		
+					            	<% if consumer.tinypic %>
+					            		<span class="avatar fr"><%= image_tag consumer.tinypic %></span>
+					            	<% else %>
+					            		<span class="icon32 user fr"></span>
+					            	<% end %>
+				            	</td>
+			            	</tr>
+		            	</tbody>
+	            	</table>           	
 	        	<% end %>
 	        </li>
     	<% end %>

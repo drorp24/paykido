@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120717101318) do
+ActiveRecord::Schema.define(:version => 20120717131147) do
 
   create_table "consumers", :force => true do |t|
     t.string    "billing_phone"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(:version => 20120717101318) do
     t.decimal   "auto_authorize_under"
     t.decimal   "auto_deny_over"
     t.integer   "allowance_every"
+    t.boolean   "confirmed"
+    t.datetime  "confirmed_at"
   end
 
   add_index "consumers", ["billing_phone"], :name => "index_consumers_on_billing_phone"

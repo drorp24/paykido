@@ -19,12 +19,16 @@ class RegistrationsController < ApplicationController
   # GET /registrations/new
   # GET /registrations/new.json
   def new
-    redirect_to @payer.g2spp
+    @registration = Registration.new
   end
 
   # GET /registrations/1/edit
   def edit
 
+  end
+  
+  def create
+    redirect_to @payer.g2spp(params) 
   end
 
   # POST /registrations

@@ -1,0 +1,36 @@
+<% unless params[:_pjax] %>
+	<%= render 'primary_navigation'  %>
+	<%= render 'setting_navigation' %>
+
+<section id="maincontainer">
+	<div id="main" class="container_12">
+<% end %>
+
+<div class="marketial">
+	<div class="grid_4 alpha">
+		<h1>Have Paykido enforce your policy</h1>
+		<br />
+		<p>
+			Wouldn’t it be nice to set your policy and have someone watch your kid’s every purchase for compliance, 24 by 7?
+		</p>
+		<p>
+			Paykido does just that. It will block any non compliant purchase your kid attempts to make.
+		</p>
+		<p>
+			Better yet: Paykido pays when a purchase does comply with your rules. 
+		</p>
+		<p>
+			All that without charging a cent in advance, and absolutely for free!
+	 	</p>
+	 	<p>
+		<p>-- REGISTER BUTTON -- </P>
+	</div>
+	<div class="grid_6 omega">
+		<%= image_tag "yellowshirt_kid.png"%>
+	</div>
+</div>
+
+<% unless params[:_pjax] %>
+  </div>
+</section>
+<% end %>

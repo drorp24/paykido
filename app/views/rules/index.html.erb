@@ -30,7 +30,7 @@
 	</table>
 	
 	<br />
-	<%= link_to 'Add a new rule', new_payer_rule_path(@payer) if @payer.registered? or !Paykido::Application.rules_require_registration %>
+	<%= link_to 'Add a new rule', new_payer_rule_path(@payer) if @payer.registered? or !Paykido::Application.config.rules_require_registration %>
 
 <% unless params[:_pjax] %>  
   </div>

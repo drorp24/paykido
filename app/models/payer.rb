@@ -11,7 +11,7 @@ class Payer < ActiveRecord::Base
    
   attr_accessor :password_confirmation          # remove once Devise is in
   
-  def g2spp
+  def g2spp(params)
     # return the url to redirect to for manual payment including all parameters
 
     time_stamp = Time.now.strftime('%Y-%m-%d %H:%M:%S')
@@ -30,25 +30,19 @@ class Payer < ActiveRecord::Base
       "version=" +   Paykido::Application.config.version + "&" +
       "customField1=" + "registration" + "&" +
       "customField2=" + self.id.to_s + "&" +
-      "&merchantLocale=" + I18n.locale.to_s + "&" +
-      "checksum=" + self.checksum(time_stamp, item_name) + test_fields
+      "merchantLocale=" + I18n.locale.to_s + "&" +
+      "checksum=" + self.checksum(time_stamp, item_name) + populate_fields(params)
       )
     
   end
   
-  def test_fields
+  def populate_fields(params)
 
-    return "" unless Paykido::Application.config.populate_test_fields
-    
-    "&first_name=Dror" +
-    "&last_name=Poliak" +
-    "&email=drorp24@yahoo.com" +
-    "&address1=Shamgar 23" +
-    "&city=Tel Aviv" +
-    "&country=Israel" +
-    "&zip=69935" +
-    "&phone1=0542343220"
-    
+    "&first_name=" + params[:registration][:FirstName] +
+    "&last_name=" + params[:registration][:LastName] +
+    "&email=" + params[:registration][:Email] +
+    "&phone1=" + params[:registration][:Phone]
+   
   end
 
   def checksum(time_stamp, item_name)

@@ -275,8 +275,9 @@ class Purchase < ActiveRecord::Base
 
   def authorize!
        
+    self.authorized = false
+
     unless self.payer.registered? 
-      self.authorized = false
       self.authorization_property = "registration"
       self.authorization_value = "missing"
       self.require_approval
@@ -285,7 +286,14 @@ class Purchase < ActiveRecord::Base
       return      
     end
 
-    self.authorized = false
+    unless self.consumer.confirmed? 
+      self.authorization_property = "confirmation"
+      self.authorization_value = "missing"
+      self.require_approval
+      self.authorization_date = Time.now
+      self.save!
+      return      
+    end
 
     self.properties.each {|property,value| 
       if self.consumer.blacklisted?(property, value)  

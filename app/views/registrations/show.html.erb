@@ -14,12 +14,16 @@
 		    <td><%= @registration.cardNumber %></td>
 		  </tr>
 		<% @registration.attributes.each do |name, value| %>
-		  <% next if name == 'id' or name == 'payer_id' or name == 'cardNumber' or !value %>
+		  <% next if ['id', 'payer_id', 'cardNumber', 'CCToken'].include? name or !value %>
 		  <tr>
 		    <td><%= name %></td>
 		    <td><%= value %></td>
 		  </tr>
 		<% end %>
+		  <tr>
+		    <td>Token</td>
+		    <td><%= @registration.CCToken %></td>
+		  </tr>
 	</tbody>
 </table>
 

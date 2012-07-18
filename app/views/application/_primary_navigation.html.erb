@@ -21,7 +21,8 @@
 	      	<% end %>
 	    </li>
 	    <li class="menu" id="setting_menu" >
-	      	<%= link_to payer_registrations_path(@payer) do%>
+	    	<% path = (@payer.registered?) ? payer_registrations_path(@payer) : new_payer_registration_path(@payer) %>
+	      	<%= link_to path do%>
 	        	<span class="icon32 cog"></span>
 	        	Settings
 	      	<% end %>

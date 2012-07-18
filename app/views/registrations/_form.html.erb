@@ -1,17 +1,25 @@
-<%= form_for(@registration) do |f| %>
-  <% if @registration.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@registration.errors.count, "error") %> prohibited this registration from being saved:</h2>
+<%= form_for(@registration, :url=> payer_registrations_path(@payer), :html => {:class => "clearfix fr"}) do |f| %>
+	<% if @registration.errors.any? %>
+		<div id="error_explanation">
+		  <h2><%= pluralize(@registration.errors.count, "error") %> prohibited this registration from being saved:</h2>
+		
+		  <ul>
+		  <% @registration.errors.full_messages.each do |msg| %>
+		    <li><%= msg %></li>
+		  <% end %>
+		  </ul>
+		</div>
+  	<% end %>
 
-      <ul>
-      <% @registration.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+	<p id="space_before_registration_form"></p>
+	<%= f.label :FirstName %><%= f.text_field :FirstName %>
+	<%= f.label :LastName %><%= f.text_field :LastName %>
+	<%= f.label :Phone %><%= f.text_field :Phone %>
+	<%= f.label :Email %><%= f.text_field :Email %>
+	
+
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Register, it's free!", :class => "blue button" %>
   </div>
 <% end %>
