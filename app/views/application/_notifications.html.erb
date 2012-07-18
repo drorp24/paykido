@@ -1,3 +1,7 @@
+<div id="registration_failure" class="alert"  style="display: none;">
+    <button class="close" data-dismiss="alert">×</button>
+    <strong>Registration Failed!</strong> <%= params[:message] if params[:message] %>
+</div>
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -11,6 +15,7 @@ $(document).ready(function() {
 		$('.consumer.active').addClass('confirmed');
 	<% else %>
 	    notification('<%= "Registration failed" %>', false, 'alert', true)
+	    $('#registration_failure').show();
 	<% end %>
 <% end %>
 
