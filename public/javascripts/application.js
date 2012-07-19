@@ -22,7 +22,7 @@ $(document).ready(function (){
           });  
         }; 
 
-    // Home-made ajax + close modal ToDo: fix url, should be passed as parameter
+    // MODALS: Home-made ajax + close modal ToDo: fix url, should be passed as parameter
 
     jQuery.fn.act_as_modal = function () {  
 
@@ -37,18 +37,27 @@ $(document).ready(function (){
         
     }
     
+    // ALERTS
     $(".alert").alert()
-    
-    $(function(){
-        $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]')
-    })
     
     // For sroa this binding doesn't work out of the alert box
     $('[data-dismiss="alert"]').bind('click', function () {
         $(this).alert('close');
     })
+    
 
+    // PJAX
+    
+    $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]')
+   
+    $('nav#secondary a').pjax('[data-pjax-container]');
 
+/* REPLACE WITH DATA-SKIP-PJAX THERE
+    $('nav#primary a').click(function() {
+        window.location = $(this).attr("href");
+        return false;
+    });
+     
 /*
     $('#dashboard_right').bind('start.pjax', function() {
         $('#dashboard_right').fadeOut(1000) 
