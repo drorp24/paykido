@@ -795,6 +795,12 @@ input[type="color"],
   font-size: 13px;
   line-height: 18px;
   color: #555555;
+  /* Dror */
+   -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  /* Dror */
 }
 
 input,

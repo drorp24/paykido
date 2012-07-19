@@ -1,3 +1,12 @@
+#login_form form {
+   margin: 0; 
+}
+
+#login_form form input {
+   margin: 0; 
+}
+
+
 #space_before_registration_form {
     margin-top: 46px;    
 }

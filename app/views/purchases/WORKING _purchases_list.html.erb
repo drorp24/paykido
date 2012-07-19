@@ -150,7 +150,7 @@ $(document).ready(function() {
 	// Purchase row + detail selection
 
 	//ajax the href/data-href content when clicked into specified container
-	$('.purchase_row').sp_pjax('[data-pjax-container]');  // have .purchase_row (tr, not a) behave as a/pjax/data-href
+	$('.purchase_row').pjax("#dashboard_right");  // have .purchase_row (tr, not a) behave as a/pjax/data-href
 
     //indicte active tr line
     $('#purchases tr').click(function() {

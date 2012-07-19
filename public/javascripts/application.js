@@ -38,5 +38,22 @@ $(document).ready(function (){
     }
     
     $(".alert").alert()
-         
+    
+    $(function(){
+        $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]')
+    })
+    
+    // For sroa this binding doesn't work out of the alert box
+    $('[data-dismiss="alert"]').bind('click', function () {
+        $(this).alert('close');
+    })
+
+
+/*
+    $('#dashboard_right').bind('start.pjax', function() {
+        $('#dashboard_right').fadeOut(1000) 
+        }).bind('end.pjax', function() { 
+        $('#dashboard_right').fadeIn(1000) 
+    });
+*/         
 });

@@ -52,6 +52,7 @@ GEM
       term-ansicolor (~> 1.0.5)
     highline (1.6.13)
     hike (1.2.1)
+    hpricot (0.8.6)
     httmultiparty (0.3.6)
       httparty (>= 0.7.3)
       multipart-post
@@ -98,6 +99,9 @@ GEM
       rack (>= 0.4)
     rack-mount (0.8.3)
       rack (>= 1.0.0)
+    rack-pjax (0.5.9)
+      hpricot (~> 0.8.6)
+      rack (~> 1.3)
     rack-ssl (1.3.2)
       rack
     rack-test (0.6.1)
@@ -172,6 +176,7 @@ DEPENDENCIES
   newrelic_rpm
   paypal_adaptive
   pg
+  rack-pjax
   rails (= 3.1.3)
   ruby_core_source
   sqlite3
