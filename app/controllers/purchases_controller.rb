@@ -154,7 +154,7 @@ class PurchasesController < ApplicationController
         
     if params[:id]
       begin    
-        @purchase = Purchase.find(params[:id])
+        @purchase = @payer.purchases.find(params[:id])   ## replace @payer with current_user
       rescue ActiveRecord::RecordNotFound
         flash[:error] = "No such purchase id"
         redirect_to :controller => "home", :action => "routing_error"

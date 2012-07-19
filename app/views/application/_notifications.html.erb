@@ -1,7 +1,8 @@
-<div id="registration_failure" class="alert"  style="display: none;">
-    <button class="close" data-dismiss="alert">×</button>
-    <strong>Registration Failed!</strong> <%= params[:message] if params[:message] %>
-</div>
+<div class="alert alert-block">
+    <a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Warning!</h4>
+    Best check yo self, you're not...
+    </div>
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -14,7 +15,7 @@ $(document).ready(function() {
 	    notification("<%= "Successfully registered!"%>", false, 'file', true)
 		$('.consumer.active').addClass('confirmed');
 	<% else %>
-	    notification('<%= "Registration failed" %>', false, 'alert', true)
+//	    notification('<%= "Registration failed" %>', false, 'alert', true)
 	    $('#registration_failure').show();
 	<% end %>
 <% end %>

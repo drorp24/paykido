@@ -77,7 +77,7 @@ class RegistrationsController < ApplicationController
     
     if params[:id]
       begin    
-        @registration = Registration.find(params[:id])
+        @registration = @payer.registrations.find(params[:id])    ## replace @payer with current_user
       rescue ActiveRecord::RecordNotFound
         flash[:error] = "No such registration id"
         redirect_to :controller => "home", :action => "routing_error"

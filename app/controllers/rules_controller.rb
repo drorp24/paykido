@@ -84,7 +84,7 @@ class RulesController < ApplicationController
     
     if params[:id]
       begin    
-        @rule = Rule.find(params[:id])
+        @rule = @payer.rules.find(params[:id])  ## replace @payer with current_user
       rescue ActiveRecord::RecordNotFound
         flash[:error] = "No such rule id"
         redirect_to :controller => "home", :action => "routing_error"

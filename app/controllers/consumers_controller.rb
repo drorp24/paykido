@@ -101,7 +101,7 @@ class ConsumersController < ApplicationController
         
     if params[:id]
       begin    
-        @consumer = Consumer.find(params[:id])
+        @consumer = @payer.consumers.find(params[:id])   ## replace @payer with current_user
       rescue ActiveRecord::RecordNotFound
         flash[:error] = "No such consumer id"
         redirect_to :controller => "home", :action => "routing_error"
