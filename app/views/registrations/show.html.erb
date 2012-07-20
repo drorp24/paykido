@@ -1,34 +1,32 @@
-<% unless params[:_pjax] %>
-	<%= render 'primary_navigation'  %>
-	<%= render 'setting_navigation' %>
+<%= render 'primary_navigation'  %>
+<%= render 'setting_navigation' %>
 
 <section id="maincontainer">
-	<div id="main" class="container_12">
-<% end %>
 
-<%= render :partial => 'page_head', :locals => {:title => 'Registration Details', :backPath => payer_registrations_path(@payer)} %>
-<table>
-	<tbody>
-		  <tr>
-		    <td>Card Number</td>
-		    <td><%= @registration.cardNumber %></td>
-		  </tr>
-		<% @registration.attributes.each do |name, value| %>
-		  <% next if ['id', 'payer_id', 'cardNumber', 'CCToken'].include? name or !value %>
-		  <tr>
-		    <td><%= name %></td>
-		    <td><%= value %></td>
-		  </tr>
-		<% end %>
-		  <tr>
-		    <td>Token</td>
-		    <td><%= @registration.CCToken %></td>
-		  </tr>
-	</tbody>
-</table>
+	<%= render :partial => 'page_head', :locals => {:title => 'Registration Details', :backPath => payer_registrations_path(@payer)} %>
 
-<br />
-<% unless params[:_pjax] %>
-  </div>
+	<table>
+		<tbody>
+			  <tr>
+			    <td>Card Number</td>
+			    <td><%= @registration.cardNumber %></td>
+			  </tr>
+			<% @registration.attributes.each do |name, value| %>
+			  <% next if ['id', 'payer_id', 'cardNumber', 'CCToken'].include? name or !value %>
+			  <tr>
+			    <td><%= name %></td>
+			    <td><%= value %></td>
+			  </tr>
+			<% end %>
+			  <tr>
+			    <td>Token</td>
+			    <td><%= @registration.CCToken %></td>
+			  </tr>
+		</tbody>
+	</table>
+	
+	<br />
+
 </section>
-<% end %>
+
+<%= render 'notifications' %>

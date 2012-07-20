@@ -32,15 +32,13 @@ class PurchasesController < ApplicationController
   # the payer's purchases is a cached DB query, and once a certain purchase is brought the entire page is cached at the web server level
   
   def show
-
-    find_purchases    
-
     if request.headers['X-PJAX']
       render :partial => 'show'
     else
-      render 'index'
+      find_purchases
+      render :index, :id => params[:id]
     end
-    
+
   end
 
   def approve

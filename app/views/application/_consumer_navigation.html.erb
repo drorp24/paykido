@@ -6,14 +6,14 @@
 			<% if params[:controller] == 'purchases' %>
 				<% path = payer_purchases_path(@payer)  %>
 			<% elsif params[:controller] == 'consumers' %>
-				<% path = payer_path(@payer)  %>
+				<% path = payer_consumers_path(@payer)  %>
 			<% elsif params[:controller] == 'rules' %>
 				<% path = payer_rules_path(@payer)  %>
 			<% elsif params[:controller] == 'transactions' %>
 				<% path = payer_purchase_transactions_path(@payer, @purchase)  %>
 			<% end %>	
 
-            <%= link_to path do %>
+            <a href="<%= path %>" data-skip-pjax>
 	            <table class="navigation">
 	            	<tbody>
 	            		<tr id="noWhite">
@@ -31,7 +31,7 @@
 	            		</tr>
 	            	</tbody>
 	            </table>
-        	<% end %>
+        	</a>
         </li>
     	<% @payer.consumers.each do |consumer| %>
 	        <li class="consumer <%= "active" if (@consumer and @consumer.id == consumer.id) %>">
@@ -44,7 +44,7 @@
 				<% elsif params[:controller] == 'transactions' %>
 					<% path = consumer_purchase_transactions_path(consumer, @purchase)  %>
 				<% end %>	
-				<%= link_to path do %>
+				<a href="<%= path %>" data-skip-pjax>
 		            <table class="navigation">
 		            	<tbody>
 		            		<tr id="noWhite">
@@ -66,7 +66,7 @@
 			            	</tr>
 		            	</tbody>
 	            	</table>           	
-	        	<% end %>
+	        	</a>
 	        </li>
     	<% end %>
 	</ul>

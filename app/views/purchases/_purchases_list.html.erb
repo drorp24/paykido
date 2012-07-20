@@ -172,11 +172,12 @@ $(document).ready(function() {
     proper_tr.addClass('active');
 	
 	//3. programmatically pjax the proper purchase to the right pane
-	$.pjax({                              
-	  url: proper_tr.attr('data-href'),
-	  container: '#dashboard_right'
-	})
-
+	<% unless params[:id] %>
+		$.pjax({                              
+		  url: proper_tr.attr('data-href'),
+		  container: '#dashboard_right'
+		})
+	<% end %>
 
 });
 

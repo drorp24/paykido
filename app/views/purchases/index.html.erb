@@ -1,25 +1,19 @@
-<% unless params[:_pjax] %>
-	<%= render 'primary_navigation'  %>
-	<%= render 'consumer_navigation' %> 
+<%= render 'primary_navigation'  %>
+<%= render 'consumer_navigation' %> 
 
 <section id="maincontainer">
-	<div id="main" class="container_12">
-<% end %>
 
+		<%= render :partial => 'page_head', :locals => {:title => "Purchases"} %>
+		
+		<div class="box-content container_12">	   
+		    <div class="box grid_6 alpha purchase_height" id="dashboard_left"> 	
+		        <%= render 'purchases_list' %>	                            
+		    </div> 	     
+		    <div class="box grid_6 omega purchase_height" id="dashboard_right"> 	    
+		        <%= render 'show' if @purchase %>                       	     
+		    </div> 	    
+		</div>  
 
-<div class="box-content">	   
-    <div class="box grid_6 alpha purchase_height" id="dashboard_left"> 	
-        <%= render 'purchases_list' %>	                            
-    </div> 	     
-    <div class="box grid_6 omega purchase_height" id="dashboard_right"> 	    
-        <%= render 'show' if @purchase %>                       	     
-    </div> 	    
-</div>  
-
-
-<% unless params[:_pjax] %>
-  </div>
 </section>
-<% end %>
 
 <%= render 'notifications' %>

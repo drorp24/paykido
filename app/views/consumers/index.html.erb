@@ -1,20 +1,12 @@
-<% unless params[:_pjax] %>
-	<%= render 'primary_navigation' %>
-	<%= render 'consumer_navigation' %>
+<%= render 'primary_navigation' %>
+<%= render 'consumer_navigation' %>
 
 <section id="maincontainer">
-	<div id="main" class="container_12">
-<% end %>
 
+	<% if controller.action_name == 'confirm' %>
+	   	<%= render 'confirmation_popover' %>
+	<% end %>
 
-<% if controller.action_name == 'confirm' %>
-   	<%= render 'confirmation_popover' %>
-<% end %>
-
-  
-<% unless params[:_pjax] %>  
-  </div>
 </section>
-<% end %>
 
 <%= render 'notifications' %>

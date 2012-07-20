@@ -1,3 +1,7 @@
+#dashboard_left {
+    margin-left: -15px;
+}
+
 #login_form form {
    margin: 0; 
 }
@@ -116,6 +120,7 @@ table.navigation {
   *padding-top: 2px;
   *padding-bottom: 0;
   margin-bottom: 20px;
+  margin-left: -18px;
 }
 
 .page_head h1 {
@@ -124,7 +129,7 @@ table.navigation {
     font-size: 32px;
     font-weight: bold;
     line-height: 56px;
-    margin-left: 13px;
+    margin-left: 5px;
 }
 .page_head a {
     float: right;
@@ -458,6 +463,7 @@ body#paykido .tooltip.large {
 #new_rule {
     width: 80%;
     margin-left: 20%;
+    display: none;
 }
 
 #new_rule .box-content {

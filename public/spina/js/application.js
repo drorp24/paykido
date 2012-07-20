@@ -80,7 +80,7 @@ $('document').ready(function() {
     return false;
   });
   
-  function init() {
+  function sp_init() {
     
     /*************
       Datepicker
@@ -226,7 +226,7 @@ $('document').ready(function() {
       Modal functionality
     **********************/
   
-    $('a.modal').each(function() {
+    $('a.sp_modal').each(function() {
       var link = $(this);
       var id = link.attr('href');
       var target = $(id);
@@ -380,7 +380,7 @@ $('document').ready(function() {
     });
   }
   
-  init();
+  sp_init();
 
 });
 

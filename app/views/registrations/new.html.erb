@@ -1,58 +1,54 @@
-<% unless params[:_pjax] %>
-	<%= render 'primary_navigation'  %>
-	<%= render 'setting_navigation' %>
+<%= render 'primary_navigation'  %>
+<%= render 'setting_navigation' %>
 
 <section id="maincontainer">
-	<div id="main">
-<% end %>
 
-<%= render :partial => 'page_head', :locals => {:title => "Paykido Rules ®"} %>
-
-<div class="marketial container_12">
-	<div class="grid_8 alpha">
-		<h3>What do I get by registering?</h3>
-		<br />
-		<p class="feature_overview">
-			Paykido is very unique in that it protects kids' shopping without even asking for your credit card number. But there are plenty of benefits for those who will provide it:
-		</p>
-		<br />
-
-		<div class="content-box">
-			<div class="content-box-top"></div>
-			<div class="content-box-announcement">
-				<p class="feature">
-					<span><%= image_tag "approved.png"%></span>
-					<span class="feature_text">Set your policy or have Paykido learn it</span>
-				</p>
-				<p class="feature">
-					<span><%= image_tag "approved.png"%></span>
-					<span class="feature_text">Let Paykido block bad purchases</span>
-				</p>
-				<p class="feature">
-					<span><%= image_tag "approved.png"%></span>
-					<span class="feature_text">Let Paykido pay for safe purchases</span>
-			 	</p>
+	<%= render :partial => 'page_head', :locals => {:title => "Paykido Rules ®"} %>
+	
+	<div class="container_12">
+		<div class="grid_8 alpha">
+			<h3>What do I get by registering?</h3>
+			<br />
+			<p class="feature_overview">
+				Paykido is very unique in that it protects kids' shopping without even asking for your credit card number. But there are plenty of benefits for those who will provide it:
+			</p>
+			<br />
+	
+			<div class="content-box">
+				<div class="content-box-top"></div>
+				<div class="content-box-announcement">
+					<p class="feature">
+						<span><%= image_tag "approved.png"%></span>
+						<span class="feature_text">Set your policy or have Paykido learn it</span>
+					</p>
+					<p class="feature">
+						<span><%= image_tag "approved.png"%></span>
+						<span class="feature_text">Let Paykido block bad purchases</span>
+					</p>
+					<p class="feature">
+						<span><%= image_tag "approved.png"%></span>
+						<span class="feature_text">Let Paykido pay for safe purchases</span>
+				 	</p>
+			 	</div>
+				<div class="content-box-bottom"></div>
 		 	</div>
-			<div class="content-box-bottom"></div>
-	 	</div>
-		<br />
-		<br />
-		<br />
-		<div class="grid_6 alpha">
-		<h3>How secure is Paykido?</h3>
-		<p>Paykido has partnered with the world's biggest payment service providers to provide you with the utmost security and safety. </p>
+			<br />
+			<br />
+			<br />
+			<div class="grid_6 alpha">
+			<h3>How secure is Paykido?</h3>
+			<p>Paykido has partnered with the world's biggest payment service providers to provide you with the utmost security and safety. </p>
+			</div>
+			<div class="grid_6 omega">
+			<h3>Why credit card?</h3>
+			<p>Paykido pays for purchases that comply with your rules. That requires a credit card. Paykido never keeps your credit card details though. It's the payment service providers who do.</p>
+			</div>
 		</div>
-		<div class="grid_6 omega">
-		<h3>Why credit card?</h3>
-		<p>Paykido pays for purchases that comply with your rules. That requires a credit card. Paykido never keeps your credit card details though. It's the payment service providers who do.</p>
+		<div class="grid_4 omega">
+			<%= render 'form' %>
 		</div>
 	</div>
-	<div class="grid_4 omega">
-		<%= render 'form' %>
-	</div>
-</div>
 
-<% unless params[:_pjax] %>
-  </div>
 </section>
-<% end %>
+
+<%= render 'notifications' %>

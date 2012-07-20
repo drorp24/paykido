@@ -1,10 +1,7 @@
-<% unless params[:_pjax] %>
-	<%= render 'primary_navigation' %>
-	<%= render 'setting_navigation' %>
+<%= render 'primary_navigation' %>
+<%= render 'setting_navigation' %>
 
 <section id="maincontainer">
-	<div id="main">
-<% end %>
 
 	<%= render :partial => 'page_head', :locals => {:title => 'Account Registration'} %>
 	
@@ -23,9 +20,6 @@
 	<br />
 	<%= link_to 'Register to Paykido - it\'s free!', new_payer_registration_path unless @payer.registered? %>
 
-<% unless params[:_pjax] %>  
-  </div>
 </section>
-<% end %>
 
 <%= render 'notifications' %>

@@ -67,10 +67,10 @@
                     </td>
                     <% if value != nil %>
                     <td class="actions">
-                        <a id="blacklist" href="#new_rule" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule="blacklist" data-property="<%= property %>" data-value="<%= value %>" class="modal small button rule <%= (@purchase.consumer.blacklisted?(property,value)) ?'blue' :'regular greyedOut' %>">
+                        <a id="blacklist" href="#new_rule" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule="blacklist" data-property="<%= property %>" data-value="<%= value %>" class="sp_modal small button rule <%= (@purchase.consumer.blacklisted?(property,value)) ?'blue' :'regular greyedOut' %>">
                             <span class="icon16 blacklist"></span>NO
                         </a>
-                        <a id="whitelist" href="#new_rule" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule="whitelist" data-property="<%= property %>" data-value="<%= value %>" class="modal small button rule <%= (@purchase.consumer.whitelisted?(property,value)) ?'blue' :'regular greyedOut' %>">
+                        <a id="whitelist" href="#new_rule" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule="whitelist" data-property="<%= property %>" data-value="<%= value %>" class="sp_modal small button rule <%= (@purchase.consumer.whitelisted?(property,value)) ?'blue' :'regular greyedOut' %>">
                             <span class="icon16 whitelist"></span>OK
                         </a>
                     </td>
@@ -84,8 +84,6 @@
                 
 
             <% end %>
-			<%= render 'rule_popover' %> 		
-			<%= render 'rule_modal' %>
             <% end %>   
         <% end %>
         </tbody>
