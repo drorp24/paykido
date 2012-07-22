@@ -65,21 +65,24 @@
                             <%= value %>
                         <% end %>
                     </td>
-                    <% if value != nil %>
                     <td class="actions">
+                    <% if value != nil %>
                         <a id="blacklist" href="#new_rule" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule="blacklist" data-property="<%= property %>" data-value="<%= value %>" class="sp_modal small button rule <%= (@purchase.consumer.blacklisted?(property,value)) ?'blue' :'regular greyedOut' %>">
                             <span class="icon16 blacklist"></span>NO
                         </a>
                         <a id="whitelist" href="#new_rule" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule="whitelist" data-property="<%= property %>" data-value="<%= value %>" class="sp_modal small button rule <%= (@purchase.consumer.whitelisted?(property,value)) ?'blue' :'regular greyedOut' %>">
                             <span class="icon16 whitelist"></span>OK
                         </a>
+					<% end %>
                     </td>
                     <td>
+                    <% if value != nil %>
                         <a href='#' id="approval_rule_q">
                             <span class="help fr"></span>
                         </a>
+					<% end %>
                     </td> 
-                    <% end %>
+
                 </tr>
                 
 

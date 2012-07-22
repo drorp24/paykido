@@ -1,5 +1,7 @@
 class AccountController < ApplicationController
 
+  before_filter :check_and_restore_session, :except => [:login, :logout]
+
   def login       # (replace with Devise user based authentication)
 
   # ToDo: Get rid of session, once all app is RESTful
