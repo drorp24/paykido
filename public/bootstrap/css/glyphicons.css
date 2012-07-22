@@ -35,7 +35,8 @@ li.active [class^="sprite-"],
 
 .bigicon-parents { background-position: 45% 9.75%}
 .bigicon-seal {background-position: 27% 83.375%}
-/*
+.bigicon-check-in-a-box { background-position: 9% 40.625%}
+.bigicon-plus-in-a-circle { background-position: 9% 50.125% }
 .bigicon_000_glass{ background-position: 0 0; width: 24px; height: 24px; } 
 .bigicon_001_leaf{ background-position: 0 -74px; width: 24px; height: 25px; } 
 .bigicon_002_dog{ background-position: 0 -149px; width: 26px; height: 25px; } 

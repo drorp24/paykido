@@ -3,51 +3,49 @@
 
 <section id="maincontainer">
 
-	<%= render :partial => 'page_head', :locals => {:title => "Paykido Rules ®"} %>
+	<%= render :partial => 'page_head', :locals => {:title => ""} %>
 	
-	<div class="container_12">
-		<div class="grid_8 alpha">
-			<h3>What do I get by registering?</h3>
-			<br />
-			<p class="feature_overview">
-				Paykido is very unique in that it protects kids' shopping without even asking for your credit card number. But there are plenty of benefits for those who will provide it:
-			</p>
-			<br />
 	
-			<div class="content-box">
-				<div class="content-box-top"></div>
-				<div class="content-box-announcement">
+	<div class="row">
+		<div class="span7">
+
+			<div class="hero-unit">
+				<h1>Why Register to Paykido</h1>
+				<p>Paykido doesnt require your credit card. But there are plenty of benefits for you if you do provide it.</p>				
+				<div class="features">
 					<p class="feature">
-						<span><%= image_tag "approved.png"%></span>
+						<span class="icon32 tick"></span>
 						<span class="feature_text">Set your policy or have Paykido learn it</span>
 					</p>
 					<p class="feature">
-						<span><%= image_tag "approved.png"%></span>
+						<span class="icon32 tick"></span>
 						<span class="feature_text">Let Paykido block bad purchases</span>
 					</p>
 					<p class="feature">
-						<span><%= image_tag "approved.png"%></span>
+						<span class="icon32 tick"></span>
 						<span class="feature_text">Let Paykido pay for safe purchases</span>
 				 	</p>
 			 	</div>
-				<div class="content-box-bottom"></div>
-		 	</div>
-			<br />
-			<br />
-			<br />
-			<div class="grid_6 alpha">
-			<h3>How secure is Paykido?</h3>
-			<p>Paykido has partnered with the world's biggest payment service providers to provide you with the utmost security and safety. </p>
 			</div>
-			<div class="grid_6 omega">
-			<h3>Why credit card?</h3>
-			<p>Paykido pays for purchases that comply with your rules. That requires a credit card. Paykido never keeps your credit card details though. It's the payment service providers who do.</p>
-			</div>
+		 	
 		</div>
-		<div class="grid_4 omega">
+
+		<div class="span4 well registration_form">
 			<%= render 'form' %>
 		</div>
+
 	</div>
+	<div class=row>
+		<div class="span5">
+			<h3>How secure is Paykido?</h3>
+			<p>Paykido has partnered with the world's biggest payment service providers to provide you with the utmost security and safety. </p>
+		</div>
+		<div class="span5 offset2">
+			<h3>Why credit card?</h3>
+			<p>Paykido pays for purchases that comply with your rules. We dont keep your credit card. It's the payment service providers that do.</p>
+		</div>
+	</div>
+
 
 </section>
 
