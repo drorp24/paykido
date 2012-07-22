@@ -1,3 +1,7 @@
+.filters a {
+    cursor: pointer;
+}
+
 #new_registration .blue.button {
     width: 100%;
 }   

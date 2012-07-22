@@ -4,20 +4,20 @@
 </div>
 
 <div class="action_bar filters">
-    <a href="#" class="small button" id="pending-button">
+    <a class="small button" id="pending-button">
         <span class="icon16 question"></span>
         Pending
         <span class="message-count"><%= @pendings_count %></span>
     </a>
-    <a href="#" class="small button" id="authorized-button">
+    <a class="small button" id="authorized-button">
         <span class="icon16 tick"></span>
         Approved
     </a>
-    <a href="#" class="small button" id="blocked-button">
+    <a class="small button" id="blocked-button">
         <span class="icon16 delete"></span>
         Declined
     </a>
-    <a href="#" class="small button" id="all-button">
+    <a class="small button" id="all-button">
         <span class="icon16 refresh"></span>
         All
     </a>
@@ -101,13 +101,21 @@ $(document).ready(function() {
 	        { "sWidth": "0%", "aTargets": [ 3]},
 	        { "sWidth": "80%", "aTargets": [ 4 ]},
  	        { "sWidth": "20%", "aTargets": [ 5 ]},
-       ],
+      		{ "bUseRendered": false, "aTargets": [ 2 ] }
+      	],
         "aaSorting": [
         	[0,'desc']
     	]
     } );
-
-
+    
+ 
+	// check the internal values of a clicked tr
+/*
+	$('tr').click( function () {
+	    var sData = pTable.fnGetData( this );
+	    alert( 'The cell clicked on had the value of '+sData );
+  	} );
+*/
 	// Filtering - replace later with tabs
 	
 	//	Set the default filter to either be pending or all	
@@ -133,12 +141,14 @@ $(document).ready(function() {
             $('.action_bar.filters a').removeClass('blue');
             $(this).addClass('blue');
             pTable.fnFilter('Whitelisted|Approved|Authorized|Always|Under', 1, true, false, false );
+//          	pTable.fnFilter(true, 2, false, false, false );
+ 
     });
 
     $('#blocked-button').click(function () {
             $('.action_bar.filters a').removeClass('blue');
             $(this).addClass('blue');
-            pTable.fnFilter('Blacklisted|Low|High|Unauthorized|Declined|Zero|Insufficient|Over', 1, true, false, false);
+            pTable.fnFilter('Blacklisted|Low|High|Unauthorized|Unqualified|Declined|Denied|Zero|insufficient|Over', 1, true, false, false);
     });
 
      $('#all-button').click(function () {

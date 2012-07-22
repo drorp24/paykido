@@ -1307,7 +1307,7 @@ h6 {
 
 .box-content ul li {
   line-height: 20px;
-  list-style: disc;
+/*  list-style: disc; */ /* Dror */
   margin-left: 14px;
 }
 
