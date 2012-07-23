@@ -32,7 +32,7 @@ class PurchasesController < ApplicationController
   # the payer's purchases is a cached DB query, and once a certain purchase is brought the entire page is cached at the web server level
   
   def show
-    if request.headers['X-PJAX'] and params[:_pjax] == 'true'   # if the param != 'true' then the whole page is requested
+    if request.headers['X-PJAX'] and params[:_pjax] != 'data-pjax-container'   # (ugly) the latter implies the whole page is requested
       render :partial => 'show'
     else
       find_purchases
