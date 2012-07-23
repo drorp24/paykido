@@ -19,14 +19,16 @@
 	            		<tr id="noWhite">
 	            			<td class="navigation_icon">
 	            				<% if @payer.registered? %>
-	            					<i class="icon-certificate icon-greybigicon"></i>
+	            					<i class="bigicon-shield"></i>
+            					<% else %>
+            						<i class="bigicon-placeholder"></i>
 	        					<% end %>
 	            			</td>
 	            			<td>
 	            				<span class="secondary_name"><%= "#{(@payer.name) ? @payer.name : "Account"}" %></span>	
 	        				</td>
 	        				<td>
-	        					<span class="icon32 home fr"><span>
+	        					<i class="bigicon-parents fr"></i>
 	        				</td>
 	            		</tr>
 	            	</tbody>
@@ -49,8 +51,10 @@
 		            	<tbody>
 		            		<tr id="noWhite">
 		            			<td class="navigation_icon">
-		            				<% if false %>
+		            				<% if consumer.confirmed? %>
 		            					<i class="bigicon-seal"></i>
+	            					<% else %>
+	            						<i class="bigicon-placeholder"></i>
 		        					<% end %>
 		            			</td>
 		            			<td>
@@ -60,7 +64,7 @@
 					            	<% if consumer.tinypic %>
 					            		<span class="avatar fr"><%= image_tag consumer.tinypic %></span>
 					            	<% else %>
-					            		<span class="icon32 user fr"></span>
+					            		<i class="bigicon-user fr"></i>
 					            	<% end %>
 				            	</td>
 			            	</tr>

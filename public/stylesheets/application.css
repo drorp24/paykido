@@ -1,3 +1,7 @@
+#why_register {
+    padding-bottom: 24px;
+}
+
 .filters a {
     cursor: pointer;
 }
@@ -6,7 +10,7 @@
     width: 100%;
 }   
 .registration_form {
-    
+
 }
 
 .features {
@@ -53,7 +57,7 @@ label, input {
     font-weight: 100;
     font-family: ubuntu;
     text-transform: lowercase;
-    margin-top: 16px;
+    margin-top: 41px;
 }
 .content-box {
     clear: both;
@@ -90,9 +94,11 @@ label, input {
 
 .feature_text {
     display: inline;
-    font-size: 19px;
-    margin-left: 18px;
+    font-size: 16px;
+    text-shadow: 0 1px 0 #FFFFFF;
+    font-weight: bold;
 }
+
 
 .feature {
     
@@ -258,6 +264,7 @@ body#paykido  a {
 }
 .secondary_name {
 	line-height: 32px;
+	font-size: 14px;
 	
 }
 .avatar img {
@@ -266,6 +273,7 @@ body#paykido  a {
 	box-shadow: 0 0 3px #111111;
 	-moz-box-shadow: 0 0 3px #111111;
 	-webkit-box-shadow: 0 0 3px #111111;
+	margin-right: 11px;
 }
 .active .avatar img {
     width: 32px;
@@ -334,7 +342,7 @@ body#paykido  a {
 }
 
 body {
-    font-family: 'ubuntu', sans-serif;
+/*    font-family: 'ubuntu', sans-serif; */ /* Dror */
 
 }
 .shadow {

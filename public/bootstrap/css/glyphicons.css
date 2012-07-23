@@ -11,7 +11,7 @@ li.active [class^="icon-"],
   height: 52px;
   *margin-right: 1.2em;
   line-height: 52px;
-  vertical-align: text-top;
+  vertical-align: middle;
   background-image: url("../img/glyphicons.png");
   background-position: 52px 52px;
   background-repeat: no-repeat;
@@ -27,12 +27,15 @@ li.active [class^="sprite-"],
   background-image: url("../img/glyphicons-white.png");
 }
 */
-/*   x% = 9n
- *   y% = 5 +2.35(n - 1)
- */
- /* line 3: 9, 18, 27, 36, 45, 54, 63, 72, 81, 90
- */
+.bigicon-placeholder { background-position: 0 56px}
+.bigicon-parents { background-position: -181px -83px}
+.bigicon-seal { background-position: -85px -1571px}
+.bigicon-check-in-a-box { background-position: 11px -711px}
+.bigicon-plus-in-a-circle { background-position: 11px -899px} 
+.bigicon-shield { background-position: 11px -1283px}
+.bigicon-user { background-position: -133px 13px}
 
+/*
 .bigicon-parents { background-position: 45% 9.75%}
 .bigicon-seal {background-position: 27% 83.375%}
 .bigicon-check-in-a-box { background-position: 9% 40.625%}
