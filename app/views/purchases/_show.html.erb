@@ -89,6 +89,10 @@
         <% end %>
         </tbody>
     </table>
+    <br />
+    <% for transaction in @purchase.transactions %>
+    	<p><%= link_to 'Transaction details', purchase_transaction_path(@purchase, transaction) %></p>
+    <% end %>
 
 <!--  
 	<p class="sectiontitle">Purchase Status</p> 

@@ -27,13 +27,26 @@ class G2sController < ApplicationController
     # dont render anything or redirect anywhere
 
     if params[:customField1] == 'payment'
+
       @purchase.create_transaction!(params)
-      # notify/approve/inform      
+      if params[:Status] == 'APPROVED'
+        status = 'approved' 
+        @purchase.approve!
+        @purchase.account_for!
+      else
+        status = 'failed'
+      end   
+      @purchase.notify_merchant(status)
+      @purchase.notify_consumer('manual', status)
+
     elsif params[:customField1] == 'registration'
+      
       @payer.create_registration!(params)
+    
     else
       return false   
     end
+    
     
   end
 

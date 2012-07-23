@@ -36,7 +36,7 @@ class TransactionsController < ApplicationController
 
     if params[:id]
       begin    
-        @transaction = @payer.transactions.find(params[:id])  ## replace @payer with current_user
+        @transaction = @purchase.transactions.find(params[:id])  ## replace @payer with current_user
       rescue ActiveRecord::RecordNotFound
         flash[:error] = "No such transaction id"
         redirect_to :controller => "home", :action => "routing_error"

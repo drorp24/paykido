@@ -142,6 +142,11 @@ $(document).ready(function() {
             $(this).addClass('blue');
             pTable.fnFilter('Whitelisted|Approved|Authorized|Always|Under', 1, true, false, false );
 //          	pTable.fnFilter(true, 2, false, false, false );
+    $('#purchases tr').click(function() {
+    	$('#purchases tr').removeClass('active');
+    	$(this).addClass('active');
+    })           
+
  
     });
 
