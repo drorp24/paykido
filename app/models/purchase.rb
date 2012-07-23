@@ -59,11 +59,11 @@ class Purchase < ActiveRecord::Base
 
   def self.with_info(payer_id, consumer_id, purchase_id)
     if purchase_id and !consumer_id and !payer_id
-      Purchase.where("consumer_id = ?", Purchase.find(purchase_id).consumer_id).includes(:consumer, :retailer)      
+      Purchase.where("consumer_id = ?", Purchase.find(purchase_id).consumer_id).order('created_at DESC').includes(:consumer, :retailer)      
     elsif consumer_id
-      Purchase.where("consumer_id = ?", consumer_id).includes(:consumer, :retailer)
+      Purchase.where("consumer_id = ?", consumer_id).order('created_at DESC').includes(:consumer, :retailer)
     else
-      Purchase.where("payer_id = ?", payer_id).includes(:consumer, :retailer)
+      Purchase.where("payer_id = ?", payer_id).order('created_at DESC').includes(:consumer, :retailer)
     end
 
   end
