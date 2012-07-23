@@ -121,7 +121,9 @@ body {
 .pending {
 	background-image: url(/spina/img/icons/question_32.png);
 }
-		
+.registering {
+    background-image: url(/spina/img/icons/file_32.png);
+}		
 .failed {
     background-image: url(/spina/img/icons/cross_32.png);
 }

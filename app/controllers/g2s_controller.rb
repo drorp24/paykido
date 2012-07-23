@@ -43,11 +43,11 @@ class G2sController < ApplicationController
   def set_host_and_payer
     
     if params[:customField1] and params[:customField1] == 'registration'
-      @payer = Payer.find(params[:customField2])
+      @payer = Payer.find(params[:customField2].to_i)
     end
     
     if params[:customField1] and params[:customField1] == 'payment'
-      @purchase = Purchase.find(params[:customField2])
+      @purchase = Purchase.find(params[:customField2].to_i)
     end
     
     if params[:nameOnCard] and params[:nameOnCard] == 'local'

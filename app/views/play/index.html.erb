@@ -53,7 +53,7 @@ $(document).ready(function () {
 	//Emulate merchant notification
 	<% if params[:status] %>
 		$('#paykido .content').height(300);
-		$.paykido('<div id=window_content><p class=text id=merchant_headline>Thank you! Merchant informed.</p><span class=status_icon>h</span><span class=status_text></span></div>');
+		$.paykido('<div id=window_content><p class=text id=merchant_headline>Thank you! Merchant informed.</p><span class=status_icon></span><span class=status_text></span></div>');
 		$('.status_icon').addClass("<%= params[:status] %>");
 		$('.status_text').html('<%= params[:status] %>');
 	<% end %>
