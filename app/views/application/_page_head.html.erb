@@ -1,4 +1,7 @@
 <div class="page_head clearfix">
+	<% if defined? icon %>
+		<i class=<%= icon %>></i>
+	<% end %>
 	<h1><%= title %></h1>
 	<%= link_to 'Back', backPath if defined? backPath %>
 </div>

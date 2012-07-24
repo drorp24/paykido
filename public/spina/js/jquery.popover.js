@@ -1,5 +1,5 @@
 (function($){
-    $.popover = function(el, target, options){
+    $.sp_popover = function(el, target, options){
         var KEY_ESC = 27;
         // To avoid scope issues, use 'base' instead of 'this'
         // to reference this class from internal events and functions.
@@ -14,23 +14,23 @@
 
         base.init = function(){
 
-            base.options = $.extend({},$.popover.defaultOptions, options);
+            base.options = $.extend({},$.sp_popover.defaultOptions, options);
 
             $(target).appendTo($('body')).prepend('<div class="triangle"></div>');
 
             base.options.triangle$ = $('.triangle', $(target));
 
             // remember last opened popup
-            $.fn.popover.openedPopup = null;
+            $.fn.sp_popover.openedPopup = null;
 
             // setup global document bindings
-            $(document).unbind(".popover");
+            $(document).unbind(".sp_popover");
 
             // document click closes active popover
-            $(document).bind("click.popover", function(event) {
+            $(document).bind("click.sp_popover", function(event) {
                 if (($(event.target).parents(".popover").length == 0)
                         && (!$(event.target).data("popover"))) {
-                    $.popover.close();
+                    $.sp_popover.close();
                 }
             });
 
@@ -224,10 +224,10 @@
         // toggle a popover. If show set to true do not toggle - always show
         base.toggle = function(trigger, show) {
             // if this popover is already open close it and return
-            if ($.fn.popover.openedPopup &&
-                ($.fn.popover.openedPopup.get(0) === trigger.get(0))) {
+            if ($.fn.sp_popover.openedPopup &&
+                ($.fn.sp_popover.openedPopup.get(0) === trigger.get(0))) {
                 if (!show)
-                    $.popover.close();
+                    $.sp_popover.close();
                 return;
             }
             
@@ -237,7 +237,7 @@
         // open popover
         base.open = function(trigger) {
             // hide any open popover
-            $.popover.close();
+            $.sp_popover.close();
 
             // reset triangle
             base.options.triangle$.attr("style", "");
@@ -250,7 +250,7 @@
                 $(target).addClass("active");
             }, 0);
 
-            $.fn.popover.openedPopup = trigger;
+            $.fn.sp_popover.openedPopup = trigger;
 
             base.options.onOpen(trigger);
         }
@@ -258,7 +258,7 @@
         // close popover
         base.close = function(trigger) {
             $(target).removeClass("active").attr("style", "").hide();
-            $.fn.popover.openedPopup = null;
+            $.fn.sp_popover.openedPopup = null;
 
             base.options.onClose(trigger);
         }
@@ -276,12 +276,12 @@
     };
 
     // close currently open popover
-    $.popover.close = function() {
-        if ($.fn.popover.openedPopup != null)
-            $.fn.popover.openedPopup.trigger('close.popover');
+    $.sp_popover.close = function() {
+        if ($.fn.sp_popover.openedPopup != null)
+            $.fn.sp_popover.openedPopup.trigger('close.popover');
     }
 
-    $.popover.defaultOptions = {
+    $.sp_popover.defaultOptions = {
         offset: [0, 0],
         padding: 18,
         closeOnEsc: true,
@@ -295,9 +295,9 @@
         onClose: function(trigger){}
     };
 
-    $.fn.popover = function(target, options){
+    $.fn.sp_popover = function(target, options){
         return this.each(function(){
-            (new $.popover(this, target, options));
+            (new $.sp_popover(this, target, options));
         });
     };
 

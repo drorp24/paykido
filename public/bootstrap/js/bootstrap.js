@@ -1176,7 +1176,7 @@
  * limitations under the License.
  * =========================================================== */
 
-/* Dror probably conflicts with Spina
+
 !function ($) {
 
   "use strict"; // jshint ;_;
@@ -1184,7 +1184,7 @@
 
  /* POPOVER PUBLIC CLASS DEFINITION
   * =============================== */
-/* Dror
+
   var Popover = function ( element, options ) {
     this.init('popover', element, options)
   }
@@ -1192,7 +1192,7 @@
 
   /* NOTE: POPOVER EXTENDS BOOTSTRAP-TOOLTIP.js
      ========================================== */
-/* Dror
+
   Popover.prototype = $.extend({}, $.fn.tooltip.Constructor.prototype, {
 
     constructor: Popover
@@ -1235,7 +1235,7 @@
 
  /* POPOVER PLUGIN DEFINITION
   * ======================= */
-/* Dror
+
   $.fn.popover = function (option) {
     return this.each(function () {
       var $this = $(this)

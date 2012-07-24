@@ -129,7 +129,7 @@ $(document).ready(function() {
 
 
 //  Trigger the approval popover
-    $('#pending-button').popover('#approval_popover', {preventBottom: true, preventRight: true});
+    $('#pending-button').sp_popover('#approval_popover', {preventBottom: true, preventRight: true});
 	// these 2 lines should be removed once popover acts as it should 
     $('#pending-button').trigger('open.popover');      
 	window.setTimeout("$('#approval_popover').fadeOut('slow')", 500);

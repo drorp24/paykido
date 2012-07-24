@@ -1,8 +1,4 @@
-<div class="alert alert-block">
-    <a class="close" data-dismiss="alert" href="#">×</a>
-    <h4 class="alert-heading">Warning!</h4>
-    Best check yo self, you're not...
-    </div>
+<div id="registration_popover" title="You are registered!" data-content="You can now place rules and have Paykido enforce them. Paykido will pay for complying purchases only"></div>
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -14,9 +10,10 @@ $(document).ready(function() {
 	<% if params[:status] == 'success' %>
 	    notification("<%= "Successfully registered!"%>", false, 'file', true)
 		$('.consumer.active').addClass('confirmed');
+		$('#registration_popover').popover();
 	<% else %>
-//	    notification('<%= "Registration failed" %>', false, 'alert', true)
-	    $('#registration_failure').show();
+	    notification('<%= "Registration failed" %>', false, 'sp_alert', true)
+//	    $('#registration_failure').show();
 	<% end %>
 <% end %>
 

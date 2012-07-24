@@ -11,10 +11,15 @@ li.active [class^="icon-"],
   height: 52px;
   *margin-right: 1.2em;
   line-height: 52px;
-  vertical-align: middle;
+  vertical-align: top;
   background-image: url("../img/glyphicons.png");
   background-position: 52px 52px;
   background-repeat: no-repeat;
+}
+
+.feature [class^="bigicon-"],
+[class*=" bigicon-"] {
+  vertical-align: middle;
 }
 
 [class^="bigicon-"]:last-child,
@@ -34,6 +39,7 @@ li.active [class^="sprite-"],
 .bigicon-plus-in-a-circle { background-position: 11px -899px} 
 .bigicon-shield { background-position: 11px -1283px}
 .bigicon-user { background-position: -133px 13px}
+.bigicon-shopping-cart { background-position: -85px -947px }
 
 /*
 .bigicon-parents { background-position: 45% 9.75%}

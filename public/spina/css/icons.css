@@ -83,7 +83,7 @@
 .glyph.dots:after       { content: '.' }
 .glyph.print:after      { content: '/' }
 .glyph.download:after   { content: '~' }
-.glyph.alert:after      { content: '!' }
+.glyph.sp_alert:after      { content: '!' }
 .glyph.pinpoint:after   { content: '@' }
 .glyph.trash:after      { content: '#' }
 .glyph.cart:after       { content: '$' }
@@ -179,7 +179,7 @@
 .icon32.dots       { background-image: url(../img/icons/dots_32.png) }
 .icon32.print      { background-image: url(../img/icons/print_32.png) }
 .icon32.download   { background-image: url(../img/icons/download_32.png) }
-.icon32.alert      { background-image: url(../img/icons/alert_32.png) }
+.icon32.sp_alert      { background-image: url(../img/icons/alert_32.png) }
 .icon32.pinpoint   { background-image: url(../img/icons/pinpoint_32.png) }
 .icon32.trash      { background-image: url(../img/icons/trash_32.png) }
 .icon32.cart       { background-image: url(../img/icons/cart_32.png) }
@@ -275,7 +275,7 @@
 .icon16.dots       { background-image: url(../img/icons/dots_32_16.png) }
 .icon16.print      { background-image: url(../img/icons/print_32_16.png) }
 .icon16.download   { background-image: url(../img/icons/download_32_16.png) }
-.icon16.alert      { background-image: url(../img/icons/alert_32_16.png) }
+.icon16.sp_alert      { background-image: url(../img/icons/alert_32_16.png) }
 .icon16.pinpoint   { background-image: url(../img/icons/pinpoint_32_16.png) }
 .icon16.trash      { background-image: url(../img/icons/trash_32_16.png) }
 .icon16.cart       { background-image: url(../img/icons/cart_32_16.png) }
