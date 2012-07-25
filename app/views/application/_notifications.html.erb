@@ -1,4 +1,8 @@
-<div id="registration_popover" title="You are registered!" data-content="You can now place rules and have Paykido enforce them. Paykido will pay for complying purchases only"></div>
+<div id="registration_success" class="alert alert-block" style="display:none">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Registration Complete!</h4>
+    You can now place rules, have Paykido automatically block bad purchases and automatically pay for complying ones.
+</div>
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -10,7 +14,13 @@ $(document).ready(function() {
 	<% if params[:status] == 'success' %>
 	    notification("<%= "Successfully registered!"%>", false, 'file', true)
 		$('.consumer.active').addClass('confirmed');
-		$('#registration_popover').popover();
+		$('#registration_success').show();
+		$("#registration_popover").popover({
+			title: "Registration Sign" ,
+			content: "Shield icon says your account is registered",
+			placement: "bottom"
+			}).popover('show');
+			window.setTimeout("$('#registration_popover').popover('hide')", 5000);
 	<% else %>
 	    notification('<%= "Registration failed" %>', false, 'sp_alert', true)
 //	    $('#registration_failure').show();

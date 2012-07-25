@@ -1,3 +1,16 @@
+.alert.alert-block {
+    top: 66px;
+    margin-left: 5px;
+    width: 65.7%;
+}
+
+.alert {
+    position: absolute;
+    top: 2px;
+    left: 366px;
+    right: 366px;
+}
+
 #why_register {
     padding-bottom: 24px;
 }
@@ -264,7 +277,9 @@ body#paykido  a {
 }
 .secondary_name {
 	line-height: 32px;
-	font-size: 14px;
+	font-size: 18px;
+	text-transform: capitalize;
+	font-weight: 100;
 	
 }
 .avatar img {
@@ -510,7 +525,7 @@ tr:hover .approval_buttons p a{
     visibility: visible;
 }
 
-.popover > section > .content > nav > ul > li {
+.sp_popover > section > .content > nav > ul > li {
     text-align: center;
 }
 
@@ -610,12 +625,12 @@ td.approval_buttons {
     right: 8px;
     top: 9px;
 }
-
+/*
 .bottom {
     position: absolute;
     bottom: 2px;
 }
-
+*/
 .relative {
     position: relative;
 }

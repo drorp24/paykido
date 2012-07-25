@@ -1029,6 +1029,8 @@
           .css(tp)
           .addClass(placement)
           .addClass('in')
+          
+
       }
     }
 

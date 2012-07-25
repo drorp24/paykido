@@ -2,7 +2,11 @@
 <nav id="secondary">
 
 	<ul>
-		<li <%= "class=active" unless @consumer %>>
+		<% if @consumer %>
+			<li class="payer">
+		<% else %>
+			<li class="payer active" rel="popover">
+		<% end %>
 			<% if params[:controller] == 'purchases' %>
 				<% path = payer_purchases_path(@payer)  %>
 			<% elsif params[:controller] == 'consumers' %>
@@ -17,7 +21,7 @@
 	            <table class="navigation">
 	            	<tbody>
 	            		<tr id="noWhite">
-	            			<td class="navigation_icon">
+	            			<td class="navigation_icon" id="registration_popover">
 	            				<% if @payer.registered? %>
 	            					<i class="bigicon-shield"></i>
             					<% else %>

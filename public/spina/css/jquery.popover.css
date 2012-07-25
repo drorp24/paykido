@@ -1,4 +1,4 @@
-.popover {
+.sp_popover {
 	background: #313131;
     width: 320px;
     position: absolute;
@@ -38,10 +38,10 @@
     transition-timing-function: linear;
     z-index: 99999;
     }
-.popover.active {
+.sp_popover.active {
     opacity: 1;
     }
-    .popover > .triangle {
+    .sp_popover > .triangle {
         position: absolute;
         width: 0px;
         border-bottom: 20px solid transparent;
@@ -49,33 +49,33 @@
         border-right: 20px solid transparent;
         border-top: 20px solid transparent;
         }
-    .popover > .triangle.top,
-    .popover > .triangle.bottom {
+    .sp_popover > .triangle.top,
+    .sp_popover > .triangle.bottom {
         background: none;
         padding: 0;
         }
-    .popover > .triangle.top {
+    .sp_popover > .triangle.top {
         bottom: -40px;
         border-top: 20px solid #313131;
         }
-    .popover > .triangle.bottom {
+    .sp_popover > .triangle.bottom {
         top: -38px;
         border-bottom: 20px solid #555;
         }
-    .popover > .triangle.left,
-    .popover > .triangle.right {
+    .sp_popover > .triangle.left,
+    .sp_popover > .triangle.right {
         top: 2px;
         }
-    .popover > .triangle.left {
+    .sp_popover > .triangle.left {
         right: -40px;
         border-left: 20px solid #313131;
         }
-    .popover > .triangle.right {
+    .sp_popover > .triangle.right {
         left: -40px;
         border-right: 20px solid #313131;
         }
-     .popover > header,
-     .popover > section {
+     .sp_popover > header,
+     .sp_popover > section {
         -o-border-radius: 4px;
         -ms-border-radius: 4px;
         -moz-border-radius: 4px;
@@ -83,7 +83,7 @@
         -webkit-border-radius: 4px;
         border-radius: 4px;
         }
-    .popover > header {
+    .sp_popover > header {
         border: 1px solid #313131;
         font-size: 14px;
         font-weight: bold;
@@ -107,33 +107,33 @@
         box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
         text-align: center;
         }
-    .popover > section {
+    .sp_popover > section {
         padding: 3px;
         min-width: 15em;
         overflow-x: hidden;
         overflow-y: auto;
         }
-        .popover > section > .content {
+        .sp_popover > section > .content {
             background: #FFF;
             border-radius: 3px;
             overflow: hidden;
             }
-        .popover > section > .content > nav > ul {
+        .sp_popover > section > .content > nav > ul {
             list-style: none;
             margin: 0;
             padding: 0;
             }
-            .popover > section > .content > nav > ul > li {
+            .sp_popover > section > .content > nav > ul > li {
                 border-top: 1px solid #DDD;
                 line-height: 50px;
                 }
-            .popover > section > .content > nav > ul > li.read {
+            .sp_popover > section > .content > nav > ul > li.read {
                 background: #FAFAFA;
                 }
-            .popover > section > .content > nav > ul > li.new {
+            .sp_popover > section > .content > nav > ul > li.new {
                 background: #FFFFC0;
                 }
-                .popover > section > .content > nav > ul > li a {
+                .sp_popover > section > .content > nav > ul > li a {
                     cursor: pointer;
                     color: #333;
                     display: block;
@@ -142,7 +142,7 @@
                     text-overflow: ellipsis;
                     white-space: nowrap;
                     }
-                    .popover > section > .content > nav > ul > li a span.avatar {
+                    .sp_popover > section > .content > nav > ul > li a span.avatar {
                         background: #CCC url(../img/icons/user_32.png) center center no-repeat;
                         box-shadow: 0px 0px 3px #111;
                         display: block;
@@ -151,7 +151,7 @@
                         width: 30px;
                         margin: 10px 10px 10px 0px;
                         }
-                        .popover > section > .content > nav > ul > li a span.avatar img {
+                        .sp_popover > section > .content > nav > ul > li a span.avatar img {
                             background: #CCC url(../img/icons/user_32.png) center center no-repeat;
                             box-shadow: 0px 0px 3px #111;
                             display: block;
@@ -161,6 +161,6 @@
                             margin: 0px 10px 10px 0px;
                             }
                         
-.popover > section > .content > p {
+.sp_popover > section > .content > p {
 	padding: 0 5px;
 }

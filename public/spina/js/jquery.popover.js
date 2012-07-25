@@ -28,7 +28,7 @@
 
             // document click closes active popover
             $(document).bind("click.sp_popover", function(event) {
-                if (($(event.target).parents(".popover").length == 0)
+                if (($(event.target).parents(".sp_popover").length == 0)
                         && (!$(event.target).data("popover"))) {
                     $.sp_popover.close();
                 }
