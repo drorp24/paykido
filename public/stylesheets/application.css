@@ -1,3 +1,7 @@
+body {   
+    height: 110%;
+}
+
 .alert.alert-block {
     top: 66px;
     margin-left: 5px;
@@ -27,7 +31,7 @@
 }
 
 .features {
-    margin-top: 24px;   
+    margin-top: 51px;   
 }
 
 p.feature .icon32 {
@@ -65,12 +69,12 @@ label, input {
 }
 
 #new_registration input[type="submit"] {
-    height: 70px;
+    height: 51px;
     font-size: 26px;
     font-weight: 100;
     font-family: ubuntu;
     text-transform: lowercase;
-    margin-top: 41px;
+    margin-top: 27px;
 }
 .content-box {
     clear: both;
