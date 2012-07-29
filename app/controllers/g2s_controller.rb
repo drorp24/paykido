@@ -8,9 +8,21 @@ class G2sController < ApplicationController
     # no counting on any session - payer & purchase id are returned in the callback paramteres
     
     if params[:customField1] == 'payment'
-        redirect_to purchase_url(params[:customField2].to_i, params.except(:action, :controller))
+        @purchase = Purchase.find(params[:customField2].to_i)
+        redirect_to payer_purchases_path(
+          @payer, 
+          params.except(:action, :controller),
+          :notify => 'approval', 
+          :status => params[:status],
+          :retailer => @purchase.retailer.name,
+          :approval_counter => @purchase.approval_counter('retailer') 
+        )
     elsif params[:customField1] == 'registration'
-        redirect_to payer_purchases_path(@payer, :notify => 'registration', :status => params[:status])
+        redirect_to payer_purchases_path(
+          @payer, 
+          :notify => 'registration', 
+          :status => params[:status]
+        )
     else
       flash[:error] = ""
       redirect_to root_path

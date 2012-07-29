@@ -287,19 +287,16 @@ body#paykido  a {
 	
 }
 .avatar img {
-	width: 32px;
-	height: 32px;
-	box-shadow: 0 0 3px #111111;
-	-moz-box-shadow: 0 0 3px #111111;
-	-webkit-box-shadow: 0 0 3px #111111;
-	margin-right: 11px;
+	box-shadow: 0 0 8px #999;
+	-moz-box-shadow: 0 0 8px #999;
+	-webkit-box-shadow: 0 0 8px #999;
+	margin-right: 5px;
+	border: 1px solid #333333;
 }
 .active .avatar img {
-    width: 32px;
-    height: 32px;
-    box-shadow: 0 0 5px #fff;
-    -moz-box-shadow: 0 0 5px #fff;
-    -webkit-box-shadow: 0 0 5px #fff;
+    box-shadow: 0 0 8px #fff;
+    -moz-box-shadow: 0 0 8px #fff;
+    -webkit-box-shadow: 0 0 8px #fff;
 }
 
 .fl {

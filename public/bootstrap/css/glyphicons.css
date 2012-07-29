@@ -40,6 +40,9 @@ li.active [class^="sprite-"],
 .bigicon-shield { background-position: 11px -1283px}
 .bigicon-user { background-position: -133px 13px}
 .bigicon-shopping-cart { background-position: -85px -947px }
+.bigicon-lock { background-position: -133px -947px }
+.bigicon-notification { background-position: -229px -1667px }
+.bigicon-twitter { background-position: -85px -1859px }
 
 /*
 .bigicon-parents { background-position: 45% 9.75%}

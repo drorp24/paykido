@@ -92,8 +92,16 @@ class Payer < ActiveRecord::Base
     
   end
 
-  def registered?
+  def registered?  #ToDo: set an instance variable for performance
     self.registrations.any?
+  end
+  
+  def registered_or_waived
+    unless Paykido::Application.config.rules_require_registration
+      true
+    else
+      self.registered?
+    end
   end
   
   def registration

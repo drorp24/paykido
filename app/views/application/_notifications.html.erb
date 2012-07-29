@@ -3,6 +3,24 @@
     <h4 class="alert-heading">Registration Complete!</h4>
     You can now place rules, have Paykido automatically block bad purchases and automatically pay for complying ones.
 </div>
+<div id="approval_success" class="alert alert-block" style="display:none">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Purchase approved!</h4>
+    <% if @payer.registered_or_waived and params[:approval_counter] and params[:approval_counter].to_i > 0 %>
+    	<%= "You approved #{params[:retailer]} already #{params[:approval_counter]} times. Click OK below to always approve it" %> 
+    <% elsif !@payer.registered_or_waived %>
+    	<%= "Once you register, you can protect your kid and save your time by setting rules." %>
+	<% end %>    		
+</div>
+<div id="denial_success" class="alert alert-block" style="display:none">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Purchase declined!</h4>
+    <% if @payer.registered_or_waived and params[:denial_counter] and params['denial_counter'].to_i > 0 %>
+    	<%= "You declined #{params[:retailer]} already #{params[:denial_counter]} times. Click OK below to always decline it" %> 
+    <% elsif !@payer.registered_or_waived %>
+    	<%= "Once you register, you can protect your kid and save your time by setting rules." %>
+	<% end %>    		
+</div>
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -38,13 +56,13 @@ $(document).ready(function() {
 <% end %>
 
 
-// PP return status
+// [ToDO: standartise] PP return status
 <% if params[:status] and params[:Error] %>
 	<% if params[:status] == 'failure' %>
 	    notification('<%= "Failed: #{params[:Error]}" %>', false, 'alert', true)
 	<% else %>
 	    notification("<%= "Purchase paid thank you!"%>", false, 'cart', true)
-//		some visual indication on purchase
+		$('#approval_success').show();
 	<% end %>
 <% end %>
 
@@ -52,12 +70,22 @@ $(document).ready(function() {
 <% if params[:notify] and params[:notify] == 'approval' %>
 	<% if params[:status] == 'success' || params[:status] == 'approved' %>
 	    notification("<%= "Purchase paid!"%>", false, 'user', true)
-//		some visual indication on purchase
+		$('#approval_success').show();
 	<% else %>
 	    notification('<%= "Payment failed" %>', false, 'alert', true)
 	<% end %>
 <% end %>
 	
+// Purchase denial
+<% if params[:notify] and params[:notify] == 'denial' %>
+	<% if params[:status] == 'success'  %>
+	    notification("<%= "Purchase declined"%>", false, 'user', true)
+		$('#denial_success').show();
+	<% else %>
+	    notification('<%= "Purchase denial failed" %>', false, 'alert', true)
+	<% end %>
+<% end %>
+
 })
 
 </script>
