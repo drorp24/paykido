@@ -9,8 +9,12 @@ class G2sController < ApplicationController
     
     if params[:customField1] == 'payment'
 
-          Rails.logger.info("trying to redirect to:")
-          Rails.logger.info(payer_purchases_path(
+          Rails.logger.info("@payer.id is: " + @payer.id.to_s)
+          Rails.logger.info("params_status is: " + params[:status])
+           Rails.logger.info("retailer name is: " + @purchase.retailer.name)
+           Rails.logger.info("approval counter is: " + @purchase.approval_counter('retailer').to_s)
+        Rails.logger.info("trying to redirect to:")
+          Rails.logger.info(payer_purchases_url(
             @payer, 
             :notify => 'approval', 
             :status => params[:status],
@@ -19,7 +23,7 @@ class G2sController < ApplicationController
           )
           )
 
-        redirect_to payer_purchases_path(
+        redirect_to payer_purchases_url(
           @payer, 
           :notify => 'approval', 
           :status => params[:status],
