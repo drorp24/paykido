@@ -61,14 +61,16 @@ class PurchasesController < ApplicationController
     @purchase.notify_merchant(status)
     @purchase.notify_consumer('manual', status)
 
-    redirect_to payer_purchases_path(
+    redirect_to payer_purchase_path(
       @payer, 
+      @purchase,
       :notify => 'approval', 
       :status => status, 
       :consumer => @purchase.consumer_id,
+      :purchase => @purchase.id,
       :retailer => @purchase.retailer.name,
-      :approval_counter => @purchase.approval_counter('retailer') 
-#      :_pjax => true
+      :approval_counter => @purchase.approval_counter('retailer'), 
+      :_pjax => "data-pjax-container"
     )  
 
   end
@@ -78,14 +80,16 @@ class PurchasesController < ApplicationController
     @purchase.decline!
     @purchase.notify_consumer('manual', 'declined')
 
-    redirect_to payer_purchases_path(
+    redirect_to payer_purchase_path(
       @payer, 
+      @purchase,
       :notify => 'denial', 
       :status => 'success', 
       :consumer => @purchase.consumer_id,
+      :purchase => @purchase.id,
       :retailer => @purchase.retailer.name,
-      :denial_counter => @purchase.approval_counter('retailer') 
-#      :_pjax => true
+      :denial_counter => @purchase.denial_counter('retailer'), 
+      :_pjax => "data-pjax-container"
     )  
 
   end

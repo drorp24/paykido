@@ -31,14 +31,16 @@ class RulesController < ApplicationController
   def create
     @rule = Rule.set!(params)
     
-    redirect_to payer_purchases_path(
-      @payer, 
+    redirect_to payer_purchase_path(
+      @payer.id,
+      params[:purchase], 
       :notify => 'rule_setting', 
       :status => 'success', 
       :property => params[:property],
       :value => params[:value],
       :rule_status => params[:status],
-      :_pjax => true
+      :_pjax => "data-pjax-container"
+
     )  
 
   end
