@@ -8,21 +8,6 @@ class G2sController < ApplicationController
     # no counting on any session - payer & purchase id are returned in the callback paramteres
     
     if params[:customField1] == 'payment'
-
-          Rails.logger.info("@payer.id is: " + @payer.id.to_s)
-          Rails.logger.info("params_status is: " + params[:status])
-           Rails.logger.info("retailer name is: " + @purchase.retailer.name)
-           Rails.logger.info("approval counter is: " + @purchase.approval_counter('retailer').to_s)
-        Rails.logger.info("trying to redirect to:")
-          Rails.logger.info(payer_purchases_url(
-            @payer, 
-            :notify => 'approval', 
-            :status => params[:status],
-            :retailer => @purchase.retailer.name,
-            :approval_counter => @purchase.approval_counter('retailer') 
-          )
-          )
-
         redirect_to payer_purchases_url(
           @payer, 
           :notify => 'approval', 

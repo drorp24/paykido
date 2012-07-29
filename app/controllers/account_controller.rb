@@ -51,16 +51,6 @@ class AccountController < ApplicationController
     
   end
   
-  def consumer_rule_set
-    
-    @consumer.rule_set!(params)
-  
-    respond_to do |format|  
-      format.js     
-    end
-    
-  end
-
   def purchase
     
     @purchase = Purchase.find(params[:id])

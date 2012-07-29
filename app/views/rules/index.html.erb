@@ -10,7 +10,7 @@
 				<tr>
 					<td>Property</td>
 					<td>Value</td>
-					<td>Action</td>
+					<td>Status</td>
 					<td>Details</td>
 				</tr>
 			</thead>
@@ -19,7 +19,7 @@
 				  <tr>
 				    <td><%= rule.property %></td>
 				    <td><%= rule.value %></td>
-				    <td><%= rule.action %></td>
+				    <td><%= rule.status %></td>
 				    <td><%= link_to 'Details', payer_rule_path(@payer, rule) %></td>
 				  </tr>
 				<% end %>

@@ -65,6 +65,7 @@ class PurchasesController < ApplicationController
       @payer, 
       :notify => 'approval', 
       :status => status, 
+      :consumer => @purchase.consumer_id,
       :retailer => @purchase.retailer.name,
       :approval_counter => @purchase.approval_counter('retailer') 
 #      :_pjax => true
@@ -81,6 +82,7 @@ class PurchasesController < ApplicationController
       @payer, 
       :notify => 'denial', 
       :status => 'success', 
+      :consumer => @purchase.consumer_id,
       :retailer => @purchase.retailer.name,
       :denial_counter => @purchase.approval_counter('retailer') 
 #      :_pjax => true

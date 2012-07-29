@@ -6,21 +6,36 @@
 <div id="approval_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Purchase approved!</h4>
-    <% if @payer.registered_or_waived and params[:approval_counter] and params[:approval_counter].to_i > 0 %>
-    	<%= "You approved #{params[:retailer]} already #{params[:approval_counter]} times. Click OK below to always approve it" %> 
-    <% elsif !@payer.registered_or_waived %>
-    	<%= "Once you register, you can protect your kid and save your time by setting rules." %>
+    <% if params[:approval_counter] and params[:approval_counter].to_i > 0 %>
+    	<%= "You approved #{params[:retailer]} already #{params[:approval_counter]} times." %> 
+    	<% if @payer.registered_or_waived %>
+    		<%= "You can set a rule to automatically approve this merchant for you going forward" %>
+		<% else %>
+    		<%= "Once you register, you can protect your kid and save your time by setting rules." %>
+		<% end %>
 	<% end %>    		
 </div>
+
 <div id="denial_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Purchase declined!</h4>
-    <% if @payer.registered_or_waived and params[:denial_counter] and params['denial_counter'].to_i > 0 %>
-    	<%= "You declined #{params[:retailer]} already #{params[:denial_counter]} times. Click OK below to always decline it" %> 
-    <% elsif !@payer.registered_or_waived %>
-    	<%= "Once you register, you can protect your kid and save your time by setting rules." %>
+    <% if params[:denial_counter] and params['denial_counter'].to_i > 0 %>
+    	<%= "You declined #{params[:retailer]} already #{params[:denial_counter]} times." %> 
+    	<% if @payer.registered_or_waived %>
+    		<%= "You can set a rule to automatically decline this merchant for you going forward" %>
+    		<%= button_to "always decline #{params[:retailer]}", payer_rules_path(@payer, :consumer_id => params[:consumer], :property => 'retailer', :value => params[:retailer], :status => 'blacklisted'), :method => :post, :remote => true %>
+		<% else %>
+    		<%= "Once you register, you can protect your kid and save your time by setting rules." %>
+		<% end %>
 	<% end %>    		
 </div>
+
+<div id="rule_setting_success" class="alert alert-block" style="display:none">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Rule accepted!</h4>    
+    <%= "#{params[:property]}: #{params[:value]} will automatically be #{(params[:rule_status] == 'whitelisted') ? 'approved' : 'declined'} from now on" %>
+</div>
+
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -69,7 +84,7 @@ $(document).ready(function() {
 // Purchase approval-token-payment status
 <% if params[:notify] and params[:notify] == 'approval' %>
 	<% if params[:status] == 'success' || params[:status] == 'approved' %>
-	    notification("<%= "Purchase paid!"%>", false, 'user', true)
+	    notification("<%= "Purchase approved by #{@payer.name}"%>", false, 'user', true)
 		$('#approval_success').show();
 	<% else %>
 	    notification('<%= "Payment failed" %>', false, 'alert', true)
@@ -79,10 +94,20 @@ $(document).ready(function() {
 // Purchase denial
 <% if params[:notify] and params[:notify] == 'denial' %>
 	<% if params[:status] == 'success'  %>
-	    notification("<%= "Purchase declined"%>", false, 'user', true)
+	    notification("<%= "Purchase declined by #{@payer.name}"%>", false, 'user', true)
 		$('#denial_success').show();
 	<% else %>
 	    notification('<%= "Purchase denial failed" %>', false, 'alert', true)
+	<% end %>
+<% end %>
+
+// Rule setting
+<% if params[:notify] and params[:notify] == 'rule_setting' %>
+	<% if params[:status] == 'success'  %>
+	    notification("<%= "Rule set by #{@payer.name}"%>", false, 'user', true)
+		$('#rule_setting_success').show();
+	<% else %>
+	    notification('<%= "Rule setting failed" %>', false, 'alert', true)
 	<% end %>
 <% end %>
 

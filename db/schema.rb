@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120717131147) do
+ActiveRecord::Schema.define(:version => 20120729150800) do
 
   create_table "consumers", :force => true do |t|
     t.string    "billing_phone"
@@ -159,15 +159,15 @@ ActiveRecord::Schema.define(:version => 20120717131147) do
   end
 
   create_table "rules", :force => true do |t|
-    t.integer   "payer_id"
-    t.integer   "consumer_id"
-    t.string    "entity"
-    t.integer   "entity_id"
-    t.string    "action"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.string    "property"
-    t.string    "value"
+    t.integer  "payer_id"
+    t.integer  "consumer_id"
+    t.string   "entity"
+    t.integer  "entity_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "property"
+    t.string   "value"
+    t.string   "status"
   end
 
   create_table "sessions", :force => true do |t|
