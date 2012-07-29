@@ -7,18 +7,18 @@ Paykido::Application.configure do
 
   # Facebook (for server-side facebooker, make identical changes at facebooker.yml)
   config.app_id = '402586589783096'
-  config.secret = '59791d5435202fe1f5eb69a872c0438a' 
+  config.secret = '59791d5435202fe1f5eb69a872c0438a'
   config.api_key = '402586589783096'
 
   # Policy
   config.send_sms = true
   config.rules_require_registration = true
   config.always_pay_manually = false
-  
+
   # G2S Integration
   config.merchant_id = '136515662095334027'
   config.merchant_site_id = '79871'
-  config.secret_key = 'lDovmOBmoHSCvCXxOSDNmJmjaKuTKcuFU767pi1p9yKXfVJb6FKquxrcVVMv7gh1' 
+  config.secret_key = 'lDovmOBmoHSCvCXxOSDNmJmjaKuTKcuFU767pi1p9yKXfVJb6FKquxrcVVMv7gh1'
   config.version = '3.0.0'
   config.token_gateway = 'https://test.safecharge.com/service.asmx/Process?'
   config.sg_VendorID = '75381'
@@ -30,8 +30,8 @@ Paykido::Application.configure do
   config.sg_Descriptor = 'Paykido - safe payment for kids'
   config.sg_TransType = 'Sale'
   config.sg_Version = '4.0.2'
-  config.referrer = 'https://secure.gate2shop.com/ppp/purchase.do'   
-  config.populate_test_fields = false  
+  config.referrer = 'https://secure.gate2shop.com/ppp/purchase.do'
+  config.populate_test_fields = false
 
   # Code is not reloaded between requests
   config.cache_classes = true
@@ -60,7 +60,7 @@ Paykido::Application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # See everything in the log (default is :info)
    config.log_level = :debug
@@ -89,10 +89,10 @@ Paykido::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-  
+
   #config.assets.js_compressor  = :uglifier
   #config.assets.css_compressor = :scss
-  
+
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
@@ -105,7 +105,7 @@ Paykido::Application.configure do
   :password             => 'dror160395',
   :authentication       => 'plain',
   :enable_starttls_auto => true  }
-  
+
   ActionMailer::Base.smtp_settings = {
     :address              => "smtp.gmail.com",
     :port                 => 587,
