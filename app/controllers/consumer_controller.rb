@@ -21,14 +21,32 @@ class ConsumerController < ApplicationController
     # A payer whose email was given may exist and not be linked to consumer (e.g. another brother joining) 
     
     if facebook_params_user_id = facebook_params['user_id']
-      @consumer = Consumer.find_or_initialize_by_facebook_id(facebook_params_user_id)   
+      @consumer = Consumer.find_or_initialize_by_facebook_id(facebook_params_user_id) 
+      Rails.logger.info("Facebook params (signed request/facebooker) user id is: " + facebook_params_user_id.to_s)  
+      if c = Consumer.find_by_facebook_id(facebook_params_user_id)
+        Rails.logger.info("Consumer with that facebook id exists already. Its ID is: " + c.id.to_s)
+      else
+        Rails.logger.info("No consumer currently exists that has that facebook id. Initialized record created")
+      end
     elsif current_facebook_user # probably never true 
+      Rails.logger.info("Facebook params (signed request/facebooker) passed no facebook user id, but current_Facebook_user exists")  
       @consumer = Consumer.find_or_initialize_by_facebook_id(current_facebook_user.id)
     else                        # this is actually an error 
+      Rails.logger.info("Facebook params (signed request/facebooker) passed no facebook user id. No current_Facebook_user")  
       @consumer = session[:consumer] || Consumer.new
     end 
     
+    if @consumer.payer == nil 
+      Rails.logger.info("@consumer.payer at that point is empty")
+    end
+    if Payer.find_by_email(facebook_params['registration']['payer_email'])  
+    
+
+    Rails.logger.info("At that point, @consumer.payer id is: " + @consumer.payer_id.to_s)  
+
     @payer = @consumer.payer || Payer.find_or_initialize_by_email(facebook_params['registration']['payer_email'])
+    
+
     @payer.update_attributes(
           :name => facebook_params['registration']['payer_name'], 
           :email => facebook_params['registration']['payer_email'], 

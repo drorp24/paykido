@@ -281,7 +281,6 @@ class Purchase < ActiveRecord::Base
       self.authorization_property = "registration"
       self.authorization_value = "missing"
       self.authorization_type = "unqualified"
-      self.require_approval
       self.authorization_date = Time.now
       self.save!
       return      
@@ -291,7 +290,6 @@ class Purchase < ActiveRecord::Base
       self.authorization_property = "confirmation"
       self.authorization_value = "missing"
       self.authorization_type = "unqualified"
-      self.require_approval
       self.authorization_date = Time.now
       self.save!
       return      

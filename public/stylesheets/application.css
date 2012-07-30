@@ -2,6 +2,18 @@ body {
     height: 600px;
 }
 
+#confirmation_popover {
+    width: 29em;
+}
+
+
+#modalcontainer .icon32 {
+    margin-top: 7px;   
+}
+
+#confirmation_popover img {
+    width: 32px;
+}
 .inline {
     display: inline;
 }
@@ -281,7 +293,7 @@ body#paykido  a {
 }
 
 #confirmation_modal {
-	width: 424px;
+	width: 40em;
 }
 
 }

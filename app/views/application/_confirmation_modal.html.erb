@@ -6,14 +6,14 @@
   
     <div class="box-content">
         <div class="rule header">
-			<%= "Yes, I am #{@consumer.name}'s parent" %>
+			<%= "I want to control what #{@consumer.name} buys" %>
         </div>
          <div class="rule actions">
-            <p>By clicking 'I confirm' below, I confirm that I am <%= @consumer.name%>'s parent.</p>
+            <p><%= "I would like to have Paykido report to me everything that #{@consumer.name} buys and ask for my approval. I confirm that I am #{@consumer.name}'s parent." %></p>
         </div>
         <div class="action_bar">            
             <%= link_to "I confirm", confirmed_consumer_path(@consumer), :class => "blue button" %>
-            <%= link_to "I don't", "#", :class => "close button" %>
+            <%= link_to "I don't", "#", :class => "sp_close button" %>
         </div>
     </div>
     

@@ -246,7 +246,7 @@ $('document').ready(function() {
       });
     });
   
-    $('.close').click(function() {
+    $('.sp_close').click(function() {
       $('#modalcontainer > div').hide();
       $('#overlay').hide();
     
