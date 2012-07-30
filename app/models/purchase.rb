@@ -415,7 +415,7 @@ class Purchase < ActiveRecord::Base
       if      status == 'approved'
         message = "Congrats, #{self.consumer.name}! Your parent has just approved your purchase request. The item is yours!"
       elsif    status == 'declined'  
-        message = "We are sorry. Your parent has just declinedd your purchase request."
+        message = "We are sorry. Your parent has just declined your purchase request."
       elsif   status == 'failed'  
         message = "We are sorry. Something went wrong while trying to approve your purchase. Please contact Paykido help desk for details"  
       else
