@@ -13,7 +13,7 @@ Paykido::Application.configure do
   # Policy
   config.send_sms = false
   config.rules_require_registration = false
-  config.always_pay_manually = true
+  config.always_pay_manually = false
   config.offer_rule_or_registration_after = 1
 
   # G2S Integration
