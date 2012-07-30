@@ -123,11 +123,11 @@ class ConsumerController < ApplicationController
     @purchase.notify_merchant(status) 
     @purchase.notify_consumer('programmatic', status)
 
-    redirect_to params[:referrer], 
-      :status =>    status, 
-      :property =>  @purchase.authorization_property,
-      :value =>     @purchase.authorization_value,
-      :type =>      @purchase.authoriztion_type
+    redirect_to params[:referrer] + 
+      '?status=' +    status +
+      '&property=' +  @purchase.authorization_property +
+      '&value='  +    @purchase.authorization_value +
+      '&type=' +      @purchase.authorization_type
     
   end
   

@@ -277,8 +277,8 @@ class Purchase < ActiveRecord::Base
        
     self.authorized = false
 
-    unless self.payer.registered? 
-      self.authorization_property = "registration"
+    unless self.consumer.confirmed? 
+      self.authorization_property = "confirmation"
       self.authorization_value = "missing"
       self.authorization_type = "unqualified"
       self.authorization_date = Time.now
@@ -286,11 +286,11 @@ class Purchase < ActiveRecord::Base
       return      
     end
 
-    unless self.consumer.confirmed? 
-      self.authorization_property = "confirmation"
+    unless self.payer.registered_or_waived 
+      self.authorization_property = "registration"
       self.authorization_value = "missing"
-      self.authorization_type = "unqualified"
       self.authorization_date = Time.now
+      self.require_approval
       self.save!
       return      
     end
