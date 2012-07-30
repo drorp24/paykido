@@ -2,9 +2,9 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  confirmation_heading: Paykido can make %{consumer_name}'s shopping safer
+  confirmation_heading: Make %{consumer_name}'s shopping safer!
   confirmation_1: Paykido can watch everything %{consumer_name} buys for you.
-  confirmation_2: Try it for free and see how you can protect your kid.
+  confirmation_2: Try it for free and see how it protects your kid.
   confirmation_3: Click here to control what %{name} buys
   confirmation_4: Click here to see how Paykido protects your kid
   approval_heading: Please approve these purchases   
