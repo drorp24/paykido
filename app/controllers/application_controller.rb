@@ -32,8 +32,10 @@ class ApplicationController < ActionController::Base
     end
       
     if params[:email] and params[:token]
-      begin    
+      begin   
+        Rails.logger.debug("in application.rb. params email and token accepted")   
         @payer = Payer.authenticate_by_token(params[:email], params[:token])
+        Rails.logger.debug("no payer found") unless @payer   
         @name = @payer.name 
       rescue ActiveRecord::RecordNotFound
         flash[:error] = "No such token"
@@ -41,12 +43,14 @@ class ApplicationController < ActionController::Base
       end      
     end
 
-    if session[:payer_id] and !@payer
-      @payer = Payer.find(session[:payer_id])
-      flash[:error] = nil
-    else
-      flash[:error] = "Please log in first" 
-      return 
+    unless @payer
+      if session[:payer_id] 
+        @payer = Payer.find(session[:payer_id])
+        flash[:error] = nil
+      else
+        flash[:error] = "Please log in first" 
+        return 
+      end
     end
     
     if params[:consumer_id]
