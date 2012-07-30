@@ -160,9 +160,7 @@ $(document).ready(function (){
 	   	FB.XFBML.parse(); 
   		$('#first_line').html('<%= "you selected #{params[:product]} for #{params[:amount]} #{params[:currency]}" %>');
 		$('#buy_button').removeAttr("disabled");
-	alert('after buy button');
 	   	FB.api('/me', {fields: "id,first_name,picture"}, function(response) {
-	alert('inside API me');
 	      $('#name').html('Welcome, '+response.first_name+"!");
 	      $('#profile_picture').attr("src", response.picture);
 	      $('#profile_picture').show();

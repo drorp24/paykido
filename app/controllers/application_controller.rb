@@ -21,14 +21,6 @@ class ApplicationController < ActionController::Base
     # Have Devise run the user session 
     # Every call should include payer_id, consumer_id and/or purchase_id
 
-    if session[:payer_id]
-      @payer = Payer.find(session[:payer_id])
-      flash[:error] = nil
-    else
-      flash[:error] = "Please log in first" 
-      return 
-    end
-    
     if params[:payer_id]
       begin    
         @payer = Payer.find(params[:payer_id])
@@ -49,6 +41,14 @@ class ApplicationController < ActionController::Base
       end      
     end
 
+    if session[:payer_id] and !@payer
+      @payer = Payer.find(session[:payer_id])
+      flash[:error] = nil
+    else
+      flash[:error] = "Please log in first" 
+      return 
+    end
+    
     if params[:consumer_id]
       begin    
         @consumer = Consumer.find(params[:consumer_id])

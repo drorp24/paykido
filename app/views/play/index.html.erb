@@ -53,7 +53,7 @@ $(document).ready(function () {
 	//Emulate merchant notification
 	<% if params[:status] %>
 		<% if params[:status] == 'registering' %>
-			<% message = 'Registering...' %>
+			<% message = 'Email sent to parent...' %>
 		<% else %>
 			<% message = params[:property] + ' is ' + params[:value] %>
 			<% if params[:status] == 'declined' %>
