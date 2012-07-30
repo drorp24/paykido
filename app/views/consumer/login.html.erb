@@ -50,7 +50,7 @@
 	<fb:registration  
 		width="292" 
 		fb_register="true"
-		redirect-uri="https://<%= request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>"  
+		redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>"  
 		fields='[
 			{ "name":"name"},
 			{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},

@@ -14,7 +14,7 @@
 	</div>
 <% end %>
 
-<a href="https://<%= Paykido::Application.config.hostname %>/consumer/login?
+<a href="<%= request.protocol + Paykido::Application.config.hostname %>/consumer/login?
 	merchant=Zynga&
 	product=Farm%20Cash&
 	amount=6.00&
