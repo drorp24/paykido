@@ -125,9 +125,9 @@ class ConsumerController < ApplicationController
 
     redirect_to params[:referrer] + 
       '?status=' +    status +
-      '&property=' +  @purchase.authorization_property +
-      '&value='  +    @purchase.authorization_value +
-      '&type=' +      @purchase.authorization_type
+      '&property=' +  @purchase.authorization_property || 'purchase' +
+      '&value='  +    @purchase.authorization_value ||  'okay' +
+      '&type=' +      @purchase.authorization_type || ''
     
   end
   
