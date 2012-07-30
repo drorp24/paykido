@@ -18,8 +18,8 @@ class PurchasesController < ApplicationController
   end
   
   def index    
-    redirect_to new_payer_registration_path(@payer) unless @purchases.any?
     find_purchases
+    redirect_to new_payer_registration_path(@payer) unless @purchases.any?
   end
   
 
