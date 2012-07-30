@@ -3,5 +3,5 @@
 		<i class=<%= icon %>></i>
 	<% end %>
 	<h1><%= title %></h1>
-	<%= link_to 'Back', backPath if defined? backPath %>
+	<%= link_to 'Back', backPath, 'data-skip-pjax' => true if defined? backPath %>
 </div>
