@@ -10,7 +10,7 @@ class ConsumersController < ApplicationController
 
     @consumer.confirm!
 
-    redirect_to payer_purchases_path(@payer, :notify => 'confirmation', :status => "success", :_pjax => true)  
+    redirect_to consumer_path(@consumer, :notify => 'confirmation', :status => "success", :_pjax => true)  
 
   end
 
