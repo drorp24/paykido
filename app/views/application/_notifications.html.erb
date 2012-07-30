@@ -77,7 +77,7 @@ $(document).ready(function() {
 // Consumer confirmation status
 <% if params[:notify] and params[:notify] == 'confirmation' %>
 	<% if params[:status] == 'success' %>
-		$('#confirmation_success').show();
+//		$('#confirmation_success').show();
 	    notification("<%= "#{@payer.name} confirmed #{params[:name]}" %>", false, 'user', true)
 		$('.consumer.active').addClass('confirmed');
 	<% else %>
