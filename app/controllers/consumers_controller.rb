@@ -10,7 +10,7 @@ class ConsumersController < ApplicationController
 
     @consumer.confirm!
 
-    redirect_to new_payer_registration_path(@payer, :notify => 'confirmation', :status => "success", :_pjax => true)  
+    redirect_to new_payer_registration_path(@payer, :notify => 'confirmation', :status => "success", :name => @consumer.name, :_pjax => true)  
 
   end
 

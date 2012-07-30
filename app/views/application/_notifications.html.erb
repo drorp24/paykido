@@ -44,6 +44,12 @@
     <%= "Paykido will automatically #{(params[:rule_status] == 'whitelisted') ? 'approve' : 'decline'} merchant: #{params[:value]} for you from now on. You don't have to do it yourself." %>
 </div>
 
+<div id="confirmation_success" class="alert alert-block" style="display:none">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Consumer Confirmed!</h4>
+    <%= "From now on, we'll watch every purchsae #{params[:name]} attempts to make. Consider registering to make things even safer" %>
+</div>
+
 <script type="text/javascript">
 
 $(document).ready(function() {
