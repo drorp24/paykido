@@ -19,7 +19,7 @@ group :development, :test do
 end
 
 gem 'taps'
-gem 'newrelic_rpm'
+#gem 'newrelic_rpm'
 gem 'clickatell'
 gem 'json'
 gem 'facebooker2', "~> 0.0.16"
