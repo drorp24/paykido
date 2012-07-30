@@ -52,17 +52,21 @@ $(document).ready(function () {
 
 	//Emulate merchant notification
 	<% if params[:status] %>
-		<% message = params[:property] + ' is ' + params[:value] %>
-		<% if params[:status] == 'declined' %>
-			<% message = 'Sorry... ' + message %>
-		<% elsif params[:status] == 'approved' %>
-			<% message = 'Hurrah! ' + message %>
-		<% elsif params[:status] == 'pending' %>
-			<% message = 'Wait... ' + message %>
-		<% elsif params[:status] == 'failed' %>
-			<% message = 'Oops... ' + message %>
+		<% if params[:status] == 'registering' %>
+			<% message = 'Registering...' %>
 		<% else %>
-			<% message = "This was not supposed to happen. " %>
+			<% message = params[:property] + ' is ' + params[:value] %>
+			<% if params[:status] == 'declined' %>
+				<% message = 'Sorry... ' + message %>
+			<% elsif params[:status] == 'approved' %>
+				<% message = 'Hurrah! ' + message %>
+			<% elsif params[:status] == 'pending' %>
+				<% message = 'Wait... ' + message %>
+			<% elsif params[:status] == 'failed' %>
+				<% message = 'Oops... ' + message %>
+			<% else %>
+				<% message = "This was not supposed to happen. " %>
+			<% end %>
 		<% end %>
 		$('#paykido .content').height(300);
 		$.paykido('<div id=window_content><p class=text id=merchant_headline><%= message %></p><span class=status_icon></span><span class=status_text></span></div>');
