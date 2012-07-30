@@ -1,6 +1,6 @@
 Paykido::Application.routes.draw do
 
-  resources :rules
+  resources :rules 
 
   resources :registrations
 

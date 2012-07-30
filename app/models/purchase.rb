@@ -281,7 +281,6 @@ class Purchase < ActiveRecord::Base
       self.authorization_property = "registration"
       self.authorization_value = "missing"
       self.authorization_type = "unqualified"
-      self.require_approval
       self.authorization_date = Time.now
       self.save!
       return      
@@ -291,7 +290,6 @@ class Purchase < ActiveRecord::Base
       self.authorization_property = "confirmation"
       self.authorization_value = "missing"
       self.authorization_type = "unqualified"
-      self.require_approval
       self.authorization_date = Time.now
       self.save!
       return      
@@ -374,6 +372,23 @@ class Purchase < ActiveRecord::Base
       :authorization_date => Time.now)       
   end
   
+  def approval_counter(property)
+    
+    return false unless property == 'retailer'
+    
+    Purchase.where("payer_id = ? and retailer_id = ? and authorization_type = ? and id != ?", self.payer_id, self.retailer_id, "Approved", self.id).count
+      
+  end
+
+  def denial_counter(property)
+    
+    return false unless property == 'retailer'
+    
+    Purchase.where("payer_id = ? and retailer_id = ? and authorization_type = ? and id != ?", self.payer_id, self.retailer_id, "Declined", self.id).count
+      
+  end
+  
+  # ToDo: Delete if not used
   def set_rules!(params=nil)
 
     # temporary - get one hash of 'properties' from the form and iterate over it without knowing what it includes
@@ -398,7 +413,7 @@ class Purchase < ActiveRecord::Base
       if      status == 'approved'
         message = "Congrats, #{self.consumer.name}! Your parent has just approved your purchase request. The item is yours!"
       elsif    status == 'declined'  
-        message = "We are sorry. Your parent has just declinedd your purchase request."
+        message = "We are sorry. Your parent has just declined your purchase request."
       elsif   status == 'failed'  
         message = "We are sorry. Something went wrong while trying to approve your purchase. Please contact Paykido help desk for details"  
       else
@@ -430,7 +445,7 @@ class Purchase < ActiveRecord::Base
     self.authorization_type == "Approved"
   end
   
-  def decline!(params=nil!)
+  def decline!(params=nil)
     self.update_attributes!(
       :authorized => false,
       :authorization_type => "Declined",

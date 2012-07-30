@@ -8,7 +8,7 @@
 		        	<tbody>
 		        		<tr id="noWhite">
 		        			<td class="navigation_icon">
-								<span class="icon32 file fr"><span>
+								<i class="bigicon-shield"></i>
 							</td>
 							<td>
              					<span class="secondary_name">Registration</span>
@@ -24,7 +24,7 @@
 		        	<tbody>
 		        		<tr id="noWhite">
 		        			<td class="navigation_icon">
-		        				<span class="icon32 lock fr"><span>
+		        				<i class="bigicon-lock"></i>
         					</td>
 	        				<td>	
         						<span class="secondary_name">Security</span>
@@ -40,7 +40,7 @@
 		        	<tbody>
 		        		<tr id="noWhite">
 		        			<td class="navigation_icon">
-		        				<span class="icon32 flag fr"><span>
+		        				<i class="bigicon-notification"></i>
         					</td>
 	        				<td>	
             					<span class="secondary_name">Notifications</span>
@@ -56,7 +56,7 @@
 		        	<tbody>
 		        		<tr id="noWhite">
 		        			<td class="navigation_icon">
-		        				<span class="icon32 twitter fr"><span>
+		        				<i class="bigicon-twitter"></i>
         					</td>
 	        				<td>	
             					<span class="secondary_name">Communication</span>
@@ -74,3 +74,13 @@
 	</div>
 
 </nav>
+<script>
+	
+$(document).ready(function () {
+	$('.menu').removeClass('active');
+	<% if params[:controller] == 'registrations' %>
+		$('#setting_menu').addClass('active');
+	<% end %>	
+})	
+	
+</script>

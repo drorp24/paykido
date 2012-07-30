@@ -61,19 +61,36 @@ class PurchasesController < ApplicationController
     @purchase.notify_merchant(status)
     @purchase.notify_consumer('manual', status)
 
-#    @purchase.set_rules!(params)
-
-    redirect_to payer_purchases_path(@payer, :notify => 'approval', :status => status, :_pjax => true)  
+    redirect_to payer_purchase_path(
+      @payer, 
+      @purchase,
+      :notify => 'approval', 
+      :status => status, 
+      :consumer => @purchase.consumer_id,
+      :purchase => @purchase.id,
+      :retailer => @purchase.retailer.name,
+      :approval_counter => @purchase.approval_counter('retailer'), 
+      :_pjax => "data-pjax-container"
+    )  
 
   end
 
   def decline
     
-    @purchase = Purchase.find(params[:id])
-    @purchase.set_rules!(params)
-    
     @purchase.decline!
     @purchase.notify_consumer('manual', 'declined')
+
+    redirect_to payer_purchase_path(
+      @payer, 
+      @purchase,
+      :notify => 'denial', 
+      :status => 'success', 
+      :consumer => @purchase.consumer_id,
+      :purchase => @purchase.id,
+      :retailer => @purchase.retailer.name,
+      :denial_counter => @purchase.denial_counter('retailer'), 
+      :_pjax => "data-pjax-container"
+    )  
 
   end
 

@@ -8,9 +8,23 @@ class G2sController < ApplicationController
     # no counting on any session - payer & purchase id are returned in the callback paramteres
     
     if params[:customField1] == 'payment'
-        redirect_to purchase_url(params[:customField2].to_i, params.except(:action, :controller))
+        redirect_to payer_purchase_url(
+          @payer.id, 
+          @purchase.id,
+          :notify => 'approval', 
+          :status => params[:status],
+          :consumer => @purchase.consumer_id,
+          :purchase => @purchase.id,
+          :retailer => @purchase.retailer.name,
+          :approval_counter => @purchase.approval_counter('retailer'),
+          :_pjax => "data-pjax-container"
+        )
     elsif params[:customField1] == 'registration'
-        redirect_to payer_purchases_path(@payer, :notify => 'registration', :status => params[:status])
+        redirect_to payer_purchases_path(
+          @payer, 
+          :notify => 'registration', 
+          :status => params[:status]
+        )
     else
       flash[:error] = ""
       redirect_to root_path
@@ -61,6 +75,7 @@ class G2sController < ApplicationController
     
     if params[:customField1] and params[:customField1] == 'payment'
       @purchase = Purchase.find(params[:customField2].to_i)
+      @payer = @purchase.payer
     end
     
     if params[:nameOnCard] and params[:nameOnCard] == 'local'

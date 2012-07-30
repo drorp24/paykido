@@ -2,6 +2,40 @@ body {
     height: 600px;
 }
 
+#confirmation_popover {
+    width: 29em;
+}
+
+
+#modalcontainer .icon32 {
+    margin-top: 7px;   
+}
+
+#confirmation_popover img {
+    width: 32px;
+}
+.inline {
+    display: inline;
+}
+
+form.button_to div {
+    display: inline;
+    margin-left: 30px;
+    vertical-align: text-bottom;
+}
+
+#denial_success.alert-block {
+    padding-bottom: 7px;
+}
+
+#approval_success.alert-block {
+    padding-bottom: 7px;
+}
+
+form.button_to {
+    display: inline;
+}
+
 .alert.alert-block {
     top: 66px;
     margin-left: 5px;
@@ -259,7 +293,7 @@ body#paykido  a {
 }
 
 #confirmation_modal {
-	width: 424px;
+	width: 40em;
 }
 
 }
@@ -287,19 +321,16 @@ body#paykido  a {
 	
 }
 .avatar img {
-	width: 32px;
-	height: 32px;
-	box-shadow: 0 0 3px #111111;
-	-moz-box-shadow: 0 0 3px #111111;
-	-webkit-box-shadow: 0 0 3px #111111;
-	margin-right: 11px;
+	box-shadow: 0 0 8px #999;
+	-moz-box-shadow: 0 0 8px #999;
+	-webkit-box-shadow: 0 0 8px #999;
+	margin-right: 5px;
+	border: 1px solid #333333;
 }
 .active .avatar img {
-    width: 32px;
-    height: 32px;
-    box-shadow: 0 0 5px #fff;
-    -moz-box-shadow: 0 0 5px #fff;
-    -webkit-box-shadow: 0 0 5px #fff;
+    box-shadow: 0 0 8px #fff;
+    -moz-box-shadow: 0 0 8px #fff;
+    -webkit-box-shadow: 0 0 8px #fff;
 }
 
 .fl {

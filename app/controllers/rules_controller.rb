@@ -18,7 +18,7 @@ class RulesController < ApplicationController
   # GET /rules/new
   # GET /rules/new.json
   def new
-    @rule = Rule.new
+    @rule = Rule.new(params)
   end
 
   # GET /rules/1/edit
@@ -29,17 +29,20 @@ class RulesController < ApplicationController
   # POST /rules
   # POST /rules.json
   def create
-    @rule = Rule.new(params[:rule])
+    @rule = Rule.set!(params)
+    
+    redirect_to payer_purchase_path(
+      @payer.id,
+      params[:purchase], 
+      :notify => 'rule_setting', 
+      :status => 'success', 
+      :property => params[:property],
+      :value => params[:value],
+      :rule_status => params[:status],
+      :_pjax => "data-pjax-container"
 
-    respond_to do |format|
-      if @rule.save
-        format.html { redirect_to payer_rules_path(@payer), notice: 'Rule was successfully created.' }
-        format.json { render json: @rule, status: :created, location: @rule }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @rule.errors, status: :unprocessable_entity }
-      end
-    end
+    )  
+
   end
 
   # PUT /rules/1

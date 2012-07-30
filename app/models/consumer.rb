@@ -15,44 +15,27 @@ class Consumer < ActiveRecord::Base
       self.auto_deny_over ||= 35
   end
 
-  def rule_set!(params) 
-
-    property = params[:property]
-    value = params[:value]
-    rule = params[:rule]
- 
-    if rule == 'whitelist'
-      self.whitelist!(property, value)
-    elsif rule == 'blacklist' 
-      self.blacklist!(property, value)
-    elsif rule == ''
-      self.reset!(property, value) 
-    end
-
-  end
 
   def blacklist!(property, value)
-    rule = Rule.find_or_initialize_by_payer_id_and_consumer_id_and_property_and_value(self.payer_id, self.id, property, value)
-    rule.update_attributes!(:action => 'blacklisted')
+    rule = Rule.set!(self.payer_id, self.id, property, value, 'blacklist')
   end
   
   def blacklisted?(property, value)
-    Rule.where(:payer_id => self.payer_id, :consumer_id => self.id, :property => property, :value => value, :action => 'blacklisted').exists?
+    Rule.set?(:payer_id => self.payer_id, :consumer_id => self.id, :property => property, :value => value, :status => 'blacklisted')
   end
 
   def whitelist!(property, value)
-    rule = Rule.find_or_initialize_by_payer_id_and_consumer_id_and_property_and_value(self.payer_id, self.id, property, value)
-    rule.update_attributes!(:action => 'whitelisted')
+    rule = Rule.set!(self.payer_id, self.id, property, value, 'whitelist')
   end
   
   def whitelisted?(property, value)
-    Rule.where(:payer_id => self.payer_id, :consumer_id => self.id, :property => property, :value => value, :action => 'whitelisted').exists?
+    Rule.set?(:payer_id => self.payer_id, :consumer_id => self.id, :property => property, :value => value, :status => 'whitelisted')
   end
   
   def reset!(property, value)
-    rule = Rule.find_or_initialize_by_payer_id_and_consumer_id_and_property_and_value(self.payer_id, self.id, property, value)
-    rule.update_attributes!(:action => '')
+    rule = Rule.set!(self.payer_id, self.id, property, value, '')
   end
+
   
   def allowance_day_of_week
     self.allowance_every || 0
