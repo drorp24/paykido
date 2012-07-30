@@ -50,7 +50,7 @@
 	<fb:registration  
 		width="292" 
 		fb_register="true"
-		redirect-uri="http://<%= request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>"  
+		redirect-uri="https://<%= request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>"  
 		fields='[
 			{ "name":"name"},
 			{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
@@ -70,7 +70,7 @@
 // Facebook bug prohibits error message to show on screen if widget width < 520 px
 /*
 function validate_async(form, cb) {
-  $.getJSON('http://graph.facebook.com/' + form.payer_email + '?callback=?', 
+  $.getJSON('https://graph.facebook.com/' + form.payer_email + '?callback=?', 
     function(response) {
       if (response.error) {
         // Username isn't taken, let the form submit
