@@ -23,6 +23,7 @@ class Purchase < ActiveRecord::Base
   def create_transaction!(params)    
 
     self.transactions.create!( 
+        :trx_type => 'manual',
         :ppp_status =>  params[:ppp_status],
         :PPP_TransactionID => params[:PPP_TransactionID],
         :responsechecksum => params[:responsechecksum],
