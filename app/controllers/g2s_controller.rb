@@ -13,10 +13,6 @@ class G2sController < ApplicationController
           params[:customField3].to_i,
           :notify => 'approval', 
           :status => params[:status],
-          :consumer => @purchase.consumer_id,
-          :purchase => @purchase.id,
-          :retailer => @purchase.retailer.name,
-          :approval_counter => @purchase.approval_counter('retailer'),
           :_pjax => "data-pjax-container"
         )
     elsif params[:customField1] == 'registration'

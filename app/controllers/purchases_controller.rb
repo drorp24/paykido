@@ -67,10 +67,6 @@ class PurchasesController < ApplicationController
       @purchase,
       :notify => 'approval', 
       :status => status, 
-      :consumer => @purchase.consumer_id,
-      :purchase => @purchase.id,
-      :retailer => @purchase.retailer.name,
-      :approval_counter => @purchase.approval_counter('retailer'), 
       :_pjax => "data-pjax-container"
     )  
 
@@ -86,10 +82,6 @@ class PurchasesController < ApplicationController
       @purchase,
       :notify => 'denial', 
       :status => 'success', 
-      :consumer => @purchase.consumer_id,
-      :purchase => @purchase.id,
-      :retailer => @purchase.retailer.name,
-      :denial_counter => @purchase.denial_counter('retailer'), 
       :_pjax => "data-pjax-container"
     )  
 
