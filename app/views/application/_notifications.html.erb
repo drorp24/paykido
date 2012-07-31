@@ -18,7 +18,7 @@
     		<%= button_to "Always approve #{retailer}", payer_rules_path(@payer, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :status => 'whitelisted', :purchase => purchase.id), :method => :post, :remote => true, :class => "btn btn-primary inline" %>
 		<% else %>
     		<%= "Register and have Paykido do that for you next time." %>
-    		<%= button_to "Register Now", new_payer_registration_url(@payer),:method => :get, :remote => true, :class => "btn btn-primary inline" %>
+    		<%= button_to "Register Now", new_payer_registration_path(@payer),:method => :get, :remote => true, :class => "btn btn-primary inline" %>
 		<% end %>
 	<% else %>
     	<h4 class="alert-heading">Purchase Approved</h4>	
@@ -109,7 +109,10 @@ $(document).ready(function() {
 // Purchase approval-token-payment status
 <% if params[:notify] and params[:notify] == 'approval' %>
 	<% if params[:status] == 'success' || params[:status] == 'approved' %>
-	    notification("<%= "Purchase approved by #{@payer.name}"%>", false, 'tick', true)
+		<% if params[:controller] == 'purchases' and params[:id] %>
+			<% id = params["id"] %>
+		<% end %>
+	    notification("<%= "#{@payer.name} approved purchase #{id}"%>", false, 'tick', true)
 		$('#approval_success').show();
 	<% else %>
 	    notification('<%= "Payment failed" %>', false, 'sp_alert', true)
