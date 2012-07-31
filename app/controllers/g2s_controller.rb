@@ -67,6 +67,7 @@ class G2sController < ApplicationController
     
     if params[:customField1] == 'payment' and params[:nameOnCard] and params[:nameOnCard] == 'local'
       default_url_options[:host] = "localhost:3000"
+      default_url_options[:protocol] = "http"
     else 
       default_url_options[:host] = Paykido::Application.config.hostname
       if params[:customField1] and params[:customField1] == 'registration'

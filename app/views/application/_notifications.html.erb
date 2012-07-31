@@ -6,15 +6,15 @@
 
 <div id="approval_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
-	<% purchase = Purchase.find(params[:id]) %>
-	<% retailer = purchase.retailer.name %>
-	<% times = purchase.approval_counter('retailer') %>
-    <% if times > Paykido::Application.config.offer_rule_or_registration_after.to_i %>
-    	<h4 class="alert-heading"><%= "Suggested Rule: Always Approve #{retailer}" %></h4>
-    	<span><%= "You approved #{retailer} already #{times} times." %> </span>
+	<% @purchase = Purchase.find(params[:id]) %>
+	<% @retailer = @purchase.retailer.name %>
+	<% @times = @purchase.approval_counter('retailer') %>
+    <% if @times > Paykido::Application.config.offer_rule_or_registration_after.to_i %>
+    	<h4 class="alert-heading"><%= "Suggested Rule: Always Approve #{@retailer}" %></h4>
+    	<span><%= "You approved #{@retailer} already #{@times} times." %></span>
     	<% if @payer.registered_or_waived %>
-    		<span><%= "Click here if you'd like to have Paykido approve this merchant for you going forward." %></span>
-    		<%= button_to "Always approve #{retailer}", payer_rules_path(@payer, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :status => 'whitelisted', :purchase => purchase.id, :method => :post, :remote => true, :class => "btn btn-primary inline" %>
+    		<span><%= "Click here if you'd like to have Paykido approve this merchant for you from now on." %></span>
+    		<%= button_to "Always approve #{@retailer}", payer_rules_path(@payer, :consumer_id => @purchase.consumer_id, :property => 'retailer', :value => @retailer, :status => 'whitelisted', :purchase => @purchase.id), :method => :post, :remote => true, :class => "btn btn-primary inline" %>
 		<% else %>
     		<%= "Register and have Paykido do that for you next time." %>
     		<%= button_to "Register Now", new_payer_registration_url(@payer),:method => :get, :remote => true, :class => "btn btn-primary inline" %>
@@ -33,8 +33,8 @@
     	<h4 class="alert-heading"><%= "Suggested Rule: Always Decline #{retailer}" %></h4>
     	<span><%= "You declined #{retailer} already #{times} times." %></span> 
     	<% if @payer.registered_or_waived %>
-    		<span><%= "Click here if you'd like to have Paykido decline this merchant for you going forward." %></span>
-    		<%= button_to "Always decline #{retailer}", payer_rules_path(@payer, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :status => 'blacklisted', :purchase => purchase, :method => :post, :remote => true, :class => "btn btn-primary inline" %>
+    		<span><%= "Click here if you'd like to have Paykido decline this merchant for you from now on." %></span>
+    		<%= button_to "Always decline #{retailer}", payer_rules_path(@payer, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :status => 'blacklisted', :purchase => purchase.id), :method => :post, :remote => true, :class => "btn btn-primary inline" %>
 		<% else %>
     		<%= "Register and have Paykido do that for you next time." %>
     		<%= button_to "Register Now", new_payer_registration_url(@payer),:method => :get, :remote => true, :class => "btn btn-primary inline" %>
