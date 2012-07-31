@@ -348,6 +348,8 @@ class Purchase < ActiveRecord::Base
   end  
 
   def require_approval
+    self.authorization_property = "Approval"
+    self.authorization_value = "required"
     self.authorization_type = "PendingPayer"
   end
 
