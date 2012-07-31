@@ -23,7 +23,7 @@ class Purchase < ActiveRecord::Base
   def create_transaction!(params)    
 
     self.transactions.create!( 
-        :trx_type => 'manual',
+        :trx_type => 'Manual',
         :ppp_status =>  params[:ppp_status],
         :PPP_TransactionID => params[:PPP_TransactionID],
         :responsechecksum => params[:responsechecksum],
@@ -123,7 +123,8 @@ class Purchase < ActiveRecord::Base
       "time_stamp=" + time_stamp + "&" +
       "version=" +   Paykido::Application.config.version + "&" +
       "customField1=" + "payment" + "&" +
-      "customField2=" + self.id.to_s + "&" +
+      "customField2=" + self.payer_id.to_s + "&" +
+      "customField3=" + self.id.to_s + "&" +
       "&merchantLocale=" + I18n.locale.to_s + "&" +
       "checksum=" + self.checksum(time_stamp) + test_fields
       )

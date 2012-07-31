@@ -103,12 +103,12 @@ label, input {
 }
 
 #new_registration input[type="submit"] {
-    height: 51px;
+    height: 66px;
     font-size: 26px;
     font-weight: 100;
     font-family: ubuntu;
     text-transform: lowercase;
-    margin-top: 27px;
+    margin-top: 12px;
 }
 .content-box {
     clear: both;

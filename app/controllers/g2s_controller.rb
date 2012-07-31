@@ -9,8 +9,8 @@ class G2sController < ApplicationController
     
     if params[:customField1] == 'payment'
         redirect_to payer_purchase_url(
-          @payer.id, 
-          @purchase.id,
+          params[:customField2].to_i, 
+          params[:customField3].to_i,
           :notify => 'approval', 
           :status => params[:status],
           :consumer => @purchase.consumer_id,
@@ -21,7 +21,7 @@ class G2sController < ApplicationController
         )
     elsif params[:customField1] == 'registration'
         redirect_to payer_purchases_path(
-          @payer, 
+          params[:customField2].to_i, 
           :notify => 'registration', 
           :status => params[:status]
         )
@@ -69,20 +69,20 @@ class G2sController < ApplicationController
   
   def set_host_and_payer
     
-    if params[:customField1] and params[:customField1] == 'registration'
-      @payer = Payer.find(params[:customField2].to_i)
-    end
-    
-    if params[:customField1] and params[:customField1] == 'payment'
-      @purchase = Purchase.find(params[:customField2].to_i)
-      @payer = @purchase.payer
-    end
-    
-    if params[:nameOnCard] and params[:nameOnCard] == 'local'
+    if params[:customField1] == 'payment' and params[:nameOnCard] and params[:nameOnCard] == 'local'
       default_url_options[:host] = "localhost:3000"
     else 
-     default_url_options[:host] = Paykido::Application.config.hostname
+      default_url_options[:host] = Paykido::Application.config.hostname
+      if params[:customField1] and params[:customField1] == 'registration'
+        @payer =    Payer.find(params[:customField2].to_i)
+      end
+      
+      if params[:customField1] and params[:customField1] == 'payment'
+        @payer =    Payer.find(params[:customField2].to_i)
+        @purchase = Purchase.find(params[:customField3].to_i)
+      end
     end
+    
   end
   
 end
