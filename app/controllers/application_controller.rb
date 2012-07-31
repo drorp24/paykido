@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
     if params[:payer_id]
       begin    
         @payer = Payer.find(params[:payer_id])
-        @name = @payer.name 
+        @name = 'Family'
       rescue ActiveRecord::RecordNotFound
         flash[:error] = "No such payer. Please log in."
         return
@@ -35,7 +35,8 @@ class ApplicationController < ActionController::Base
       begin   
         Rails.logger.debug("in application.rb. params email and token accepted")   
         @payer = Payer.authenticate_by_token(params[:email], params[:token])
-        Rails.logger.debug("no payer found") unless @payer   
+        @name = 'Family'
+         Rails.logger.debug("no payer found") unless @payer   
         @name = @payer.name 
       rescue ActiveRecord::RecordNotFound
         flash[:error] = "No such token"

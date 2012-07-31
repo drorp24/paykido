@@ -3,11 +3,12 @@
 
 <section id="maincontainer">
 
-		<%= render :partial => 'page_head', :locals => {:title => "#{@name} Rules"} %>
+		<%= render :partial => 'page_head', :locals => {:title => "#{@name}'s Rules"} %>
 		
 		<table>
 			<thead>
 				<tr>
+					<td>Name</td>
 					<td>Property</td>
 					<td>Value</td>
 					<td>Status</td>
@@ -17,6 +18,7 @@
 			<tbody>
 				<% @rules.each do |rule| %>
 				  <tr>
+				    <td><%= rule.consumer.name if rule.consumer_id %></td>
 				    <td><%= rule.property %></td>
 				    <td><%= rule.value %></td>
 				    <td><%= rule.status %></td>

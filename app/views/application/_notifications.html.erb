@@ -4,17 +4,18 @@
     You can now place rules, have Paykido automatically block bad purchases and automatically pay for complying ones.
 </div>
 
+<% if params[:controller] == 'purchases' and params[:id] %>
 <div id="approval_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
-	<% @purchase = Purchase.find(params[:id]) %>
-	<% @retailer = @purchase.retailer.name %>
-	<% @times = @purchase.approval_counter('retailer') %>
-    <% if @times > Paykido::Application.config.offer_rule_or_registration_after.to_i %>
-    	<h4 class="alert-heading"><%= "Suggested Rule: Always Approve #{@retailer}" %></h4>
-    	<span><%= "You approved #{@retailer} already #{@times} times." %></span>
+	<% purchase = Purchase.find(params[:id]) %>
+	<% retailer = purchase.retailer.name %>
+	<% times = purchase.approval_counter('retailer') %>
+    <% if times > Paykido::Application.config.offer_rule_or_registration_after.to_i %>
+    	<h4 class="alert-heading"><%= "Suggested Rule: Always Approve #{retailer}" %></h4>
+    	<span><%= "You approved #{retailer} already #{times} times." %></span>
     	<% if @payer.registered_or_waived %>
     		<span><%= "Click here if you'd like to have Paykido approve this merchant for you from now on." %></span>
-    		<%= button_to "Always approve #{@retailer}", payer_rules_path(@payer, :consumer_id => @purchase.consumer_id, :property => 'retailer', :value => @retailer, :status => 'whitelisted', :purchase => @purchase.id), :method => :post, :remote => true, :class => "btn btn-primary inline" %>
+    		<%= button_to "Always approve #{retailer}", payer_rules_path(@payer, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :status => 'whitelisted', :purchase => purchase.id), :method => :post, :remote => true, :class => "btn btn-primary inline" %>
 		<% else %>
     		<%= "Register and have Paykido do that for you next time." %>
     		<%= button_to "Register Now", new_payer_registration_url(@payer),:method => :get, :remote => true, :class => "btn btn-primary inline" %>
@@ -23,10 +24,12 @@
     	<h4 class="alert-heading">Purchase Approved</h4>	
 	<% end %>    		
 </div>
+<% end %>
 
+<% if params[:controller] == 'purchases' and params[:id] %>
 <div id="denial_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
-	<% purchase = Purchase.find(params[:id]) %>
+	<% purchase = Purchase.find(params[:id])  if params[:controller] == 'purchases'%>
 	<% retailer = purchase.retailer.name %>
 	<% times = purchase.approval_counter('retailer') %>
     <% if times > Paykido::Application.config.offer_rule_or_registration_after.to_i %>
@@ -43,6 +46,7 @@
     	<h4 class="alert-heading">Purchase Declined</h4>	
 	<% end %>    		
 </div>
+<% end %>
 
 <div id="rule_setting_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
@@ -105,10 +109,10 @@ $(document).ready(function() {
 // Purchase approval-token-payment status
 <% if params[:notify] and params[:notify] == 'approval' %>
 	<% if params[:status] == 'success' || params[:status] == 'approved' %>
-	    notification("<%= "Purchase approved by #{@payer.name}"%>", false, 'user', true)
+	    notification("<%= "Purchase approved by #{@payer.name}"%>", false, 'tick', true)
 		$('#approval_success').show();
 	<% else %>
-	    notification('<%= "Payment failed" %>', false, 'alert', true)
+	    notification('<%= "Payment failed" %>', false, 'sp_alert', true)
 	<% end %>
 <% end %>
 	
@@ -118,7 +122,7 @@ $(document).ready(function() {
 	    notification("<%= "Purchase declined by #{@payer.name}"%>", false, 'user', true)
 		$('#denial_success').show();
 	<% else %>
-	    notification('<%= "Purchase denial failed" %>', false, 'alert', true)
+	    notification('<%= "Purchase denial failed" %>', false, 'sp_alert', true)
 	<% end %>
 <% end %>
 
@@ -134,7 +138,7 @@ $(document).ready(function() {
 			}).popover('show');
 			window.setTimeout("$('a.blue.rule').popover('hide')", 10000);
 	<% else %>
-	    notification('<%= "Rule setting failed" %>', false, 'alert', true)
+	    notification('<%= "Rule setting failed" %>', false, 'sp_alert', true)
 	<% end %>
 <% end %>
 
