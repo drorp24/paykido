@@ -4,6 +4,15 @@
     You can now place rules, have Paykido automatically block bad purchases and automatically pay for complying ones.
 </div>
 
+<div id="registration_failure" class="alert alert-block" style="display:none">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Something is missing</h4>
+    <%= "We\'re unable to check your credit card. " %>
+    <%= "Gateway says: #{params[:message]}." if params[:message] %>
+	<%= "Could be something you keyed." %>
+	<%= button_to "Try again", payer_registrations_path(@payer), :class => "btn btn-primary inline" %>
+</div>
+
 <% if params[:purchase] %>
 <div id="approval_failure" class="alert alert-block alert-error" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
@@ -95,7 +104,7 @@ $(document).ready(function() {
 			window.setTimeout("$('#registration_popover').popover('hide')", 5000);
 	<% else %>
 	    notification('<%= "Registration failed" %>', false, 'sp_alert', true)
-//	    $('#registration_failure').show();
+	    $('#registration_failure').show();
 	<% end %>
 <% end %>
 

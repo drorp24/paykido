@@ -38,6 +38,13 @@ class Payer < ActiveRecord::Base
   
   def populate_fields(params)
 
+    return '' unless 
+                  params[:registration]             and
+                  params[:registration][:FirstName] and 
+                  params[:registration][:LastName]  and 
+                  params[:registration][:Email]     and
+                  params[:registration][:Phone]
+    
     "&first_name=" + params[:registration][:FirstName] +
     "&last_name=" + params[:registration][:LastName] +
     "&email=" + params[:registration][:Email] +

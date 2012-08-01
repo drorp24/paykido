@@ -28,7 +28,7 @@ form.button_to div {
     padding-bottom: 7px;
 }
 
-#approval_success.alert-block, #approval_failure.alert-block {
+#approval_success.alert-block, #approval_failure.alert-block, #registration_failure.alert-block  {
     padding-bottom: 7px;
 }
 

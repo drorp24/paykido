@@ -198,25 +198,26 @@ class Purchase < ActiveRecord::Base
       :sg_ResponseFormat => "4"
     })
     rescue => e
-      Rails.logger.info("token was rescued. Following is the error:")
+      Rails.logger.info("Token was rescued. Following is the error:")
       Rails.logger.info(e)
       @paid_by_token = false
       return
     else
-      Rails.logger.info("token was succesfull. Following is the response:")
+      Rails.logger.info("Token call itself was succesfull. Status: #{token_response.parsed_response["Response"]["Status"]}. Following is the full response:")
       Rails.logger.info(token_response.inspect)
    end
    
     response = token_response.parsed_response["Response"]
  
     self.transactions.create!( 
-      :trx_type => 'token',
+      :trx_type => 'Token',
       :TransactionID => response["TransactionID"],
       :status => response["Status"],
       :AuthCode => response["AuthCode"],
       :Reason => response["ReasonCodes"]["Reason"]["code"],
       :ExErrCode => response["ExErrCode"],
-      :ErrCode => response["ErrCode"]
+      :ErrCode => response["ErrCode"],
+      :token => response["Token"]
     )                                                      
 
     @paid_by_token = response["Status"] == 'APPROVED'

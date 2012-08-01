@@ -21,7 +21,8 @@ class G2sController < ApplicationController
         redirect_to payer_purchases_path(
           params[:customField2].to_i, 
           :notify => 'registration', 
-          :status => params[:status]
+          :status => params[:status],
+          :message => params[:message]
         )
     else
       flash[:error] = ""
