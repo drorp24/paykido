@@ -38,7 +38,7 @@ class G2sController < ApplicationController
     # if this is a (succesful) transaction, notify/approve/inform (make it DRY by having them all in the model)
     # dont render anything or redirect anywhere
 
-    return render(:nothing => true) if @local_test
+    return render(:nothing => true) if @local_test or @error
     
     if params[:customField1] == 'payment'
 
@@ -80,15 +80,18 @@ class G2sController < ApplicationController
       if params[:customField1] and params[:customField1] == 'registration'
         unless @payer =    Payer.find_by_id(params[:customField2].to_i)
           Rails.logger.debug("Payer whose id is #{params[:customField2]} was not found")
+          @error = true
         end
       end
       
       if params[:customField1] and params[:customField1] == 'payment'
         unless @payer =    Payer.find_by_id(params[:customField2].to_i)
           Rails.logger.debug("Payer whose id is #{params[:customField2]} was not found")
+          @error = true
         end
         unless @purchase = Purchase.find_by_id(params[:customField3].to_i)
           Rails.logger.debug("Purchase whose id is #{params[:customField3]} was not found")
+          @error = true
         end
       end
     end
