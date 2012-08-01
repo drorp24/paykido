@@ -4,7 +4,6 @@ class G2sController < ApplicationController
 
   def ppp_callback    ## /ppp/<status>
 
-    # redirect to originating page according to context: registration or purchase
     # no counting on any session - payer & purchase id are returned in the callback paramteres
     
     if params[:customField1] == 'payment'
@@ -13,6 +12,9 @@ class G2sController < ApplicationController
           params[:customField3].to_i,
           :notify => 'approval', 
           :status => params[:status],
+          :purchase => params[:customField3],
+          :message => params[:message],
+          :manual => 'true',
           :_pjax => "data-pjax-container"
         )
     elsif params[:customField1] == 'registration'
@@ -36,6 +38,8 @@ class G2sController < ApplicationController
     # if this is a (succesful) transaction, notify/approve/inform (make it DRY by having them all in the model)
     # dont render anything or redirect anywhere
 
+    return if @local_test
+    
     if params[:customField1] == 'payment'
 
       @purchase.create_transaction!(params)
@@ -57,7 +61,8 @@ class G2sController < ApplicationController
       return false   
     end
     
-    
+    render :nothing => true
+
   end
 
 
@@ -66,17 +71,25 @@ class G2sController < ApplicationController
   def set_host_and_payer
     
     if params[:customField1] == 'payment' and params[:nameOnCard] and params[:nameOnCard] == 'local'
+      @local_test = true
       default_url_options[:host] = "localhost:3000"
       default_url_options[:protocol] = "http"
     else 
       default_url_options[:host] = Paykido::Application.config.hostname
+
       if params[:customField1] and params[:customField1] == 'registration'
-        @payer =    Payer.find(params[:customField2].to_i)
+        unless @payer =    Payer.find_by_id(params[:customField2].to_i)
+          Rails.logger.debug("Payer whose id is #{params[:customField2]} was not found")
+        end
       end
       
       if params[:customField1] and params[:customField1] == 'payment'
-        @payer =    Payer.find(params[:customField2].to_i)
-        @purchase = Purchase.find(params[:customField3].to_i)
+        unless @payer =    Payer.find_by_id(params[:customField2].to_i)
+          Rails.logger.debug("Payer whose id is #{params[:customField2]} was not found")
+        end
+        unless @purchase = Purchase.find_by_id(params[:customField3].to_i)
+          Rails.logger.debug("Purchase whose id is #{params[:customField3]} was not found")
+        end
       end
     end
     

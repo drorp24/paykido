@@ -135,7 +135,7 @@ class Purchase < ActiveRecord::Base
 
     return "" unless Paykido::Application.config.populate_test_fields
     
-    "&first_name=Dror" +
+    "&first_name=Drop" +
     "&last_name=Poliak" +
     "&email=drorp24@yahoo.com" +
     "&address1=Shamgar 23" +
@@ -415,23 +415,23 @@ class Purchase < ActiveRecord::Base
     
     if mode == 'manual'
       if      status == 'approved'
-        message = "Congrats, #{self.consumer.name}! Your parent has just approved your purchase request. The item is yours!"
+        message = "Congrats, #{self.consumer.name}! Your parent has just approved your purchase request (#{self.id}). The item is yours!"
       elsif    status == 'declined'  
-        message = "We are sorry. Your parent has just declined your purchase request."
+        message = "We are sorry. Your parent has just declined your purchase request (#{self.id})."
       elsif   status == 'failed'  
-        message = "We are sorry. Something went wrong while trying to approve your purchase. Please contact Paykido help desk for details"  
+        message = "We are sorry. Something went wrong while trying to approve your purchase (#{self.id}). Please contact Paykido help desk for details"  
       else
         return false  
       end 
     else
       if      status == 'approved' 
-        message = "Congrats, #{self.consumer.name}! Paykido just approved your purchase request. The item is yours!"
+        message = "Congrats, #{self.consumer.name}! Paykido just approved your purchase request (#{self.id}). The item is yours!"
       elsif   status == 'declined'   
-        message = "We are sorry. This purchase is not compliant with you parents rules!"
+        message = "We are sorry. This purchase (#{self.id}) is not compliant with you parents rules!"
       elsif   status == 'failed'  
-        message = "We are sorry. Something went wrong while trying to approve your purchase. Please contact Paykido help desk for details"  
+        message = "We are sorry. Something went wrong while trying to approve your purchase (#{self.id}). Please contact Paykido help desk for details"  
       elsif   status == 'pending'  
-        message = "Wait... This requires manual approved. We'll notify you once it gets approved!"  
+        message = "Wait... This purchase (#{self.id}) requires manual approved. We'll notify you once it gets approved!"  
       else
         return false  
       end 

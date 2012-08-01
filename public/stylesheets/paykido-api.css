@@ -69,6 +69,9 @@ body {
     font-size: 18px;   
 }
 
+#merchant_line1 {
+    font-size: 14px;   
+}
 #register_headline {
     font-weight: bold;
     font-size: 12px;

@@ -4,10 +4,25 @@
     You can now place rules, have Paykido automatically block bad purchases and automatically pay for complying ones.
 </div>
 
-<% if params[:controller] == 'purchases' and params[:id] %>
+<% if params[:purchase] %>
+<div id="approval_failure" class="alert alert-block alert-error" style="display:none">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Something is missing</h4>
+    <%= "We are unable to process the payment. " %>
+    <%= "Our gateway says: #{params[:message]}." if params[:message] %>
+	<% if params[:manual] %>
+		<%= "It could be something you keyed wrongly.    " %>
+    	<%= button_to "Try again", approve_purchase_path(params[:purchase]),:method => :get, :remote => true, :class => "btn btn-primary inline" %>
+	<% else %>
+		<%= "Please contact Paykido Support for help." %>
+	<% end %>
+</div>
+<% end %>
+
+<% if params[:purchase] and params[:status] == 'success' %>
 <div id="approval_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
-	<% purchase = Purchase.find(params[:id]) %>
+	<% purchase = params[:purchase] %>
 	<% retailer = purchase.retailer.name %>
 	<% times = purchase.approval_counter('retailer') %>
     <% if times > Paykido::Application.config.offer_rule_or_registration_after.to_i %>
@@ -26,10 +41,10 @@
 </div>
 <% end %>
 
-<% if params[:controller] == 'purchases' and params[:id] %>
+<% if params[:purchase] and params[:status] == 'success' %>
 <div id="denial_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
-	<% purchase = Purchase.find(params[:id])  if params[:controller] == 'purchases'%>
+	<% purchase = params[:purchase] %>
 	<% retailer = purchase.retailer.name %>
 	<% times = purchase.approval_counter('retailer') %>
     <% if times > Paykido::Application.config.offer_rule_or_registration_after.to_i %>
@@ -108,13 +123,14 @@ $(document).ready(function() {
 
 // Purchase approval-token-payment status
 <% if params[:notify] and params[:notify] == 'approval' %>
-	<% if params[:status] == 'success' || params[:status] == 'approved' %>
+	<% if params[:status] == 'success' %>
 		<% if params[:controller] == 'purchases' and params[:id] %>
 			<% id = params["id"] %>
 		<% end %>
 	    notification("<%= "#{@payer.name} approved purchase #{id}"%>", false, 'tick', true)
 		$('#approval_success').show();
 	<% else %>
+		$('#approval_failure').show();
 	    notification('<%= "Payment failed" %>', false, 'sp_alert', true)
 	<% end %>
 <% end %>

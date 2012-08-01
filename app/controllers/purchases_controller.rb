@@ -66,7 +66,8 @@ class PurchasesController < ApplicationController
       @payer, 
       @purchase,
       :notify => 'approval', 
-      :status => status, 
+      :status => status,
+      :purchase => @purchase.id,
       :_pjax => "data-pjax-container"
     )  
 
@@ -81,7 +82,8 @@ class PurchasesController < ApplicationController
       @payer, 
       @purchase,
       :notify => 'denial', 
-      :status => 'success', 
+      :status => 'success',
+      :purchase => @purchase.id, 
       :_pjax => "data-pjax-container"
     )  
 

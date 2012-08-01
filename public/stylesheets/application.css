@@ -28,8 +28,12 @@ form.button_to div {
     padding-bottom: 7px;
 }
 
-#approval_success.alert-block {
+#approval_success.alert-block, #approval_failure.alert-block {
     padding-bottom: 7px;
+}
+
+.alert .sp_alert {
+    padding-left: 16px;
 }
 
 form.button_to {

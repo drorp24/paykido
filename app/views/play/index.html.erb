@@ -53,7 +53,8 @@ $(document).ready(function () {
 	//Emulate merchant notification
 	<% if params[:status] %>
 		<% if params[:status] == 'registering' %>
-			<% message = 'Email sent to parent...' %>
+			<% message = 'Welcome to Paykido!' %>
+			<% line1 = "You can start using it to buy as soon as your parent confirms you (email sent)." %>
 		<% else %>
 			<% message = params[:property] + ' is ' + params[:value] %>
 			<% if params[:status] == 'declined' %>
@@ -61,7 +62,7 @@ $(document).ready(function () {
 			<% elsif params[:status] == 'approved' %>
 				<% message = 'Hurrah! ' + message %>
 			<% elsif params[:status] == 'pending' %>
-				<% message = 'Wait... ' + message %>
+				<% message = ' ' + message %>
 			<% elsif params[:status] == 'failed' %>
 				<% message = 'Oops... ' + message %>
 			<% else %>
@@ -69,7 +70,7 @@ $(document).ready(function () {
 			<% end %>
 		<% end %>
 		$('#paykido .content').height(300);
-		$.paykido('<div id=window_content><p class=text id=merchant_headline><%= message %></p><span class=status_icon></span><span class=status_text></span></div>');
+		$.paykido('<div id=window_content><p class=text id=merchant_headline><%= message %></p><p class=text id=merchant_line1><%= line1 %></p><span class=status_icon></span><span class=status_text></span></div>');
 		$('.status_icon').addClass("<%= params[:status] %>");
 		$('.status_text').html('<%= params[:status] %>');
 	<% end %>
