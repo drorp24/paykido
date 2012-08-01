@@ -22,7 +22,7 @@
 <% if params[:purchase] and params[:status] == 'success' %>
 <div id="approval_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
-	<% purchase = params[:purchase] %>
+	<% purchase = Purchase.find(params[:purchase]) %>
 	<% retailer = purchase.retailer.name %>
 	<% times = purchase.approval_counter('retailer') %>
     <% if times > Paykido::Application.config.offer_rule_or_registration_after.to_i %>
@@ -44,7 +44,7 @@
 <% if params[:purchase] and params[:status] == 'success' %>
 <div id="denial_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
-	<% purchase = params[:purchase] %>
+	<% purchase = Purchase.find(params[:purchase]) %>
 	<% retailer = purchase.retailer.name %>
 	<% times = purchase.approval_counter('retailer') %>
     <% if times > Paykido::Application.config.offer_rule_or_registration_after.to_i %>
