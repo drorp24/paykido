@@ -96,6 +96,7 @@ $(document).ready(function() {
 	    notification("<%= "Successfully registered!"%>", false, 'file', true)
 		$('.consumer.active').addClass('confirmed');
 		$('#registration_success').show();
+		$("#registration_popover i").removeClass('bigicon-placeholder').addClass('bigicon-shield');
 		$("#registration_popover").popover({
 			title: "Registration Sign" ,
 			content: "Shield icon says your account is registered",
