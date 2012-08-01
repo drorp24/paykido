@@ -8,10 +8,10 @@
 <div id="approval_failure" class="alert alert-block alert-error" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Something is missing</h4>
-    <%= "We are unable to process the payment. " %>
-    <%= "Our gateway says: #{params[:message]}." if params[:message] %>
+    <%= "We\'re unable to process the payment. " %>
+    <%= "Gateway says: #{params[:message]}." if params[:message] %>
 	<% if params[:manual] %>
-		<%= "It could be something you keyed wrongly.    " %>
+		<%= "Could be something you keyed." %>
     	<%= button_to "Try again", approve_purchase_path(params[:purchase]),:method => :get, :remote => true, :class => "btn btn-primary inline" %>
 	<% else %>
 		<%= "Please contact Paykido Support for help." %>
