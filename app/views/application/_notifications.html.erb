@@ -134,6 +134,11 @@ $(document).ready(function() {
 // Purchase approval (either manual or token)
 <% if params[:notify] and params[:notify] == 'approval' %>
 	<% if params[:status] == 'success' or params[:status] == 'approved'%>
+		<% if params[:controller] == 'purchases' and params[:id] %>
+      		<% id = params["id"] %>
+  		<% else %>
+  			<% id = '' %>
+    	<% end %>
 	    notification("<%= "#{@payer.name} approved purchase #{id}"%>", false, 'tick', true)
 		$('#approval_success').show();
 	<% else %>
