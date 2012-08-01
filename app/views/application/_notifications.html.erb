@@ -121,7 +121,7 @@ $(document).ready(function() {
 <% end %>
 
 
-// [ToDO: standartise] PP return status
+// [ToDO: DELETE??] PP return status
 <% if params[:status] and params[:Error] %>
 	<% if params[:status] == 'failure' %>
 	    notification('<%= "Failed: #{params[:Error]}" %>', false, 'alert', true)
@@ -131,12 +131,9 @@ $(document).ready(function() {
 	<% end %>
 <% end %>
 
-// Purchase approval-token-payment status
+// Purchase approval (either manual or token)
 <% if params[:notify] and params[:notify] == 'approval' %>
-	<% if params[:status] == 'success' %>
-		<% if params[:controller] == 'purchases' and params[:id] %>
-			<% id = params["id"] %>
-		<% end %>
+	<% if params[:status] == 'success' or params[:status] == 'approved'%>
 	    notification("<%= "#{@payer.name} approved purchase #{id}"%>", false, 'tick', true)
 		$('#approval_success').show();
 	<% else %>
