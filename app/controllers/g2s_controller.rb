@@ -38,7 +38,7 @@ class G2sController < ApplicationController
     # if this is a (succesful) transaction, notify/approve/inform (make it DRY by having them all in the model)
     # dont render anything or redirect anywhere
 
-    return if @local_test
+    return render(:nothing => true) if @local_test
     
     if params[:customField1] == 'payment'
 
