@@ -17,7 +17,8 @@ class AdminController < ActionController::Base
     info.logo = 'zynga logo.png'
     info.save!
     
-    info = Info.newinfo.key = 'title'
+    info = Info.new
+    info.key = 'title'
     info.value = 'farmville'
     info.title = 'Farmville'
     info.description = "FarmVille is a casual farming simulation social network game developed by Zynga in 2009. Gameplay involving various aspects of farm management such as plowing land, planting, growing and harvesting crops, harvesting trees and bushes, and raising livestock.  The game is a freemium game, meaning there is no cost to play but players have the option of purchasing premium content. As of September 2011, FarmVille is the third most popular Facebook game, behind CityVille and The Sims Social."
@@ -26,5 +27,16 @@ class AdminController < ActionController::Base
     
     redirect_to payer_purchases_path(1)
   end 
+  
+  def populate_rest
+    info = Info.new
+    info.key = 'title'
+    info.value = 'farmville'
+    info.title = 'Farmville'
+    info.description = "FarmVille is a casual farming simulation social network game developed by Zynga in 2009. Gameplay involving various aspects of farm management such as plowing land, planting, growing and harvesting crops, harvesting trees and bushes, and raising livestock.  The game is a freemium game, meaning there is no cost to play but players have the option of purchasing premium content. As of September 2011, FarmVille is the third most popular Facebook game, behind CityVille and The Sims Social."
+    info.logo = 'farmville.png'
+    info.save!
+        
+  end
  
 end
