@@ -6,49 +6,43 @@
 <div class="box-content">
 
     <div class="header clearfix">
-        <div class="grid_5 content-header relative clearfix">
+        <div class="grid_6 content-header relative clearfix">
             <p class="retailer">                    
-                    <% if @purchase.retailer.logo  %>
-                        <%= image_tag @purchase.retailer.logo %>
-                    <% else %>
-                        <%= @purchase.retailer.name %>
-                    <% end %>
-                    <%= @purchase.id %>
+					<%= @purchase.retailer.name %>   
+					<%= @purchase.consumer_id %>
 			</p>
 			<p class="product"><%= @purchase.product %></p>
             <p class="price"><%= number_to_currency @purchase.amount %></p>
         </div>
-        <div class="grid_7 content-header relative">
+        <div id="purchase_header_right" class="grid_5 content-header relative">
             <p class="retailer_info">
-                <span class="star_rating stooltip" title="Recommended by 82% of Paykido users"></span>
-                <span class="stooltip" title="Recommend this merchant">
+                <span class="star_rating stooltip" title="4.5 of 5 of Paykido users approve Zynga"></span>
+                <span class="stooltip">
                     <a href="#" class="small button">
-                        <span class="like">Recommend</span>
+                        <span class="like stooltip" title="74% of our users recommended this merchant">74%</span>
                     </a>
                 </span>            
             </p>
-            <p><div class="progress"><span style="width: 50%;"></span></div></p>
-            <p class="approval_rate shadow">
-                <span class="approval_percent">74% </span>
-                <span class="approval_text">approval rate</span>
-            </p>    
+            <p><div class="progress"><span style="width: 70%;"></span></div></p>
+
+			<% if @purchase.requires_approval? %>
+			<div id="approval_buttons">
+			    <%= link_to approve_purchase_path(@purchase), :class => "small blue approval button" do %>
+			        <span class="icon16 tick"></span>
+			        Approve
+			    <% end %>
+			    <%= link_to decline_purchase_path(@purchase), :class => "small blue decline button" do %>
+			        <span class="icon16 delete"></span>
+			        Decline
+			    <% end %>
+			</div>
+			<% end %>     
+
         </div>
 
     </div>
 
-	<% if @purchase.requires_approval? %>
-	<div id="approval_buttons" class="fr">
-	    <%= link_to approve_purchase_path(@purchase), :class => "small blue button" do %>
-	        <span class="icon16 tick"></span>
-	        Approve
-	    <% end %>
-	    <%= link_to decline_purchase_path(@purchase), :class => "small blue button" do %>
-	        <span class="icon16 delete"></span>
-	        Decline
-	    <% end %>
-	</div>
-	<% end %> 
-    
+	<br />
     <p class="sectiontitle">About the purchase</p>
     <table class="purchase_info">
         <tbody>
@@ -59,7 +53,7 @@
                     <td class="purchase_title"><%= t property %>:</td>
                     <td class="purchase_logo">
                         <% if info = Info.find_by_key_and_value(property, value) and info.logo %>
-                            <%= image_tag info.logo, {:class => "stooltip", :title => info.description} %>
+                            <%= image_tag info.logo, {:rel => "popover", :class => "stooltip", :title => info.title, :data => {:content => info.description}} %>
                         <% else %>
                             <%= value %>
                         <% end %>
@@ -103,6 +97,10 @@
 <script type="text/javascript">
 
 $('document').ready(function() {
+
+		$('[rel="popover"]').popover({placement: "left"});
+
+
 /// reconstruct unbound methods following the refresh of the purchase pane (find uniform way of doing this)
     $('a.modal').each(function() {
       var link = $(this);
