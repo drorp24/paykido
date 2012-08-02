@@ -9,7 +9,7 @@
         <div class="grid_6 content-header relative clearfix">
             <p class="retailer">                    
 					<%= @purchase.retailer.name %>   
-					<%= @purchase.consumer_id %>
+					<%= @purchase.id %>
 			</p>
 			<p class="product"><%= @purchase.product %></p>
             <p class="price"><%= number_to_currency @purchase.amount %></p>
