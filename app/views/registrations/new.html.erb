@@ -1,5 +1,16 @@
+<% unless params[:notify] %>
+	<div id="registration_optional" class="alert alert-block alert-info">
+		<a class="close" data-dismiss="alert" href="#">×</a>
+	    <h4 class="alert-heading">Registration is not manadatory!</h4>
+	    <span>Unlike other services, Paykido doesn't need your credit card to operate. </span>
+	    <span>Once you are in the payment page, <strong>only you and the merchant know </strong>what credit card you're using. </span>
+	    <span>But once you're ready to submit your card details - this is when you're really protected, and your kids get all the fun!</span>
+	</div>
+<% end %>
+
 <%= render 'primary_navigation'  %>
 <%= render 'setting_navigation' %>
+<%= render 'notifications' %>
 
 <section id="maincontainer">
 
@@ -15,15 +26,15 @@
 				<div class="features">
 					<p class="feature">
 						<i class="bigicon-plus-in-a-circle"></i>
-						<span class="feature_text">Set your policy or have Paykido learn it</span>
+						<span class="feature_text">Set your policy (or let Paykido offer it)</span>
 					</p>
 					<p class="feature">
 						<i class="bigicon-plus-in-a-circle"></i>
-						<span class="feature_text">Let Paykido block bad purchases</span>
+						<span class="feature_text">Automatically block bad purchases</span>
 					</p>
 					<p class="feature">
 						<i class="bigicon-plus-in-a-circle"></i>
-						<span class="feature_text">Let Paykido pay for safe purchases</span>
+						<span class="feature_text">Let Paykido pay for complying purchases</span>
 				 	</p>
 			 	</div>
 			</div>
@@ -48,5 +59,3 @@
 
 
 </section>
-
-<%= render 'notifications' %>

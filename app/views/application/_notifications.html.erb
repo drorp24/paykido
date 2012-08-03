@@ -65,7 +65,7 @@
     	<h4 class="alert-heading"><%= "Suggested Rule: Always Decline #{retailer}" %></h4>
     	<span><%= "You declined #{retailer} already #{times} times." %></span> 
     	<% if @payer.registered_or_waived %>
-    		<span><%= "Click here if you'd like to have Paykido decline this merchant for you fgoing forward." %></span>
+    		<span><%= "Click here if you'd like to have Paykido decline this merchant for you going forward." %></span>
     		<%= button_to "Always decline #{retailer}", payer_rules_path(@payer, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :status => 'blacklisted', :purchase => purchase.id), :method => :post, :class => "btn btn-primary inline" %>
 		<% else %>
     		<%= "Register and have Paykido do that for you going forward." %>

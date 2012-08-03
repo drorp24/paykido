@@ -2,6 +2,10 @@ body {
     height: 600px;
 }
 
+.alert-info {
+    color: black;
+}
+
 #why_register, .registration_form {
     
    margin-top: 20px;
@@ -10,6 +14,12 @@ body {
 #unregistration_success {
     width: 860px;    
 }
+
+#registration_optional.alert-block {
+    padding-bottom: 4px;
+     width: 860px;     
+}
+
 
 button i.bigicon-tick-black {
     
