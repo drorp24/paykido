@@ -26,16 +26,30 @@
             <p><div class="progress"><span style="width: 70%;"></span></div></p>
 
 			<% if @purchase.requires_approval? %>
-			<div id="approval_buttons">
-			    <%= link_to approve_purchase_path(@purchase), :class => "small blue approval button" do %>
-			        <span class="icon16 tick"></span>
-			        Approve
-			    <% end %>
-			    <%= link_to decline_purchase_path(@purchase), :class => "small blue decline button" do %>
-			        <span class="icon16 delete"></span>
-			        Decline
-			    <% end %>
-			</div>
+<!--  			
+				<button class="btn btn-success">
+					<%= link_to approve_purchase_path(@purchase) do %>
+					<i class="bigicon-tick-black"></i>	
+					Approve
+					<% end %>			
+				</button>
+				<button class="btn btn-danger">
+					<i class="bigicon-cross-black"></i>
+					Decline
+				</button>
+-->
+
+				<div id="approval_buttons">
+				    <%= link_to approve_purchase_path(@purchase), :class => "small blue approval button" do %>
+				        <span class="icon16 tick"></span>
+				        Approve
+				    <% end %>
+				    <%= link_to decline_purchase_path(@purchase), :class => "small blue decline button" do %>
+				        <span class="icon16 delete"></span>
+				        Decline
+				    <% end %>
+				</div>
+
 			<% end %>     
 
         </div>

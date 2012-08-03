@@ -4,8 +4,6 @@ class G2sController < ApplicationController
 
   def ppp_callback    ## /ppp/<status>
 
-    # no counting on any session - payer & purchase id are returned in the callback paramteres
-    
     if params[:customField1] == 'payment'
         redirect_to payer_purchase_url(
           params[:customField2].to_i, 
@@ -13,7 +11,8 @@ class G2sController < ApplicationController
           :notify => 'approval', 
           :status => params[:status],
           :purchase => params[:customField3],
-          :message => params[:message],
+          :ErrCode => params[:ErrCode],
+          :ExErrCode => params[:ExErrCode],
           :manual => 'true',
           :_pjax => "data-pjax-container"
         )

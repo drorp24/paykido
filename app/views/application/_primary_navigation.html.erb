@@ -45,7 +45,7 @@
 	      	<% end %>
 	    </li>
 	    <li class="menu" id="setting_menu" >
-	    	<% path = (@payer.registered?) ? payer_registrations_path(@payer) : new_payer_registration_path(@payer) %>
+	    	<% path = payer_registrations_path(@payer) %>
 	      	<%= link_to path, 'data-skip-pjax' => true do%>
 	        	<span class="icon32 cog"></span>
 	        	Settings

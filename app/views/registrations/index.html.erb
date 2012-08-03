@@ -11,7 +11,8 @@
 			  <tr>
 			    <td><%= registration.NameOnCard %></td>
 			    <td>Credit card registered</td>
-			    <td><%= link_to 'Details', payer_registration_path(@payer, registration) %></td>
+			    <td><%= link_to 'Details', registration %></td>
+			    <td><%=  button_to 'Cancel Registration',  registration, confirm: 'Are you sure you want to cancel your registration?', method: :delete, :class => "btn btn-primary inline"  %></td>
 			  </tr>
 			<% end %>
 		</tbody>

@@ -7,6 +7,7 @@ class RegistrationsController < ApplicationController
   # GET /registrations.json
   def index
     @registrations = @payer.registrations
+    redirect_to new_payer_registration_path(@payer) unless @registrations.any?
   end
 
 
@@ -53,14 +54,14 @@ class RegistrationsController < ApplicationController
   # DELETE /registrations/1
   # DELETE /registrations/1.json
   def destroy
-    @registration = Registration.find(params[:id])
     @registration.destroy
-
-    respond_to do |format|
-      format.html { redirect_to registrations_url }
-      format.json { head :ok }
-    end
-  end
+    redirect_to new_payer_registration_path(
+      @payer,
+      :notify => "unregistration", 
+      :status => "success", 
+      :_pjax => "data-pjax-container"
+    )
+ end
 
   private
   

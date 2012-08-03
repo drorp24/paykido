@@ -2,6 +2,18 @@ body {
     height: 600px;
 }
 
+#why_register, .registration_form {
+    
+   margin-top: 20px;
+}
+
+#unregistration_success {
+    width: 860px;    
+}
+
+button i.bigicon-tick-black {
+    
+}
 #confirmation_popover {
     width: 29em;
 }
@@ -28,7 +40,7 @@ form.button_to div {
     padding-bottom: 7px;
 }
 
-#approval_success.alert-block, #approval_failure.alert-block, #registration_failure.alert-block  {
+#approval_success.alert-block, #approval_failure.alert-block, #registration_failure.alert-block, #unregistration_success.alert-block  {
     padding-bottom: 7px;
 }
 
@@ -564,7 +576,7 @@ tr:hover {
 }
 
 #approval_buttons {
-    margin-top: -8px;   
+    margin-top: 16px;   
 }
 table.purchase_info {
     max-width: 97%;

@@ -46,7 +46,7 @@ class PurchasesController < ApplicationController
     
     if @purchase.requires_manual_payment?
       redirect_to @purchase.g2spp         
-      # then the dmn would take care of the notify/approve/inform if succesful 
+      # then g2s#ppp_callback informs the status and g2s#dmn creates the trx, notifies the consumer and the merchant 
       return            
     end
 
