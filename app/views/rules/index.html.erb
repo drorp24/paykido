@@ -5,31 +5,53 @@
 
 		<%= render :partial => 'page_head', :locals => {:title => "#{@name}'s Rules"} %>
 		
-		<table>
-			<thead>
-				<tr>
-					<td>Name</td>
-					<td>Property</td>
-					<td>Value</td>
-					<td>Status</td>
-					<td>Details</td>
-				</tr>
-			</thead>
-			<tbody>
+		<div id="rules" class="settings  accordion">			
 				<% @rules.each do |rule| %>
-				  <tr>
-				    <td><%= rule.consumer.name if rule.consumer_id %></td>
-				    <td><%= rule.property %></td>
-				    <td><%= rule.value %></td>
-				    <td><%= rule.status %></td>
-				    <td><%= link_to 'Details', payer_rule_path(@payer, rule) %></td>
-				  </tr>
+
+					<div class="accordion-group">
+
+						<div class="accordion-heading row">
+							<a data-toggle="collapse" href=<%= "#ruleEdit_#{rule.id}" %> class="accordion-toggle" data-parent="#rules"> 
+								<span class="span2 rule_type"><%= t rule.status %></span>
+								<span class="span2 rule_property"><%= t rule.property %></span>	
+								<span class="span2 rule_value"><%= rule.value %></span>
+								<span class="span2 offset1 rule_edit">Edit</span>
+							</a>
+						</div>
+
+						<div id=<%= "ruleEdit_#{rule.id}" %> class="row rule_edit_area collapse">
+							<span>
+								<span class="span2"><%= "Always approve  #{rule.value}" %></span>
+								<span class="span2"><%= "Let me decide" %></span>
+								<span class="span2"><%= "Always decline #{rule.value}" %></span>
+							</span>
+							<span class="btn-group" data-toggle="buttons-radio">
+								<button class="always_approve btn btn-success"><i class="icon-thumbs-up icon-white"></i></button>
+								<button class="call_me btn btn-warning"><i class="icon-bullhorn icon-white"></i></button>
+								<button class="always_decline btn btn-danger"><i class="icon-thumbs-down icon-white"></i></button>
+							</span>
+							<br />
+    						<span><%= button_to "Update Rule", payer_rule_path(@payer, rule, :status => 'whitelisted'), :method => :put, :class => "btn btn-primary inline" %></span>
+							<span><%= button_to "Close" "#", :class => "btn" %>
+						</div>
+
+					</div>
+
 				<% end %>
-			</tbody>
-		</table>
-		
+		</div>
 		<br />
-		<%= link_to 'Add a new rule', new_payer_rule_path(@payer) if @payer.registered? or !Paykido::Application.config.rules_require_registration %>
+		<%= link_to 'Add a new rule', new_payer_rule_path(@payer) if @payer.registered_or_waived %>
 </section>
 
 <%= render 'notifications' %>
+<script>
+
+$(document).ready(function() {
+	  
+	$('.accordion-group').click(function () {
+		$('.accordion-group').css('background-color', 'transparent');
+    	$(this).css('background-color', 'white');
+    })
+})
+
+</script>

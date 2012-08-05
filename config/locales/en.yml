@@ -2,6 +2,9 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  retailer: merchant
+  whitelisted: Always approve
+  blacklisted: Always decline
   confirmation_heading: Make %{consumer_name}'s shopping safer!
   confirmation_1: Paykido can watch everything %{consumer_name} buys for you.
   confirmation_2: Try it for free and see how it protects your kid.

@@ -2,6 +2,74 @@ body {
     height: 600px;
 }
 
+
+.always_approve {
+    
+}
+
+.call_me {
+    
+}
+
+.always_decline {
+    
+}
+
+a:focus { 
+    outline: none; 
+}
+
+
+.accordion-group {
+    width: 97%;
+    padding: 7px;
+}
+
+.accordion-group:hover {
+    background-color: white;
+}
+
+.rule_edit {
+
+}
+
+.settings {
+    
+    font-size: 14px;
+}
+
+.settings a {
+    color: #555;
+}
+
+.rule_type {
+    color: #000;
+    font-weight: bold;
+}
+
+.rule_property {
+} 
+
+.rule_value {
+}
+
+.rule_edit {
+    color: #0088CC;   
+}
+
+.rule_edit_area .btn-group {
+    float: right;
+}
+.rule_edit  {
+    float: right;
+    text-align: right;
+}
+
+.rule_edit_area.in {
+
+    margin-top: 20px;
+}
+
 .alert-info {
     color: black;
 }

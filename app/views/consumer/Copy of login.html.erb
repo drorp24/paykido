@@ -1,0 +1,199 @@
+<div id="window_content" class="clearfix">
+	<div id="logo_and_pic">
+		<span id="logo">
+			<%= image_tag "/images/arca_logo.png", :id=>"logoimg",:border => 0 %>
+		</span>	
+		<span id="pic">
+			<%= image_tag "face_placeholder_small.png", :id => 'profile_picture', :style => 'display: none' %>
+		</span>
+	</div>
+	<div id="name_and_login">
+		<span id="name" class="text"></span>		
+		<span id="login_button" class="text">
+			<fb:login-button></fb:login-button>
+ 		</span>
+	</div>
+   	<div id="ajax_message">
+		<p id="first_line" class="text"></p>
+		<p id="second_line" class="text"></p>		
+	</div>		
+	<div id="buy" class="box">
+		<%= form_for :consumer, :url => {:action => :buy, 
+										 :merchant 	=> params[:merchant],
+										 :product	=> params[:product],
+										 :app 		=> params[:app],
+										 :amount   	=> params[:amount],
+										 :currency 	=> params[:currency],
+										 :userid   	=> params[:userid],
+										 :mode      => params[:mode],
+										 :PP_TransactionID => params[:PP_TransactionID],
+										 :hash		=> params[:hash],
+										 :referrer	=> params[:referrer] 
+										 }, :html => {:id => "buy_form"} do |f| %>
+			<%= submit_tag "Get it now", :id=> "buy_button", :class => "widget_button fg-button ui-state-default loginbutton ui-very-rounded-corners" %>
+		<% end %>
+	</div>
+	<div id="loadingZone"></div>
+	<div id="facepile_and_invite">
+		<p id="invite_title" class="text"></p>
+		<div id="facepile">
+			<fb:facepile app_id="<%= Paykido::Application.config.app_id %>"  max_rows="2" width="300"></fb:facepile>
+		</div>
+		<div id="invite" class="text">
+		    Invite your friends and earn credits!
+		</div>
+	</div>
+</div>
+		
+<div id="registration" style="display: none;">
+	<p id="register_headline" class="text">Register to Paykido and buy with one click</p>
+	<fb:registration  
+		width="292" 
+		fb_register="true"
+		redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>"  
+		fields='[
+			{ "name":"name"},
+			{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
+			{ "name":"payer_name",     "description":"Your parent name",  "type":"text"},
+			{ "name":"payer_phone",     "description":"Your parent mobile # (e.g., 2131234567)",  "type":"text"},
+			{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
+		]' 
+		>
+	</fb:registration>
+</div>
+
+
+<script type="text/javascript">
+
+
+// VALIDATION CHECKS: CHECK EMAILS ARE UNIQUE, PHONE NUMBERS VALID ETC
+// Facebook bug prohibits error message to show on screen if widget width < 520 px
+/*
+function validate_async(form, cb) {
+  $.getJSON('https://graph.facebook.com/' + form.payer_email + '?callback=?', 
+    function(response) {
+      if (response.error) {
+        // Username isn't taken, let the form submit
+        cb({payer_email: 'That username is taken'});
+      }
+      cb({payer_email: 'That username is taken'});
+  });
+}
+*/
+      
+$(document).ready(function (){ 
+	 
+	// invite friends
+	$('#invite').click(function() {
+		sendRequestViaMultiFriendSelector();
+	});
+
+	function sendRequestViaMultiFriendSelector() {
+        FB.ui({method: 'apprequests',
+          message: 'Hi! Paykido is a super-cool service that lets kids buy with a click!',
+          data: 'dror',
+          title:'Spread the word and earn credits!'
+        }, 
+        function(response)  {
+          if (response.request)  {
+          	invites = response.to.length
+        	alert('Thanks! ' + invites + ' more points for you!')
+          }
+      	}
+		);
+  	}
+
+
+
+    // Additional initialization code here
+	FB.getLoginStatus(function(response) {
+	  if (response.status === 'connected') {
+	    // the user is logged in and has authenticated your
+	    // app, and response.authResponse supplies
+	    // the user's ID, a valid access token, a signed
+	    // request, and the time the access token 
+	    // and signed request each expire
+	    userid = response.authResponse.userID;
+	    accessToken = response.authResponse.accessToken;
+	    // find a way to add these as 2 parameters to the buy (put them in a hidden form field and serialize for instance)
+	    connected(userid, accessToken);
+	  } else if (response.status === 'not_authorized') {
+	    // the user is logged in to Facebook, 
+	    // but has not authenticated your app
+	    not_authorized();
+	  } else {
+	    // the user isn't logged in to Facebook.
+	    unknown();
+	  }
+	 });
+	FB.Event.subscribe('auth.login', function(response) {
+	   login();
+	});
+	FB.Event.subscribe('auth.logout', function(response) {
+	   logout();
+	});
+	FB.Event.subscribe('auth.authResponseChange', function(response) {
+	  if (response.status === 'connected') {
+	    userid = response.authResponse.userID;
+	    accessToken = response.authResponse.accessToken;
+	    // find a way to add these as 2 parameters to the buy (put them in a hidden form field and serialize for instance)
+	    connected(userid, accessToken);
+	  } else if (response.status === 'not_authorized') {
+	    not_authorized();
+	  } else {
+	    unknown();
+	  }
+	});
+	function login(){
+	   FB.api('/me', function(response) {
+	   });
+	}
+
+	function logout(){
+	}
+
+
+	function connected(userid, accessToken){
+
+		$('#login_button').hide();
+	   	$('#registration').hide();
+	   	FB.XFBML.parse(); 
+  		$('#first_line').html('<%= "you selected #{params[:product]} for #{params[:amount]} #{params[:currency]}" %>');
+		$('#buy_button').removeAttr("disabled");
+	   	FB.api('/me', {fields: "id,first_name,picture"}, function(response) {
+	      $('#name').html('Welcome, '+response.first_name+"!");
+	      $('#profile_picture').attr("src", response.picture);
+	      $('#profile_picture').show();
+		  var action = $('#buy_form').attr('action') +
+		  				'&facebook_id=' + userid + 
+		  				'&name=' + response.first_name +
+		  				'&pic=' + response.picture;
+		  $('#buy_form').attr('action', action);
+	   });
+	}
+
+	function not_authorized(){
+		$('#login_button').hide();
+	   	$('#registration').show();
+	   	FB.XFBML.parse(); 
+		$('#buy_button').attr("disabled", "disabled");
+	}
+
+	function unknown(userid, accessToken){
+
+		$('#login_button').show();
+		$('#registration').hide();
+ 	   	FB.XFBML.parse(); 
+     	$('#name').html('Hello!');
+      	$('#profile_picture').hide();
+      	$('#first_line').html('Login to start using Paykido!');
+      	$('#buy_button').attr("disabled", "disabled");
+
+	}
+
+	
+//  explicit rendering of XFBML: required because of the lightbox. Without it, Chrome will not display the blue button.
+//	FB.XFBML.parse(); 
+
+});
+</script>

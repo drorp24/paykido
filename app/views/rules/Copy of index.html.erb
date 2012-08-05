@@ -1,0 +1,35 @@
+<%= render 'primary_navigation' %>
+<%= render 'consumer_navigation' %>
+
+<section id="maincontainer">
+
+		<%= render :partial => 'page_head', :locals => {:title => "#{@name}'s Rules"} %>
+		
+		<table>
+			<thead>
+				<tr>
+					<td>Name</td>
+					<td>Property</td>
+					<td>Value</td>
+					<td>Status</td>
+					<td>Details</td>
+				</tr>
+			</thead>
+			<tbody>
+				<% @rules.each do |rule| %>
+				  <tr>
+				    <td><%= rule.consumer.name if rule.consumer_id %></td>
+				    <td><%= rule.property %></td>
+				    <td><%= rule.value %></td>
+				    <td><%= rule.status %></td>
+				    <td><%= link_to 'Details', payer_rule_path(@payer, rule) %></td>
+				  </tr>
+				<% end %>
+			</tbody>
+		</table>
+		
+		<br />
+		<%= link_to 'Add a new rule', new_payer_rule_path(@payer) if @payer.registered? or !Paykido::Application.config.rules_require_registration %>
+</section>
+
+<%= render 'notifications' %>
