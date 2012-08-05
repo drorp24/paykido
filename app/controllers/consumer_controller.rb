@@ -1,8 +1,9 @@
 class ConsumerController < ApplicationController
   
   def login
-        
+    render :layout => false     
   end
+ 
   #############################################
   
   def register_callback  

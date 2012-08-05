@@ -9,7 +9,7 @@
 
 	position: absolute;
 	top:939px;
-	left:481px;
+	left:452px;
 
 }
 
@@ -201,10 +201,10 @@ End of reduandant part with aaa.css
 */
 
 #farmville1 {
-	position:absolute;
+/*	position:absolute;
 	top:0;
-	left:0;
-	width: 1423px;
+	left:0; */
+	width: 100%;
 	height: 728px;
 	
 	

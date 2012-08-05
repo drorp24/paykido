@@ -1,5 +1,10 @@
 <!--  THIS IS  FAKE CHECKOUT PAGE -->
 
+<div id="merchant_notification" class="alert alert-block" style="display:none">
+    <h4 id="notification_title" class="alert-heading"></h4>
+    <p id="notification_text"></p>
+</div>
+
 <%= image_tag "/images/farmville1.png", :id => "farmville1" %>
 <%= image_tag "/images/farmville21.png", :id => "farmville2" %>
 <p id="environment"><%= Paykido::Application.config.environment %></p>
@@ -14,8 +19,10 @@
 	</div>
 <% end %>
 
-<a href="<%= request.protocol + Paykido::Application.config.hostname %>/consumer/login?
+<a data-target="#paykido" data-toggle="modal" 
+	href="<%= request.protocol + Paykido::Application.config.hostname %>/consumer/login?
 	merchant=Zynga&
+	app=farmville&
 	product=Farm%20Cash&
 	amount=6.00&
 	currency=EUR&
@@ -23,15 +30,16 @@
 	mode=T&
 	PP_TransactionID=12345&
 	hash=df659d502af5151a2edd18e2ebb50ba3&
-	referrer=<%= request.url %>" 
-	rel="paykido">
+	referrer=<%= request.url %>">
 	<img src="/images/paykido_button.png" id="paykido_button" alt="paykido"/>
 </a>
 
+<div class="modal hide" id="paykido"></div>
 
 <script type="text/javascript">
 
 $(document).ready(function () {
+	
 	// Emulate product selection (here: product radio button) 
 	//	initial value
 		var value = $("input:checked[name=product]").val();
@@ -53,24 +61,23 @@ $(document).ready(function () {
 	//Emulate merchant notification
 	<% if params[:status] %>
 		<% if params[:status] == 'registering' %>
-			<% message = 'Welcome to Paykido!' %>
-			<% line1 = "You can start using it to buy as soon as your parent confirms you (email sent)." %>
+			$('#notification_title').html("Welcome to Paykido!")
+			$('#notification_text').html("You can start using it to buy as soon as your parent confirms you via email.")
 		<% else %>
-			<% message = params[:property] + ' is ' + params[:value] %>
+			$('#notification_text').html("<%= params[:property] + ' is ' + params[:value] %>")
 			<% if params[:status] == 'declined' %>
-				<% message = 'Sorry... ' + message %>
+				$('#notification_title').html("Sorry...")
 			<% elsif params[:status] == 'approved' %>
-				<% message = 'Hurrah! ' + message %>
+				$('#notification_title').html("Hurrah...")
 			<% elsif params[:status] == 'pending' %>
-				<% message = 'Your parent needs to approve it' %>
+				$('#notification_title').html("Wait...")
 			<% elsif params[:status] == 'failed' %>
-				<% message = 'Oops... ' + message %>
+				$('#notification_title').html("Oops...")
 			<% else %>
-				<% message = "This was not supposed to happen. " %>
+				$('#notification_title').html("This was not supposed to happen...")
 			<% end %>
 		<% end %>
-		$('#paykido .content').height(300);
-		$.paykido('<div id=window_content><p class=text id=merchant_headline><%= message %></p><p class=text id=merchant_line1><%= line1 %></p><span class=status_icon></span><span class=status_text></span></div>');
+		$('#merchant_notification').show()
 		$('.status_icon').addClass("<%= params[:status] %>");
 		$('.status_text').html('<%= params[:status] %>');
 	<% end %>
