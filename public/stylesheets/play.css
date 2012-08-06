@@ -1,3 +1,15 @@
+body .modal-footer {
+    position: absolute;
+    bottom: 0;
+    width: 312px;
+}
+
+#spinner_area {
+    z-index:1000;
+    position: absolute;
+    left: 520px;
+    top: 948px;
+}
 #environment {
     position: absolute;
     z-index: 1000;

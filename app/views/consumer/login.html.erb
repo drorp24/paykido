@@ -164,9 +164,13 @@ $(document).ready(function (){
 	   });
 	}
 	function not_authorized(){
-		$('#login_button').hide();
 	   	$('#registration').show();
-	   	$('.buy.btn').addClass("disabled");
+		$('.modal-header h3').html('Register to Paykido')
+		$('.modal-body').empty();
+	   	$('.modal-footer').remove();
+	   	$('.modal').css("top", "25%")
+	   	$('.modal').css("height", "558px")
+	   	$('.modal').css("width", "360px")
 	   	FB.XFBML.parse();
 		$('#buy_button').attr("disabled", "disabled");
 	}
@@ -178,7 +182,7 @@ $(document).ready(function (){
  	   	FB.XFBML.parse(); 
      	$('#salutation').html('Hello!');
       	$('#profile_picture').hide();
-      	$('#iop').html('Login to start using Paykido!');
+      	$('#iop1').html('Click Log In to start using Paykido');
       	$('#buy_button').attr("disabled", "disabled");
 
 	}

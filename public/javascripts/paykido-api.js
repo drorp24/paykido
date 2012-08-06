@@ -6,17 +6,19 @@ $(document).ready(function() {
     $("a[data-toggle=modal]").click(function (e) {
       target = $(this).attr('data-target')
       url = $(this).attr('href')
-      $(target).load(url)
-              $('body .modal').addClass("hide")
-      })   
+      $(target).load(url);
+     })   
 
-    $('.modal').on('show', function() {
-        $('body .modal').addClass("hide")
-    })
+/*
+    $('body .modal').on('show', function() {
+        $('#spinner_area img').show();
+   })
     
         
-/*    $('.modal').on('shown', function() {
-        $('body .modal').show()
+    $('body .modal').on('shown', function() {
+        $('body .modal').hide()
+        window.setTimeout("$('body .modal').show()", 1000);
+        $('#spinner_area img').hide();
     })
 */    
 })
