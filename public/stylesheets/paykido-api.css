@@ -125,10 +125,6 @@ body .modal-body {
 
 }
 
-#merchant_notification {
-    z-index: 1000;
-}
-
 #buy_form {
     display: inline;
 }

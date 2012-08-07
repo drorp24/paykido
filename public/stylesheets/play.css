@@ -4,6 +4,17 @@ body .modal-footer {
     width: 312px;
 }
 
+
+#merchant_notification {
+    margin-left: 6px;
+    margin-top: 181px;
+    position: fixed;
+    width: 135px;
+    z-index: 1000;
+}
+
+
+
 #spinner_area {
     z-index:1000;
     position: absolute;
@@ -15,6 +26,7 @@ body .modal-footer {
     z-index: 1000;
     color: #666;
     left: 31%;
+    top: 68px;
 }
 
 #paykido_button {
@@ -34,34 +46,37 @@ form {
 	z-index: 1001;
 }
 
+.option {
+    left: 497px;
+}
 #a {
 	position: absolute;
 	top: 380px;
-	left: 519px;
+
 }
 
 #b {
 	position: absolute;
 	top: 409px;
-	left: 519px;
+
 }
 
 #c {
 	position: absolute;
 	top: 438px;
-	left: 519px;
+
 }
 
 #d {
 	position: absolute;
 	top: 467px;
-	left: 519px;
+
 }
 
 #e {
 	position: absolute;
 	top: 496px;
-	left: 519px;
+
 }
 
 
@@ -213,12 +228,12 @@ End of reduandant part with aaa.css
 */
 
 #farmville1 {
-/*	position:absolute;
+	position:absolute;
 	top:0;
-	left:0; */
+	left:0; 
 	width: 100%;
 	height: 728px;
-	
+	z-index: -1;
 	
 }
 #farmville2 {

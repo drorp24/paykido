@@ -11,7 +11,7 @@ Paykido::Application.configure do
   config.api_key = '232989173487232'
 
   # Policy
-  config.send_sms = false
+  config.send_sms = true
   config.rules_require_registration = true
   config.always_pay_manually = false
   config.offer_rule_or_registration_after = 1
