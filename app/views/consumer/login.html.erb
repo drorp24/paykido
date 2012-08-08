@@ -1,3 +1,7 @@
+<div id="out_of_order">
+	<%= image_tag "out_of_order.jpg" %>
+</div>
+
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
     <h3>Pay with Paykido</h3>
@@ -161,6 +165,7 @@ $(document).ready(function (){
 		  				'&name=' + response.first_name +
 		  				'&pic=' + response.picture;
 		  $('#buy_form').attr('action', action);
+		  alert('Temporarily out of order. do not use')
 	   });
 	}
 	function not_authorized(){

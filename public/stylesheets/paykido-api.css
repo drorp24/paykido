@@ -13,6 +13,16 @@
 /* Paykido customizations */
 /**************************/
 
+
+#out_of_order {
+    z-index: 100;
+    position: absolute;
+    left: 100px;
+    top: 77px;
+    width: 122px;
+    
+}
+
 body .modal {
     /* new custom width */
     width: 342px;
