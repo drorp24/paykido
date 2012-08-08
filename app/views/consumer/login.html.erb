@@ -64,7 +64,7 @@
 <div>
 	
 	<div id="registration" style="display: none;">
-		<p id="register_headline" class="text">Register to Paykido and buy with one click</p>
+		<p id="register_headline" class="text">Join Paykido and buy with one click</p>
 		<fb:registration  
 			width="292" 
 			fb_register="true"
@@ -156,16 +156,16 @@ $(document).ready(function (){
 	      $('#salutation').html('Hi '+response.first_name);
 	      $('#profile_picture').attr("src", response.picture);
 	      $('#profile_picture').show();
-		  var action = $('#buy_form').attr('action') +
+/*		  var action = $('#buy_form').attr('action') +
 		  				'&facebook_id=' + userid + 
 		  				'&name=' + response.first_name +
 		  				'&pic=' + response.picture;
-		  $('#buy_form').attr('action', action);
+		  $('#buy_form').attr('action', action);  */
 	   });
 	}
 	function not_authorized(){
 	   	$('#registration').show();
-		$('.modal-header h3').html('Register to Paykido')
+		$('.modal-header h3').html('Join Paykido')
 		$('.modal-body').empty();
 	   	$('.modal-footer').remove();
 	   	$('.modal').css("top", "25%")

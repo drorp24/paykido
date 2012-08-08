@@ -98,6 +98,15 @@ class ConsumerController < ApplicationController
   def buy
   #  notify/approve/inform (make it DRY by having them all in the model)
                                               
+#    unless params[:facebook_id]
+#      redirect_to params[:referrer] + 
+#      '?status=' +    'fb_failed' +
+#      '&property=' +  'facebook' +
+#      '&value='  +    'down'
+      
+#      return
+#    end
+
     find_consumer_and_payer
     create_purchase  
 
@@ -132,6 +141,7 @@ class ConsumerController < ApplicationController
     
   end
   
+
   def find_consumer_and_payer
     
     Rails.logger.debug("ENTERS BUY")  
