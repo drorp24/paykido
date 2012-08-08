@@ -46,6 +46,7 @@ class ApplicationController < ActionController::Base
 
     unless @payer
       if session[:payer_id] 
+        Rails.logger.debug("session[:payer_id] exists. It is: " + session[:payer_id].to_s) 
         @payer = Payer.find(session[:payer_id])
         flash[:error] = nil
       else
