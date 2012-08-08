@@ -49,6 +49,7 @@ class ApplicationController < ActionController::Base
         @payer = Payer.find(session[:payer_id])
         flash[:error] = nil
       else
+        Rails.logger.debug("session[:payer_id] does not exist") 
         flash[:error] = "Please log in first" 
         return 
       end
