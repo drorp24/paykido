@@ -58,7 +58,7 @@ class G2sController < ApplicationController
       @payer.create_registration!(params)
     
     else
-      return false   
+      return render(:nothing => true)  
     end
     
     render :nothing => true
