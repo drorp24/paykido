@@ -2,6 +2,10 @@ body {
     height: 600px;
 }
 
+.span2 .btn-group {
+    
+}
+
 .always_approve {
     
 }
@@ -41,19 +45,15 @@ a:focus {
     color: #555;
 }
 
-.rule_type {
-    color: #000;
-    font-weight: bold;
-}
-
 .rule_property {
 } 
 
 .rule_value {
 }
 
-.rule_edit {
-    color: #0088CC;   
+.rule_action {
+    color: #0088CC; 
+    float: right;  
 }
 
 .rule_edit_area .btn-group {
@@ -935,6 +935,7 @@ td.approval_buttons {
     display: block;
 }
 
+/*
 .label {
     display: inline;
   color: #898989;
@@ -944,7 +945,7 @@ td.approval_buttons {
   text-shadow: 0 1px 0 #fff;
   text-transform: uppercase;
 }
-
+*/
 .translation_missing {
     color: purple;
 }
