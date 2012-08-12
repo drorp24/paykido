@@ -5,12 +5,21 @@
 <title>Paykido - the new way to pay </title>
 
 <link   rel="stylesheet" href="/home/css/layout.css" type="text/css" />
+ 	    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css" />
+ 	    <style type="text/css">
+ 	    	body {
+ 	    		padding-top: 0px;
+ 	    		padding-bottom: 40px;
+ 	    	}
+    </style>
+ 	    <link rel="stylesheet" href="/bootstrap/css/bootstrap-responsive.css" />
 
-<script type="text/javascript" src="/home/js/jquery.js" charset="utf-8"></script><!-- jQuery -->
+	<script src="/spina/js/jquery-1.7.1.js"></script>
 <!-- <script type="text/javascript" src="/home/js/scrollto.js" charset="utf-8"></script>--><!-- ScrollTo Plugin -->
 <script type="text/javascript" src="/home/js/navigation.js" charset="utf-8"></script><!-- One-Page Navigation Plugin -->
 <script type="text/javascript" src="/home/js/mousewheel.js" charset="utf-8"></script><!-- Mousewheel Plugin -->
 <script type="text/javascript" src="/home/js/jquery.bxSlider.js" ></script>
+<script src="/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
     $('#slider1').bxSlider();
@@ -39,25 +48,42 @@
 	
 <div id="header_wrapper"><!-- BEGIN HEADER -->
   
-  <div id="header"><!-- BEGIN HEADER CONTAINER -->
-    
-    <ul id="menu">
-      <!-- BEGIN MENU -->
-      <div id="logo"><a href="#section1"></a></div>
-      <!-- LOGO CONTAINER -->
-      
-      <li><a href="#section2">kids</a></li>
-      <li><a href="#section3">parents</a></li>
-      <li><a href="#section4">publishers</a></li>
-    </ul>
-    <!-- END MENU --> 
+	<div id="messages"> 
+
+		<% if notice %>
+		    <div class="alert notice">
+			    <button class="close" data-dismiss="alert">×</button>
+			    <strong>Notice:</strong>  <%= notice %>
+		    </div>
+	    <% end %>
+	
+		<% if alert %>
+		    <div class="alert alert-error">
+			    <button class="close" data-dismiss="alert">×</button>
+			    <strong>Notice:</strong>  <%= alert %>
+		    </div>
+	    <% end %>
+		
+	</div>
  
-
-	<%= link_to "Sign In", login_path, :class => "login", :id => "signin" unless params[:action] == 'login' %>  <!-- replace with Devise -->
-	<p class="login" id="error"><%= flash[:error]  %></p>
-	<p class="login" id="environment"><%= Paykido::Application.config.environment %></p>
-
+	<div id="header"><!-- BEGIN HEADER CONTAINER -->
     
+		<ul id="menu" class="clearfix">
+		  <!-- BEGIN MENU -->
+		  <div id="logo" class="clearfix">
+		  	<a href="#section1"></a>
+			<p id="environment"><%= Paykido::Application.config.environment %></p>
+		  </div>
+		  <!-- LOGO CONTAINER -->
+		  
+		  <li><a href="#section2">kids</a></li>
+		  <li><a href="#section3">parents</a></li>
+		  <li><a href="#section4">publishers</a></li>
+		
+		  <%= link_to "Sign In", login_path, :class => "login", :id => "signin" unless params[:action] == 'login' %>  <!-- replace with Devise -->
+		
+		 </ul>
+    <!-- END MENU --> 
   </div>
   <!-- END HEADER CONTAINER --> 
   

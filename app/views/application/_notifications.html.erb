@@ -1,3 +1,15 @@
+<div id="notice" class="alert notice alert-block" style="display:none">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Notice</h4>
+    <%= notice %>
+</div>
+
+<div id="alert" class="alert alert-error alert-block" style="display:none">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Notice</h4>
+    <%= alert %>
+</div>
+
 <div id="registration_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Registration Complete!</h4>
@@ -93,7 +105,13 @@
 
 $(document).ready(function() {
 
-// can decide here what gets an intrusive message as well
+<% if flash[:alert] %>
+	$('#alert').show();
+<% end %>
+
+<% if notice %>
+	$('#notice').show();
+<% end %>
 
 // Payer registration status
 <% if params[:notify] and params[:notify] == 'registration' %>

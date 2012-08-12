@@ -4,6 +4,8 @@ gem 'rails', '3.1.3'
 
 gem 'jquery-rails', '>= 1.0.12'
 
+gem 'devise'
+
 group :production do
   # gems specifically for Heroku go here
   gem "pg"
