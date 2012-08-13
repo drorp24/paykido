@@ -1,0 +1,26 @@
+<%= render 'primary_navigation' %>
+<%= render 'setting_navigation' %>
+
+<section id="maincontainer">
+
+	<%= render :partial => 'page_head', :locals => {:title => 'Credit Card Registration'} %>
+	
+	<table>
+		<tbody>
+			<% @payer.tokens.each do |token| %>
+			  <tr>
+			    <td><%= token.NameOnCard %></td>
+			    <td>Credit card registered</td>
+			    <td><%= link_to 'Details', token %></td>
+			    <td><%=  button_to 'Cancel registration',  token, confirm: 'Are you sure you want to cancel your registration?', method: :delete, :class => "btn btn-primary inline"  %></td>
+			  </tr>
+			<% end %>
+		</tbody>
+	</table>
+	
+	<br />
+	<%= link_to 'Register to Paykido - it\'s free!', new_payer_token_path unless @payer.registered? %>
+
+</section>
+
+<%= render 'notifications' %>

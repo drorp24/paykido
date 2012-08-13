@@ -3,7 +3,7 @@
 
 	<ul>
 		<li class=active >
-			<%= link_to payer_registrations_path(@payer) do %>
+			<%= link_to payer_tokens_path(@payer) do %>
 		       	<table class="navigation">
 		        	<tbody>
 		        		<tr id="noWhite">
@@ -19,7 +19,7 @@
         	<% end %>
         </li>    	
 		<li >
-            <%= link_to payer_registrations_path(@payer) do %>
+            <%= link_to payer_tokens_path(@payer) do %>
 		       	<table class="navigation">
 		        	<tbody>
 		        		<tr id="noWhite">
@@ -35,7 +35,7 @@
         	<% end %>
         </li>    	
 		<li>
-            <%= link_to payer_registrations_path(@payer) do %>
+            <%= link_to payer_tokens_path(@payer) do %>
 		       	<table class="navigation">
 		        	<tbody>
 		        		<tr id="noWhite">
@@ -51,7 +51,7 @@
         	<% end %>
         </li>    	
 		<li>
-            <%= link_to payer_registrations_path(@payer) do %>
+            <%= link_to payer_tokens_path(@payer) do %>
  		       	<table class="navigation">
 		        	<tbody>
 		        		<tr id="noWhite">
@@ -78,7 +78,7 @@
 	
 $(document).ready(function () {
 	$('.menu').removeClass('active');
-	<% if params[:controller] == 'registrations' %>
+	<% if params[:controller] == 'tokens' %>
 		$('#setting_menu').addClass('active');
 	<% end %>	
 })	

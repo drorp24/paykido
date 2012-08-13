@@ -1,8 +1,10 @@
 Paykido::Application.routes.draw do
 
+  devise_for :users
+
   resources :rules 
 
-  resources :registrations
+  resources :tokens
 
 
   resources :purchases do
@@ -19,7 +21,7 @@ Paykido::Application.routes.draw do
     end
     resources :rules
     resources :notifications
-    resources :registrations
+    resources :tokens
   end
 
   resources :consumers do

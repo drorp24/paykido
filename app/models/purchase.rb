@@ -1,7 +1,7 @@
 require 'digest/md5'
 require 'uri'
 
-class Token
+class TokenAPI
   include HTTParty
   format :xml
   base_uri 'https://test.safecharge.com'
@@ -160,13 +160,13 @@ class Purchase < ActiveRecord::Base
   end
   
   def pay_by_token!(ip)
-    # call the token interface here with payer's saved Token and TransactionID (registration)
+    # call the token interface here with payer's saved Token and TransactionID (token)
 
     return false unless self.payer.registered?    
-    registration = self.payer.registration
+    token = self.payer.token
 
     begin
-    token_response  = Token.post('/service.asmx/Process', :body => {
+    token_response  = TokenAPI.post('/service.asmx/Process', :body => {
       :sg_VendorID  => Paykido::Application.config.sg_VendorID,  
       :sg_MerchantName  => Paykido::Application.config.sg_MerchantName, 
       :sg_MerchantPhoneNumber  => Paykido::Application.config.sg_MerchantPhoneNumber, 
@@ -174,25 +174,25 @@ class Purchase < ActiveRecord::Base
       :sg_ClientLoginID  => Paykido::Application.config.sg_ClientLoginID ,
       :sg_ClientPassword  => Paykido::Application.config.sg_ClientPassword , 
       :sg_Descriptor  => Paykido::Application.config.sg_Descriptor ,
-      :sg_NameOnCard => registration.NameOnCard ,
-      :sg_CCToken => registration.CCToken  ,
-      :sg_ExpMonth => registration.ExpMonth ,                       
-      :sg_ExpYear => registration.ExpYear  ,                        
+      :sg_NameOnCard => token.NameOnCard ,
+      :sg_CCToken => token.CCToken  ,
+      :sg_ExpMonth => token.ExpMonth ,                       
+      :sg_ExpYear => token.ExpYear  ,                        
       :sg_TransType => 'Sale' ,
       :sg_Currency  => self.currency ,
       :sg_Amount  => self.amount ,
-      :sg_TransactionID => registration.TransactionID ,
+      :sg_TransactionID => token.TransactionID ,
       :sg_Rebill => "1",
-      :sg_FirstName  => registration.FirstName ,
-      :sg_LastName  => registration.LastName ,
-      :sg_Address  => registration.Address ,
-      :sg_City  => registration.City ,
-      :sg_State  => registration.State ,
-      :sg_Zip  => registration.State ,
-      :sg_Country  => registration.Country ,
-      :sg_Phone  => registration.Phone ,
+      :sg_FirstName  => token.FirstName ,
+      :sg_LastName  => token.LastName ,
+      :sg_Address  => token.Address ,
+      :sg_City  => token.City ,
+      :sg_State  => token.State ,
+      :sg_Zip  => token.State ,
+      :sg_Country  => token.Country ,
+      :sg_Phone  => token.Phone ,
       :sg_IPAddress  => ip, 
-      :sg_Email  => registration.Email,           
+      :sg_Email  => token.Email,           
       :sg_ClientUniqueID => self.id,
       :sg_Version => Paykido::Application.config.sg_Version,
       :sg_ResponseFormat => "4"
@@ -243,25 +243,25 @@ class Purchase < ActiveRecord::Base
       "sg_ClientLoginID=" + Paykido::Application.config.sg_ClientLoginID + "&" +
       "sg_ClientPassword=" + Paykido::Application.config.sg_ClientPassword + "&" + 
       "sg_Descriptor=" + Paykido::Application.config.sg_Descriptor + "&" +
-      "sg_NameOnCard" + registration.NameOnCard + "&" +
-      "sg_CCToken" + registration.CCToken + "&" + 
-      "sg_ExpMonth" + registration.ExpMonth + "&" +
-      "sg_ExpYear" + registration.ExpYear + "&" + 
+      "sg_NameOnCard" + token.NameOnCard + "&" +
+      "sg_CCToken" + token.CCToken + "&" + 
+      "sg_ExpMonth" + token.ExpMonth + "&" +
+      "sg_ExpYear" + token.ExpYear + "&" + 
       "sg_TransType=Sale&" + 
       "sg_Currency=" + self.currency + "&" +
       "sg_Amount=" + self.amount + "&" +
-      "sg_TransactionID" + registration.TransactionID + "&" +
+      "sg_TransactionID" + token.TransactionID + "&" +
       "sg_Rebill=1&" +
-      "sg_FirstName=" + registration.FirstName + "&" +
-      "sg_LastName=" + registration.LastName + "&" +
-      "sg_Address=" + registration.Address + "&" +
-      "sg_City=" + registration.City + "&" +
-      "sg_State=" + registration.State + "&" +
-      "sg_Zip=" + registration.State + "&" +
-      "sg_Country=" + registration.Country + "&" +
-      "sg_Phone=" + registration.Phone + "&" +
+      "sg_FirstName=" + token.FirstName + "&" +
+      "sg_LastName=" + token.LastName + "&" +
+      "sg_Address=" + token.Address + "&" +
+      "sg_City=" + token.City + "&" +
+      "sg_State=" + token.State + "&" +
+      "sg_Zip=" + token.State + "&" +
+      "sg_Country=" + token.Country + "&" +
+      "sg_Phone=" + token.Phone + "&" +
       "sg_IPAddress=" + request.remote_ip + "&" +
-      "sg_Email=" + registration.Email
+      "sg_Email=" + token.Email
       )      
     
   end

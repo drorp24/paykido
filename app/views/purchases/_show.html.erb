@@ -1,11 +1,21 @@
 <div class="box-header">
     <td class="icon16 user"></td>     
     <h1><%= t 'Purchase' %></h1>   
+	<div id="manual_approval_buttons">
+	    <button id="approve" class="btn btn-success">
+	    	<i class="icon-thumbs-up icon-white"></i>
+	    	Approve
+		</button>
+	    <button id="decline" class="btn btn-danger">
+	    	<i class="icon-thumbs-down icon-white"></i>
+	    	Decline
+		</button>
+	</div>
 </div>
     
 <div class="box-content">
 
-    <div class="header clearfix">
+    <div class="header clearfix well">
         <div class="grid_6 content-header relative clearfix">
             <p class="retailer">                    
 					<%= @purchase.retailer.name %>   
@@ -56,7 +66,7 @@
 
     </div>
 
-	<br />
+
     <p class="sectiontitle">About the purchase</p>
     <table class="purchase_info">
         <tbody>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120730154009) do
+ActiveRecord::Schema.define(:version => 20120812174722) do
 
   create_table "consumers", :force => true do |t|
     t.string    "billing_phone"
@@ -112,40 +112,6 @@ ActiveRecord::Schema.define(:version => 20120730154009) do
     t.string    "currency"
   end
 
-  create_table "registrations", :force => true do |t|
-    t.integer   "payer_id"
-    t.string    "status"
-    t.string    "NameOnCard"
-    t.string    "CCToken"
-    t.string    "ExpMonth"
-    t.string    "ExpYear"
-    t.integer   "TransactionID"
-    t.string    "CVV2"
-    t.string    "FirstName"
-    t.string    "LastName"
-    t.string    "Address"
-    t.string    "City"
-    t.string    "State"
-    t.string    "Zip"
-    t.string    "Country"
-    t.string    "Phone"
-    t.string    "Email"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.string    "ExErrCode"
-    t.string    "ErrCode"
-    t.string    "AuthCode"
-    t.string    "messgae"
-    t.string    "responseTimeStamp"
-    t.string    "Reason"
-    t.string    "ReasonCode"
-    t.string    "ppp_status"
-    t.string    "PPP_TransactionID"
-    t.string    "client_ip"
-    t.string    "cardNumber"
-    t.string    "uniqueCC"
-  end
-
   create_table "retailers", :force => true do |t|
     t.string    "name"
     t.string    "email"
@@ -192,6 +158,40 @@ ActiveRecord::Schema.define(:version => 20120730154009) do
     t.string    "category"
   end
 
+  create_table "tokens", :force => true do |t|
+    t.integer   "payer_id"
+    t.string    "status"
+    t.string    "NameOnCard"
+    t.string    "CCToken"
+    t.string    "ExpMonth"
+    t.string    "ExpYear"
+    t.integer   "TransactionID"
+    t.string    "CVV2"
+    t.string    "FirstName"
+    t.string    "LastName"
+    t.string    "Address"
+    t.string    "City"
+    t.string    "State"
+    t.string    "Zip"
+    t.string    "Country"
+    t.string    "Phone"
+    t.string    "Email"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.string    "ExErrCode"
+    t.string    "ErrCode"
+    t.string    "AuthCode"
+    t.string    "messgae"
+    t.string    "responseTimeStamp"
+    t.string    "Reason"
+    t.string    "ReasonCode"
+    t.string    "ppp_status"
+    t.string    "PPP_TransactionID"
+    t.string    "client_ip"
+    t.string    "cardNumber"
+    t.string    "uniqueCC"
+  end
+
   create_table "transactions", :force => true do |t|
     t.integer  "purchase_id"
     t.string   "ppp_status"
@@ -229,5 +229,34 @@ ActiveRecord::Schema.define(:version => 20120730154009) do
     t.datetime "updated_at"
     t.string   "trx_type"
   end
+
+  create_table "users", :force => true do |t|
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.integer  "failed_attempts",        :default => 0
+    t.string   "unlock_token"
+    t.datetime "locked_at"
+    t.string   "authentication_token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
+  add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
 
 end

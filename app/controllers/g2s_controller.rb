@@ -55,7 +55,7 @@ class G2sController < ApplicationController
 
     elsif params[:customField1] == 'registration'
       
-      @payer.create_registration!(params)
+      @payer.create_token!(params)
     
     else
       return render(:nothing => true)  

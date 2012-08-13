@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
 
+ before_filter :authenticate_user!
   before_filter :check_and_restore_session
 #  before_filter :set_locale
   include Facebooker2::Rails::Controller

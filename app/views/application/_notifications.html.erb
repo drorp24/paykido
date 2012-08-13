@@ -19,8 +19,8 @@
 <div id="unregistration_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Unregistered!</h4>
-    This registration is cancelled. You can register again any time.
-	<%= button_to "Register again", payer_registrations_path(@payer), :class => "btn btn-primary inline" %>
+    This registration is cancelled. You can register again at any time.
+	<%= button_to "Register again", payer_tokens_path(@payer), :class => "btn btn-primary inline" %>
 </div>
 
 <div id="registration_failure" class="alert alert-block" style="display:none">
@@ -28,7 +28,7 @@
     <h4 class="alert-heading">Something is missing</h4>
     <%= "We\'re unable to check your credit card. " %>
 	<%= "Could be something you keyed." %>
-	<%= button_to "Try again", payer_registrations_path(@payer), :class => "btn btn-primary inline" %>
+	<%= button_to "Try again", payer_tokens_path(@payer), :class => "btn btn-primary inline" %>
 </div>
 
 <% if params[:purchase] %>
@@ -59,7 +59,7 @@
     		<%= button_to "Always approve #{retailer}", payer_rules_path(@payer, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :status => 'whitelisted', :purchase => purchase.id), :method => :post, :class => "btn btn-primary inline" %>
 		<% else %>
     		<%= "Register and have Paykido do that for you going forward." %>
-    		<%= button_to "Register Now", new_payer_registration_path(@payer),:method => :get, :class => "btn btn-primary inline" %>
+    		<%= button_to "Register Now", new_payer_token_path(@payer),:method => :get, :class => "btn btn-primary inline" %>
 		<% end %>
 	<% else %>
     	<h4 class="alert-heading">Purchase Approved</h4>	
@@ -81,7 +81,7 @@
     		<%= button_to "Always decline #{retailer}", payer_rules_path(@payer, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :status => 'blacklisted', :purchase => purchase.id), :method => :post, :class => "btn btn-primary inline" %>
 		<% else %>
     		<%= "Register and have Paykido do that for you going forward." %>
-    		<%= button_to "Register Now", new_payer_registration_url(@payer),:method => :get, :class => "btn btn-primary inline" %>
+    		<%= button_to "Register Now", new_payer_token_url(@payer),:method => :get, :class => "btn btn-primary inline" %>
 		<% end %>
 	<% else %>
     	<h4 class="alert-heading">Purchase Declined</h4>	

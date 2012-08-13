@@ -1,7 +1,71 @@
 body {   
     height: 600px;
+
+    font-family:"Segoe UI", Helvetica, Arial;
+    font-size:14px;
+    line-height:21px;
 }
 
+
+#manual_approval_buttons {
+    display: inline;
+    float: right;
+    margin-right: 18px;
+    margin-top: 6px;
+}
+
+button#approve {
+    margin-right: 40px;   
+}
+
+button#decline {
+        
+}
+.content-header p {
+        
+}
+
+.alert.alert-block .alert-heading {
+    margin-top: -10px;
+}
+
+.fieldWithErrors {
+  display: inline;
+}
+
+#error_explanation {
+  width: 400px;
+  border: 2px solid #CF0000;
+  padding: 0px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#error_explanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: 0;
+  background-color: #c00;
+  color: #fff;
+}
+
+#error_explanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 8px;
+}
+
+#error_explanation ul {
+  margin: 2px 24px;
+}
+
+#error_explanation ul li {
+  font-size: 12px;
+  list-style: disc;
+}
 .span2 .btn-group {
     
 }
@@ -140,6 +204,8 @@ form.button_to {
     top: 2px;
     left: 366px;
     right: 366px;
+
+
 }
 
 #why_register {
@@ -150,7 +216,7 @@ form.button_to {
     cursor: pointer;
 }
 
-#new_registration .blue.button {
+#new_token .blue.button {
     width: 100%;
 }   
 .registration_form {
@@ -190,12 +256,12 @@ label, input {
     display: block;
 }
 
-#new_registration input {
+#new_registration input, #new_token input {
     margin-bottom: 10px;
     margin-top: 2px;
 }
 
-#new_registration input[type="submit"] {
+#new_registration input[type="submit"], #new_token input[type="submit"] {
     height: 66px;
     font-size: 26px;
     font-weight: 100;
@@ -296,7 +362,7 @@ table.navigation {
     display: inline;
     text-shadow: 0 1px 0 #FFFFFF;
     font-size: 32px;
-    font-weight: bold;
+    font-weight: 100;
     line-height: 56px;
     margin-left: 5px;
 }
@@ -324,8 +390,8 @@ table.navigation {
   background-image: -ms-linear-gradient(top, rgb(107, 160, 206), rgb(73, 126, 172));
   background-image: linear-gradient(top, rgb(107, 160, 206), rgb(73, 126, 172));
   filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#6ba0ce', EndColorStr='#497eac');
-  border-bottom: 1px solid #467cad;
-  border-top: 1px solid #699fd0;
+/*  border-bottom: 1px solid #467cad; */
+/*  border-top: 1px solid #699fd0; */
   color: #fff;
   text-shadow: 0 1px 0 #104266;
 }
@@ -583,6 +649,7 @@ body#paykido .tooltip.large {
 .purchase_logo {
     font-size: 16px;
     text-align: center;
+    color:  #477DAE;
 /*    color: #4C82B3;
     color: #A3D643;
     color: #4678A6;
@@ -649,7 +716,7 @@ tr:hover {
  
 }
 #approval_buttons .small.button {
- 
+    padding: 0px; 
 }
 
 #approval_buttons {
@@ -684,11 +751,9 @@ tr:hover .approval_buttons p a{
 }
 
 .sectiontitle {
-    font-family:Helvetica;
-    font-size: 28px;
+    font-size: 26px;
     color: #000;
     margin-bottom: -12px;
-    font-weight: bold;
     text-shadow: 0 1px 0 #FFFFFF;
 }
 
@@ -700,7 +765,7 @@ tr:hover .approval_buttons p a{
 }
 
 .purchase_title {
-    text-transform: uppercase;
+
     font-size: 14px;
 /*    font-weight: bold; */
 }
@@ -713,15 +778,17 @@ tr:hover .approval_buttons p a{
     margin-top: 5%;    
 }
 
+/*
 .purchase_info tr {
     border-bottom: 1px solid #FFFFFF;
     border-top: 1px solid #FFFFFF;
     
 }
+*/
 .purchase_info tbody tr:nth-child(2n+1) td {
     background: none;
-    border-bottom: 1px solid #FFFFF;
-    border-top: 1px solid #FFFFFF;
+/*    border-bottom: 1px solid #FFFFF;
+    border-top: 1px solid #FFFFFF; */
 
 }
 
@@ -789,7 +856,7 @@ td.approval_buttons {
 }
 
 .content-header {
-    min-height: 120px;
+    
 }
 
 .mr {

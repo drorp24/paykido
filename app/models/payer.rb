@@ -5,7 +5,7 @@ class Payer < ActiveRecord::Base
   has_many  :consumers
   has_many  :purchases
   has_many  :rules                              # family-default rules (as opposed to consumer rules)
-  has_many  :registrations
+  has_many  :tokens
   has_many  :notifications
   
    
@@ -39,16 +39,16 @@ class Payer < ActiveRecord::Base
   def populate_fields(params)
 
     return '' unless 
-                  params[:registration]             and
-                  params[:registration][:FirstName] and 
-                  params[:registration][:LastName]  and 
-                  params[:registration][:Email]     and
-                  params[:registration][:Phone]
+                  params[:token]             and
+                  params[:token][:FirstName] and 
+                  params[:token][:LastName]  and 
+                  params[:token][:Email]     and
+                  params[:token][:Phone]
     
-    "&first_name=" + params[:registration][:FirstName] +
-    "&last_name=" + params[:registration][:LastName] +
-    "&email=" + params[:registration][:Email] +
-    "&phone1=" + params[:registration][:Phone]
+    "&first_name=" + params[:token][:FirstName] +
+    "&last_name=" + params[:token][:LastName] +
+    "&email=" + params[:token][:Email] +
+    "&phone1=" + params[:token][:Phone]
    
   end
 
@@ -66,8 +66,8 @@ class Payer < ActiveRecord::Base
   end
 
 
-  def create_registration!(params)
-    self.registrations.create!( 
+  def create_token!(params)
+    self.tokens.create!( 
         :status => params[:Status],
         :NameOnCard => params[:nameOnCard],
         :CCToken => params[:Token],
@@ -100,7 +100,7 @@ class Payer < ActiveRecord::Base
   end
 
   def registered?  #ToDo: set an instance variable for performance
-    self.registrations.any?
+    self.tokens.any?
   end
   
   def registered_or_waived
@@ -111,8 +111,8 @@ class Payer < ActiveRecord::Base
     end
   end
   
-  def registration
-    self.registrations.first if self.registrations.any?
+  def token
+    self.tokens.first if self.tokens.any?
   end
   
   def request_confirmation(consumer)     

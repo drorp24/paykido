@@ -3,15 +3,15 @@
 
 <section id="maincontainer">
 
-	<%= render :partial => 'page_head', :locals => {:title => 'Registration Details', :backPath => payer_registrations_path(@payer)} %>
+	<%= render :partial => 'page_head', :locals => {:title => 'Registration Details', :backPath => payer_tokens_path(@payer)} %>
 
 	<table>
 		<tbody>
 			  <tr>
 			    <td>Card Number</td>
-			    <td><%= @registration.cardNumber %></td>
+			    <td><%= @token.cardNumber %></td>
 			  </tr>
-			<% @registration.attributes.each do |name, value| %>
+			<% @token.attributes.each do |name, value| %>
 			  <% next if ['id', 'payer_id', 'cardNumber', 'CCToken'].include? name or !value %>
 			  <tr>
 			    <td><%= name %></td>
@@ -20,7 +20,7 @@
 			<% end %>
 			  <tr>
 			    <td>Token</td>
-			    <td><%= @registration.CCToken %></td>
+			    <td><%= @token.CCToken %></td>
 			  </tr>
 		</tbody>
 	</table>

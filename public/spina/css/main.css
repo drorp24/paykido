@@ -573,11 +573,12 @@ table {
   width: 100%;
 }
 
+/*
 table tr {
   border-bottom: 1px solid #ebebeb;
   border-top: 1px solid #fff;
 }
-
+*/
 thead tr {
   border-top: none;
 }
