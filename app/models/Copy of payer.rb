@@ -1,7 +1,6 @@
+require 'digest/sha1'                           # remove once Devise is in
+
 class Payer < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
 
   has_many  :consumers
   has_many  :purchases
@@ -9,14 +8,9 @@ class Payer < ActiveRecord::Base
   has_many  :tokens
   has_many  :notifications
   
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :token_authenticatable
-
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
-
-
+   
+  attr_accessor :password_confirmation          # remove once Devise is in
+  
   def g2spp(params)
     # return the url to redirect to for manual payment including all parameters
 
@@ -139,7 +133,53 @@ class Payer < ActiveRecord::Base
   end 
 
 
+  ##############################################
+  # remove all the following once Devise is in #
+  ##############################################
 
+  def self.authenticate(email, password)
+    payer = self.find_by_email(email)
+    if payer
+      return nil unless payer.salt
+      expected_password = encrypted_password(password, payer.salt)
+      if payer.hashed_password != expected_password
+        payer = nil
+      end
+    end
+    payer
+  end
+  
+  def self.authenticate_by_token(email, hash)     
+    payer = self.find_by_email_and_hashed_password(email, hash)
+  end
+    
+  def password
+    @password
+  end
+  
+  def password=(pwd)
+    @password = pwd
+    return if pwd.blank?
+    create_new_salt
+    self.hashed_password = Payer.encrypted_password(self.password, self.salt)
+  end
+  
+  def remember_me       
+    @remember_me
+  end
+  
+  def remember_me=(rm)
+    
+  end
 
+private
 
+  def create_new_salt
+    self.salt = self.object_id.to_s + rand.to_s
+  end
+  
+  def self.encrypted_password(password, salt)
+    string_to_hash = password + "wibble" + salt
+    Digest::SHA1.hexdigest(string_to_hash)
+  end
 end

@@ -7,7 +7,7 @@
 	
 	<table>
 		<tbody>
-			<% @payer.tokens.each do |token| %>
+			<% @tokens.each do |token| %>
 			  <tr>
 			    <td><%= token.NameOnCard %></td>
 			    <td>Credit card registered</td>
@@ -19,7 +19,7 @@
 	</table>
 	
 	<br />
-	<%= link_to 'Register to Paykido - it\'s free!', new_payer_token_path unless @payer.registered? %>
+	<%= link_to 'Register to Paykido - it\'s free!', new_token_path unless current_payer.registered? %>
 
 </section>
 

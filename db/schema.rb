@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120812174722) do
+ActiveRecord::Schema.define(:version => 20120813204825) do
 
   create_table "consumers", :force => true do |t|
     t.string    "billing_phone"
@@ -61,16 +61,26 @@ ActiveRecord::Schema.define(:version => 20120812174722) do
   end
 
   create_table "payers", :force => true do |t|
-    t.boolean   "exists"
-    t.string    "name"
-    t.string    "email"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.string    "phone"
-    t.boolean   "email_alert"
-    t.string    "hashed_password"
-    t.string    "salt"
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "authentication_token"
+    t.string   "name"
+    t.string   "phone"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "payers", ["authentication_token"], :name => "index_payers_on_authentication_token", :unique => true
+  add_index "payers", ["email"], :name => "index_payers_on_email", :unique => true
+  add_index "payers", ["reset_password_token"], :name => "index_payers_on_reset_password_token", :unique => true
 
   create_table "payments", :force => true do |t|
     t.integer   "purchase_id"

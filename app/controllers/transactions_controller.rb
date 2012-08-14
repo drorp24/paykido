@@ -1,6 +1,7 @@
 class TransactionsController < ApplicationController
 
-  before_filter :check_and_restore_session  
+  before_filter :authenticate_payer!
+  before_filter :find_transaction  
 
   def index
     @transactions = @purchase.transactions
@@ -13,17 +14,8 @@ class TransactionsController < ApplicationController
 
   private
   
-  def check_and_restore_session  
+  def find_transaction  
  
-    # Have Devise run the user session 
-    # Every call should include payer_id, consumer_id and/or purchase_id
-    
-    super
-    if flash[:error]
-      redirect_to login_path 
-      return
-    end
-    
     if params[:purchase_id]
       begin    
         @purchase = Purchase.find(params[:purchase_id])
@@ -36,7 +28,7 @@ class TransactionsController < ApplicationController
 
     if params[:id]
       begin    
-        @transaction = @purchase.transactions.find(params[:id])  ## replace @payer with current_user
+        @transaction = current_purchase.transactions.find(params[:id])  
       rescue ActiveRecord::RecordNotFound
         flash[:error] = "No such transaction id"
         redirect_to :controller => "home", :action => "routing_error"

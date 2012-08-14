@@ -5,8 +5,7 @@ class G2sController < ApplicationController
   def ppp_callback    ## /ppp/<status>
 
     if params[:customField1] == 'payment'
-        redirect_to payer_purchase_url(
-          params[:customField2].to_i, 
+        redirect_to purchase_url(
           params[:customField3].to_i,
           :notify => 'approval', 
           :status => params[:status],
@@ -17,8 +16,7 @@ class G2sController < ApplicationController
           :_pjax => "data-pjax-container"
         )
     elsif params[:customField1] == 'registration'
-        redirect_to payer_purchases_path(
-          params[:customField2].to_i, 
+        redirect_to purchases_path(
           :notify => 'registration', 
           :status => params[:status],
           :message => params[:message]

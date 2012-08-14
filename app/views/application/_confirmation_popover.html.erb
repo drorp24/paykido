@@ -1,13 +1,13 @@
 <div id="confirmation_popover" class="sp_popover">
     <header>
-        <%= t 'confirmation_heading', :payer_name => @payer.name, :consumer_name => @consumer.name  %>
+        <%= t 'confirmation_heading', :payer_name => current_payer.name, :consumer_name => @consumer.name  %>
     </header>
     <section>
         <div class="content">
             <nav>
                 <ul>
                 	<li >
-                		<%= t 'confirmation_1', :payer_name => @payer.name, :consumer_name => @consumer.name %>
+                		<%= t 'confirmation_1', :payer_name => current_payer.name, :consumer_name => @consumer.name %>
             		</li>
                		<li >
                    		<%= t 'confirmation_2', :name => @consumer.name %>

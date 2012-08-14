@@ -1,6 +1,6 @@
 Paykido::Application.routes.draw do
 
-  devise_for :users
+  devise_for :payers
 
   resources :rules 
 
@@ -14,15 +14,15 @@ Paykido::Application.routes.draw do
     end
   end
 
-  resources :payers do
-    resources :consumers
-    resources :purchases do
-      resources :transactions
-    end
-    resources :rules
-    resources :notifications
-    resources :tokens
-  end
+#  resources :payers do
+#    resources :consumers
+#    resources :purchases do
+#      resources :transactions
+#    end
+#    resources :rules
+#    resources :notifications
+#    resources :tokens
+#  end
 
   resources :consumers do
     resources :rules
