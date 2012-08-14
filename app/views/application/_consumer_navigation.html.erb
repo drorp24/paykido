@@ -12,9 +12,9 @@
 			<% elsif params[:controller] == 'consumers' %>
 				<% path = consumers_path %>
 			<% elsif params[:controller] == 'rules' %>
-				<% path = rules_path)  %>
+				<% path = rules_path  %>
 			<% elsif params[:controller] == 'transactions' %>
-				<% path = ppurchase_transactions_path(@purchase)  %>
+				<% path = purchase_transactions_path(@purchase)  %>
 			<% end %>	
 
             <a href="<%= path %>" data-skip-pjax>

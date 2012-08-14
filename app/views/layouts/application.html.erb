@@ -77,7 +77,7 @@
 
 	<body id="paykido" data-pjax-container>
 
-	<div id="messages"> 
+	<div id="messages" class="row"> 
 
 <!--
 		<% flash.each do |key, value| %>
@@ -91,15 +91,19 @@
 -->
 		<% if notice %>
 		    <div class="alert notice">
-			    <button class="close" data-dismiss="alert">×</button>
-			    <strong>Notice:</strong>  <%= notice %>
+		    	<div class="alert-inner">
+				    <button class="close" data-dismiss="alert">×</button>
+				    <%= notice %>
+			    </div>
 		    </div>
 	    <% end %>
 	
 		<% if alert %>
 		    <div class="alert alert-error">
-			    <button class="close" data-dismiss="alert">×</button>
-			    <strong>Notice:</strong>  <%= alert %>
+		    	<div class="alert-inner">
+				    <button class="close" data-dismiss="alert">×</button>
+				    <strong>Notice:</strong>  <%= alert %>
+			    </div>
 		    </div>
 	    <% end %>
 		

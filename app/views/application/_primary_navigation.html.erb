@@ -52,10 +52,10 @@
 	      	<% end %>
 	    </li>
 	    <li class="bottom">
-	      	<a href="/account/logout">
+	      	<%= link_to destroy_payer_session_path, :method => :delete, 'data-skip-pjax' => true do %>
 	        	<span class="icon32 quit"></span>
 	        	Log out
-	      	</a>
+	      	<% end %>
 	    </li>
 	</ul>
 </nav>
