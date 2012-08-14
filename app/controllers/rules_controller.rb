@@ -75,15 +75,6 @@ class RulesController < ApplicationController
 
   private
   
-  def authenticate_payer!
-    super
-    if flash[:error]
-      redirect_to new_payer_session_path 
-      return
-    end
-  end
-
-  
   def find_rule  
  
     if params[:id]

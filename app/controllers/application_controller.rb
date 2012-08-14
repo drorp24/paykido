@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-  before_filter :authenticate_payer!
+  before_filter :set_name
 # before_filter :set_locale
   include Facebooker2::Rails::Controller
 
@@ -23,9 +23,9 @@ class ApplicationController < ActionController::Base
 #  def default_url_options
 #    {:locale => I18n.locale}
 #  end
-
-  def authenticate_payer!
-    flash[:error] = "Please log in" and return unless payer_signed_in?  
+  
+  def set_name
+    @name = (params[:consumer_id]) ? Consumer.find(params[:consumer_id]).name : current_payer.name if current_payer
   end
 
   def set_long_expiry_headers

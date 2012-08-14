@@ -143,16 +143,18 @@ class PurchasesController < ApplicationController
 
   private
 
-  def authenticate_payer!
-    super
-    if flash[:error]
-      redirect_to new_payer_session_path 
-      return
-    end
-  end
-
   def find_purchase  
  
+    if params[:consumer_id]
+      begin    
+        @consumer = Consumer.find(params[:consumer_id])   
+      rescue ActiveRecord::RecordNotFound
+        flash[:error] = "No such consumer id"
+        redirect_to :controller => "home", :action => "routing_error"
+        return
+      end 
+    end           
+
     if params[:id]
       begin    
         @purchase = current_payer.purchases.find(params[:id])   
