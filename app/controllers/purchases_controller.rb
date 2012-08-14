@@ -146,7 +146,7 @@ class PurchasesController < ApplicationController
   def authenticate_payer!
     super
     if flash[:error]
-      redirect_to login_path 
+      redirect_to new_payer_session_path 
       return
     end
   end
