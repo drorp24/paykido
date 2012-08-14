@@ -89,8 +89,6 @@ class ConsumersController < ApplicationController
 
   private
 
-  private
-  
   def find_consumer  
  
     if params[:id]

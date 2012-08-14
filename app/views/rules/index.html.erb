@@ -3,7 +3,7 @@
 
 <section id="maincontainer">
 
-		<%= render :partial => 'page_head', :locals => {:title => "#{@name}'s Rules"} %>
+		<%= render :partial => 'page_head', :locals => {:title => "Rules for #{@name}"} %>
 		
 		<div id="rules" class="settings  accordion">			
 				<% @rules.each do |rule| %>

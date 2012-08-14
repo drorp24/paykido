@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-  before_filter :set_name
+  before_filter :find_scope
 # before_filter :set_locale
   include Facebooker2::Rails::Controller
 
@@ -24,8 +24,19 @@ class ApplicationController < ActionController::Base
 #    {:locale => I18n.locale}
 #  end
   
-  def set_name
-    @name = (params[:consumer_id]) ? Consumer.find(params[:consumer_id]).name : current_payer.name if current_payer
+  def find_scope
+    
+    # Find if scope is one consumer (@consumer) or entire payer 
+ 
+    if params[:consumer_id] and @consumer = Consumer.find_by_id(params[:consumer_id])
+      @name = @consumer.name
+    elsif current_payer and current_payer.name
+      @name = current_payer.name
+    elsif current_payer.consumers.count > 1
+      @name = "the family"
+    else
+      @name = "All"
+    end
   end
 
   def set_long_expiry_headers
