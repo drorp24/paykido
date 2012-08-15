@@ -6,6 +6,8 @@ gem 'jquery-rails', '>= 1.0.12'
 
 gem 'devise'
 
+gem 'simple_form'
+
 group :production do
   # gems specifically for Heroku go here
   gem "pg"

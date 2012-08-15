@@ -25,7 +25,7 @@ class AdminController < ActionController::Base
     info.logo = 'farmville.png'
     info.save!
     
-    redirect_to payer_purchases_path(1)
+    redirect_to purchases_path(1)
   end 
   
   def populate_rest
@@ -37,7 +37,7 @@ class AdminController < ActionController::Base
     info.logo = 'farmville.png'
     info.save!
 
-    redirect_to payer_purchases_path(1)
+    redirect_to purchases_path(1)
         
   end
  

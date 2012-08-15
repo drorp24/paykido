@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
       @name = @consumer.name
     elsif current_payer and current_payer.name
       @name = current_payer.name
-    elsif current_payer.consumers.count > 1
+    elsif current_payer and current_payer.consumers.count > 1
       @name = "the family"
     else
       @name = "All"
@@ -44,8 +44,11 @@ class ApplicationController < ActionController::Base
   end
                
   def set_layout
+
     if request.headers['X-PJAX']
       false
+    elsif devise_controller?
+      "home"
     else
       "application"
     end

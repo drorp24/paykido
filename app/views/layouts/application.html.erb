@@ -6,13 +6,10 @@
 	    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 	    <meta name="viewport" content="width=1024px, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	    <title>Paykido keeps your kids safe</title>
+		<title>Paykido protects your kids from bad purchases</title>
 
-	    <!-- Stylesheets -->
-	    <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
-	    <link rel="stylesheet" href="/spina/css/reset.css" />
-	    <link rel="stylesheet" href="/spina/css/icons.css" />
-<!-- 	    <link rel="stylesheet" href="/spina/css/formalize.css" /> -->
+	    <!-- 
+	    <link rel="stylesheet" href="/spina/css/formalize.css" /> 
 	    <link rel="stylesheet" href="/spina/css/checkboxes.css" />
 	    <link rel="stylesheet" href="/spina/css/sourcerer.css" />
 	    <link rel="stylesheet" href="/spina/css/jqueryui.css" />
@@ -20,106 +17,95 @@
 	    <link rel="stylesheet" href="/spina/css/calendar.css" />
 	    <link rel="stylesheet" href="/spina/css/tags.css" />
 	    <link rel="stylesheet" href="/spina/css/selectboxes.css" />
-	    <link rel="stylesheet" href="/spina/css/960.css" />
+	    <link rel="stylesheet" href="/spina/css/reset.css" /> 
+	    <link rel="stylesheet" media="all and (orientation:portrait)" href="/spina/css/portrait.css" />  -->
+	    
+	    <link rel="stylesheet" href="/spina/css/960.css" /> 
+	    <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+	    <link rel="stylesheet" href="/spina/css/main.css" /> 
 	    <link rel="stylesheet" href="/spina/css/jquery.popover.css" />
-	    <link rel="stylesheet" href="/spina/css/main.css" />
+	    <link rel="stylesheet" href="/spina/css/icons.css" />
+	    
  	    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css" />
  	    <style type="text/css">
  	    	body {
  	    		padding-top: 0px;
  	    		padding-bottom: 40px;
  	    	}
-    </style>
+    	</style>
  	    <link rel="stylesheet" href="/bootstrap/css/bootstrap-responsive.css" />
  	    <link rel="stylesheet" href="/bootstrap/css/glyphicons.css" />
 	    <link rel="stylesheet" href="/stylesheets/application.css" />
-	    <link rel="stylesheet" media="all and (orientation:portrait)" href="/spina/css/portrait.css" />
 	    <link rel="apple-touch-icon" href="apple-touch-icon-precomposed.png" />
-	    <!--[if lt IE 7]>
-	    <link rel="stylesheet" type="text/css" href="/highslide/highslide-ie6.css" />
-	    <![endif]-->
-	    <link rel="shortcut icon" href="<%= request.protocol + request.host + ':' + request.port.to_s %>/favicon.ico" type="image/x-icon" />
-
-	    <!--[if lt IE 9]>
-	    <script src="/spina/js/html5shiv.js"></script>
-	    <script src="/spina/js/excanvas.js"></script>
-	    <![endif]-->
 
 	    <!-- JavaScript -->
 
-	    <script src="/spina/js/jquery-1.7.1.js"></script>
-	   	<script src="/javascripts/jquery_ujs.js"></script>  
-		<%= csrf_meta_tag %> 
-	    <script src="/spina/js/jqueryui.min.js"></script>
+<!--	<script src="/spina/js/jqueryui.min.js"></script>
 	    <script src="/spina/js/jquery.cookies.js"></script>
-<!--	    <script src="/spina/js/jquery.pjax.js"></script>  -->
-<!--	    <script src="/spina/js/formalize.min.js"></script> -->
+		<script src="/spina/js/jquery.pjax.js"></script>  
+	    <script src="/spina/js/formalize.min.js"></script> 
 	    <script src="/spina/js/jquery.metadata.js"></script>
 	    <script src="/spina/js/jquery.validate.js"></script>
 	    <script src="/spina/js/jquery.checkboxes.js"></script>
 	    <script src="/spina/js/jquery.chosen.js"></script>
 	    <script src="/spina/js/jquery.fileinput.js"></script>
-	    <script src="/spina/js/jquery.datatables.js"></script>
 	    <script src="/spina/js/jquery.sourcerer.js"></script>
-	    <script src="/spina/js/jquery.tipsy.js"></script>
 	    <script src="/spina/js/jquery.calendar.js"></script>
 	    <script src="/spina/js/jquery.inputtags.min.js"></script>
 	    <script src="/spina/js/jquery.wymeditor.js"></script>
+	    <script src="/spina/js/jquery.flot.min.js"></script> -->
+	    
+	    <script src="/spina/js/jquery-1.7.1.js"></script>
 	    <script src="/spina/js/jquery.livequery.js"></script>
-	    <script src="/spina/js/jquery.flot.min.js"></script>
+	   	<script src="/javascripts/jquery.sp_pjax.js"></script>
+	    <script src="/spina/js/jquery.datatables.js"></script>
 	    <script src="/spina/js/jquery.popover.js"></script>
+	    <script src="/spina/js/jquery.tipsy.js"></script>
+	   	<script src="/spina/js/application.js"></script>
+
+	   	<script src="/javascripts/jquery_ujs.js"></script>  
 	   	<script src="/bootstrap/js/bootstrap.js"></script>
 	   	<script src="/javascripts/jquery.pjax.js"></script>
-	   	<script src="/javascripts/jquery.sp_pjax.js"></script>
-	   	<script src="/spina/js/application.js"></script>
 	   	<script src="/javascripts/application.js"></script>
+		<%= csrf_meta_tag %> 		
   	</head>
 
 	<body id="paykido" data-pjax-container>
 
-	<div id="messages" class="row"> 
+		<div id="messages" class="row"> 
 
 <!--
-		<% flash.each do |key, value| %>
-		<div class="message">
-		   <div class="alert-message <%= key %> fade in">
-		    <a class="close" href="#">&times</a>
-		    <center><strong><%= value %></strong></center>
-		  </div>
-		</div>
-		<% end %>
+			<% flash.each do |key, value| %>
+			<div class="message">
+			   <div class="alert-message <%= key %> fade in">
+			    <a class="close" href="#">&times</a>
+			    <center><strong><%= value %></strong></center>
+			  </div>
+			</div>
+			<% end %>
 -->
-		<% if notice %>
-		    <div class="alert notice">
-		    	<div class="alert-inner">
-				    <button class="close" data-dismiss="alert">×</button>
-				    <%= notice %>
+			<% if notice %>
+			    <div class="alert notice fade in">
+			    	<div class="alert-inner">
+					    <button class="close" data-dismiss="alert">×</button>
+					    <%= notice %>
+				    </div>
 			    </div>
-		    </div>
-	    <% end %>
-	
-		<% if alert %>
-		    <div class="alert alert-error">
-		    	<div class="alert-inner">
-				    <button class="close" data-dismiss="alert">×</button>
-				    <strong>Notice:</strong>  <%= alert %>
-			    </div>
-		    </div>
-	    <% end %>
+		    <% end %>
 		
-	</div>
+			<% if alert %>
+			    <div class="alert alert-error fade in">
+			    	<div class="alert-inner">
+					    <button class="close" data-dismiss="alert">×</button>
+					    <strong>Notice:</strong>  <%= alert %>
+				    </div>
+			    </div>
+		    <% end %>
+		
+		</div>
  
-	<%= yield :layout %>
+		<%= yield :layout %>
 
    	</body>
 
 </html>
-
-<script>
-	$(document).ready(function () {
-	<% if flash[:error]  %>
-		    notification('<%= flash[:error] %>', false, 'alert', true)
-	<% end %>
-
-	})
-</script>

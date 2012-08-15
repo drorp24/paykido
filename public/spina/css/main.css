@@ -369,7 +369,7 @@ section#maincontainer {
 }
 
 /* Columns */
-
+/*
 form > .column-left {
   border-right: 1px solid #e1e1e1;
   padding-right: 2%;
@@ -393,7 +393,7 @@ form .column-left, form .column-right {
   clear: both;
 }
 
-/* Forms */
+/* Forms 
 
 form p {
   margin-bottom: 11px;
@@ -546,7 +546,7 @@ form p small {
 form > div > p:last-child {
   margin: 0;
 }
-
+*/
 /* Charts legend */
 
 .legend table {

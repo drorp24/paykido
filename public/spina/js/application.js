@@ -81,88 +81,14 @@ $('document').ready(function() {
   });
   
   function sp_init() {
-    
+     
     /*************
       Datepicker
     *************/
-    
+
+/*    
     $('.datepicker').datepicker();
-        
-    /***********
-      Calendar
-    ***********/
-    
-    $('#calendar').fullCalendar({
-      events: [{
-                title  : 'Event with another event',
-                start  : '2012-01-16'
-              },
-              {
-                title  : 'Another event',
-                start  : '2012-01-19',
-                end    : '2012-01-05'
-              },
-              {
-                title  : 'Third eventw peofjpwo eifj pwoeifj pwoiefjpow iejf',
-                start  : '2012-01-17 12:30:00',
-                allDay : false
-              },
-              {
-                title  : 'This is a multi-day event',
-                start  : '2012-01-12 11:00:00',
-                end    : '2012-01-14 13:30:00'
-              }],
-      editable: true,
-      selectable: true,
-      eventBackgroundColor: '#477dae',
-      eventBorderColor: '#0E69A1',
-      header: {
-        left: '',
-        center: 'title',
-        right: 'prev,today,next month,basicWeek,basicDay'
-      },
-      buttonText: {
-        prev: '<span class="icon16 left"></span>',
-        next: '<span class="icon16 right"></span>'
-      },
-      aspectRatio: 2
-    });
-    
-    /*****************
-      Wysiwym-editor
-    *****************/
-   
-    $('.wysiwym').wymeditor({
-      logoHtml: '',
-      toolsItems: [
-        {'name': 'Bold', 'title': 'Strong', 'css': 'wym_tools_strong'}, 
-        {'name': 'Italic', 'title': 'Emphasis', 'css': 'wym_tools_emphasis'},
-        {'name': 'InsertOrderedList', 'title': 'Ordered_List', 'css': 'wym_tools_ordered_list'},
-        {'name': 'InsertUnorderedList', 'title': 'Unordered_List', 'css': 'wym_tools_unordered_list'},
-        {'name': 'Indent', 'title': 'Indent', 'css': 'wym_tools_indent'},
-        {'name': 'Outdent', 'title': 'Outdent', 'css': 'wym_tools_outdent'},
-        {'name': 'CreateLink', 'title': 'Link', 'css': 'wym_tools_link'},
-        {'name': 'Paste', 'title': 'Paste_From_Word', 'css': 'wym_tools_paste'},
-        {'name': 'Undo', 'title': 'Undo', 'css': 'wym_tools_undo'},
-        {'name': 'Redo', 'title': 'Redo', 'css': 'wym_tools_redo'},
-      ],
-      containersItems: [
-        {'name': 'P', 'title': 'Paragraph', 'css': 'wym_containers_p'},
-        {'name': 'H4', 'title': 'Heading_4', 'css': 'wym_containers_h4'}
-      ]
-    });
-    
-    /************
-      Code view
-    ************/
-  
-    $('code').each(function() {
-      var elem = $(this);
-      var lang = elem.attr("class");
-    
-      elem.sourcerer(lang);
-    });
-  
+*/        
     /*************
       Datatables
     *************/
@@ -205,14 +131,6 @@ $('document').ready(function() {
       });
     });
     
-    /*******
-      Tags
-    *******/
-    
-    $('.taginput').tagsInput({
-      'width':'auto'
-    });
-  
     /****************
       Progress bars
     ****************/
@@ -272,17 +190,6 @@ $('document').ready(function() {
       }
     });
 */  
-    /**********************
-      Pretty select boxes
-    **********************/
-  
-    $('select').chosen();
-  
-    /*********************
-      Pretty file inputs
-    *********************/
-
-    $('input[type="file"]').customFileInput();
     
     /*******
       Tabs
@@ -334,7 +241,7 @@ $('document').ready(function() {
     /******************
       Form Validation
     ******************/
-  
+/*  
     $('form').validate({
       wrapper: 'span class="error"',
       meta: 'validate',
@@ -365,7 +272,8 @@ $('document').ready(function() {
         });
       }
     });
-    
+*/    
+
     // Calendar icon fix
     $('form p > .error').livequery(function() {
       $(this).siblings('span.calendar').hide();
@@ -379,10 +287,11 @@ $('document').ready(function() {
       }
     });
   }
-  
+ 
   sp_init();
-
 });
+
+
 
 /*************************
   Notification function!
