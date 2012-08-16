@@ -1,6 +1,7 @@
 class ConsumersController < ApplicationController
 
-  before_filter :check_and_restore_session  
+  before_filter :authenticate_payer!
+  before_filter :find_consumer  
 
   def confirm      
     render :index    
@@ -10,14 +11,14 @@ class ConsumersController < ApplicationController
 
     @consumer.confirm!
 
-    redirect_to new_payer_token_path(@payer, :notify => 'confirmation', :status => "success", :name => @consumer.name, :_pjax => true)  
+    redirect_to new_token_path(:notify => 'confirmation', :status => "success", :name => @consumer.name, :_pjax => true)  
 
   end
 
   # GET /consumers
   # GET /consumers.json
   def index
-    @consumers = @payer.consumers
+    @consumers = current_payer.consumers
   end
 
   # GET /consumers/1
@@ -88,33 +89,15 @@ class ConsumersController < ApplicationController
 
   private
 
-  def check_and_restore_session  
+  def find_consumer  
  
-    # Have Devise run the user session 
-    # Every call should include payer_id, consumer_id and/or purchase_id
-    
-    super
-    if flash[:error]
-      redirect_to login_path 
-      return
-    end
-        
     if params[:id]
       begin    
-        @consumer = @payer.consumers.find(params[:id])   ## replace @payer with current_user
+        @consumer = current_payer.consumers.find(params[:id])   
       rescue ActiveRecord::RecordNotFound
         flash[:error] = "No such consumer id"
         redirect_to :controller => "home", :action => "routing_error"
         return
-      else
-        unless @payer 
-          @payer = @consumer.payer
-          unless @payer.id == session[:payer_id]
-            flash[:error] = "Please log in first"
-            redirect_to login_path
-            return
-          end
-        end
       end 
     end           
 

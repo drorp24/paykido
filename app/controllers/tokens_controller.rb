@@ -1,13 +1,14 @@
 class TokensController < ApplicationController
 
-  before_filter :check_and_restore_session  
+  before_filter :authenticate_payer!
+  before_filter :find_token  
 
 
   # GET /tokens
   # GET /tokens.json
   def index
-    @tokens = @payer.tokens
-    redirect_to new_payer_token_path(@payer) unless @tokens.any?
+    @tokens = current_payer.tokens
+    redirect_to new_token_path unless @tokens.any?
   end
 
 
@@ -29,7 +30,7 @@ class TokensController < ApplicationController
   end
   
   def create
-    redirect_to @payer.g2spp(params) 
+    redirect_to current_payer.g2spp(params) 
   end
 
   # POST /tokens
@@ -55,8 +56,7 @@ class TokensController < ApplicationController
   # DELETE /tokens/1.json
   def destroy
     @token.destroy
-    redirect_to new_payer_token_path(
-      @payer,
+    redirect_to new_token_path(
       :notify => "unregistration", 
       :status => "success", 
       :_pjax => "data-pjax-container"
@@ -64,21 +64,12 @@ class TokensController < ApplicationController
  end
 
   private
-  
-  def check_and_restore_session  
+
+  def find_token  
  
-    # Have Devise run the user session 
-    # Every call should include payer_id, consumer_id and/or purchase_id
-    
-    super
-    if flash[:error]
-      redirect_to login_path 
-      return
-    end
-    
     if params[:id]
       begin    
-        @token = @payer.tokens.find(params[:id])    ## replace @payer with current_user
+        @token = current_payer.tokens.find(params[:id])    
       rescue ActiveRecord::RecordNotFound
         flash[:error] = "No such token id"
         redirect_to :controller => "home", :action => "routing_error"

@@ -1,4 +1,4 @@
-<%= form_for(@rule) do |f| %>
+<%= simple_form_for(@rule, , :html => {:class => 'form-horizontal'}) do |f| %>
   <% if @rule.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@rule.errors.count, "error") %> prohibited this rule from being saved:</h2>

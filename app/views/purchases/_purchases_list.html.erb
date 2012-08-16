@@ -36,7 +36,7 @@
     </thead> 
     <tbody> 
     <% @purchases.each do |purchase| %> 
-        <tr class="purchase_row" data-href=<%= (params[:consumer_id]) ? consumer_purchase_path(@consumer, purchase) : payer_purchase_path(@payer, purchase) %> data-purchase=<%= purchase.id %> > 
+        <tr class="purchase_row" data-href=<%= (params[:consumer_id]) ? consumer_purchase_path(@consumer, purchase) : purchase_path(purchase) %> data-purchase=<%= purchase.id %> > 
             <td ><%= purchase.date %></td>
             <td><%= purchase.authorization_type %></td>
             <td><%= purchase.authorized %></td>

@@ -3,7 +3,7 @@
 
 <section id="maincontainer">
 
-		<%= render :partial => 'page_head', :locals => {:title => "#{@name}'s Rules"} %>
+		<%= render :partial => 'page_head', :locals => {:title => "Rules for #{@name}"} %>
 		
 		<div id="rules" class="settings  accordion">			
 				<% @rules.each do |rule| %>
@@ -49,7 +49,7 @@
 								<button class="always_decline btn btn-danger"><i class="icon-thumbs-down icon-white"></i></button>
 							</span>
 							<br />
-    						<span><%= button_to "Update Rule", payer_rule_path(@payer, rule, :status => 'whitelisted'), :method => :put, :class => "btn btn-primary inline" %></span>
+    						<span><%= button_to "Update Rule", rule_path(rule, :status => 'whitelisted'), :method => :put, :class => "btn btn-primary inline" %></span>
 							<span><%= button_to "Close" "#", :class => "btn" %>
 						</div>
 
@@ -58,7 +58,7 @@
 				<% end %>
 		</div>
 		<br />
-		<%= link_to 'Add a new rule', new_payer_rule_path(@payer) if @payer.registered_or_waived %>
+		<%= link_to 'Add a new rule', new_rule_path if current_payer.registered_or_waived %>
 </section>
 
 <%= render 'notifications' %>

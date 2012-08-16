@@ -1,25 +1,16 @@
-<%= form_for(@token, :url=> payer_tokens_path(@payer)) do |f| %>
-	<% if @token.errors.any? %>
-		<div id="error_explanation">
-		  <h2><%= pluralize(@token.errors.count, "error") %> prohibited this token from being saved:</h2>
-		
-		  <ul>
-		  <% @token.errors.full_messages.each do |msg| %>
-		    <li><%= msg %></li>
-		  <% end %>
-		  </ul>
-		</div>
-  	<% end %>
+
+<%= simple_form_for(@token, :class => 'form-horizontal') do |f| %>
+  <%= f.error_notification %>
 
 	<p id="space_before_registration_form"></p>
-	<%= f.label :FirstName %><%= f.text_field :FirstName %>
-	<%= f.label :LastName %><%= f.text_field :LastName %>
-	<%= f.label :Phone %><%= f.text_field :Phone %>
-	<%= f.label :Email %><%= f.text_field :Email %>
-	
+  	<div class="form-inputs">
+	    <%= f.input :FirstName, :autofocus => true %>
+	    <%= f.input :LastName %>
+	    <%= f.input :Phone %>
+	    <%= f.input :Email %>
+	</div>
 
-
-  <div>
-    <%= f.submit "Register, it's free!", :class => "blue button" %>
-  </div>
+	<div class="form-actions">
+    	<%= f.button :submit, "Register, it's free!", :class => "btn-primary" %>
+  	</div>
 <% end %>

@@ -1,0 +1,1014 @@
+img#in-app {
+
+    height: 391px;    
+}
+
+img#parents {
+    margin-top: -5px;
+    height: 416px;    
+}
+
+img#game {
+    margin-left: 50px;
+    margin-top: 65px;
+}
+
+body#paykido .marketial.section_title h1 {
+    font-size: 42px;
+    line-height: 78px; 
+    color: #4BBCCF; 
+}
+
+.g1140 {
+    width: 1140px;
+    margin: auto;
+}
+
+.g1140 .fr {
+    float: right;
+}
+.quote {
+    
+}
+.home_image {
+    
+}
+
+#rest_of_page strong {
+    font-weight: normal;
+}
+.hm_container {
+
+    /* margin-right: auto; */
+    padding-top:125px;
+    width: 1140px;
+    margin: auto;
+    
+}
+.environment {
+    
+}
+
+#rest_of_page blockquote {
+    border-left: 5px solid #666;
+}
+
+#rest_of_page input[type="submit"] {
+ 
+}
+
+body#paykido {
+	font-family:"Segoe UI", Helvetica, Arial;
+	font-size:14px;
+	font-weight: 100;
+	line-height:21px;
+	color:#1c1c1c;
+	background:url("/home/img/background/pattern.png");
+
+}
+
+body#paykido h1 {
+    font-family:"Segoe UI", Helvetica, Arial;
+    font-weight: 100;
+    text-shadow: 0 1px 0 #FFFFFF;
+
+}
+
+:focus {outline:none;}
+::-moz-focus-inner {border:0;}
+
+a, a:hover, a:active, a:focus, :focus {
+   outline: 0;
+    outline: none; 
+}
+button::-moz-focus-inner,
+input[type="reset"]::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner,
+select::-moz-focus-inner,
+input[type="file"] > input[type="button"]::-moz-focus-inner {
+    border: none;
+}
+
+#temp_logo {
+    display: inline;
+}
+
+.environment {
+    float: left;
+    position: relative;
+    right: 63px;
+    top: -6px;
+}
+#temp_logo h1 {
+    float: left;
+    display: inline;
+    line-height: 50px;
+    margin-right: 33px;
+}
+
+:focus {
+    outline: none;
+}
+
+#temp_logo a {
+    color: inherit;   
+}
+#form_box {
+    height: 429px;
+    position: absolute;
+    right: 38px;
+}
+
+.form_bottom {
+    position: absolute;
+    bottom: 10px;    
+}
+.hero-unit:not(.marketial) {
+    height: 350px;
+}
+#yellowshirt_kid {
+    position: absolute;
+    right: 57px;
+    top: 445px;
+    width: 112px;
+    z-index: 20;
+}
+.oops {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+#oops_title {
+    margin-top: 250px; 
+    font-size: 55px;
+    font-weight: bold;
+    line-height: 100px;   
+}
+
+#oops_line {
+    font-size: 20px;
+}
+
+#messages {
+    position: fixed;
+    width: 70%;
+    margin: 0 15%;
+}
+
+
+.hm_container h1 {
+    font-size:26px;
+    line-height:45px;
+    margin-bottom:21px;
+    font-weight:bold;
+}
+.hm_container h2 {
+    color:#094958;
+    font-size:24px;
+    font-weight: 400;
+    margin-bottom:8px;
+    line-height:28px;
+    font-family:"Segoe UI Light", "Segoe UI", Helvetica, arial, sans-serif;
+}
+
+.hm_container h2 strong {font-family:"Segoe UI Semibold", "Segoe UI", Helvetica, arial, sans-serif;}
+
+.hm_container p {font-family:"Segoe UI Semibold", "Segoe UI", Helvetica, arial, sans-serif; font-weight: 400;}
+
+
+#form_box h1 {
+    margin-top: 30px;
+}
+
+#form_box .btn[type="submit"] {
+    position: absolute;
+    bottom: 80px;
+}
+#rest_of_page .hero-unit:not(.marketial) h1 {
+
+    margin-bottom: 40px;
+}
+#rest_of_page .marketial.hero-unit h2 {
+
+    font-size: 20px;
+}
+
+#rest_of_page .marketial.hero-unit {
+    height: 272px;
+}
+#rest_of_page .marketial.hero-unit h1 {
+    font-size: 45px;
+    margin-bottom: 40px;
+}
+
+#rest_of_page blockquote small {
+    font-size: 16px;
+    margin-top: 7px;
+}
+
+#rest_of_page blockquote {
+}
+#parents_approve {
+    
+}
+.form-inputs {
+    margin-top: 35px;
+}
+
+#form_box input:not([type="submit"]) {
+    width: 96%;
+}
+
+/* THE FOLLOWING IS TO MAKE THE CHECKBOX ON THE SAME LINE AS REMEMBER ME */
+#form_box label.boolean, #form_box label.checkbox, #form_box label.checkbox input.boolean.optional, #payer_remember_me{
+    display: inline;
+}
+div.controls, input.boolean {
+    display: inline-block;
+}
+#form_box .radio input[type="radio"], #form_box .checkbox input[type="checkbox"] {
+    margin-left: 10px;
+}
+/* THE FOLLOWING IS TO MAKE THE CHECKBOX ON THE SAME LINE AS REMEMBER ME */
+.links {
+    
+}
+/* Top and bottom dark lines for each section */
+
+#rest_of_page {
+    
+}
+.login {
+    float: right;
+    font-size: 18px;
+    margin-right: 13px;
+    margin-top: 25px;
+    margin-right: 45px;
+}
+
+.login:hover {
+    text-decoration: none;
+}
+
+#rest_of_page .hero_unit.semi_transparent_bg, #why_register {
+
+/* Fallback for web browsers that doesn't support RGBa */
+background: rgb(0, 0, 0) transparent;
+/* RGBa with 0.3 opacity */
+background: rgba(0, 0, 0, 0.2);
+/* For IE 5.5 - 7*/
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+/* For IE 8*/
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+}
+
+
+.top {
+	background:url("/home/img/background/top_border.png") no-repeat;
+	height:11px;
+	margin-bottom:21px;
+}
+.bottom {
+	background:url("/home/img/background/bottom_border.png") no-repeat;
+	height:21px;
+	margin-top:7px;
+}
+.separator {
+	border-top:#cccccc dotted 1px;
+	padding-top:21px;
+	height:1px;
+}
+
+/* Pushers to space elements when needed */
+
+.pusher21 {
+	margin-top:21px;
+}
+.pusher14 {
+	margin-top:14px;
+}
+.pusher7 {
+	margin-top:7px;
+}
+
+*  _______________________________________
+
+    02 GRID
+    _______________________________________  */
+
+
+
+/*
+    Variable Grid System.
+    Learn more ~ http://www.spry-soft.com/grids/
+    Based on 960 Grid System - http://960.gs/
+
+    Licensed under GPL and MIT.
+*/
+
+
+/* Containers
+----------------------------------------------------------------------------------------------------*/
+.hm_container {
+
+    /* margin-right: auto; */
+    padding-top:110px;
+    width: 1140px;
+    
+}
+
+.hm_container#section1, .hm_container#section2, .hm_container#section3, .hm_container#section4 {
+    margin: auto;
+}
+
+/* Grid >> Global
+----------------------------------------------------------------------------------------------------*/
+
+.grid_0,
+.grid_1,
+.grid_2,
+.grid_3,
+.grid_4,
+.grid_5,
+.grid_6
+.grid_7
+.grid_8 {
+    display:inline;
+    float: left;
+    position: relative;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* Grid >> Children (Alpha ~ First, Omega ~ Last)
+----------------------------------------------------------------------------------------------------*/
+
+.alpha {margin-left: 0;}
+.omega {margin-right: 0;}
+
+/* Grid >> 6 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.hm_container .grid_0 {width:120px;}
+.hm_container .grid_1 {width:190px;}
+.hm_container .grid_2 {width:260px;}
+.hm_container .grid_3 {width:400px;}
+.hm_container .grid_4 {width:540px; }
+.hm_container .grid_5 {width:680px; margin: auto; left:90px;}
+.hm_container .grid_6 {width:820px; }
+.hm_container .grid_7 {width:980px;  }
+.hm_container .grid_8 {width:1120px;}
+
+/* Clear Floated Elements
+----------------------------------------------------------------------------------------------------*/
+
+/* http://sonspring.com/journal/clearing-floats */
+
+.clear {
+    clear: both;
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 1px;
+    margin-bottom:500px;
+}
+
+/* http://perishablepress.com/press/2008/02/05/lessons-learned-concerning-the-clearfix-css-hack */
+
+.clearfix:after {
+    clear: both;
+    content: ' ';
+    display: block;
+    font-size: 0;
+    line-height: 0;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+* html .clearfix {
+    height: 1%;
+}
+
+.clearfix {
+    display: block;
+}
+
+
+
+
+
+/*  _______________________________________
+
+	04 HEADER
+    _______________________________________  */
+
+
+
+	/*
+	Here are all styles for the header and the menu.
+	This header sticks to the top of the layout.
+	*/
+	
+
+#header_wrapper { /* Container to display the top black background */
+	width:100%;
+	height:111px;
+	margin:0;
+	padding:0;
+    padding-top: 30px;
+	background:url("/home/img/background/header.png") repeat-x;
+	z-index:20;
+	position:fixed; /* Sticks to the top */
+	top:0;
+	left:0;
+}
+
+	#header { /* Centered container for the header, contains the menu and the logo */
+		width: 70%;
+		margin:0px auto;
+		position: relative;
+	}
+	#logo {
+		background:url("/images/paykido_with_tagline.png") no-repeat 0 0;
+		float:left;
+		width:170px; /* Modify these "width" and "height" values according to the size of your logo */
+		height:111px;
+		position: relative;
+top: -20px;
+left: -150px;
+	}
+	#logo a {
+		width:100%;
+		height:100%;
+		display:block;}
+		
+	#logo:hover {
+		text-decoration:none;
+		background-position: -172px 0;}	
+		
+
+/* Menu */
+
+#menu {
+	background:none;
+	list-style:none;
+
+}
+
+	#menu li {
+		width:158px;
+		height:51px;
+		list-style:none;
+		float:left;
+		background:url("/home/img/background/menu_button.png");
+		margin-left:28px; /* Spacing between menu items */
+	}
+		#menu li.current {
+			background-position: 0px -51px;
+			 /* Styles for the "current" item highlighted when clicked */ 
+			color:#ffffff;
+			padding-bottom:3px;
+		}
+		
+		#menu li a {
+			font-family:"Segoe UI", Helvetica, arial, sans-serif;
+			text-decoration:none;
+			color:#094958;
+			font-size:18px;
+			position:relative;
+			text-align:center;
+			top:14px;
+			z-index:888; /* Required to keep navigation above content */
+			display:block;
+			width:100%;
+			height:100%;
+		}
+			#menu li a:hover {
+				border:none;
+				color:#00bccf;
+			}
+			
+		#menu li.current a:hover {
+			border:none;
+			color:#000;
+			}	
+
+/*  _______________________________________
+
+	05 TYPOGRAPHY
+    _______________________________________  */
+
+
+
+p {	/* Default font styles for paragraphs */
+	font-size:14px;
+	text-align:left;
+	margin-bottom:21px;
+	line-height:21px;
+}
+a {
+	text-decoration:none; /* See color.css for links styling */
+}
+a:hover.noborder {
+	border:none;
+}
+
+/* Headings */
+
+h3 {
+	font-size:16px;
+	line-height:25px;
+	
+	font-style:italic;
+	color:#666666;
+	text-align:center;
+}
+h4 {
+	font-size:18px;
+	margin-bottom:7px;
+	line-height:21px;
+	text-transform:uppercase;
+}
+h5 {
+	font-size:14px;
+	color:#555555;
+	text-transform:uppercase;
+	border-bottom:#cccccc solid 1px;
+	padding-bottom:7px;
+	margin-bottom:7px;
+}
+.strong {
+	font-weight:bold;
+}
+.dropcap {
+	display:block;
+	float:left;
+	font-size:45px;
+	line-height:36px;
+	margin:3px 8px 0 0;
+}
+
+
+.quote_box {
+	margin:auto;
+	width:930px;
+	height:110px;
+	background:url("/home/img/background/quote.png") center no-repeat;
+
+}
+
+.quote_text {padding-left:70px; padding-right:70px;}
+
+.quote_author {float:right; padding-right:80px;}
+
+
+.bx-prev {
+position: relative;
+top: -70px;
+float: left;
+left: -40px;
+width: 31px;
+height: 31px;
+text-indent: -999999px;
+background: url("/home/img/icons/quote_prev.png") no-repeat 0 0;
+
+}
+
+
+.bx-prev:hover, .bx-next:hover {background-position: -31px 0;}
+
+.bx-next {
+position: relative;
+top: -70px;
+float: right;
+right: -40px;
+width: 31px;
+height: 31px;
+text-indent: -999999px;
+background: url("/home/img/icons/quote_next.png") no-repeat 0 0;	
+	
+	}
+
+
+/* Titles with left icon */
+
+.note_book {
+	background:url("/home/img/icons/note_book.png") left 3px no-repeat;
+	padding-left:35px;
+}
+.paint_brush {
+	background:url("/home/img/icons/paint_brush.png") left 3px no-repeat;
+	padding-left:35px;
+}
+.business_user {
+	background:url("/home/img/icons/business_user.png") left 3px no-repeat;
+	padding-left:35px;
+}
+
+.testimonials {
+	margin-bottom:0px;
+	padding-left:17px;
+	background:url("/home/img/icons/testimonials1.png") left 5px no-repeat;
+	font-style:italic;
+	font-size:14px;
+	color:#767676;
+}
+.testimonials_author {
+	font-style:normal;
+	background:url("/home/img/icons/testimonials2.png") right 5px no-repeat;
+	padding-left:17px;
+	margin-bottom:21px;
+	color:#767676;
+	margin-top:0;
+}
+
+/* Other typo with left icons (see "contact" section, right column) */
+
+.address_icon {
+	background:url("/home/img/icons/address_icon.png") left 6px no-repeat;
+	padding-left:25px;
+}
+.phone_icon {
+	background:url("/home/img/icons/phone_icon.png") left 5px no-repeat;
+	padding-left:25px;
+}
+.mail_icon {
+	background:url("/home/img/icons/mail_icon.png") left 5px no-repeat;
+	padding-left:25px;
+}
+.textbox {
+	border:#cccccc solid 1px;
+	padding-bottom:7px;
+	background-color:#fffffd;
+	width:auto;
+	float:left;
+}
+.textbox li {
+	padding:7px 14px 7px 14px;
+}
+.textbox .box_title {
+	font-size:21px;
+	margin-bottom:7px;
+	padding:7px 14px 7px 14px;
+	background-color:#efefef;
+	border-bottom:#cccccc solid 1px;
+}
+
+/* Paragraphs with left colored border */
+
+.color1, .color2, .color3, .color4 {
+	border:#cccccc solid 1px;
+	padding:5px 15px 5px 15px;
+	color:#444444;
+	background-color:#fffffd;
+}
+.color1 {
+	border-left:#333333 solid 7px;
+}
+.color2 {
+	border-left:#814444 solid 7px;
+}
+.color3 {
+	border-left:#808080 solid 7px;
+}
+.color4 {
+	border-left:#C3B091 solid 7px;
+}
+
+/* Lists */
+
+.bullet_list {
+	margin-bottom:21px;
+	color:#767676;
+}
+	.bullet_list li {
+		list-style-image: url("/home/img/icons/bullet.png");
+		margin-left:14px;
+	}
+.bullet_list_right {
+	margin-bottom:21px;
+	color:#767676;
+}
+	.bullet_list_right li {
+		margin: 7px 0px 7px 14px;
+		padding:7px 0px 6px 0px;
+	}
+.numbered_list {
+	color:#767676;
+	list-style:decimal;
+	margin-bottom:20px;
+}
+	.numbered_list li {
+		margin-left:20px;
+	}
+
+/* Contact form styling - Messages displayed when an email is sent */
+
+#alert {
+	margin-bottom:0px;
+	padding-bottom:14px;
+}
+#alert li {
+	padding:7px;
+}
+.error {
+	background-color:#feded9;
+	border:#a8130d solid 1px;
+	color:#a40802;
+}
+.sent {
+	background-color:#ddeec1;
+	border:#5a6f34 solid 1px;
+	color:#53682b;
+}
+
+
+
+
+
+#footer_wrapper { /* Container to display the top black background */
+	width:100%;
+	margin:0;
+	padding:0px 0px 35px 0px;
+	background:url("/home/img/background/footer.jpg") repeat-x top #0E0E0E;
+	margin-top:45px;
+	height:auto;
+	position:relative;
+	float:left;
+}
+	#footer { /* Centered container for the header, contains the menu and the logo */
+		width: 840px;
+		margin:0px auto;
+		position: relative;
+	}
+	#footer .hm_container {
+		padding:35px 0px;
+	}
+	#footer p, #footer h1, #footer h2, #footer h3, #footer .bullet_list {
+		color:#FFF;
+	}
+	#footer h1, #footer h2, #footer h3 {
+		border-bottom:#767676 dotted 1px;
+	}
+*/  _______________________________________
+
+    06 IMAGES & GRAPHICS
+    _______________________________________  */
+
+
+
+.portfolio {
+    margin:0;
+    padding:0;
+    overflow: hidden;
+}
+    .portfolio li {
+        float: left;
+        margin:0px 20px 7px 0px;
+        padding: 0;
+        position: relative;
+    }
+        .portfolio li a:hover {
+            border:none;
+        }
+        .portfolio li.last {
+            margin-right:0px;
+        }
+        
+    .portfolio260 { /* Container for images in the "portfolio" section */
+        background:url("/home/img/bg260.png") no-repeat;
+        width:250px;
+        height:152px;
+        padding:11px 5px 15px 5px;
+    }
+    .portfolio190 { /* Container for images in the "my work" section */
+        background:url("/home/img/bg190.png") no-repeat;
+        width:180px;
+        height:116px;
+        padding:12px 5px 17px 5px;
+    }
+
+.thumbnails {
+    margin:0;
+    padding:0;
+    overflow: hidden;
+}
+    .thumbnails li {
+        float: left;
+        margin:0px 10px 14px 0px;
+        padding: 0;
+        position: relative;
+    }
+    .thumbnails li.last {
+        margin-right:0px;
+    }
+.thumbnail80 { /* Small imge containers for thumbnails (see "About me" section, right column) */
+    background:url("../img/bg80.jpg");
+    padding:5px;
+}
+.social_icons li {
+    margin-right:14px;
+    width:24px;
+    float:left;
+}
+
+
+/*  _______________________________________
+
+    07 TABS
+    _______________________________________  */
+
+
+
+ul.tabs {
+    margin: 0;
+    padding: 0;
+    float: left;
+    list-style: none;
+}
+ul.tabs li {
+    float: left;
+    width:auto;
+    margin: 0px 14px 0px 0px;
+    overflow: hidden;
+    position: relative;
+    text-align:center;
+}
+ul.tabs li a { /* Tabs links styling */
+    font-family:Georgia, "Times New Roman", Times, serif;
+    font-size:18px;
+    text-decoration: none;
+    float:left;
+    color:#1C1C1C;
+    height:40px;
+    padding:6px 8px 6px 8px;
+    outline: none;
+}
+ul.tabs li a:hover {
+    color:#025d8c;
+    text-decoration: none;
+    border:none;
+}
+.left { /* Displays left background of the "current" tab link */
+    height:33px;
+    left:0;
+    position:absolute;
+    top:0;
+    width:4px;
+    background:url("/home/img/tabs/tabs_left.png") no-repeat  left top;
+}
+.right { /* Displays right background of the "current" tab link */
+    height:33px;
+    right:0;
+    position:absolute;
+    top:0;
+    width:4px;
+    background:url("/home/img/tabs/tabs_right.png") no-repeat  right top;
+}
+html ul.tabs li.current a, html ul.tabs li.current a:hover  { /* Displays background of the "current" tab link */
+    background:url("/home/img/tabs/tabs_middle.png") no-repeat top center;
+    color:#FFFFFE;
+    margin:0px 4px 0px 4px;
+}
+.tab_content {
+    padding: 0px;
+}
+.tab_container {
+    overflow: hidden;
+    clear: both;
+    float: left; 
+    width: 100%;
+}
+
+
+
+/*  _______________________________________
+
+    08 CONTACT FORM
+    _______________________________________  */
+
+
+
+.form {
+    padding-bottom:50px;
+}
+    .form label {
+        font-family:Garamond;
+        font-size:18px;
+        font-weight:bold;
+        padding:0;
+        margin:0;
+        float:left;
+        width:120px;
+    }
+
+    .form ul li {
+        list-style:none;
+        display:inline;
+    }
+
+    #name, #email, #message { /* Contact form fields styles */
+        font-family:Arial, Helvetica, sans-serif;
+        font-size:14px;
+        padding:0;
+        border:none; 
+        margin:15px 0 15px 0;
+        display:block;
+    }
+    
+        #name, #email {
+            width:417px;
+            height:29px;
+            background:url("/home/img/form/fields.png");
+            padding-left:3px;
+        }
+        
+        #message {
+            width:414px;
+            height:204px;
+            overflow:auto;
+            padding:3px;
+            background:url("/home/img/form/message.png");
+        }
+        #name:focus, #email:focus {
+            background:url("/home/img/form/fields_focus.png");
+        }
+        #message:focus {
+            background:url("/home/img/form/message_focus.png");
+        }
+    
+    /*
+    Styles for the buttons "send" and "reset" in the contact form
+    */
+    .button {
+        font-family:Garamond;
+        font-size:14px;
+        font-weight:bold;
+        background:url("/home/img/form/send_reset.png");
+        padding:3px;
+        width:72px;
+        height:32px;
+        border:none;
+        margin-left:15px;
+        float:right;
+    }
+    
+        .button:hover {
+            color:#FFFFFE;
+            background:url("/home/img/form/send_reset_hover.png");
+        }
+
+    .message {
+        display:none;
+    }
+    .contact ul {
+        list-style-type:none;
+    }
+        .contact li {
+            list-style-type:none;
+        }
+            .contact li.special {
+                display:none;
+            }
+
+
+
+/*  _______________________________________
+
+    09 FOOTER
+    _______________________________________  */
+
+
+
+#footer_wrapper { /* Container to display the top black background */
+    width:100%;
+    margin:0;
+    padding:0px 0px 35px 0px;
+    background:url("../img/background/footer.jpg") repeat-x top #0E0E0E;
+    margin-top:45px;
+    height:auto;
+    position:relative;
+    float:left;
+}
+    #footer { /* Centered container for the header, contains the menu and the logo */
+        width: 840px;
+        margin:0px auto;
+        position: relative;
+    }
+    #footer .hm_container {
+        padding:35px 0px;
+    }
+    #footer p, #footer h1, #footer h2, #footer h3, #footer .bullet_list {
+        color:#FFF;
+    }
+    #footer h1, #footer h2, #footer h3 {
+        border-bottom:#767676 dotted 1px;
+    }

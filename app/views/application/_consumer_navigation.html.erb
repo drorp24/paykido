@@ -8,13 +8,13 @@
 			<li class="payer active" rel="popover">
 		<% end %>
 			<% if params[:controller] == 'purchases' %>
-				<% path = payer_purchases_path(@payer)  %>
+				<% path = purchases_path  %>
 			<% elsif params[:controller] == 'consumers' %>
-				<% path = payer_consumers_path(@payer)  %>
+				<% path = consumers_path %>
 			<% elsif params[:controller] == 'rules' %>
-				<% path = payer_rules_path(@payer)  %>
+				<% path = rules_path  %>
 			<% elsif params[:controller] == 'transactions' %>
-				<% path = payer_purchase_transactions_path(@payer, @purchase)  %>
+				<% path = purchase_transactions_path(@purchase)  %>
 			<% end %>	
 
             <a href="<%= path %>" data-skip-pjax>
@@ -22,7 +22,7 @@
 	            	<tbody>
 	            		<tr id="noWhite">
 	            			<td class="navigation_icon" id="registration_popover">
-	            				<% if @payer.registered? %>
+	            				<% if current_payer.registered? %>
 	            					<i class="bigicon-shield"></i>
             					<% else %>
             						<i class="bigicon-placeholder"></i>
@@ -39,7 +39,7 @@
 	            </table>
         	</a>
         </li>
-    	<% @payer.consumers.each do |consumer| %>
+    	<% current_payer.consumers.each do |consumer| %>
 	        <li class="consumer <%= "active" if (@consumer and @consumer.id == consumer.id) %>">
 				<% if params[:controller] == 'purchases' %>
 					<% path = consumer_purchases_path(consumer)  %>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Paykido - the new way to pay </title>
+
+<link   rel="stylesheet" href="/home/css/home.css" type="text/css" />
+ 	    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css" />
+ 	    <style type="text/css">
+ 	    	body {
+ 	    		padding-top: 0px;
+ 	    		padding-bottom: 40px;
+ 	    	}
+    </style>
+ 	    <link rel="stylesheet" href="/bootstrap/css/bootstrap-responsive.css" />
+
+	<script src="/spina/js/jquery-1.7.1.js"></script>
+<!-- <script type="text/javascript" src="/home/js/scrollto.js" charset="utf-8"></script>--><!-- ScrollTo Plugin -->
+<script type="text/javascript" src="/home/js/navigation.js" charset="utf-8"></script><!-- One-Page Navigation Plugin -->
+<script type="text/javascript" src="/home/js/mousewheel.js" charset="utf-8"></script><!-- Mousewheel Plugin -->
+<script type="text/javascript" src="/home/js/jquery.bxSlider.js" ></script>
+<script src="/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#slider1').bxSlider();
+    $('#slider2').bxSlider();
+    $('#slider3').bxSlider();
+  });
+</script>
+
+<!-- Cufon font replacement script, see instructions in the help file
+<script type="text/javascript" src="js/cufon.js"></script>
+<script type="text/javascript" src="js/Calluna_400.font.js"></script>
+<script type="text/javascript">
+    Cufon.replace('h1, h2, h3, h4, h5, .box_title', {hover: true}); // Modify the classes according to your preferences
+</script>
+-->
+
+<!--[if IE 6]>
+<link rel="stylesheet" href="css/ie6.css" type="text/css" />
+<script src="js/ddbelatedpng.js"></script>
+<![endif]-->
+
+
+</head>	
+
+<body>
+	
+<div id="header_wrapper"><!-- BEGIN HEADER -->
+   
+	<div id="header"><!-- BEGIN HEADER CONTAINER -->
+    
+		<ul id="menu" class="clearfix">
+		  <!-- BEGIN MENU -->
+		  <div id="logo" class="clearfix">
+		  	<a href="#section1"></a>
+			<p id="environment"><%= Paykido::Application.config.environment %></p>
+		  </div>
+		  <!-- LOGO CONTAINER -->
+		  
+		  <li><a href="#section2">kids</a></li>
+		  <li><a href="#section3">parents</a></li>
+		  <li><a href="#section4">publishers</a></li>
+		
+		  <%= link_to "Sign In", "www.ynet.co.il", :class => "login", :id => "signin" unless params[:action] == 'login' %>  <!-- replace with Devise -->
+		
+		 </ul>
+    <!-- END MENU --> 
+  </div>
+  <!-- END HEADER CONTAINER --> 
+  
+</div>
+<!-- END HEADER -->
+
+    <%= yield :layout %>
+	
+</div>
+</body>
+</html>
