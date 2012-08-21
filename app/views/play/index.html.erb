@@ -71,7 +71,7 @@ $(document).ready(function () {
 		<% elsif params[:status] == 're-register' %>
 			$('#notification_title').html("Paykido was upgraded. You will need to join again")
 			$('#notification_text').html("Go to: Facebook -> small arrow on the blue ribbon -> Privacy Settings -> Ads, Apps and Websites -> Paykido -> Remove app.")
-			$('#notification_text1').html("Now click Paykido and populate the join-in form again.")
+			$('#notification_text1').html("Then: refresh this page, click Paykido button and populate the join-in form.")
 		<% else %>
 			$('#notification_text').html("<%= params[:property] + ' is ' + params[:value] %>")
 			<% if params[:status] == 'declined' %>

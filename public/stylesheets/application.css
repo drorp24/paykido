@@ -6,6 +6,10 @@ body {
     line-height:21px;
 }
 
+#purchases_filter label {
+    line-height: 35px;
+}
+
 #new_token .form-actions {
     margin-bottom: -27px;
     padding-bottom: 0;   
