@@ -49,8 +49,8 @@
 	  	</div>
 	  	
 	  	<div class="grid_4 fr">
-	  		<%= link_to "Sign In", new_payer_session_path , :class => "login", :id => "signin" if params[:action] == "index" %> 
-	  		<%= link_to "Sign Up", new_payer_registration_path , :class => "login", :id => "signup" if params[:action] == "index" %> 
+	  		<%= link_to "Sign In", new_payer_session_path , :class => "login", :id => "signin" if params[:action] == "index" or params[:action] == "routing_error" %> 
+	  		<%= link_to "Sign Up", new_payer_registration_path , :class => "login", :id => "signup" if params[:action] == "index"  or params[:action] == "routing_error"%> 
 		</div>
 	 </div>
 </div>

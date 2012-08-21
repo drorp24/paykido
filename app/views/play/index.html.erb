@@ -69,9 +69,9 @@ $(document).ready(function () {
 			$('#notification_title').html("Welcome to Paykido!")
 			$('#notification_text').html("You can start using it to buy as soon as your parent confirms you via email.")
 		<% elsif params[:status] == 're-register' %>
-			$('#notification_title').html("You will need to register again")
-			$('#notification_text').html("To do that, first remove 'Paykido' app in Facebook, then click Paykido again. To remove the app in Facebook do:")
-			$('#notification_text1').html("Facebook -> small arrow on the blue ribbon -> Privacy Settings -> Ads, Apps and Websites -> Paykido -> Remove app")
+			$('#notification_title').html("Paykido was upgraded. You will need to join again")
+			$('#notification_text').html("Go to: Facebook -> small arrow on the blue ribbon -> Privacy Settings -> Ads, Apps and Websites -> Paykido -> Remove app.")
+			$('#notification_text1').html("Now click Paykido and populate the join-in form again.")
 		<% else %>
 			$('#notification_text').html("<%= params[:property] + ' is ' + params[:value] %>")
 			<% if params[:status] == 'declined' %>
