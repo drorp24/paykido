@@ -79,7 +79,8 @@ $(document).ready(function () {
 			<% elsif params[:status] == 'approved' %>
 				$('#notification_title').html("Hurrah...")
 			<% elsif params[:status] == 'pending' %>
-				$('#notification_title').html("Wait...")
+				$('#notification_title').html("Manual Approval Required")
+				$('#notification_text1').html("An email has been sent to your parent to manually approve purchase")				
 			<% elsif params[:status] == 'failed' %>
 				$('#notification_title').html("Oops...")
 			<% elsif params[:status] == 'fb_failed' %>
