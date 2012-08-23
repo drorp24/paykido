@@ -30,10 +30,10 @@ class ApplicationController < ActionController::Base
  
     if params[:consumer_id] and @consumer = Consumer.find_by_id(params[:consumer_id])
       @name = @consumer.name
-    elsif current_payer and current_payer.name
-      @name = current_payer.name
+#    elsif current_payer and current_payer.name
+#      @name = current_payer.name
     elsif current_payer and current_payer.consumers.count > 1
-      @name = "the family"
+      @name = "the entire family"
     else
       @name = "All"
     end

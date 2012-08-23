@@ -50,7 +50,7 @@
     		<%= button_to "Register Now", new_token_path,:method => :get, :class => "btn btn-primary inline" %>
 		<% end %>
 	<% else %>
-    	<h4 class="alert-heading">Purchase Approved</h4>	
+    	<h4 class="alert-heading">Purchase Approved!</h4>	
 	<% end %>    		
 </div>
 <% end %>
@@ -60,7 +60,7 @@
 	<a class="close" data-dismiss="alert" href="#">×</a>
 	<% purchase = Purchase.find(params[:purchase]) %>
 	<% retailer = purchase.retailer.name %>
-	<% times = purchase.approval_counter('retailer') %>
+	<% times = purchase.denial_counter('retailer') %>
     <% if times > Paykido::Application.config.offer_rule_or_registration_after.to_i %>
     	<h4 class="alert-heading"><%= "Suggested Rule: Always Decline #{retailer}" %></h4>
     	<span><%= "You declined #{retailer} already #{times} times." %></span> 
@@ -72,7 +72,7 @@
     		<%= button_to "Register Now", new_token_url,:method => :get, :class => "btn btn-primary inline" %>
 		<% end %>
 	<% else %>
-    	<h4 class="alert-heading">Purchase Declined</h4>	
+    	<h4 class="alert-heading">Purchase Declined!</h4>	
 	<% end %>    		
 </div>
 <% end %>
