@@ -104,7 +104,7 @@ $(document).ready(function() {
 // Payer registration status
 <% if params[:notify] and params[:notify] == 'registration' %>
 	<% if params[:status] == 'success' %>
-	    notification("<%= "Successfully registered!"%>", false, 'file', true)
+	    notification("<%= "Successfully registered!"%>", false, 'icon-eye-open', true)
 		$('#registration_success').show();
 		$("#registration_popover i").removeClass('bigicon-placeholder').addClass('bigicon-shield');
 		$("#registration_popover").popover({
@@ -114,18 +114,18 @@ $(document).ready(function() {
 			}).popover('show');
 			window.setTimeout("$('#registration_popover').popover('hide')", 5000);
 	<% else %>
-	    notification('<%= "Registration failed" %>', false, 'sp_alert', true)
+	    notification('<%= "Registration failed" %>', false, 'icon-exclamation-sign', true)
 	    $('#registration_failure').show();
 	<% end %>
 <% end %>
 
 <% if params[:notify] and params[:notify] == 'unregistration' %>
 	<% if params[:status] == 'success' %>
-	    notification("<%= "#{current_payer.name} unregistered"%>", false, 'file', true)
+	    notification("<%= "#{current_payer.name} unregistered"%>", false, 'icon-eye-open', true)
 		$('#unregistration_success').show();
 		$("#registration_popover i").removeClass('bigicon-shield').addClass('bigicon-placeholder');
 	<% else %>
-	    notification('<%= "Unregistration failed" %>', false, 'sp_alert', true)
+	    notification('<%= "Unregistration failed" %>', false, 'icon-exclamation-sign', true)
 	<% end %>
 <% end %>
 
@@ -133,10 +133,10 @@ $(document).ready(function() {
 <% if params[:notify] and params[:notify] == 'confirmation' %>
 	<% if params[:status] == 'success' %>
 //		$('#confirmation_success').show();
-	    notification("<%= "#{current_payer.name} confirmed #{params[:name]}" %>", false, 'user', true)
+	    notification("<%= "#{current_payer.name} confirmed #{params[:name]}" %>", false, 'icon-certificate', true)
 		$('.consumer.active').addClass('confirmed');
 	<% else %>
-	    notification('<%= "Failed to confirm consumer" %>', false, 'alert', true)
+	    notification('<%= "Failed to confirm consumer" %>', false, 'icon-exclamation-sign', true)
 	<% end %>
 <% end %>
 
@@ -144,9 +144,9 @@ $(document).ready(function() {
 // [ToDO: DELETE??] PP return status
 <% if params[:status] and params[:Error] %>
 	<% if params[:status] == 'failure' %>
-	    notification('<%= "Failed: #{params[:Error]}" %>', false, 'alert', true)
+	    notification('<%= "Failed: #{params[:Error]}" %>', false, 'icon-exclamation-sign', true)
 	<% else %>
-	    notification("<%= "Purchase paid thank you!"%>", false, 'cart', true)
+	    notification("<%= "Purchase paid thank you!"%>", false, 'icon-shopping-cart', true)
 		$('#approval_success').show();
 	<% end %>
 <% end %>
@@ -159,11 +159,11 @@ $(document).ready(function() {
   		<% else %>
   			<% id = '' %>
     	<% end %>
-	    notification("<%= "#{current_payer.name} approved purchase #{id}"%>", false, 'tick', true)
+	    notification("<%= "#{current_payer.name} approved purchase #{id}"%>", false, 'icon-thumbs-up', true)
 		$('#approval_success').show();
 	<% else %>
 		$('#approval_failure').show();
-	    notification('<%= "Payment failed" %>', false, 'sp_alert', true)
+	    notification('<%= "Payment failed" %>', false, 'icon-exclamation-sign', true)
 	<% end %>
 <% end %>
 	
@@ -175,17 +175,17 @@ $(document).ready(function() {
   		<% else %>
   			<% id = '' %>
     	<% end %>
-	    notification("<%= "#{current_payer.name} declined	purchase #{id}"%>", false, 'delete', true)
+	    notification("<%= "#{current_payer.name} declined purchase #{id}"%>", false, 'icon-thumbs-down', true)
 		$('#denial_success').show();
 	<% else %>
-	    notification('<%= "Purchase denial failed" %>', false, 'sp_alert', true)
+	    notification('<%= "Purchase denial failed" %>', false, 'icon-exclamation-sign', true)
 	<% end %>
 <% end %>
 
 // Rule setting
 <% if params[:notify] and params[:notify] == 'rule_setting' %>
 	<% if params[:status] == 'success'  %>
-	    notification("<%= "#{current_payer.name} set a new rule"%>", false, 'user', true)
+	    notification("<%= "#{current_payer.name} set a new rule"%>", false, 'icon-pencil', true)
 		$('#rule_setting_success').show();
 		$('a.blue.rule').popover({
 			title: "Rule Sign" ,
@@ -194,7 +194,7 @@ $(document).ready(function() {
 			}).popover('show');
 			window.setTimeout("$('a.blue.rule').popover('hide')", 10000);
 	<% else %>
-	    notification('<%= "Rule setting failed" %>', false, 'sp_alert', true)
+	    notification('<%= "Rule setting failed" %>', false, 'icon-exclamation-sign', true)
 	<% end %>
 <% end %>
 

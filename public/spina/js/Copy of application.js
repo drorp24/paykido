@@ -302,6 +302,12 @@ function notification(message, error, icon, image) {
     icon = 'tick2';
   }
   
+  if(image) {
+    image = 'icon16';
+  } else {
+    image = 'glyph';
+  }
+  
   var now = new Date();
   var hours = now.getHours();
   var minutes = now.getMinutes();
@@ -319,7 +325,7 @@ function notification(message, error, icon, image) {
   if(error) {
     $('#notifications ul').append('<li class="error"><span class="' + image + ' cross"></span> ' + message + ' <span class="time">' + time + '</span></li>');
   } else {
-    $('#notifications ul').append('<li><i class="' + icon + '"></i> ' + message + ' ><span class="time">' + time + '</span></li>');
+    $('#notifications ul').append('<li><span class="' + image + ' ' + icon + '"></span> ' + message + ' <span class="time">' + time + '</span></li>');
   }
   
   $('#notifications ul li:last-child').hide();

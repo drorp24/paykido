@@ -6,6 +6,11 @@ body {
     line-height:21px;
 }
 
+#notifications i {
+
+    margin-right: 5px;   
+}
+
 #purchases_filter label {
     line-height: 35px;
 }
