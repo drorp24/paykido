@@ -82,9 +82,9 @@ $(document).ready(function () {
 				$('#notification_title').html("Manual Approval Required")
 				$('#notification_text1').html("An email has been sent to your parent to manually approve purchase")				
 			<% elsif params[:status] == 'failed' %>
-				$('#notification_title').html("Oops...")
+				$('#notification_title').html("Payment Failed")
 			<% elsif params[:status] == 'fb_failed' %>
-				$('#notification_title').html("Facebook does not respond...")
+				$('#notification_title').html("Facebook does not respond")
 				$('#notification_text1').html("Please refresh and try again. Conact Paykido if that does not work")
 			<% else %>
 				$('#notification_title').html("This was not supposed to happen...")
