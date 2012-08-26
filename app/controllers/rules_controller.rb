@@ -15,7 +15,7 @@ class RulesController < ApplicationController
   def show
 
   end
-
+  
   # GET /rules/new
   # GET /rules/new.json
   def new
@@ -30,18 +30,17 @@ class RulesController < ApplicationController
   # POST /rules
   # POST /rules.json
   def create
+
     @rule = Rule.set!(params)
     
     redirect_to purchase_path(
-      params[:purchase], 
+      params[:purchase_id], 
       :notify => 'rule_setting', 
       :status => 'success', 
       :property => params[:property],
       :value => params[:value],
-      :rule_status => params[:status],
-      :_pjax => "data-pjax-container"
-
-    )  
+      :rule_status => params[:rule_status],
+      :_pjax => 'data-pjax-container')  
 
   end
 

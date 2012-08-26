@@ -1,6 +1,6 @@
 <!--  THIS IS  FAKE CHECKOUT PAGE -->
 
-<div id="merchant_notification" class="alert alert-block" style="display:none">
+<div id="merchant_notification" class="alert alert-block alert-success" style="display:none">
     <h4 id="notification_title" class="alert-heading"></h4>
     <p id="notification_text"></p>
     <p id="notification_text1"></p>
@@ -62,9 +62,16 @@ $(document).ready(function () {
 
 	//Emulate merchant notification
 	<% if params[:status] %>
-		<% if params[:status] == 'registering' %>
+		<% if params[:status] == 'error' %>
+			$('#notification_title').html("An error has occured!")
+			$('#notification_text').html("<%= "Password #{flash[:error]}" if flash[:error] %>")
+		<% elsif params[:status] == 'registering' %>
 			$('#notification_title').html("Welcome to Paykido!")
 			$('#notification_text').html("You can start using it to buy as soon as your parent confirms you via email.")
+		<% elsif params[:status] == 're-register' %>
+			$('#notification_title').html("Paykido was upgraded. You will need to join again")
+			$('#notification_text').html("Go to: Facebook -> small arrow on the blue ribbon -> Privacy Settings -> Ads, Apps and Websites -> Paykido -> Remove app.")
+			$('#notification_text1').html("Then: refresh this page, click Paykido button and populate the join-in form.")
 		<% else %>
 			$('#notification_text').html("<%= params[:property] + ' is ' + params[:value] %>")
 			<% if params[:status] == 'declined' %>
@@ -72,11 +79,12 @@ $(document).ready(function () {
 			<% elsif params[:status] == 'approved' %>
 				$('#notification_title').html("Hurrah...")
 			<% elsif params[:status] == 'pending' %>
-				$('#notification_title').html("Wait...")
+				$('#notification_title').html("Hold on")
+				$('#notification_text1').html("An email has been sent to your parent to manually approve this purchase")				
 			<% elsif params[:status] == 'failed' %>
-				$('#notification_title').html("Oops...")
+				$('#notification_title').html("Payment Failed")
 			<% elsif params[:status] == 'fb_failed' %>
-				$('#notification_title').html("Oops...")
+				$('#notification_title').html("Facebook does not respond")
 				$('#notification_text1').html("Please refresh and try again. Conact Paykido if that does not work")
 			<% else %>
 				$('#notification_title').html("This was not supposed to happen...")

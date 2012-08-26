@@ -68,9 +68,13 @@ class G2sController < ApplicationController
   
   def set_host_and_payer
     
-    if params[:customField1] == 'payment' and params[:nameOnCard] and params[:nameOnCard] == 'local'
+    if params[:customField1] == 'payment' and params[:nameOnCard] and params[:nameOnCard] == 'dev'
       @local_test = true
       default_url_options[:host] = "localhost:3000"
+      default_url_options[:protocol] = "http"
+    elsif params[:customField1] == 'payment' and params[:nameOnCard] and params[:nameOnCard] == 'staging'
+      @local_test = true
+      default_url_options[:host] = "paykido-beta.herokuapp.com"
       default_url_options[:protocol] = "http"
     else 
       default_url_options[:host] = Paykido::Application.config.hostname

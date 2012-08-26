@@ -87,9 +87,11 @@ $(document).ready(function() {
 	//  Trigger the approval popover
 	// the 2 last lines should be removed once popover acts as it should 
 	<% if params[:activity] == 'approval' and @pendings_count > 0 %>
+	/*
     	$('#pending-button').sp_popover('#approval_popover', {preventBottom: true, preventRight: true});
 	    $('#pending-button').trigger('open.popover');      
 		window.setTimeout("$('#approval_popover').fadeOut('slow')", 2000);
+	*/
 	<% end %>
 	
 

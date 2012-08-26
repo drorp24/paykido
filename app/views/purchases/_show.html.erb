@@ -1,6 +1,7 @@
 <div class="box-header">
     <td class="icon16 user"></td>     
     <h1><%= t 'Purchase' %></h1>   
+<!--
 	<div id="manual_approval_buttons">
 	    <button id="approve" class="btn btn-success">
 	    	<i class="icon-thumbs-up icon-white"></i>
@@ -11,6 +12,7 @@
 	    	Decline
 		</button>
 	</div>
+-->
 </div>
     
 <div class="box-content">
@@ -84,10 +86,10 @@
                     </td>
                     <td class="actions">
                     <% if value != nil %>
-                        <a id="blacklist" href="#new_rule" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule="blacklist" data-property="<%= property %>" data-value="<%= value %>" class="sp_modal small button rule <%= (@purchase.consumer.blacklisted?(property,value)) ?'blue' :'regular greyedOut' %>">
+                        <a data-toggle="modal" id="blacklist" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="blacklisted" data-property="<%= property %>" data-value="<%= value %>" class="small button rule <%= (@purchase.consumer.blacklisted?(property,value)) ?'blue' :'regular greyedOut' %>">
                             <span class="icon16 blacklist"></span>NO
                         </a>
-                        <a id="whitelist" href="#new_rule" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule="whitelist" data-property="<%= property %>" data-value="<%= value %>" class="sp_modal small button rule <%= (@purchase.consumer.whitelisted?(property,value)) ?'blue' :'regular greyedOut' %>">
+                        <a data-toggle="modal" id="whitelist" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="whitelisted" data-property="<%= property %>" data-value="<%= value %>" class="small button rule <%= (@purchase.consumer.whitelisted?(property,value)) ?'blue' :'regular greyedOut' %>">
                             <span class="icon16 whitelist"></span>OK
                         </a>
 					<% end %>
@@ -152,20 +154,22 @@ $('document').ready(function() {
 /// populate the values in the set_rule modal and the href to follow if YES is clicked	    
    $('.rule.button').click(function () {
        
-       var rule = 		 $(this).attr('data-rule');
-       var property =    $(this).attr('data-property');
-       var value =       $(this).attr('data-value');
-       var consumer =    $(this).attr('data-consumer');       
-       var name =    	 $(this).attr('data-name');       
+       var payer =    	$(this).attr('data-payer');       
+       var consumer =   $(this).attr('data-consumer');       
+       var purchase =   $(this).attr('data-purchase');       
+       var rule_status = 	$(this).attr('data-rule-status');
+       var property =   $(this).attr('data-property');
+       var value =      $(this).attr('data-value');
+       var name =    	$(this).attr('data-name');       
        $('.action').html(function () {
-       		if 		(rule == 'whitelist') {return 'authorize'}
-       		else if (rule == 'blacklist') {return 'decline'} 
-       		else if (rule = '') {return 'ask about'}
+       		if 		(rule_status == 'whitelisted') {return 'approve'}
+       		else if (rule_status == 'blacklisted') {return 'decline'} 
+       		else if (rule_status = '') {return 'ask about'}
        });
        $('.property').html(property);
        $('.value').html(value);
        $('.name').html(name);
-       $('#create_rule').attr('data-href', 'consumer_rule_set?rule=' + rule + '&property=' + property + '&value=' + value + '&consumer=' + consumer);
+       $('#create_rule').attr('data-href', '/rules?payer_id=' + payer + '&purchase_id=' + purchase + '&consumer_id=' + consumer + '&property=' + property + '&value=' + value + '&rule_status=' + rule_status);
        
     });  
     

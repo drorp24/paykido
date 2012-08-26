@@ -6,11 +6,12 @@ body .modal-footer {
 
 
 #merchant_notification {
-    margin-left: 6px;
-    margin-top: 181px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 281px;
     position: fixed;
-    width: 135px;
     z-index: 1000;
+    color: #000;
 }
 
 

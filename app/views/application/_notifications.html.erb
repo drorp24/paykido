@@ -1,4 +1,3 @@
-
 <div id="registration_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Registration Complete!</h4>
@@ -33,7 +32,7 @@
 </div>
 <% end %>
 
-<% if params[:purchase] and (params[:status] == 'success' or params[:status] == 'approved') %>
+<% if params[:purchase] and params[:notify] == 'approval' and (params[:status] == 'success' or params[:status] == 'approved') %>
 <div id="approval_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
 	<% purchase = Purchase.find(params[:purchase]) %>
@@ -43,44 +42,44 @@
     	<h4 class="alert-heading"><%= "Suggested Rule: Always Approve #{retailer}" %></h4>
     	<span><%= "You approved #{retailer} already #{times} times." %></span>
     	<% if current_payer.registered_or_waived %>
-    		<span><%= "Click here if you'd like to have Paykido approve this merchant for you going forward." %></span>
-    		<%= button_to "Always approve #{retailer}", rules_path(:consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :status => 'whitelisted', :purchase => purchase.id), :method => :post, :class => "btn btn-primary inline" %>
+    		<span><%= "Set a rule to have Paykido approve this merchant for you going forward." %></span>
+    		<%= button_to "Always approve #{retailer}", rules_path(:payer_id => current_payer.id, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :rule_status => 'whitelisted', :purchase_id => purchase.id), :method => :post, :class => "btn btn-primary inline rule_set" %>
 		<% else %>
     		<%= "Register and have Paykido do that for you going forward." %>
     		<%= button_to "Register Now", new_token_path,:method => :get, :class => "btn btn-primary inline" %>
 		<% end %>
 	<% else %>
-    	<h4 class="alert-heading">Purchase Approved</h4>	
+    	<h4 class="alert-heading">Purchase Approved!</h4>	
 	<% end %>    		
 </div>
 <% end %>
 
-<% if params[:purchase] and params[:status] == 'success' %>
+<% if params[:purchase] and params[:notify] == 'denial' and params[:status] == 'success' %>
 <div id="denial_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
-	<% purchase = Purchase.find(params[:purchase]) %>
+	<% purchase = Purchase.find(params[:purchase]) %> 
 	<% retailer = purchase.retailer.name %>
-	<% times = purchase.approval_counter('retailer') %>
+	<% times = purchase.denial_counter('retailer') %>
     <% if times > Paykido::Application.config.offer_rule_or_registration_after.to_i %>
     	<h4 class="alert-heading"><%= "Suggested Rule: Always Decline #{retailer}" %></h4>
     	<span><%= "You declined #{retailer} already #{times} times." %></span> 
     	<% if current_payer.registered_or_waived %>
-    		<span><%= "Click here if you'd like to have Paykido decline this merchant for you going forward." %></span>
-    		<%= button_to "Always decline #{retailer}", rules_path(:consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :status => 'blacklisted', :purchase => purchase.id), :method => :post, :class => "btn btn-primary inline" %>
+    		<span><%= "Set a rule to have Paykido decline this merchant for you going forward." %></span>
+    		<%= button_to "Always decline #{retailer}", rules_path(:payer_id => current_payer.id, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :rule_status => 'blacklisted', :purchase_id => purchase.id), :method => :post, :class => "btn btn-primary inline rule_set"%>
 		<% else %>
     		<%= "Register and have Paykido do that for you going forward." %>
     		<%= button_to "Register Now", new_token_url,:method => :get, :class => "btn btn-primary inline" %>
 		<% end %>
 	<% else %>
-    	<h4 class="alert-heading">Purchase Declined</h4>	
+    	<h4 class="alert-heading">Purchase Declined!</h4>	
 	<% end %>    		
 </div>
 <% end %>
 
 <div id="rule_setting_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
-    <h4 class="alert-heading">Rule accepted!</h4>    
-    <%= "Paykido will automatically #{(params[:rule_status] == 'whitelisted') ? 'approve' : 'decline'} merchant: #{params[:value]} for you from now on. You don't have to do it yourself." %>
+    <h4 class="alert-heading">Rule created</h4>    
+    <%= "Paykido will automatically #{(params[:rule_status] == 'whitelisted') ? 'approve' : 'decline'} purchases whose #{t params[:property]} is #{params[:value]}. No need to #{(params[:rule_status] == 'whitelisted') ? 'approve' : 'decline'} them manually anymore." %>
 </div>
 
 <div id="confirmation_success" class="alert alert-block" style="display:none">
@@ -104,7 +103,7 @@ $(document).ready(function() {
 // Payer registration status
 <% if params[:notify] and params[:notify] == 'registration' %>
 	<% if params[:status] == 'success' %>
-	    notification("<%= "Successfully registered!"%>", false, 'file', true)
+	    notification("<%= "Successfully registered!"%>", false, 'icon-eye-open', true)
 		$('#registration_success').show();
 		$("#registration_popover i").removeClass('bigicon-placeholder').addClass('bigicon-shield');
 		$("#registration_popover").popover({
@@ -114,18 +113,18 @@ $(document).ready(function() {
 			}).popover('show');
 			window.setTimeout("$('#registration_popover').popover('hide')", 5000);
 	<% else %>
-	    notification('<%= "Registration failed" %>', false, 'sp_alert', true)
+	    notification('<%= "Registration failed" %>', false, 'icon-exclamation-sign', true)
 	    $('#registration_failure').show();
 	<% end %>
 <% end %>
 
 <% if params[:notify] and params[:notify] == 'unregistration' %>
 	<% if params[:status] == 'success' %>
-	    notification("<%= "#{current_payer.name} unregistered"%>", false, 'file', true)
+	    notification("<%= "#{current_payer.name} unregistered"%>", false, 'icon-eye-open', true)
 		$('#unregistration_success').show();
 		$("#registration_popover i").removeClass('bigicon-shield').addClass('bigicon-placeholder');
 	<% else %>
-	    notification('<%= "Unregistration failed" %>', false, 'sp_alert', true)
+	    notification('<%= "Unregistration failed" %>', false, 'icon-exclamation-sign', true)
 	<% end %>
 <% end %>
 
@@ -133,10 +132,10 @@ $(document).ready(function() {
 <% if params[:notify] and params[:notify] == 'confirmation' %>
 	<% if params[:status] == 'success' %>
 //		$('#confirmation_success').show();
-	    notification("<%= "#{current_payer.name} confirmed #{params[:name]}" %>", false, 'user', true)
+	    notification("<%= "#{current_payer.name} confirmed #{params[:name]}" %>", false, 'icon-certificate', true)
 		$('.consumer.active').addClass('confirmed');
 	<% else %>
-	    notification('<%= "Failed to confirm consumer" %>', false, 'alert', true)
+	    notification('<%= "Failed to confirm consumer" %>', false, 'icon-exclamation-sign', true)
 	<% end %>
 <% end %>
 
@@ -144,9 +143,9 @@ $(document).ready(function() {
 // [ToDO: DELETE??] PP return status
 <% if params[:status] and params[:Error] %>
 	<% if params[:status] == 'failure' %>
-	    notification('<%= "Failed: #{params[:Error]}" %>', false, 'alert', true)
+	    notification('<%= "Failed: #{params[:Error]}" %>', false, 'icon-exclamation-sign', true)
 	<% else %>
-	    notification("<%= "Purchase paid thank you!"%>", false, 'cart', true)
+	    notification("<%= "Purchase paid thank you!"%>", false, 'icon-shopping-cart', true)
 		$('#approval_success').show();
 	<% end %>
 <% end %>
@@ -159,11 +158,11 @@ $(document).ready(function() {
   		<% else %>
   			<% id = '' %>
     	<% end %>
-	    notification("<%= "#{current_payer.name} approved purchase #{id}"%>", false, 'tick', true)
+	    notification("<%= "#{current_payer.name} approved purchase #{id}"%>", false, 'icon-thumbs-up', true)
 		$('#approval_success').show();
 	<% else %>
 		$('#approval_failure').show();
-	    notification('<%= "Payment failed" %>', false, 'sp_alert', true)
+	    notification('<%= "Payment failed" %>', false, 'icon-exclamation-sign', true)
 	<% end %>
 <% end %>
 	
@@ -175,29 +174,32 @@ $(document).ready(function() {
   		<% else %>
   			<% id = '' %>
     	<% end %>
-	    notification("<%= "#{current_payer.name} declined	purchase #{id}"%>", false, 'delete', true)
+	    notification("<%= "#{current_payer.name} declined purchase #{id}"%>", false, 'icon-thumbs-down', true)
 		$('#denial_success').show();
 	<% else %>
-	    notification('<%= "Purchase denial failed" %>', false, 'sp_alert', true)
+	    notification('<%= "Purchase denial failed" %>', false, 'icon-exclamation-sign', true)
 	<% end %>
 <% end %>
 
 // Rule setting
 <% if params[:notify] and params[:notify] == 'rule_setting' %>
 	<% if params[:status] == 'success'  %>
-	    notification("<%= "#{current_payer.name} set a new rule"%>", false, 'user', true)
+	    notification("<%= "#{current_payer.name} #{params[:rule_status]} #{params[:value]}"%>", false, 'icon-wrench', true)
 		$('#rule_setting_success').show();
-		$('a.blue.rule').popover({
-			title: "Rule Sign" ,
-			content: "This button indicates a rule for this merchant. You can always change the rule.",
-			placement: "left"
-			}).popover('show');
-			window.setTimeout("$('a.blue.rule').popover('hide')", 10000);
 	<% else %>
-	    notification('<%= "Rule setting failed" %>', false, 'sp_alert', true)
+	    notification('<%= "Rule setting failed" %>', false, 'icon-exclamation-sign', true)
 	<% end %>
 <% end %>
 
 })
+
+$(document).ready(function() {
+
+	if ($('#notifications a').length == 0) {
+		$('#notifications').prepend('<a href="#">Show all notifications</a>');
+	}	
+
+})
+
 
 </script>

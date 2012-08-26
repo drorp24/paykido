@@ -36,6 +36,7 @@
 			  	<%= link_to root_path do %>
 			  		<h1>Paykido</h1>
 			  		<span class="environment label label-important"><%= Paykido::Application.config.environment %></span>
+			  		<span class="version" style="display: none">0.6.0</span>
 		  		<% end %>
 			  </div>
 			  
@@ -48,8 +49,8 @@
 	  	</div>
 	  	
 	  	<div class="grid_4 fr">
-	  		<%= link_to "Sign In", new_payer_session_path , :class => "login", :id => "signin" if params[:action] == "index" %> 
-	  		<%= link_to "Sign Up", new_payer_registration_path , :class => "login", :id => "signup" if params[:action] == "index" %> 
+	  		<%= link_to "Sign In", new_payer_session_path , :class => "login", :id => "signin" if params[:action] == "index" or params[:action] == "routing_error" %> 
+	  		<%= link_to "Sign Up", new_payer_registration_path , :class => "login", :id => "signup" if params[:action] == "index"  or params[:action] == "routing_error"%> 
 		</div>
 	 </div>
 </div>

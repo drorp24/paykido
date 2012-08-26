@@ -36,6 +36,18 @@ $(document).ready(function (){
         })  
         
     }
+
+    jQuery.fn.post_as_modal = function () {     // NOT USED. DELETE THIS AND EVENTUALLY ACT_AS_MODAL TOO
+
+        $(this).unbind();
+        $(this).click(function() { 
+            url = $(this).attr('data-href')
+            $.post(url);
+            $('#modalcontainer > div').hide(); // not clear why this isn't working when either of the button clicked
+            $('#overlay').hide();
+        })  
+        
+    }
     
     // ALERTS
     $(".alert").alert()
@@ -190,7 +202,7 @@ function notification(message, error, icon, image) {
   if(error) {
     $('#notifications ul').append('<li class="error"><span class="' + image + ' cross"></span> ' + message + ' <span class="time">' + time + '</span></li>');
   } else {
-    $('#notifications ul').append('<li><span class="' + image + ' ' + icon + '"></span> ' + message + ' <span class="time">' + time + '</span></li>');
+    $('#notifications ul').append('<li><i class="' + icon + '"></i> ' + message + ' <span class="time">' + time + '</span></li>');
   }
   
   $('#notifications ul li:last-child').hide();

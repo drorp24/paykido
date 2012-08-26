@@ -289,7 +289,7 @@ class Purchase < ActiveRecord::Base
       return      
     end
 
-    unless self.payer.registered_or_waived 
+    unless self.payer.registered? 
       self.authorization_property = "registration"
       self.authorization_value = "missing"
       self.authorization_date = Time.now
