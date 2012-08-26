@@ -28,7 +28,7 @@ class TransactionsController < ApplicationController
 
     if params[:id]
       begin    
-        @transaction = current_purchase.transactions.find(params[:id])  
+        @transaction = @purchase.transactions.find(params[:id])  
       rescue ActiveRecord::RecordNotFound
         flash[:error] = "No such transaction id"
         redirect_to :controller => "home", :action => "routing_error"

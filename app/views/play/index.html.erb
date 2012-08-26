@@ -78,6 +78,7 @@ $(document).ready(function () {
 				$('#notification_title').html("Sorry...")
 			<% elsif params[:status] == 'approved' %>
 				$('#notification_title').html("Hurrah...")
+				$('#notification_text').html("This purchase is approved. The item is yours!")
 			<% elsif params[:status] == 'pending' %>
 				$('#notification_title').html("Hold on")
 				$('#notification_text1').html("An email has been sent to your parent to manually approve this purchase")				
