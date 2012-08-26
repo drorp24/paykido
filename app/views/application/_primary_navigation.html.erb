@@ -26,36 +26,36 @@
 <nav id="primary">
 	<ul>
 	    <li class="menu" id="people_menu" >
-	      	<%= link_to payer_consumers_path(@payer), 'data-skip-pjax' => true do%>
+	      	<%= link_to consumers_path, 'data-skip-pjax' => true do%>
 	        	<span class="icon32 group"></span>
 	        	Family
 	      	<% end %>
 	    </li>
 
     	<li class="menu" id="dashboard_menu" >
-      		<%= link_to payer_purchases_path(@payer), 'data-skip-pjax' => true do %>
+      		<%= link_to purchases_path, 'data-skip-pjax' => true do %>
 		        <span class="icon32 dashboard"></span>
 		        Dashboard
 	      	<% end %>
 	    </li>
 	    <li class="menu" id="rules_menu" >
-     		<%= link_to payer_rules_path(@payer), 'data-skip-pjax' => true do %>
-	        	<span class="icon32 pencil"></span>
+     		<%= link_to rules_path, 'data-skip-pjax' => true do %>
+	        	<span class="icon32 tools"></span>
 	        	Rules
 	      	<% end %>
 	    </li>
 	    <li class="menu" id="setting_menu" >
-	    	<% path = payer_tokens_path(@payer) %>
+	    	<% path = tokens_path %>
 	      	<%= link_to path, 'data-skip-pjax' => true do%>
 	        	<span class="icon32 cog"></span>
 	        	Settings
 	      	<% end %>
 	    </li>
 	    <li class="bottom">
-	      	<a href="/account/logout">
+	      	<%= link_to destroy_payer_session_path, :method => :delete, 'data-skip-pjax' => true do %>
 	        	<span class="icon32 quit"></span>
 	        	Log out
-	      	</a>
+	      	<% end %>
 	    </li>
 	</ul>
 </nav>

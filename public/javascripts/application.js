@@ -36,6 +36,18 @@ $(document).ready(function (){
         })  
         
     }
+
+    jQuery.fn.post_as_modal = function () {     // NOT USED. DELETE THIS AND EVENTUALLY ACT_AS_MODAL TOO
+
+        $(this).unbind();
+        $(this).click(function() { 
+            url = $(this).attr('data-href')
+            $.post(url);
+            $('#modalcontainer > div').hide(); // not clear why this isn't working when either of the button clicked
+            $('#overlay').hide();
+        })  
+        
+    }
     
     // ALERTS
     $(".alert").alert()
@@ -139,40 +151,6 @@ $(document).ready(function (){
     });
   
   
-    /******************
-      Form Validation
-    ******************/
-  
-    $('form').validate({
-      wrapper: 'span class="error"',
-      meta: 'validate',
-      highlight: function(element, errorClass, validClass) {
-        if (element.type === 'radio') {
-          this.findByName(element.name).addClass(errorClass).removeClass(validClass);
-        } else {
-          $(element).addClass(errorClass).removeClass(validClass);
-        }
-      
-        // Show icon in parent element
-        var error = $(element).parent().find('span.error');
-      
-        error.siblings('.icon').hide(0, function() {
-          error.show();
-        });
-      },
-      unhighlight: function(element, errorClass, validClass) {
-        if (element.type === 'radio') {
-          this.findByName(element.name).removeClass(errorClass).addClass(validClass);
-        } else {
-          $(element).removeClass(errorClass).addClass(validClass);
-        }
-      
-        // Hide icon in parent element
-        $(element).parent().find('span.error').hide(0, function() {
-          $(element).parent().find('span.valid').fadeIn(200);
-        });
-      }
-    });
     
     // Calendar icon fix
     $('form p > .error').livequery(function() {
@@ -224,7 +202,7 @@ function notification(message, error, icon, image) {
   if(error) {
     $('#notifications ul').append('<li class="error"><span class="' + image + ' cross"></span> ' + message + ' <span class="time">' + time + '</span></li>');
   } else {
-    $('#notifications ul').append('<li><span class="' + image + ' ' + icon + '"></span> ' + message + ' <span class="time">' + time + '</span></li>');
+    $('#notifications ul').append('<li><i class="' + icon + '"></i> ' + message + ' <span class="time">' + time + '</span></li>');
   }
   
   $('#notifications ul li:last-child').hide();

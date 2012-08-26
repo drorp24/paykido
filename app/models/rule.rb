@@ -10,11 +10,10 @@ class Rule < ActiveRecord::Base
     rule = self.find_or_initialize_by_payer_id_and_consumer_id_and_property_and_value(
       :payer_id => params[:payer_id],
       :consumer_id => params[:consumer_id],
-      :payer_id => params[:payer_id],
       :property => params[:property],
       :value => params[:value]
       )
-      rule.update_attributes!(:status => params[:status])
+      rule.update_attributes!(:status => params[:rule_status])
   end
   
   def self.set?(params)

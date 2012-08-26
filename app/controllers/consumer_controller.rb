@@ -8,10 +8,17 @@ class ConsumerController < ApplicationController
   
   def register_callback  
       
-    find_or_create_consumer_and_payer     
-    @payer.request_confirmation(@consumer)    
+    find_or_create_consumer_and_payer  
 
-    redirect_to params[:referrer]  + '?status=' + 'registering'    
+    unless @payer.errors.any?   
+      @payer.request_confirmation(@consumer)    
+      redirect_to params[:referrer]  + '?status=registering'
+    else
+      Rails.logger.debug("@payer.errors is: " + @payer.errors.inspect.to_s)  
+      flash[:error] = @payer.errors.inspect.to_s
+      @payer.errors.clear 
+      redirect_to params[:referrer]  + '?status=error' 
+    end   
 
   end  
   
@@ -69,7 +76,8 @@ class ConsumerController < ApplicationController
           :email => facebook_params['registration']['payer_email'], 
           :phone => facebook_params['registration']['payer_phone'])
     @payer.password= "1"     # TEMP: till devise does it properly, payer's hashed_password is used as access token   
-    @payer.save!
+    
+    return unless @payer.save
 
     Rails.logger.debug("The id of the payer that was updated/created is: " + @payer.id.to_s)
     Rails.logger.debug("The facebook param name is: " + facebook_params['registration']['payer_name'])
@@ -89,7 +97,7 @@ class ConsumerController < ApplicationController
     session[:consumer] = @consumer
     session[:payer] =    @payer
     
-    Rails.logger.debug("EXISTS REGISTER CALLBACK")  
+    Rails.logger.debug("EXITS REGISTER CALLBACK")  
     
   end 
 
@@ -107,6 +115,13 @@ class ConsumerController < ApplicationController
     end
 
     find_consumer_and_payer
+
+    unless @payer
+      redirect_to params[:referrer] + 
+      '?status=' +    're-register'       
+      return
+    end
+
     create_purchase  
 
     @purchase.authorize!
@@ -167,7 +182,7 @@ class ConsumerController < ApplicationController
     session[:consumer] = @consumer
     @payer = session[:payer] = @consumer.payer unless @consumer.nil?
     
-    Rails.logger.debug("The payer Im using is the consumer payer. Its id is: " + @payer.id.to_s)      
+    Rails.logger.debug("The payer Im using is the consumer payer. Its id is: " + @payer.id.to_s) if @payer     
 
   end
 

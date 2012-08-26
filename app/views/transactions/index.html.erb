@@ -11,7 +11,7 @@
 			  <tr>
 			    <td><%= transaction.trx_type %></td>
 			    <td><%= transaction.created_at %></td>
-			    <td><%= link_to 'Details', payer_purchase_transaction_path(@payer, @purchase, transaction) %></td>
+			    <td><%= link_to 'Details', purchase_transaction_path(@purchase, transaction) %></td>
 			  </tr>
 			<% end %>
 		</tbody>

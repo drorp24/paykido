@@ -1,4 +1,9 @@
 class NotificationsController < ApplicationController
+
+  before_filter :authenticate_payer!
+  before_filter :find_notification  
+
+
   # GET /notifications
   # GET /notifications.json
   def index
@@ -80,4 +85,19 @@ class NotificationsController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+    private
+
+  def find_notification  
+ 
+    if params[:id]
+      begin    
+        @notification = current_payer.notifications.find(params[:id])   
+      rescue ActiveRecord::RecordNotFound
+        flash[:error] = "No such notification id"
+        redirect_to :controller => "home", :action => "routing_error"
+        return
+      end 
+    end           
+
 end

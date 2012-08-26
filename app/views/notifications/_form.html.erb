@@ -1,4 +1,4 @@
-<%= form_for(@notification) do |f| %>
+<%= simple_form_for(@notification, :html => {:class => 'form-horizontal'}) do |f| %>
   <% if @notification.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@notification.errors.count, "error") %> prohibited this notification from being saved:</h2>

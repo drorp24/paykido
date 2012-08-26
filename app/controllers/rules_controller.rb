@@ -1,12 +1,13 @@
 class RulesController < ApplicationController
 
-  before_filter :check_and_restore_session  
+  before_filter :authenticate_payer!
+  before_filter :find_rule  
 
 
   # GET /rules
   # GET /rules.json
   def index
-    @rules = (@consumer) ? @consumer.rules : @payer.rules
+    @rules = current_payer.rules
   end
 
   # GET /rules/1
@@ -14,7 +15,7 @@ class RulesController < ApplicationController
   def show
 
   end
-
+  
   # GET /rules/new
   # GET /rules/new.json
   def new
@@ -29,19 +30,17 @@ class RulesController < ApplicationController
   # POST /rules
   # POST /rules.json
   def create
+
     @rule = Rule.set!(params)
     
-    redirect_to payer_purchase_path(
-      @payer.id,
-      params[:purchase], 
+    redirect_to purchase_path(
+      params[:purchase_id], 
       :notify => 'rule_setting', 
       :status => 'success', 
       :property => params[:property],
       :value => params[:value],
-      :rule_status => params[:status],
-      :_pjax => "data-pjax-container"
-
-    )  
+      :rule_status => params[:rule_status],
+      :_pjax => 'data-pjax-container')  
 
   end
 
@@ -73,21 +72,13 @@ class RulesController < ApplicationController
     end
   end
 
+  private
   
-  def check_and_restore_session  
+  def find_rule  
  
-    # Have Devise run the user session 
-    # Every call should include payer_id, consumer_id and/or purchase_id
-    
-    super
-    if flash[:error]
-      redirect_to login_path 
-      return
-    end
-    
     if params[:id]
       begin    
-        @rule = @payer.rules.find(params[:id])  ## replace @payer with current_user
+        @rule = current_payer.rules.find(params[:id])  
       rescue ActiveRecord::RecordNotFound
         flash[:error] = "No such rule id"
         redirect_to :controller => "home", :action => "routing_error"

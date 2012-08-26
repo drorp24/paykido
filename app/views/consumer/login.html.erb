@@ -153,7 +153,7 @@ $(document).ready(function (){
 		$('#login_button').hide();
 	   	$('#registration').hide();
 	   	FB.XFBML.parse(); 
-  		$('#iop1').html('<%= "you are using Paykido to buy" %>');
+  		$('#iop1').html('<%= "You are using Paykido to buy" %>');
   		$('#iop2').html('<%= "#{params[:product]} (#{number_to_currency params[:amount]})" %>');
 		$('#buy_button').removeAttr("disabled");
 		$('#invite').show();

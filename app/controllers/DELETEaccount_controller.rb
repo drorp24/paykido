@@ -9,7 +9,8 @@ class AccountController < ApplicationController
     if request.post?          
       if @payer = Payer.authenticate(params[:username], params[:password])
         session[:payer_id] = @payer.id
-        redirect_to payer_purchases_path(@payer)
+        Rails.logger.debug("session[:payer_id] is: " + @payer.id.to_s)
+        redirect_to purchases_path
       else
         flash.now[:notice] = "Incorrect user or password. Please try again!"
       end      

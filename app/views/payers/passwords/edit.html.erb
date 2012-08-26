@@ -1,0 +1,34 @@
+<div class="row hm_container">
+
+	<%= image_tag "/home/img/ys_kid_tp2.png", :id => "yellowshirt_kid" %>
+	
+	<div class="span9 offset1">
+		<%= render "payers/shared/hero" %>
+	</div>
+		
+	<div id="form_box" class="span3 well ">
+
+		<h1>Change your password</h1>
+
+		<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f| %>
+
+			<%= f.error_notification %>
+			
+			<%= f.input :reset_password_token, :as => :hidden %>
+			<%= f.full_error :reset_password_token %>
+			
+			<div class="form-inputs">
+				<%= f.input :password, :label => "New password", :required => true %>
+				<%= f.input :password_confirmation, :label => "Confirm your new password", :required => true %>
+			</div>
+			
+			<div class="form_bottom">
+				<%= f.button :submit, "Change my password" , :class => "btn-large" %>
+				<%= render "payers/shared/links" %>
+			</div>
+
+		<% end %>
+
+	</div>
+	
+</div>

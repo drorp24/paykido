@@ -287,50 +287,50 @@ blockquote, q {
 
 
 
-/*  _______________________________________
-
-	03 GENERAL STYLES
-    _______________________________________  */
-
-
-
-body {
-	font-family:"Segoe UI", Helvetica, Arial;
-	font-size:14px;
-	line-height:21px;
-	color:#1c1c1c;
-	background:url("../img/background/pattern.png");
-}
-
-/* Top and bottom dark lines for each section */
-
-.top {
-	background:url("../img/background/top_border.png") no-repeat;
-	height:11px;
-	margin-bottom:21px;
-}
-.bottom {
-	background:url("../img/background/bottom_border.png") no-repeat;
-	height:21px;
-	margin-top:7px;
-}
-.separator {
-	border-top:#cccccc dotted 1px;
-	padding-top:21px;
-	height:1px;
-}
-
-/* Pushers to space elements when needed */
-
-.pusher21 {
-	margin-top:21px;
-}
-.pusher14 {
-	margin-top:14px;
-}
-.pusher7 {
-	margin-top:7px;
-}
+    /*  _______________________________________
+    
+    	03 GENERAL STYLES
+        _______________________________________  */
+    
+    
+    
+    body {
+    	font-family:"Segoe UI", Helvetica, Arial;
+    	font-size:14px;
+    	line-height:21px;
+    	color:#1c1c1c;
+    	background:url("../img/background/pattern.png");
+    }
+    
+    /* Top and bottom dark lines for each section */
+    
+    .top {
+    	background:url("../img/background/top_border.png") no-repeat;
+    	height:11px;
+    	margin-bottom:21px;
+    }
+    .bottom {
+    	background:url("../img/background/bottom_border.png") no-repeat;
+    	height:21px;
+    	margin-top:7px;
+    }
+    .separator {
+    	border-top:#cccccc dotted 1px;
+    	padding-top:21px;
+    	height:1px;
+    }
+    
+    /* Pushers to space elements when needed */
+    
+    .pusher21 {
+    	margin-top:21px;
+    }
+    .pusher14 {
+    	margin-top:14px;
+    }
+    .pusher7 {
+    	margin-top:7px;
+    }
 
 
 

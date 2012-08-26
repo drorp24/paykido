@@ -1,17 +1,14 @@
 class PurchasesController < ApplicationController
 
-  before_filter :check_and_restore_session  
-
-  # GET /consumers/:consumer_id/purchases ("link_to payer_purchases_path(@payer)")
-  # GET /payers/:payer_id/purchases       ("link_tp consumer_purchases_path(@consumer)")
-  # GET /purchases 
+  before_filter :authenticate_payer!
+  before_filter :find_purchase
 
   # shared by both index and show. 
   # Priority: 1. if *only* :id is present - all purchases of that consumer whose purchase is his 
   # Otherwise, 2. all purchases of given consumers, or 3. payer
   def find_purchases
     
-    @purchases = Purchase.with_info(params[:payer_id], params[:consumer_id], params[:id]) 
+    @purchases = Purchase.with_info(current_payer.id, params[:consumer_id], params[:id]) 
     @pendings = @purchases.pending 
     @pendings_count = @pendings.count 
         
@@ -19,14 +16,10 @@ class PurchasesController < ApplicationController
   
   def index    
     find_purchases
-    redirect_to new_payer_token_path(@payer) unless @purchases.any?
+    redirect_to new_token_path unless @purchases.any?
   end
   
 
-  # GET /consumers/:consumer_id/purchases/1 ("link_to payer_purchase_path(@consumer, @purchase)")
-  # GET /payers/:payer_id/purchases/1       ("link_tp consumer_purchase_path(@payer, @purchase)")
-  # GET /purchases/1
-  # GET /purchases/1.json
 
   # since the entire page includes all payer's purchases too, it's better that 'show' brings them too.
   # it enables caching the entire page and enables pjax history. Besides, pjax sometimes brings an entire page.
@@ -62,8 +55,7 @@ class PurchasesController < ApplicationController
     @purchase.notify_merchant(status)
     @purchase.notify_consumer('manual', status)
 
-    redirect_to payer_purchase_path(
-      @payer, 
+    redirect_to purchase_path(
       @purchase,
       :notify => 'approval', 
       :status => status,
@@ -78,8 +70,7 @@ class PurchasesController < ApplicationController
     @purchase.decline!
     @purchase.notify_consumer('manual', 'declined')
 
-    redirect_to payer_purchase_path(
-      @payer, 
+    redirect_to purchase_path(
       @purchase,
       :notify => 'denial', 
       :status => 'success',
@@ -152,33 +143,25 @@ class PurchasesController < ApplicationController
 
   private
 
-  def check_and_restore_session  
+  def find_purchase  
  
-    # Have Devise run the user session 
-    # Every call should include payer_id, consumer_id and/or purchase_id
-    
-    super
-    if flash[:error]
-      redirect_to login_path 
-      return
-    end
-        
     if params[:id]
       begin    
-        @purchase = @payer.purchases.find(params[:id])   ## replace @payer with current_user
+        @purchase = current_payer.purchases.find(params[:id])   
       rescue ActiveRecord::RecordNotFound
         flash[:error] = "No such purchase id"
         redirect_to :controller => "home", :action => "routing_error"
         return
-      else
-        unless @payer 
-          @payer = @purchase.payer
-          unless @payer.id == session[:payer_id]
-            flash[:error] = "Please log in first"
-            redirect_to login_path
-            return
-          end
-        end
+      end 
+    end           
+
+    if params[:purchase]
+      begin    
+        @purchase = current_payer.purchases.find(params[:purchase])   
+      rescue ActiveRecord::RecordNotFound
+        flash[:error] = "No such purchase"
+        redirect_to :controller => "home", :action => "routing_error"
+        return
       end 
     end           
 

@@ -5,8 +5,7 @@ class G2sController < ApplicationController
   def ppp_callback    ## /ppp/<status>
 
     if params[:customField1] == 'payment'
-        redirect_to payer_purchase_url(
-          params[:customField2].to_i, 
+        redirect_to purchase_url(
           params[:customField3].to_i,
           :notify => 'approval', 
           :status => params[:status],
@@ -17,8 +16,7 @@ class G2sController < ApplicationController
           :_pjax => "data-pjax-container"
         )
     elsif params[:customField1] == 'registration'
-        redirect_to payer_purchases_path(
-          params[:customField2].to_i, 
+        redirect_to purchases_path(
           :notify => 'registration', 
           :status => params[:status],
           :message => params[:message]
@@ -70,9 +68,13 @@ class G2sController < ApplicationController
   
   def set_host_and_payer
     
-    if params[:customField1] == 'payment' and params[:nameOnCard] and params[:nameOnCard] == 'local'
+    if params[:customField1] == 'payment' and params[:nameOnCard] and params[:nameOnCard] == 'dev'
       @local_test = true
       default_url_options[:host] = "localhost:3000"
+      default_url_options[:protocol] = "http"
+    elsif params[:customField1] == 'payment' and params[:nameOnCard] and params[:nameOnCard] == 'staging'
+      @local_test = true
+      default_url_options[:host] = "paykido-beta.herokuapp.com"
       default_url_options[:protocol] = "http"
     else 
       default_url_options[:host] = Paykido::Application.config.hostname
