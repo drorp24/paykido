@@ -32,7 +32,7 @@
 </div>
 <% end %>
 
-<% if params[:purchase] and (params[:status] == 'success' or params[:status] == 'approved') %>
+<% if params[:purchase] and params[:notify] == 'approval' and (params[:status] == 'success' or params[:status] == 'approved') %>
 <div id="approval_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
 	<% purchase = Purchase.find(params[:purchase]) %>
@@ -42,8 +42,8 @@
     	<h4 class="alert-heading"><%= "Suggested Rule: Always Approve #{retailer}" %></h4>
     	<span><%= "You approved #{retailer} already #{times} times." %></span>
     	<% if current_payer.registered_or_waived %>
-    		<span><%= "Click here if you'd like to have Paykido approve this merchant for you going forward." %></span>
-    		<%= button_to "Always approve #{retailer}", rules_path(:consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :status => 'whitelisted', :purchase => purchase.id), :method => :post, :class => "btn btn-primary inline" %>
+    		<span><%= "Set a rule to have Paykido approve this merchant for you going forward." %></span>
+    		<%= button_to "Always approve #{retailer}", rules_path(:payer_id => current_payer.id, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :rule_status => 'whitelisted', :purchase_id => purchase.id), :method => :post, :class => "btn btn-primary inline rule_set" %>
 		<% else %>
     		<%= "Register and have Paykido do that for you going forward." %>
     		<%= button_to "Register Now", new_token_path,:method => :get, :class => "btn btn-primary inline" %>
@@ -54,18 +54,18 @@
 </div>
 <% end %>
 
-<% if params[:purchase] and params[:status] == 'success' %>
+<% if params[:purchase] and params[:notify] == 'denial' and params[:status] == 'success' %>
 <div id="denial_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
-	<% purchase = Purchase.find(params[:purchase]) %>
+	<% purchase = Purchase.find(params[:purchase]) %> 
 	<% retailer = purchase.retailer.name %>
 	<% times = purchase.denial_counter('retailer') %>
     <% if times > Paykido::Application.config.offer_rule_or_registration_after.to_i %>
     	<h4 class="alert-heading"><%= "Suggested Rule: Always Decline #{retailer}" %></h4>
     	<span><%= "You declined #{retailer} already #{times} times." %></span> 
     	<% if current_payer.registered_or_waived %>
-    		<span><%= "Click here if you'd like to have Paykido decline this merchant for you going forward." %></span>
-    		<%= button_to "Always decline #{retailer}", rules_path(:consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :status => 'blacklisted', :purchase => purchase.id), :method => :post, :class => "btn btn-primary inline" %>
+    		<span><%= "Set a rule to have Paykido decline this merchant for you going forward." %></span>
+    		<%= button_to "Always decline #{retailer}", rules_path(:payer_id => current_payer.id, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :rule_status => 'blacklisted', :purchase_id => purchase.id), :method => :post, :class => "btn btn-primary inline rule_set"%>
 		<% else %>
     		<%= "Register and have Paykido do that for you going forward." %>
     		<%= button_to "Register Now", new_token_url,:method => :get, :class => "btn btn-primary inline" %>
@@ -194,9 +194,11 @@ $(document).ready(function() {
 })
 
 $(document).ready(function() {
-if ($('#notifications a').length == 0) {
-	$('#notifications').prepend('<a href="#">Show all notifications</a>');
-}	
+
+	if ($('#notifications a').length == 0) {
+		$('#notifications').prepend('<a href="#">Show all notifications</a>');
+	}	
+
 })
 
 

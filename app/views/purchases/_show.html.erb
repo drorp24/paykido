@@ -162,7 +162,7 @@ $('document').ready(function() {
        var value =      $(this).attr('data-value');
        var name =    	$(this).attr('data-name');       
        $('.action').html(function () {
-       		if 		(rule_status == 'whitelisted') {return 'authorize'}
+       		if 		(rule_status == 'whitelisted') {return 'approve'}
        		else if (rule_status == 'blacklisted') {return 'decline'} 
        		else if (rule_status = '') {return 'ask about'}
        });

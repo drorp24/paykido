@@ -155,6 +155,16 @@ class PurchasesController < ApplicationController
       end 
     end           
 
+    if params[:purchase]
+      begin    
+        @purchase = current_payer.purchases.find(params[:purchase])   
+      rescue ActiveRecord::RecordNotFound
+        flash[:error] = "No such purchase"
+        redirect_to :controller => "home", :action => "routing_error"
+        return
+      end 
+    end           
+
   end
 
 
