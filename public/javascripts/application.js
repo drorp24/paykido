@@ -36,6 +36,18 @@ $(document).ready(function (){
         })  
         
     }
+
+    jQuery.fn.post_as_modal = function () {     // NOT USED. DELETE THIS AND EVENTUALLY ACT_AS_MODAL TOO
+
+        $(this).unbind();
+        $(this).click(function() { 
+            url = $(this).attr('data-href')
+            $.post(url);
+            $('#modalcontainer > div').hide(); // not clear why this isn't working when either of the button clicked
+            $('#overlay').hide();
+        })  
+        
+    }
     
     // ALERTS
     $(".alert").alert()

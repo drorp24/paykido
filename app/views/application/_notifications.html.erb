@@ -1,4 +1,3 @@
-
 <div id="registration_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Registration Complete!</h4>
@@ -80,7 +79,7 @@
 <div id="rule_setting_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Rule accepted!</h4>    
-    <%= "Paykido will automatically #{(params[:rule_status] == 'whitelisted') ? 'approve' : 'decline'} merchant: #{params[:value]} for you from now on. You don't have to do it yourself." %>
+    <%= "Paykido will automatically #{(params[:rule_status] == 'whitelisted') ? 'approve' : 'decline'} purchases whose #{t params[:property]} is #{params[:value]}. You don't have to #{(params[:rule_status] == 'whitelisted') ? 'approve' : 'decline'} them manually anymore." %>
 </div>
 
 <div id="confirmation_success" class="alert alert-block" style="display:none">
@@ -185,19 +184,20 @@ $(document).ready(function() {
 // Rule setting
 <% if params[:notify] and params[:notify] == 'rule_setting' %>
 	<% if params[:status] == 'success'  %>
-	    notification("<%= "#{current_payer.name} set a new rule"%>", false, 'icon-pencil', true)
+	    notification("<%= "#{current_payer.name} #{params[:rule_status]} #{params[:value]}"%>", false, 'icon-wrench', true)
 		$('#rule_setting_success').show();
-		$('a.blue.rule').popover({
-			title: "Rule Sign" ,
-			content: "This button indicates a rule for this merchant. You can always change the rule.",
-			placement: "left"
-			}).popover('show');
-			window.setTimeout("$('a.blue.rule').popover('hide')", 10000);
 	<% else %>
 	    notification('<%= "Rule setting failed" %>', false, 'icon-exclamation-sign', true)
 	<% end %>
 <% end %>
 
 })
+
+$(document).ready(function() {
+if ($('#notifications a').length == 0) {
+	$('#notifications').prepend('<a href="#">Show all notifications</a>');
+}	
+})
+
 
 </script>
