@@ -1,4 +1,4 @@
-<% unless (params[:notify] and !(params[:notify] == 'confirmation' and params[:status] == 'success')) %>
+<% unless params[:notify]  %>
 	<div id="registration_optional" class="alert alert-block alert-info">
 		<a class="close" data-dismiss="alert" href="#">×</a>
 	    <h4 class="alert-heading">Registration is not manadatory</h4>

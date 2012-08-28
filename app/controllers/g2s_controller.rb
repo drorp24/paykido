@@ -16,7 +16,8 @@ class G2sController < ApplicationController
           :_pjax => "data-pjax-container"
         )
     elsif params[:customField1] == 'registration'
-        redirect_to purchases_path(
+        path = (current_payer.purchases.any?) ? purchases_path : new_token_path
+        redirect_to path(
           :notify => 'registration', 
           :status => params[:status],
           :message => params[:message]
