@@ -1,0 +1,22 @@
+<%= render 'primary_navigation' %>
+<%= render 'consumer_navigation' %>
+
+<section id="maincontainer">
+
+	<%= render :partial => 'page_head', :locals => {:title => 'Consumer Allowance', :backPath => :back} %>
+	
+	<table>
+		<tbody>
+			<% @allowances.each do |allowance| %>
+			  <tr>
+			    <td><%= link_to 'Details', consumer_allowance_path(@consumer, allowance) %></td>
+			  </tr>
+			<% end %>
+		</tbody>
+	</table>
+	
+	<br />
+
+</section>
+
+<%= render 'notifications' %>

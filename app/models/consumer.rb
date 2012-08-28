@@ -3,6 +3,7 @@ class Consumer < ActiveRecord::Base
   belongs_to  :payer
   has_many    :purchases
   has_many    :rules
+  has_many    :allowances
       
   after_initialize :init
   def init

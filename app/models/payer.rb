@@ -8,6 +8,7 @@ class Payer < ActiveRecord::Base
   has_many  :rules                              # family-default rules (as opposed to consumer rules)
   has_many  :tokens
   has_many  :notifications
+  has_many  :allowances, :through => :consumers
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,

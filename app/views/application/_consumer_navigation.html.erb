@@ -15,6 +15,8 @@
 				<% path = rules_path  %>
 			<% elsif params[:controller] == 'transactions' %>
 				<% path = purchase_transactions_path(@purchase)  %>
+			<% elsif params[:controller] == 'allowances' %>
+				<% path = allowances_path  %>
 			<% end %>	
 
             <a href="<%= path %>" data-skip-pjax>
@@ -49,6 +51,8 @@
 					<% path = consumer_rules_path(consumer)  %>
 				<% elsif params[:controller] == 'transactions' %>
 					<% path = consumer_purchase_transactions_path(consumer, @purchase)  %>
+				<% elsif params[:controller] == 'allowances' %>
+					<% path = consumer_allowances_path(consumer, @purchase)  %>
 				<% end %>	
 				<a href="<%= path %>" data-skip-pjax>
 		            <table class="navigation">
@@ -97,6 +101,8 @@ $(document).ready(function () {
 		$('#rules_menu').addClass('active');
 	<% elsif params[:controller] == 'transactions' %>
 		$('#dashboard_menu').addClass('active');
+	<% elsif params[:controller] == 'allowances' %>
+		$('#allowances_menu').addClass('active');
 	<% end %>	
 })	
 	
