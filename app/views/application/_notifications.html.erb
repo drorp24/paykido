@@ -3,6 +3,16 @@
     <h4 class="alert-heading">Registration Complete!</h4>
     You can now place rules, have Paykido automatically block bad purchases and automatically pay for complying ones.
 </div>
+
+<% if params[:notify] and params[:notify] == 'registration' and params[:ppp_status] and params[:ppp_status] == 'CANCEL'%>
+<div id="registration_CANCEL" class="alert alert-block alert-error" style="display:none">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Cancelled at your request</h4>
+	<span><%= "Would you like to try again?" %>
+    <span><%= button_to "Register", tokens_path, :class => "btn btn-primary inline" %></span>
+</div>
+<% end %>
+
 <div id="unregistration_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Unregistered!</h4>
@@ -51,6 +61,15 @@
 	<% else %>
     	<h4 class="alert-heading">Purchase Approved!</h4>	
 	<% end %>    		
+</div>
+<% end %>
+
+<% if params[:purchase] and params[:ppp_status] and params[:ppp_status] == 'CANCEL'%>
+<div id="approval_CANCEL" class="alert alert-block alert-error" style="display:none">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Cancelled at your request</h4>
+	<span><%= "Would you like to try again?" %>
+    <span><%= button_to "Approve", approve_purchase_path(params[:purchase]),:method => :get, :class => "btn btn-primary inline" %></span>
 </div>
 <% end %>
 
@@ -112,6 +131,8 @@ $(document).ready(function() {
 			placement: "bottom"
 			}).popover('show');
 			window.setTimeout("$('#registration_popover').popover('hide')", 5000);
+	<% elsif params[:ppp_status] and params[:ppp_status] == 'CANCEL' %>
+		$('#registration_CANCEL').show();
 	<% else %>
 	    notification('<%= "Registration failed" %>', false, 'icon-exclamation-sign', true)
 	    $('#registration_failure').show();
@@ -160,6 +181,8 @@ $(document).ready(function() {
     	<% end %>
 	    notification("<%= "#{current_payer.name} approved purchase #{id}"%>", false, 'icon-thumbs-up', true)
 		$('#approval_success').show();
+	<% elsif params[:ppp_status] and params[:ppp_status] == 'CANCEL' %>
+		$('#approval_CANCEL').show();
 	<% else %>
 		$('#approval_failure').show();
 	    notification('<%= "Payment failed" %>', false, 'icon-exclamation-sign', true)
