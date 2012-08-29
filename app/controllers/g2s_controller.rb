@@ -9,6 +9,7 @@ class G2sController < ApplicationController
           params[:customField3].to_i,
           :notify => 'approval', 
           :status => params[:status],
+          :ppp_status => params[:ppp_status],
           :purchase => params[:customField3],
           :ErrCode => params[:ErrCode],
           :ExErrCode => params[:ExErrCode],
@@ -20,15 +21,19 @@ class G2sController < ApplicationController
           redirect_to purchases_path(
             :notify => 'registration', 
             :status => params[:status],
+            :ppp_status => params[:ppp_status],
             :message => params[:message]
           )
         else
           redirect_to new_token_path(
             :notify => 'registration', 
             :status => params[:status],
+            :ppp_status => params[:ppp_status],
             :message => params[:message]
           )
         end          
+    elsif params[:status] == 'back'     # when back is clicked, that's the only parameter G2S returns
+          redirect_to purchases_path
     else
       flash[:error] = ""
       redirect_to root_path

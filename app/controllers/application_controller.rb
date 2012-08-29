@@ -7,11 +7,12 @@ class ApplicationController < ActionController::Base
   layout :set_layout
 
   def after_sign_in_path_for(payer)
-    if current_payer.registered?
+
+#    if current_payer.registered?
       return purchases_path
-    else
-      return new_token_path
-    end
+#    else
+#      return new_token_path
+#    end
   end
 
   private

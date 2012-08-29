@@ -6,6 +6,11 @@ body {
     line-height:21px;
 }
 
+body#paykido ul li {
+    list-style:none;
+    list-style-type:none; 
+}
+
 #rule .modal-header {
   padding: 14px 15px 15px;
   margin-bottom: 0;
@@ -768,7 +773,7 @@ tr:hover {
  
 }
 #approval_buttons .small.button {
-    padding: 0px 8px; 
+    padding: 0px 7px; 
 }
 
 #approval_buttons {
