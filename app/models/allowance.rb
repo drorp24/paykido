@@ -1,16 +1,14 @@
 class Allowance < ActiveRecord::Base
   include IceCube
-#  serialize :schedule, Hash
   
   belongs_to  :consumer
 
-=begin  
   def schedule=(new_schedule)
-    write_attribute(:schedule, new_schedule.to_hash)
+    write_attribute(:schedule, new_schedule.to_yaml)
   end
 
   def schedule
-    IceCube::Schedule.from_hash(read_attribute(:schedule))
+    IceCube::Schedule.from_yaml(read_attribute(:schedule)) unless read_attribute(:schedule).nil?
   end
-=end  
+
 end

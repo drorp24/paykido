@@ -8,69 +8,10 @@
 		<div id="rules" class="settings  accordion">			
 				<% @rules.each do |rule| %>
 
-					<div class="accordion-group">
-
-						<div class="accordion-heading row">
-							<div data-toggle="collapse" href=<%= "#ruleEdit_#{rule.id}" %> class="accordion-toggle" data-parent="#rules"> 
-								<span class="span2">
-								    <span class="btn-group">
-									    <button class="btn btn-success">
-									    	<i class="icon-thumbs-up icon-white"></i>
-									    	Always approve
-								    	</button>
-									    <button class="btn dropdown-toggle" data-toggle="dropdown">
-										    <span class="caret"></span>
-									    </button>
-									    <ul class="dropdown-menu">
-									    	<li><a href="#">Always approve</a></li>
-									    	<li><a href="#">Always decline</a></li>
-									    	<li><a href="#">Let me decide</a></li>
-									    </ul>
-								    </span>
-								</span>
-								<span class="span2 rule_property"><%= t rule.property %></span>	
-								<span class="span2 rule_value">
-									<%= rule.value %> 
-								</span>
-								<span class="span1 rule_action">Delete</span>
-								<span class="span1 offset1 rule_action">Edit</span>
-							</div>
-						</div>
-
-						<div id=<%= "ruleEdit_#{rule.id}" %> class="row rule_edit_area collapse">
-							<span>
-								<span class="span2"><%= "Always approve  #{rule.value}" %></span>
-								<span class="span2"><%= "Let me decide" %></span>
-								<span class="span2"><%= "Always decline #{rule.value}" %></span>
-							</span>
-							<span class="btn-group" data-toggle="buttons-radio">
-								<button class="always_approve btn btn-success"><i class="icon-thumbs-up icon-white"></i></button>
-								<button class="call_me btn btn-warning"><i class="icon-bullhorn icon-white"></i></button>
-								<button class="always_decline btn btn-danger"><i class="icon-thumbs-down icon-white"></i></button>
-							</span>
-							<br />
-    						<span><%= button_to "Update Rule", rule_path(rule, :status => 'whitelisted'), :method => :put, :class => "btn btn-primary inline" %></span>
-							<span><%= button_to "Close" "#", :class => "btn" %>
-						</div>
-
-					</div>
 
 				<% end %>
 		</div>
-		<br />
-		<%= link_to 'Add a new rule', new_rule_path if current_payer.registered_or_waived %>
+
 </section>
 
 <%= render 'notifications' %>
-<script>
-
-$(document).ready(function() {
-	  
-	$('.accordion-group').click(function () {
-		$('.accordion-group').css('background-color', 'transparent');
-    	$(this).css('background-color', 'white');
-    })
-
-})
-
-</script>

@@ -89,7 +89,7 @@ class AllowancesController < ApplicationController
 
     if params[:id]
       begin    
-        @allowance = @consumer.allowances.find(params[:id])  
+        @allowance = (@consumer) ? @consumer.allowances.find(params[:id]) : current_payer.allowances.find(params[:id])
       rescue ActiveRecord::RecordNotFound
         flash[:error] = "No such allowance id"
         redirect_to :controller => "home", :action => "routing_error"

@@ -6,23 +6,23 @@ class Consumer < ActiveRecord::Base
   has_many    :allowances
       
   def blacklist!(property, value)
-    rule = Rule.set!(self.payer_id, self.id, property, value, 'blacklist')
+    rule = Rule.set!(self.id, property, value, 'blacklist')
   end
   
   def blacklisted?(property, value)
-    Rule.set?(:payer_id => self.payer_id, :consumer_id => self.id, :property => property, :value => value, :status => 'blacklisted')
+    Rule.set?(:consumer_id => self.id, :property => property, :value => value, :status => 'blacklisted')
   end
 
   def whitelist!(property, value)
-    rule = Rule.set!(self.payer_id, self.id, property, value, 'whitelist')
+    rule = Rule.set!(self.id, property, value, 'whitelist')
   end
   
   def whitelisted?(property, value)
-    Rule.set?(:payer_id => self.payer_id, :consumer_id => self.id, :property => property, :value => value, :status => 'whitelisted')
+    Rule.set?(:consumer_id => self.id, :property => property, :value => value, :status => 'whitelisted')
   end
   
   def reset!(property, value)
-    rule = Rule.set!(self.payer_id, self.id, property, value, '')
+    rule = Rule.set!(self.id, property, value, '')
   end
 
   def deduct!(amount)

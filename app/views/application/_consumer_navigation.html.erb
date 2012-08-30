@@ -52,7 +52,7 @@
 				<% elsif params[:controller] == 'transactions' %>
 					<% path = consumer_purchase_transactions_path(consumer, @purchase)  %>
 				<% elsif params[:controller] == 'allowances' %>
-					<% path = consumer_allowances_path(consumer, @purchase)  %>
+					<% path = consumer_allowances_path(consumer)  %>
 				<% end %>	
 				<a href="<%= path %>" data-skip-pjax>
 		            <table class="navigation">

@@ -9,7 +9,7 @@
 		<tbody>
 			<% @allowances.each do |allowance| %>
 			  <tr>
-			    <td><%= link_to 'Details', consumer_allowance_path(@consumer, allowance) %></td>
+			    <td><%= link_to 'Details', allowance %></td>
 			  </tr>
 			<% end %>
 		</tbody>
