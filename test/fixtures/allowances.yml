@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  consumer_id: 1
+  kind: MyString
+  amount: 9.99
+  schedule: MyText
+
+two:
+  consumer_id: 1
+  kind: MyString
+  amount: 9.99
+  schedule: MyText

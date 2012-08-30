@@ -5,18 +5,6 @@ class Consumer < ActiveRecord::Base
   has_many    :rules
   has_many    :allowances
       
-  after_initialize :init
-  def init
-      self.allowance  ||= 10          
-      self.allowance_period ||= 'Weekly'
-      self.allowance_change_date ||= Time.now
-      self.balance_on_acd ||= 0
-      self.purchases_since_acd ||= 0
-      self.auto_authorize_under ||= 5
-      self.auto_deny_over ||= 35
-  end
-
-
   def blacklist!(property, value)
     rule = Rule.set!(self.payer_id, self.id, property, value, 'blacklist')
   end
@@ -37,7 +25,75 @@ class Consumer < ActiveRecord::Base
     rule = Rule.set!(self.payer_id, self.id, property, value, '')
   end
 
+  def deduct!(amount)
+    self.purchases_since_acd += amount
+    self.save!
+  end
   
+  def confirm!            
+    self.confirmed = true
+    self.confirmed_at = Time.now
+    self.save!
+  end
+  
+  def confirmed?
+    self.confirmed
+  end
+  
+  def facebook_user 
+    unless @facebook_user 
+      @facebook_user = Mogli::User.find(facebook_id,Mogli::Client.new(facebook_access_token, nil)) 
+      @facebook_user.fetch 
+    end 
+    @facebook_user 
+  end 
+  
+  def balance(given_datetime)
+    self.allowance_sum(given_datetime) - self.purchase_sum(given_datetime)
+  end
+    
+  def allowance_sum(given_datetime = Time.now)
+
+    @allowance_sum = 0
+    for allowance in self.allowances do 
+      @allowance_sum += allowance.schedule.occurrences(given_datetime).count * allowance.amount
+    end
+    @allowance_sum
+    
+  end
+
+  def purchase_sum(given_datetime)
+
+    if given_datetime
+      self.purchases.where("date <= ?", given_datetime).sum("amount")
+    else
+      self.purchases.sum("amount")
+    end
+
+  end
+  
+# allowance.schedule.add_recurrence_time(DateTime.new(params[:year],params[:month],params[:day]))
+
+
+
+
+
+
+
+
+  # OBSOLETE
+
+  after_initialize :init
+  def init
+      self.allowance  ||= 10          
+      self.allowance_period ||= 'Weekly'
+      self.allowance_change_date ||= Time.now
+      self.balance_on_acd ||= 0
+      self.purchases_since_acd ||= 0
+      self.auto_authorize_under ||= 5
+      self.auto_deny_over ||= 35
+  end
+
   def allowance_day_of_week
     self.allowance_every || 0
   end
@@ -63,14 +119,14 @@ class Consumer < ActiveRecord::Base
     @next_allowance_date   
   end
  
-  def balance
+  def balance1
 
     self.balance_on_acd        ||= 0
     self.allowance             ||= 0
     self.purchases_since_acd   ||= 0
     self.allowance_change_date ||= self.created_at
 
-    @balance = self.balance_on_acd + self.periods_since_acd *  self.allowance - self.purchases_since_acd
+    @balance1 = self.balance_on_acd + self.periods_since_acd *  self.allowance - self.purchases_since_acd
  
   end
 
@@ -98,29 +154,6 @@ class Consumer < ActiveRecord::Base
 
   end
 
-  def deduct!(amount)
-    self.purchases_since_acd += amount
-    self.save!
-  end
-  
-  def confirm!            
-    self.confirmed = true
-    self.confirmed_at = Time.now
-    self.save!
-  end
-  
-  def confirmed?
-    self.confirmed
-  end
-  
-  def facebook_user 
-    unless @facebook_user 
-      @facebook_user = Mogli::User.find(facebook_id,Mogli::Client.new(facebook_access_token, nil)) 
-      @facebook_user.fetch 
-    end 
-    @facebook_user 
-  end 
-  
   def allowance_display
     
   end
@@ -142,5 +175,7 @@ class Consumer < ActiveRecord::Base
     
   end
 
-  
+
+  # OBSOLETE
+
 end
