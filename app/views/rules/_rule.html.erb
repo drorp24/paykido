@@ -1,0 +1,23 @@
+<div class="rule_line clearfix">
+
+	<div class="grid_1">
+		<i class="icon <%= rule.icon %>"></i>
+	</div>
+	<div class="grid_2">
+		<%= rule.title || rule.property %>
+	</div>
+	<div class="grid_1">
+		<%= rule.consumer.name %>
+	</div>
+	<div class="grid_1">
+		<%= rule.value %>
+	</div>
+	<div class="grid_3">
+		<%= rule.schedule.to_s  %>
+	</div>
+	<div class="action_link">
+    	<%= link_to 'Edit',   rule %>
+    	<%= link_to 'Delete', rule, confirm: 'Are you sure you want to delete this rule?', method: :delete %>
+	</div>
+
+</div>

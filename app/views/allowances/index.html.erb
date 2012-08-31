@@ -9,6 +9,12 @@
 		<tbody>
 			<% @allowances.each do |allowance| %>
 			  <tr>
+			  <tr>
+			    <td><%= token.NameOnCard %></td>
+			    <td>Credit card registered</td>
+			    <td><%= link_to 'Details', token %></td>
+			    <td><%=  button_to 'Cancel registration',  token, confirm: 'Are you sure you want to cancel your registration?', method: :delete, :class => "btn btn-primary inline"  %></td>
+			  </tr>
 			    <td><%= link_to 'Details', allowance %></td>
 			  </tr>
 			<% end %>

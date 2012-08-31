@@ -6,6 +6,56 @@ body {
     line-height:21px;
 }
 
+.rule_line {
+    line-height: 67px;    
+}
+
+.rule_line .icon {
+    
+}
+
+.rule_line:hover {
+    background-color: white;
+}
+
+.action_link {
+    float: right;
+    margin-right: 30px;
+}
+
+.rule_background {
+      background-color: #e5e5e5;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(235, 235, 235)), to(rgb(229, 229, 229)));
+  background-image: -webkit-linear-gradient(top, rgb(235, 235, 235), rgb(229, 229, 229));
+  background-image: -moz-linear-gradient(top, rgb(235, 235, 235), rgb(229, 229, 229));
+  background-image: -o-linear-gradient(top, rgb(235, 235, 235), rgb(229, 229, 229));
+  background-image: -ms-linear-gradient(top, rgb(235, 235, 235), rgb(229, 229, 229));
+  background-image: linear-gradient(top, rgb(235, 235, 235), rgb(229, 229, 229));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ebebeb', EndColorStr='#e5e5e5');
+  border-top: 1px solid #fafafa;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  height: 68px;
+}
+
+.rule_heading {
+    color: #0088CC;
+    font-weight: 100;
+    font-size: 26px;
+    margin-top: 12px;
+    margin-left: 22px;
+    text-shadow: 0 1px 0 #FFFFFF;
+
+}
+
+#maincontainer .page_head h1 {
+    margin-left: 52px;
+}
+
+.action_link a {
+    margin-left: 60px;   
+}
+
 body#paykido ul li {
     list-style:none;
     list-style-type:none; 

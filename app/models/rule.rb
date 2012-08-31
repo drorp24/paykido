@@ -1,7 +1,26 @@
 class Rule < ActiveRecord::Base
+  include IceCube
+  
+  belongs_to  :consumer
 
-  belongs_to :consumer
+  scope :money,     where("category = ?", "how much")
+  scope :thresholds,where("category = ?", "thresholds")
+  scope :what,      where("category = ?", "what")
+  scope :time,      where("category = ?", "when")
+  scope :location,  where("category = ?", "where")
+  
 
+  def schedule=(new_schedule)
+    if new_schedule.nil?
+      write_attribute(:schedule, nil)
+    else
+      write_attribute(:schedule, new_schedule.to_yaml)
+    end
+  end
+
+  def schedule
+    IceCube::Schedule.from_yaml(read_attribute(:schedule)) unless read_attribute(:schedule).nil?
+  end
 
   def self.set!(params) 
 
@@ -18,5 +37,28 @@ class Rule < ActiveRecord::Base
     self.where(params).exists?
   end
 
+  def icon 
+    if self.what?
+      (i = Info.where("key = ? and value = ?", "rule", self.status).first) ? i.logo : nil
+    else
+      (i = Info.where("key = ? and value = ?", "rule", self.property).first) ? i.logo : nil  
+    end
+  end
 
+  def title 
+    if self.what?
+      (i = Info.where("key = ? and value = ?", "rule", self.status).first) ? i.title : nil
+    else
+      (i = Info.where("key = ? and value = ?", "rule", self.property).first) ? i.title : nil  
+    end
+  end
+
+  def money?
+    self.category == "how much"
+  end 
+  
+  def what?
+    self.category == "what" 
+  end
+  
 end

@@ -3,14 +3,53 @@
 
 <section id="maincontainer">
 
-		<%= render :partial => 'page_head', :locals => {:title => "Rules for #{@name}"} %>
+	<%= render :partial => 'page_head', :locals => {:title => "Rules for #{@name}"} %>
 		
-		<div id="rules" class="settings  accordion">			
-				<% @rules.each do |rule| %>
-
-
-				<% end %>
+	<div id="rules" class="box-content container_12">			
+	<div class="box grid_12" > 	
+		
+		<div class="rule_background">			
+			<h1 class="rule_heading">How much can they spend</h1>
 		</div>
+		
+		<% for rule in @rules.money.sort_by {|rule| rule.property} %>
+			<%= render 'rule', :rule => rule %> 
+		<% end %>
+		
+		<div class="rule_background">
+			<h1 class="rule_heading">What can they buy</h1>			
+		</div>
+		
+		<% for rule in @rules.what %>
+			<%= render 'rule', :rule => rule %> 
+		<% end %>
+		
+		<div class="rule_background">
+			<h1 class="rule_heading">When can they buy</h1>
+		</div>
+		
+		<% for rule in @rules.time %>
+			<%= render 'rule', :rule => rule %> 
+		<% end %>
+
+		<div class="rule_background">
+			<h1 class="rule_heading">Where can they buy</h1>
+		</div>
+		
+		<% for rule in @rules.location %>
+			<%= render 'rule', :rule => rule %> 
+		<% end %>
+
+		<div class="rule_background">
+			<h1 class="rule_heading">How involved you want to be</h1>
+		</div>
+		
+		<% for rule in @rules.thresholds %>
+			<%= render 'rule', :rule => rule %> 
+		<% end %>		
+		
+	</div>
+	</div>
 
 </section>
 

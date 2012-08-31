@@ -5,26 +5,14 @@ class Consumer < ActiveRecord::Base
   has_many    :rules
   has_many    :allowances
       
-  def blacklist!(property, value)
-    rule = Rule.set!(self.id, property, value, 'blacklist')
-  end
-  
   def blacklisted?(property, value)
     Rule.set?(:consumer_id => self.id, :property => property, :value => value, :status => 'blacklisted')
   end
 
-  def whitelist!(property, value)
-    rule = Rule.set!(self.id, property, value, 'whitelist')
-  end
-  
   def whitelisted?(property, value)
     Rule.set?(:consumer_id => self.id, :property => property, :value => value, :status => 'whitelisted')
   end
   
-  def reset!(property, value)
-    rule = Rule.set!(self.id, property, value, '')
-  end
-
   def deduct!(amount)
     self.purchases_since_acd += amount
     self.save!
@@ -55,7 +43,7 @@ class Consumer < ActiveRecord::Base
   def allowance_sum(given_datetime = Time.now)
 
     @allowance_sum = 0
-    for allowance in self.allowances do 
+    for allowance in self.rules.money do 
       @allowance_sum += allowance.schedule.occurrences(given_datetime).count * allowance.amount
     end
     @allowance_sum

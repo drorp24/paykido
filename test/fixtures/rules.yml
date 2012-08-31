@@ -1,11 +1,97 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+one:
+  consumer_id: "1"
+  category:    "how much"
+  property:    "allowance"
+  value:       "20"
+
+two:
+  consumer_id: "1"
+  category:    "how much"
+  property:    "gift"
+  value:       "50"
+  occasion:    "Thanksgiving"
+  donator:     "Grandma"  
+
+three:
+  consumer_id: "1"
+  category:    "how much"
+  property:    "birthday"
+  value:       "100"
+  status:      ""
+  occasion:    "Birthday"
+  donator:     "Parents"
+
+four:
+  consumer_id: "1"
+  category:    "how much"
+  property:    "achievment"
+  value:       "75"
+  status:      ""
+  occasion:    "A Grade"
+  donator:     "Parents"
+
+five:
+  consumer_id: "1"
+  category:    "how much"
+  property:    "chores"
+  value:       "10"
+  status:      ""
+  donator:     "Uncle Rob"
+
+six:
+  consumer_id: "1"
+  category:    "how much"
+  property:    "request"
+  value:       "15"
+  status:      "Pending"
+
+seven:
+  consumer_id: "1"
+  category:    "thresholds"
+  property:    "under"
+  value:       "15"
+  status:      ""
+
+eight:
+  consumer_id: "1"
+  category:    "thresholds"
+  property:    "over"
+  value:       "5"
+  status:      ""
+
+nine:
+  consumer_id: "1"
+  category:    "what"
+  property:    "esrb_rating"
+  value:       "E"
+  status:      "whitelisted"
+
+ten:
+  consumer_id: "1"
+  category:    "what"
+  property:    "pegi_rating"
+  value:       "3"
+  status:      "whitelisted"
+
+eleven:
+  consumer_id: "1"
+  category:    "when"
+  property:    "time"
+  value:       ""
+  status:      ""
+
+twelve:
+  consumer_id: "1"
+  category:    "where"
+  property:    "location"
+  value:       "home"
+  status:      ""
+
+thirteen:
+  consumer_id: "1"
+  category:    "what"
+  property:    "retailer"
+  value:       "Zynga"
+  status:      "blacklisted"  

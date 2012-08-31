@@ -33,13 +33,13 @@
 	    </li>
 
     	<li class="menu" id="allowances_menu" >
-      		<%= link_to allowances_path, 'data-skip-pjax' => true do %>
+      		<%= link_to "#", 'data-skip-pjax' => true do %>
 		        <span class="icon32 dashboard"></span>
-		        Allowance
+		        Dashboard
 	      	<% end %>
 	    </li>
 	    <li class="menu" id="rules_menu" >
-     		<%= link_to "#", 'data-skip-pjax' => true do %>
+     		<%= link_to rules_path, 'data-skip-pjax' => true do %>
 	        	<span class="icon32 tools"></span>
 	        	Rules
 	      	<% end %>

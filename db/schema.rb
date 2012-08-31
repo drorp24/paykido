@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120830180445) do
+ActiveRecord::Schema.define(:version => 20120831001552) do
 
   create_table "allowances", :force => true do |t|
     t.integer  "consumer_id"
@@ -152,6 +152,9 @@ ActiveRecord::Schema.define(:version => 20120830180445) do
     t.string   "value"
     t.string   "status"
     t.text     "schedule"
+    t.string   "occasion"
+    t.string   "donator"
+    t.string   "category"
   end
 
   create_table "sessions", :force => true do |t|

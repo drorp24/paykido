@@ -1,15 +1,103 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
+  key: "allowance"
+  title: "Allowance"
+  description: "Define the allowance amount, period and recurrence rules. For instance: $10 every Monday of the week."
+  logo: "bigicon-coins"
+
+two:
+  key: "gift"
+  title: "Gift"
+  description: "Grant a one-time money gift. You can specify the occasion."
+  logo: "bigicon-bag"
+
+three:
+  key: "birthday"
+  title: "Birthday"
+  description: "Grant a one-time birthday gift. The amount you specify will be added on your kid's birth date."
+  logo: "bigicon-birthday"
+
+four:
+  key: "achievment"
+  title: "Achievment"
+  description: "Grant a one-time appreciation gift for an achievment."
+  logo: "bigicon-achievment"
+
+five:
+  key: "chores"
+  title: "Chores"
+  description: "Grant a one-time bonus for chores."
+  logo: "bigicon-cleaning"
+
+six:
+  key: "request"
+  title: "Request"
+  description: "Fulfill your kid's one-time allowance increase request."
+  logo: "bigicon-user-plus"
+  
+seven:
+  key: "under"
+  title: "Low Threshold"
+  description: "Have Paykido automatically approve purchases whose amount is lower than the amount you define"
+  logo: "bigicon-tick-in-a-circle"
+  
+eight:
+  key: "over"
+  title: "High Threshold"
+  description: "Have Paykido automatically decline purchases whose amount is higher than the amount you define"
+  logo: "bigicon-no-entry-in-a-circle"
+
+nine:
+  key: "rule"
+  value: "property-whitelist"
+  title: "Approve by Property"
+  description: "Have Paykido automatically approve purchases with the properties you define"
+  logo: "bigicon-thumbs-up"
+    
+ten:
+  key: "rule"
+  value: "property-blacklist"
+  title: "Decline by Property"
+  description: "Have Paykido automatically decline purchases with the properties you define"
+  logo: "bigicon-thumbs-down"
+    
+eleven:
+  key: "time"
+  title: "Time Rules"
+  description: "Define when your kids can buy and when they cannot."
+  logo: "bigicon-moon"
+    
+twelve:
+  key: "location"
+  title: "Location Rules"
+  description: "Define whether your kids can buy while at home or anywhere else."
+  logo: "bigicon-thumbs-up"
+  
+thirteen:
+  key: "retailer"
+  value: "Zynga"
+  title: "Zynga"
+  description: "As of April 2012, Zynga's games have over 292 million monthly active users.[8] Five of Zynga's games, CityVille, Zynga Poker, FarmVille, CastleVille, and Hidden Chronicles, are the most widely used game applications on Facebook, with CityVille having over 40 million monthly active users.[9] Connecting the world through games is the company's mission."
+  logo: "zynga logo.png"
+
+fourteen:
+  key: "title"
+  value: "farmville"
+  title: "Farmville"
+  description: "FarmVille is a casual farming simulation social network game developed by Zynga in 2009. Gameplay involving various aspects of farm management such as plowing land, planting, growing and harvesting crops, harvesting trees and bushes, and raising livestock. The game is a freemium game, meaning there is no cost to play but players have the option of purchasing premium content. As of September 2011, FarmVille is the third most popular Facebook game, behind CityVille and The Sims Social."
+  logo: "farmville.png"
+
+fifteen:
   key: "pegi_rating"
   value: "3"
   title: "PEGI3"
   description: "The content of games given this rating is considered suitable for all age groups. Some violence in a comical context (typically Bugs Bunny or Tom & Jerry cartoon-like forms of violence) is acceptable. The child should not be able to associate the character on the screen with real life characters, they should be totally fantasy. The game should not contain any sounds or pictures that are likely to scare or frighten young children. No bad language should be heard. "
   logo: "PEGI3.png"
 
-two:
+sixteen:
   key: "esrb_rating"
   value: "E"
   title: "EVERYONE"
   description: "Titles rated E (Everyone) have content that may be suitable for ages 6 and older. Titles in this category may contain minimal cartoon, fantasy or mild violence and/or infrequent use of mild language."
-  logo: "E.png"
+  logo: "e.PNG"
