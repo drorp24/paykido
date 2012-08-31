@@ -9,7 +9,7 @@
 	<div class="box grid_12" > 	
 		
 		<div class="rule_background">			
-			<h1 class="rule_heading">How much can they spend</h1>
+			<h1 class="rule_heading">How much</h1>
 		</div>
 		
 		<% for rule in @rules.monetary.sort_by {|rule| rule.property} %>
@@ -17,7 +17,7 @@
 		<% end %>
 		
 		<div class="rule_background">
-			<h1 class="rule_heading">What can they buy</h1>			
+			<h1 class="rule_heading">What</h1>			
 		</div>
 		
 		<% for rule in @rules.what %>
@@ -25,7 +25,7 @@
 		<% end %>
 		
 		<div class="rule_background">
-			<h1 class="rule_heading">When can they buy</h1>
+			<h1 class="rule_heading">When</h1>
 		</div>
 		
 		<% for rule in @rules.time %>
@@ -33,7 +33,7 @@
 		<% end %>
 
 		<div class="rule_background">
-			<h1 class="rule_heading">Where can they buy</h1>
+			<h1 class="rule_heading">Where</h1>
 		</div>
 		
 		<% for rule in @rules.location %>
@@ -41,7 +41,7 @@
 		<% end %>
 
 		<div class="rule_background">
-			<h1 class="rule_heading">How involved you want to be</h1>
+			<h1 class="rule_heading">How</h1>
 		</div>
 		
 		<% for rule in @rules.thresholds %>

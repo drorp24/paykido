@@ -4,6 +4,8 @@ class Consumer < ActiveRecord::Base
   has_many    :purchases
   has_many    :rules
   has_many    :allowances
+  
+  
       
   def blacklisted?(property, value)
     Rule.set?(:consumer_id => self.id, :property => property, :value => value, :status => 'blacklisted')
@@ -62,8 +64,9 @@ class Consumer < ActiveRecord::Base
   
 # allowance.schedule.add_recurrence_time(DateTime.new(params[:year],params[:month],params[:day]))
 
-
-
+  def set_rules!
+    Rule.set_for!(self)
+  end
 
 
 

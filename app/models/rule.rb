@@ -17,6 +17,63 @@ class Rule < ActiveRecord::Base
   def what?
     self.category == "what" 
   end
+
+  def self.allowance
+    {:property => '_allowance', :category => "how much"}
+  end
+  def self.gift
+    {:property => '_gift', :category => "how much"}
+  end
+  def self.birthday
+    {:property => 'birthday', :category => "how much"}
+  end  
+  def self.chores
+    {:property => 'chores', :category => "how much"}
+  end  
+   def self.request
+    {:property => 'request', :category => "how much"}
+  end  
+  def self.achievment
+    {:property => 'achievment', :category => "how much"}
+  end  
+  def self.retailer(consumer)
+    {:property => 'retailer', :category => "what", :value => (consumer.payer.purchases.any?) ? consumer.payer.purchases.first.retailer.name : "Zynga" }
+  end  
+  def self.pegi_rating(consumer)
+    {:property => 'pegi_rating', :category => "what", :value => (consumer.payer.purchases.any?) ? consumer.payer.purchases.first.properties['pegi_rating'] : "3" }
+  end  
+  def self.esrb_rating(consumer)
+    {:property => 'esrb_rating', :category => "what", :value => (consumer.payer.purchases.any?) ? consumer.payer.purchases.first.properties['esrb_rating'] : "E" }
+  end  
+  def self.time
+    {:property => 'time', :category => "when"}
+  end  
+  def self.location
+    {:property => 'location', :category => "where", :value => "home"}
+  end  
+  def self.over
+    {:property => 'over', :category => "when"}
+  end  
+  def self.under
+    {:property => 'under', :category => "when"}
+  end  
+
+  def self.set_for!(consumer)
+    consumer.rules.create!(self.allowance)
+    consumer.rules.create!(self.gift)
+    consumer.rules.create!(self.birthday)
+    consumer.rules.create!(self.chores)
+    consumer.rules.create!(self.request)
+    consumer.rules.create!(self.achievment)
+    consumer.rules.create!(self.retailer(consumer))
+    consumer.rules.create!(self.pegi_rating(consumer))
+    consumer.rules.create!(self.esrb_rating(consumer))
+    consumer.rules.create!(self.time)
+    consumer.rules.create!(self.location)
+    consumer.rules.create!(self.over)
+    consumer.rules.create!(self.under)
+  end
+
   ####  Change if needed      ####  
 
   def schedule=(new_schedule)
