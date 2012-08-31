@@ -1,27 +1,37 @@
 <div class="rule_line clearfix">
 
-	<div class="grid_1">
-		<i class="icon <%= rule.icon %>"></i>
+	<div class="accordion-heading row">
+	<div data-toggle="collapse" href=<%= "#ruleEdit_#{rule.id}" %> class="accordion-toggle" data-parent="#rules"> 
+
+		<div class="grid_1">
+			<i class="icon <%= rule.icon %>"></i>
+		</div>
+		<div class="grid_2" rel="<%= (rule.info) ? "popover" : "" %>"  title="<%= rule.title %>" data-content="<%= rule.description %>">
+			<%= rule.title || rule.property %>
+		</div>
+		<div class="grid_2">
+			<% if rule.logo %>
+				<img src="<%= "/images/#{rule.logo}" %>" rel="<%= (rule.value_info) ? 'popover' : '' %>" title="<%= (rule.value_info) ? rule.value_info.title : '' %>" data-content="<%= (rule.value_info) ? rule.value_info.description : '' %>" />
+			<% else %>
+				<%= (rule.monetary?) ? number_to_currency(rule.value.to_i) : rule.value %>
+			<% end %>
+		</div>
+		<div class="grid_3">
+			<%= (rule.schedule) ? rule.schedule.to_s : "N/A" %>
+		</div>
+		<div class="grid_1">
+			<%= rule.consumer.name %>
+		</div>
+		<div class="action_link">
+	    	<%= link_to 'Edit',   rule %>
+	    	<%= link_to 'Delete', rule, confirm: 'Are you sure you want to delete this rule?', method: :delete %>
+		</div>
+		
 	</div>
-	<div class="grid_2" rel="<%= (rule.info) ? "popover" : "" %>"  title="<%= rule.title %>" data-content="<%= rule.description %>">
-		<%= rule.title || rule.property %>
 	</div>
-	<div class="grid_2">
-		<% if rule.logo %>
-			<img src="<%= "/images/#{rule.logo}" %>" rel="<%= (rule.value_info) ? 'popover' : '' %>" title="<%= (rule.value_info) ? rule.value_info.title : '' %>" data-content="<%= (rule.value_info) ? rule.value_info.description : '' %>" />
-		<% else %>
-			<%= (rule.monetary?) ? number_to_currency(rule.value.to_i) : rule.value %>
-		<% end %>
-	</div>
-	<div class="grid_3">
-		<%= (rule.schedule) ? rule.schedule.to_s : "N/A" %>
-	</div>
-	<div class="grid_1">
-		<%= rule.consumer.name %>
-	</div>
-	<div class="action_link">
-    	<%= link_to 'Edit',   rule %>
-    	<%= link_to 'Delete', rule, confirm: 'Are you sure you want to delete this rule?', method: :delete %>
+
+	<div id=<%= "ruleEdit_#{rule.id}" %> class="collapse">
+		update the rule here
 	</div>
 
 </div>

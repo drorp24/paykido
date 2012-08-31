@@ -1,0 +1,65 @@
+<%= render 'primary_navigation' %>
+<%= render 'consumer_navigation' %>
+
+<section id="maincontainer">
+
+	<%= render :partial => 'page_head', :locals => {:title => "Rules for #{@name}"} %>
+		
+	<div id="rules" class="box-content container_12">			
+	<div class="box grid_12" > 	
+		
+		<div class="rule_background">			
+			<h1 class="rule_heading">How much</h1>
+		</div>
+		
+		<% for rule in @rules.monetary.sort_by {|rule| rule.property} %>
+			<%= render 'rule', :rule => rule %> 
+		<% end %>
+		
+		<div class="rule_background">
+			<h1 class="rule_heading">What</h1>			
+		</div>
+		
+		<% for rule in @rules.what %>
+			<%= render 'rule', :rule => rule %> 
+		<% end %>
+		
+		<div class="rule_background">
+			<h1 class="rule_heading">When</h1>
+		</div>
+		
+		<% for rule in @rules.time %>
+			<%= render 'rule', :rule => rule %> 
+		<% end %>
+
+		<div class="rule_background">
+			<h1 class="rule_heading">Where</h1>
+		</div>
+		
+		<% for rule in @rules.location %>
+			<%= render 'rule', :rule => rule %> 
+		<% end %>
+
+		<div class="rule_background">
+			<h1 class="rule_heading">How</h1>
+		</div>
+		
+		<% for rule in @rules.thresholds %>
+			<%= render 'rule', :rule => rule %> 
+		<% end %>		
+		
+	</div>
+	</div>
+
+</section>
+
+<%= render 'notifications' %>
+<script type="text/javascript">
+
+$('document').ready(function() {
+
+		$('[rel="popover"]').popover({placement: "left"});
+
+})
+
+</script>
