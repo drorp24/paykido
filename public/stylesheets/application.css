@@ -18,6 +18,15 @@ body {
     background-color: white;
 }
 
+.rule_line img {
+    max-height: 32px;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 21px;
+    
+}
+
 .action_link {
     float: right;
     margin-right: 30px;

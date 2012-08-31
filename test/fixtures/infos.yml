@@ -1,77 +1,87 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  key: "allowance"
+  key: "rule"
+  value: "_allowance"
   title: "Allowance"
-  description: "Define the allowance amount, period and recurrence rules. For instance: $10 every Monday of the week."
+  description: "Define the allowance amount, period and recurrence rules. You can set as many as you want."
   logo: "bigicon-coins"
 
 two:
-  key: "gift"
+  key: "rule"
+  value: "_gift"
   title: "Gift"
-  description: "Grant a one-time money gift. You can specify the occasion."
+  description: "Set as many gifts as you want. You can define future dates and assign each to a different donator. Paykido will see your kid gets the message and the extra allowance right on time."
   logo: "bigicon-bag"
 
 three:
-  key: "birthday"
+  key: "rule"
+  value: "birthday"
   title: "Birthday"
-  description: "Grant a one-time birthday gift. The amount you specify will be added on your kid's birth date."
+  description: "MMake a gift your kid can safely use. Set all your kids' birthdays already, and make these rules recurring if you wish."
   logo: "bigicon-birthday"
 
 four:
-  key: "achievment"
+  key: "rule"
+  value: "achievment"
   title: "Achievment"
-  description: "Grant a one-time appreciation gift for an achievment."
+  description: "Show your appreciation and let your kid buy safely. Set as many as you need: in the past, present of future. Paykido will act accordingly."
   logo: "bigicon-achievment"
 
 five:
-  key: "chores"
+  key: "rule"
+  value: "chores"
   title: "Chores"
-  description: "Grant a one-time bonus for chores."
+  description: "Grant a one-time bonus for chores - or make it a recurring fee if you like."
   logo: "bigicon-cleaning"
 
 six:
-  key: "request"
+  key: "rule"
+  value: "request"
   title: "Request"
-  description: "Fulfill your kid's one-time allowance increase request."
+  description: "Decide if you want to respond to your kid's one-time requests and wish lists."
   logo: "bigicon-user-plus"
   
 seven:
-  key: "under"
+  key: "rule"
+  value: "under"
   title: "Low Threshold"
-  description: "Have Paykido automatically approve purchases whose amount is lower than the amount you define"
+  description: "Set this rule if you want Paykido to automatically approve purchases whose amount is lower than the threshold you define"
   logo: "bigicon-tick-in-a-circle"
   
 eight:
-  key: "over"
+  key: "rule"
+  value: "over"
   title: "High Threshold"
-  description: "Have Paykido automatically decline purchases whose amount is higher than the amount you define"
+  description: "Set this rule if you want Paykido to automatically decline purchases whose amount is higher than the threshold you define"
   logo: "bigicon-no-entry-in-a-circle"
 
 nine:
   key: "rule"
-  value: "property-whitelist"
+  value: "whitelisted"
   title: "Approve by Property"
   description: "Have Paykido automatically approve purchases with the properties you define"
   logo: "bigicon-thumbs-up"
     
 ten:
   key: "rule"
-  value: "property-blacklist"
+  value: "blacklisted"
   title: "Decline by Property"
   description: "Have Paykido automatically decline purchases with the properties you define"
   logo: "bigicon-thumbs-down"
     
 eleven:
-  key: "time"
+  key: "rule"
+  value: "time"
   title: "Time Rules"
   description: "Define when your kids can buy and when they cannot."
   logo: "bigicon-moon"
     
 twelve:
-  key: "location"
+  key: "rule"
+  value: "location"
   title: "Location Rules"
-  description: "Define whether your kids can buy while at home or anywhere else."
+  description: "Define whether your kids can buy at home only, or at other places as well."
   logo: "bigicon-thumbs-up"
   
 thirteen:

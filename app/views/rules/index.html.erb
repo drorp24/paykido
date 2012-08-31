@@ -12,7 +12,7 @@
 			<h1 class="rule_heading">How much can they spend</h1>
 		</div>
 		
-		<% for rule in @rules.money.sort_by {|rule| rule.property} %>
+		<% for rule in @rules.monetary.sort_by {|rule| rule.property} %>
 			<%= render 'rule', :rule => rule %> 
 		<% end %>
 		
@@ -54,3 +54,12 @@
 </section>
 
 <%= render 'notifications' %>
+<script type="text/javascript">
+
+$('document').ready(function() {
+
+		$('[rel="popover"]').popover({placement: "left"});
+
+})
+
+</script>

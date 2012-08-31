@@ -3,12 +3,21 @@ class Rule < ActiveRecord::Base
   
   belongs_to  :consumer
 
-  scope :money,     where("category = ?", "how much")
-  scope :thresholds,where("category = ?", "thresholds")
-  scope :what,      where("category = ?", "what")
-  scope :time,      where("category = ?", "when")
-  scope :location,  where("category = ?", "where")
+  ####  Change if needed      ####
+  scope :monetary,    where("category = ?", "how much")
+  scope :thresholds,  where("category = ?", "thresholds")
+  scope :what,        where("category = ?", "what")
+  scope :time,        where("category = ?", "when")
+  scope :location,    where("category = ?", "where")
   
+  def monetary?
+    self.category == "how much"
+  end 
+  
+  def what?
+    self.category == "what" 
+  end
+  ####  Change if needed      ####  
 
   def schedule=(new_schedule)
     if new_schedule.nil?
@@ -37,28 +46,42 @@ class Rule < ActiveRecord::Base
     self.where(params).exists?
   end
 
-  def icon 
+  def info
+  
+    return @i if @calculated_already        # @i may be nil and this doesnt mean we have to calculated again if we have
+    @calculated_already = true
+
     if self.what?
-      (i = Info.where("key = ? and value = ?", "rule", self.status).first) ? i.logo : nil
+      @i = Info.where("key = ? and value = ?", "rule", self.status).first
     else
-      (i = Info.where("key = ? and value = ?", "rule", self.property).first) ? i.logo : nil  
-    end
+      @i = Info.where("key = ? and value = ?", "rule", self.property).first  
+    end    
+    
+  end
+
+  def icon 
+    (i = self.info) ? i.logo : nil
   end
 
   def title 
-    if self.what?
-      (i = Info.where("key = ? and value = ?", "rule", self.status).first) ? i.title : nil
-    else
-      (i = Info.where("key = ? and value = ?", "rule", self.property).first) ? i.title : nil  
-    end
+    (i = self.info) ? i.title : nil
   end
 
-  def money?
-    self.category == "how much"
-  end 
+  def description 
+    (i = self.info) ? i.description : nil
+  end
+
+  def value_info
   
-  def what?
-    self.category == "what" 
+    return @vi if @vi_calculated_already        # @i may be nil and this doesnt mean we have to calculated again if we have
+    @vi_calculated_already = true
+
+    @vi = Info.where("key = ? and value = ?", self.property, self.value).first
+    
   end
   
+  def logo
+    ((vi = self.value_info) && vi.logo) ? vi.logo : nil
+  end
+
 end
