@@ -12,9 +12,17 @@ body {
 
 .rule_line {
     line-height: 67px; 
-    padding-left: 16px;   
+    padding-left: 16px;
+
 }
 
+.rule_line .form-inputs, .controls, .control-group {
+    display: inline;
+}
+
+.rule_line form {
+    display: inline;
+}
 .rule_line .icon {
     
 }
@@ -371,11 +379,11 @@ p.feature .icon32 {
 label:first-child {
     margin-top: 10px;
 }
-*/
+
 label, input {
     display: block;
 }
-
+*/
 #new_registration input, #new_token input {
     margin-bottom: 10px;
     margin-top: 2px;

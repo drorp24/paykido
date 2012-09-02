@@ -17,6 +17,10 @@ class Rule < ActiveRecord::Base
   def what?
     self.category == "what" 
   end
+ 
+  def allowance?
+    self.property == "_allowance"
+  end
 
   def self.allowance
     {:property => '_allowance', :category => "how much"}
@@ -87,6 +91,29 @@ class Rule < ActiveRecord::Base
   def schedule
     IceCube::Schedule.from_yaml(read_attribute(:schedule)) unless read_attribute(:schedule).nil?
   end
+
+
+  def occurrence
+    
+  end
+  
+  def occurrence=
+    
+  end
+  
+  def period 
+    
+  end
+  
+  def period=
+    
+  end
+
+
+
+
+
+
 
   def self.set!(params) 
 
