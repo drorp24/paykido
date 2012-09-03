@@ -64,7 +64,7 @@ $(document).ready(function () {
 	<% if params[:status] %>
 		<% if params[:status] == 'error' %>
 			$('#notification_title').html("An error has occured!")
-			$('#notification_text').html("<%= "Password #{flash[:error]}" if flash[:error] %>")
+			$('#notification_text').html("<%= "#{flash[:error]}" if flash[:error] %>")
 		<% elsif params[:status] == 'registering' %>
 			$('#notification_title').html("Welcome to Paykido!")
 			$('#notification_text').html("You can start using it to buy as soon as your parent confirms you via email.")

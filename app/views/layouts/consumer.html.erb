@@ -3,14 +3,18 @@
 
   <title>Paykido</title>
 	<%= stylesheet_link_tag "paykido-api.css", :media => "all" %>
- 	<%= javascript_include_tag "jquery-1.4.2.min", "jquery.showLoading" %>
-    <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+ 	<%= javascript_include_tag "jquery-1.4.2.min" %>
  
 </head>	
 <body id="main">
 	
 <div id="fb-root"></div>
-<script>
+		
+	<%= yield :layout %>
+
+</body>
+</html>
+<script type="text/javascript">
 $(document).ready(function (){ 
 
   window.fbAsyncInit = function() {
@@ -23,6 +27,119 @@ $(document).ready(function (){
 
     // Additional initialization code here
 	FB.getLoginStatus(function(response) {
+	  if (response.status === 'connected') {
+	    // the user is logged in and has authenticated your
+	    // app, and response.authResponse supplies
+	    // the user's ID, a valid access token, a signed
+	    // request, and the time the access token 
+	    // and signed request each expire
+	    userid = response.authResponse.userID;
+	    accessToken = response.authResponse.accessToken;
+	    // find a way to add these as 2 parameters to the buy (put them in a hidden form field and serialize for instance)
+	    connected(userid, accessToken);
+	  } else if (response.status === 'not_authorized') {
+	    // the user is logged in to Facebook, 
+	    // but has not authenticated your app
+	    not_authorized();
+	  } else {
+	    // the user isn't logged in to Facebook.
+	    unknown();
+	  }
+	 });
+
+	FB.Event.subscribe('auth.login', function(response) {
+
+	   login();
+	});
+	FB.Event.subscribe('auth.logout', function(response) {
+	   logout();
+	});
+	FB.Event.subscribe('auth.authResponseChange', function(response) {
+	  if (response.status === 'connected') {
+	    userid = response.authResponse.userID;
+	    accessToken = response.authResponse.accessToken;
+	    // find a way to add these as 2 parameters to the buy (put them in a hidden form field and serialize for instance)
+	    connected(userid, accessToken);
+	  } else if (response.status === 'not_authorized') {
+	    not_authorized();
+	  } else {
+	    unknown();
+	  }
+	});
+
+	function login(){
+	   FB.api('/me', function(response) {
+	   });
+	}
+
+	function logout(){
+	}
+
+	function connected(userid, accessToken){
+
+		$('#login_button').hide();
+	   	$('#registration').hide();
+	   	FB.XFBML.parse(); 
+  		$('#iop1').html('<%= "You are using Paykido to buy" %>');
+  		$('#iop2').html('<%= "#{params[:product]} (#{number_to_currency params[:amount]})" %>');
+		$('#buy_button').removeAttr("disabled");
+		$('#invite').show();
+	   	FB.api('/me', {fields: "id,first_name,picture"}, function(response) {    // works only if included within AsyncInit
+	      $('#salutation').html('Hi '+response.first_name);
+	      $('#profile_picture').attr("src", response.picture);
+	      $('#profile_picture').show();
+		  var action = $('#buy_form').attr('action') +
+		  				'&facebook_id=' + userid + 
+		  				'&name=' + response.first_name +
+		  				'&pic=' + response.picture;
+		  $('#buy_form').attr('action', action);
+	   });
+	   $('#paykido.modal').css("margin", "-220px 0 0 -171px");
+	}
+	function not_authorized(){
+	   	$('#registration').show();
+		$('.modal-header h3').html('Join Paykido')
+		$('.modal-body').empty();
+	   	$('.modal-footer').remove();
+	   	$('.modal').css("top", "25%")
+	   	$('.modal').css("height", "558px")
+	   	$('.modal').css("width", "360px")
+	   	FB.XFBML.parse();
+		$('#buy_button').attr("disabled", "disabled");
+	   $('#paykido.modal').css("margin", "-115px 0 0 -171px");
+	}
+	function unknown(userid, accessToken){
+
+		$('#login_button').show();
+		$('#registration').hide();
+		$('#invite').hide();
+ 	   	FB.XFBML.parse(); 
+     	$('#salutation').html('Hello!');
+      	$('#profile_picture').hide();
+      	$('#iop1').html('Click Log In to start using Paykido');
+      	$('#buy_button').attr("disabled", "disabled");
+	   $('#paykido.modal').css("margin", "-220px 0 0 -171px");
+
+	}
+
+  };	// end of fbAsyncInit
+	
+
+  // Load the SDK Asynchronously
+  (function(d){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document));
+
+
+
+
+
+	FB.getLoginStatus(function(response) {
+
 	  if (response.status === 'connected') {
 	    // the user is logged in and has authenticated your
 	    // app, and response.authResponse supplies
@@ -75,65 +192,73 @@ $(document).ready(function (){
 		$('#login_button').hide();
 	   	$('#registration').hide();
 	   	FB.XFBML.parse(); 
-  		$('#first_line').html('<%= "you selected #{params[:product]} for #{params[:amount]} #{params[:currency]}" %>');
+		$('#iop1').html('<%= "You are using Paykido to buy" %>');
+		$('#iop2').html('<%= "#{params[:product]} (#{number_to_currency params[:amount]})" %>');
 		$('#buy_button').removeAttr("disabled");
-	   	FB.api('/me', {fields: "id,first_name,picture"}, function(response) {
-	      $('#name').html('Welcome, '+response.first_name+"!");
-	      $('#profile_picture').attr("src", response.picture);
-	      $('#profile_picture').show();
-		  var action = $('#buy_form').attr('action') +
-		  				'&facebook_id=' + userid + 
-		  				'&name=' + response.first_name +
-		  				'&pic=' + response.picture;
-		  $('#buy_form').attr('action', action);
-	   });
+		$('#invite').show();
+	    $('#salutation').html('Hi ');
+	  	$('#profile_picture').attr("src", "https://graph.facebook.com/" + userid+ "/picture");
+	    $('#profile_picture').show();
+	    var action = $('#buy_form').attr('action') +
+	  				'&facebook_id=' + userid
+	    $('#buy_form').attr('action', action);
+	   $('#paykido.modal').css("margin", "-220px 0 0 -171px");
+
 	}
 	function not_authorized(){
-		$('#login_button').hide();
 	   	$('#registration').show();
+		$('.modal-header h3').html('Join Paykido')
+		$('.modal-body').empty();
+	   	$('.modal-footer').remove();
+	   	$('.modal').css("top", "25%")
+	   	$('.modal').css("height", "558px")
+	   	$('.modal').css("width", "360px")
 	   	FB.XFBML.parse();
 		$('#buy_button').attr("disabled", "disabled");
+	   $('#paykido.modal').css("margin", "-115px 0 0 -171px");
+
 	}
 	function unknown(userid, accessToken){
 
 		$('#login_button').show();
 		$('#registration').hide();
+		$('#invite').hide();
  	   	FB.XFBML.parse(); 
-     	$('#name').html('Hello!');
+     	$('#salutation').html('Hello!');
       	$('#profile_picture').hide();
-      	$('#first_line').html('Login to start using Paykido!');
+      	$('#iop1').html('Click Log In to start using Paykido');
       	$('#buy_button').attr("disabled", "disabled");
+	   $('#paykido.modal').css("margin", "-220px 0 0 -171px");
 
 	}
 
-  };
+//	INVITE
 
-  // Load the SDK Asynchronously
-  (function(d){
-     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement('script'); js.id = id; js.async = true;
-     js.src = "//connect.facebook.net/en_US/all.js";
-     ref.parentNode.insertBefore(js, ref);
-   }(document));
+/*
+	$('#invite').click(function() {
+		sendRequestViaMultiFriendSelector();
 
-})   
-</script>	
+		$('#paykido.modal.hide.in div#fb-root.fb_reset .fb_dialog.fb_dialog_advanced').css("top", "0");
+		$('.modal #fb-root .fb_dialog.fb_dialog_advanced').css("left", "0");
 
-	<% result = request.env['HTTP_USER_AGENT'] %>
-	<% version = result.split('MSIE')[1].split(' ').first if result =~ /MSIE/%>
-	<% if result =~ /MSIE/ and version.to_i < 9 %>
-	   	<div id="ajax_message">
-			<p id="first_line" class="text">Please use IE9 or any different browser</p>
-		</div>
-	
-	<% else %>
-	
-		<% if flash[:notice] -%><div id="notice"><%= flash[:notice] %></div<% end -%>
-		
-		<%= yield :layout %>
-	
-	<% end %>
-</body>
-</html>
+	});
+*/
+	function sendRequestViaMultiFriendSelector() {
+        FB.ui({method: 'apprequests',
+          message: 'Hi! Paykido is a super-cool service that lets kids buy with a click!',
+          data: 'dror',
+          title:'Spread the word and earn credits!'
+        }, 
+        function(response)  {
+          if (response.request)  {
+          	invites = response.to.length
+        	alert('Thanks! ' + invites + ' more points for you!')
+          }
+      	}
+		);
+  	}
 
+//  INVITE
+
+})
+</script>
