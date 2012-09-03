@@ -56,8 +56,6 @@ body .modal-body {
 
 #invite {
     margin-top: 20px;
-    position: absolute;
-    top: 230px;
 }
 
 #invite .text {
@@ -78,17 +76,11 @@ body .modal-body {
 }
 
 #pic {
-    position: absolute;
-    right: -256px;
+    float: right;
 }
 
-#login_button {
-    position: absolute;
-    right: -256px;
-}
 #salutation_and_pic_or_login {
-    position: absolute;
-    top: 85px;
+    margin-top: 40px;
 }
 
 #instruction_or_product {
@@ -97,19 +89,13 @@ body .modal-body {
 }
 
 #iop1 {
-    line-height: 6px;
-    position: absolute;
-    top: 170px;
-    left: 73px;   
+    line-height: 6px;   
 }
 
 #iop2 {
     font-size: 24px;
     font-weight: bold;
     line-height: 50px;
-    position: absolute;
-    top: 190px;
-    left: 64px;
 }
 #invite.line .text {
     text-align: left;
@@ -124,21 +110,16 @@ body .modal-body {
 #facepile {
     margin-left: 5px;
     height: 100px;
-    position: absolute;
-    top: 350px; 
     
 }
 
 #loadingZone {
-    position: absolute;
-    top: 312px;
-    left: 100px;
     
 }
 
 #registration {
-    position: absolute;
-    top: 50px;
+    position: relative;
+    top: -21px;
     left: 33px;
     width: 318px;
 
@@ -4339,7 +4320,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 /* Dror */
-#paykido.modal {
+#paykido.payment.modal {
       
   width: 342px;
   margin: -220px 0 0 -171px;
