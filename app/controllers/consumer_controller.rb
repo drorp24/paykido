@@ -1,7 +1,7 @@
 class ConsumerController < ApplicationController
   
   def login
-    render :layout => false     
+#    render :layout => false     
   end
  
   #############################################
@@ -172,8 +172,8 @@ class ConsumerController < ApplicationController
     end  
 
     @consumer = Consumer.find_or_initialize_by_facebook_id(params[:facebook_id])
-    @consumer.name = params[:name]
-    @consumer.pic =  params[:pic]
+    @consumer.name = params[:name] if params[:name]
+    @consumer.pic =  params[:pic] if params[:pic]
     @consumer.save!
 
     Rails.logger.debug("Updated consumer name and pic. Its id is: " + @consumer.id.to_s)      
