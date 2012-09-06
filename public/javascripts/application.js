@@ -60,7 +60,7 @@ $(document).ready(function (){
 
     // PJAX
     
-    $.pjax.defaults.timeout = 5000
+//    $.pjax.defaults.timeout = 5000
 
     $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]')
         
