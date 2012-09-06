@@ -6,6 +6,55 @@ body {
     line-height:21px;
 }
 
+.inline-submit {
+    float: right;
+    margin-right: 40px;
+    margin-top: 21px;    
+}
+.rule_line .form-actions {
+    
+}
+.rule_form {
+    
+}
+
+.rule_value_wrapper {
+    
+}
+
+.rule_value {
+    width: 26px;
+}
+
+.numeric.rule_value {
+    text-align: right;
+}
+
+#rule_period.rule_period {
+    width: 90px;
+    margin-left: -56px;    
+}
+
+.offset25 {
+    margin-left: 285px;
+}
+
+#rule_occurrence.rule_occurrence {
+    width: 105px;
+}
+
+label.select.optional.control-label[for=rule_occurrence] {
+    margin-left: 4px;    
+}
+
+.accordion-data .form-inputs {
+    margin: 0 10px;
+}
+
+label.select.optional.control-label {
+    margin: 0 10px;
+}
+
 .accordion-group {
     
 }
@@ -845,7 +894,7 @@ tr:hover {
  
 }
 #approval_buttons .small.button {
-    padding: 0px 7px; 
+    padding: 0px 6px; 
 }
 
 #approval_buttons {

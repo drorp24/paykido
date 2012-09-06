@@ -3,12 +3,16 @@ class Rule < ActiveRecord::Base
   
   belongs_to  :consumer
 
+  WEEKDAY_NAMES = %w<Sunday Monday Tuesday Wednesday Thursday Friday Saturday>
+
   ####  Change if needed      ####
   scope :monetary,    where("category = ?", "how much")
   scope :thresholds,  where("category = ?", "thresholds")
   scope :what,        where("category = ?", "what")
   scope :time,        where("category = ?", "when")
   scope :location,    where("category = ?", "where")
+  
+  scope :allowance,   where("property = ?", "_allowance")
   
   def monetary?
     self.category == "how much"
@@ -78,6 +82,18 @@ class Rule < ActiveRecord::Base
     consumer.rules.create!(self.under)
   end
 
+  def self.periods
+    ['Weekly', 'Monthly']
+  end
+
+  def self.weekly_recurrence
+    ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+  end
+  
+  def self.monthly_recurrence
+    ['first day', 'last day']
+  end
+
   ####  Change if needed      ####  
 
   def schedule=(new_schedule)
@@ -92,17 +108,21 @@ class Rule < ActiveRecord::Base
     IceCube::Schedule.from_yaml(read_attribute(:schedule)) unless read_attribute(:schedule).nil?
   end
 
+  def occurrence_day
+    self.schedule.to_hash[:rrules][0][:validations][:day][0]
+  end
 
   def occurrence
-    
+    self.period == "Weekly" ? WEEKDAY_NAMES[self.occurrence_day]  : self.occurrence_day 
   end
   
   def occurrence=
-    
+    self.schedule = IceCube::Schedule.new(Time.now) unless @initiazlied
+    @initialize = true  
   end
   
   def period 
-    
+    self.schedule.to_hash[:rrules][0][:rule_type] == "IceCube::WeeklyRule" ? "Weekly" : "Monthly"
   end
   
   def period=
