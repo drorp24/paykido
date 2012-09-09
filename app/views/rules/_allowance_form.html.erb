@@ -16,21 +16,24 @@
 <% end %>
 <script>
 $(document).ready(function () {
-		if ($('#rule_period').val() == 'Weekly') {
-			$('.weekly_allowance').show();
-			$('.monthly_allowance').hide();
-		} else {
-			$('.monthly_allowance').show();
-			$('.weekly_allowance').hide();
-		}
 
-	$('#rule_period').change (function () {
-		if ($('#rule_period').val() == 'Weekly') {
-			$('.weekly_allowance').show();
-			$('.monthly_allowance').hide();
+	$('select#rule_period').each (function () {
+		if ($(this).val() == 'Weekly') {
+			$(this).parents('.rule_form').find('.weekly_allowance').show();
+			$(this).parents('.rule_form').find('.monthly_allowance').hide();
 		} else {
-			$('.monthly_allowance').show();
-			$('.weekly_allowance').hide();
+			$(this).parents('.rule_form').find('.monthly_allowance').show();
+			$(this).parents('.rule_form').find('.weekly_allowance').hide();
+		}
+	});
+
+	$('select#rule_period').change (function () {
+		if ($(this).val() == 'Weekly') {
+			$(this).parents('.rule_form').find('.weekly_allowance').show();
+			$(this).parents('.rule_form').find('.monthly_allowance').hide();
+		} else {
+			$(this).parents('.rule_form').find('.monthly_allowance').show();
+			$(this).parents('.rule_form').find('.weekly_allowance').hide();
 		}
 	});
 })

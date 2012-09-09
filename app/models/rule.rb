@@ -4,6 +4,7 @@ class Rule < ActiveRecord::Base
   belongs_to  :consumer
 
   WEEKDAY_NAMES = %w<Sunday Monday Tuesday Wednesday Thursday Friday Saturday>
+  MONTHLY_RECURRENCES = ['First day', 'Last day']
 
   ####  Change if needed      ####
   scope :monetary,    where("category = ?", "how much")
@@ -109,11 +110,15 @@ class Rule < ActiveRecord::Base
   end
 
   def occurrence_day
-    self.schedule.to_hash[:rrules][0][:validations][:day][0]
+    self.schedule.to_hash[:rrules][0][:validations][:day][0] if self.schedule
   end
 
   def occurrence
-    self.period == "Weekly" ? WEEKDAY_NAMES[self.occurrence_day]  : self.occurrence_day 
+    if self.schedule
+      self.period == "Weekly" ? WEEKDAY_NAMES[self.occurrence_day]  : self.occurrence_day
+    else
+      WEEKDAY_NAMES
+    end 
   end
   
   def occurrence=
@@ -121,8 +126,12 @@ class Rule < ActiveRecord::Base
     @initialize = true  
   end
   
-  def period 
-    self.schedule.to_hash[:rrules][0][:rule_type] == "IceCube::WeeklyRule" ? "Weekly" : "Monthly"
+  def period
+    if self.schedule 
+      self.schedule.to_hash[:rrules][0][:rule_type] == "IceCube::WeeklyRule" ? "Weekly" : "Monthly"
+    else
+      MONTHLY_RECURRENCES
+    end 
   end
   
   def period=
