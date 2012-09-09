@@ -98,6 +98,10 @@ class Rule < ActiveRecord::Base
 
   ####  Change if needed      ####  
 
+
+  ################ ICE_CUBE SCHEDULING ########################################3
+  ################ Currently, not tolerant to input errors#####################3
+
   def schedule=(new_schedule)
     if new_schedule.nil?
       write_attribute(:schedule, nil)
@@ -110,36 +114,69 @@ class Rule < ActiveRecord::Base
     IceCube::Schedule.from_yaml(read_attribute(:schedule)) unless read_attribute(:schedule).nil?
   end
 
+  def schedule?
+    self.schedule.recurrence_rules.any? || self.schedule.recurrence_times.any?
+  end
+
+  def period
+
+    return @period if @period 
+
+    if self.schedule?
+      @period = self.schedule.to_hash[:rrules][0][:rule_type] == "IceCube::WeeklyRule" ? 'Weekly' : 'Monthly'
+    else
+      @period = I18n.t "time.Weekly" 
+    end 
+
+  end
+  
+  def period=(prd)
+    @period = prd
+  end
+
   def occurrence_day
-    self.schedule.to_hash[:rrules][0][:validations][:day][0] if self.schedule
+ 
+    return @occurrence_day if @occurrence_day
+    return nil unless self.schedule?
+ 
+    if self.period == 'Weekly'
+      @occurrence_day = self.schedule.to_hash[:rrules][0][:validations][:day][0]
+    else 
+      @occurrence_day = self.schedule.to_hash[:rrules][0][:validations][:day_of_month][0]
+    end
+ 
   end
 
   def occurrence
-    if self.schedule
-      self.period == "Weekly" ? WEEKDAY_NAMES[self.occurrence_day]  : self.occurrence_day 
+
+    return @occurrence if @occurrence 
+    
+    if self.schedule?
+      @occurrence = self.period == "Weekly" ? WEEKDAY_NAMES[self.occurrence_day]  : self.occurrence_day 
     else
-      self.period == "Weekly" ? WEEKDAY_NAMES.last  : MONTHLY_RECURRENCES.last
+      @occurrence = self.period == "Weekly" ? WEEKDAY_NAMES.last  : MONTHLY_RECURRENCES.last
     end
   end
   
-  def occurrence=
-    self.schedule = IceCube::Schedule.new(Time.now) unless @initiazlied
-    @initialize = true  
-  end
-  
-  def period
-    if self.schedule
-      self.schedule.to_hash[:rrules][0][:rule_type] == "IceCube::WeeklyRule" ? 'Weekly' : 'Monthly'
+  def occurrence=(ocr)
+
+    return nil unless @period
+    schedule = IceCube::Schedule.new(Time.now) 
+
+    # infer period from ocr in case "occurrence=" is evaluated before "period="
+    if (@period == 'Weekly' || WEEKDAY_NAMES.include?(ocr)) && !(MONTHLY_RECURRENCES.include?(ocr))      
+      occurrence = WEEKDAY_NAMES.index(ocr)
+      schedule.add_recurrence_rule IceCube::Rule.weekly.day(occurrence)
     else
-      I18n.t 'Weekly' 
-    end 
+      occurrence = MONTHLY_RECURRENCES.index(ocr) == 0 ? 1 : -1
+      schedule.add_recurrence_rule IceCube::Rule.monthly.day_of_month(occurrence)
+    end
+    
+    self.schedule = schedule
+    @occurrence = ocr
   end
   
-  def period=
-    
-  end
-
-
+  ################ ICE_CUBE SCHEDULING ########################################3
 
 
 
