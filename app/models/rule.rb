@@ -115,10 +115,10 @@ class Rule < ActiveRecord::Base
 
   def occurrence
     if self.schedule
-      self.period == "Weekly" ? WEEKDAY_NAMES[self.occurrence_day]  : self.occurrence_day
+      self.period == "Weekly" ? WEEKDAY_NAMES[self.occurrence_day]  : self.occurrence_day 
     else
-      WEEKDAY_NAMES
-    end 
+      self.period == "Weekly" ? WEEKDAY_NAMES.last  : MONTHLY_RECURRENCES.last
+    end
   end
   
   def occurrence=
@@ -127,10 +127,10 @@ class Rule < ActiveRecord::Base
   end
   
   def period
-    if self.schedule 
-      self.schedule.to_hash[:rrules][0][:rule_type] == "IceCube::WeeklyRule" ? "Weekly" : "Monthly"
+    if self.schedule
+      self.schedule.to_hash[:rrules][0][:rule_type] == "IceCube::WeeklyRule" ? 'Weekly' : 'Monthly'
     else
-      MONTHLY_RECURRENCES
+      'Weekly' 
     end 
   end
   
