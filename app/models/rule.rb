@@ -3,8 +3,21 @@ class Rule < ActiveRecord::Base
   
   belongs_to  :consumer
 
-  WEEKDAY_NAMES = %w<Sunday Monday Tuesday Wednesday Thursday Friday Saturday>
-  MONTHLY_RECURRENCES = ['First day', 'Last day']
+  WEEKDAY_NAMES =       I18n.t "time.day_names_array"
+  MONTHLY_RECURRENCES = I18n.t "time.monthly_recurrences"
+  PERIODS =             I18n.t "time.periods"
+
+  def self.weekly_recurrence
+    WEEKDAY_NAMES
+  end
+  
+  def self.monthly_recurrence
+    MONTHLY_RECURRENCES
+  end
+
+  def self.periods
+    PERIODS
+  end
 
   ####  Change if needed      ####
   scope :monetary,    where("category = ?", "how much")
@@ -83,18 +96,6 @@ class Rule < ActiveRecord::Base
     consumer.rules.create!(self.under)
   end
 
-  def self.periods
-    ['Weekly', 'Monthly']
-  end
-
-  def self.weekly_recurrence
-    ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-  end
-  
-  def self.monthly_recurrence
-    ['first day', 'last day']
-  end
-
   ####  Change if needed      ####  
 
   def schedule=(new_schedule)
@@ -130,7 +131,7 @@ class Rule < ActiveRecord::Base
     if self.schedule
       self.schedule.to_hash[:rrules][0][:rule_type] == "IceCube::WeeklyRule" ? 'Weekly' : 'Monthly'
     else
-      'Weekly' 
+      I18n.t 'Weekly' 
     end 
   end
   

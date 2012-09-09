@@ -113,7 +113,10 @@ en:
       long: "%d %B, %Y"
       weekday: "%a, %d %b"
       slash: "%m/%d/%Y"
-
+    day_names_array: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    monthly_recurrences: ['First day', 'Last day']
+    periods: ['Weekly', 'Monthly']
+    Weekly: Weekly
     day_names:
       - Sunday
       - Monday
