@@ -29,9 +29,9 @@
         <div id="purchase_header_right" class="grid_5 content-header relative">
             <p class="retailer_info">
                 <span class="star_rating"></span>
-                <span class="stooltip">
+                <span>
                     <a href="#" class="small button">
-                        <span class="like stooltip" title="74% of our users recommended this merchant">74%</span>
+                        <span class="like" title="74% of our users recommended this merchant">74%</span>
                     </a>
                 </span>            
             </p>
@@ -79,7 +79,7 @@
                     <td class="purchase_title"><%= t property %>:</td>
                     <td class="purchase_logo">
                         <% if info = Info.find_by_key_and_value(property, value) and info.logo %>
-                            <%= image_tag info.logo, {:rel => "popover", :class => "stooltip", :title => info.title, :data => {:content => info.description}} %>
+                            <%= image_tag info.logo, {:rel => "popover", :title => info.title, :data => {:content => info.description}} %>
                         <% else %>
                             <%= value %>
                         <% end %>
@@ -147,8 +147,6 @@ $('document').ready(function() {
             return false;
           });
         });
-
-   $('.stooltip').tipsy({gravity: 's'});
 
 
 /// populate the values in the set_rule modal and the href to follow if YES is clicked	    
