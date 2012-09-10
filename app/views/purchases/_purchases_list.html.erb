@@ -42,17 +42,17 @@
             <td><%= purchase.authorized %></td>
             <td class="status">
             <% if purchase.requires_approval? %>
-                <span class="icon32 question large stooltip" title="Requires your manual approval"></span>
+                <span class="icon32 question large" title="Requires your manual approval"></span>
             <% elsif purchase.approved? %> 
-                <span class="icon32 tick2 large stooltip" title="Manually approved"></span>
+                <span class="icon32 tick2 large" title="Manually approved"></span>
             <% elsif purchase.declined? %> 
-                <span class="icon32 cross large stooltip" title="Manually declined"></span>
+                <span class="icon32 cross large" title="Manually declined"></span>
             <% elsif purchase.authorized? %> 
-                <span class="icon32 plus2 large stooltip" title="<%= "Authorized according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></span>
+                <span class="icon32 plus2 large" title="<%= "Authorized according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></span>
             <% elsif purchase.unauthorized? %> 
-                <span class="icon32 minus large stooltip" title="<%= "Unauthorized according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></span>
+                <span class="icon32 minus large" title="<%= "Unauthorized according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></span>
             <% else %> 
-                <span class="icon32 alert large stooltip" title="Well this was not supposed to happen"></span>
+                <span class="icon32 alert large" title="Well this was not supposed to happen"></span>
             <% end %>
             </td>
             <td class="purchase_details">

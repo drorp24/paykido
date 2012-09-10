@@ -8,6 +8,9 @@ $(document).ready(function (){
          'beforeSend': function (xhr) {xhr.setRequestHeader("Accept", "text/javascript")}  
     });    
 */    
+
+    $('[title]').not('[rel="popover"]').tooltip();
+
     jQuery.fn.submitWithAjax = function () {  
         this.submit(function () {  
             $.post($(this).attr('action'), $(this).serialize(), null, "script");  
