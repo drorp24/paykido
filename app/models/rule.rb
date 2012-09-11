@@ -115,7 +115,7 @@ class Rule < ActiveRecord::Base
   end
 
   def schedule?
-    self.schedule.recurrence_rules.any? || self.schedule.recurrence_times.any?
+    self.schedule.recurrence_rules.any? || self.schedule.recurrence_times.any? if self.schedule
   end
 
   def period
