@@ -7,7 +7,7 @@ class RulesController < ApplicationController
   # GET /rules
   # GET /rules.json
   def index
-    @rules = current_payer.rules
+    @rules = (@consumer) ? @consumer.rules : current_payer.rules
   end
 
   # GET /rules/1

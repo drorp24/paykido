@@ -32,16 +32,22 @@
 	      	<% end %>
 	    </li>
 
-    	<li class="menu" id="dashboard_menu" >
-      		<%= link_to purchases_path, 'data-skip-pjax' => true do %>
+    	<li class="menu" id="allowances_menu" >
+      		<%= link_to "#", 'data-skip-pjax' => true do %>
 		        <span class="icon32 dashboard"></span>
 		        Dashboard
 	      	<% end %>
 	    </li>
 	    <li class="menu" id="rules_menu" >
-     		<%= link_to "#", 'data-skip-pjax' => true do %>
+     		<%= link_to rules_path, 'data-skip-pjax' => true do %>
 	        	<span class="icon32 tools"></span>
 	        	Rules
+	      	<% end %>
+	    </li>
+    	<li class="menu" id="dashboard_menu" >
+      		<%= link_to purchases_path, 'data-skip-pjax' => true do %>
+		        <span class="icon32 cart"></span>
+		        Purchases
 	      	<% end %>
 	    </li>
 	    <li class="menu" id="setting_menu" >

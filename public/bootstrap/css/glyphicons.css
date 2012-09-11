@@ -46,6 +46,23 @@ li.active [class^="sprite-"],
 .bigicon-twitter { background-position: -85px -1859px }
 .bigicon-tick-black { background-position: -145px -912px; width: 26px; height: 26px; }
 .bigicon-cross-black { background-position: -97px -912px; width: 26px; height: 26px;}
+.bigicon-coins { background-position: -325px -131px; }
+.bigicon-birthday { background-position: -373px -1283px; }
+.bigicon-achievment { background-position: -421px -1331px; }
+.bigicon-moon { background-position: 11px -1091px; }
+.bigicon-location { background-position: -85px -1139px; }
+.bigicon-console { background-position: -37px -1523px; }
+.bigicon-thumbs-up { background-position: -133px -1619px; }
+.bigicon-thumbs-down { background-position: -181px -1619px; }
+.bigicon-bag{ background-position: 11px -1667px; }
+.bigicon-cleaning { background-position: -325px -275px; }
+.bigicon-hazard { background-position: -373px -323px; }
+.bigicon-user-plus { background-position: -277px 13px; }
+.bigicon-tick-in-a-circle { background-position: -373px -899px; }
+.bigicon-no-entry-in-a-circle { background-position: -421px -899px; }
+.bigicon-calendar { background-position: -229px -179px; }
+
+
 
 /*
 .bigicon-parents { background-position: 45% 9.75%}

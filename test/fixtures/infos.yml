@@ -1,15 +1,113 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
+  key: "rule"
+  value: "_allowance"
+  title: "Allowance"
+  description: "Define the allowance amount, period and recurrence rules. You can set as many as you want."
+  logo: "bigicon-coins"
+
+two:
+  key: "rule"
+  value: "_gift"
+  title: "Gift"
+  description: "Set as many gifts as you want. You can define future dates and assign each to a different donator. Paykido will see your kid gets the message and the extra allowance right on time."
+  logo: "bigicon-bag"
+
+three:
+  key: "rule"
+  value: "birthday"
+  title: "Birthday"
+  description: "MMake a gift your kid can safely use. Set all your kids' birthdays already, and make these rules recurring if you wish."
+  logo: "bigicon-birthday"
+
+four:
+  key: "rule"
+  value: "achievment"
+  title: "Achievment"
+  description: "Show your appreciation and let your kid buy safely. Set as many as you need: in the past, present of future. Paykido will act accordingly."
+  logo: "bigicon-achievment"
+
+five:
+  key: "rule"
+  value: "chores"
+  title: "Chores"
+  description: "Grant a one-time bonus for chores - or make it a recurring fee if you like."
+  logo: "bigicon-cleaning"
+
+six:
+  key: "rule"
+  value: "request"
+  title: "Request"
+  description: "Decide if you want to respond to your kid's one-time requests and wish lists."
+  logo: "bigicon-user-plus"
+  
+seven:
+  key: "rule"
+  value: "under"
+  title: "Low Threshold"
+  description: "Set this rule if you want Paykido to automatically approve purchases whose amount is lower than the threshold you define"
+  logo: "bigicon-tick-in-a-circle"
+  
+eight:
+  key: "rule"
+  value: "over"
+  title: "High Threshold"
+  description: "Set this rule if you want Paykido to automatically decline purchases whose amount is higher than the threshold you define"
+  logo: "bigicon-no-entry-in-a-circle"
+
+nine:
+  key: "rule"
+  value: "whitelisted"
+  title: "Approve by Property"
+  description: "Have Paykido automatically approve purchases with the properties you define"
+  logo: "bigicon-thumbs-up"
+    
+ten:
+  key: "rule"
+  value: "blacklisted"
+  title: "Decline by Property"
+  description: "Have Paykido automatically decline purchases with the properties you define"
+  logo: "bigicon-thumbs-down"
+    
+eleven:
+  key: "rule"
+  value: "time"
+  title: "Time Rules"
+  description: "Define when your kids can buy and when they cannot."
+  logo: "bigicon-moon"
+    
+twelve:
+  key: "rule"
+  value: "location"
+  title: "Location Rules"
+  description: "Define whether your kids can buy at home only, or at other places as well."
+  logo: "bigicon-thumbs-up"
+  
+thirteen:
+  key: "retailer"
+  value: "Zynga"
+  title: "Zynga"
+  description: "As of April 2012, Zynga's games have over 292 million monthly active users.[8] Five of Zynga's games, CityVille, Zynga Poker, FarmVille, CastleVille, and Hidden Chronicles, are the most widely used game applications on Facebook, with CityVille having over 40 million monthly active users.[9] Connecting the world through games is the company's mission."
+  logo: "zynga logo.png"
+
+fourteen:
+  key: "title"
+  value: "farmville"
+  title: "Farmville"
+  description: "FarmVille is a casual farming simulation social network game developed by Zynga in 2009. Gameplay involving various aspects of farm management such as plowing land, planting, growing and harvesting crops, harvesting trees and bushes, and raising livestock. The game is a freemium game, meaning there is no cost to play but players have the option of purchasing premium content. As of September 2011, FarmVille is the third most popular Facebook game, behind CityVille and The Sims Social."
+  logo: "farmville.png"
+
+fifteen:
   key: "pegi_rating"
   value: "3"
   title: "PEGI3"
   description: "The content of games given this rating is considered suitable for all age groups. Some violence in a comical context (typically Bugs Bunny or Tom & Jerry cartoon-like forms of violence) is acceptable. The child should not be able to associate the character on the screen with real life characters, they should be totally fantasy. The game should not contain any sounds or pictures that are likely to scare or frighten young children. No bad language should be heard. "
   logo: "PEGI3.png"
 
-two:
+sixteen:
   key: "esrb_rating"
   value: "E"
   title: "EVERYONE"
   description: "Titles rated E (Everyone) have content that may be suitable for ages 6 and older. Titles in this category may contain minimal cartoon, fantasy or mild violence and/or infrequent use of mild language."
-  logo: "E.png"
+  logo: "e.PNG"

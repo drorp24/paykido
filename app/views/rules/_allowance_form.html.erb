@@ -1,0 +1,42 @@
+<%= simple_form_for rule, :html => {:class => 'form-inline'} do |f| %>
+  <%= f.error_notification %>
+
+  	<div class="form-inputs rule_form">
+	    <div class="input-prepend input-append span2 offset25 rule_value_wrapper">
+		    <span class="add-on"><%= t "number.currency.format.unit" %></span>
+		    	<%= f.input :value, :label => false, :input_html => {:class => 'numeric rule_value'}, :autofocus => true %>
+		    <span class="add-on">.00</span>
+	    </div>
+	    <%= f.input :period, :label => false, :collection => Rule.periods, :include_blank => false, :input_html => {:class => 'rule_period span1'} %>
+	    <%= f.input :occurrence, :label => "on", :wrapper_html => {:class => "weekly_allowance"}, :input_html => {:class => 'rule_occurrence span1'}, :collection => Rule.weekly_recurrence, :selected => rule.occurrence, :include_blank => false %>
+	    <%= f.input :occurrence, :label => "on", :wrapper_html => {:class => "monthly_allowance"}, :input_html => {:class => 'rule_occurrence span1'}, :collection => Rule.monthly_recurrence, :selected => rule.occurrence, :include_blank => false  %>
+    	<%= f.button :submit, :class => "inline-submit"%>
+  	</div>
+
+<% end %>
+
+
+<script>
+$(document).ready(function () {
+
+	$('select#rule_period').each (function () {
+		replace_occurrence($(this))
+	});
+
+	$('select#rule_period').change (function () {
+		replace_occurrence($(this))
+	});
+
+	function replace_occurrence(period_selection) {
+		if ($(period_selection).val() == 'Weekly') {
+			$(period_selection).parents('.rule_form').find('.weekly_allowance').show();
+			$(period_selection).parents('.rule_form').find('.monthly_allowance').hide();
+		} else {
+			$(period_selection).parents('.rule_form').find('.monthly_allowance').show();
+			$(period_selection).parents('.rule_form').find('.weekly_allowance').hide();
+		}
+		
+	}	
+
+})
+</script>
