@@ -147,6 +147,35 @@ class Rule < ActiveRecord::Base
  
   end
 
+  def weekly_occurrence 
+    @weekly_occurrence = WEEKDAY_NAMES[self.occurrence_day] if self.schedule? and self.period == "Weekly"
+  end
+
+  def weekly_occurrence=(ocr)
+
+    return if ocr.blank?
+    occurrence = WEEKDAY_NAMES.index(ocr)
+    schedule = IceCube::Schedule.new(Time.now) 
+    schedule.add_recurrence_rule IceCube::Rule.weekly.day(occurrence)
+    self.schedule = schedule
+    
+  end
+    
+  def monthly_occurrence
+    @monthly_occurrence = MONTHLY_RECURRENCES[self.occurrence_day] if self.schedule? and self.period == "Monthly"
+  end
+
+  def monthly_occurrence=(ocr)
+
+    return if ocr.blank?
+    occurrence = MONTHLY_RECURRENCES.index(ocr) == 0 ? 1 : -1
+    schedule = IceCube::Schedule.new(Time.now) 
+    schedule.add_recurrence_rule IceCube::Rule.monthly.day_of_month(occurrence)
+    self.schedule = schedule
+    
+  end
+  
+=begin
   def occurrence
 
     return @occurrence if @occurrence 
@@ -154,28 +183,28 @@ class Rule < ActiveRecord::Base
     if self.schedule?
       @occurrence = self.period == "Weekly" ? WEEKDAY_NAMES[self.occurrence_day]  : self.occurrence_day 
     else
-      @occurrence = self.period == "Weekly" ? WEEKDAY_NAMES.last  : MONTHLY_RECURRENCES.last
+      @occurrence = ""
     end
   end
+
   
   def occurrence=(ocr)
 
     return nil unless @period
-    schedule = IceCube::Schedule.new(Time.now) 
 
     # infer period from ocr in case "occurrence=" is evaluated before "period="
     if (@period == 'Weekly' || WEEKDAY_NAMES.include?(ocr)) && !(MONTHLY_RECURRENCES.include?(ocr))      
-      occurrence = WEEKDAY_NAMES.index(ocr)
-      schedule.add_recurrence_rule IceCube::Rule.weekly.day(occurrence)
+      self.weekly_occurrence = ocr      
     else
-      occurrence = MONTHLY_RECURRENCES.index(ocr) == 0 ? 1 : -1
-      schedule.add_recurrence_rule IceCube::Rule.monthly.day_of_month(occurrence)
+      self.monthly_occurrence = ocr      
     end
     
-    self.schedule = schedule
     @occurrence = ocr
+
   end
+=end
   
+    
   ################ ICE_CUBE SCHEDULING ########################################3
 
 

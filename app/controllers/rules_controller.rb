@@ -51,6 +51,7 @@ class RulesController < ApplicationController
 
     respond_to do |format|
       if @rule.update_attributes(params[:rule])
+        puts "update attributes"
         format.html { redirect_to @rule, notice: 'Rule was successfully updated.' }
         format.json { head :ok }
       else
