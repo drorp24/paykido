@@ -75,7 +75,7 @@ body .modal-body {
 
 #login_button {
     position: absolute;
-    right: -256px;
+    left: 222px;
 }
 #salutation_and_pic_or_login {
     position: absolute;
