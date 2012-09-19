@@ -6,8 +6,15 @@ $(document).ready(function() {
     $("a[data-toggle=modal]").click(function (e) {
       target = $(this).attr('data-target')
       url = $(this).attr('href')
-      $(target).load(url);
-     })   
+
+    $.ajax({
+        url: url,
+        success: function(data) {
+            $(target).html(data);
+        }
+    });
+    })
+       
 
 /*
     $('body .modal').on('show', function() {
