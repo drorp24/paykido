@@ -1,3 +1,23 @@
+#iframe {
+    z-index: 1010;
+    overflow: hidden;
+    height: 530px;
+    width: 340px;
+    position: absolute;
+    left: 500px;
+    top: 500px;
+    border-radius: 10px;
+/*    visibility: hidden; */
+}
+
+out_of_order {
+    z-index: 100;
+    position: absolute;
+    left: 100px;
+    top: 77px;
+    width: 122px;
+    
+}
 /*
 body .modal {
     /* new custom width 

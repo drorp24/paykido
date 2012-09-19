@@ -1,7 +1,7 @@
 class ConsumerController < ApplicationController
   
   def login
-    headers['Access-Control-Allow-Origin'] = "*"    
+   
 #    render :layout => false 
   end
  
