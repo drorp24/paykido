@@ -19,7 +19,7 @@
 		<%= radio_button_tag("product", "3.00", false, :class=> "option", 	:id=>"e") %>		
 	</div>
 <% end %>
-<!--
+
 <a data-target="#paykido" data-toggle="modal" 
 	href="http://paykido-beta.herokuapp.com/consumer/login?
 	merchant=Zynga&
@@ -34,10 +34,10 @@
 	referrer=<%= request.path %>">
 	<img src="/images/paykido_button.png" id="paykido_button" alt="paykido"/>
 </a>
--->
+
 <div class="modal hide" id="paykido"></div>
 
-
+<!--
 <iframe id="iframe" src="http://paykido-beta.herokuapp.com/consumer/login?
 	merchant=Zynga&
 	app=farmville&
@@ -51,7 +51,7 @@
 	referrer=<%= request.path %>">
 	<img src="/images/paykido_button.png" id="paykido_button" alt="paykido"/>
 </iframe>	
-
+-->
 	
 <div id="spinner_area"><%= image_tag "ajax-loader.gif", :style => "display: none" %></div>
 <script type="text/javascript">
