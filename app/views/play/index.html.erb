@@ -21,7 +21,7 @@
 <% end %>
 
 <a data-target="#paykido" data-toggle="modal" 
-	href="https://www.paykido.com/consumer/login?
+	href="<%= request.protocol + Paykido::Application.config.hostname %>/consumer/login?
 	merchant=Zynga&
 	app=farmville&
 	product=Farm%20Cash&
@@ -38,7 +38,7 @@
 <div class="modal hide" id="paykido"></div>
 
 <!--
-<iframe id="iframe" src="<%= request.protocol + Paykido::Application.config.hostname %>/consumer/login?
+<iframe id="iframe" src="http://paykido-beta.herokuapp.com/consumer/login?
 	merchant=Zynga&
 	app=farmville&
 	product=Farm%20Cash&
@@ -58,28 +58,22 @@
 
 $(document).ready(function () {
 	
-	//iframe experiment: temporarily ovverride the modal triggering of the a tag
-	
-	$('#paykido_button').click(function() {
-		$('#iframe').show();
-
-	})
 
 	// Emulate product selection (here: product radio button) 
 	//	initial value
 		var value = $("input:checked[name=product]").val();
-	    var ref = $("a").attr("href");
+//	    var ref = $("a").attr("href");
 		var par = "amount=" + value + '&';
-	    ref = ref.replace(/\amount.*?\&/, par);
-	    $("a").attr("href", ref);
+//	    ref = ref.replace(/\amount.*?\&/, par);
+//	    $("a").attr("href", ref);
 
 	// every time it changes
 	$("input:radio[name=product]").click(function() {
 	    var value = $(this).val();
-	    var ref = $("a").attr("href");
+//	    var ref = $("a").attr("href");
 		var par = "amount=" + value + '&';
-	    ref = ref.replace(/\amount.*?\&/, par);
-	    $("a").attr("href", ref);
+//	    ref = ref.replace(/\amount.*?\&/, par);
+//	    $("a").attr("href", ref);
 	});
 
 

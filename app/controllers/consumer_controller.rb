@@ -1,8 +1,11 @@
 class ConsumerController < ApplicationController
   
-  def login
-   
-#    render :layout => false 
+  def login   
+    render :layout => false 
+  end
+  
+  def login_frame
+    
   end
  
   #############################################
