@@ -2,7 +2,7 @@ class ConsumerController < ApplicationController
   
   def login
    
-    render :layout => false 
+#    render :layout => false 
   end
  
   #############################################
