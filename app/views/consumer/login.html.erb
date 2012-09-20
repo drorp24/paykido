@@ -84,18 +84,16 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function (){ 
-	alert('0')
 
   window.fbAsyncInit = function() {
-  	alert('1')
+
     FB.init({
-      appId      : '294773230578790', // App ID
+      appId      : '<%= Paykido::Application.config.app_id %>', // App ID
       status     : true, // check login status
       cookie     : true, // enable cookies to allow the server to access the session
       xfbml      : true  // parse XFBML
     });
 	
-	alert('2')
 
     // Additional initialization code here
 	FB.getLoginStatus(function(response) {
