@@ -1,13 +1,8 @@
 #iframe {
-    z-index: 1010;
-    overflow: hidden;
-    height: 530px;
+    border: none;
+    height: 528px;
     width: 340px;
-    position: absolute;
-    left: 500px;
-    top: 500px;
-    border-radius: 10px;
-/*    visibility: hidden; */
+    overflow: hidden;
 }
 
 out_of_order {
@@ -150,8 +145,8 @@ body .modal-body {
 
 #registration {
     position: absolute;
-    top: 50px;
-    left: 33px;
+    top: 46px;
+    left: 25px;
     width: 318px;
 
 }
