@@ -21,7 +21,7 @@
 <% end %>
 
 <a data-target="#paykido" data-toggle="modal" 
-	href="http://paykido-beta.herokuapp.com/consumer/login?
+	href="<%= request.protocol + Paykido::Application.config.hostname %>/consumer/login?
 	merchant=Zynga&
 	app=farmville&
 	product=Farm%20Cash&
