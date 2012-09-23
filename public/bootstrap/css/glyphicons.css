@@ -46,6 +46,10 @@ li.active [class^="sprite-"],
 .bigicon-twitter { background-position: -85px -1859px }
 .bigicon-tick-black { background-position: -145px -912px; width: 26px; height: 26px; }
 .bigicon-cross-black { background-position: -97px -912px; width: 26px; height: 26px;}
+.bigicon-thumbs-up { background-position: -133px -1619px }
+.bigicon-thumbs-down { background-position: -181px -1619px }
+.bigicon-thumbs-right { background-position: -229px -1619px }
+
 
 /*
 .bigicon-parents { background-position: 45% 9.75%}
