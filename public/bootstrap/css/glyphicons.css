@@ -61,8 +61,9 @@ li.active [class^="sprite-"],
 .bigicon-tick-in-a-circle { background-position: -373px -899px; }
 .bigicon-no-entry-in-a-circle { background-position: -421px -899px; }
 .bigicon-calendar { background-position: -229px -179px; }
-
-
+.bigicon-thumbs-up { background-position: -133px -1619px }
+.bigicon-thumbs-down { background-position: -181px -1619px }
+.bigicon-thumbs-right { background-position: -229px -1619px }
 
 /*
 .bigicon-parents { background-position: 45% 9.75%}

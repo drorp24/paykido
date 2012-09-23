@@ -1,0 +1,14 @@
+<iframe id="iframe" src="<%= request.protocol + Paykido::Application.config.hostname %>/consumer/login_frame?
+	merchant=Zynga&
+	app=farmville&
+	product=Farm%20Cash&
+	amount=6.00&
+	currency=EUR&
+	userid=131827&
+	mode=T&
+	PP_TransactionID=12345&
+	hash=df659d502af5151a2edd18e2ebb50ba3&
+	referrer=<%= request.path %>">
+	<img src="/images/paykido_button.png" id="paykido_button" alt="paykido"/>
+</iframe>	
+

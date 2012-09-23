@@ -1,10 +1,6 @@
 class ConsumerController < ApplicationController
-  
-  def login   
-    render :layout => false 
-  end
-  
-  def login_frame
+    
+  def login
     
   end
  
@@ -121,8 +117,8 @@ class ConsumerController < ApplicationController
     find_consumer_and_payer
 
     unless @payer
-      redirect_to params[:referrer] + 
-      '?status=' +    're-register'       
+      @status =   're-register'
+      render :layout => false 
       return
     end
 
@@ -150,12 +146,13 @@ class ConsumerController < ApplicationController
     
     @purchase.notify_merchant(status) 
     @purchase.notify_consumer('programmatic', status)
-
-    redirect_to params[:referrer] + 
-      '?status=' +    status +
-      '&property=' +  (@purchase.authorization_property.to_s || 'purchase') +
-      '&value='  +    (@purchase.authorization_value.to_s ||  'okay') +
-      '&type=' +      (@purchase.authorization_type.to_s || '')
+   
+    @status =   status
+    @property = @purchase.authorization_property.to_s || 'purchase'
+    @value =    @purchase.authorization_value.to_s ||  'okay'
+    @type =     @purchase.authorization_type.to_s || ''
+    
+    render :layout => false 
     
   end
   

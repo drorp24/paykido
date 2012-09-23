@@ -20,98 +20,101 @@
 	</div>
 <% end %>
 
-<a data-target="#paykido" data-toggle="modal" 
-	href="http://www.paykido.com/consumer/login?
-	merchant=Zynga&
-	app=farmville&
-	product=Farm%20Cash&
-	amount=6.00&
-	currency=EUR&
-	userid=131827&
-	mode=T&
-	PP_TransactionID=12345&
-	hash=df659d502af5151a2edd18e2ebb50ba3&
-	referrer=<%= request.path %>">
+<a href="#paykido" data-toggle="modal"> 
 	<img src="/images/paykido_button.png" id="paykido_button" alt="paykido"/>
 </a>
 
-<div class="modal hide" id="paykido"></div>
-
-<!--
-<iframe id="iframe" src="http://paykido-beta.herokuapp.com/consumer/login?
-	merchant=Zynga&
-	app=farmville&
-	product=Farm%20Cash&
-	amount=6.00&
-	currency=EUR&
-	userid=131827&
-	mode=T&
-	PP_TransactionID=12345&
-	hash=df659d502af5151a2edd18e2ebb50ba3&
-	referrer=<%= request.path %>">
-	<img src="/images/paykido_button.png" id="paykido_button" alt="paykido"/>
-</iframe>	
--->
+<div class="modal hide" id="paykido">
 	
+	<iframe id="iframe" src="<%= request.protocol + Paykido::Application.config.hostname %>/consumer/login?
+		merchant=Zynga&
+		app=farmville&
+		product=Farm%20Cash&
+		amount=6.00&
+		currency=EUR&
+		userid=131827&
+		mode=T&
+		PP_TransactionID=12345&
+		hash=df659d502af5151a2edd18e2ebb50ba3&
+		referrer=<%= request.protocol + Paykido::Application.config.hostname %>/play">
+	</iframe>	
+
+</div>
+
+<div id="returnedMessage" style="display: none">
+	<div class="modal-header">
+		<i class="bigicon-thumbs-up status_icon"></i>
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3 id="return_status"></h3>
+	</div>
+	<div class="modal-body">
+		<p><span class="attribute"></span><span class="value" id="property"></span></p>
+		<p><span class="attribute"></span><span class="value" id="value"></span></p>
+		<p><span class="attribute"></span><span class="value" id="type"></span></p>
+		<%= image_tag "yellowshirt_kid.png", :class => "ys_kid" %>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal">Close</a>
+		<a href="#" class="btn btn-primary" disabled="disabled">Why is this?</a>
+	</div>
+</div>
+
 <div id="spinner_area"><%= image_tag "ajax-loader.gif", :style => "display: none" %></div>
 <script type="text/javascript">
 
 $(document).ready(function () {
 	
+	// Emulate displaying Paykido's returned message
+
+	window.addEventListener("message", receiveMessage, false);
+	 
+	function receiveMessage(event)
+	{
+	
+/*
+	    if (event.origin !== "http://localhost:3000")
+	        return;
+*/	 
+	    $('#paykido.modal').modal('hide')
+		obj = jQuery.parseJSON(event.data)
+//	    alert('the message is: ' + obj.status + '\n' + "property:" + obj.property + "\n" + "value:" + obj.value + "\n" + "type:" + obj.type)
+	    $('#paykido.modal').empty()
+		$('#returnedMessage #return_status').html(obj.status)
+		if (obj.status == 'declined') {
+			$('.status_icon').removeClass('bigicon-thumbs-up').addClass('bigicon-thumbs-down')
+		}
+		else if (obj.status == 'pending') {
+			$('.status_icon').removeClass('bigicon-thumbs-up').addClass('bigicon-thumbs-right')			
+		}
+		else if (obj.status == 'failed') {
+			$('.status_icon').removeClass('bigicon-thumbs-up').addClass('.bigicon-cross-black')			
+		}
+		$('#returnedMessage #property').html(obj.property)
+		$('#returnedMessage #value').html(obj.value)
+		$('#returnedMessage #type').html(obj.type)
+	    $('#paykido.modal').append($('#returnedMessage'))
+		$('#returnedMessage').show()
+	    $('#paykido.modal').modal('show')
+	}
+
 
 	// Emulate product selection (here: product radio button) 
 	//	initial value
 		var value = $("input:checked[name=product]").val();
-//	    var ref = $("a").attr("href");
+	    var ref = $("iframe").attr("src");
 		var par = "amount=" + value + '&';
-//	    ref = ref.replace(/\amount.*?\&/, par);
-//	    $("a").attr("href", ref);
+	    ref = ref.replace(/\amount.*?\&/, par);
+	    $("iframe").attr("src", ref);
 
 	// every time it changes
 	$("input:radio[name=product]").click(function() {
 	    var value = $(this).val();
-//	    var ref = $("a").attr("href");
+	    var ref = $("iframe").attr("src");
 		var par = "amount=" + value + '&';
-//	    ref = ref.replace(/\amount.*?\&/, par);
-//	    $("a").attr("href", ref);
+	    ref = ref.replace(/\amount.*?\&/, par);
+	    $("iframe").attr("src", ref);
 	});
 
-
-	//Emulate merchant notification
-	<% if params[:status] %>
-		<% if params[:status] == 'error' %>
-			$('#notification_title').html("An error has occured!")
-			$('#notification_text').html("<%= "#{flash[:error]}" if flash[:error] %>")
-		<% elsif params[:status] == 'registering' %>
-			$('#notification_title').html("Welcome to Paykido!")
-			$('#notification_text').html("You can start using it to buy as soon as your parent confirms you via email.")
-		<% elsif params[:status] == 're-register' %>
-			$('#notification_title').html("Paykido was upgraded. You will need to join again")
-			$('#notification_text').html("Go to: Facebook -> small arrow on the blue ribbon -> Privacy Settings -> Ads, Apps and Websites -> Paykido -> Remove app.")
-			$('#notification_text1').html("Then: refresh this page, click Paykido button and populate the join-in form.")
-		<% else %>
-			$('#notification_text').html("<%= params[:property] + ' is ' + params[:value] %>")
-			<% if params[:status] == 'declined' %>
-				$('#notification_title').html("Sorry...")
-			<% elsif params[:status] == 'approved' %>
-				$('#notification_title').html("Hurrah...")
-				$('#notification_text').html("This purchase is approved. The item is yours!")
-			<% elsif params[:status] == 'pending' %>
-				$('#notification_title').html("Hold on")
-				$('#notification_text1').html("An email has been sent to your parent to manually approve this purchase")				
-			<% elsif params[:status] == 'failed' %>
-				$('#notification_title').html("Payment Failed")
-			<% elsif params[:status] == 'fb_failed' %>
-				$('#notification_title').html("Facebook does not respond")
-				$('#notification_text1').html("Please refresh and try again. Conact Paykido if that does not work")
-			<% else %>
-				$('#notification_title').html("This was not supposed to happen...")
-			<% end %>
-		<% end %>
-		$('#merchant_notification').show()
-		$('.status_icon').addClass("<%= params[:status] %>");
-		$('.status_text').html('<%= params[:status] %>');
-	<% end %>
 
 });
 </script>
