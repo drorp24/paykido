@@ -12,14 +12,6 @@ body .modal-footer {
     font-weight: 100;
 }
 
-#return_ys_kid {
-    position: absolute;
-    bottom: 7px;
-    left: 21px;
-    width: 33%;
-    z-index: 1000;
-}
-
 #returnedMessage .modal-header {
   padding: 14px 15px 15px;
   margin-bottom: 0;

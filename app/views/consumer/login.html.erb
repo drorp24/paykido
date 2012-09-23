@@ -7,7 +7,7 @@
 <div class="modal-body">
 
 	<div id="logo">
-		<%= image_tag "yellowshirt_kid.png" %>
+		<%= image_tag "yellowshirt_kid.png", :class => "ys_kid" %>
 	</div>
 	
 	<div class="line clearfix" id="salutation_and_pic_or_login">
@@ -28,10 +28,7 @@
 <!-- <div class="title text line">Join your friends</div>  -->
 
 	<div class="line" id="invite">
-		<span class="text">
-
-		    Spread the word to your friends and earn points.
-		</span>
+		Spread the word, earn points.	
 	</div>
 
 	<div id="facepile">
@@ -65,7 +62,6 @@
 <div>
 	
 	<div id="registration" style="display: none;">
-		<p id="register_headline" class="text">Join Paykido and buy with one click</p>
 		<fb:registration  
 			width="292" 
 			fb_register="true"
@@ -155,7 +151,7 @@ $(document).ready(function (){
 		$('#buy_button').removeAttr("disabled");
 		$('#invite').show();
 	   	FB.api('/me', {fields: "id,first_name,picture"}, function(response) {    // works only if included within AsyncInit
-	      $('#salutation').html('Hi '+response.first_name);
+	      $('#salutation').html('Hi '+response.first_name + "!");
 	      $('#profile_picture').attr("src", response.picture);
 	      $('#profile_picture').show();
 		  var action = $('#buy_form').attr('action') +
