@@ -162,7 +162,11 @@ class Purchase < ActiveRecord::Base
   def pay_by_token!(ip)
     # call the token interface here with payer's saved Token and TransactionID (token)
 
-    return false unless self.payer.registered?    
+    return false unless self.payer.registered?  
+    unless Paykido::Application.config.environment == 'beta'
+      @paid_by_token = true
+      return true
+    end  
     token = self.payer.token
 
     begin
@@ -374,6 +378,13 @@ class Purchase < ActiveRecord::Base
     self.update_attributes!(
       :authorized => true,
       :authorization_type => "Approved",
+      :authorization_date => Time.now)       
+  end
+
+  def failed!
+    self.update_attributes!(
+      :authorized => false,
+      :authorization_type => "Failed",
       :authorization_date => Time.now)       
   end
   

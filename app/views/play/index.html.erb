@@ -86,7 +86,7 @@ $(document).ready(function () {
 		else if (obj.status == 'pending') {
 			$('.status_icon').removeClass('bigicon-thumbs-up').addClass('bigicon-thumbs-right')			
 		}
-		else if (obj.status == 'failed') {
+		else if (obj.status == 'failed' || obj.status == 'unregistered' ) {
 			$('.status_icon').removeClass('bigicon-thumbs-up').addClass('.bigicon-cross-black')			
 		}
 		$('#returnedMessage #property').html(obj.property)
