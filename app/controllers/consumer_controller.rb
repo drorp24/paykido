@@ -106,18 +106,17 @@ class ConsumerController < ApplicationController
   def buy
                                               
     unless params[:facebook_id]
-      redirect_to params[:referrer] + 
-      '?status=' +    'fb_failed' +
-      '&property=' +  'facebook' +
-      '&value='  +    'down'
-      
+      @status =    'failed' 
+      @property =  'facebook'
+      @value =    'down'
+      render :layout => false       
       return
     end
 
     find_consumer_and_payer
 
     unless @payer
-      @status =   're-register'
+      @status =   'unregistered'
       render :layout => false 
       return
     end
@@ -130,10 +129,10 @@ class ConsumerController < ApplicationController
       @purchase.pay_by_token!(request.remote_ip)                                
       if @purchase.paid_by_token?
         status = 'approved'                
-        @purchase.approve!
         @purchase.account_for! 
       else
         status = 'failed'
+        @purchase.failed!
       end             
     elsif @purchase.requires_approval?
       status = 'pending'
@@ -151,6 +150,8 @@ class ConsumerController < ApplicationController
     @property = @purchase.authorization_property.to_s || 'purchase'
     @value =    @purchase.authorization_value.to_s ||  'okay'
     @type =     @purchase.authorization_type.to_s || ''
+    @referrer = params[:referrer]
+    @orderid =  @purchase.PP_TransactionID
     
     render :layout => false 
     

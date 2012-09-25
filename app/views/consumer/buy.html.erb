@@ -4,7 +4,9 @@
         'status':       '<%= @status %>',
         'property':     '<%= @property %>',
         'value':        '<%= @value %>',
-        'type':   		'<%= @type %>'
+        'type':   		'<%= @type %>',
+        'referrer':   	'<%= @referrer %>',
+        'orderid':   	'<%= @orderid %>'
     };
     window.parent.postMessage(JSON.stringify(pass_data), "*");
 
