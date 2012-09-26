@@ -81,7 +81,12 @@
 <script type="text/javascript">
 $(document).ready(function (){ 
 
-  window.fbAsyncInit = function() {
+
+	$('[data-dismiss="modal"]').click(function() {
+		window.parent.postMessage('close', "*");
+	})		
+
+  	window.fbAsyncInit = function() {
 
     FB.init({
       appId      : '<%= Paykido::Application.config.app_id %>', // App ID

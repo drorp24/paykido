@@ -7,6 +7,12 @@ class TokenAPI
   base_uri 'https://test.safecharge.com'
 end
 
+class PPP
+  include HTTParty
+  format :json
+  base_uri 'https://secure.Gate2Shop.com'
+end
+
 class Purchase < ActiveRecord::Base
 
   serialize :properties               
@@ -271,8 +277,44 @@ class Purchase < ActiveRecord::Base
   end
   
   def notify_merchant(status)
-    # update PP backend with a transaction's new status: 'pending', 'approved' or 'declined' (PP_TransactionID)  
-    return if status == 'failed'
+
+#   return if status == 'failed'
+
+    reason = (status == 'pending') ? 'parental approval required' : status
+
+    str = 
+    self.PP_TransactionID     +
+    status                    +
+    amount.to_s               +
+    currency                  +
+    reason                    +
+    Paykido::Application.config.return_secret_key
+      
+    checksum = Digest::MD5.hexdigest(str)    
+
+    begin
+    ppp_response  = PPP.post('/ppp/purchase.do', :body => {
+      :orderid    => self.PP_TransactionID,
+      :status     => status,  
+      :amout      => self.amount,
+      :currency   => self.currency,
+      :reason     => reason,
+      :checksum   => checksum
+    })
+    rescue => e
+      Rails.logger.info("Merchant notification was rescued. Following is the error:")
+      Rails.logger.info(e)
+      @merchant_notified = false
+      return
+    else
+      @merchant_notified = true
+#      Rails.logger.info("Merchant notification call was succesfull. Status: #{ppp_response.parsed_response["Response"]["Status"]}. Following is the full response:")
+      Rails.logger.info("Merchant notification call was succesfull.  Following is the full response:")
+      Rails.logger.info(ppp_response.inspect)
+   end
+   
+#    response = ppp_response.parsed_response["Response"]
+    
   end
   
   def set_rules!(params)
