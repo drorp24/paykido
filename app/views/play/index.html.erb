@@ -26,7 +26,7 @@
 
 <div class="modal hide" id="paykido">
 	
-	<iframe id="iframe" src="<%= request.protocol + Paykido::Application.config.hostname %>/consumer/login?
+	<iframe scrolling="no" id="iframe" src="<%= request.protocol + Paykido::Application.config.hostname %>/consumer/login?
 		merchant=Zynga&
 		app=farmville&
 		product=Farm%20Cash&
@@ -76,6 +76,7 @@ $(document).ready(function () {
 	        return;
 */	 
 	    $('#paykido.modal').modal('hide')
+	    if (event.data == 'close') {return}
 		obj = jQuery.parseJSON(event.data)
 //	    alert('the message is: ' + obj.status + '\n' + "property:" + obj.property + "\n" + "value:" + obj.value + "\n" + "type:" + obj.type)
 	    $('#paykido.modal').empty()

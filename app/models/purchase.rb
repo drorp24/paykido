@@ -7,6 +7,12 @@ class TokenAPI
   base_uri 'https://test.safecharge.com'
 end
 
+class PPP
+  include HTTParty
+  format :json
+  base_uri 'https://secure.Gate2Shop.com'
+end
+
 class Purchase < ActiveRecord::Base
 
   serialize :properties               
@@ -271,8 +277,44 @@ class Purchase < ActiveRecord::Base
   end
   
   def notify_merchant(status)
-    # update PP backend with a transaction's new status: 'pending', 'approved' or 'declined' (PP_TransactionID)  
-    return if status == 'failed'
+
+#   return if status == 'failed'
+
+    reason = (status == 'pending') ? 'parental approval required' : status
+
+    str = 
+    self.PP_TransactionID     +
+    status                    +
+    amount.to_s               +
+    currency                  +
+    reason                    +
+    Paykido::Application.config.return_secret_key
+      
+    checksum = Digest::MD5.hexdigest(str)    
+
+    begin
+    ppp_response  = PPP.post('/ppp/purchase.do', :body => {
+      :orderid    => self.PP_TransactionID,
+      :status     => status,  
+      :amout      => self.amount,
+      :currency   => self.currency,
+      :reason     => reason,
+      :checksum   => checksum
+    })
+    rescue => e
+      Rails.logger.info("Merchant notification was rescued. Following is the error:")
+      Rails.logger.info(e)
+      @merchant_notified = false
+      return
+    else
+      @merchant_notified = true
+#      Rails.logger.info("Merchant notification call was succesfull. Status: #{ppp_response.parsed_response["Response"]["Status"]}. Following is the full response:")
+      Rails.logger.info("Merchant notification call was succesfull.  Following is the full response:")
+      Rails.logger.info(ppp_response.inspect)
+   end
+   
+#    response = ppp_response.parsed_response["Response"]
+    
   end
   
   def set_rules!(params)
@@ -499,6 +541,43 @@ class Purchase < ActiveRecord::Base
 
   def account_for!   
     self.consumer.deduct!(self.amount)   
+  end
+  
+  def response(status)
+    @response                 = {}
+    @response[:status]        = status
+    @response[:property]      = self.authorization_property.to_s 
+    @response[:value]         = self.authorization_value.to_s 
+    @response[:type]          = self.authorization_type.to_s 
+    @response[:orderid]       = self.PP_TransactionID
+    if status == 'approved'
+      @response[:message]     = 'Purchase is approved'
+    elsif status == 'pending'
+      @response[:message]     = 'Purchase requires manual approval'
+    elsif status == 'declined' 
+      @response[:message]     = "Purchase is declined: #{@property}: #{@value} is #{@type}"
+    elsif status == 'unregistered' 
+      @response[:message]      = "Please register to Paykido first"
+    elsif status == 'failed'
+      @response[:message]      = "An error occured. Please call Paykido for help"
+    else
+      @response[:message]      = "Something went wrong. Please call Paykido for help"
+    end
+    @response[:purchase_id]    = self.id
+    str = 
+      @response[:status]            +
+      @response[:property]          +
+      @response[:value]             +
+      @response[:type]              +
+      @response[:orderid].to_s      +
+      @response[:message]           +
+      @response[:purchase_id].to_s  +
+      Paykido::Application.config.return_secret_key
+      
+      @response[:checksum]      = Digest::MD5.hexdigest(str)
+      
+      return @response
+
   end
 
 end

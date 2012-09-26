@@ -1,13 +1,15 @@
 <script>
 
     var pass_data = {
-        'status':       '<%= @status %>',
-        'property':     '<%= @property %>',
-        'value':        '<%= @value %>',
-        'type':   		'<%= @type %>',
-        'referrer':   	'<%= @referrer %>',
-        'orderid':   	'<%= @orderid %>'
+        'status':       '<%= @response[:status] %>',
+        'property':     '<%= @response[:property] %>',
+        'value':        '<%= @response[:value] %>',
+        'type':       	'<%= @response[:type] %>',
+        'message':   	'<%= @response[:message] %>',
+        'orderid':   	'<%= @response[:orderid] %>',
+        'purchase_id':  '<%= @response[:purchase_id] %>',
+        'checksum':   	'<%= @response[:checksum] %>'
     };
-    window.parent.postMessage(JSON.stringify(pass_data), "*");
+    window.parent.postMessage(JSON.stringify(pass_data), "<%= params[:referrer] %>");
 
 </script>
