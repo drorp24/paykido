@@ -283,7 +283,7 @@ class Purchase < ActiveRecord::Base
     reason = (status == 'pending') ? 'parental approval required' : status
 
     str = 
-    self.PP_TransactionID     +
+    self.PP_TransactionID.to_s  +
     status                    +
     amount.to_s               +
     currency                  +
