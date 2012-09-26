@@ -277,13 +277,17 @@ class Purchase < ActiveRecord::Base
   end
   
   def notify_merchant(status)
+    
+  end
+
+  def experiment_notify_merchant(status)
 
 #   return if status == 'failed'
 
     reason = (status == 'pending') ? 'parental approval required' : status
 
     str = 
-    self.PP_TransactionID     +
+    self.PP_TransactionID.to_s  +
     status                    +
     amount.to_s               +
     currency                  +
