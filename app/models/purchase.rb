@@ -277,6 +277,10 @@ class Purchase < ActiveRecord::Base
   end
   
   def notify_merchant(status)
+    
+  end
+
+  def experiment_notify_merchant(status)
 
 #   return if status == 'failed'
 
