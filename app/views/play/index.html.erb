@@ -26,7 +26,7 @@
 
 <div class="modal hide" id="paykido">
 	
-	<iframe id="iframe" src="<%= request.protocol + Paykido::Application.config.hostname %>/consumer/login?
+	<iframe scrolling="no" id="iframe" src="<%= request.protocol + Paykido::Application.config.hostname %>/consumer/login?
 		merchant=Zynga&
 		app=farmville&
 		product=Farm%20Cash&

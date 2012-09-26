@@ -500,5 +500,42 @@ class Purchase < ActiveRecord::Base
   def account_for!   
     self.consumer.deduct!(self.amount)   
   end
+  
+  def response(status)
+    @response                 = {}
+    @response[:status]        = status
+    @response[:property]      = self.authorization_property.to_s 
+    @response[:value]         = self.authorization_value.to_s 
+    @response[:type]          = self.authorization_type.to_s 
+    @response[:orderid]       = self.PP_TransactionID
+    if status == 'approved'
+      @response[:message]     = 'Purchase is approved'
+    elsif status == 'pending'
+      @response[:message]     = 'Purchase requires manual approval'
+    elsif status == 'declined' 
+      @response[:message]     = "Purchase is declined: #{@property}: #{@value} is #{@type}"
+    elsif status == 'unregistered' 
+      @response[:message]      = "Please register to Paykido first"
+    elsif status == 'failed'
+      @response[:message]      = "An error occured. Please call Paykido for help"
+    else
+      @response[:message]      = "Something went wrong. Please call Paykido for help"
+    end
+    @response[:purchase_id]    = self.id
+    str = 
+      @response[:status]            +
+      @response[:property]          +
+      @response[:value]             +
+      @response[:type]              +
+      @response[:orderid].to_s      +
+      @response[:message]           +
+      @response[:purchase_id].to_s  +
+      Paykido::Application.config.return_secret_key
+      
+      @response[:checksum]      = Digest::MD5.hexdigest(str)
+      
+      return @response
+
+  end
 
 end

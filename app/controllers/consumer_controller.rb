@@ -145,14 +145,8 @@ class ConsumerController < ApplicationController
     
     @purchase.notify_merchant(status) 
     @purchase.notify_consumer('programmatic', status)
-   
-    @status =   status
-    @property = @purchase.authorization_property.to_s || 'purchase'
-    @value =    @purchase.authorization_value.to_s ||  'okay'
-    @type =     @purchase.authorization_type.to_s || ''
-    @referrer = params[:referrer]
-    @orderid =  @purchase.PP_TransactionID
-    
+    @response = @purchase.response(status)
+       
     render :layout => false 
     
   end
