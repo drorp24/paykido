@@ -573,8 +573,8 @@ class Purchase < ActiveRecord::Base
       @response[:property]          +
       @response[:value]             +
       @response[:type]              +
-      @response[:orderid].to_s      +
       @response[:message]           +
+      @response[:orderid].to_s      +
       @response[:purchase_id].to_s  +
       Paykido::Application.config.return_secret_key
       
