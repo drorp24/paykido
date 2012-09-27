@@ -5,38 +5,22 @@
 </div>
 
 <div class="modal-body">
-
-	<div id="logo">
-		<%= image_tag "yellowshirt_kid.png", :class => "ys_kid" %>
-	</div>
 	
-	<div class="line clearfix" id="salutation_and_pic_or_login">
-		<span id="salutation" class="text"></span>		
-		<span id="pic">
-			<%= image_tag "face_placeholder_small.png", :id => 'profile_picture', :style => 'display: none' %>
-		</span>
-		<span id="login_button" class="text">
-			<fb:login-button registration-url="<%= request.protocol + Paykido::Application.config.hostname %>/consumer/register"></fb:login-button>
- 		</span>
+	<div id="registration" >
+		<fb:registration  
+			width="292" 
+			fb_register="true"
+			redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>"  
+			fields='[
+				{ "name":"name"},
+				{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
+				{ "name":"payer_name",     "description":"Your parent name",  "type":"text"},
+				{ "name":"payer_phone",     "description":"Your parent mobile # (e.g., 2131234567)",  "type":"text"},
+				{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
+			]' 
+			>
+		</fb:registration>
 	</div>
-
-	<div class="line" id="instruction_or_product">
-		<p id="iop1" class="text"></p>	
-		<p id="iop2" class="text"></p>	
-	</div>
-
-<!-- <div class="title text line">Join your friends</div>  -->
-
-	<div class="line" id="invite">
-		Spread the word, earn points.	
-	</div>
-
-	<div id="facepile">
-		<fb:facepile app_id="<%= Paykido::Application.config.app_id %>"  max_rows="2" width="300"></fb:facepile>
-	</div>
-
-	<div id="loadingZone"></div>
-</div>
 		
 <div class="modal-footer">
 	<%= form_for :consumer, :url => {:action => :buy, 
@@ -59,25 +43,6 @@
 
 </div>
 
-<div>
-	
-	<div id="registration" style="display: none;">
-		<fb:registration  
-			width="292" 
-			fb_register="true"
-			redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>"  
-			fields='[
-				{ "name":"name"},
-				{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
-				{ "name":"payer_name",     "description":"Your parent name",  "type":"text"},
-				{ "name":"payer_phone",     "description":"Your parent mobile # (e.g., 2131234567)",  "type":"text"},
-				{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
-			]' 
-			>
-		</fb:registration>
-	</div>
-	
-</div>
 <script type="text/javascript">
 $(document).ready(function (){ 
 
@@ -126,7 +91,6 @@ $(document).ready(function (){
 	   logout();
 	});
 	FB.Event.subscribe('auth.authResponseChange', function(response) {
-alert('status just changed to: ' + response.status)
 	  if (response.status === 'connected') {
 	    userid = response.authResponse.userID;
 	    accessToken = response.authResponse.accessToken;
