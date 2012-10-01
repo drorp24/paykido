@@ -5,39 +5,23 @@
 </div>
 
 <div class="modal-body">
-
-	<div id="logo">
-		<%= image_tag "yellowshirt_kid.png", :class => "ys_kid" %>
-	</div>
 	
-	<div class="line clearfix" id="salutation_and_pic_or_login">
-		<span id="salutation" class="text"></span>		
-		<span id="pic">
-			<%= image_tag "face_placeholder_small.png", :id => 'profile_picture', :style => 'display: none' %>
-		</span>
-		<span id="login_button" class="text">
-			<fb:login-button></fb:login-button>
- 		</span>
+	<div id="registration" >
+		<fb:registration  
+			width="292" 
+			fb_register="true"
+			redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>"  
+			fields='[
+				{ "name":"name"},
+				{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
+				{ "name":"payer_name",     "description":"Your parent name",  "type":"text"},
+				{ "name":"payer_phone",     "description":"Your parent mobile # (e.g., 2131234567)",  "type":"text"},
+				{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
+			]' 
+			>
+		</fb:registration>
 	</div>
-
-	<div class="line" id="instruction_or_product">
-		<p id="iop1" class="text"></p>	
-		<p id="iop2" class="text"></p>	
-	</div>
-
-<!-- <div class="title text line">Join your friends</div>  -->
-
-	<div class="line" id="invite">
-		Spread the word, earn points.	
-	</div>
-
-	<div id="facepile">
-		<fb:facepile app_id="<%= Paykido::Application.config.app_id %>"  max_rows="2" width="300"></fb:facepile>
-	</div>
-
-	<div id="loadingZone"></div>
-</div>
-		
+</div>		
 <div class="modal-footer">
 	<%= form_for :consumer, :url => {:action => :buy, 
 									 :merchant 	=> params[:merchant],
@@ -59,32 +43,9 @@
 
 </div>
 
-<div>
-	
-	<div id="registration" style="display: none;">
-		<fb:registration  
-			width="292" 
-			fb_register="true"
-			redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>"  
-			fields='[
-				{ "name":"name"},
-				{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
-				{ "name":"payer_name",     "description":"Your parent name",  "type":"text"},
-				{ "name":"payer_phone",     "description":"Your parent mobile # (e.g., 2131234567)",  "type":"text"},
-				{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
-			]' 
-			>
-		</fb:registration>
-	</div>
-	
-</div>
 <script type="text/javascript">
 $(document).ready(function (){ 
 
-
-	$('[data-dismiss="modal"]').click(function() {
-		window.parent.postMessage('close', "*");
-	})		
 
   	window.fbAsyncInit = function() {
 
@@ -96,35 +57,7 @@ $(document).ready(function (){
     });
 	
 
-    // Additional initialization code here
-	FB.getLoginStatus(function(response) {
-	  if (response.status === 'connected') {
-	    // the user is logged in and has authenticated your
-	    // app, and response.authResponse supplies
-	    // the user's ID, a valid access token, a signed
-	    // request, and the time the access token 
-	    // and signed request each expire
-	    userid = response.authResponse.userID;
-	    accessToken = response.authResponse.accessToken;
-	    // find a way to add these as 2 parameters to the buy (put them in a hidden form field and serialize for instance)
-	    connected(userid, accessToken);
-	  } else if (response.status === 'not_authorized') {
-	    // the user is logged in to Facebook, 
-	    // but has not authenticated your app
-	    not_authorized();
-	  } else {
-	    // the user isn't logged in to Facebook.
-	    unknown();
-	  }
-	 });
 
-
-	FB.Event.subscribe('auth.login', function(response) {
-	   login();
-	});
-	FB.Event.subscribe('auth.logout', function(response) {
-	   logout();
-	});
 	FB.Event.subscribe('auth.authResponseChange', function(response) {
 	  if (response.status === 'connected') {
 	    userid = response.authResponse.userID;
@@ -138,15 +71,7 @@ $(document).ready(function (){
 	  }
 	});
 
-/*
-	function login(){
-	   FB.api('/me', function(response) {
-	   });
-	}
 
-	function logout(){
-	}
-*/
 	function connected(userid, accessToken){
 
 		$('#login_button').hide();
@@ -168,6 +93,8 @@ $(document).ready(function (){
 	   });
 	   $('#paykido.modal').css("margin", "-220px 0 0 -171px");
 	}
+
+
 	function not_authorized(){
 	   	$('#registration').show();
 		$('.modal-header h3').html('Join Paykido')
@@ -198,6 +125,7 @@ $(document).ready(function (){
 	
 
   // Load the SDK Asynchronously
+
   (function(d){
      var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
      if (d.getElementById(id)) {return;}
@@ -210,34 +138,6 @@ $(document).ready(function (){
 
 
 
-
-//	INVITE
-
-/*
-	$('#invite').click(function() {
-		sendRequestViaMultiFriendSelector();
-
-		$('#paykido.modal.hide.in div#fb-root.fb_reset .fb_dialog.fb_dialog_advanced').css("top", "0");
-		$('.modal #fb-root .fb_dialog.fb_dialog_advanced').css("left", "0");
-
-	});
-*/
-	function sendRequestViaMultiFriendSelector() {
-        FB.ui({method: 'apprequests',
-          message: 'Hi! Paykido is a super-cool service that lets kids buy with a click!',
-          data: 'dror',
-          title:'Spread the word and earn credits!'
-        }, 
-        function(response)  {
-          if (response.request)  {
-          	invites = response.to.length
-        	alert('Thanks! ' + invites + ' more points for you!')
-          }
-      	}
-		);
-  	}
-
-//  INVITE
 
 })
 </script>
