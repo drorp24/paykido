@@ -10,6 +10,6 @@
         'purchase_id':  '<%= @response[:purchase_id] %>',
         'checksum':   	'<%= @response[:checksum] %>'
     };
-    window.parent.postMessage(JSON.stringify(pass_data), "<%= params[:referrer] %>");
+    window.parent.postMessage(JSON.stringify(pass_data), "*");
 
 </script>
