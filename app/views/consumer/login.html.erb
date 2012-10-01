@@ -16,7 +16,7 @@
 			<%= image_tag "face_placeholder_small.png", :id => 'profile_picture', :style => 'display: none' %>
 		</span>
 		<span id="login_button" class="text">
-			<fb:login-button registration-url="<%= request.protocol + Paykido::Application.config.hostname %>/consumer/register"></fb:login-button>
+			<fb:login-button></fb:login-button>
  		</span>
 	</div>
 
@@ -126,7 +126,6 @@ $(document).ready(function (){
 	   logout();
 	});
 	FB.Event.subscribe('auth.authResponseChange', function(response) {
-alert('status just changed to: ' + response.status)
 	  if (response.status === 'connected') {
 	    userid = response.authResponse.userID;
 	    accessToken = response.authResponse.accessToken;

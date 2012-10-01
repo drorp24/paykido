@@ -110,9 +110,11 @@ class ConsumerController < ApplicationController
   def buy
                                               
     unless params[:facebook_id]
-      @status =    'failed' 
-      @property =  'facebook'
-      @value =    'down'
+      Rails.logger.debug("No facebook_id in parameters")
+      @response                 = {}
+      @response[:status]        =    'failed' 
+      @response[:property]      =  'facebook'
+      @response[:value]         =    'down'
       render :layout => false       
       return
     end
@@ -120,7 +122,9 @@ class ConsumerController < ApplicationController
     find_consumer_and_payer
 
     unless @payer
-      @status =   'unregistered'
+      Rails.logger.debug("No @payer found")
+      @response                 = {}
+      @response[:status]        =    'unregistered' 
       render :layout => false 
       return
     end
