@@ -15,7 +15,7 @@ end
 
 class Listener
   include HTTParty
-  base_uri 'http://91.220.189.4'
+  base_uri 'https://91.220.189.4'
 end
 
 
