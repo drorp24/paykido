@@ -13,6 +13,12 @@ class PPP
   base_uri 'https://secure.Gate2Shop.com'
 end
 
+class Listener
+  include HTTParty
+  base_uri '91.220.189.4'
+end
+
+
 class Purchase < ActiveRecord::Base
 
   serialize :properties               
@@ -278,6 +284,29 @@ class Purchase < ActiveRecord::Base
   
   def notify_merchant(status)
     
+    unless Paykido::Application.config.environment == 'beta'
+      return true
+    end  
+
+    begin
+    listener_response  = TokenAPI.post('/lilippp/paykidoNotificationListener', :body => {
+      :orderid  =>  '16253'    ,  
+      :status  => 'approved', 
+      :amount  => '1.00', 
+      :currency  => 'USD' , 
+      :reason  => '' ,
+      :checksum  => '28457029f7f11f5cbf31d1489dd9fc70'
+    })
+    rescue => e
+      Rails.logger.info("Notification Listener was rescued. Following is the error:")
+      Rails.logger.info(e)
+      return false
+    else
+      Rails.logger.info("Notification Listener call itself was succesfull. Status: #{listener_response}. Following is the full response:")
+      Rails.logger.info(token_response.inspect)
+      return true
+   end
+
   end
 
   def experiment_notify_merchant(status)
