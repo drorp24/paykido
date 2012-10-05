@@ -153,7 +153,7 @@ $(document).ready(function (){
 	   	$('#registration').hide();
 	   	FB.XFBML.parse(); 
   		$('#iop1').html('<%= "You are using Paykido to buy" %>');
-  		$('#iop2').html('<%= "#{params[:product]} (#{number_to_currency params[:amount]})" %>');
+  		$('#iop2').html('<%= "#{params[:product]} (#{params[:amount]} #{params[:currency]})" %>');
 		$('#buy_button').removeAttr("disabled");
 		$('#invite').show();
 	   	FB.api('/me', {fields: "id,first_name,picture"}, function(response) {    // works only if included within AsyncInit
