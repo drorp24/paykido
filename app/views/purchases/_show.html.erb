@@ -24,7 +24,7 @@
 					<%= @purchase.id %>
 			</p>
 			<p class="product"><%= @purchase.product %></p>
-            <p class="price"><%= number_to_currency @purchase.amount %></p>
+            <p class="price"><%= "#{@purchase.amount} #{@purchase.currency}" %></p>
         </div>
         <div id="purchase_header_right" class="grid_5 content-header relative">
             <p class="retailer_info">
