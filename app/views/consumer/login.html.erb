@@ -163,7 +163,7 @@ $(document).ready(function (){
 		  var action = $('#buy_form').attr('action') +
 		  				'&facebook_id=' + userid + 
 		  				'&name=' + response.first_name +
-		  				'&pic=' + response.picture;
+		  				'&pic=' + 'http://graph.facebook.com/' + response.id + '/picture';
 		  $('#buy_form').attr('action', action);
 	   });
 	   $('#paykido.modal').css("margin", "-220px 0 0 -171px");
