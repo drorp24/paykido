@@ -120,7 +120,7 @@ class ConsumerController < ApplicationController
       return
     end
     
-    unless check_hash(params)
+    unless correct_hash(params)
       Rails.logger.debug("Wrong checksum")
       @response                 = {}
       @response[:status]        =    'failed' 
@@ -171,7 +171,7 @@ class ConsumerController < ApplicationController
   end
   
 
-  def check_hash(params)
+  def correct_hash(params)
     
     str =
       Paykido::Application.config.return_secret_key +
@@ -185,7 +185,10 @@ class ConsumerController < ApplicationController
       params[:PP_TransactionID] +
       params[:referrer]
       
-      Digest::MD5.hexdigest(str) == params[:hash]
+      expected_hash = Digest::MD5.hexdigest(str)
+      Rails.logger.debug("expected_hash is: " + expected_hash) 
+      
+      expected_hash == params[:hash]
 
   end
 
