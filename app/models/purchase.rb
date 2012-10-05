@@ -428,9 +428,14 @@ class Purchase < ActiveRecord::Base
   end
 
   def failed!
+
+    last_transaction = self.transactions.last if self.transactions.any?
+
     self.update_attributes!(
       :authorized => false,
-      :authorization_type => "Failed",
+      :authorization_property => 'Payment by Token',
+      :authorization_value => 'failed',
+      :authorization_type => ((last_transaction) ? last_transaction.Reason : 'other'),
       :authorization_date => Time.now)       
   end
   
