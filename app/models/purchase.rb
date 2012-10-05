@@ -289,7 +289,7 @@ class Purchase < ActiveRecord::Base
     end  
 
     begin
-    listener_response  = TokenAPI.get('/lilippp/paykidoNotificationListener', :query => {
+    listener_response  = Listener.get('/lilippp/paykidoNotificationListener', :query => {
       :orderid  =>  '16253'    ,  
       :status  => 'approved', 
       :amount  => '1.00', 
