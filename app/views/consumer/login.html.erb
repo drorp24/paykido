@@ -158,7 +158,7 @@ $(document).ready(function (){
 		$('#invite').show();
 	   	FB.api('/me', {fields: "id,first_name,picture"}, function(response) {    // works only if included within AsyncInit
 	      $('#salutation').html('Hi '+response.first_name + "!");
-	      $('#profile_picture').attr("src", response.picture);
+	      $('#profile_picture').attr("src", 'http://graph.facebook.com/' + response.id + '/picture');
 	      $('#profile_picture').show();
 		  var action = $('#buy_form').attr('action') +
 		  				'&facebook_id=' + userid + 
@@ -167,6 +167,7 @@ $(document).ready(function (){
 		  $('#buy_form').attr('action', action);
 	   });
 	   $('#paykido.modal').css("margin", "-220px 0 0 -171px");
+
 	}
 	function not_authorized(){
 	   	$('#registration').show();
