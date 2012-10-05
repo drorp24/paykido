@@ -1,3 +1,4 @@
+require 'digest/md5'
 class ConsumerController < ApplicationController
     
   def login
@@ -118,6 +119,16 @@ class ConsumerController < ApplicationController
       render :layout => false       
       return
     end
+    
+    unless check_hash(params)
+      Rails.logger.debug("Wrong checksum")
+      @response                 = {}
+      @response[:status]        =    'failed' 
+      @response[:property]      =  'checksum'
+      @response[:value]         =    'wrong'
+      render :layout => false       
+      return      
+    end
 
     find_consumer_and_payer
 
@@ -159,6 +170,24 @@ class ConsumerController < ApplicationController
     
   end
   
+
+  def check_hash(params)
+    
+    str =
+      Paykido::Application.config.return_secret_key +
+      params[:merchant] +
+      (params[:app] || "") +
+      params[:product] +
+      params[:amount] +
+      params[:currency] +
+      (params[:userid] || "") +
+      params[:mode] +
+      params[:PP_TransactionID] +
+      params[:referrer]
+      
+      Digest::MD5.hexdigest(str) == params[:hash]
+
+  end
 
   def find_consumer_and_payer
     
