@@ -15,7 +15,7 @@ end
 
 class Listener
   include HTTParty
-  base_uri 'http://91.220.189.4'
+  base_uri '91.220.189.4'
 end
 
 
@@ -303,7 +303,7 @@ class Purchase < ActiveRecord::Base
       return false
     else
       Rails.logger.info("Notification Listener call itself was succesfull. Status: #{listener_response}. Following is the full response:")
-      Rails.logger.info(listener_response.inspect)
+      Rails.logger.info(token_response.inspect)
       return true
    end
 
@@ -371,8 +371,8 @@ class Purchase < ActiveRecord::Base
     unless self.payer.registered? 
       self.authorization_property = "registration"
       self.authorization_value = "missing"
-      self.authorization_type = "PendingPayer"
       self.authorization_date = Time.now
+      self.require_approval
       self.save!
       return      
     end

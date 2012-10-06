@@ -52,8 +52,13 @@ class PurchasesController < ApplicationController
       status = 'failed'
     end
 
-    @purchase.notify_merchant(status)
-    @purchase.notify_consumer('manual', status)
+    unless status == 'failed'
+      if @purchase.notify_merchant(status)
+        @purchase.notify_consumer('manual', status)   
+      else
+        status = 'failed'
+      end         
+    end
 
     redirect_to purchase_path(
       @purchase,
