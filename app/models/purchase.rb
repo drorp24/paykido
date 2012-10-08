@@ -603,14 +603,14 @@ class Purchase < ActiveRecord::Base
     end
     @response[:purchase_id]    = self.id
     str = 
+      Paykido::Application.config.return_secret_key +
       @response[:status]            +
       @response[:property]          +
       @response[:value]             +
       @response[:type]              +
       @response[:message]           +
       @response[:orderid].to_s      +
-      @response[:purchase_id].to_s  +
-      Paykido::Application.config.return_secret_key
+      @response[:purchase_id].to_s 
       
       @response[:checksum]      = Digest::MD5.hexdigest(str)
       
