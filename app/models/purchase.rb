@@ -15,7 +15,8 @@ end
 
 class Listener
   include HTTParty
-  base_uri 'https://91.220.189.4'
+  format :html
+  base_uri 'http://91.220.189.4'
 end
 
 
@@ -291,9 +292,9 @@ class Purchase < ActiveRecord::Base
     Rails.logger.debug("ENTER notify_merchant") 
 
     str = Paykido::Application.config.return_secret_key +
-          self.PP_TransactionID +
+          self.PP_TransactionID.to_s +
           status +
-          self.amount +
+          self.amount.to_s +
           self.currency +
           "" 
           
@@ -313,9 +314,12 @@ class Purchase < ActiveRecord::Base
       Rails.logger.info(e)
       return false
     else
-      Rails.logger.info("Notification Listener call itself was succesfull. Status: #{listener_response}. Following is the full response:")
-      Rails.logger.info(listener_response.inspect)
-      return true
+      Rails.logger.info("Notification Listener call itself was succesfull. Following is the .parsed_response:")
+      Rails.logger.info(listener_response.parsed_response)
+#      Rails.logger.info("Following is the .parsed_response:")
+#      status = listener_response.body['html']
+#      Rails.logger.info('Status is: ' + status)
+     return true
    end
 
     Rails.logger.debug("EXIT notify_merchant") 

@@ -54,7 +54,7 @@ class PurchasesController < ApplicationController
 
     unless status == 'failed'
       @payer = Payer.find(1)
-      @purchase.delay.notify_merchant(status)
+      @purchase.notify_merchant(status)
       @purchase.notify_consumer('manual', status)   
     end
 

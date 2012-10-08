@@ -163,7 +163,7 @@ class ConsumerController < ApplicationController
     end
     
     if status == 'approved' or status == 'pending' 
-      notification_status = @purchase.delay.notify_merchant(status)
+      notification_status = @purchase.notify_merchant(status)
       status = 'failed' unless notification_status 
     end
     
