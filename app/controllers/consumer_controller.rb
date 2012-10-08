@@ -162,8 +162,11 @@ class ConsumerController < ApplicationController
       status = 'unknown' 
     end
     
-    @purchase.notify_merchant(status) 
-    @purchase.notify_consumer('programmatic', status)
+    if status == 'approved' or status == 'pending' 
+      notification_status = @purchase.delay.notify_merchant(status)
+      status = 'failed' unless notification_status 
+    end
+    
     @response = @purchase.response(status)
        
     render :layout => false 

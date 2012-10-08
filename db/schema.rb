@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120813204825) do
+ActiveRecord::Schema.define(:version => 20121006102341) do
 
   create_table "consumers", :force => true do |t|
     t.string    "billing_phone"
@@ -33,10 +33,26 @@ ActiveRecord::Schema.define(:version => 20120813204825) do
     t.decimal   "auto_deny_over"
     t.integer   "allowance_every"
     t.boolean   "confirmed"
-    t.datetime  "confirmed_at"
+    t.timestamp "confirmed_at"
   end
 
   add_index "consumers", ["billing_phone"], :name => "index_consumers_on_billing_phone"
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "infos", :force => true do |t|
     t.string    "key"
@@ -61,21 +77,21 @@ ActiveRecord::Schema.define(:version => 20120813204825) do
   end
 
   create_table "payers", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "authentication_token"
-    t.string   "name"
-    t.string   "phone"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string    "email",                  :default => "", :null => false
+    t.string    "encrypted_password",     :default => "", :null => false
+    t.string    "reset_password_token"
+    t.timestamp "reset_password_sent_at"
+    t.timestamp "remember_created_at"
+    t.integer   "sign_in_count",          :default => 0
+    t.timestamp "current_sign_in_at"
+    t.timestamp "last_sign_in_at"
+    t.string    "current_sign_in_ip"
+    t.string    "last_sign_in_ip"
+    t.string    "authentication_token"
+    t.string    "name"
+    t.string    "phone"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   add_index "payers", ["authentication_token"], :name => "index_payers_on_authentication_token", :unique => true
@@ -122,6 +138,40 @@ ActiveRecord::Schema.define(:version => 20120813204825) do
     t.string    "currency"
   end
 
+  create_table "registrations", :force => true do |t|
+    t.integer   "payer_id"
+    t.string    "status"
+    t.string    "NameOnCard"
+    t.string    "CCToken"
+    t.string    "ExpMonth"
+    t.string    "ExpYear"
+    t.integer   "TransactionID"
+    t.string    "CVV2"
+    t.string    "FirstName"
+    t.string    "LastName"
+    t.string    "Address"
+    t.string    "City"
+    t.string    "State"
+    t.string    "Zip"
+    t.string    "Country"
+    t.string    "Phone"
+    t.string    "Email"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.string    "ExErrCode"
+    t.string    "ErrCode"
+    t.string    "AuthCode"
+    t.string    "messgae"
+    t.string    "responseTimeStamp"
+    t.string    "Reason"
+    t.string    "ReasonCode"
+    t.string    "ppp_status"
+    t.string    "PPP_TransactionID"
+    t.string    "client_ip"
+    t.string    "cardNumber"
+    t.string    "uniqueCC"
+  end
+
   create_table "retailers", :force => true do |t|
     t.string    "name"
     t.string    "email"
@@ -135,15 +185,15 @@ ActiveRecord::Schema.define(:version => 20120813204825) do
   end
 
   create_table "rules", :force => true do |t|
-    t.integer  "payer_id"
-    t.integer  "consumer_id"
-    t.string   "entity"
-    t.integer  "entity_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "property"
-    t.string   "value"
-    t.string   "status"
+    t.integer   "payer_id"
+    t.integer   "consumer_id"
+    t.string    "entity"
+    t.integer   "entity_id"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.string    "property"
+    t.string    "value"
+    t.string    "status"
   end
 
   create_table "sessions", :force => true do |t|
@@ -203,64 +253,64 @@ ActiveRecord::Schema.define(:version => 20120813204825) do
   end
 
   create_table "transactions", :force => true do |t|
-    t.integer  "purchase_id"
-    t.string   "ppp_status"
-    t.string   "PPP_TransactionID"
-    t.string   "responsechecksum"
-    t.string   "TransactionID"
-    t.string   "status"
-    t.string   "userid"
-    t.string   "customData"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "Email"
-    t.string   "address1"
-    t.string   "address2"
-    t.string   "country"
-    t.string   "state"
-    t.string   "city"
-    t.string   "zip"
-    t.string   "phone1"
-    t.string   "nameOnCard"
-    t.string   "cardNumber"
-    t.string   "expMonth"
-    t.string   "expYear"
-    t.string   "token"
-    t.string   "CVV2"
-    t.string   "IPAddress"
-    t.string   "ExErrCode"
-    t.string   "ErrCode"
-    t.string   "AuthCode"
-    t.string   "message"
-    t.string   "responseTimeStamp"
-    t.string   "Reason"
-    t.string   "ReasonCode"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "trx_type"
+    t.integer   "purchase_id"
+    t.string    "ppp_status"
+    t.string    "PPP_TransactionID"
+    t.string    "responsechecksum"
+    t.string    "TransactionID"
+    t.string    "status"
+    t.string    "userid"
+    t.string    "customData"
+    t.string    "first_name"
+    t.string    "last_name"
+    t.string    "Email"
+    t.string    "address1"
+    t.string    "address2"
+    t.string    "country"
+    t.string    "state"
+    t.string    "city"
+    t.string    "zip"
+    t.string    "phone1"
+    t.string    "nameOnCard"
+    t.string    "cardNumber"
+    t.string    "expMonth"
+    t.string    "expYear"
+    t.string    "token"
+    t.string    "CVV2"
+    t.string    "IPAddress"
+    t.string    "ExErrCode"
+    t.string    "ErrCode"
+    t.string    "AuthCode"
+    t.string    "message"
+    t.string    "responseTimeStamp"
+    t.string    "Reason"
+    t.string    "ReasonCode"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.string    "trx_type"
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",        :default => 0
-    t.string   "unlock_token"
-    t.datetime "locked_at"
-    t.string   "authentication_token"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string    "email",                  :default => "", :null => false
+    t.string    "encrypted_password",     :default => "", :null => false
+    t.string    "reset_password_token"
+    t.timestamp "reset_password_sent_at"
+    t.timestamp "remember_created_at"
+    t.integer   "sign_in_count",          :default => 0
+    t.timestamp "current_sign_in_at"
+    t.timestamp "last_sign_in_at"
+    t.string    "current_sign_in_ip"
+    t.string    "last_sign_in_ip"
+    t.string    "confirmation_token"
+    t.timestamp "confirmed_at"
+    t.timestamp "confirmation_sent_at"
+    t.string    "unconfirmed_email"
+    t.integer   "failed_attempts",        :default => 0
+    t.string    "unlock_token"
+    t.timestamp "locked_at"
+    t.string    "authentication_token"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

@@ -284,18 +284,29 @@ class Purchase < ActiveRecord::Base
   
   def notify_merchant(status)
     
-    unless Paykido::Application.config.environment == 'beta'
-      return true
-    end  
+#    unless Paykido::Application.config.environment == 'beta'
+#      return true
+#    end  
+
+    Rails.logger.debug("ENTER notify_merchant") 
+
+    str = Paykido::Application.config.return_secret_key +
+          self.PP_TransactionID +
+          status +
+          self.amount +
+          self.currency +
+          "" 
+          
+    hash = Digest::MD5.hexdigest(str)          
 
     begin
     listener_response  = Listener.get('/lilippp/paykidoNotificationListener', :query => {
-      :orderid  =>  '16253'    ,  
-      :status  => 'approved', 
-      :amount  => '1.00', 
-      :currency  => 'USD' , 
+      :orderid  =>  self.PP_TransactionID    ,  
+      :status  => status, 
+      :amount  => self.amount,
+      :currency  => self.currency , 
       :reason  => '' ,
-      :checksum  => '28457029f7f11f5cbf31d1489dd9fc70'
+      :checksum  => hash
     })
     rescue => e
       Rails.logger.info("Notification Listener was rescued. Following is the error:")
@@ -307,7 +318,10 @@ class Purchase < ActiveRecord::Base
       return true
    end
 
+    Rails.logger.debug("EXIT notify_merchant") 
+
   end
+#  handle_asynchronously :notify_merchant
 
   def experiment_notify_merchant(status)
 
@@ -563,11 +577,11 @@ class Purchase < ActiveRecord::Base
   def request_approval
     
     begin
-      UserMailer.purchase_approval_email(self).deliver
+      UserMailer.delay.purchase_approval_email(self)
     rescue
       return false
     end
-      
+          
     begin
       message = "Hi from Paykido! #{self.consumer.name} asks that you approve #{self.product} from #{self.retailer.name}. See our email for details"
       Sms.send(self.payer.phone, message) 
