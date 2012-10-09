@@ -15,6 +15,7 @@ end
 
 class Listener
   include HTTParty
+  format :html
   base_uri 'http://91.220.189.4'
 end
 
@@ -284,30 +285,47 @@ class Purchase < ActiveRecord::Base
   
   def notify_merchant(status)
     
-    unless Paykido::Application.config.environment == 'beta'
-      return true
-    end  
+#    unless Paykido::Application.config.environment == 'beta'
+#      return true
+#    end  
+
+    Rails.logger.debug("ENTER notify_merchant") 
+
+    str = Paykido::Application.config.return_secret_key +
+          self.PP_TransactionID.to_s +
+          status +
+          self.amount.to_s +
+          self.currency +
+          "" 
+          
+    hash = Digest::MD5.hexdigest(str)          
 
     begin
-    listener_response  = TokenAPI.post('/lilippp/paykidoNotificationListener', :body => {
-      :orderid  =>  '16253'    ,  
-      :status  => 'approved', 
-      :amount  => '1.00', 
-      :currency  => 'USD' , 
+    listener_response  = Listener.get('/lilippp/paykidoNotificationListener', :query => {
+      :orderid  =>  self.PP_TransactionID    ,  
+      :status  => status, 
+      :amount  => self.amount,
+      :currency  => self.currency , 
       :reason  => '' ,
-      :checksum  => '28457029f7f11f5cbf31d1489dd9fc70'
+      :checksum  => hash
     })
     rescue => e
       Rails.logger.info("Notification Listener was rescued. Following is the error:")
       Rails.logger.info(e)
       return false
     else
-      Rails.logger.info("Notification Listener call itself was succesfull. Status: #{listener_response}. Following is the full response:")
-      Rails.logger.info(listener_response.inspect)
-      return true
+      Rails.logger.info("Notification Listener call itself was succesfull. Following is the .parsed_response:")
+      Rails.logger.info(listener_response.parsed_response)
+#      Rails.logger.info("Following is the .parsed_response:")
+#      status = listener_response.body['html']
+#      Rails.logger.info('Status is: ' + status)
+     return true
    end
 
+    Rails.logger.debug("EXIT notify_merchant") 
+
   end
+#  handle_asynchronously :notify_merchant
 
   def experiment_notify_merchant(status)
 
@@ -563,11 +581,11 @@ class Purchase < ActiveRecord::Base
   def request_approval
     
     begin
-      UserMailer.purchase_approval_email(self).deliver
+      UserMailer.delay.purchase_approval_email(self)
     rescue
       return false
     end
-      
+          
     begin
       message = "Hi from Paykido! #{self.consumer.name} asks that you approve #{self.product} from #{self.retailer.name}. See our email for details"
       Sms.send(self.payer.phone, message) 
@@ -603,14 +621,14 @@ class Purchase < ActiveRecord::Base
     end
     @response[:purchase_id]    = self.id
     str = 
+      Paykido::Application.config.return_secret_key +
       @response[:status]            +
       @response[:property]          +
       @response[:value]             +
       @response[:type]              +
       @response[:message]           +
       @response[:orderid].to_s      +
-      @response[:purchase_id].to_s  +
-      Paykido::Application.config.return_secret_key
+      @response[:purchase_id].to_s 
       
       @response[:checksum]      = Digest::MD5.hexdigest(str)
       

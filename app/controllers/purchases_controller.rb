@@ -53,11 +53,9 @@ class PurchasesController < ApplicationController
     end
 
     unless status == 'failed'
-      if @purchase.notify_merchant(status)
-        @purchase.notify_consumer('manual', status)   
-      else
-        status = 'failed'
-      end         
+      @payer = Payer.find(1)
+      @purchase.notify_merchant(status)
+      @purchase.notify_consumer('manual', status)   
     end
 
     redirect_to purchase_path(
@@ -69,7 +67,7 @@ class PurchasesController < ApplicationController
     )  
 
   end
-
+  
   def decline
     
     @purchase.decline!

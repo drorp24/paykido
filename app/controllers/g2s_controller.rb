@@ -63,11 +63,8 @@ class G2sController < ApplicationController
       end   
 
       unless status == 'failed'
-        if @purchase.notify_merchant(status)
-          @purchase.notify_consumer('manual', status)   
-        else
-          status = 'failed'
-        end         
+        @purchase.delay.notify_merchant(status)
+        @purchase.notify_consumer('manual', status)   
       end
 
     elsif params[:customField1] == 'registration'

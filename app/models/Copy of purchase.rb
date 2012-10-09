@@ -19,7 +19,7 @@ class Listener
 end
 
 
-class Purchase < ActiveRecord::Base
+class CPurchase < ActiveRecord::Base
 
   serialize :properties               
 
