@@ -314,8 +314,11 @@ class Purchase < ActiveRecord::Base
       Rails.logger.info(e)
       return false
     else
-      Rails.logger.info("Notification Listener call itself was succesfull. Following is the .parsed_response:")
-      Rails.logger.info(listener_response.parsed_response)
+      Rails.logger.info("Notification Listener call itself was succesfull")
+       Rails.logger.info("Following is the full response (listener_response)")
+      Rails.logger.info(listener_response.inspect)
+#     Rails.logger.info("Following is listeneer_response.parse_response")
+     Rails.logger.info(listener_response.parsed_response)
 #      Rails.logger.info("Following is the .parsed_response:")
 #      status = listener_response.body['html']
 #      Rails.logger.info('Status is: ' + status)
