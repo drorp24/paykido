@@ -162,7 +162,7 @@ class ConsumerController < ApplicationController
       status = 'unknown' 
     end
     
-    if status == 'approved' or status == 'pending' 
+    unless status == 'failed'
       notification_status = @purchase.notify_merchant(status)
       status = 'failed' unless notification_status 
     end
