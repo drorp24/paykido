@@ -586,7 +586,7 @@ class Purchase < ActiveRecord::Base
   def request_approval
     
     begin
-      UserMailer.delay.purchase_approval_email(self)
+      UserMailer.purchase_approval_email(self).deliver
     rescue
       return false
     end
