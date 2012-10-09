@@ -296,9 +296,11 @@ class Purchase < ActiveRecord::Base
           status +
           self.amount.to_s +
           self.currency +
-          "" 
+          ""  +
+          self.id.to_s
           
     hash = Digest::MD5.hexdigest(str)          
+    Rails.logger.info("About to GET url?orderid=#{self.PP_TransactionID}&status=#{status}&amount=#{self.amount.to_s}&currency=#{self.currency}&reason=&purchase_id=#{id.to_s}&checksum=#{hash}")
 
     begin
     listener_response  = Listener.get('/lilippp/paykidoNotificationListener', :query => {
@@ -307,6 +309,7 @@ class Purchase < ActiveRecord::Base
       :amount  => self.amount,
       :currency  => self.currency , 
       :reason  => '' ,
+      :purchase_id => self.id,
       :checksum  => hash
     })
     rescue => e
@@ -314,7 +317,6 @@ class Purchase < ActiveRecord::Base
       Rails.logger.info(e)
       return false
     else
-      Rails.logger.info("Notification Listener call itself was succesfull")
        Rails.logger.info("Following is the full response (listener_response)")
       Rails.logger.info(listener_response.inspect)
 #     Rails.logger.info("Following is listeneer_response.parse_response")
