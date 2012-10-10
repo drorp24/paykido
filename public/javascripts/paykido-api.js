@@ -4,15 +4,7 @@
 
 $(document).ready(function() {
     $("a[data-toggle=modal]").click(function (e) {
-      target = $(this).attr('data-target')
-      url = $(this).attr('href')
-
-    $.ajax({
-        url: url,
-        success: function(data) {
-            $(target).html(data);
-        }
-    });
+        $('#iframe').attr("src", $('#iframe').attr("src"));
     })
        
 
