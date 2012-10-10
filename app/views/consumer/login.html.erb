@@ -100,7 +100,7 @@ $(document).ready(function (){
 	    userid = response.authResponse.userID;
 	    accessToken = response.authResponse.accessToken;
 		$.getJSON('/consumer/confirmed?facebook_id=' + userid, function(data) {
-			if (data.msg == 'confirmed') {
+			if (data.status == 'confirmed') {
 				confirmed(userid, accessToken)
 			} else {
 				not_confirmed();
@@ -112,6 +112,11 @@ $(document).ready(function (){
 	    unknown();
 	  }
 	});
+
+	FB.Event.subscribe('auth.logout', function(response) {
+		window.parent.postMessage('close', "*");
+	});
+
 
 	function confirmed(userid, accessToken){
 
@@ -141,7 +146,7 @@ $(document).ready(function (){
 		$('.modal-body').empty();
 	   	$('.modal-footer').remove();
 	   	$('.modal').css("top", "25%")
-	   	$('.modal').css("height", "558px")
+	   	$('.modal').css("height", "568px")
 	   	$('.modal').css("width", "360px")
 	   	FB.XFBML.parse();
 	   	$('.clear.uiCloseButton.uiCloseButtonSmall').css('display', 'none');

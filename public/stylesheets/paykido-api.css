@@ -171,7 +171,7 @@ body .modal-body {
 
 #registration {
     position: absolute;
-    top: 67px;
+    top: 80px;
     left: 25px;
     width: 318px;
 
@@ -4373,7 +4373,7 @@ input[type="submit"].btn.btn-mini {
 /* Dror */
 #paykido.modal {
       
-  width: 342px;
+  width: 340px;
   margin: -220px 0 0 -171px;
   overflow: hidden;  
 

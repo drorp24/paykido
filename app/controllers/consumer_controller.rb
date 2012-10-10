@@ -15,9 +15,9 @@ class ConsumerController < ApplicationController
     
     consumer = Consumer.where("facebook_id = ?", params[:facebook_id])
     if consumer.exists? and consumer.first.confirmed?
-      format.json { render json: {:msg => 'confirmed'} }
+      format.json { render json: {:status => 'confirmed'} }
     else
-      format.json { render json: {:msg => 'not confirmed'} }
+      format.json { render json: {:status => 'not confirmed'} }
     end
   end
 
