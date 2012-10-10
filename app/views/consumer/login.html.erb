@@ -1,7 +1,7 @@
 <div id="fb-root"></div>
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Pay with Paykido</h3>
+    <h3></h3>
 </div>
 
 <div class="modal-body">
@@ -95,62 +95,34 @@ $(document).ready(function (){
       xfbml      : true  // parse XFBML
     });
 	
-
-    // Additional initialization code here
-	FB.getLoginStatus(function(response) {
-	  if (response.status === 'connected') {
-	    // the user is logged in and has authenticated your
-	    // app, and response.authResponse supplies
-	    // the user's ID, a valid access token, a signed
-	    // request, and the time the access token 
-	    // and signed request each expire
-	    userid = response.authResponse.userID;
-	    accessToken = response.authResponse.accessToken;
-	    // find a way to add these as 2 parameters to the buy (put them in a hidden form field and serialize for instance)
-	    connected(userid, accessToken);
-	  } else if (response.status === 'not_authorized') {
-	    // the user is logged in to Facebook, 
-	    // but has not authenticated your app
-	    not_authorized();
-	  } else {
-	    // the user isn't logged in to Facebook.
-	    unknown();
-	  }
-	 });
-
-
-	FB.Event.subscribe('auth.login', function(response) {
-	   login();
-	});
-	FB.Event.subscribe('auth.logout', function(response) {
-	   logout();
-	});
 	FB.Event.subscribe('auth.authResponseChange', function(response) {
 	  if (response.status === 'connected') {
 	    userid = response.authResponse.userID;
 	    accessToken = response.authResponse.accessToken;
-	    // find a way to add these as 2 parameters to the buy (put them in a hidden form field and serialize for instance)
-	    connected(userid, accessToken);
+		$.getJSON('/consumer/confirmed?facebook_id=' + userid, function(data) {
+			if (data.status == 'confirmed') {
+				confirmed(userid, accessToken)
+			} else {
+				not_confirmed();
+			}
+		})
 	  } else if (response.status === 'not_authorized') {
-	    not_authorized();
+	    not_confirmed();
 	  } else {
 	    unknown();
 	  }
 	});
 
-/*
-	function login(){
-	   FB.api('/me', function(response) {
-	   });
-	}
+	FB.Event.subscribe('auth.logout', function(response) {
+		window.parent.postMessage('close', "*");
+	});
 
-	function logout(){
-	}
-*/
-	function connected(userid, accessToken){
+
+	function confirmed(userid, accessToken){
 
 		$('#login_button').hide();
 	   	$('#registration').hide();
+		$('.modal-header h3').html('Pay with Paykido')
 	   	FB.XFBML.parse(); 
   		$('#iop1').html('<%= "You are using Paykido to buy" %>');
   		$('#iop2').html('<%= "#{params[:product]} (#{params[:amount]} #{params[:currency]})" %>');
@@ -167,24 +139,28 @@ $(document).ready(function (){
 		  $('#buy_form').attr('action', action);
 	   });
 	   $('#paykido.modal').css("margin", "-220px 0 0 -171px");
-
 	}
-	function not_authorized(){
+
+	function not_confirmed(){
 	   	$('#registration').show();
 		$('.modal-header h3').html('Join Paykido')
 		$('.modal-body').empty();
 	   	$('.modal-footer').remove();
 	   	$('.modal').css("top", "25%")
-	   	$('.modal').css("height", "558px")
+	   	$('.modal').css("height", "568px")
 	   	$('.modal').css("width", "360px")
 	   	FB.XFBML.parse();
+	   	$('.clear.uiCloseButton.uiCloseButtonSmall').css('display', 'none');
 		$('#buy_button').attr("disabled", "disabled");
 	   $('#paykido.modal').css("margin", "-115px 0 0 -171px");
+	   $('fbRegistrationTableSkinny fbRegistrationTable').click(function() {
+	   })
 	}
-	function unknown(userid, accessToken){
 
+	function unknown(userid, accessToken){
 		$('#login_button').show();
 		$('#registration').hide();
+		$('.modal-header h3').html('Pay with Paykido')
 		$('#invite').hide();
  	   	FB.XFBML.parse(); 
      	$('#salutation').html('Hello!');

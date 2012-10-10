@@ -31,7 +31,7 @@ body {
 
 #iframe {
     border: none;
-    height: 528px;
+    height: 540px;
     width: 340px;
     overflow: hidden;
 }
@@ -170,7 +170,7 @@ body .modal-body {
 
 #registration {
     position: absolute;
-    top: 67px;
+    top: 80px;
     left: 25px;
     width: 318px;
 
@@ -4348,7 +4348,7 @@ input[type="submit"].btn.btn-mini {
 
 .modal {
   position: fixed;
-  top: 50%;
+  top: 40%;
   left: 50%;
   z-index: 1050;
   width: 560px;
@@ -4372,7 +4372,7 @@ input[type="submit"].btn.btn-mini {
 /* Dror */
 #paykido.modal {
       
-  width: 342px;
+  width: 340px;
   margin: -220px 0 0 -171px;
   overflow: hidden;  
 
@@ -4402,7 +4402,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .modal-body {
-  height: 400px; /* Dror: Originally: max-height: 400px; */
+  height: 417px; /* Dror: Originally: max-height: 400px; */
 /*  padding: 15px; */
   overflow-y: auto;
 }

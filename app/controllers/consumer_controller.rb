@@ -8,6 +8,20 @@ class ConsumerController < ApplicationController
   def register
     
   end
+  
+  def confirmed
+
+  respond_to do |format|
+    
+    consumer = Consumer.where("facebook_id = ?", params[:facebook_id])
+    if consumer.exists? and consumer.first.confirmed?
+      format.json { render json: {:status => 'confirmed'} }
+    else
+      format.json { render json: {:status => 'not confirmed'} }
+    end
+  end
+
+  end
  
   #############################################
   
@@ -162,7 +176,7 @@ class ConsumerController < ApplicationController
       status = 'unknown' 
     end
     
-    if status == 'approved' or status == 'pending' 
+    unless status == 'failed'
       notification_status = @purchase.notify_merchant(status)
       status = 'failed' unless notification_status 
     end
