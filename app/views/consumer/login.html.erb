@@ -1,10 +1,10 @@
 <div id="fb-root"></div>
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3>Pay with Paykido</h3>
+    <h3></h3>
 </div>
 
-<div class="modal-body">
+<div class="modal-body" style="display: none">
 
 	<div id="logo">
 		<%= image_tag "yellowshirt_kid.png", :class => "ys_kid" %>
@@ -38,7 +38,7 @@
 	<div id="loadingZone"></div>
 </div>
 		
-<div class="modal-footer">
+<div class="modal-footer" style="display: none">
 	<%= form_for :consumer, :url => {:action => :buy, 
 									 :merchant 	=> params[:merchant],
 									 :app       => params[:app],
@@ -120,8 +120,10 @@ $(document).ready(function (){
 
 	function confirmed(userid, accessToken){
 
+		$('.modal-body, .modal-footer').show();
 		$('#login_button').hide();
 	   	$('#registration').hide();
+		$('.modal-header h3').html('Pay with Paykido')
 	   	FB.XFBML.parse(); 
   		$('#iop1').html('<%= "You are using Paykido to buy" %>');
   		$('#iop2').html('<%= "#{params[:product]} (#{params[:amount]} #{params[:currency]})" %>');
@@ -159,6 +161,7 @@ $(document).ready(function (){
 	function unknown(userid, accessToken){
 		$('#login_button').show();
 		$('#registration').hide();
+		$('.modal-header h3').html('Pay with Paykido')
 		$('#invite').hide();
  	   	FB.XFBML.parse(); 
      	$('#salutation').html('Hello!');
