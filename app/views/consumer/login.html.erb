@@ -4,7 +4,7 @@
     <h3></h3>
 </div>
 
-<div class="modal-body" style="display: none">
+<div class="modal-body">
 
 	<div id="logo">
 		<%= image_tag "yellowshirt_kid.png", :class => "ys_kid" %>
@@ -38,7 +38,7 @@
 	<div id="loadingZone"></div>
 </div>
 		
-<div class="modal-footer" style="display: none">
+<div class="modal-footer">
 	<%= form_for :consumer, :url => {:action => :buy, 
 									 :merchant 	=> params[:merchant],
 									 :app       => params[:app],
@@ -120,7 +120,6 @@ $(document).ready(function (){
 
 	function confirmed(userid, accessToken){
 
-		$('.modal-body, .modal-footer').show();
 		$('#login_button').hide();
 	   	$('#registration').hide();
 		$('.modal-header h3').html('Pay with Paykido')
