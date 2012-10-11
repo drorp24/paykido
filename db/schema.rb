@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121011170232) do
+ActiveRecord::Schema.define(:version => 20121011172055) do
 
   create_table "communications", :force => true do |t|
     t.integer   "payer_id"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(:version => 20121011170232) do
     t.string   "event"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "message"
   end
 
   create_table "payers", :force => true do |t|
