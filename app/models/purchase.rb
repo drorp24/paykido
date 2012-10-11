@@ -289,7 +289,6 @@ class Purchase < ActiveRecord::Base
 #      return true
 #    end  
 
-    Rails.logger.debug("ENTER notify_merchant") 
 
     str = Paykido::Application.config.return_secret_key +
           self.PP_TransactionID.to_s +
@@ -300,7 +299,15 @@ class Purchase < ActiveRecord::Base
           self.id.to_s
           
     hash = Digest::MD5.hexdigest(str)          
-    Rails.logger.info("About to GET url?orderid=#{self.PP_TransactionID}&status=#{status}&amount=#{self.amount.to_s}&currency=#{self.currency}&reason=&purchase_id=#{id.to_s}&checksum=#{hash}")
+
+    Rails.logger.debug("About to send_notification with: orderid=#{self.PP_TransactionID}&status=#{status}&amount=#{self.amount.to_s}&currency=#{self.currency}&reason=&purchase_id=#{id.to_s}&checksum=#{hash}") 
+    send_notification(status, hash)
+
+  end
+
+  def send_notification(status, hash)
+
+    Rails.logger.debug("ENTER send_notification") 
 
     begin
     listener_response  = Listener.get('/lilippp/paykidoNotificationListener', :query => {
@@ -315,7 +322,7 @@ class Purchase < ActiveRecord::Base
     rescue => e
       Rails.logger.info("Notification Listener was rescued. Following is the error:")
       Rails.logger.info(e)
-      return false
+      raise "NotificationListener Unreachable"
     else
       Rails.logger.info("Following is the full response (listener_response)")
       Rails.logger.info(listener_response.inspect)
@@ -323,13 +330,22 @@ class Purchase < ActiveRecord::Base
       Rails.logger.info(listener_response.parsed_response)
       Rails.logger.info('Following is the code:')
       Rails.logger.info(listener_response.code)
-      return listener_response.response.code
+      if listener_response.code != "200"
+        Rails.logger.info("NotificationListener Unauthorized raised")
+        raise "NotificationListener Unauthorized"
+      elsif listener_response.parsed_response == "ERROR"
+        Rails.logger.info("NotificationListener ERROR raised")
+        raise "NotificationListener ERROR"
+      else
+        Rails.logger.info("Nothing raised. Successfully completed")        
+      end
    end
 
-    Rails.logger.debug("EXIT notify_merchant") 
+   Rails.logger.debug("EXIT send_notification") 
 
   end
-#  handle_asynchronously :notify_merchant
+#  handle_asynchronously :send_notification
+
 
   def experiment_notify_merchant(status)
 
