@@ -95,6 +95,26 @@ $(document).ready(function (){
       xfbml      : true  // parse XFBML
     });
 	
+
+	FB.getLoginStatus(function(response) {
+	  if (response.status === 'connected') {
+	    userid = response.authResponse.userID;
+	    accessToken = response.authResponse.accessToken;
+		$.getJSON('/consumer/confirmed?facebook_id=' + userid, function(data) {
+			if (data.status == 'confirmed') {
+				confirmed(userid, accessToken)
+			} else {
+				not_confirmed();
+			}
+		})
+	  } else if (response.status === 'not_authorized') {
+	    not_confirmed();
+	  } else {
+	    unknown();
+	  }
+	});
+
+
 	FB.Event.subscribe('auth.authResponseChange', function(response) {
 	  if (response.status === 'connected') {
 	    userid = response.authResponse.userID;

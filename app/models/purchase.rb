@@ -317,14 +317,13 @@ class Purchase < ActiveRecord::Base
       Rails.logger.info(e)
       return false
     else
-       Rails.logger.info("Following is the full response (listener_response)")
+      Rails.logger.info("Following is the full response (listener_response)")
       Rails.logger.info(listener_response.inspect)
-#     Rails.logger.info("Following is listeneer_response.parse_response")
-     Rails.logger.info(listener_response.parsed_response)
-#      Rails.logger.info("Following is the .parsed_response:")
-#      status = listener_response.body['html']
-#      Rails.logger.info('Status is: ' + status)
-     return true
+      Rails.logger.info("Following is listener_response.parse_response")
+      Rails.logger.info(listener_response.parsed_response)
+      Rails.logger.info('Following is the code:')
+      Rails.logger.info(listener_response.code)
+      return listener_response.response.code
    end
 
     Rails.logger.debug("EXIT notify_merchant") 
