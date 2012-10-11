@@ -322,7 +322,7 @@ class Purchase < ActiveRecord::Base
     rescue => e
       Rails.logger.info("Notification Listener was rescued. Following is the error:")
       Rails.logger.info(e)
-      raise "NotificationListener Unreachable"
+#      raise "NotificationListener Unreachable"
     else
       Rails.logger.info("Following is the full response (listener_response)")
       Rails.logger.info(listener_response.inspect)
@@ -330,12 +330,12 @@ class Purchase < ActiveRecord::Base
       Rails.logger.info(listener_response.parsed_response)
       Rails.logger.info('Following is the code:')
       Rails.logger.info(listener_response.code)
-      if listener_response.code != "200"
+      if listener_response.code != 200
         Rails.logger.info("NotificationListener Unauthorized raised")
-        raise "NotificationListener Unauthorized"
+#        raise "NotificationListener Unauthorized"
       elsif listener_response.parsed_response == "ERROR"
         Rails.logger.info("NotificationListener ERROR raised")
-        raise "NotificationListener ERROR"
+#        raise "NotificationListener ERROR"
       else
         Rails.logger.info("Nothing raised. Successfully completed")        
       end
