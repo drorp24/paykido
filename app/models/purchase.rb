@@ -311,7 +311,7 @@ class Purchase < ActiveRecord::Base
     Rails.logger.debug("ENTER send_notification") 
 
     @notification = self.notifications.create(
-      :orderid => self.PP_TransactionID,
+      :orderid => self.PP_TransactionID.to_s,
       :status  => status, 
       :amount  => self.amount,
       :currency  => self.currency , 
