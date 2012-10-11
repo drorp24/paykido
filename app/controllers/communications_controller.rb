@@ -1,4 +1,4 @@
-class NotificationsController < ApplicationController
+class CommunicationsController < ApplicationController
 
   before_filter :authenticate_payer!
   before_filter :find_notification

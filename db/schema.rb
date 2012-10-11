@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121006102341) do
+ActiveRecord::Schema.define(:version => 20121011164905) do
+
+  create_table "communications", :force => true do |t|
+    t.integer   "payer_id"
+    t.string    "event"
+    t.string    "medium"
+    t.string    "data"
+    t.string    "frequency"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+  end
 
   create_table "consumers", :force => true do |t|
     t.string    "billing_phone"
@@ -65,16 +75,6 @@ ActiveRecord::Schema.define(:version => 20121006102341) do
   end
 
   add_index "infos", ["key", "value"], :name => "index_infos_on_key_and_value", :unique => true
-
-  create_table "notifications", :force => true do |t|
-    t.integer   "payer_id"
-    t.string    "event"
-    t.string    "medium"
-    t.string    "data"
-    t.string    "frequency"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-  end
 
   create_table "payers", :force => true do |t|
     t.string    "email",                  :default => "", :null => false
