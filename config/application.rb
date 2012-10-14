@@ -48,5 +48,15 @@ module Paykido
     
     # insert content length into header for post requests (g2s token)
     config.middleware.use Rack::ContentLength
+    
+    config.middleware.use Rack::Cors do
+      allow do
+        origins '*'
+        resource '*',
+          :headers => :any, 
+          :methods => [:get, :post, :options]
+      end
+    end
+
   end
 end

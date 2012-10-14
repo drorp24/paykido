@@ -24,14 +24,14 @@
 					<%= @purchase.id %>
 			</p>
 			<p class="product"><%= @purchase.product %></p>
-            <p class="price"><%= number_to_currency @purchase.amount %></p>
+            <p class="price"><%= "#{@purchase.amount} #{@purchase.currency}" %></p>
         </div>
         <div id="purchase_header_right" class="grid_5 content-header relative">
             <p class="retailer_info">
                 <span class="star_rating"></span>
-                <span class="stooltip">
+                <span>
                     <a href="#" class="small button">
-                        <span class="like stooltip" title="74% of our users recommended this merchant">74%</span>
+                        <span class="like" title="74% of our users recommended this merchant">74%</span>
                     </a>
                 </span>            
             </p>
@@ -52,11 +52,11 @@
 -->
 
 				<div id="approval_buttons">
-				    <%= link_to approve_purchase_path(@purchase), :class => "small blue approval button" do %>
+				    <%= link_to approve_purchase_path(@purchase), :class => "small blue approval button", 'data-skip-pjax' => true do %>
 				        <span class="icon16 tick"></span>
 				        Approve
 				    <% end %>
-				    <%= link_to decline_purchase_path(@purchase), :class => "small blue decline button" do %>
+				    <%= link_to decline_purchase_path(@purchase), :class => "small blue decline button", 'data-skip-pjax' => true do %>
 				        <span class="icon16 delete"></span>
 				        Decline
 				    <% end %>
@@ -79,7 +79,7 @@
                     <td class="purchase_title"><%= t property %>:</td>
                     <td class="purchase_logo">
                         <% if info = Info.find_by_key_and_value(property, value) and info.logo %>
-                            <%= image_tag info.logo, {:rel => "popover", :class => "stooltip", :title => info.title, :data => {:content => info.description}} %>
+                            <%= image_tag info.logo, {:rel => "popover", :title => info.title, :data => {:content => info.description}} %>
                         <% else %>
                             <%= value %>
                         <% end %>
@@ -147,8 +147,6 @@ $('document').ready(function() {
             return false;
           });
         });
-
-   $('.stooltip').tipsy({gravity: 's'});
 
 
 /// populate the values in the set_rule modal and the href to follow if YES is clicked	    

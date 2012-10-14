@@ -1,7 +1,26 @@
+require 'digest/md5'
 class ConsumerController < ApplicationController
-  
+    
   def login
-#    render :layout => false     
+    
+  end
+  
+  def register
+    
+  end
+  
+  def confirmed
+
+  respond_to do |format|
+    
+    consumer = Consumer.where("facebook_id = ?", params[:facebook_id])
+    if consumer.exists? and consumer.first.confirmed?
+      format.json { render json: {:status => 'confirmed'} }
+    else
+      format.json { render json: {:status => 'not confirmed'} }
+    end
+  end
+
   end
  
   #############################################
@@ -106,19 +125,32 @@ class ConsumerController < ApplicationController
   def buy
                                               
     unless params[:facebook_id]
-      redirect_to params[:referrer] + 
-      '?status=' +    'fb_failed' +
-      '&property=' +  'facebook' +
-      '&value='  +    'down'
-      
+      Rails.logger.debug("No facebook_id in parameters")
+      @response                 = {}
+      @response[:status]        =    'failed' 
+      @response[:property]      =  'facebook'
+      @response[:value]         =    'down'
+      render :layout => false       
       return
+    end
+    
+    unless correct_hash(params)
+      Rails.logger.debug("Wrong checksum")
+      @response                 = {}
+      @response[:status]        =    'failed' 
+      @response[:property]      =  'checksum'
+      @response[:value]         =    'wrong'
+      render :layout => false       
+      return      
     end
 
     find_consumer_and_payer
 
     unless @payer
-      redirect_to params[:referrer] + 
-      '?status=' +    're-register'       
+      Rails.logger.debug("No @payer found")
+      @response                 = {}
+      @response[:status]        =    'unregistered' 
+      render :layout => false 
       return
     end
 
@@ -130,10 +162,10 @@ class ConsumerController < ApplicationController
       @purchase.pay_by_token!(request.remote_ip)                                
       if @purchase.paid_by_token?
         status = 'approved'                
-        @purchase.approve!
         @purchase.account_for! 
       else
         status = 'failed'
+        @purchase.failed!
       end             
     elsif @purchase.requires_approval?
       status = 'pending'
@@ -144,17 +176,40 @@ class ConsumerController < ApplicationController
       status = 'unknown' 
     end
     
-    @purchase.notify_merchant(status) 
-    @purchase.notify_consumer('programmatic', status)
-
-    redirect_to params[:referrer] + 
-      '?status=' +    status +
-      '&property=' +  (@purchase.authorization_property.to_s || 'purchase') +
-      '&value='  +    (@purchase.authorization_value.to_s ||  'okay') +
-      '&type=' +      (@purchase.authorization_type.to_s || '')
+    unless status == 'failed'
+      notification_status = @purchase.notify_merchant(status, 'buy')
+      status = 'failed' unless notification_status 
+    end
+    
+    @response = @purchase.response(status)
+       
+    render :layout => false 
     
   end
   
+
+  def correct_hash(params)
+    
+    return true unless Paykido::Application.config.check_hash and params[:mode] != 'N'
+    
+    str =
+      Paykido::Application.config.return_secret_key +
+      params[:merchant] +
+      (params[:app] || "") +
+      params[:product] +
+      params[:amount] +
+      params[:currency] +
+      (params[:userid] || "") +
+      params[:mode] +
+      params[:PP_TransactionID] +
+      params[:referrer]
+      
+      expected_hash = Digest::MD5.hexdigest(str)
+      Rails.logger.debug("expected_hash is: " + expected_hash) 
+      
+      expected_hash == params[:hash]
+
+  end
 
   def find_consumer_and_payer
     

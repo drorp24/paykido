@@ -1,0 +1,143 @@
+<div id="fb-root"></div>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Pay with Paykido</h3>
+</div>
+
+<div class="modal-body">
+	
+	<div id="registration" >
+		<fb:registration  
+			width="292" 
+			fb_register="true"
+			redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>"  
+			fields='[
+				{ "name":"name"},
+				{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
+				{ "name":"payer_name",     "description":"Your parent name",  "type":"text"},
+				{ "name":"payer_phone",     "description":"Your parent mobile # (e.g., 2131234567)",  "type":"text"},
+				{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
+			]' 
+			>
+		</fb:registration>
+	</div>
+</div>		
+<div class="modal-footer">
+	<%= form_for :consumer, :url => {:action => :buy, 
+									 :merchant 	=> params[:merchant],
+									 :app       => params[:app],
+									 :product	=> params[:product],
+									 :app 		=> params[:app],
+									 :amount   	=> params[:amount],
+									 :currency 	=> params[:currency],
+									 :userid   	=> params[:userid],
+									 :mode      => params[:mode],
+									 :PP_TransactionID => params[:PP_TransactionID],
+									 :hash		=> params[:hash],
+									 :referrer	=> params[:referrer] 
+									 }, :html => {:id => "buy_form"} do |f| %>
+		<%= submit_tag "Pay with Paykido", :class => "buy btn btn-primary", :id => "buy_button" %>
+	<% end %>
+
+	<a href="#" class="btn" data-dismiss="modal">Close</a>
+
+</div>
+
+<script type="text/javascript">
+$(document).ready(function (){ 
+
+
+  	window.fbAsyncInit = function() {
+
+    FB.init({
+      appId      : '<%= Paykido::Application.config.app_id %>', // App ID
+      status     : true, // check login status
+      cookie     : true, // enable cookies to allow the server to access the session
+      xfbml      : true  // parse XFBML
+    });
+	
+
+
+	FB.Event.subscribe('auth.authResponseChange', function(response) {
+	  if (response.status === 'connected') {
+	    userid = response.authResponse.userID;
+	    accessToken = response.authResponse.accessToken;
+	    // find a way to add these as 2 parameters to the buy (put them in a hidden form field and serialize for instance)
+	    connected(userid, accessToken);
+	  } else if (response.status === 'not_authorized') {
+	    not_authorized();
+	  } else {
+	    unknown();
+	  }
+	});
+
+
+	function connected(userid, accessToken){
+
+		$('#login_button').hide();
+	   	$('#registration').hide();
+	   	FB.XFBML.parse(); 
+  		$('#iop1').html('<%= "You are using Paykido to buy" %>');
+  		$('#iop2').html('<%= "#{params[:product]} (#{number_to_currency params[:amount]})" %>');
+		$('#buy_button').removeAttr("disabled");
+		$('#invite').show();
+	   	FB.api('/me', {fields: "id,first_name,picture"}, function(response) {    // works only if included within AsyncInit
+	      $('#salutation').html('Hi '+response.first_name + "!");
+	      $('#profile_picture').attr("src", response.picture);
+	      $('#profile_picture').show();
+		  var action = $('#buy_form').attr('action') +
+		  				'&facebook_id=' + userid + 
+		  				'&name=' + response.first_name +
+		  				'&pic=' + response.picture;
+		  $('#buy_form').attr('action', action);
+	   });
+	   $('#paykido.modal').css("margin", "-220px 0 0 -171px");
+	}
+
+
+	function not_authorized(){
+	   	$('#registration').show();
+		$('.modal-header h3').html('Join Paykido')
+		$('.modal-body').empty();
+	   	$('.modal-footer').remove();
+	   	$('.modal').css("top", "25%")
+	   	$('.modal').css("height", "558px")
+	   	$('.modal').css("width", "360px")
+	   	FB.XFBML.parse();
+		$('#buy_button').attr("disabled", "disabled");
+	   $('#paykido.modal').css("margin", "-115px 0 0 -171px");
+	}
+	function unknown(userid, accessToken){
+
+		$('#login_button').show();
+		$('#registration').hide();
+		$('#invite').hide();
+ 	   	FB.XFBML.parse(); 
+     	$('#salutation').html('Hello!');
+      	$('#profile_picture').hide();
+      	$('#iop1').html('Click Log In to start using Paykido');
+      	$('#buy_button').attr("disabled", "disabled");
+	   $('#paykido.modal').css("margin", "-220px 0 0 -171px");
+
+	}
+
+  };	// end of fbAsyncInit
+	
+
+  // Load the SDK Asynchronously
+
+  (function(d){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document));
+
+
+
+
+
+
+})
+</script>

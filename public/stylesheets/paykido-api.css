@@ -1,3 +1,50 @@
+body {
+    font-family:"Segoe UI", Helvetica, Arial;
+    font-weight: 100;
+    text-shadow: 0 1px 0 #FFFFFF;
+    font-size: 15px;
+}
+
+#main .modal-header {
+  height: 33px;
+  padding: 18px 15px 15px;
+  margin-bottom: 0;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  *zoom: 1;
+  -webkit-box-shadow: inset 0 1px 0 #ffffff;
+     -moz-box-shadow: inset 0 1px 0 #ffffff;
+          box-shadow: inset 0 1px 0 #ffffff;
+              
+  text-shadow: 0 1px 0 #FFFFFF;
+
+}
+
+.ys_kid {
+    position: absolute;
+    bottom: 7px;
+    left: 21px;
+    width: 33%;
+    z-index: 1000;
+}
+
+
+#iframe {
+    border: none;
+    height: 540px;
+    width: 340px;
+    overflow: hidden;
+}
+
+out_of_order {
+    z-index: 100;
+    position: absolute;
+    left: 100px;
+    top: 77px;
+    width: 122px;
+    
+}
+
 /*
 body .modal {
     /* new custom width 
@@ -14,22 +61,14 @@ body .modal-body {
     max-height: 545px;
 }
 */
-#logo {
-    position: absolute;
-    top: 17px;
-    left: 9px;
-    width: 70px;
-    
-}
 #login_button {
     float: right;
-    margin-top: 12px;
+    margin-top: 36px;
+    margin-right: 60px;
 }
 
 .modal-header h3 {
-    text-align: right;
-    padding-right: 27px;
-    margin-top: -3px;
+    text-align: center;
     
 }
 .line {
@@ -46,9 +85,13 @@ body .modal-body {
 }
 
 #invite {
-    margin-top: 20px;
-    position: absolute;
-    top: 230px;
+    margin-top: 45px;
+    font-size: 16px;
+    margin-left: -10px;
+}
+
+#salutation_and_pic_or_login {
+ 
 }
 
 #invite .text {
@@ -64,22 +107,22 @@ body .modal-body {
 
 #salutation {
     float: left;
-    font-size: 14px;
+    font-size: 18px;
+    margin-left: 59px;
+    margin-top: 20px;
 
 }
 
 #pic {
-    position: absolute;
-    right: -256px;
+    float: right;
+    margin-right: 42px;
 }
 
-#login_button {
+#pic img {
+    border-radius: 5px;
     position: absolute;
-    right: -256px;
-}
-#salutation_and_pic_or_login {
-    position: absolute;
-    top: 85px;
+    left: 9px;
+    top:9px;
 }
 
 #instruction_or_product {
@@ -88,10 +131,9 @@ body .modal-body {
 }
 
 #iop1 {
-    line-height: 6px;
-    position: absolute;
-    top: 170px;
-    left: 73px;   
+    margin-top: -38px;
+    margin-left: -16px;
+    font-size: 16px;  
 }
 
 #iop2 {
@@ -100,12 +142,12 @@ body .modal-body {
     line-height: 50px;
     position: absolute;
     top: 190px;
-    left: 64px;
+    left: 47px;
 }
 #invite.line .text {
     text-align: left;
     float: left;
-    line-height: 50px;
+    line-height: 120px;
 }
 
 #invite:hover {
@@ -113,10 +155,10 @@ body .modal-body {
 }
 
 #facepile {
-    margin-left: 5px;
+    margin-left: 30px;
     height: 100px;
     position: absolute;
-    top: 350px; 
+    top: 324px; 
     
 }
 
@@ -129,8 +171,8 @@ body .modal-body {
 
 #registration {
     position: absolute;
-    top: 50px;
-    left: 33px;
+    top: 80px;
+    left: 25px;
     width: 318px;
 
 }
@@ -291,7 +333,6 @@ textarea {
 
 body {
   margin: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 13px;
   line-height: 18px;
   color: #333333;
@@ -4308,7 +4349,7 @@ input[type="submit"].btn.btn-mini {
 
 .modal {
   position: fixed;
-  top: 50%;
+  top: 40%;
   left: 50%;
   z-index: 1050;
   width: 560px;
@@ -4332,7 +4373,7 @@ input[type="submit"].btn.btn-mini {
 /* Dror */
 #paykido.modal {
       
-  width: 342px;
+  width: 340px;
   margin: -220px 0 0 -171px;
   overflow: hidden;  
 
@@ -4362,8 +4403,8 @@ input[type="submit"].btn.btn-mini {
 }
 
 .modal-body {
-  height: 400px; /* Dror: Originally: max-height: 400px; */
-  padding: 15px;
+  height: 417px; /* Dror: Originally: max-height: 400px; */
+/*  padding: 15px; */
   overflow-y: auto;
 }
 

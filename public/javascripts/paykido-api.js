@@ -4,10 +4,9 @@
 
 $(document).ready(function() {
     $("a[data-toggle=modal]").click(function (e) {
-      target = $(this).attr('data-target')
-      url = $(this).attr('href')
-      $(target).load(url);
-     })   
+        $('#iframe').attr("src", $('#iframe').attr("src"));
+    })
+       
 
 /*
     $('body .modal').on('show', function() {

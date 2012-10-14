@@ -1,5 +1,9 @@
 source 'http://rubygems.org'
 
+gem 'delayed_job_active_record'
+gem 'rack-cors',
+  :require => 'rack/cors'
+
 gem 'rails', '3.1.3'
 
 gem 'jquery-rails', '>= 1.0.12'
