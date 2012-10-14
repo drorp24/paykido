@@ -38,26 +38,25 @@ class Consumer < ActiveRecord::Base
     @facebook_user 
   end 
   
-  def balance(given_datetime)
+  def balance(given_datetime = Time.now)
     self.allowance_sum(given_datetime) - self.purchase_sum(given_datetime)
   end
     
   def allowance_sum(given_datetime = Time.now)
 
     @allowance_sum = 0
-    for allowance in self.rules.money do 
-      @allowance_sum += allowance.schedule.occurrences(given_datetime).count * allowance.amount
+    for monetary_rule in self.rules.monetary do 
+      @allowance_sum += monetary_rule.schedule.occurrences(given_datetime).count * monetary_rule.value.to_d if monetary_rule.schedule
     end
     @allowance_sum
-    
   end
 
   def purchase_sum(given_datetime)
 
     if given_datetime
-      self.purchases.where("date <= ?", given_datetime).sum("amount")
+      self.purchases.approved.where("date <= ?", given_datetime).sum("amount")
     else
-      self.purchases.sum("amount")
+      self.purchases.approved.sum("amount")
     end
 
   end

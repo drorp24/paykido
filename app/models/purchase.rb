@@ -32,7 +32,8 @@ class Purchase < ActiveRecord::Base
   has_many    :notifications
   has_many    :payments
   
-  scope :pending, where(:authorization_type => 'PendingPayer')
+  scope :pending,   where(:authorization_type => 'PendingPayer')
+  scope :approved,  where(:authorized => true)
 
   def create_transaction!(params)    
 
