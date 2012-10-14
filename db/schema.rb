@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120831001552) do
+ActiveRecord::Schema.define(:version => 20121011172055) do
 
   create_table "allowances", :force => true do |t|
     t.integer  "consumer_id"
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(:version => 20120831001552) do
     t.string   "by"
   end
 
+
+  create_table "communications", :force => true do |t|
+    t.integer   "payer_id"
+    t.string    "event"
+    t.string    "medium"
+    t.string    "data"
+    t.string    "frequency"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+  end
 
   create_table "consumers", :force => true do |t|
     t.string    "billing_phone"
@@ -78,13 +88,18 @@ ActiveRecord::Schema.define(:version => 20120831001552) do
   add_index "infos", ["key", "value"], :name => "index_infos_on_key_and_value", :unique => true
 
   create_table "notifications", :force => true do |t|
-    t.integer   "payer_id"
-    t.string    "event"
-    t.string    "medium"
-    t.string    "data"
-    t.string    "frequency"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
+    t.integer  "purchase_id"
+    t.string   "response"
+    t.string   "orderid"
+    t.string   "status"
+    t.decimal  "amount"
+    t.string   "currency"
+    t.string   "reason"
+    t.string   "checksum"
+    t.string   "event"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "message"
   end
 
   create_table "payers", :force => true do |t|

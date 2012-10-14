@@ -177,7 +177,7 @@ class ConsumerController < ApplicationController
     end
     
     unless status == 'failed'
-      notification_status = @purchase.notify_merchant(status)
+      notification_status = @purchase.notify_merchant(status, 'buy')
       status = 'failed' unless notification_status 
     end
     

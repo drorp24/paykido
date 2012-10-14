@@ -63,7 +63,7 @@ class G2sController < ApplicationController
       end   
 
       unless status == 'failed'
-        @purchase.notify_merchant(status)
+        @purchase.notify_merchant(status, 'payment')
         @purchase.notify_consumer('manual', status)   
       end
 

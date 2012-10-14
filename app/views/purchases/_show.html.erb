@@ -52,11 +52,11 @@
 -->
 
 				<div id="approval_buttons">
-				    <%= link_to approve_purchase_path(@purchase), :class => "small blue approval button" do %>
+				    <%= link_to approve_purchase_path(@purchase), :class => "small blue approval button", 'data-skip-pjax' => true do %>
 				        <span class="icon16 tick"></span>
 				        Approve
 				    <% end %>
-				    <%= link_to decline_purchase_path(@purchase), :class => "small blue decline button" do %>
+				    <%= link_to decline_purchase_path(@purchase), :class => "small blue decline button", 'data-skip-pjax' => true do %>
 				        <span class="icon16 delete"></span>
 				        Decline
 				    <% end %>
