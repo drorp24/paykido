@@ -11,6 +11,7 @@ load "config/recipes/check"
 load "config/recipes/utils"
 load "config/recipes/rake"
 load "config/recipes/taps"
+load "config/recipes/monit"
 
 server "50.116.63.241", :web, :app, :db, primary: true
 
