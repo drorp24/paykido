@@ -47,18 +47,21 @@ class RulesController < ApplicationController
   # PUT /rules/1
   # PUT /rules/1.json
   def update
+
     @rule = Rule.find(params[:id])
 
-    respond_to do |format|
-      if @rule.update_attributes(params[:rule])
-        puts "update attributes"
-        format.html { redirect_to @rule, notice: 'Rule was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @rule.errors, status: :unprocessable_entity }
-      end
+    if @rule.update_relevant_attributes(params[:rule])
+      status = 'success'
+    else
+      status = 'failure'
     end
+
+    redirect_to rules_path(
+      :notify => 'new_rule', 
+      :status => status,
+      :_pjax => "data-pjax-container"
+      )  
+
   end
 
   # DELETE /rules/1

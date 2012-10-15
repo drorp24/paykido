@@ -30,12 +30,12 @@ $(document).ready(function () {
 	function replace_occurrence(period_selection) {
 		if ($(period_selection).val() == 'Weekly') {
 			$(period_selection).parents('.rule_form').find('.weekly_allowance').show();
-			$(period_selection).parents('.rule_form').find('#rule_monthly_occurrence').empty();
-//			$(period_selection).parents('.rule_form').find('.monthly_allowance').hide();
+//			$(period_selection).parents('.rule_form').find('#rule_monthly_occurrence').empty();
+			$(period_selection).parents('.rule_form').find('.monthly_allowance').hide();
 		} else {
 			$(period_selection).parents('.rule_form').find('.monthly_allowance').show();
-			$(period_selection).parents('.rule_form').find('#rule_weekly_occurrence').empty();
-//			$(period_selection).parents('.rule_form').find('.weekly_allowance').hide();
+//			$(period_selection).parents('.rule_form').find('#rule_weekly_occurrence').empty();
+			$(period_selection).parents('.rule_form').find('.weekly_allowance').hide();
 		}
 		
 	}	

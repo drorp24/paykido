@@ -101,6 +101,14 @@
     <%= "Paykido will automatically #{(params[:rule_status] == 'whitelisted') ? 'approve' : 'decline'} purchases whose #{t params[:property]} is #{params[:value]}. No need to #{(params[:rule_status] == 'whitelisted') ? 'approve' : 'decline'} them manually anymore." %>
 </div>
 
+<% if params[:notify] and params[:notify] == 'new_rule' %>
+<div id="new_rule_success" class="alert alert-block" style="display:none">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Rule created</h4>    
+    <%= "Rule successfully set!" %>
+</div>
+<% end %>
+
 <div id="confirmation_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Consumer Confirmed!</h4>
@@ -209,6 +217,15 @@ $(document).ready(function() {
 	<% if params[:status] == 'success'  %>
 	    notification("<%= "#{current_payer.name} #{params[:rule_status]} #{params[:value]}"%>", false, 'icon-wrench', true)
 		$('#rule_setting_success').show();
+	<% else %>
+	    notification('<%= "Rule setting failed" %>', false, 'icon-exclamation-sign', true)
+	<% end %>
+<% end %>
+
+<% if params[:notify] and params[:notify] == 'new_rule' %>
+	<% if params[:status] == 'success'  %>
+	    notification("<%= "#{current_payer.name} created a new rule"%>", false, 'icon-wrench', true)
+		$('#new_rule_success').show();
 	<% else %>
 	    notification('<%= "Rule setting failed" %>', false, 'icon-exclamation-sign', true)
 	<% end %>

@@ -99,6 +99,26 @@ class Rule < ActiveRecord::Base
   ####  Change if needed      ####  
 
 
+  def update_relevant_attributes(params)
+    
+    if params[:period] == 'Monthly'
+      self.update_attributes(
+        :value => params[:value],
+        :period => params[:period],
+        :monthly_occurrence => params[:monthly_occurrence]
+        )
+    elsif params[:period] == 'Weekly'
+      self.update_attributes(
+        :value => params[:value],
+        :period => params[:period],
+        :weekly_occurrence => params[:weekly_occurrence]
+        )
+    else
+       self.update_attributes(params)         
+    end
+    
+  end
+
   ################ ICE_CUBE SCHEDULING ########################################3
   ################ Currently, not tolerant to input errors#####################3
 
