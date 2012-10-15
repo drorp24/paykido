@@ -12,10 +12,10 @@ namespace :monit do
     postgresql
     unicorn
     syntax
-    reload
+    force_reload
   end
   after "deploy:setup", "monit:setup"
-  
+
   task(:nginx, roles: :web) { monit_config "nginx" }
   task(:postgresql, roles: :db) { monit_config "postgresql" }
   task(:unicorn, roles: :app) { monit_config "unicorn" }
@@ -26,6 +26,12 @@ namespace :monit do
       run "#{sudo} service monit #{command}"
     end
   end
+
+  desc "Run Monit force-reload script"
+  task :force_reload do
+    run "#{sudo} service monit force-reload"
+  end
+
 end
 
 def monit_config(name, destination = nil)
