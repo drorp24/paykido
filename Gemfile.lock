@@ -42,6 +42,7 @@ GEM
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
     clickatell (0.8.2)
+    daemons (1.1.9)
     delayed_job (3.0.3)
       activesupport (~> 3.0)
     delayed_job_active_record (0.3.3)
@@ -189,6 +190,7 @@ PLATFORMS
 DEPENDENCIES
   capistrano
   clickatell
+  daemons
   delayed_job_active_record
   devise
   facebooker2 (~> 0.0.16)
