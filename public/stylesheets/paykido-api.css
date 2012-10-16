@@ -24,7 +24,7 @@ body {
     position: absolute;
     bottom: 7px;
     left: 21px;
-    width: 33%;
+    width: 120px;
     z-index: 1000;
 }
 
@@ -140,9 +140,7 @@ body .modal-body {
     font-size: 24px;
     font-weight: bold;
     line-height: 50px;
-    position: absolute;
-    top: 190px;
-    left: 47px;
+    margin-left: -10px;
 }
 #invite.line .text {
     text-align: left;
