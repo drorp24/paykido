@@ -11,5 +11,5 @@ check process <%= application %>_unicorn with pidfile <%= unicorn_pid %>
     if cpu > 50% for 3 cycles then restart
     if 5 restarts within 5 cycles then timeout
     alert info@paykido.com only on { pid }
-    if changed pid 2 times within 60 cycles then alert
+    if changed pid 5 times within 60 cycles then alert
 <% end %>
