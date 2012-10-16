@@ -31,7 +31,7 @@ body {
 
 #iframe {
     border: none;
-    height: 540px;
+    height: 565px;
     width: 340px;
     overflow: hidden;
 }
@@ -170,6 +170,11 @@ body .modal-body {
 #registration {
     margin: -400px auto 0;
     width: 590px;
+}
+
+#test_registration {
+    margin: -400px auto 0;
+    width: 290px;
 }
 
 #buy_form {
@@ -4398,7 +4403,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .modal-body {
-  height: 417px; /* Dror: Originally: max-height: 400px; */
+  height: 440px; /* Dror: Originally: max-height: 400px; */
 /*  padding: 15px; */
   overflow-y: auto;
 }
