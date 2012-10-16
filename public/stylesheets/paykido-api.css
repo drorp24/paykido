@@ -168,11 +168,8 @@ body .modal-body {
 }
 
 #registration {
-    position: absolute;
-    top: 80px;
-    left: 25px;
-    width: 318px;
-
+    margin: -400px auto 0;
+    width: 590px;
 }
 
 #buy_form {
