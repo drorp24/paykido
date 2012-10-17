@@ -154,7 +154,8 @@ $(document).ready(function (){
 
 		$('#login_button').hide();
 //	   	(parent.location.pathname == '/play') ? $('#test_registration').hide() : $('#registration').hide()
-$('#registration').hide()
+<%= (params[:mode] == 'M') ? "$('#test_registration').hide()" : "$('#registration').hide()" %>
+//$('#registration').hide()
 		$('.modal-header h3').html('Pay with Paykido')
 	   	FB.XFBML.parse(); 
   		$('#iop1').html('<%= "You are using Paykido to buy" %>');
@@ -176,7 +177,8 @@ $('#registration').hide()
 
 	function not_confirmed(){
 //	   	(parent.location.pathname == '/play') ? $('#test_registration').show() : $('#registration').show()
-$('#registration').show()
+<%= (params[:mode] == 'M') ? "$('#test_registration').show()" : "$('#registration').show()" %>
+//$('#registration').show()
 		$('.modal-header h3').html('Join Paykido')
 		$('.modal-body').empty();
 	   	$('.modal-footer').remove();
@@ -194,7 +196,8 @@ $('#registration').show()
 	function unknown(userid, accessToken){
 		$('#login_button').show();
 //		(parent.location.pathname == '/play') ? $('#test_registration').hide() : $('#registration').hide()
-$('#registration').hide()
+<%= (params[:mode] == 'M') ? "$('#test_registration').hide()" : "$('#registration').hide()" %>
+//$('#registration').hide()
 		$('.modal-header h3').html('Pay with Paykido')
 		$('#invite').hide();
  	   	FB.XFBML.parse(); 
