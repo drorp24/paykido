@@ -24,14 +24,14 @@ body {
     position: absolute;
     bottom: 7px;
     left: 21px;
-    width: 33%;
+    width: 120px;
     z-index: 1000;
 }
 
 
 #iframe {
     border: none;
-    height: 540px;
+    height: 565px;
     width: 340px;
     overflow: hidden;
 }
@@ -140,9 +140,7 @@ body .modal-body {
     font-size: 24px;
     font-weight: bold;
     line-height: 50px;
-    position: absolute;
-    top: 190px;
-    left: 47px;
+    margin-left: -10px;
 }
 #invite.line .text {
     text-align: left;
@@ -170,11 +168,13 @@ body .modal-body {
 }
 
 #registration {
-    position: absolute;
-    top: 80px;
-    left: 25px;
-    width: 318px;
+    margin: -425px auto 0;
+    width: 590px;
+}
 
+#test_registration {
+    margin: -425px auto 0;
+    width: 290px;
 }
 
 #buy_form {
@@ -4403,7 +4403,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .modal-body {
-  height: 417px; /* Dror: Originally: max-height: 400px; */
+  height: 440px; /* Dror: Originally: max-height: 400px; */
 /*  padding: 15px; */
   overflow-y: auto;
 }

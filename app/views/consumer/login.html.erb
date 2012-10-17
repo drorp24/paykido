@@ -58,29 +58,41 @@
 	<a href="#" class="btn" data-dismiss="modal">Close</a>
 
 </div>
-
-<div>
 	
-	<div id="registration" style="display: none;">
-		<fb:registration  
-			width="292" 
-			fb_register="true"
-			redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>"  
-			fields='[
-				{ "name":"name"},
-				{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
-				{ "name":"payer_name",     "description":"Your parent name",  "type":"text"},
-				{ "name":"payer_phone",     "description":"Your parent mobile # (e.g., 2131234567)",  "type":"text"},
-				{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
-			]' 
-			>
-		</fb:registration>
-	</div>
-	
+<div id="test_registration" style="display: none;">
+	<fb:registration  
+		width="290" 
+		fb_register="true"
+		redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>"  
+		fields='[
+			{ "name":"name"},
+			{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
+			{ "name":"payer_name",     "description":"Your parent name",  "type":"text"},
+			{ "name":"payer_phone",     "description":"Your parent mobile # (e.g., 2131234567)",  "type":"text"},
+			{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
+		]' 
+		>
+	</fb:registration>
 </div>
+
+<div id="registration" style="display: none;">
+	<fb:registration  
+		width="590" 
+		fb_register="true"
+		redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>"  
+		fields='[
+			{ "name":"name"},
+			{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
+			{ "name":"payer_name",     "description":"Your parent name",  "type":"text"},
+			{ "name":"payer_phone",     "description":"Your parent mobile # (e.g., 2131234567)",  "type":"text"},
+			{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
+		]' 
+		>
+	</fb:registration>
+</div>
+	
 <script type="text/javascript">
 $(document).ready(function (){ 
-
 
 	$('[data-dismiss="modal"]').click(function() {
 		window.parent.postMessage('close', "*");
@@ -141,7 +153,7 @@ $(document).ready(function (){
 	function confirmed(userid, accessToken){
 
 		$('#login_button').hide();
-	   	$('#registration').hide();
+		<%= (params[:mode] == 'M') ? "$('#test_registration').hide()" : "$('#registration').hide()" %>
 		$('.modal-header h3').html('Pay with Paykido')
 	   	FB.XFBML.parse(); 
   		$('#iop1').html('<%= "You are using Paykido to buy" %>');
@@ -162,13 +174,10 @@ $(document).ready(function (){
 	}
 
 	function not_confirmed(){
-	   	$('#registration').show();
+		<%= (params[:mode] == 'M') ? "$('#test_registration').show()" : "$('#registration').show()" %>
 		$('.modal-header h3').html('Join Paykido')
 		$('.modal-body').empty();
 	   	$('.modal-footer').remove();
-	   	$('.modal').css("top", "25%")
-	   	$('.modal').css("height", "568px")
-	   	$('.modal').css("width", "360px")
 	   	FB.XFBML.parse();
 	   	$('.clear.uiCloseButton.uiCloseButtonSmall').css('display', 'none');
 		$('#buy_button').attr("disabled", "disabled");
@@ -179,7 +188,7 @@ $(document).ready(function (){
 
 	function unknown(userid, accessToken){
 		$('#login_button').show();
-		$('#registration').hide();
+		<%= (params[:mode] == 'M') ? "$('#test_registration').hide()" : "$('#registration').hide()" %>
 		$('.modal-header h3').html('Pay with Paykido')
 		$('#invite').hide();
  	   	FB.XFBML.parse(); 

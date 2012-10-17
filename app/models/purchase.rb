@@ -607,7 +607,7 @@ class Purchase < ActiveRecord::Base
     elsif status == 'pending'
       @response[:message]     = 'Purchase requires manual approval'
     elsif status == 'declined' 
-      @response[:message]     = "Purchase is declined: #{self.authorization_property}: #{self.authorization_value.to_s} is #{self.authorization_type}"
+      @response[:message]     = "Purchase is declined. #{self.authorization_property} #{self.authorization_value.to_s} is #{self.authorization_type}"
     elsif status == 'unregistered' 
       @response[:message]      = "Please register to Paykido first"
     elsif status == 'failed'
