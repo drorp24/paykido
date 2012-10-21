@@ -128,7 +128,7 @@ class Payer < ActiveRecord::Base
   def request_confirmation(consumer)     
 
     begin
-      UserMailer.consumer_confirmation_email(self, consumer).deliver
+      UserMailer.delay.consumer_confirmation_email(self, consumer)
     rescue
       return false
     end

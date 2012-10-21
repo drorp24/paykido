@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="http://192.168.102.47:8080/ppp/resources/img/favicon_SAFECHARGE.ico" type="image/vnd.microsoft.icon" />
+<link rel="stylesheet" href="http://192.168.102.47:8080/ppp/resources/css/grayTheme.css" type="text/css" media="all" />
+<script type="text/javascript" src="http://192.168.102.47:8080/ppp/resources/js/jquery.min.js" ></script>
+<script type="text/javascript" src="http://192.168.102.47:8080/ppp/resources/js/jquery.blockUI.js" ></script>
+<script type="text/javascript" src="http://192.168.102.47:8080/ppp/resources/js/jquery.validate.js" ></script>
+<script type="text/javascript" src="http://192.168.102.47:8080/ppp/resources/js/safecharge.validation.js" ></script>
+<script type="text/javascript" src="http://192.168.102.47:8080/ppp/resources/js/core.js" ></script>
+<script type="text/javascript" >
+	var json_styles = '{"font_size":"12px","font_family":"tahoma","cs_th_color_val":"ffffff","cs_th_bgr_val":"696969","cs_td_color_val":"444444","cs_td_bgr_val":"fafafa","cs_tableborder_color_val":"d3d3d3","cs_heading_color_val":"ffffff","cs_heading_bgr_val":"696969","cs_label_color_val":"444444","cs_input_color_val":"444444","cs_input_bgr_val":"ffffff","cs_link_color_val":"2488cf","cs_page_bgr_val":"ffffff","cs_wrapper_bgr_val":"f9f9f9","cs_link_hover_color_val":"2488CF","cs_btns_border_color_val":"BBBBBB","cs_btns_bgr_val":"DDDDDD","cs_btns_txt_val":"555555","cs_btns_hover_txt_val":"0288e8","cs_btns_hover_bgr_val":"DDDDDD","cs_section_border_color_val":"D3D3D3","cs_section_bgr_val":"FFFFFF"}';
+</script>	<title>GateToShop</title>
+</head>
+<body>
+	<div class="wrapper">
+		<form id="PPPParametersForm" method="post" action="processPaymentRequest.do"> 	
+		<input type="hidden" name="CSRFToken" value="fdf26dad8e774f7aaf65de8f38ef28a9"/>
+		<input type="hidden" name="pppAction" id="pppAction" value="" />
+		<input type="hidden"  name="paykidoJson" id="paykidoJson" value="" />
+			<div class="head" id="head">
+	<div class="dynamic_logo_div">
+		
+	</div>
+			</div>
+		</form>
+			<div class="content">
+				<div class="content_inside">
+	 <script>
+	  	DISABLE_ALERT_BEFOREUNLOAD = true;
+ 	 </script>
+				<iframe src="https://www.paykido.com/consumer/login?&amount=1.0&product=On+line+game+&referrer=http%3A%2F%2F192.168.102.47%3A8080%2Fppp%2Fpurchase.do%3Fchecksum%3D61a0c7f8e9b2011f4470069f2d671364%26total_amount%3D1%26zip%3D9000%26numberofitems%3D1%26merchant_site_id%3D39%26quantity_1%3D1%26merchant_unique_id%3Dunikalno%2Bid%26address1%3DSunny%2B1%26phone2%3D456%26autorun%3Dtrue%26confirmEmail%3Dlilyanaz%2540safecharge.com%26phone1%3D123%26city%3DUtopos%2509%26country%3DGB%26currency%3DUSD%26first_name%3DLilyana%26email%3Dlilyanaz%2540safecharge.com%26item_amount_1%3D1%26item_name_1%3DOn%2Bline%2Bgame%2B%26last_name%3DZlatanova%26merchant_id%3D8263015379487437770%26payment_method%3DPaykido%26time_stamp%3D2012-10-16.10%253A21%253A56&merchant=gate2shop&PP_TransactionID=19441&mode=T&currency=USD&hash=172058a6dd9f4e677a5776663c2ed8ee" width="100%" height="550px" frameborder="0" id="apmIframe"></iframe>
+	
+	<meta charset="utf8"/>
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.paykido.com/stylesheets/paykido-api.css" > 
+	<script type="text/javascript" src="https://www.paykido.com/javascripts/paykido-api.js" ></script>
+	<script type="text/javascript" src="http://192.168.102.47:8080/ppp/resources/js/jquery.min.js" ></script> 
+	<script type="text/javascript" src="http://192.168.102.47:8080/ppp/resources/js/jquery.blockUI.js" ></script>
+
+	<script type="text/javascript">
+	
+		window.addEventListener("message", receiveMessage, false);
+
+		function receiveMessage(event) {
+			if (event.origin !== "https://www.paykido.com" || event.data=='close') {
+					return;
+			}
+			$.blockUI();
+			submitForm('paykidoResponse.do', event.data);
+			$.unBlockUI();
+		
+		}
+		
+		function submitForm(action_value, jsonContent){
+			$("#PPPParametersForm").attr("action", action_value);
+			$("#paykidoJson").val(jsonContent);
+			document.forms[0].submit();
+		}
+		
+	</script>
+					<div class="apm_buttons">
+	
+	
+	<p class="disclaimer">
+Safecharge is the authorized e-commerce merchant for the <font style="color: #cc0000;">Gate2Shop</font> store. This transaction will appear as  <font style="color: #cc0000;">Liliiiiiiiiiiiiiiiiiii</font> on your credit card Statement	</p>
+	 
+
+
+<div class="buttons">
+	<input type="button" name="btnBack" id="btn_back" 
+			value="Back"  alt="Back"   
+			onclick="submitForm('back.do');"  />
+	<input type="button" name="btnCancel" id="btn_cancel" 
+			value="Cancel"   alt="Cancel"  
+			onclick="submitForm('cancel.do');"  />		
+	
+</div>
+					</div>
+				</div>
+			</div>
+			<div class="bottom">
+				<div class="terms_conditions">
+<a href="" target="_blank" alt='Terms and Conditions'>Terms and Conditions</a>					|
+<a href=" target="_blank" alt='Privacy Policy'>Privacy Policy</a>				</div>
+			</div>
+	</div>
+</body>
+</html>

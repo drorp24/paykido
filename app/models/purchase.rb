@@ -16,7 +16,7 @@ end
 class Listener
   include HTTParty
   format :html
-  base_uri 'http://91.220.189.4'
+  base_uri 'https://secure.safecharge.com'
 end
 
 
@@ -321,7 +321,7 @@ class Purchase < ActiveRecord::Base
     )
 
     begin
-    listener_response  = Listener.get('/lilippp/paykidoNotificationListener', :query => {
+    listener_response  = Listener.get('/ppp/paykidoNotificationListener', :query => {
       :orderid  =>  self.PP_TransactionID    ,  
       :status  => status, 
       :amount  => self.amount,
@@ -577,7 +577,7 @@ class Purchase < ActiveRecord::Base
   def request_approval
     
     begin
-      UserMailer.purchase_approval_email(self).deliver
+      UserMailer.delay.purchase_approval_email(self)
     rescue
       return false
     end
@@ -607,7 +607,7 @@ class Purchase < ActiveRecord::Base
     elsif status == 'pending'
       @response[:message]     = 'Purchase requires manual approval'
     elsif status == 'declined' 
-      @response[:message]     = "Purchase is declined: #{self.authorization_property}: #{self.authorization_value.to_s} is #{self.authorization_type}"
+      @response[:message]     = "Purchase is declined. #{self.authorization_property} #{self.authorization_value.to_s} is #{self.authorization_type}"
     elsif status == 'unregistered' 
       @response[:message]      = "Please register to Paykido first"
     elsif status == 'failed'
