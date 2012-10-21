@@ -13,7 +13,7 @@ set eventqueue
      using tlsv1
      with timeout 30 seconds
 
-set alert info@paykido.com
+set alert info@paykido.com on { action,checksum, connection, content, data, exec, fsflags, gid, icmp, invalid, nonexist, permission, resource, size, timeout  }
 set alert gaady@gmail.com
 
 set httpd port 2812
