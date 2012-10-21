@@ -5,6 +5,10 @@ body {
     font-size: 15px;
 }
 
+#main {
+    overflow: hidden;
+}
+
 #main .modal-header {
   height: 33px;
   padding: 18px 15px 15px;

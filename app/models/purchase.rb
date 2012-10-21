@@ -16,7 +16,7 @@ end
 class Listener
   include HTTParty
   format :html
-  base_uri 'http://91.220.189.4'
+  base_uri 'https://secure.safecharge.com'
 end
 
 
@@ -321,7 +321,7 @@ class Purchase < ActiveRecord::Base
     )
 
     begin
-    listener_response  = Listener.get('/lilippp/paykidoNotificationListener', :query => {
+    listener_response  = Listener.get('/ppp/paykidoNotificationListener', :query => {
       :orderid  =>  self.PP_TransactionID    ,  
       :status  => status, 
       :amount  => self.amount,
