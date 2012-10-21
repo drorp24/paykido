@@ -190,7 +190,8 @@ class ConsumerController < ApplicationController
 
   def correct_hash(params)
     
-    return true #unless Paykido::Application.config.check_hash and params[:mode] != 'N' and params[:mode] != 'M'
+    return true 
+    #unless Paykido::Application.config.check_hash and params[:mode] != 'N' and params[:mode] != 'M'
     
     str =
       Paykido::Application.config.return_secret_key +
