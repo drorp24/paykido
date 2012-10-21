@@ -1,0 +1,7 @@
+check process delayed_job with pidfile <%=shared_path %>/pids/delayed_job.pid
+  start program = "/usr/bin/env RAILS_ENV=production <%=current_path %>/script/delayed_job start"
+  stop program = "/usr/bin/env RAILS_ENV=production <%=current_path %>/script/delayed_job stop"
+  if cpu > 60% for 3 cycles then alert
+  if cpu > 80% for 6 cycles then restart
+  if totalmem > 200.0 MB for 5 cycles then restart
+  if 4 restarts within 5 cycles then timeout
