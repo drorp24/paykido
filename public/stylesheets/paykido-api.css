@@ -38,6 +38,10 @@ body {
     height: 565px;
     width: 340px;
     overflow: hidden;
+      -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+
 }
 
 out_of_order {
