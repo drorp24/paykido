@@ -30,13 +30,13 @@ body .modal-footer {
 #returnedMessage .modal-body p {
     text-align: center;
     color: #666;
-    font-size: 22px;
+    font-size: 20px;
     text-align: center;
-    text-transform: capitalize;
     padding-top: 20px;
 }
-#returnedMessage .modal-body p:first-child {
-    margin-top: 66px;
+#returnedMessage #space  {
+    line-height: 100px;
+    margin-bottom: 50px;
 }
 
 #return_status {

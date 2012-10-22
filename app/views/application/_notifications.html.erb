@@ -103,8 +103,9 @@
 
 <div id="confirmation_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
-    <h4 class="alert-heading">Consumer Confirmed!</h4>
-    <%= "From now on, we'll watch every purchsae #{params[:name]} attempts to make. Consider registering to make things even safer" %>
+    <h4 class="alert-heading">Consumer Confirmed!</h4></br>
+    <%= "From now on, we'll watch every purchsae #{params[:name]} attempts. When ready, register your credit card to make things even safer!" %> &nbsp &nbsp
+    <span><%= button_to "Register now", tokens_path, :class => "btn btn-primary inline" %></span>
 </div>
 
 <script type="text/javascript">

@@ -48,9 +48,28 @@
 		<h3 id="return_status"></h3>
 	</div>
 	<div class="modal-body">
-		<p><span class="attribute"></span><span class="value" id="property"></span></p>
-		<p><span class="attribute"></span><span class="value" id="value"></span></p>
-		<p><span class="attribute"></span><span class="value" id="type"></span></p>
+		<p id="space"></p>
+		<p class="approved_purchase" style="display: none">Hurra!</p>
+		<p class="approved_purchase" style="display: none">Your purchase is approved.</p>
+		<p class="approved_purchase" style="display: none">The item is yours!</p>
+		<p class="declined_purchase" style="display: none">We are sorry.</p>
+		<p class="declined_purchase" style="display: none">Your purchase is declined.</p>
+		<p class="declined_purchase" style="display: none">
+			<span class="value" id="property"></span>
+			<span class="value" id="value"></span>
+			<span> is </span>
+			<span class="value" id="type"></span>
+		</p>
+		<p class="pending_purchase" style="display: none">Hold on...</p>
+		<p class="pending_purchase" style="display: none">Parental approval is required.</p>
+		<p class="pending_purchase" style="display: none">Parent was contacted.</p>
+		<p class="failed_purchase" style="display: none">We are sorry. Something went wrong.</p>
+		<p class="failed_purchase" style="display: none">
+			<span class="value" id="property"></span>
+			<span class="value" id="value"></span>
+			<span> is </span>
+			<span class="value" id="type"></span>
+		</p>
 		<%= image_tag "yellowshirt_kid.png", :class => "ys_kid" %>
 	</div>
 	<div class="modal-footer">
@@ -81,14 +100,20 @@ $(document).ready(function () {
 //	    alert('the message is: ' + obj.status + '\n' + "property:" + obj.property + "\n" + "value:" + obj.value + "\n" + "type:" + obj.type)
 	    $('#paykido.modal').empty()
 		$('#returnedMessage #return_status').html(obj.status)
-		if (obj.status == 'declined') {
+		if (obj.status == 'approved') {
+			$('.approved_purchase').show();
+		}
+		else if (obj.status == 'declined') {
 			$('.status_icon').removeClass('bigicon-thumbs-up').addClass('bigicon-thumbs-down')
+			$('.declined_purchase').show();
 		}
 		else if (obj.status == 'pending') {
 			$('.status_icon').removeClass('bigicon-thumbs-up').addClass('bigicon-thumbs-right')			
+			$('.pending_purchase').show();			
 		}
 		else if (obj.status == 'failed' || obj.status == 'unregistered' ) {
-			$('.status_icon').removeClass('bigicon-thumbs-up').addClass('.bigicon-cross-black')			
+			$('.status_icon').removeClass('bigicon-thumbs-up').addClass('.bigicon-cross-black')
+			$('.failed_purchase').show();			
 		}
 		$('#returnedMessage #property').html(obj.property)
 		$('#returnedMessage #value').html(obj.value)

@@ -11,7 +11,7 @@ class ConsumersController < ApplicationController
 
     @consumer.confirm!
 
-    redirect_to new_token_path(:notify => 'confirmation', :status => "success", :name => @consumer.name, :_pjax => true)  
+    redirect_to consumers_path(:notify => 'confirmation', :status => "success", :name => @consumer.name, :_pjax => true)  
 
   end
 
