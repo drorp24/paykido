@@ -151,7 +151,7 @@ class Purchase < ActiveRecord::Base
     
     "&first_name=Dror" +
     "&last_name=Poliak" +
-    "&email=drorp24@yahoo.com" +
+    "&email=dad@paykido.com" +
     "&address1=Shamgar 23" +
     "&city=Tel Aviv" +
     "&country=Israel" +
