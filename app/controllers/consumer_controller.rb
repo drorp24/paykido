@@ -2,7 +2,7 @@ require 'digest/md5'
 class ConsumerController < ApplicationController
     
   def login
-    
+
   end
   
   def register

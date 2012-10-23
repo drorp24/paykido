@@ -1,12 +1,12 @@
 /* ===================================================
  *           Paykido invocation
  * ===================================================*/
-
+/*
 $(document).ready(function() {
     $("a[data-toggle=modal]").click(function (e) {
         $('#iframe').attr("src", $('#iframe').attr("src"));
     })
-       
+*/       
 
 /*
     $('body .modal').on('show', function() {
@@ -19,9 +19,9 @@ $(document).ready(function() {
         window.setTimeout("$('body .modal').show()", 1000);
         $('#spinner_area img').hide();
     })
-*/    
+    
 })
-
+*/
 /* ===================================================
  * paykido-transition
  * ========================================================== */
