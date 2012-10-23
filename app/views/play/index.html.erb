@@ -49,6 +49,9 @@
 	</div>
 	<div class="modal-body">
 		<p id="space"></p>
+		<p class="registering" style="display: none">Almost there...</p>
+		<p class="registering" style="display: none">Confirmation email sent.</p>
+		<p class="registering" style="display: none">Let your parent know!</p>
 		<p class="approved_purchase" style="display: none">Hurra!</p>
 		<p class="approved_purchase" style="display: none">Your purchase is approved.</p>
 		<p class="approved_purchase" style="display: none">The item is yours!</p>
@@ -73,8 +76,8 @@
 		<%= image_tag "yellowshirt_kid.png", :class => "ys_kid" %>
 	</div>
 	<div class="modal-footer">
+		<a href="#" class="btn btn-primary">Why is this?</a>
 		<a href="#" class="btn" data-dismiss="modal">Close</a>
-		<a href="#" class="btn btn-primary" disabled="disabled">Why is this?</a>
 	</div>
 </div>
 
@@ -123,6 +126,15 @@ $(document).ready(function () {
 	    $('#paykido.modal').modal('show')
 	}
 
+	<% if params[:status] and params[:status] == 'registering' %>
+	    $('#paykido.modal').empty()
+		$('.status_icon').removeClass('bigicon-thumbs-up').addClass('bigicon-thumbs-right')			
+	    $('#paykido.modal').append($('#returnedMessage'))
+		$('#returnedMessage .modal-header h3').html('Confirmation')
+		$('.registering').show();	
+		$('#returnedMessage').show()
+	    $('#paykido.modal').modal('show')
+	<% end %>
 
 	// Emulate product selection (here: product radio button) 
 	//	initial value
