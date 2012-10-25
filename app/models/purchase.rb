@@ -385,8 +385,8 @@ class Purchase < ActiveRecord::Base
     unless self.payer.registered? 
       self.authorization_property = "registration"
       self.authorization_value = "missing"
+      self.authorization_type = "PendingPayer"
       self.authorization_date = Time.now
-      self.require_approval
       self.save!
       return      
     end
