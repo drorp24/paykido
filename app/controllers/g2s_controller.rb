@@ -17,6 +17,14 @@ class G2sController < ApplicationController
           :_pjax => "data-pjax-container"
         )
     elsif params[:customField1] == 'registration'
+          
+        # A temporary token is created immediately after PPP and consumer notified here, to enable kid to buy instantly
+        if params[:ppp_status] == 'OK' and params[:Status] == 'APPROVED'
+          @payer.create_temporary_token!(params)
+          @purchase = @payer.purchases.last               # ToDo: temporary
+          @purchase.notify_consumer('manual', 'approved')
+        end
+
         if @payer.purchases.any?
           redirect_to purchases_path(
             :notify => 'registration', 
@@ -64,7 +72,7 @@ class G2sController < ApplicationController
 
       unless status == 'failed'
         @purchase.notify_merchant(status, 'payment')
-        @purchase.notify_consumer('manual', status)   
+#        @purchase.notify_consumer('manual', status)    # consumer notification moved to PPP - see above   
       end
 
     elsif params[:customField1] == 'registration'
