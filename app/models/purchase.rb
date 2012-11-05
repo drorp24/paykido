@@ -194,8 +194,8 @@ class Purchase < ActiveRecord::Base
       :sg_Descriptor  => Paykido::Application.config.sg_Descriptor ,
       :sg_NameOnCard => token.NameOnCard ,
       :sg_CCToken => token.CCToken  ,
-      :sg_ExpMonth => token.ExpMonth ,                       
-      :sg_ExpYear => token.ExpYear  ,                        
+      :sg_ExpMonth => token.ExpMonth || '12',           # ToDo: Temp                        
+      :sg_ExpYear => token.ExpYear   || '13',           # ToDo: Temp                
       :sg_TransType => 'Sale' ,
       :sg_Currency  => self.currency ,
       :sg_Amount  => self.amount ,
