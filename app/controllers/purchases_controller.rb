@@ -2,7 +2,7 @@ class PurchasesController < ApplicationController
 
   before_filter :authenticate_payer!
   before_filter :find_purchase
-
+  
   # shared by both index and show. 
   # Priority: 1. if *only* :id is present - all purchases of that consumer whose purchase is his 
   # Otherwise, 2. all purchases of given consumers, or 3. payer

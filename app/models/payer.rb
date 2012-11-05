@@ -76,6 +76,7 @@ class Payer < ActiveRecord::Base
   end
 
 
+  # This Token is generated following the DMN. Note: DMN may take 30-60 min some times to retutn.
   def create_token!(params)
     self.tokens.create!( 
         :status => params[:Status],
@@ -105,6 +106,18 @@ class Payer < ActiveRecord::Base
         :client_ip => params[:client_ip],
         :cardNumber => params[:cardNumber],
         :uniqueCC => params[:uniqueCC]
+    )
+    
+  end
+
+  # This Token is generated following the PPP return, since DMN may take 30-60 min some times to retutn.
+  def create_temporary_token!(params)
+
+    self.tokens.create!( 
+        :status => params[:Status],
+        :CCToken => params[:Token],
+        :PPP_TransactionID => params[:PPP_TransactionID],
+        :Reason => 'PPP Callback'
     )
     
   end

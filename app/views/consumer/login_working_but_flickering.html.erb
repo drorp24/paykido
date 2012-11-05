@@ -126,7 +126,8 @@ $(document).ready(function (){
 	  }
 	});
 
-	FB.Event.subscribe('auth.login', function(response) {
+
+	FB.Event.subscribe('auth.authResponseChange', function(response) {
 	  if (response.status === 'connected') {
 	    userid = response.authResponse.userID;
 	    accessToken = response.authResponse.accessToken;
@@ -143,7 +144,6 @@ $(document).ready(function (){
 	    unknown();
 	  }
 	});
-
 
 	FB.Event.subscribe('auth.logout', function(response) {
 		window.parent.postMessage('close', "*");
@@ -174,14 +174,16 @@ $(document).ready(function (){
 	}
 
 	function not_confirmed(){
+		<%= (params[:mode] == 'M') ? "$('#test_registration').show()" : "$('#registration').show()" %>
 		$('.modal-header h3').html('Join Paykido')
 		$('.modal-body').empty();
 	   	$('.modal-footer').remove();
-		<%= (params[:mode] == 'M') ? "$('#test_registration').show()" : "$('#registration').show()" %>
 	   	FB.XFBML.parse();
 	   	$('.clear.uiCloseButton.uiCloseButtonSmall').css('display', 'none');
 		$('#buy_button').attr("disabled", "disabled");
 	   $('#paykido.modal').css("margin", "-115px 0 0 -171px");
+	   $('fbRegistrationTableSkinny fbRegistrationTable').click(function() {
+	   })
 	}
 
 	function unknown(userid, accessToken){
