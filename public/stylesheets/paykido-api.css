@@ -163,7 +163,8 @@ body .modal-body {
     margin-left: 30px;
     height: 100px;
     position: absolute;
-    top: 324px; 
+    top: 324px;
+    z-index: -1; 
     
 }
 

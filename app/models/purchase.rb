@@ -149,9 +149,9 @@ class Purchase < ActiveRecord::Base
 
     return "" unless Paykido::Application.config.populate_test_fields
     
-    "&first_name=Dror" +
-    "&last_name=Poliak" +
-    "&email=dad@paykido.com" +
+    "&first_name=Mom" +
+    "&last_name=Smith" +
+    "&email=mom@paykido.com" +
     "&address1=Shamgar 23" +
     "&city=Tel Aviv" +
     "&country=Israel" +
