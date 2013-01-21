@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(payer)
 
       Rails.logger.debug("entered after_sign_in_path")  
-      Rails.logger.debug("current_payer.id: " + current_payer.id)  
+      Rails.logger.debug("current_payer.id: " + current_payer.id.to_s)  
 
     if current_payer.purchases.any?
       Rails.logger.debug("there are purchases")  
