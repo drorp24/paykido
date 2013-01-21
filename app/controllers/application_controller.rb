@@ -8,11 +8,17 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(payer)
 
+      Rails.logger.debug("entered after_sign_in_path")  
+      Rails.logger.debug("current_payer.id: " + current_payer.id)  
+
     if current_payer.purchases.any?
+      Rails.logger.debug("there are purchases")  
       return purchases_path
     elsif current_payer.registered?
+      Rails.logger.debug("current payer is registered")  
       return tokens_path
     else
+      Rails.logger.debug("current payer is not registered")  
       return new_token_path
     end
   end
