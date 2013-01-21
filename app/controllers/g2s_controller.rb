@@ -21,8 +21,8 @@ class G2sController < ApplicationController
         # A temporary token is created immediately after PPP and consumer notified here, to enable kid to buy instantly
         if params[:ppp_status] == 'OK' and params[:Status] == 'APPROVED'
           @payer.create_temporary_token!(params)
-          @purchase = @payer.purchases.last               # ToDo: temporary
-          @purchase.notify_consumer('manual', 'approved')
+          @purchase = @payer.purchases.last  if @payer.purchases.any?             # ToDo: temporary
+          @purchase.notify_consumer('manual', 'approved') if @purchase
         end
 
         if @payer.purchases.any?
