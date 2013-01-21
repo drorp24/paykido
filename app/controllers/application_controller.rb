@@ -8,11 +8,13 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(payer)
 
-#    if current_payer.registered?
+    if current_payer.purchases.any?
       return purchases_path
-#    else
-#      return new_token_path
-#    end
+    elsif current_payer.registered?
+      return tokens_path
+    else
+      return new_token_path
+    end
   end
 
   private
