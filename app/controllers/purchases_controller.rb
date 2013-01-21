@@ -16,7 +16,13 @@ class PurchasesController < ApplicationController
   
   def index    
     find_purchases
-    redirect_to new_token_path unless @purchases.any?
+    unless @purchases.any?
+      if current_payer.registered?
+        redirect_to tokens_path
+      else  
+        redirect_to new_token_path
+      end
+    end
   end
   
 
