@@ -21,7 +21,9 @@ class TokensController < ApplicationController
   # GET /tokens/new
   # GET /tokens/new.json
   def new
+Rails.logger.info("entered /tokens/new")  
     @token = Token.new
+    redirect_to tokens_path if current_payer.tokens.any?
   end
 
   # GET /tokens/1/edit
