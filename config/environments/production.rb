@@ -34,7 +34,7 @@ Paykido::Application.configure do
   config.sg_TransType = 'Sale'
   config.sg_Version = '4.0.2'
   config.referrer = 'https://secure.gate2shop.com/ppp/purchase.do'
-  config.populate_test_fields = true
+  config.populate_test_fields = false
 
   # Code is not reloaded between requests
   config.cache_classes = true
