@@ -6,7 +6,7 @@ class Consumer < ActiveRecord::Base
       
   after_initialize :init
   def init
-      self.allowance  ||= 10          
+      self.allowance  ||= 50          
       self.allowance_period ||= 'Weekly'
       self.allowance_change_date ||= Time.now
       self.balance_on_acd ||= 0
