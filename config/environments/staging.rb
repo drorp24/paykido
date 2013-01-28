@@ -2,7 +2,7 @@ Paykido::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # General
-  config.hostname = 'paykido-beta.herokuapp.com'
+  config.hostname = 'paykido-staging.herokuapp.com'
   config.environment = 'staging'
 
   # Facebook (for server-side facebooker, make identical changes at facebooker.yml)
