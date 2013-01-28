@@ -56,6 +56,39 @@
 </div>
 
 <div id="rest_of_page" data-pjax-container="">
+		<div id="messages" class="row"> 
+
+
+			<% flash.each do |key, value| %>
+			<div class="message">
+			   <div class="alert-message <%= key %> fade in">
+			    <a class="close" href="#">&times</a>
+			    <center><strong><%= value %></strong></center>
+			  </div>
+			</div>
+			<% end %>
+
+			<% if notice %>
+			    <div class="alert notice fade in">
+			    	<div class="alert-inner">
+					    <button class="close" data-dismiss="alert">×</button>
+					    <%= notice %>
+				    </div>
+			    </div>
+		    <% end %>
+		
+			<% if alert %>
+			    <div class="alert alert-error fade in">
+			    	<div class="alert-inner">
+					    <button class="close" data-dismiss="alert">×</button>
+					    <strong>Notice:</strong>  <%= alert %>
+				    </div>
+			    </div>
+		    <% end %>
+		
+		</div>
+ 
+
     <%= yield :layout %>
 </div>
 	

@@ -176,6 +176,10 @@ ActiveRecord::Schema.define(:version => 20121011172055) do
   end
 
   create_table "rules", :force => true do |t|
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> develop
     t.integer  "consumer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -186,6 +190,20 @@ ActiveRecord::Schema.define(:version => 20121011172055) do
     t.string   "occasion"
     t.string   "donator"
     t.string   "category"
+<<<<<<< HEAD
+=======
+=======
+    t.integer   "payer_id"
+    t.integer   "consumer_id"
+    t.string    "entity"
+    t.integer   "entity_id"
+    t.timestamp "created_at"
+    t.timestamp "updated_at"
+    t.string    "property"
+    t.string    "value"
+    t.string    "status"
+>>>>>>> master
+>>>>>>> develop
   end
 
   create_table "sessions", :force => true do |t|

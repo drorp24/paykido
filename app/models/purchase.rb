@@ -16,7 +16,7 @@ end
 class Listener
   include HTTParty
   format :html
-  base_uri 'http://91.220.189.4'
+  base_uri 'https://secure.safecharge.com'
 end
 
 
@@ -150,9 +150,9 @@ class Purchase < ActiveRecord::Base
 
     return "" unless Paykido::Application.config.populate_test_fields
     
-    "&first_name=Dror" +
-    "&last_name=Poliak" +
-    "&email=drorp24@yahoo.com" +
+    "&first_name=Mom" +
+    "&last_name=Smith" +
+    "&email=mom@paykido.com" +
     "&address1=Shamgar 23" +
     "&city=Tel Aviv" +
     "&country=Israel" +
@@ -195,8 +195,8 @@ class Purchase < ActiveRecord::Base
       :sg_Descriptor  => Paykido::Application.config.sg_Descriptor ,
       :sg_NameOnCard => token.NameOnCard ,
       :sg_CCToken => token.CCToken  ,
-      :sg_ExpMonth => token.ExpMonth ,                       
-      :sg_ExpYear => token.ExpYear  ,                        
+      :sg_ExpMonth => token.ExpMonth || '12',           # ToDo: Temp                        
+      :sg_ExpYear => token.ExpYear   || '13',           # ToDo: Temp                
       :sg_TransType => 'Sale' ,
       :sg_Currency  => self.currency ,
       :sg_Amount  => self.amount ,
@@ -322,7 +322,7 @@ class Purchase < ActiveRecord::Base
     )
 
     begin
-    listener_response  = Listener.get('/lilippp/paykidoNotificationListener', :query => {
+    listener_response  = Listener.get('/ppp/paykidoNotificationListener', :query => {
       :orderid  =>  self.PP_TransactionID    ,  
       :status  => status, 
       :amount  => self.amount,
@@ -335,7 +335,7 @@ class Purchase < ActiveRecord::Base
       Rails.logger.info("Notification Listener was rescued. Following is the error:")
       Rails.logger.info(e)
       @notification.response = "Unreachable"
-#      raise "NotificationListener Unreachable"
+      raise "NotificationListener Unreachable"
     else
       Rails.logger.info("Following is the full response (listener_response)")
       Rails.logger.info(listener_response.inspect)
@@ -346,14 +346,14 @@ class Purchase < ActiveRecord::Base
       if listener_response.code != 200
         Rails.logger.info("NotificationListener Unauthorized raised")
         @notification.response = listener_response.code.to_s
-##        raise "NotificationListener Unauthorized"
+        raise "NotificationListener Unauthorized"
       elsif listener_response.parsed_response == "ERROR"
         Rails.logger.info("NotificationListener ERROR raised")
         @notification.response = "ERROR"
-#        raise "NotificationListener ERROR"
+        raise "NotificationListener ERROR"
       else
         @notification.response = "OK"
-#        Rails.logger.info("Nothing raised. Successfully completed")        
+        Rails.logger.info("Nothing raised. Successfully completed")        
       end
    end
    
@@ -362,7 +362,7 @@ class Purchase < ActiveRecord::Base
    Rails.logger.debug("EXIT send_notification") 
 
   end
-#  handle_asynchronously :send_notification
+  handle_asynchronously :send_notification
 
   
   def set_rules!(params)
@@ -578,7 +578,7 @@ class Purchase < ActiveRecord::Base
   def request_approval
     
     begin
-      UserMailer.purchase_approval_email(self).deliver
+      UserMailer.delay.purchase_approval_email(self)
     rescue
       return false
     end
@@ -608,7 +608,7 @@ class Purchase < ActiveRecord::Base
     elsif status == 'pending'
       @response[:message]     = 'Purchase requires manual approval'
     elsif status == 'declined' 
-      @response[:message]     = "Purchase is declined: #{self.authorization_property}: #{self.authorization_value.to_s} is #{self.authorization_type}"
+      @response[:message]     = "Purchase is declined. #{self.authorization_property} #{self.authorization_value.to_s} is #{self.authorization_type}"
     elsif status == 'unregistered' 
       @response[:message]      = "Please register to Paykido first"
     elsif status == 'failed'

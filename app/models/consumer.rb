@@ -117,6 +117,11 @@ class Consumer < ActiveRecord::Base
     self.allowance_change_date ||= self.created_at
 
     @balance1 = self.balance_on_acd + self.periods_since_acd *  self.allowance - self.purchases_since_acd
+    if @balance1 < 0
+      return 0
+    else
+      return @balance1
+    end
  
   end
 

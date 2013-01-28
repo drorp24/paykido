@@ -1,4 +1,5 @@
 require "bundler/capistrano"
+require "delayed/recipes"
 
 load "config/recipes/base"
 load "config/recipes/nginx"
@@ -10,6 +11,7 @@ load "config/recipes/check"
 load "config/recipes/utils"
 load "config/recipes/rake"
 load "config/recipes/taps"
+load "config/recipes/monit"
 
 server "50.116.63.241", :web, :app, :db, primary: true
 
@@ -24,6 +26,7 @@ set :use_sudo, false
 set :scm, "git"
 set :repository, "git@github.com:drorp24/paykido.git" #"https://github.com/drorp24/paykido.git"
 set :branch, "master"
+set :rails_env, "production" #added for delayed job
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
@@ -34,3 +37,7 @@ ssh_options[:paranoid] = false
 
 
 after "deploy", "deploy:cleanup" # keep only the last 5 releases
+
+after "deploy:stop",    "delayed_job:stop"
+after "deploy:start",   "delayed_job:start"
+after "deploy:restart", "delayed_job:restart"

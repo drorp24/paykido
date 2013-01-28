@@ -1,0 +1,27 @@
+set daemon 30
+
+set logfile /var/log/monit.log
+set idfile /var/lib/monit/id
+set statefile /var/lib/monit/state
+
+set eventqueue
+    basedir /var/lib/monit/events
+    slots 100
+
+ set mailserver smtp.gmail.com port 587
+     username "welcome@paykido.com" password "dror160395"
+     using tlsv1
+     with timeout 30 seconds
+
+set alert info@paykido.com on { action,checksum, connection, content, data, exec, fsflags, gid, icmp, invalid, nonexist, permission, resource, size, timeout  }
+set alert gaady@gmail.com
+
+set httpd port 2812
+    allow admin:"dror160395"
+
+check system paykido_server
+  if loadavg(5min) > 2 for 2 cycles then alert
+  if memory > 80% for 6 cycles then alert
+  if cpu(user) > 80% for 6 cycles then alert
+
+include /etc/monit/conf.d/*

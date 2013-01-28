@@ -2,7 +2,7 @@ Paykido::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # General
-  config.hostname = 'paykido-beta.herokuapp.com'
+  config.hostname = 'paykido-staging.herokuapp.com'
   config.environment = 'staging'
 
   # Facebook (for server-side facebooker, make identical changes at facebooker.yml)
@@ -11,7 +11,7 @@ Paykido::Application.configure do
   config.api_key = '294773230578790'
 
   # Policy
-  config.send_sms = false
+  config.send_sms = true
   config.rules_require_registration = false
   config.always_pay_manually = false
   config.offer_rule_or_registration_after = 1

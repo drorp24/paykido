@@ -2,7 +2,7 @@ require 'digest/md5'
 class ConsumerController < ApplicationController
     
   def login
-    
+
   end
   
   def register
@@ -190,7 +190,7 @@ class ConsumerController < ApplicationController
 
   def correct_hash(params)
     
-    return true unless Paykido::Application.config.check_hash and params[:mode] != 'N'
+    return true unless (Paykido::Application.config.check_hash and params[:mode] != 'M')
     
     str =
       Paykido::Application.config.return_secret_key +

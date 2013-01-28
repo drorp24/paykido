@@ -2,7 +2,7 @@ class PurchasesController < ApplicationController
 
   before_filter :authenticate_payer!
   before_filter :find_purchase
-
+  
   # shared by both index and show. 
   # Priority: 1. if *only* :id is present - all purchases of that consumer whose purchase is his 
   # Otherwise, 2. all purchases of given consumers, or 3. payer
@@ -15,8 +15,19 @@ class PurchasesController < ApplicationController
   end
   
   def index    
+Rails.logger.info("entered index")  
     find_purchases
-    redirect_to new_token_path unless @purchases.any?
+Rails.logger.info("after find_purchases")  
+
+    unless @purchases.any?
+      if current_payer.registered?
+Rails.logger.info("current_payer is registered")  
+        redirect_to tokens_path
+      else  
+Rails.logger.info("current_payer is not registered")  
+        redirect_to new_token_path
+      end
+    end
   end
   
 

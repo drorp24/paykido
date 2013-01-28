@@ -33,7 +33,7 @@
 		amount=6.00&
 		currency=EUR&
 		userid=131827&
-		mode=N&
+		mode=M&
 		PP_TransactionID=12345&
 		hash=04c43c270624bf4a7d6604a3cadf8303&
 		referrer=<%= request.protocol + Paykido::Application.config.hostname %>/play">
@@ -48,14 +48,36 @@
 		<h3 id="return_status"></h3>
 	</div>
 	<div class="modal-body">
-		<p><span class="attribute"></span><span class="value" id="property"></span></p>
-		<p><span class="attribute"></span><span class="value" id="value"></span></p>
-		<p><span class="attribute"></span><span class="value" id="type"></span></p>
+		<p id="space"></p>
+		<p class="registering" style="display: none">Almost there...</p>
+		<p class="registering" style="display: none">Confirmation email sent.</p>
+		<p class="registering" style="display: none">Let your parent know!</p>
+		<p class="approved_purchase" style="display: none">Hurra!</p>
+		<p class="approved_purchase" style="display: none">Your purchase is approved.</p>
+		<p class="approved_purchase" style="display: none">The item is yours!</p>
+		<p class="declined_purchase" style="display: none">We are sorry.</p>
+		<p class="declined_purchase" style="display: none">Your purchase is declined.</p>
+		<p class="declined_purchase" style="display: none">
+			<span class="value" id="property"></span>
+			<span class="value" id="value"></span>
+			<span> is </span>
+			<span class="value" id="type"></span>
+		</p>
+		<p class="pending_purchase" style="display: none">Hold on...</p>
+		<p class="pending_purchase" style="display: none">Parental approval is required.</p>
+		<p class="pending_purchase" style="display: none">Parent was contacted.</p>
+		<p class="failed_purchase" style="display: none">We are sorry. Something went wrong.</p>
+		<p class="failed_purchase" style="display: none">
+			<span class="value" id="property"></span>
+			<span class="value" id="value"></span>
+			<span> is </span>
+			<span class="value" id="type"></span>
+		</p>
 		<%= image_tag "yellowshirt_kid.png", :class => "ys_kid" %>
 	</div>
 	<div class="modal-footer">
+		<a href="#" class="btn btn-primary">Why is this?</a>
 		<a href="#" class="btn" data-dismiss="modal">Close</a>
-		<a href="#" class="btn btn-primary" disabled="disabled">Why is this?</a>
 	</div>
 </div>
 
@@ -81,14 +103,20 @@ $(document).ready(function () {
 //	    alert('the message is: ' + obj.status + '\n' + "property:" + obj.property + "\n" + "value:" + obj.value + "\n" + "type:" + obj.type)
 	    $('#paykido.modal').empty()
 		$('#returnedMessage #return_status').html(obj.status)
-		if (obj.status == 'declined') {
+		if (obj.status == 'approved') {
+			$('.approved_purchase').show();
+		}
+		else if (obj.status == 'declined') {
 			$('.status_icon').removeClass('bigicon-thumbs-up').addClass('bigicon-thumbs-down')
+			$('.declined_purchase').show();
 		}
 		else if (obj.status == 'pending') {
 			$('.status_icon').removeClass('bigicon-thumbs-up').addClass('bigicon-thumbs-right')			
+			$('.pending_purchase').show();			
 		}
 		else if (obj.status == 'failed' || obj.status == 'unregistered' ) {
-			$('.status_icon').removeClass('bigicon-thumbs-up').addClass('.bigicon-cross-black')			
+			$('.status_icon').removeClass('bigicon-thumbs-up').addClass('.bigicon-cross-black')
+			$('.failed_purchase').show();			
 		}
 		$('#returnedMessage #property').html(obj.property)
 		$('#returnedMessage #value').html(obj.value)
@@ -98,6 +126,15 @@ $(document).ready(function () {
 	    $('#paykido.modal').modal('show')
 	}
 
+	<% if params[:status] and params[:status] == 'registering' %>
+	    $('#paykido.modal').empty()
+		$('.status_icon').removeClass('bigicon-thumbs-up').addClass('bigicon-thumbs-right')			
+	    $('#paykido.modal').append($('#returnedMessage'))
+		$('#returnedMessage .modal-header h3').html('Confirmation')
+		$('.registering').show();	
+		$('#returnedMessage').show()
+	    $('#paykido.modal').modal('show')
+	<% end %>
 
 	// Emulate product selection (here: product radio button) 
 	//	initial value
