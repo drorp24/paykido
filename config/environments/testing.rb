@@ -2,8 +2,8 @@ Paykido::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # General
-  config.hostname = 'paykido-staging.herokuapp.com'
-  config.environment = 'staging'
+  config.hostname = 'paykido-testing.herokuapp.com'
+  config.environment = 'testing'
 
   # Facebook (for server-side facebooker, make identical changes at facebooker.yml)
   config.app_id = '294773230578790'
