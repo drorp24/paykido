@@ -6,9 +6,9 @@ Paykido::Application.configure do
   config.environment = 'testing'
 
   # Facebook (for server-side facebooker, make identical changes at facebooker.yml)
-  config.app_id = '294773230578790'
-  config.secret = '669dac0d2d3cded22cdead73526e87bd' 
-  config.api_key = '294773230578790'
+  config.app_id = '366301316802347'
+  config.secret = '97ec77339cfa8ed4941ff20d6591576e' 
+  config.api_key = '366301316802347'
 
   # Policy
   config.send_sms = true

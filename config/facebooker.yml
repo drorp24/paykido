@@ -6,6 +6,10 @@ staging:
   app_id: 294773230578790
   secret: 669dac0d2d3cded22cdead73526e87bd
   api_key: 294773230578790
+testing:
+  app_id: 366301316802347
+  secret: 97ec77339cfa8ed4941ff20d6591576e
+  api_key: 366301316802347
 production:
   app_id:  402586589783096
   secret:  59791d5435202fe1f5eb69a872c0438a   
