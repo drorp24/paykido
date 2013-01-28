@@ -104,7 +104,11 @@ class G2sController < ApplicationController
       default_url_options[:protocol] = "http"
     elsif params[:customField1] == 'payment' and params[:nameOnCard] and params[:nameOnCard] == 'staging'
       @local_test = true
-      default_url_options[:host] = "paykido-beta.herokuapp.com"
+      default_url_options[:host] = "paykido-staging.herokuapp.com"
+      default_url_options[:protocol] = "http"
+    elsif params[:customField1] == 'payment' and params[:nameOnCard] and params[:nameOnCard] == 'testing'
+      @local_test = true
+      default_url_options[:host] = "paykido-testing.herokuapp.com"
       default_url_options[:protocol] = "http"
     else 
       default_url_options[:host] = Paykido::Application.config.hostname

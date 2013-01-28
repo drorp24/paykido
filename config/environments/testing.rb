@@ -2,7 +2,7 @@ Paykido::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # General
-  config.hostname = 'paykido-staging.herokuapp.com'
+  config.hostname = 'paykido-testing.herokuapp.com'
   config.environment = 'staging'
 
   # Facebook (for server-side facebooker, make identical changes at facebooker.yml)
@@ -71,7 +71,7 @@ Paykido::Application.configure do
   config.action_mailer.logger = nil
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { :host => 'paykido-staging.herokuapp.com'  }
+  config.action_mailer.default_url_options = { :host => 'paykido-testing.herokuapp.com'  }
   config.action_mailer.smtp_settings = {
   :address              => "smtp.gmail.com",
   :port                 => 587,
@@ -91,7 +91,7 @@ Paykido::Application.configure do
   }
 
 
-  config.action_mailer.default_url_options = { :host => 'paykido-staging.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'paykido-testing.herokuapp.com' }
   
   config.log_level = :debug
 
