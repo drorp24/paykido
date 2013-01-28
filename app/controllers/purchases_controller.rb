@@ -15,8 +15,19 @@ class PurchasesController < ApplicationController
   end
   
   def index    
+Rails.logger.info("entered index")  
     find_purchases
-    redirect_to new_token_path unless @purchases.any?
+Rails.logger.info("after find_purchases")  
+
+    unless @purchases.any?
+      if current_payer.registered?
+Rails.logger.info("current_payer is registered")  
+        redirect_to tokens_path
+      else  
+Rails.logger.info("current_payer is not registered")  
+        redirect_to new_token_path
+      end
+    end
   end
   
 

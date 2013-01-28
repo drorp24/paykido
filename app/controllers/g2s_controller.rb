@@ -5,6 +5,12 @@ class G2sController < ApplicationController
   def ppp_callback    ## /ppp/<status>
 
     if params[:customField1] == 'payment'
+        # Mark purchase approved already upon ppp_callback so the purchase will be marked approved and disappear from the screen
+        # When DMN returns, it will be marked approved again, a transaction will be created and the purchase will be accounted for
+        if params[:ppp_status] == 'OK'
+          @purchase = Purchase.find(params[:customField3].to_i)
+          @purchase.approve!
+        end
         redirect_to purchase_url(
           params[:customField3].to_i,
           :notify => 'approval', 
@@ -21,8 +27,8 @@ class G2sController < ApplicationController
         # A temporary token is created immediately after PPP and consumer notified here, to enable kid to buy instantly
         if params[:ppp_status] == 'OK' and params[:Status] == 'APPROVED'
           @payer.create_temporary_token!(params)
-          @purchase = @payer.purchases.last               # ToDo: temporary
-          @purchase.notify_consumer('manual', 'approved')
+          @purchase = @payer.purchases.last  if @payer.purchases.any?             # ToDo: temporary
+          @purchase.notify_consumer('manual', 'approved') if @purchase
         end
 
         if @payer.purchases.any?
@@ -77,7 +83,7 @@ class G2sController < ApplicationController
 
     elsif params[:customField1] == 'registration'
       
-      @payer.create_token!(params)
+      @payer.create_token!(params)                      #ToDo: it looks like it needs to verify the status is OK like above
     
     else
       return render(:nothing => true)  
