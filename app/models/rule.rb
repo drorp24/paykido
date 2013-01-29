@@ -26,7 +26,7 @@ class Rule < ActiveRecord::Base
   scope :time,        where("category = ?", "when")
   scope :location,    where("category = ?", "where")
   
-  scope :allowance,   where("property = ?", "_allowance")
+  scope :of_allowance,   where("property = ?", "_allowance")
   
   def monetary?
     self.category == "how much"
@@ -98,6 +98,21 @@ class Rule < ActiveRecord::Base
 
   ####  Change if needed      ####  
 
+  def self.allowance_rule_of(consumer)
+    applicable_rules = self.where("consumer_id = ? and property = ?", consumer.id, '_allowance')
+    if applicable_rules.any?
+      allowance_rule = applicable_rules.first
+      { :amount => val = allowance_rule.value.to_i, 
+        :period => allowance_rule.period,
+        :weekly_occurrence => allowance_rule.weekly_occurrence,
+        :monthly_occurrence => allowance_rule.monthly_occurrence,
+        :start_date => allowance_rule.schedule.start_time,
+        :number_of_grants => grants = allowance_rule.schedule.occurrences(Time.now).count,
+        :so_far_accumulated => grants * val }
+    else
+      nil
+    end
+  end
 
   def update_relevant_attributes(params)
     

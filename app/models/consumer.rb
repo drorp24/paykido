@@ -39,16 +39,20 @@ class Consumer < ActiveRecord::Base
   end 
   
   def balance(given_datetime = Time.now)
-    self.allowance_sum(given_datetime) - self.purchase_sum(given_datetime)
+    self.monetary_sum(given_datetime) - self.purchase_sum(given_datetime)
   end
     
-  def allowance_sum(given_datetime = Time.now)
+  def allowance_rule
+    Rule.allowance_rule_of(self)
+  end
 
-    @allowance_sum = 0
+  def monetary_sum(given_datetime = Time.now)
+
+    @monetary_sum = 0
     for monetary_rule in self.rules.monetary do 
-      @allowance_sum += monetary_rule.schedule.occurrences(given_datetime).count * monetary_rule.value.to_d if monetary_rule.schedule
+      @monetary_sum += monetary_rule.schedule.occurrences(given_datetime).count * monetary_rule.value.to_d if monetary_rule.schedule
     end
-    @allowance_sum
+    @monetary_sum
   end
 
   def purchase_sum(given_datetime)
@@ -73,16 +77,16 @@ class Consumer < ActiveRecord::Base
 
   # OBSOLETE
 
-  after_initialize :init
-  def init
-      self.allowance  ||= 10          
-      self.allowance_period ||= 'Weekly'
-      self.allowance_change_date ||= Time.now
-      self.balance_on_acd ||= 0
-      self.purchases_since_acd ||= 0
-      self.auto_authorize_under ||= 5
-      self.auto_deny_over ||= 35
-  end
+#  after_initialize :init
+#  def init
+#      self.allowance  ||= 10          
+#      self.allowance_period ||= 'Weekly'
+#      self.allowance_change_date ||= Time.now
+#      self.balance_on_acd ||= 0
+#      self.purchases_since_acd ||= 0
+#      self.auto_authorize_under ||= 5
+#      self.auto_deny_over ||= 35
+#  end
 
   def allowance_day_of_week
     self.allowance_every || 0
