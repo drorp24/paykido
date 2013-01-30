@@ -17,7 +17,7 @@
 			<% end %>
 		</div>
 		<div class="span2">
-			<%= (rule.schedule) ? rule.schedule.to_s : "N/A" %>
+			<%= (rule.schedule) ? rule.schedule.to_s.split("/")[0] : "N/A" %>
 		</div>
 		<div class="span1">
 			<%= rule.consumer.name %>

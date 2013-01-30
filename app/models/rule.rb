@@ -113,6 +113,10 @@ class Rule < ActiveRecord::Base
       nil
     end
   end
+  
+  def stopped?
+    self.schedule.end_time
+  end
 
   def update_relevant_attributes(params)
     

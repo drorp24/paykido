@@ -6,7 +6,11 @@ body {
     line-height:21px;
 }
 
-<<<<<<< HEAD
+.rule_background h1 {
+    display: inline;
+    line-height: 62px;
+}
+
 .inline-submit {
     float: right;
     margin-right: 40px;
@@ -126,10 +130,10 @@ label.select.optional.control-label {
 
 .action_link a {
     margin-left: 60px;   
-=======
+
 .alert.alert-block .btn.btn-primary.inline {
     float: right
->>>>>>> master
+
 }
 
 body#paykido ul li {
