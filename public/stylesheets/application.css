@@ -6,6 +6,17 @@ body {
     line-height:21px;
 }
 
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.new_rule_line {
+    line-height: 52px;
+}
+
+/* Additions of feature/rules that are not in master. Break the purchases page */
+
 .rule_background h1 {
     display: inline;
     line-height: 62px;
@@ -16,6 +27,7 @@ body {
     margin-right: 40px;
     margin-top: 21px;    
 }
+
 .rule_line .form-actions {
     
 }
@@ -124,12 +136,13 @@ label.select.optional.control-label {
 
 }
 
-#maincontainer .page_head h1 {
-/*    margin-left: 52px; */
-}
-
+/* the following was added in feature/rules and breaks purchases query hence starred:
 .action_link a {
     margin-left: 60px;   
+
+*/
+/* End of additions of feature/rules that are not in master. Break the purchases page */
+
 
 .alert.alert-block .btn.btn-primary.inline {
     float: right

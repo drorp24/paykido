@@ -6,18 +6,30 @@
 		<div class="span1">
 			<i class="icon <%= rule.icon %>"></i>
 		</div>
-		<div class="span1" rel="<%= (rule.info) ? "popover" : "" %>"  title="<%= rule.title %>" data-content="<%= rule.description %>">
+		<div class="span100" rel="<%= (rule.info) ? "popover" : "" %>"  title="<%= rule.title %>" data-content="<%= rule.description %>">
 			<%= rule.title || rule.property %>
 		</div>
-		<div class="span1 offset1">
+		<div class="span3">
 			<% if rule.logo %>
 				<img src="<%= "/images/#{rule.logo}" %>" rel="<%= (rule.value_info) ? 'popover' : '' %>" title="<%= (rule.value_info) ? rule.value_info.title : '' %>" data-content="<%= (rule.value_info) ? rule.value_info.description : '' %>" />
+			<% elsif (rule.monetary?) %>
+				<span>
+					<%= number_to_currency(rule.value.to_i) %>
+				</span>
+				<span>
+					<% if rule.period == 'Weekly' %>
+						every <%= rule.weekly_occurrence %> of the week
+					<% elsif rule.period == 'Monthly' %>
+						every <%= rule.monthly_occurrence %> of the month
+					<% elsif schedule = rule.schedule %>
+						on <%= schedule %>
+					<% else %>
+						(not scheduled yet)
+					<% end %>
+				</span>
 			<% else %>
-				<%= (rule.monetary?) ? number_to_currency(rule.value.to_i) : rule.value %>
+				<%= rule.value %>
 			<% end %>
-		</div>
-		<div class="span2">
-			<%= (rule.schedule) ? rule.schedule.to_s.split("/")[0] : "N/A" %>
 		</div>
 		<div class="span1">
 			<%= rule.consumer.name %>

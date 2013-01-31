@@ -161,10 +161,10 @@ class Rule < ActiveRecord::Base
 
     return @period if @period 
 
-    if self.schedule?
+    if self.schedule? and self.schedule.to_hash[:rrules].any?
       @period = self.schedule.to_hash[:rrules][0][:rule_type] == "IceCube::WeeklyRule" ? 'Weekly' : 'Monthly'
     else
-      @period = I18n.t "time.Weekly" 
+      @period = 'One-off' 
     end 
 
   end
@@ -201,7 +201,7 @@ class Rule < ActiveRecord::Base
   end
     
   def monthly_occurrence
-    @monthly_occurrence = MONTHLY_RECURRENCES[self.occurrence_day] if self.schedule? and self.period == "Monthly"
+    @monthly_occurrence = (self.occurrence_day == 1) ? 'first day' : 'last day' if self.schedule? and self.period == "Monthly"
   end
 
   def monthly_occurrence=(ocr)

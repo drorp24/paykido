@@ -9,6 +9,8 @@ $(document).ready(function (){
     });    
 */    
 
+    $('[rel="popover"]').popover({placement: "left"});
+
     $('[title]').not('[rel="popover"]').tooltip();
 
     jQuery.fn.submitWithAjax = function () {  

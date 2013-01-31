@@ -10,7 +10,7 @@
 		
 			<div class="rule_background">			
 				<h1 class="rule_heading">How much</h1>
-				<a href="#" class="btn btn-info inline-submit" rel="popover" data-title="Set Your Monetary Rules" data-trigger="click">
+				<a id="newrule" href="#" class="btn btn-info inline-submit" data-title="New Monetary Rule" data-trigger="click">
 					<i class="icon-wrench icon-white"></i> New Rule
 				</a>
 			</div>
@@ -56,12 +56,23 @@
 
 </section>
 
+<div id="newrule_content">
+	<p class="new_rule_line"><span><i class="bigicon-calendar"></i></span><span>New Allowance</span></p>
+	<p class="new_rule_line"><span><i class="bigicon-bag"></i></span><span>New Gift</span></p>
+</div>
+
 <%= render 'notifications' %>
 <script type="text/javascript">
 
 $('document').ready(function() {
 
-		$('[rel="popover"]').popover({placement: "left"});
+
+	$('#newrule').popover({
+		placement:	"left",
+		html: 		true,
+		content: 	function() { return $('#newrule_content').html();} 
+	});
+	$('#newrule').popover('show');
 
 })
 
