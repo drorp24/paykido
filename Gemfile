@@ -6,7 +6,7 @@ gem 'daemons'
 gem 'rack-cors',
   :require => 'rack/cors'
 
-gem 'rails', '3.1.3'
+gem 'rails', '3.1.10'
 
 gem 'jquery-rails', '>= 1.0.12'
 
