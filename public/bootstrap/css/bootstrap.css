@@ -1795,7 +1795,7 @@ table .span24 {
   background-image: url("../img/glyphicons-halflings.png");
   background-position: 14px 14px;
   background-repeat: no-repeat;
-  margin-top: 3px; /* Dror: in the new bootstrap margin top is 1 px. That puts the icon in the right place vertically */
+  margin-top: 0px; /* Dror: in the new bootstrap margin top is 1 px. That puts the icon in the right place vertically */
 }
 
 [class^="icon-"]:last-child,

@@ -1,15 +1,17 @@
-<%= simple_form_for rule, :html => {:class => 'form-inline'} do |f| %>
+<%= simple_form_for rule, :html => {:class => 'form-inline', :id => 'rule_form'} do |f| %>
   <%= f.error_notification %>
 
   	<div class="form-inputs rule_form">
-	    <div class="input-prepend input-append span2 offset25 rule_value_wrapper">
+	    <%= f.hidden_field :type, :value => "allowance" %>
+	    <%= f.hidden_field :consumer_id, :value => @consumer.id %>
+	    <div class="input-prepend input-append rule_value_wrapper">
 		    <span class="add-on"><%= t "number.currency.format.unit" %></span>
-		    	<%= f.input :value, :label => false, :input_html => {:class => 'numeric rule_value'}, :autofocus => true %>
+		    <%= f.input :value, :label => false, :input_html => {:class => 'numeric rule_value'}, :autofocus => true %>
 		    <span class="add-on">.00</span>
 	    </div>
-	    <%= f.input :period, :label => false, :collection => Rule.periods, :include_blank => false, :input_html => {:class => 'rule_period span1'} %>
-	    <%= f.input :weekly_occurrence, :label => "on", :wrapper_html => {:class => "weekly_allowance"}, :input_html => {:class => 'rule_occurrence span1'}, :collection => Rule.weekly_recurrence, :selected => rule.weekly_occurrence, :include_blank => false %>
-	    <%= f.input :monthly_occurrence, :label => "on", :wrapper_html => {:class => "monthly_allowance"}, :input_html => {:class => 'rule_occurrence span1'}, :collection => Rule.monthly_recurrence, :selected => rule.monthly_occurrence, :include_blank => false %>
+	    <%= f.input :period, :label => "every", :collection => Rule.periods, :include_blank => false, :input_html => {:class => 'rule_period'} %>
+	    <%= f.input :weekly_occurrence, :label => "on", :wrapper_html => {:class => "weekly_allowance"}, :input_html => {:class => 'rule_occurrence'}, :collection => Rule.weekly_recurrence, :selected => rule.weekly_occurrence, :include_blank => false %>
+	    <%= f.input :monthly_occurrence, :label => "on", :wrapper_html => {:class => "monthly_allowance"}, :input_html => {:class => 'rule_occurrence'}, :collection => Rule.monthly_recurrence, :selected => rule.monthly_occurrence, :include_blank => false %>
     	<%= f.button :submit, :class => "inline-submit"%>
   	</div>
 
@@ -28,7 +30,7 @@ $(document).ready(function () {
 	});
 
 	function replace_occurrence(period_selection) {
-		if ($(period_selection).val() == 'Weekly') {
+		if ($(period_selection).val() == 'Week') {
 			$(period_selection).parents('.rule_form').find('.weekly_allowance').show();
 //			$(period_selection).parents('.rule_form').find('#rule_monthly_occurrence').empty();
 			$(period_selection).parents('.rule_form').find('.monthly_allowance').hide();

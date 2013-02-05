@@ -46,6 +46,10 @@ class Consumer < ActiveRecord::Base
     Rule.allowance_rule_of(self)
   end
 
+  def allowance
+    Rule.allowance_of(self)
+  end
+
   def monetary_sum(given_datetime = Time.now)
 
     @monetary_sum = 0
@@ -63,6 +67,10 @@ class Consumer < ActiveRecord::Base
       self.purchases.approved.sum("amount")
     end
 
+  end
+  
+  def spent 
+    self.purchase_sum
   end
   
 # allowance.schedule.add_recurrence_time(DateTime.new(params[:year],params[:month],params[:day]))

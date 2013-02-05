@@ -6,6 +6,36 @@ body {
     line-height:21px;
 }
 
+.rule_occurrence {
+    width: 175px;
+    margin-left: 5px;
+}
+
+.rule_background .popover-inner {
+    width: 250px;
+}
+
+h3.popover-title {
+    font-size: 16px;
+}
+.popover-title.sub-title {
+    font-size: 14px;
+    font-weight: 100;
+    margin-bottom: -10px;
+    margin-left: -13px;
+}
+.rule_button_text {
+    font-size: 14px;
+}
+
+.modal-body {
+    width: 530px; /* probably not calulated probably by TB because its content is dynamic and non existent when firstly built */
+}
+
+.box h3 {
+    margin-bottom: 0;
+}
+
 .center {
     margin-left: auto;
     margin-right: auto;
@@ -40,7 +70,7 @@ body {
 }
 
 .rule_value {
-    width: 26px;
+    width: 52px;
 }
 
 .numeric.rule_value {
@@ -48,8 +78,7 @@ body {
 }
 
 #rule_period.rule_period {
-    width: 90px;
-    margin-left: -56px;    
+    width: 110px;
 }
 
 .offset25 {
@@ -171,12 +200,12 @@ body#paykido ul li {
 .modal-header i {
     float: left;
     margin-right: 2px;
-    margin-top: -13px;    
+    margin-top: -13px;   
+    margin-left: -15px; 
 }
 
 .modal-header h3 {
     font-size: 22px;
-    text-transform: uppercase;
     text-shadow: 0 1px 0 #FFFFFF;
 
 }
@@ -902,15 +931,6 @@ body#paykido .tooltip.large {
  
 }
 
-#new_rule {
-    width: 80%;
-    margin-left: 20%;
-    display: none;
-}
-
-#new_rule .box-content {
-
-}
 
 tr:hover {
  

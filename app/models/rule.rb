@@ -101,7 +101,16 @@ class Rule < ActiveRecord::Base
   def self.allowance_rule_of(consumer)
     applicable_rules = self.where("consumer_id = ? and property = ?", consumer.id, '_allowance')
     if applicable_rules.any?
-      allowance_rule = applicable_rules.first
+      allowance_rule = applicable_rules.last          # ToDo: think!
+    else
+      nil
+    end
+  end
+
+  def self.allowance_of(consumer)
+    applicable_rules = self.where("consumer_id = ? and property = ?", consumer.id, '_allowance')
+    if applicable_rules.any?
+      allowance_rule = applicable_rules.last          # ToDo: think!
       { :amount => val = allowance_rule.value.to_i, 
         :period => allowance_rule.period,
         :weekly_occurrence => allowance_rule.weekly_occurrence,

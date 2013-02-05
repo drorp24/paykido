@@ -9,6 +9,7 @@ $(document).ready(function (){
     });    
 */    
 
+
     $('[rel="popover"]').popover({placement: "left"});
 
     $('[title]').not('[rel="popover"]').tooltip();
@@ -67,7 +68,7 @@ $(document).ready(function (){
     
 //    $.pjax.defaults.timeout = 5000
 
-    $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]')
+    $('a:not([data-toggle]):not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]')
         
 //    $('#dashboard_right').bind('start.pjax', function() { $('#dashboard_right').fadeOut(500) }).bind('end.pjax', function() { $('#PJAXcontainer').fadeIn(500) });
 //    $('#dashboard_right').bind('pjax:start', function() { $('#dashboard_right').fadeOut(500) }).bind('pjax:end', function() { $('#PJAXcontainer').fadeIn(500) });

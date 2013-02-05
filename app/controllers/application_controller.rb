@@ -54,7 +54,7 @@ class ApplicationController < ActionController::Base
                
   def set_layout
 
-    if request.headers['X-PJAX']
+    if request.headers['X-PJAX'] or request.xhr?
       false
     elsif devise_controller?
       "home"

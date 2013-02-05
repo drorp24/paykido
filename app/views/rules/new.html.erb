@@ -1,5 +1,3 @@
-<h1>New rule</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', rules_path %>
+<% if params[:type] == "allowance" %>
+	<%= render 'new_allowance' %>
+<% end %>

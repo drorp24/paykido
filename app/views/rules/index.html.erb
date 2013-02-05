@@ -10,9 +10,12 @@
 		
 			<div class="rule_background">			
 				<h1 class="rule_heading">How much</h1>
-				<a id="newrule" href="#" class="btn btn-info inline-submit" data-title="New Monetary Rule" data-trigger="click">
-					<i class="icon-wrench icon-white"></i> New Rule
-				</a>
+				<% if @consumer %>
+					<button id="newrule" href="#" class="btn btn-info inline-submit" data-trigger="click">
+						<i class="icon-plus-sign icon-white"></i>
+						<span class="rule_button_text"> New Rule</span>
+					</button>
+				<% end %>
 			</div>
 			
 			<% for rule in @rules.monetary.sort_by {|rule| rule.property} %>
@@ -56,23 +59,59 @@
 
 </section>
 
+<% if @consumer %>
 <div id="newrule_content">
-	<p class="new_rule_line"><span><i class="bigicon-calendar"></i></span><span>New Allowance</span></p>
-	<p class="new_rule_line"><span><i class="bigicon-bag"></i></span><span>New Gift</span></p>
+	<p class="new_rule_line">
+		<span><i class="bigicon-calendar"></i></span>
+		<span>
+			<%= link_to "Allowance", new_consumer_rule_path(@consumer, :type => "allowance"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
+		</span>
+	</p>
+	<p class="new_rule_line">
+		<span><i class="bigicon-bag"></i></span>
+			<%= link_to "Gift", new_consumer_rule_path(@consumer, :type => "gift"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
+		<span>
+		</span>
+	</p>
+	<p class="new_rule_line">
+		<span><i class="bigicon-achievment"></i></span>
+		<span>
+			<%= link_to "Achievement", new_consumer_rule_path(@consumer, :type => "achievement"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
+		</span>
+	</p>
+	<p class="new_rule_line">
+		<span><i class="bigicon-birthday"></i></span>
+		<span>
+			<%= link_to "Birthday", new_consumer_rule_path(@consumer, :type => "birthday"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
+		</span>
+	</p>
+	<p class="new_rule_line">
+		<span><i class="bigicon-cleaning"></i></span>
+		<span>
+			<%= link_to "Chores", new_consumer_rule_path(@consumer, :type => "chores"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
+		</span>
+	</p>
 </div>
+<div id="newrule_title">
+	<%= "How much can they spend" %>
+	<p class="popover-title sub-title">Use Paykido to tell kids what they did to deserve their allowance!</p>
+</div>
+<% end %>
 
 <%= render 'notifications' %>
+<%= render 'modals' %>
+
 <script type="text/javascript">
 
 $('document').ready(function() {
 
 
 	$('#newrule').popover({
-		placement:	"left",
+		placement:	"bottom",
 		html: 		true,
-		content: 	function() { return $('#newrule_content').html();} 
+		content: 	function() { return $('#newrule_content').html();},
+		title:	 	function() { return $('#newrule_title').html();}
 	});
-	$('#newrule').popover('show');
 
 })
 

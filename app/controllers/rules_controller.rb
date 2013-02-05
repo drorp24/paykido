@@ -19,7 +19,9 @@ class RulesController < ApplicationController
   # GET /rules/new
   # GET /rules/new.json
   def new
-    @rule = Rule.new(params)
+    if params[:type] == 'allowance' and @consumer 
+      @rule = @consumer.allowance_rule
+    end
   end
 
   # GET /rules/1/edit
@@ -33,15 +35,25 @@ class RulesController < ApplicationController
 
     @rule = Rule.set!(params)
     
-    redirect_to purchase_path(
-      params[:purchase_id], 
-      :notify => 'rule_setting', 
-      :status => 'success', 
-      :property => params[:property],
-      :value => params[:value],
-      :rule_status => params[:rule_status],
-      :_pjax => 'data-pjax-container')  
-
+    if params[:purchase_id]
+      redirect_to purchase_path(
+        params[:purchase_id], 
+        :notify => 'rule_setting', 
+        :status => 'success', 
+        :property => params[:property],
+        :value => params[:value],
+        :rule_status => params[:rule_status],
+        :_pjax => 'data-pjax-container') 
+    else 
+      redirect_to consumer_rules_path(
+        params[:consumer_id],
+        :notify => 'rule_setting', 
+        :status => 'success', 
+        :property => params[:property],
+        :value => params[:value],
+        :rule_status => params[:rule_status],
+        :_pjax => 'data-pjax-container') 
+    end
   end
 
   # PUT /rules/1
