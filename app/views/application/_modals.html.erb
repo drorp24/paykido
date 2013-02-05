@@ -1,0 +1,19 @@
+<div class="modal hide" id="rule_modal">
+	<div class="modal-header">
+    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<i class="bigicon-wrench"></i>
+		<h3>New Rule</h3>
+    </div>
+    <div class="modal-body">
+    </div>
+    <div class="modal-footer">
+    	<a href="#" class="btn">Close</a>
+    	<%= link_to "Activate Rule", consumer_rules_path(@consumer), :method => :post, :class => "btn btn-primary", :id => 'activate_rule'%>
+</div>
+<script type="text/javascript">
+
+	$('#activate_rule').click(function () {
+		$('#activate_rule').attr('href', $('#activate_rule').attr('href') + '?'+ $('#rule_form').serialize());			
+	})
+
+</script>
