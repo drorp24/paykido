@@ -93,11 +93,8 @@
 
 <script type="text/javascript">
 $(document).ready(function (){ 
-	$.urlParam = function(name){
-	    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
-	    return results[1] || 0;
-	}
-	
+alert('Im in there')
+
 	$('[data-dismiss="modal"]').click(function() {
 		window.parent.postMessage('close', "*");
 	})		
@@ -157,7 +154,7 @@ $(document).ready(function (){
 	function confirmed(userid, accessToken){
 
 		$('#login_button').hide();
-		if ($.urlParam('mode') == 'M') {$('#test_registration').hide()} else {$('#registration').hide()}
+		<%= (params[:mode] == 'M') ? "$('#test_registration').hide()" : "$('#registration').hide()" %>
 		$('.modal-header h3').html('Pay with Paykido')
 	   	FB.XFBML.parse(); 
   		$('#iop1').html('<%= "You are using Paykido to buy" %>');
@@ -181,7 +178,7 @@ $(document).ready(function (){
 		$('.modal-header h3').html('Join Paykido')
 		$('.modal-body').empty();
 	   	$('.modal-footer').remove();
-		if ($.urlParam('mode') == 'M') {$('#test_registration').show()} else {$('#registration').show()}
+		<%= (params[:mode] == 'M') ? "$('#test_registration').show()" : "$('#registration').show()" %>
 	   	FB.XFBML.parse();
 	   	$('.clear.uiCloseButton.uiCloseButtonSmall').css('display', 'none');
 		$('#buy_button').attr("disabled", "disabled");
@@ -190,7 +187,7 @@ $(document).ready(function (){
 
 	function unknown(userid, accessToken){
 		$('#login_button').show();
-		if ($.urlParam('mode') == 'M') {$('#test_registration').hide()} else {$('#registration').hide()}
+		<%= (params[:mode] == 'M') ? "$('#test_registration').hide()" : "$('#registration').hide()" %>
 		$('.modal-header h3').html('Pay with Paykido')
 		$('#invite').hide();
  	   	FB.XFBML.parse(); 
