@@ -4,6 +4,9 @@ Paykido::Application.configure do
   # General
   config.hostname = 'paykido-staging.herokuapp.com'
   config.environment = 'staging'
+  
+  # Technical
+  config.queue.jobs = false
 
   # Facebook (for server-side facebooker, make identical changes at facebooker.yml)
   config.app_id = '294773230578790'
