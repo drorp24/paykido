@@ -1,14 +1,14 @@
 <div class="rule header">
     <%= "Set #{@consumer.name}'s Allowance" %>
 </div>
-<% if @allowance %>
+<% if @last_allowance_rule %>
 <div class="rule actions"
 	<p>
 		<span><%= "#{@consumer.name}'s currently defined allowance is" %></span>
-		<span><%= (number_to_currency (@allowance[:amount])) %>,
-		<span><%= @allowance[:period].downcase %></span>
+		<span><%= (number_to_currency (@last_allowance_rule.value.to_i)) %>,
+		<span><%= @last_allowance_rule.period.downcase %></span>
 		<span> every </span> 
-		<span><%= @allowance[:period] == "Weekly" ? @allowance[:weekly_occurrence] : @allowance[:monthly_occurrence] %>.</span>		
+		<span><%= @last_allowance_rule.period == "Weekly" ? @last_allowance_rule.weekly_occurrence : @last_allowance_rule.monthly_occurrence %>.</span>		
 	</p>
 	<p>
 		<%= "#{@consumer.name}'s current balance is #{number_to_currency @consumer.balance}." %>
@@ -17,5 +17,6 @@
 		<strong><%= "As of today, start granting #{@consumer.name} the following allowance: "%></strong>
 	</p>
 </div>
-<% end %>
+
 <%= render 'allowance_form', :rule => @rule %>
+<% end %>

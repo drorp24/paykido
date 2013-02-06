@@ -3,7 +3,6 @@
 
   	<div class="form-inputs rule_form">
 	    <%= f.hidden_field :type, :value => "allowance" %>
-	    <%= f.hidden_field :consumer_id, :value => @consumer.id %>
 	    <div class="input-prepend input-append rule_value_wrapper">
 		    <span class="add-on"><%= t "number.currency.format.unit" %></span>
 		    <%= f.input :value, :label => false, :input_html => {:class => 'numeric rule_value'}, :autofocus => true %>

@@ -19,8 +19,10 @@ class RulesController < ApplicationController
   # GET /rules/new
   # GET /rules/new.json
   def new
-    if params[:type] == 'allowance' and @consumer 
-      @rule = @consumer.allowance_rule
+    if params[:type] == 'allowance' and @consumer and @last_allowance_rule = @consumer.allowance_rule
+      @rule = @last_allowance_rule
+    else
+      @rule = Rule.new
     end
   end
 
@@ -33,7 +35,11 @@ class RulesController < ApplicationController
   # POST /rules.json
   def create
 
-    @rule = Rule.set!(params)
+    if params[:purchase_id]         #Todo: handle all rules the same way. The following is to not touch the current purchase rule setting
+      @rule = Rule.set!(params)
+    else
+      ...
+    end
     
     if params[:purchase_id]
       redirect_to purchase_path(
