@@ -4,6 +4,9 @@ Paykido::Application.configure do
   # General
   config.hostname = 'www.paykido.com'
   config.environment = 'beta'
+  
+  # Technical
+  config.queue.jobs = true
 
   # Facebook (for server-side facebooker, make identical changes at facebooker.yml)
   config.app_id = '402586589783096'
