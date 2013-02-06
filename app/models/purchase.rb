@@ -577,7 +577,7 @@ class Purchase < ActiveRecord::Base
   def request_approval
     
     begin
-      if Paykido::Application.config.queue.jobs
+      if Paykido::Application.config.queue_jobs
         UserMailer.delay.purchase_approval_email(self)
       else
         UserMailer.purchase_approval_email(self).deliver

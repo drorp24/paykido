@@ -139,7 +139,7 @@ class Payer < ActiveRecord::Base
   def request_confirmation(consumer)     
 
     begin
-      if Paykido::Application.config.queue.jobs
+      if Paykido::Application.config.queue_jobs
         UserMailer.delay.consumer_confirmation_email(self, consumer)
       else
         UserMailer.consumer_confirmation_email(self, consumer).deliver

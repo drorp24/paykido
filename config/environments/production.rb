@@ -6,7 +6,7 @@ Paykido::Application.configure do
   config.environment = 'beta'
   
   # Technical
-  config.queue.jobs = true
+  config.queue_jobs = true
 
   # Facebook (for server-side facebooker, make identical changes at facebooker.yml)
   config.app_id = '402586589783096'
