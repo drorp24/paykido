@@ -45,7 +45,7 @@ class Consumer < ActiveRecord::Base
   def allowance_rule
     Rule.allowance_rule_of(self)
   end
-
+  
   def allowance
     Rule.allowance_of(self)
   end

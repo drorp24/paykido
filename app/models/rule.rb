@@ -1,7 +1,34 @@
 class Rule < ActiveRecord::Base
   include IceCube
-  
+
   belongs_to  :consumer
+
+  def self.new_allowance_rule(last_allowance_rule)
+    rule = self.new
+    rule.consumer_id =      last_allowance_rule.consumer_id,
+    rule.property =         last_allowance_rule.property,
+    rule.value =            last_allowance_rule.value,
+    rule.status =           last_allowance_rule.status,
+    rule.schedule =         last_allowance_rule.schedule,
+    rule.occasion =         last_allowance_rule.occasion,
+    rule.donator =          last_allowance_rule.donator,
+    rule.category =         last_allowance_rule.category,
+    rule.previous_rule_id = last_allowance_rule.id
+    rule  
+  end
+
+  def create_new!(params)
+    
+  end
+
+  # Dummy property. Lives between 'new' and 'create'
+  def previous_rule_id
+    @previous_rule_id
+  end
+  
+  def previous_rule_id=(rule_id)
+    @previous_rule_id = rule_id
+  end
 
   WEEKDAY_NAMES =       I18n.t "time.day_names_array"
   MONTHLY_RECURRENCES = I18n.t "time.monthly_recurrences"
@@ -107,6 +134,7 @@ class Rule < ActiveRecord::Base
     end
   end
 
+  # ToDo: DELETE. Use only the rule object, dont create a special hash, just reducndant.
   def self.allowance_of(consumer)
     applicable_rules = self.where("consumer_id = ? and property = ?", consumer.id, '_allowance')
     if applicable_rules.any?

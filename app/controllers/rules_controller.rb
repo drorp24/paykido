@@ -19,10 +19,10 @@ class RulesController < ApplicationController
   # GET /rules/new
   # GET /rules/new.json
   def new
-    if params[:type] == 'allowance' and @consumer and @last_allowance_rule = @consumer.allowance_rule
-      @rule = @last_allowance_rule
+     if params[:type] == 'allowance' and params[:consumer_id] and last_allowance_rule = @consumer.allowance_rule 
+      @rule = Rule.new_allowance_rule(last_allowance_rule)
     else
-      @rule = Rule.new
+      @rule = Rule.new(:consumer_id => params[:consumer_id])
     end
   end
 
@@ -35,10 +35,10 @@ class RulesController < ApplicationController
   # POST /rules.json
   def create
 
-    if params[:purchase_id]         #Todo: handle all rules the same way. The following is to not touch the current purchase rule setting
+    if params[:purchase_id]         #Todo: temp: handle all rules the same way. 
       @rule = Rule.set!(params)
     else
-      ...
+     @rule = Rule.create_new!(params)
     end
     
     if params[:purchase_id]
