@@ -64,31 +64,31 @@
 	<p class="new_rule_line">
 		<span><i class="bigicon-calendar"></i></span>
 		<span>
-			<%= link_to "Allowance", new_consumer_rule_path(@consumer, :type => "allowance"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
+			<%= link_to "Allowance", new_consumer_rule_path(@consumer, :property => "_allowance"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
 		</span>
 	</p>
 	<p class="new_rule_line">
 		<span><i class="bigicon-bag"></i></span>
-			<%= link_to "Gift", new_consumer_rule_path(@consumer, :type => "gift"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
+			<%= link_to "Gift", new_consumer_rule_path(@consumer, :property => "_gift"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
 		<span>
 		</span>
 	</p>
 	<p class="new_rule_line">
 		<span><i class="bigicon-achievment"></i></span>
 		<span>
-			<%= link_to "Achievement", new_consumer_rule_path(@consumer, :type => "achievement"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
+			<%= link_to "Achievement", new_consumer_rule_path(@consumer, :property => "achievement"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
 		</span>
 	</p>
 	<p class="new_rule_line">
 		<span><i class="bigicon-birthday"></i></span>
 		<span>
-			<%= link_to "Birthday", new_consumer_rule_path(@consumer, :type => "birthday"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
+			<%= link_to "Birthday", new_consumer_rule_path(@consumer, :property => "birthday"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
 		</span>
 	</p>
 	<p class="new_rule_line">
 		<span><i class="bigicon-cleaning"></i></span>
 		<span>
-			<%= link_to "Chores", new_consumer_rule_path(@consumer, :type => "chores"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
+			<%= link_to "Chores", new_consumer_rule_path(@consumer, :property => "chores"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
 		</span>
 	</p>
 </div>

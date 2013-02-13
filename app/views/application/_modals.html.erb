@@ -7,13 +7,20 @@
     <div class="modal-body">
     </div>
     <div class="modal-footer">
-    	<a href="#" class="btn">Close</a>
-    	<%= link_to "Activate Rule", consumer_rules_path(@consumer), :method => :post, :class => "btn btn-primary", :id => 'activate_rule'%>
+    	<a href="#" class="btn" data-dismiss="modal" >Close</a>
+    	<a href="#" class="btn btn-primary" data-skip-pjax="true" id="activate_rule" data-dismiss="modal">Activate Rule</a>
 </div>
 <script type="text/javascript">
 
 	$('#activate_rule').click(function () {
-		$('#activate_rule').attr('href', $('#activate_rule').attr('href') + '?'+ $('#rule_form').serialize());			
+		href = "<%= consumer_rules_path(@consumer) %>" + "?" + $('#rule_form').serialize()
+		$.post(href)
+/*		$.pjax({
+		  url: href,
+		  type: 'POST',
+		  container: '#paykido'
+		})
+*/
 	})
 
 </script>

@@ -115,8 +115,11 @@ en:
       slash: "%m/%d/%Y"
     day_names_array: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     monthly_recurrences: ['First day of the month', 'Last day of the month']
-    periods: ['Week', 'Month']
+    periods: ['Weekly', 'Monthly']
     Weekly: Weekly
+    Monthly: Monthly
+    Yearly: Yearly
+    Daily: Daily
     day_names:
       - Sunday
       - Monday

@@ -11,10 +11,7 @@
 			<span><%= @rule.period == "Weekly" ? @rule.weekly_occurrence : @rule.monthly_occurrence %>.</span>		
 		</p>
 		<p>
-			<%= "#{@consumer.name}'s current balance is #{number_to_currency @consumer.balance}." %>
-		</p>
-		<p>
-			<strong><%= "As of today, start granting #{@consumer.name} the following allowance: "%></strong>
+			<%= "The new allowance will add to #{@consumer.name}'s existing balance of #{number_to_currency @consumer.balance}." %>
 		</p>
 	</div>
 <% end %>

@@ -19,10 +19,10 @@ class RulesController < ApplicationController
   # GET /rules/new
   # GET /rules/new.json
   def new
-     if params[:type] == 'allowance' and params[:consumer_id] and last_allowance_rule = @consumer.allowance_rule 
+     if params[:property] == '_allowance' and params[:consumer_id] and last_allowance_rule = @consumer.allowance_rule 
       @rule = Rule.new_allowance_rule(last_allowance_rule)
     else
-      @rule = Rule.new(:consumer_id => params[:consumer_id])
+      @rule = Rule.new
     end
   end
 
@@ -38,7 +38,7 @@ class RulesController < ApplicationController
     if params[:purchase_id]         #Todo: temp: handle all rules the same way. 
       @rule = Rule.set!(params)
     else
-     @rule = Rule.create_new!(params)
+     @rule = Rule.create_new!(params[:rule])
     end
     
     if params[:purchase_id]
@@ -52,12 +52,11 @@ class RulesController < ApplicationController
         :_pjax => 'data-pjax-container') 
     else 
       redirect_to consumer_rules_path(
-        params[:consumer_id],
-        :notify => 'rule_setting', 
+        params[:rule][:consumer_id],
+        :notify => 'new_rule', 
         :status => 'success', 
-        :property => params[:property],
-        :value => params[:value],
-        :rule_status => params[:rule_status],
+        :property => params[:rule][:property],
+        :value => params[:rule][:value],
         :_pjax => 'data-pjax-container') 
     end
   end
