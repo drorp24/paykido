@@ -7,20 +7,6 @@
     <div class="modal-body">
     </div>
     <div class="modal-footer">
-    	<a href="#" class="btn" data-dismiss="modal" >Close</a>
-    	<a href="#" class="btn btn-primary" data-skip-pjax="true" id="activate_rule" data-dismiss="modal">Activate Rule</a>
+    	<a href="#" class="btn" data-dismiss="modal" id="modal_close"  >Close</a>
+	</div>
 </div>
-<script type="text/javascript">
-
-	$('#activate_rule').click(function () {
-		href = "<%= consumer_rules_path(@consumer) %>" + "?" + $('#rule_form').serialize()
-		$.post(href)
-/*		$.pjax({
-		  url: href,
-		  type: 'POST',
-		  container: '#paykido'
-		})
-*/
-	})
-
-</script>
