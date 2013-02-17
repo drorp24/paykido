@@ -104,8 +104,12 @@
 <% if params[:notify] and params[:notify] == 'new_rule' %>
 <div id="new_rule_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
-    <h4 class="alert-heading">Rule created</h4>    
-    <%= "Rule successfully set!" %>
+    <h4 class="alert-heading">Rule created!</h4>    
+	<% if params[:property] == "_allowance" %>
+		<%= "Allowance was set to #{number_to_currency params[:value]} #{params[:period].downcase} every #{params[:occurrence].downcase}" %>
+	<% else %> 
+    	<%= "Rule successfully set!" %>
+	<% end %>
 </div>
 <% end %>
 

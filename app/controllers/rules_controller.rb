@@ -50,12 +50,15 @@ class RulesController < ApplicationController
         :value => params[:value],
         :rule_status => params[:rule_status]) 
     else 
+      occurrence = (params[:rule][:period] == "Weekly") ? params[:rule][:weekly_occurrence] : params[:rule][:monthly_occurrence]  
       redirect_to consumer_rules_path(
         params[:rule][:consumer_id],
         :notify => 'new_rule', 
         :status => 'success', 
         :property => params[:rule][:property],
-        :value => params[:rule][:value]) 
+        :value => params[:rule][:value],
+        :period => params[:rule][:period],
+        :occurrence => occurrence) 
     end
   end
 
