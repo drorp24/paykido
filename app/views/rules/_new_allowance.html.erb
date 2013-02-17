@@ -2,7 +2,7 @@
     <%= "Set #{@consumer.name}'s Allowance" %>
 </div>
 <% if @rule.previous_rule_id %>
-	<div class="rule actions"
+	<div class="rule actions">
 		<p>
 			<span><%= "#{@consumer.name}'s currently defined allowance is" %></span>
 			<span><%= (number_to_currency (@rule.value.to_i)) %>,

@@ -1,7 +1,7 @@
 <%= simple_form_for rule, :html => {:class => 'form-inline', :id => 'rule_form'} do |f| %>
   <%= f.error_notification %>
 
-  	<div class="form-inputs rule_form">
+	<div class="form-inputs rule_form">
 	    <%= f.hidden_field :consumer_id, :value => @consumer.id %>
 	    <%= f.hidden_field :property, :value => "_allowance" %>
 	    <%= f.hidden_field :previous_rule_id, :value => @rule.previous_rule_id %>
@@ -13,8 +13,9 @@
 	    <%= f.input :period, :label => false, :collection => Rule.periods, :include_blank => false, :input_html => {:class => 'rule_period'} %>
 	    <%= f.input :weekly_occurrence, :label => "every", :wrapper_html => {:class => "weekly_allowance"}, :input_html => {:class => 'rule_occurrence'}, :collection => Rule.weekly_recurrence, :selected => rule.weekly_occurrence, :include_blank => false %>
 	    <%= f.input :monthly_occurrence, :label => "every", :wrapper_html => {:class => "monthly_allowance"}, :input_html => {:class => 'rule_occurrence'}, :collection => Rule.monthly_recurrence, :selected => rule.monthly_occurrence, :include_blank => false %>
-  	</div>
-
+		<%= f.button :submit, "Activate Rule", :class => "btn-primary", :id => "modal_submit" %>
+	</div>
+	
 <% end %>
 
 

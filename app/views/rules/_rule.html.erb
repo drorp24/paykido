@@ -43,11 +43,6 @@
 	</div>
 
 	<div id=<%= "ruleEdit_#{rule.id}" %> class="collapse accordion-data">
-		<% if rule.allowance? %>
-			<%= render 'allowance_form', :rule => rule  %>
-		<% else %>
-			I'm not in allowance
-		<% end %>
 	</div>
 
 </div>

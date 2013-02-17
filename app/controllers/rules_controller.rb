@@ -48,16 +48,14 @@ class RulesController < ApplicationController
         :status => 'success', 
         :property => params[:property],
         :value => params[:value],
-        :rule_status => params[:rule_status],
-        :_pjax => 'data-pjax-container') 
+        :rule_status => params[:rule_status]) 
     else 
       redirect_to consumer_rules_path(
         params[:rule][:consumer_id],
         :notify => 'new_rule', 
         :status => 'success', 
         :property => params[:rule][:property],
-        :value => params[:rule][:value],
-        :_pjax => 'data-pjax-container') 
+        :value => params[:rule][:value]) 
     end
   end
 

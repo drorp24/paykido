@@ -52,7 +52,7 @@
 									 :hash		=> params[:hash],
 									 :referrer	=> params[:referrer] 
 									 }, :html => {:id => "buy_form"} do |f| %>
-		<%= submit_tag "Pay with Paykido", :class => "buy btn btn-primary", :id => "buy_button" %>
+		<%= submit_tag "Buy with Paykido", :class => "buy btn btn-primary", :id => "buy_button" %>
 	<% end %>
 
 	<a href="#" class="btn" data-dismiss="modal">Close</a>
@@ -158,7 +158,7 @@ $(document).ready(function (){
 
 		$('#login_button').hide();
 		if ($.urlParam('mode') == 'M') {$('#test_registration').hide()} else {$('#registration').hide()}
-		$('.modal-header h3').html('Pay with Paykido')
+		$('.modal-header h3').html('Buy with Paykido')
 	   	FB.XFBML.parse(); 
   		$('#iop1').html('<%= "You are using Paykido to buy" %>');
   		$('#iop2').html('<%= "#{params[:product]} (#{params[:amount]} #{params[:currency]})" %>');
