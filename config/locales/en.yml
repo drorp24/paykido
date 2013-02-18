@@ -113,16 +113,6 @@ en:
       long: "%d %B, %Y"
       weekday: "%a, %d %b"
       slash: "%m/%d/%Y"
-    weekday_names_array: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-    day_of_month_array: ['Last day of the monthy', '', 'First day of the monthy']
-    monthly_recurrence_options: [-1, 1]
-    monthly_recurrences: ['Last day of the month','First day of the month']
-    periods: ['Weekly', 'Monthly']
-    Weekly: Weekly
-    Monthly: Monthly
-    Yearly: Yearly
-    Daily: Daily
-    Nonrecurring: Nonrecurrant
     day_names:
       - Sunday
       - Monday

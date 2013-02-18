@@ -106,7 +106,7 @@
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Rule created!</h4>    
 	<% if params[:property] == "_allowance" %>
-		<%= "Allowance was set to #{number_to_currency params[:value]} #{params[:period].downcase} every #{params[:occurrence].downcase}" %>
+		<%= "Allowance was set to #{number_to_currency params[:value]} #{params[:period].downcase} every #{params[:occurrence]}" %>
 	<% else %> 
     	<%= "Rule successfully set!" %>
 	<% end %>
