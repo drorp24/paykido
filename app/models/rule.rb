@@ -26,16 +26,14 @@ class Rule < ActiveRecord::Base
 
     schedule = IceCube::Schedule.new 
     if params[:period] ==  I18n.t("time.Weekly")
-      occurrence = WEEKDAY_NAMES.index(params[:weekly_occurrence])
-      schedule.add_recurrence_rule Rule.weekly.day(occurrence) 
+      schedule.add_recurrence_rule Rule.weekly.day(params[:weekly_occurrence]) 
     elsif params[:period] ==  I18n.t("time.Monthly")
-      occurrence = WEEKDAY_NAMES.index(params[:monthly_occurrence])
-      schedule.add_recurrence_rule Rule.monthly.day_of_month(occurrence) 
+      schedule.add_recurrence_rule Rule.monthly.day_of_month(params[:monthly_occurrence].to_i) 
     elsif params[:period] ==  I18n.t("time.Yearly")
     elsif params[:period] ==  I18n.t("time.Daily")
     end
 
-    rule = self.new(params.except(:schedule, :previous_rule_id))  
+    rule = self.new(:consumer_id => params[:consumer_id], :property => params[:property], :value => params[:value])  
     rule.schedule = schedule
     rule.save   
 
@@ -50,7 +48,8 @@ class Rule < ActiveRecord::Base
     @previous_rule_id = rule_id
   end
 
-  WEEKDAY_NAMES =       I18n.t "time.day_names_array"
+  WEEKDAY_NAMES =       I18n.t "time.weekday_names_array"
+  MONTHDAY_NAMES =      I18n.t "time.day_of_month_array"
   MONTHLY_RECURRENCES = I18n.t "time.monthly_recurrences"
   PERIODS =             I18n.t "time.periods"
 
@@ -58,6 +57,10 @@ class Rule < ActiveRecord::Base
     WEEKDAY_NAMES
   end
   
+  def self.monthly_options
+    [:"-1", :"1"]
+  end
+
   def self.monthly_recurrence
     MONTHLY_RECURRENCES
   end
@@ -220,7 +223,7 @@ class Rule < ActiveRecord::Base
   end
     
   def recurring?
-    self.schedule.recurrence_rules.any? || self.schedule.recurrence_times.any? if self.schedule
+    self.schedule.recurrence_rules.any? if self.schedule
   end  
 
   def yearly?
@@ -239,6 +242,30 @@ class Rule < ActiveRecord::Base
     self.recurring? and self.schedule.to_hash[:rrules][0][:rule_type] == "IceCube::DailyRule"
   end
   
+  def nonrecurring?
+    !self.recurring?
+  end
+  
+  def period
+
+    return @period if @period
+
+    if self.weekly?
+      I18n.t "time.Weekly"
+    elsif self.monthly?
+      I18n.t "time.Monthly"
+    elsif self.daily?
+      I18n.t "time.Daily"
+    elsif self.yearly?
+      I18n.t "time.Yearly"
+    elsif self.nonrecurring?  
+      I18n.t "time.Nonrecurring"
+    else
+      nil
+    end    
+    
+  end
+
   def occurrence
 
     return @occurrence if @occurrence 
@@ -250,44 +277,60 @@ class Rule < ActiveRecord::Base
       @occurrence = self.schedule.to_hash[:rrules][0][:validations][:day_of_month][0]
     elsif self.weekly?
       @occurrence = self.schedule.to_hash[:rrules][0][:validations][:day][0]
+    else  
+      nil
     end
 
   end
+  
+  def weekly_occurrence 
+    @weekly_occurrence ||= WEEKDAY_NAMES[self.occurrence] if self.weekly?
+  end
+  
+  def monthly_occurrence
+    @monthly_occurrence ||= MONTHDAY_NAMES[self.occurrence + 1] if self.monthly?
+  end
+ 
+  
+  def occurrence_t
+
+  end
+
 
   # The assignment methods dont assume anything from other schedule roperties 
   # They each change one schedule property, leaving the others intact
-  def occurrence=(ocr)
+#  def occurrence=(ocr)
 
-    return if ocr.blank?
+#    return if ocr.blank?
 
-    if self.recurring?
-      schedule = self.schedule
-      schedule.to_hash[:rrules][0][:validations][:day_of_year][0]  = 
-      schedule.to_hash[:rrules][0][:validations][:day_of_month][0] = 
-      schedule.to_hash[:rrules][0][:validations][:day][0] = ocr
-      self.schedule = schedule
-    else
-      schedule = IceCube::Schedule.new
-      schedule.add_recurrence_rule IceCube::Rule.weekly(ocr)
-      self.schedule = schedule
-    end    
-  end
+#    if self.recurring?
+#      schedule = self.schedule
+#      schedule.to_hash[:rrules][0][:validations][:day_of_year][0]  = 
+#      schedule.to_hash[:rrules][0][:validations][:day_of_month][0] = 
+#      schedule.to_hash[:rrules][0][:validations][:day][0] = ocr
+#      self.schedule = schedule
+#    else
+#      schedule = IceCube::Schedule.new
+#      schedule.add_recurrence_rule IceCube::Rule.weekly(ocr)
+#      self.schedule = schedule
+#    end    
+#  end
 
-  def period
+#  def period
 
-    return @period if @period 
+#    return @period if @period 
 
-    if self.schedule? and self.schedule.to_hash[:rrules].any?
-      @period = self.schedule.to_hash[:rrules][0][:rule_type] == "IceCube::WeeklyRule" ? 'Weekly' : 'Monthly'
-    else
-      @period = 'One-off' 
-    end 
+#    if self.schedule? and self.schedule.to_hash[:rrules].any?
+#      @period = self.schedule.to_hash[:rrules][0][:rule_type] == "IceCube::WeeklyRule" ? 'Weekly' : 'Monthly'
+#    else
+#      @period = 'One-off' 
+#    end 
 
-  end
+#  end
   
 
 
-  def period=(prd)
+#  def period=(prd)
 
 #   LEAVE EMPTY
 #    return if prd.blank?
@@ -297,26 +340,10 @@ class Rule < ActiveRecord::Base
 #    schedule.add_recurrence_rule IceCube::Rule.weekly.day(occurrence)
 #    self.schedule = schedule
     
-  end
+#  end
 
-  def occurrence_day
- 
-    return @occurrence_day if @occurrence_day
-    return nil unless self.schedule?
- 
-    if self.period == 'Weekly'
-      @occurrence_day = self.schedule.to_hash[:rrules][0][:validations][:day][0]
-    else 
-      @occurrence_day = self.schedule.to_hash[:rrules][0][:validations][:day_of_month][0]
-    end
- 
-  end
 
-  def weekly_occurrence 
-    @weekly_occurrence = WEEKDAY_NAMES[self.occurrence_day] if self.schedule? and self.period == "Weekly"
-  end
-
-  def weekly_occurrence=(ocr)
+#  def weekly_occurrence=(ocr)
 
 #   LEAVE EMPTY
 #    return if ocr.blank?
@@ -325,14 +352,15 @@ class Rule < ActiveRecord::Base
 #    schedule.add_recurrence_rule IceCube::Rule.weekly.day(occurrence)
 #    self.schedule = schedule
     
-  end
-    
-  def monthly_occurrence
-    @monthly_occurrence = (self.occurrence_day == 1) ? 'first day' : 'last day' if self.schedule? and self.period == "Monthly"
-  end
+#  end
+
+# DELETE - USE ONLY OCCURRENCE_DAY    
+#  def monthly_occurrence
+#    @monthly_occurrence = (self.occurrence_day == 1) ? 'first day' : 'last day' if self.schedule? and self.period == "Monthly"
+#  end
 
 
-  def monthly_occurrence=(ocr)
+# def monthly_occurrence=(ocr)
 
 #   LEAVE EMPTY
 #    return if ocr.blank?
@@ -341,7 +369,7 @@ class Rule < ActiveRecord::Base
 #    schedule.add_recurrence_rule IceCube::Rule.monthly.day_of_month(occurrence)
 #    self.schedule = schedule
     
-  end
+#  end
 ## OBSOLETE  
 =begin
   def occurrence

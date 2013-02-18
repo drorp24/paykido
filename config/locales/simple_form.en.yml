@@ -1,5 +1,10 @@
 en:
   simple_form:
+    options:
+      rule:
+        monthly_occurrence:
+          "-1": Last day of the month
+          "1": 1st day of the month
     "yes": 'Yes'
     "no": 'No'
     required:
