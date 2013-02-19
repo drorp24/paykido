@@ -3,6 +3,26 @@ class Rule < ActiveRecord::Base
 
   belongs_to  :consumer
 
+  after_initialize :init
+  def init
+
+    if    self.property == '_allowance' or self.property == '_gift' or  self.property == 'birthday' or  self.property == 'chores'or  self.property == 'achievement' or  self.property == 'request'   
+          self.category = 'how much'
+    elsif self.property == 'retailer' or  self.property == 'esrb_rating' or self.property == 'pegi_rating' 
+          self.category = 'what'
+    elsif self.property == 'time'
+          self.category = 'when'
+    elsif self.property == 'location'
+          self.category = 'where'
+    elsif self.property == 'over' or  self.property == 'under' 
+          self.category = 'thresholds'
+    else
+          self.category = 'no macthing category'
+    end
+
+  end
+
+
   def self.new_allowance_rule(last_allowance_rule)
     rule = self.new
     rule.consumer_id =      last_allowance_rule.consumer_id,

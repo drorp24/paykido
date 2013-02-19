@@ -17,10 +17,10 @@
 					<%= number_to_currency(rule.value.to_i) %>
 				</span>
 				<span>
-					<% if rule.period == 'Weekly' %>
-						every <%= rule.weekly_occurrence %> of the week
-					<% elsif rule.period == 'Monthly' %>
-						every <%= rule.monthly_occurrence %> of the month
+					<% if rule.period == 'weekly' %>
+						every <%= rule.weekly_occurrence %>
+					<% elsif rule.period == 'monthly' %>
+						every <%= rule.monthly_occurrence %>
 					<% elsif schedule = rule.schedule %>
 						on <%= schedule %>
 					<% else %>
