@@ -185,7 +185,7 @@ class Rule < ActiveRecord::Base
   end
 
   def expired?
-    self.schedule.end_time
+    !self.schedule.end_time.nil? if self.schedule
   end
 
   def update_relevant_attributes(params)

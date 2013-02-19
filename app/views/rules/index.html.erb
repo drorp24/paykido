@@ -19,7 +19,7 @@
 			</div>
 			
 			<% for rule in @rules.monetary.sort_by {|rule| rule.property} %>
-				<%= render 'rule', :rule => rule %> 
+				<%= render :partial => 'rule', :locals => {:rule => rule} unless rule.expired? %> 
 			<% end %>
 			
 			<div class="rule_background">
