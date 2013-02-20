@@ -49,7 +49,7 @@
 					<i class="icon-play"></i> Restart
 				<% end %>
     		<% elsif !rule.schedule %>
-	    		<%= link_to rule, confirm: 'Are you sure you want to remove this rule?', method: :delete, class: 'btn btn-mini action_button' do %>
+	    		<%= link_to rule, confirm: 'Are you sure you want to remove this rule?', method: :delete, 'data-skip-pjax' => true, class: 'btn btn-mini action_button' do %>
 					<i class="icon-remove-sign"></i> Remove
 				<% end %>
 			<% end %>

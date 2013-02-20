@@ -116,7 +116,7 @@
 <% if params[:notify] and params[:notify] == 'update_rule' %>
 <div id="update_rule_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
-    <h4 class="alert-heading">Rule updated!</h4>    
+    <h4 class="alert-heading"><%= "Rule #{params[:update]}!" %></h4>    
 	<%= "Rule was succesfully #{params[:update]}!" %>
 </div>
 <% end %>
