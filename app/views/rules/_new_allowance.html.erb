@@ -8,7 +8,7 @@
 			<span><%= (number_to_currency (@rule.value.to_i)) %>,
 			<span><%= @rule.period.downcase %></span>
 			<span> every </span> 
-			<span><%= @rule.period == "Weekly" ? @rule.weekly_occurrence : @rule.monthly_occurrence %>.</span>		
+			<span><%= @rule.weekly? ? @rule.weekly_occurrence : @rule.monthly_occurrence %>.</span>		
 		</p>
 		<p>
 			<%= "The new allowance will add to #{@consumer.name}'s existing balance of #{number_to_currency @consumer.balance}." %>

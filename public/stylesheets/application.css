@@ -6,6 +6,23 @@ body {
     line-height:21px;
 }
 
+.span75 {
+    width: 75px;
+}
+
+/*
+.rule_line .action_link a.info_button {
+    float: right;
+    width: 30px;
+    margin-top: 24px;
+} */
+
+.rule_line .action_link a {
+    float: right;
+    width: 60px;
+    margin-top: 24px;
+}
+
 #modal_submit {
     position: absolute;
     bottom: 16px;
@@ -153,7 +170,7 @@ label.select.optional.control-label {
 
 .action_link {
     float: right;
-    margin-right: 30px;
+    margin-right: 24px;
 }
 
 .rule_background {

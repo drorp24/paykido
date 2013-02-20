@@ -2,7 +2,11 @@ Paykido::Application.routes.draw do
 
   devise_for :payers
 
-  resources :rules 
+  resources :rules do
+    member do
+      put 'stop', 'restart'
+    end
+  end 
 
   resources :tokens
   

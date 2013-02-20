@@ -13,13 +13,13 @@
 				<% if @consumer %>
 					<button id="newrule" href="#" class="btn btn-info inline-submit" data-trigger="click">
 						<i class="icon-plus-sign icon-white"></i>
-						<span class="rule_button_text"> New Rule</span>
+						<span class="rule_button_text"> New</span>
 					</button>
 				<% end %>
 			</div>
 			
 			<% for rule in @rules.monetary.sort_by {|rule| rule.property} %>
-				<%= render :partial => 'rule', :locals => {:rule => rule} unless rule.expired? %> 
+				<%= render :partial => 'rule', :locals => {:rule => rule}  %> 
 			<% end %>
 			
 			<div class="rule_background">

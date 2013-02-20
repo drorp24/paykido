@@ -82,16 +82,55 @@ class RulesController < ApplicationController
 
   end
 
+  # PUT /rules/1/stop
+  def stop
+
+    @rule = Rule.find(params[:id])
+
+    if @rule.expire
+      status = 'success'
+    else
+      status = 'failure'
+    end
+
+    redirect_to consumer_rules_path(
+      @rule.consumer_id,
+      :notify => 'update_rule', 
+      :status => status, 
+      :update => 'stopped')
+      
+  end
+
+  # PUT /rules/1/stop
+  def restart
+
+    @rule = Rule.find(params[:id])
+
+    if @rule.restart
+      status = 'success'
+    else
+      status = 'failure'
+    end
+
+    redirect_to consumer_rules_path(
+      @rule.consumer_id,
+      :notify => 'update_rule', 
+      :status => status, 
+      :update => 'restarted')
+      
+  end
+
   # DELETE /rules/1
   # DELETE /rules/1.json
   def destroy
     @rule = Rule.find(params[:id])
     @rule.destroy
 
-    respond_to do |format|
-      format.html { redirect_to rules_url }
-      format.json { head :ok }
-    end
+    redirect_to consumer_rules_path(
+      @rule.consumer_id,
+      :notify => 'update_rule', 
+      :status => 'success', 
+      :update => 'removed')
   end
 
   private

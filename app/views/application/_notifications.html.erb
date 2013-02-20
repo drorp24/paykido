@@ -113,6 +113,14 @@
 </div>
 <% end %>
 
+<% if params[:notify] and params[:notify] == 'update_rule' %>
+<div id="update_rule_success" class="alert alert-block" style="display:none">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Rule updated!</h4>    
+	<%= "Rule was succesfully #{params[:update]}!" %>
+</div>
+<% end %>
+
 <div id="confirmation_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Consumer Confirmed!</h4>
@@ -233,6 +241,15 @@ $(document).ready(function() {
 		$('#new_rule_success').show();
 	<% else %>
 	    notification('<%= "Rule setting failed" %>', false, 'icon-exclamation-sign', true)
+	<% end %>
+<% end %>
+
+<% if params[:notify] and params[:notify] == 'update_rule' %>
+	<% if params[:status] == 'success'  %>
+	    notification("<%= "#{current_payer.name} updated a rule"%>", false, 'icon-wrench', true)
+		$('#update_rule_success').show();
+	<% else %>
+	    notification('<%= "Rule update failed" %>', false, 'icon-exclamation-sign', true)
 	<% end %>
 <% end %>
 

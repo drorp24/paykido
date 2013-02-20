@@ -41,7 +41,7 @@ class Rule < ActiveRecord::Base
 
     if params[:previous_rule_id] 
       expired_rule = self.find(params[:previous_rule_id])
-      expired_rule.expire!
+      expired_rule.expire
     end
 
     schedule = IceCube::Schedule.new 
@@ -169,7 +169,7 @@ class Rule < ActiveRecord::Base
         :period => allowance_rule.period,
         :weekly_occurrence => allowance_rule.weekly_occurrence,
         :monthly_occurrence => allowance_rule.monthly_occurrence,
-        :start_date => allowance_rule.schedule.start_time,
+        :start_date => allowance_rule.schedule.start_date,
         :number_of_grants => grants = allowance_rule.schedule.occurrences(Time.now).count,
         :so_far_accumulated => grants * val }
     else
@@ -177,36 +177,6 @@ class Rule < ActiveRecord::Base
     end
   end
   
-  def expire!
-    new_schedule = self.schedule || IceCube::Schedule.new
-    new_schedule.end_time = Time.now
-    self.schedule = new_schedule
-    self.save
-  end
-
-  def expired?
-    !self.schedule.end_time.nil? if self.schedule
-  end
-
-  def update_relevant_attributes(params)
-    
-    if params[:period] == 'Monthly'
-      self.update_attributes(
-        :value => params[:value],
-        :period => params[:period],
-        :monthly_occurrence => params[:monthly_occurrence]
-        )
-    elsif params[:period] == 'Weekly'
-      self.update_attributes(
-        :value => params[:value],
-        :period => params[:period],
-        :weekly_occurrence => params[:weekly_occurrence]
-        )
-    else
-       self.update_attributes(params)         
-    end
-    
-  end
 
   ################ ICE_CUBE SCHEDULING ########################################3
   ################ Currently, not tolerant to input errors#####################3
@@ -226,7 +196,7 @@ class Rule < ActiveRecord::Base
   end
     
   def recurring?
-    self.schedule.recurrence_rules.any? if self.schedule
+    self.schedule and self.schedule.recurrence_rules.any?
   end  
 
   def yearly?
@@ -245,10 +215,35 @@ class Rule < ActiveRecord::Base
     self.recurring? and self.schedule.to_hash[:rrules][0][:rule_type] == "IceCube::DailyRule"
   end
   
-  def nonrecurring?
-    !self.recurring?
+  def expired?
+    self.recurring? and !self.schedule.end_time.nil?
   end
   
+  def nonrecurring?
+    self.schedule and !self.schedule.recurrence_rules.any?
+  end
+  
+  def passed?
+    self.nonrecurring? and self.schedule.to_hash[:rtimes][0] < Time.now
+  end    
+
+  def expire
+    return unless self.recurring?
+    new_schedule = self.schedule 
+    new_schedule.end_time = Time.now
+    self.schedule = new_schedule
+    self.save
+  end
+
+  def restart
+    return unless self.expired?
+    new_rule = self.dup
+    new_schedule = self.schedule.to_hash.except(:end_time)
+    new_schedule[:start_date] = Time.now
+    new_rule.schedule = new_schedule
+    new_rule.save
+  end
+
   def period
 
     return @period if @period
@@ -306,7 +301,27 @@ class Rule < ActiveRecord::Base
     [:"-1", :"1"]
   end
 
+
+#  def update_relevant_attributes(params)
     
+#    if params[:period] == 'Monthly'
+#      self.update_attributes(
+#        :value => params[:value],
+#        :period => params[:period],
+#        :monthly_occurrence => params[:monthly_occurrence]
+#        )
+#    elsif params[:period] == 'Weekly'
+#      self.update_attributes(
+#        :value => params[:value],
+#        :period => params[:period],
+#        :weekly_occurrence => params[:weekly_occurrence]
+#        )
+#    else
+#       self.update_attributes(params)         
+#    end
+    
+#  end
+   
   ################ ICE_CUBE SCHEDULING ########################################3
 
 

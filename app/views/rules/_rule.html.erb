@@ -34,15 +34,32 @@
 		<div class="span1">
 			<%= rule.consumer.name %>
 		</div>
-		<div class="action_link">
-	    	<%= link_to 'Edit',   "#" %>
-	    	<%= link_to 'Delete', rule, confirm: 'Are you sure you want to delete this rule?', method: :delete %>
+		<div class="span1">
+    			<%= link_to "#" do %>
+					<i class="icon bigicon-info "></i>
+				<% end %>
+		</div>
+		<div class="action_link span1">
+	    	<% if rule.recurring? and !rule.expired? %>
+	    		<%= link_to stop_rule_path(rule.id), confirm: 'Are you sure you want to stop this rule?', method: :put, 'data-skip-pjax' => true, class: 'btn btn-mini action_button' do %>
+					<i class="icon-stop "></i> Stop
+				<% end %>
+			<% elsif rule.recurring? and rule.expired? %>
+	    		<%= link_to restart_rule_path(rule.id), confirm: 'Are you sure you want to restart this rule?', method: :put, 'data-skip-pjax' => true, class: 'btn btn-mini action_button' do %>
+					<i class="icon-play"></i> Restart
+				<% end %>
+    		<% elsif !rule.schedule %>
+	    		<%= link_to rule, confirm: 'Are you sure you want to remove this rule?', method: :delete, class: 'btn btn-mini action_button' do %>
+					<i class="icon-remove-sign"></i> Remove
+				<% end %>
+			<% end %>
 		</div>
 		
 	</div>
 	</div>
 
 	<div id=<%= "ruleEdit_#{rule.id}" %> class="collapse accordion-data">
+		<%= render 'rule_details' %>
 	</div>
 
 </div>
