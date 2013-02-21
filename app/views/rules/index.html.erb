@@ -18,8 +18,10 @@
 				<% end %>
 			</div>
 			
-			<% for rule in @rules.monetary.sort_by {|rule| rule.property} %>
-				<%= render :partial => 'rule', :locals => {:rule => rule}  %> 
+			<% singular_rule_already_included = false %> 
+			<% for rule in @rules.monetary.order("property, id DESC") %>
+				<%= render :partial => 'rule', :locals => {:rule => rule} unless (rule.singular? and singular_rule_already_included) %>
+				<% singular_rule_already_included = true if rule.singular? %> 
 			<% end %>
 			
 			<div class="rule_background">

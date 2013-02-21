@@ -39,7 +39,7 @@ class Rule < ActiveRecord::Base
 
   def self.create_new!(params)
 
-    if params[:previous_rule_id] 
+    if !params[:previous_rule_id].blank? 
       expired_rule = self.find(params[:previous_rule_id])
       expired_rule.expire
     end
@@ -65,7 +65,7 @@ class Rule < ActiveRecord::Base
 
   # Dummy property. Lives between 'new' and 'create'
   def previous_rule_id
-    @previous_rule_id if @previous_rule_id
+    @previous_rule_id
   end
   
   def previous_rule_id=(rule_id)
@@ -92,6 +92,11 @@ class Rule < ActiveRecord::Base
   def allowance?
     self.property == "_allowance"
   end
+  
+  def singular?
+    self.allowance?
+  end
+
 
   def self.allowance
     {:property => '_allowance', :category => "how much"}
@@ -223,8 +228,12 @@ class Rule < ActiveRecord::Base
     self.schedule and !self.schedule.recurrence_rules.any?
   end
   
+  def date
+    self.nonrecurring? and self.schedule.recurrence_times[0]
+  end
+  
   def passed?
-    self.nonrecurring? and self.schedule.to_hash[:rtimes][0] < Time.now
+    self.date < Time.now
   end    
 
   def expire

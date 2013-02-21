@@ -6,6 +6,20 @@ body {
     line-height:21px;
 }
 
+.rule_detail_line {
+    
+}
+
+.accordion-data.in.collapse {
+    margin-left: -16px;
+    color: #777;
+    background-color: #EEF3F4;
+}
+
+.accordion-data.in.collapse .rightmost {
+    margin-left: 13px;
+}
+
 .span75 {
     width: 75px;
 }

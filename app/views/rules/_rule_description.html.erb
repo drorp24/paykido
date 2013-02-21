@@ -1,0 +1,20 @@
+<% if rule.logo %>
+	<img src="<%= "/images/#{rule.logo}" %>" rel="<%= (rule.value_info) ? 'popover' : '' %>" title="<%= (rule.value_info) ? rule.value_info.title : '' %>" data-content="<%= (rule.value_info) ? rule.value_info.description : '' %>" />
+<% elsif (rule.monetary?) %>
+	<span>
+		<%= number_to_currency(rule.value.to_i) %>
+	</span>
+	<span>
+		<% if rule.weekly? %>
+			every <%= rule.weekly_occurrence %>
+		<% elsif rule.monthly? %>
+			every <%= rule.monthly_occurrence %>
+		<% elsif rule.nonrecurring? %>
+			on <%= l rule.date, :format => :medium %>
+		<% else %>
+			- unscheduled yet
+		<% end %>
+	</span>
+<% else %>
+	<%= rule.value %>
+<% end %>

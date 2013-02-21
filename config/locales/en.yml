@@ -110,6 +110,8 @@ en:
     formats:
       default: "%d-%m-%Y"
       short: "%d %b"
+      medium: "%d %b %y"
+      longer: "%d %b %Y"
       long: "%d %B, %Y"
       weekday: "%a, %d %b"
       slash: "%m/%d/%Y"
