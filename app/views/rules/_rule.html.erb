@@ -1,53 +1,55 @@
-<div class="rule_line clearfix">
+<div class="accordion-group rule_line clearfix">
 
 	<div class="accordion-heading row">
-	<div data-toggle="collapse" href=<%= "#ruleEdit_#{rule.id}" %> class="accordion-toggle" data-parent="#rules"> 
+		<div class="accordion-toggle" data-toggle="collapse" href=<%= "#ruleEdit_#{rule.id}" %> data-parent="#rules"> 
+	
+			<div class="span1">
+				<%= rule.consumer.name %>
+			</div>
+			<div class="span1">
+				<i class="icon <%= rule.icon %>"></i>
+			</div>
+			<div class="span1" rel="<%= (rule.info) ? "popover" : "" %>"  title="<%= rule.title %>" data-content="<%= rule.description %>">
+				<%= rule.title || rule.property %>
+			</div>
+			<div class="span2">
+				<%= render 'rule_description', :rule => rule %>
+			</div>
+			<div class="span2">
+	    			<%= link_to "#" do %>
+						<i class="icon bigicon-info "></i>
+					<% end %>
+					<%= rule.id %>
+			</div>
+			<div class="action_link span1">
+		    	<% if rule.recurring? and !rule.expired? %>
+		    		<%= link_to stop_rule_path(rule.id), confirm: 'Are you sure you want to stop this rule?', method: :put, 'data-skip-pjax' => true, class: 'btn btn-small action_button' do %>
+						<i class="icon-stop "></i> Stop
+					<% end %>
+				<% elsif rule.recurring? and rule.expired? %>
+		    		<%= link_to restart_rule_path(rule.id), confirm: 'Are you sure you want to restart this rule?', method: :put, 'data-skip-pjax' => true, class: 'btn btn-small action_button' do %>
+						<i class="icon-play"></i> Restart
+					<% end %>
+	    		<% elsif !rule.schedule %>
+		    		<%= link_to rule, confirm: 'Are you sure you want to remove this rule?', method: :delete, 'data-skip-pjax' => true, class: 'btn btn-small action_button' do %>
+						<i class="icon-remove-sign"></i> Remove
+					<% end %>
+				<% end %>
+			</div>
+			
+		</div>
+	</div>
 
-		<div class="span1">
-			<%= rule.consumer.name %>
-		</div>
-		<div class="span1">
-			<i class="icon <%= rule.icon %>"></i>
-		</div>
-		<div class="span1" rel="<%= (rule.info) ? "popover" : "" %>"  title="<%= rule.title %>" data-content="<%= rule.description %>">
-			<%= rule.title || rule.property %>
-		</div>
-		<div class="span2">
-			<%= render 'rule_description', :rule => rule %>
-		</div>
-		<div class="span2">
-    			<%= link_to "#" do %>
-					<i class="icon bigicon-info "></i>
+	<div class="accordion-body collapse row"  id="<%= "ruleEdit_#{rule.id}" %>"> 
+		<div class="accordion-inner">
+			<% if rule.singular? %>
+				<% for rule in @rules.where("property = ?", rule.property).order("id DESC") %>
+					<%= render 'rule_details', :rule => rule %>
 				<% end %>
-				<%= rule.id %>
-		</div>
-		<div class="action_link span1">
-	    	<% if rule.recurring? and !rule.expired? %>
-	    		<%= link_to stop_rule_path(rule.id), confirm: 'Are you sure you want to stop this rule?', method: :put, 'data-skip-pjax' => true, class: 'btn btn-small action_button' do %>
-					<i class="icon-stop "></i> Stop
-				<% end %>
-			<% elsif rule.recurring? and rule.expired? %>
-	    		<%= link_to restart_rule_path(rule.id), confirm: 'Are you sure you want to restart this rule?', method: :put, 'data-skip-pjax' => true, class: 'btn btn-small action_button' do %>
-					<i class="icon-play"></i> Restart
-				<% end %>
-    		<% elsif !rule.schedule %>
-	    		<%= link_to rule, confirm: 'Are you sure you want to remove this rule?', method: :delete, 'data-skip-pjax' => true, class: 'btn btn-small action_button' do %>
-					<i class="icon-remove-sign"></i> Remove
-				<% end %>
+			<% else %>
+				I am not a singular rule
 			<% end %>
 		</div>
-		
-	</div>
-	</div>
-
-	<div id=<%= "ruleEdit_#{rule.id}" %> class="collapse accordion-data">
-		<% if rule.singular? %>
-			<% for rule in @rules.where("property = ?", rule.property).order("id DESC") %>
-				<%= render 'rule_details', :rule => rule %>
-			<% end %>
-		<% else %>
-			I am not a singular rule
-		<% end %>
 	</div>
 
 </div>

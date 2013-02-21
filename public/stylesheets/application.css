@@ -7,17 +7,17 @@ body {
 }
 
 .rule_detail_line {
-    
+    margin-left: 0;    
 }
 
 .accordion-data.in.collapse {
     margin-left: -16px;
     color: #777;
-    background-color: #EEF3F4;
+/*    background-color: #EEF3F4; */
 }
 
-.accordion-data.in.collapse .rightmost {
-    margin-left: 13px;
+.span100.rightmost {
+    margin-left: 0;
 }
 
 .span75 {
