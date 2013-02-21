@@ -1,19 +1,23 @@
 <div class="row rule_detail_line">
 	<div class="span1">
-		<%= l rule.schedule.start_time, :format => :medium %>
+		<%= l (rule.schedule ? rule.schedule.start_time : rule.created_at), :format => :medium %>
 	</div>
 	<div class="span2">
-		By <%= rule.donator.blank? ? current_payer.name : rule.donator %>
+		From <%= rule.donator.blank? ? current_payer.name : rule.donator %>
 	</div>
 	<div class="span2">
 		<%= render 'rule_description', :rule => rule %>
 	</div>
 	<div class="span3">
-		For <%= rule.id %>
+		<% if rule.occasion %>
+			<%= "For #{rule.occasion}" %>
+		<% else %>
+			&nbsp;
+		<% end %>
 	</div>
 	<div class="span100 rightmost">
-		<% if rule.schedule.end_time %>
-		Till <%= l rule.schedule.end_time, :format => :medium %>
+		<% if rule.schedule and rule.schedule.end_time %>
+			Till <%= l rule.schedule.end_time, :format => :medium %>
 		<% end %>
 	</div>
 </div>

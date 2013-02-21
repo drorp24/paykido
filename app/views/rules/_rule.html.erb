@@ -16,10 +16,14 @@
 				<%= render 'rule_description', :rule => rule %>
 			</div>
 			<div class="span2">
-	    			<%= link_to "#" do %>
-						<i class="icon bigicon-info "></i>
-					<% end %>
-					<%= rule.id %>
+				<% if rule.occasion %>
+					<%= "For #{rule.occasion}" %>
+				<% else %>
+					&nbsp;
+				<% end %>
+			</div>
+			<div class="span1">
+    			<%= link_to 'Details', "#" %>
 			</div>
 			<div class="action_link span1">
 		    	<% if rule.recurring? and !rule.expired? %>
@@ -47,7 +51,7 @@
 					<%= render 'rule_details', :rule => rule %>
 				<% end %>
 			<% else %>
-				I am not a singular rule
+				<%= render 'rule_details', :rule => rule %>
 			<% end %>
 		</div>
 	</div>

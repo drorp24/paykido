@@ -1,6 +1,6 @@
 <% if rule.logo %>
 	<img src="<%= "/images/#{rule.logo}" %>" rel="<%= (rule.value_info) ? 'popover' : '' %>" title="<%= (rule.value_info) ? rule.value_info.title : '' %>" data-content="<%= (rule.value_info) ? rule.value_info.description : '' %>" />
-<% elsif (rule.monetary?) %>
+<% elsif rule.monetary? %>
 	<span>
 		<%= number_to_currency(rule.value.to_i) %>
 	</span>
@@ -15,6 +15,10 @@
 			- unscheduled yet
 		<% end %>
 	</span>
-<% else %>
+<% elsif rule.thresholds? %>
+	<%= "Anything #{(rule.under?) ? (t 'under') : (t 'over')} #{number_to_currency rule.value.to_s}" %>
+<% elsif !rule.value.blank? %>
 	<%= rule.value %>
+<% else %>
+	&nbsp;
 <% end %>

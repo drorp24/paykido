@@ -9,11 +9,11 @@
 	<div class="box grid_12" > 	
 		
 			<div class="rule_background">			
-				<h1 class="rule_heading">How much</h1>
+				<h1 class="rule_heading"><%= "How much" %></h1>
 				<% if @consumer %>
 					<button id="newrule" href="#" class="btn btn-info inline-submit" data-trigger="click">
-						<i class="icon-plus-sign icon-white"></i>
-						<span class="rule_button_text"> New</span>
+						<i class="icon-plus icon-white"></i>
+						<span class="rule_button_text"> Add</span>
 					</button>
 				<% end %>
 			</div>
@@ -25,7 +25,15 @@
 			<% end %>
 			
 			<div class="rule_background">
-				<h1 class="rule_heading">What</h1>			
+				<h1 class="rule_heading">How much in one one purchase</h1>
+			</div>
+			
+			<% for rule in @rules.thresholds %>
+				<%= render 'rule', :rule => rule %> 
+			<% end %>		
+
+			<div class="rule_background">
+				<h1 class="rule_heading">What can they buy</h1>			
 			</div>
 			
 			<% for rule in @rules.what %>
@@ -33,7 +41,7 @@
 			<% end %>
 			
 			<div class="rule_background">
-				<h1 class="rule_heading">When</h1>
+				<h1 class="rule_heading">When can they buy</h1>
 			</div>
 			
 			<% for rule in @rules.time %>
@@ -41,20 +49,13 @@
 			<% end %>
 	
 			<div class="rule_background">
-				<h1 class="rule_heading">Where</h1>
+				<h1 class="rule_heading">Where can they buy</h1>
 			</div>
 			
 			<% for rule in @rules.location %>
 				<%= render 'rule', :rule => rule %> 
 			<% end %>
 	
-			<div class="rule_background">
-				<h1 class="rule_heading">How</h1>
-			</div>
-			
-			<% for rule in @rules.thresholds %>
-				<%= render 'rule', :rule => rule %> 
-			<% end %>		
 		
 	</div>
 	</div>
@@ -95,7 +96,7 @@
 	</p>
 </div>
 <div id="newrule_title">
-	<%= "How much can they spend" %>
+	<%= "How much - and why" %>
 	<p class="popover-title sub-title">Use Paykido to tell kids what they did to deserve their allowance!</p>
 </div>
 <% end %>

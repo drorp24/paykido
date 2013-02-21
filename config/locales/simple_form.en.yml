@@ -2,7 +2,7 @@ en:
   simple_form:
     arrays:
       weekday: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-      day_of_month: ['last day of the month', '', 'first day of the month']
+      day_of_month: ['month end', '', 'first day of the month']
     options:
       rule:
         period:
@@ -12,7 +12,7 @@ en:
           "daily": 'Daily'
           "nonrecurring": 'Nonrecurrant'
         monthly_occurrence:
-          "-1": last day of the month
+          "-1": month end
           "1": 1st day of the month
         weekly_occurrence:
           "0": 'Sunday'

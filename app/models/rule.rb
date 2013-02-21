@@ -88,9 +88,21 @@ class Rule < ActiveRecord::Base
   def what?
     self.category == "what" 
   end
+
+  def thresholds?
+    self.category == "thresholds"
+  end 
  
   def allowance?
     self.property == "_allowance"
+  end
+  
+  def over?
+    self.property == 'over'
+  end
+  
+  def under?
+    self.property == 'under'
   end
   
   def singular?
