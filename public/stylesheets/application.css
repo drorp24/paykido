@@ -6,6 +6,24 @@ body {
     line-height:21px;
 }
 
+
+#newrule {
+    width: 80px;
+}
+
+.btn i {
+    float: left;
+    margin-top: 2px;
+}
+
+.btn-small.action_button [class^="icon-"] {
+    margin-top: 1px;
+}
+
+.action_link {
+    margin-left: 0;
+}
+
 .rule_detail_line {
     margin-left: 0;    
 }
@@ -34,7 +52,7 @@ body {
 .rule_line .action_link a {
     float: right;
     width: 60px;
-    margin-top: 24px;
+    margin-top: 21px;
 }
 
 #modal_submit {
@@ -156,6 +174,11 @@ label.select.optional.control-label {
     line-height: 67px; 
     padding-left: 16px;
 
+}
+
+
+#rules .popover-content {
+    line-height: 18px;
 }
 
 .rule_line .form-inputs, .controls, .control-group {
@@ -921,15 +944,7 @@ body#paykido .tooltip.large {
     margin-top: 2%;
 }
 
-.purchase_logo {
-    font-size: 16px;
-    text-align: center;
-    color:  #477DAE;
-/*    color: #4C82B3;
-    color: #A3D643;
-    color: #4678A6;
-    color: #5186B4; */
-}
+
 
 .purchase_logo img{
     max-height: 26px;
