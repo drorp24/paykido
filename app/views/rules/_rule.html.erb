@@ -26,25 +26,27 @@
     			<%= link_to 'Details', "#" %>
 			</div>
 			<div class="action_link span1">
-				<% if rule.initialized? %>
-					<%= link_to rule, :data => {:target => '#rule_modal', :toggle => 'modal'}, :class => 'btn btn-small action_button' do %>
-						<i class="icon-wrench "></i> Set
-					<% end %>
-		    	<% elsif rule.recurring? and !rule.expired? %>
-		    		<%= link_to stop_rule_path(rule.id), confirm: 'Are you sure you want to stop this rule?', method: :put, 'data-skip-pjax' => true, class: 'btn btn-small action_button' do %>
-						<i class="icon-stop "></i> Stop
-					<% end %>
-				<% elsif rule.recurring? and rule.expired? %>
-		    		<%= link_to restart_rule_path(rule.id), confirm: 'Are you sure you want to restart this rule?', method: :put, 'data-skip-pjax' => true, class: 'btn btn-small action_button' do %>
-						<i class="icon-play"></i> Restart
-					<% end %>
-	    		<% elsif rule.nonrecurring? and !rule.passed? %>
-		    		<%= link_to rule, confirm: 'Are you sure you want to remove this rule?', method: :delete, 'data-skip-pjax' => true, class: 'btn btn-small action_button' do %>
-						<i class="icon-remove-sign"></i> Remove
-					<% end %>
-	    		<% elsif !rule.schedule %>
-		    		<%= link_to rule, confirm: 'Are you sure you want to remove this rule?', method: :delete, 'data-skip-pjax' => true, class: 'btn btn-small action_button' do %>
-						<i class="icon-remove-sign"></i> Remove
+				<% if rule.supported? %>
+					<% if rule.initialized? %>
+						<%= link_to rule, :data => {:target => '#rule_modal', :toggle => 'modal'}, :class => 'btn btn-small action_button' do %>
+							<i class="icon-wrench "></i> Set
+						<% end %>
+			    	<% elsif rule.recurring? and !rule.expired? %>
+			    		<%= link_to stop_rule_path(rule.id), confirm: 'Are you sure you want to stop this rule?', method: :put, 'data-skip-pjax' => true, class: 'btn btn-small action_button' do %>
+							<i class="icon-stop "></i> Stop
+						<% end %>
+					<% elsif rule.recurring? and rule.expired? %>
+			    		<%= link_to restart_rule_path(rule.id), confirm: 'Are you sure you want to restart this rule?', method: :put, 'data-skip-pjax' => true, class: 'btn btn-small action_button' do %>
+							<i class="icon-play"></i> Restart
+						<% end %>
+		    		<% elsif rule.nonrecurring? and !rule.passed? %>
+			    		<%= link_to rule, confirm: 'Are you sure you want to remove this rule?', method: :delete, 'data-skip-pjax' => true, class: 'btn btn-small action_button' do %>
+							<i class="icon-remove-sign"></i> Remove
+						<% end %>
+		    		<% elsif !rule.schedule %>
+			    		<%= link_to rule, confirm: 'Are you sure you want to remove this rule?', method: :delete, 'data-skip-pjax' => true, class: 'btn btn-small action_button' do %>
+							<i class="icon-remove-sign"></i> Remove
+						<% end %>
 					<% end %>
 				<% end %>
 			</div>

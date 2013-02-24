@@ -22,6 +22,9 @@ class Rule < ActiveRecord::Base
 
   end
 
+  def supported?
+      self.property == '_allowance' or self.property == '_gift' or  self.property == 'birthday' or  self.property == 'chores'or  self.property == 'achievement' or self.property == 'retailer' or  self.property == 'esrb_rating' or self.property == 'pegi_rating'
+  end
 
   def self.new_allowance_rule(last_allowance_rule)
     rule = self.new
@@ -252,12 +255,8 @@ class Rule < ActiveRecord::Base
   
   def date=(newdate)
     newdate = newdate.to_datetime.in_time_zone
-logger.debug ""
-logger.debug "the date I received: " + newdate.to_s
     schedule = IceCube::Schedule.new
     schedule.add_recurrence_time(newdate)
-logger.debug "schedule was changed to: " + schedule.inspect
-logger.debug ""
     self.schedule = schedule
   end
   
