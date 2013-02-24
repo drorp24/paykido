@@ -2,6 +2,21 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  rule:
+    property:
+      _allowance: Allowance
+      _gift: Gift
+      achievement: Achievement
+      birthday: Birthday
+      chores: Chores
+      request: Request
+      retailer: Merchant
+      esrb_rating: ESRB Rating
+      pegi_rating: PEGI Rating
+      time: Time
+      location: Location
+      over: Maximum allowed per purchase
+      under: Automatic approval for low amount
   retailer: merchant
   whitelisted: Always approve
   blacklisted: Always decline

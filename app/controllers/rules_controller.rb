@@ -13,7 +13,8 @@ class RulesController < ApplicationController
   # GET /rules/1
   # GET /rules/1.json
   def show
-
+    @rule = Rule.find(params[:id])
+    @consumer = @rule.consumer
   end
   
   # GET /rules/new
@@ -21,17 +22,8 @@ class RulesController < ApplicationController
   def new
      if params[:property] == '_allowance' and params[:consumer_id] and last_allowance_rule = @consumer.allowance_rule 
       @rule = Rule.new_allowance_rule(last_allowance_rule)
-logger.debug ""
-logger.debug "last allowance rule id is: " + last_allowance_rule.id.to_s
-logger.debug "@rule property is:" + @rule.property
-logger.debug "@rule.previous_rule_id is: " + @rule.previous_rule_id.to_s
-logger.debug ""
     else
       @rule = Rule.new
-logger.debug ""
-logger.debug "rule id is: " + @rule.id.to_s
-logger.debug "rule.previous_tule_id is: " + @rule.previous_rule_id.to_s
-logger.debug ""
     end
   end
 
@@ -77,17 +69,22 @@ logger.debug ""
 
     @rule = Rule.find(params[:id])
 
-    if @rule.update_relevant_attributes(params[:rule])
+    if @rule.update_attributes(params[:rule])
       status = 'success'
     else
       status = 'failure'
     end
 
-    redirect_to rules_path(
-      :notify => 'new_rule', 
-      :status => status,
-      :_pjax => "data-pjax-container"
-      )  
+    redirect_to consumer_rules_path(
+      params[:rule][:consumer_id],
+      :notify => 'update_rule', 
+      :status => status, 
+      :update => 'set',
+      :property => params[:rule][:property],
+      :value => params[:rule][:value],
+      :date => params[:rule][:date],
+      :donator => params[:rule][:donator],
+      :occasion => params[:rule][:occasion]) 
 
   end
 

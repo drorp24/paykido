@@ -1,0 +1,26 @@
+<%= simple_form_for rule, :html => {:id => 'rule_form'} do |f| %>
+  <%= f.error_notification %>
+
+	<div class="form-inputs rule_form">
+	    <%= f.hidden_field :consumer_id, :value => @consumer.id %>
+	    <%= f.hidden_field :property, :value => rule.property %>
+		<div> Value </div>
+	    <div class="input-prepend input-append rule_value_wrapper">
+		    <span class="add-on"><%= t "number.currency.format.unit" %></span>
+		    <%= f.input :value, :label => false, :input_html => {:class => 'numeric rule_value'}, :autofocus => true %>
+		    <span class="add-on">.00</span>
+	    </div>
+	    <%= f.input :occasion %>
+	    <%= f.input :donator %>
+	    <%= f.input :date, :input_html => {:class => 'datepicker', :data => {'date-format' => "dd M yyyy"}}  %>
+		<%= f.button :submit, "Activate Rule", :class => "btn-primary", :id => "modal_submit" %>
+	</div>
+	
+<% end %>
+<script>
+$(document).ready(function() {
+	var date = new Date();
+	date.setDate(date.getDate() - 1)
+	$('.datepicker').datepicker('setStartDate', date);
+})
+</script>

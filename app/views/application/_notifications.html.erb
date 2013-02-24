@@ -117,7 +117,12 @@
 <div id="update_rule_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading"><%= "Rule #{params[:update]}!" %></h4>    
-	<%= "Rule was succesfully #{params[:update]}!" %>
+	<% if params[:date] %>
+		<%= "#{number_to_currency params[:value]} will be granted on #{l params[:date].to_datetime, :format => :medium} "%>
+		<%= "on behalf of #{params[:donator]}" if params[:donator] %>
+	<% else %>
+		<%= "Rule was succesfully #{params[:update]}!" %>
+	<% end %>
 </div>
 <% end %>
 

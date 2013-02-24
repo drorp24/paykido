@@ -44,20 +44,22 @@ class Rule < ActiveRecord::Base
       expired_rule.expire
     end
 
-    schedule = IceCube::Schedule.new 
-    if params[:period] ==  'weekly'
-      schedule.add_recurrence_rule Rule.weekly.day(params[:weekly_occurrence].to_i) 
-    elsif params[:period] ==  'monthly'
-      schedule.add_recurrence_rule Rule.monthly.day_of_month(params[:monthly_occurrence].to_i) 
-    elsif params[:period] ==  'yearly'
-    elsif params[:period] ==  'daily'
-    elsif params[:period] == 'nonrecurring'
-    else
-      schedule = nil
+    if params[:period]
+      schedule = IceCube::Schedule.new 
+      if params[:period] ==  'weekly'
+        schedule.add_recurrence_rule Rule.weekly.day(params[:weekly_occurrence].to_i) 
+      elsif params[:period] ==  'monthly'
+        schedule.add_recurrence_rule Rule.monthly.day_of_month(params[:monthly_occurrence].to_i) 
+      elsif params[:period] ==  'yearly'
+      elsif params[:period] ==  'daily'
+      elsif params[:period] == 'nonrecurring'
+      else
+        schedule = nil
+      end
     end
 
-    rule = self.new(:consumer_id => params[:consumer_id], :property => params[:property], :value => params[:value])  
-    rule.schedule = schedule
+    rule = self.new(params)  
+    rule.schedule = schedule if params[:period]
     rule.save   
     rule
     
@@ -81,6 +83,10 @@ class Rule < ActiveRecord::Base
   
   scope :of_allowance,   where("property = ?", "_allowance")
   
+  def initialized?
+    self.value.blank?
+  end
+
   def monetary?
     self.category == "how much"
   end 
@@ -125,8 +131,8 @@ class Rule < ActiveRecord::Base
    def self.request
     {:property => 'request', :category => "how much"}
   end  
-  def self.achievment
-    {:property => 'achievment', :category => "how much"}
+  def self.achievement
+    {:property => 'achievement', :category => "how much"}
   end  
   def self.retailer(consumer)
     {:property => 'retailer', :category => "what", :status => 'whitelisted', :value => (consumer.purchases.any?) ? consumer.purchases.last.retailer.name : "Zynga" }
@@ -156,7 +162,7 @@ class Rule < ActiveRecord::Base
     consumer.rules.create!(self.birthday)
     consumer.rules.create!(self.chores)
     consumer.rules.create!(self.request)
-    consumer.rules.create!(self.achievment)
+    consumer.rules.create!(self.achievement)
     consumer.rules.create!(self.retailer(consumer))
     consumer.rules.create!(self.pegi_rating(consumer))
     consumer.rules.create!(self.esrb_rating(consumer))
@@ -237,11 +243,22 @@ class Rule < ActiveRecord::Base
   end
   
   def nonrecurring?
-    self.schedule and !self.schedule.recurrence_rules.any?
+    self.schedule and !self.schedule.recurrence_rules.any? and self.schedule.recurrence_times[0]
   end
   
   def date
     self.nonrecurring? and self.schedule.recurrence_times[0]
+  end
+  
+  def date=(newdate)
+    newdate = newdate.to_datetime.in_time_zone
+logger.debug ""
+logger.debug "the date I received: " + newdate.to_s
+    schedule = IceCube::Schedule.new
+    schedule.add_recurrence_time(newdate)
+logger.debug "schedule was changed to: " + schedule.inspect
+logger.debug ""
+    self.schedule = schedule
   end
   
   def passed?

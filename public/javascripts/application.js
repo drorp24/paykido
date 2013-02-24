@@ -9,7 +9,8 @@ $(document).ready(function (){
     });    
 */    
 
-
+    $('.datepicker').datepicker();
+    
     $('[rel="popover"]').popover({placement: "left"});
 
     $('[title]').not('[rel="popover"]').tooltip();
