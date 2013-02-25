@@ -119,7 +119,7 @@
     <h4 class="alert-heading"><%= "Rule #{params[:update]}!" %></h4>    
 	<% if params[:date] %>
 		<%= "#{number_to_currency params[:value]} will be granted on #{l params[:date].to_datetime, :format => :medium} "%>
-		<%= "on behalf of #{params[:donator]}" if params[:donator] %>
+		<%= "on behalf of #{params[:donator]}" if !params[:donator].blank? %>
 	<% else %>
 		<%= "Rule was succesfully #{params[:update]}!" %>
 	<% end %>
