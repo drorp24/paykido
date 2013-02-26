@@ -69,12 +69,12 @@ body {
 #rule_form {
     margin-top: 30px;
 }
-
+/*
 .rule_occurrence {
     width: 175px;
     margin-left: 5px;
 }
-
+*/
 .rule_background .popover-inner {
     width: 250px;
 }
@@ -132,7 +132,7 @@ h3.popover-title {
 .rule_value_wrapper {
     
 }
-
+/*
 .rule_value {
     width: 52px;
 }
@@ -165,7 +165,7 @@ label.select.optional.control-label[for=rule_occurrence] {
 label.select.optional.control-label {
     margin: 0 10px;
 }
-
+*/
 .accordion-group {
     
 }

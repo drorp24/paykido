@@ -24,7 +24,6 @@ class RulesController < ApplicationController
       @rule = Rule.new_allowance_rule(last_allowance_rule)
     else
       @rule = Rule.new(:property => params[:property])
-      render 'show'
     end
   end
 

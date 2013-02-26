@@ -3,6 +3,13 @@ en:
     arrays:
       weekday: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
       day_of_month: ['month end', '', 'first day of the month']
+    labels:
+      amount: Amount
+      period: Period
+      occurrence: Every
+      occasion: Occasion
+      donator: Donator
+      date: Date
     options:
       rule:
         period:
