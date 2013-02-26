@@ -15,6 +15,7 @@ class RulesController < ApplicationController
   def show
     @rule = Rule.find(params[:id])
     @consumer = @rule.consumer
+    render 'new'
   end
   
   # GET /rules/new

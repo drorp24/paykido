@@ -7,6 +7,34 @@ body {
 }
 
 
+.rule_form_part {
+    margin-top: 18px;
+    width: 46%;
+    float: left;
+}
+
+.rule_message_part {
+    margin-top: 18px;
+    width: 46%;
+    float: right;
+}
+
+.numeric.rule_value {
+    width: 170px;
+    text-align: right;    
+}
+
+#rule_period, #rule_weekly_occurrence, #rule_monthly_occurrence {
+    width: 244px;
+}
+
+#rule_occasion, #rule_donator, #rule_date {
+    width: 234px;
+}
+
+#rule_period, #rule_weekly_occurrence, #rule_monthly_occurrence option {
+    margin-right: 20px;
+}
 #newrule {
     width: 80px;
 }
@@ -65,11 +93,11 @@ body {
     position: relative;
     right: 115px;
 }
-
+/*
 #rule_form {
     margin-top: 30px;
 }
-/*
+
 .rule_occurrence {
     width: 175px;
     margin-left: 5px;
@@ -971,7 +999,7 @@ body#paykido .tooltip.large {
 }
 .rule.actions {
     margin-top: 16px; 
-    font-size: 13px;
+    font-size: 14px;
     width: 100%;      
 }
 
