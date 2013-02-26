@@ -17,7 +17,7 @@ class Rule < ActiveRecord::Base
     elsif self.property == 'over' or  self.property == 'under' 
           self.category = 'thresholds'
     else
-          self.category = 'no macthing category'
+          self.category = 'no matching category'
     end
 
   end
@@ -61,7 +61,7 @@ class Rule < ActiveRecord::Base
       end
     end
 
-    rule = self.new(params)  
+    rule = self.new(params.except(:period, :weekly_occurrence, :monthly_occurrence))  
     rule.schedule = schedule if params[:period]
     rule.save   
     rule
