@@ -23,7 +23,8 @@ class RulesController < ApplicationController
      if params[:property] == '_allowance' and params[:consumer_id] and last_allowance_rule = @consumer.allowance_rule 
       @rule = Rule.new_allowance_rule(last_allowance_rule)
     else
-      @rule = Rule.new
+      @rule = Rule.new(:property => params[:property])
+      render 'show'
     end
   end
 

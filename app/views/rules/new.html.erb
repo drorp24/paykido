@@ -1,5 +1,22 @@
-<% if params[:property] == "_allowance" %>
-	<%= render 'new_allowance' %>
+<div class="rule header">
+    <%= "New #{t @rule.property, :scope => [:rule, :property]} rule for #{@consumer.name}" %>
+</div></div>
+<% if @rule.previous_rule_id %>
+	<div class="rule actions">
+		<p>
+			<span><%= "#{@consumer.name}'s currently defined allowance is" %></span>
+			<span><%= (number_to_currency (@rule.value.to_i)) %>,
+			<span><%= @rule.period.downcase %></span>
+			<span> every </span> 
+			<span><%= @rule.weekly? ? @rule.weekly_occurrence : @rule.monthly_occurrence %>.</span>		
+		</p>
+		<p>
+			<%= "The new allowance will add to #{@consumer.name}'s existing balance of #{number_to_currency @consumer.balance}." %>
+		</p>
+	</div>
+<% end %>
+<% if @rule.allowance? %>
+	<%= render 'allowance_form', :rule => @rule %>
 <% else %>
-	<%= render 'new_non_allowance' %>
+	<%= render 'rule_form', :rule => @rule %>
 <% end %>
