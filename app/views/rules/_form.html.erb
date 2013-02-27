@@ -9,19 +9,19 @@
 		    <div class="input-prepend input-append rule_value_wrapper">
 		    	<p><%= t 'simple_form.labels.amount' %></p>
 			    <span class="add-on"><%= t "number.currency.format.unit" %></span>
-			    <%= f.input :value, :label => false, :input_html => {:class => 'numeric rule_value'}, :autofocus => true %>
+			    <%= f.input :value, :label => false, :input_html => {:class => 'numeric rule_value', :required => ""}, :autofocus => true %>
 			    <span class="add-on">.00</span>
 		    </div>
 	    <% end %>
 	    <% if @rule.allowance? %>
-		    <%= f.input :period, :label => (t 'simple_form.labels.period'), :collection => Rule.period_collection, :include_blank => false, :input_html => {:class => 'rule_period'}, :selected => rule.period %>
-		    <%= f.input :weekly_occurrence, :label => (t 'simple_form.labels.occurrence'), :wrapper_html => {:class => "weekly_allowance"}, :input_html => {:class => 'rule_occurrence'}, :collection => Rule.weekday_collection, :selected => rule.occurrence.to_s, :include_blank => false %>
-		    <%= f.input :monthly_occurrence, :label => (t 'simple_form.labels.occurrence'), :wrapper_html => {:class => "monthly_allowance"}, :input_html => {:class => 'rule_occurrence'}, :collection => Rule.day_of_month_collection, :selected => rule.occurrence.to_s, :include_blank => false %>
+		    <%= f.input :period, :label => (t 'simple_form.labels.period'), :collection => Rule.period_collection, :include_blank => false, :input_html => {:class => 'rule_period', :required => ""}, :selected => rule.period %>
+		    <%= f.input :weekly_occurrence, :label => (t 'simple_form.labels.occurrence'), :wrapper_html => {:class => "weekly_allowance"}, :input_html => {:class => 'rule_occurrence', :required => ""}, :collection => Rule.weekday_collection, :selected => rule.occurrence.to_s, :include_blank => false %>
+		    <%= f.input :monthly_occurrence, :label => (t 'simple_form.labels.occurrence'), :wrapper_html => {:class => "monthly_allowance"}, :input_html => {:class => 'rule_occurrence', :required => ""}, :collection => Rule.day_of_month_collection, :selected => rule.occurrence.to_s, :include_blank => false %>
 		<% end %>
 		<% if @rule.monetary? and !@rule.allowance? %>
 		    <%= f.input :occasion, :label => (t 'simple_form.labels.occasion') %>
 		    <%= f.input :donator, :label => (t 'simple_form.labels.donator') %>
-		    <%= f.input :date, :label => (t 'simple_form.labels.date'), :input_html => {:class => 'datepicker', :data => {'date-format' => "dd M yyyy"}}  %>
+		    <%= f.input :date, :label => (t 'simple_form.labels.date'), :input_html => {:class => 'datepicker', :data => {'date-format' => "dd M yyyy"}, :required => ""}  %>
 		<% end %>
 		<%= f.button :submit, "Activate Rule", :class => "btn-primary", :id => "modal_submit" %>
 	</div>

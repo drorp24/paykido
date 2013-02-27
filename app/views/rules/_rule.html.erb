@@ -16,7 +16,7 @@
 				<%= render 'rule_description', :rule => rule %>
 			</div>
 			<div class="span2">
-				<% if rule.occasion %>
+				<% if !rule.occasion.blank? %>
 					<%= "For #{rule.occasion}" %>
 				<% else %>
 					&nbsp;
