@@ -15,8 +15,8 @@ en:
       pegi_rating: PEGI Rating
       time: Time
       location: Location
-      over: High Threshold
-      under: Low Threshold
+      over: Decline Anything Over
+      under: Approve Anything Under
   retailer: merchant
   whitelisted: Always approve
   blacklisted: Always decline

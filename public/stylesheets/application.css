@@ -7,6 +7,14 @@ body {
 }
 
 
+.initialized_rule {
+    color: #888;  
+}
+
+.initialized_rule i.rule_icon {
+    opacity: 0.7;
+}
+
 .rule_form_part {
     margin-top: 18px;
     width: 46%;

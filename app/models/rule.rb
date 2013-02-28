@@ -203,6 +203,13 @@ class Rule < ActiveRecord::Base
     end
   end
   
+  def self.under_rule_of(consumer)
+    self.where('consumer_id = ? and property = ?', consumer.id, "under").first
+  end
+  
+  def self.over_rule_of(consumer)
+    self.where('consumer_id = ? and property = ?', consumer.id, "over").first
+  end
 
   ################ ICE_CUBE SCHEDULING ########################################3
   ################ Currently, not tolerant to input errors#####################3

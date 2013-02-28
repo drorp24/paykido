@@ -1,4 +1,10 @@
-<% if rule.logo %>
+<% if rule.value.blank? and rule.supported? and rule.thresholds? %>
+	<%= "Anything #{(rule.under?) ? (t 'under') : (t 'over')} (Click to set)" %>
+<% elsif rule.value.blank? and rule.supported? %>
+	(Click to set)
+<% elsif rule.value.blank? and !rule.supported? %>
+	(Coming soon...)  
+<% elsif rule.logo %>
 	<img src="<%= "/images/#{rule.logo}" %>" rel="<%= (rule.value_info) ? 'popover' : '' %>" title="<%= (rule.value_info) ? rule.value_info.title : '' %>" data-content="<%= (rule.value_info) ? rule.value_info.description : '' %>" />
 <% elsif rule.monetary? %>
 	<span>
@@ -16,7 +22,7 @@
 		<% end %>
 	</span>
 <% elsif rule.thresholds? %>
-	<%= "Anything #{(rule.under?) ? (t 'under') : (t 'over')} #{number_to_currency rule.value.to_s}" %>
+	<%= "Anything #{(rule.under?) ? (t 'under') : (t 'over')} #{number_to_currency rule.value.to_i}" %>
 <% elsif !rule.value.blank? %>
 	<%= rule.value %>
 <% else %>

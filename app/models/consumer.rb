@@ -8,15 +8,21 @@ class Consumer < ActiveRecord::Base
   
       
   def under_threshold
-    rule = Rule.where("consumer_id =? and property = ?", self.id, "under").first
-    return 0 if !rule or rule.value.blank?
-    rule.value.to_i
+    rule = Rule.under_rule_of(self)
+    if rule and !rule.value.blank?
+      rule.value.to_i
+    else
+      nil
+    end
   end
 
   def over_threshold
-    rule = Rule.where("consumer_id =? and property = ?", self.id, "over").first
-    return 0 if !rule or rule.value.blank?
-    rule.value.to_i
+    rule = Rule.over_rule_of(self)
+    if rule and !rule.value.blank?
+      rule.value.to_i
+    else
+      nil
+    end
   end
 
   def blacklisted?(property, value)
