@@ -14,9 +14,15 @@ body {
 }
 
 .rule_message_part {
-    margin-top: 18px;
-    width: 46%;
+    margin-top: 47px;
+    width: 40%;
     float: right;
+    height: 105px;
+    padding: 20px;
+}
+
+.rule_message_part p {
+    font-size: 14px;
 }
 
 .numeric.rule_value {

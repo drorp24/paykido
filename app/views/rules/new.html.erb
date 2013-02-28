@@ -18,6 +18,14 @@
 <div class="rule_form_part">
 	<%= render 'form', :rule => @rule %>
 </div>
-<div class="rule_message_part">
-	Here will be the message
+<div class="rule_message_part hero-unit">
+	<% if @rule.info %>
+		<p><%= @rule.description %></p>
+	<% end %>	
 </div>
+<script>
+	$(document).ready(function() {
+		var height = $('.rule_form_part').height();
+		$('.rule_message_part').height(height -95)
+	})
+</script>
