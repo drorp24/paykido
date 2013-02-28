@@ -5,7 +5,7 @@
 	    <%= f.hidden_field :consumer_id, :value => @consumer.id %>
 	    <%= f.hidden_field :property, :value => @rule.property %>
 	    <%= f.hidden_field :previous_rule_id, :value => @rule.previous_rule_id %>
-	    <% if @rule.monetary? %>
+	    <% if @rule.monetary? or @rule.thresholds?%>
 		    <div class="input-prepend input-append rule_value_wrapper">
 		    	<p><%= t 'simple_form.labels.amount' %></p>
 			    <span class="add-on"><%= t "number.currency.format.unit" %></span>

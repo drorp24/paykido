@@ -23,7 +23,7 @@ class Rule < ActiveRecord::Base
   end
 
   def supported?
-      self.property == '_allowance' or self.property == '_gift' or  self.property == 'birthday' or  self.property == 'chores'or  self.property == 'achievement' or self.property == 'retailer' or  self.property == 'esrb_rating' or self.property == 'pegi_rating'
+      self.property == '_allowance' or self.property == '_gift' or  self.property == 'birthday' or  self.property == 'chores'or  self.property == 'achievement' or self.property == 'retailer' or  self.property == 'esrb_rating' or self.property == 'pegi_rating' or self.property == 'under' or self.property == 'over'
   end
 
   def self.new_allowance_rule(last_allowance_rule)
