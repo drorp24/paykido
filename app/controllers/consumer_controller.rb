@@ -234,8 +234,8 @@ class ConsumerController < ApplicationController
     Rails.logger.debug("Updated consumer name and pic. Its id is: " + @consumer.id.to_s)      
     
     # ToDo: no session needed - delete
-    session[:consumer] = @consumer
-    @payer = session[:payer] = @consumer.payer unless @consumer.nil?
+#    session[:consumer] = @consumer
+    @payer = @consumer.payer unless @consumer.nil?
     
     Rails.logger.debug("The payer Im using is the consumer payer. Its id is: " + @payer.id.to_s) if @payer     
 
@@ -247,7 +247,7 @@ class ConsumerController < ApplicationController
     # note it depends on the kid staying in the same session
     # it would be better and provide better BI if purchase were created upon login, like consumer
      
-    @purchase = session[:purchase] = 
+    @purchase = 
     Purchase.create_new!(@payer, 
                          @consumer, 
                          params[:merchant], 
