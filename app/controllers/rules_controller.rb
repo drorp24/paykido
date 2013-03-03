@@ -40,7 +40,7 @@ class RulesController < ApplicationController
     if params[:purchase_id]         #Todo: temp: handle all rules the same way. 
       @rule = Rule.set!(params)
     else
-     @rule = Rule.create_new!(params[:rule])
+     @rule = Rule.create_new!(params[:rule], params[:id])
     end
     
     if params[:purchase_id]
@@ -69,6 +69,11 @@ class RulesController < ApplicationController
   def update
 
     @rule = Rule.find(params[:id])
+
+    if @rule.allowance? 
+      create 
+      return
+    end
 
     if @rule.update_attributes(params[:rule])
       status = 'success'

@@ -40,7 +40,7 @@ class Rule < ActiveRecord::Base
     rule  
   end
 
-  def self.create_new!(params)
+  def self.create_new!(params, id)
 
     if !params[:previous_rule_id].blank? 
       expired_rule = self.find(params[:previous_rule_id])
@@ -61,7 +61,12 @@ class Rule < ActiveRecord::Base
       end
     end
 
-    rule = self.new(params.except(:period, :weekly_occurrence, :monthly_occurrence))  
+    unless id
+      rule = self.new(params.except(:period, :weekly_occurrence, :monthly_occurrence))
+    else
+      rule = self.find(id)
+      rule.update_attributes(params.except(:period, :weekly_occurrence, :monthly_occurrence))
+    end  
     rule.schedule = schedule if params[:period]
     rule.save   
     rule
