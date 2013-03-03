@@ -178,13 +178,38 @@ class Rule < ActiveRecord::Base
   ####  Change if needed      ####  
 
   def self.allowance_rule_of(consumer)
-    applicable_rules = self.where("consumer_id = ? and property = ?", consumer.id, '_allowance')
+    self.rule_of(consumer, '_allowance')
+  end
+  
+  def self.gift_rule_of(consumer)
+    self.rule_of(consumer, '_gift')
+  end
+
+  def self.achievement_rule_of(consumer)
+    self.rule_of(consumer, 'achievement')
+  end
+
+  def self.birthday_rule_of(consumer)
+    self.rule_of(consumer, 'birthdayt')
+  end
+
+  def self.chores_rule_of(consumer)
+    self.rule_of(consumer, 'chores')
+  end
+
+  def self.request_rule_of(consumer)
+    self.rule_of(consumer, 'request')
+  end
+
+  def self.rule_of(consumer, property)
+    applicable_rules = self.where("consumer_id = ? and property = ?", consumer.id, property)
     if applicable_rules.any?
       allowance_rule = applicable_rules.last          # ToDo: think!
     else
       nil
     end
   end
+    
 
   # ToDo: DELETE. Use only the rule object, dont create a special hash, just reducndant.
   def self.allowance_of(consumer)

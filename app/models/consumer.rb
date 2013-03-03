@@ -64,6 +64,26 @@ class Consumer < ActiveRecord::Base
     Rule.allowance_rule_of(self)
   end
   
+  def gift_rule
+    Rule.gift_rule_of(self)
+  end
+  
+  def achievement_rule
+    Rule.achievement_rule_of(self)
+  end
+  
+  def birthday_rule
+    Rule.birthday_rule_of(self)
+  end
+  
+  def chores_rule
+    Rule.chores_rule_of(self)
+  end
+  
+  def request_rule
+    Rule.request_rule_of(self)
+  end
+  
   def allowance
     Rule.allowance_of(self)
   end

@@ -63,36 +63,46 @@
 
 <% if @consumer %>
 <div id="newrule_content">
-	<p class="new_rule_line">
-		<span><i class="bigicon-calendar"></i></span>
-		<span>
-			<%= link_to "Allowance", new_consumer_rule_path(@consumer, :property => "_allowance"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
-		</span>
-	</p>
-	<p class="new_rule_line">
-		<span><i class="bigicon-bag"></i></span>
-			<%= link_to "Gift", new_consumer_rule_path(@consumer, :property => "_gift"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
-		<span>
-		</span>
-	</p>
-	<p class="new_rule_line">
-		<span><i class="bigicon-achievment"></i></span>
-		<span>
-			<%= link_to "Achievement", new_consumer_rule_path(@consumer, :property => "achievement"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
-		</span>
-	</p>
-	<p class="new_rule_line">
-		<span><i class="bigicon-birthday"></i></span>
-		<span>
-			<%= link_to "Birthday", new_consumer_rule_path(@consumer, :property => "birthday"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
-		</span>
-	</p>
-	<p class="new_rule_line">
-		<span><i class="bigicon-cleaning"></i></span>
-		<span>
-			<%= link_to "Chores", new_consumer_rule_path(@consumer, :property => "chores"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
-		</span>
-	</p>
+	<% if rule = @consumer.allowance_rule and !rule.initialized? %>
+		<p class="new_rule_line">
+			<span><i class="bigicon-calendar"></i></span>
+			<span>
+				<%= link_to "Allowance", new_consumer_rule_path(@consumer, :property => "_allowance"), :data => {:target => "#rule_modal", :toggle => "modal"} %>			
+			</span>
+		</p>
+	<% end %>
+	<% if rule = @consumer.gift_rule and !rule.initialized? %>
+		<p class="new_rule_line">
+			<span><i class="bigicon-bag"></i></span>
+				<%= link_to "Gift", new_consumer_rule_path(@consumer, :property => "_gift"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
+			<span>
+			</span>
+		</p>
+	<% end %>
+	<% if rule = @consumer.achievement_rule and !rule.initialized? %>
+		<p class="new_rule_line">
+			<span><i class="bigicon-achievment"></i></span>
+			<span>
+				<%= link_to "Achievement", new_consumer_rule_path(@consumer, :property => "achievement"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
+			</span>
+		</p>
+	<% end %>
+	<% if rule = @consumer.birthday_rule and !rule.initialized? %>
+		<p class="new_rule_line">
+			<span><i class="bigicon-birthday"></i></span>
+			<span>
+				<%= link_to "Birthday", new_consumer_rule_path(@consumer, :property => "birthday"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
+			</span>
+		</p>
+	<% end %>
+	<% if rule = @consumer.request_rule and !rule.initialized? %>
+		<p class="new_rule_line">
+			<span><i class="bigicon-cleaning"></i></span>
+			<span>
+				<%= link_to "Chores", new_consumer_rule_path(@consumer, :property => "chores"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
+			</span>
+		</p>
+	<% end %>
 </div>
 <div id="newrule_title">
 	<%= "How much - and why" %>
