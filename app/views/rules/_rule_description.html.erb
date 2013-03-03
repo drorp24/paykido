@@ -1,5 +1,5 @@
 <% if rule.value.blank? and rule.supported? and rule.thresholds? %>
-	<%= "Anything #{(rule.under?) ? (t 'under') : (t 'over')} (Click to set)" %>
+	<%= "Anything #{(rule.under?) ? (t 'under') : (t 'over')} ..." %>
 <% elsif rule.value.blank? and rule.supported? %>
 	(Click to set)
 <% elsif rule.value.blank? and !rule.supported? %>

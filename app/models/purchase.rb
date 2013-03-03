@@ -411,12 +411,12 @@ class Purchase < ActiveRecord::Base
       self.authorization_property = "Balance"
       self.authorization_value = self.consumer.balance
       self.authorization_type = "insufficient"
-    elsif self.amount <= self.consumer.under_threshold
+    elsif self.consumer.under_threshold and self.amount <= self.consumer.under_threshold
       self.authorization_property = "Amount"
       self.authorization_value = self.amount
       self.authorization_type = "Under Threshold"
       self.authorized = true
-    elsif self.amount > self.consumer.over_threshold
+    elsif self.consumer.over_threshold and self.amount > self.consumer.over_threshold
       self.authorization_property = "Amount"
       self.authorization_value = self.amount
       self.authorization_type = "Too High"
