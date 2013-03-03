@@ -58,19 +58,17 @@ class ConsumerController < ApplicationController
         Rails.logger.debug("No consumer currently exists with that facebook id. Initialized record created")
       end
 
-      @consumer = Consumer.find_or_initialize_by_facebook_id(facebook_params_user_id) 
+      @consumer = Consumer.find_by_facebook_id(facebook_params_user_id) 
+      unless @consumer
+        @consumer = Consumer.create!(:facebook_id => facebook_params_user_id)
+        @consumer.set_rules!
+      end
 
     elsif current_facebook_user # probably never true 
 
       Rails.logger.debug("Facebook params (signed request/facebooker) passed no facebook user id, but current_Facebook_user exists")  
 
       @consumer = Consumer.find_or_initialize_by_facebook_id(current_facebook_user.id)
-
-    else                        # this is actually an error 
-
-      Rails.logger.debug("Facebook params (signed request/facebooker) passed no facebook user id. No current_Facebook_user")  
-
-      @consumer = session[:consumer] || Consumer.new
 
     end 
     
@@ -113,9 +111,6 @@ class ConsumerController < ApplicationController
     Rails.logger.debug("The payer_id inserted into the consumer is: " + @consumer.payer_id.to_s)
     Rails.logger.debug("Consumer created_at got: " + @consumer.created_at.to_s)
 
-    session[:consumer] = @consumer
-    session[:payer] =    @payer
-    
     Rails.logger.debug("EXITS REGISTER CALLBACK")  
     
   end 
@@ -233,8 +228,6 @@ class ConsumerController < ApplicationController
 
     Rails.logger.debug("Updated consumer name and pic. Its id is: " + @consumer.id.to_s)      
     
-    # ToDo: no session needed - delete
-#    session[:consumer] = @consumer
     @payer = @consumer.payer unless @consumer.nil?
     
     Rails.logger.debug("The payer Im using is the consumer payer. Its id is: " + @payer.id.to_s) if @payer     
