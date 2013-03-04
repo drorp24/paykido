@@ -20,7 +20,9 @@ Rails.logger.info("entered index")
 Rails.logger.info("after find_purchases")  
 
     unless @purchases.any?
-      if current_payer.registered?
+      if current_payer.purchases.any?
+        redirect_to purchases_path
+      elsif current_payer.registered?
 Rails.logger.info("current_payer is registered")  
         redirect_to tokens_path
       else  
