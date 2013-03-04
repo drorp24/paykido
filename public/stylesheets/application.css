@@ -7,6 +7,10 @@ body {
 }
 
 
+.popover-content p.popover_instructions {
+    margin-bottom: 10px;
+}
+
 .initialized_rule {
     color: #888;  
 }
@@ -97,7 +101,7 @@ body {
     margin-top: 21px;
 }
 
-#modal_submit {
+.modal_submit {
     position: absolute;
     bottom: 16px;
     right: 15px;

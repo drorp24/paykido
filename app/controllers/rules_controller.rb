@@ -13,15 +13,22 @@ class RulesController < ApplicationController
   # GET /rules/1
   # GET /rules/1.json
   def show
-    @rule = Rule.find(params[:id])
-    @consumer = @rule.consumer
-    render 'new'
+
+    if current_payer.rules_require_registration
+      render 'register_first'
+    else
+      @rule = Rule.find(params[:id])
+      @consumer = @rule.consumer
+      render 'new'
+    end
+
   end
   
   # GET /rules/new
   # GET /rules/new.json
   def new
-     if params[:property] == '_allowance' and params[:consumer_id] and last_allowance_rule = @consumer.allowance_rule 
+    
+    if params[:property] == '_allowance' and params[:consumer_id] and last_allowance_rule = @consumer.allowance_rule 
       @rule = Rule.new_allowance_rule(last_allowance_rule)
     else
       @rule = Rule.new(:property => params[:property])

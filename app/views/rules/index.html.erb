@@ -70,6 +70,7 @@
 				<%= link_to "Allowance", new_consumer_rule_path(@consumer, :property => "_allowance"), :data => {:target => "#rule_modal", :toggle => "modal"} %>			
 			</span>
 		</p>
+		<% at_least_one_line_was_included = true %>
 	<% end %>
 	<% if rule = @consumer.gift_rule and !rule.initialized? %>
 		<p class="new_rule_line">
@@ -78,6 +79,7 @@
 			<span>
 			</span>
 		</p>
+		<% at_least_one_line_was_included = true %>
 	<% end %>
 	<% if rule = @consumer.achievement_rule and !rule.initialized? %>
 		<p class="new_rule_line">
@@ -86,6 +88,7 @@
 				<%= link_to "Achievement", new_consumer_rule_path(@consumer, :property => "achievement"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
 			</span>
 		</p>
+		<% at_least_one_line_was_included = true %>
 	<% end %>
 	<% if rule = @consumer.birthday_rule and !rule.initialized? %>
 		<p class="new_rule_line">
@@ -94,6 +97,7 @@
 				<%= link_to "Birthday", new_consumer_rule_path(@consumer, :property => "birthday"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
 			</span>
 		</p>
+		<% at_least_one_line_was_included = true %>
 	<% end %>
 	<% if rule = @consumer.request_rule and !rule.initialized? %>
 		<p class="new_rule_line">
@@ -102,6 +106,11 @@
 				<%= link_to "Chores", new_consumer_rule_path(@consumer, :property => "chores"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
 			</span>
 		</p>
+		<% at_least_one_line_was_included = true %>
+	<% end %>
+	<% unless at_least_one_line_was_included %>
+		<p class="popover_instructions">Use the <strong>Set</strong> buttons to define how much your kid can buy and why.</p>
+		<p class="popover_instructions">Then <strong>Add</strong> as many as you like with this button.</p>
 	<% end %>
 </div>
 <div id="newrule_title">

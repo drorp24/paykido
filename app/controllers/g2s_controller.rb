@@ -10,6 +10,7 @@ class G2sController < ApplicationController
         if params[:ppp_status] == 'OK'
           @purchase = Purchase.find(params[:customField3].to_i)
           @purchase.approve!
+          @purchase.notify_consumer('manual', 'approved') if @purchase.approved?
         end
         redirect_to purchase_url(
           params[:customField3].to_i,
@@ -27,27 +28,18 @@ class G2sController < ApplicationController
         # A temporary token is created immediately after PPP and consumer notified here, to enable kid to buy instantly
         if params[:ppp_status] == 'OK' and params[:Status] == 'APPROVED'
           @payer.create_temporary_token!(params)
-          @purchase = @payer.purchases.last  if @payer.purchases.any?             # ToDo: temporary
-          @purchase.notify_consumer('manual', 'approved') if @purchase
+          @purchase.notify_consumer('manual', 'registered')
         end
 
-        if @payer.purchases.any?
-          redirect_to purchases_path(
-            :notify => 'registration', 
-            :status => params[:status],
-            :ppp_status => params[:ppp_status],
-            :message => params[:message]
-          )
-        else
-          redirect_to new_token_path(
-            :notify => 'registration', 
-            :status => params[:status],
-            :ppp_status => params[:ppp_status],
-            :message => params[:message]
-          )
-        end          
+        redirect_to new_token_url(
+          :notify => 'registration', 
+          :status => params[:status],
+          :ppp_status => params[:ppp_status],
+          :message => params[:message]
+        )
+                    
     elsif params[:status] == 'back'     # when back is clicked, that's the only parameter G2S returns
-          redirect_to purchases_path
+          redirect_to purchases_url
     else
       flash[:error] = ""
       redirect_to root_path
@@ -78,7 +70,6 @@ class G2sController < ApplicationController
 
       unless status == 'failed'
         @purchase.notify_merchant(status, 'payment')
-#        @purchase.notify_consumer('manual', status)    # consumer notification moved to PPP - see above   
       end
 
     elsif params[:customField1] == 'registration'

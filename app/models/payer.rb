@@ -126,12 +126,8 @@ class Payer < ActiveRecord::Base
     self.tokens.any?
   end
   
-  def registered_or_waived
-    unless Paykido::Application.config.rules_require_registration
-      true
-    else
-      self.registered?
-    end
+  def rules_require_registration
+    Paykido::Application.config.rules_require_registration and !self.registered?
   end
   
   def token

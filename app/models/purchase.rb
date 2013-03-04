@@ -521,7 +521,9 @@ class Purchase < ActiveRecord::Base
     return false unless mode and status
     
     if mode == 'manual'
-      if      status == 'approved'
+      if      status == 'registered'
+        message = "Congrats, #{self.consumer.name}! Your parent has just registered to Paykido!"
+      elsif      status == 'approved'
         message = "Congrats, #{self.consumer.name}! Your parent has just approved your purchase request (#{self.id}). The item is yours!"
       elsif    status == 'declined'  
         message = "We are sorry. Your parent has just declined your purchase request (#{self.id})."
