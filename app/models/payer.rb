@@ -141,7 +141,11 @@ class Payer < ActiveRecord::Base
   def request_confirmation(consumer)     
 
     begin
-      UserMailer.delay.consumer_confirmation_email(self, consumer)
+      if Paykido::Application.config.use_delayed_job
+        UserMailer.delay.consumer_confirmation_email(self, consumer)
+      else
+        UserMailer.consumer_confirmation_email(self, consumer).deliver
+      end
     rescue
       return false
     end
