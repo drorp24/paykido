@@ -97,8 +97,12 @@
 
 <div id="rule_setting_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
-    <h4 class="alert-heading">Rule created</h4>    
-    <%= "Paykido will automatically #{(params[:rule_status] == 'whitelisted') ? 'approve' : 'decline'} purchases whose #{t params[:property]} is #{params[:value]}. No need to #{(params[:rule_status] == 'whitelisted') ? 'approve' : 'decline'} them manually anymore." %>
+    <h4 class="alert-heading">Rule <%= params[:rule_status] == 'reset' ? 'reset' : 'created' %></h4>
+    <% unless params[:rule_status] == 'reset' %>    
+    	<%= "Paykido will automatically #{(params[:rule_status] == 'whitelisted') ? 'approve' : 'decline'} purchases whose #{t params[:property]} is #{params[:value]}. No need to #{(params[:rule_status] == 'whitelisted') ? 'approve' : 'decline'} them manually anymore." %>
+	<% else %>
+		Paykido has succesfully reset the rule
+	<% end %>
 </div>
 
 <% if params[:notify] and params[:notify] == 'new_rule' %>

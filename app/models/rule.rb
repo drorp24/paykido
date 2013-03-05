@@ -8,7 +8,7 @@ class Rule < ActiveRecord::Base
 
     if    self.property == '_allowance' or self.property == '_gift' or  self.property == 'birthday' or  self.property == 'chores'or  self.property == 'achievement' or  self.property == 'request'   
           self.category = 'how much'
-    elsif self.property == 'retailer' or  self.property == 'esrb_rating' or self.property == 'pegi_rating' 
+    elsif self.property == 'retailer' or  self.property == 'esrb_rating' or self.property == 'pegi_rating' or self.property == 'title' or self.property == 'category'   
           self.category = 'what'
     elsif self.property == 'time'
           self.category = 'when'
@@ -23,7 +23,7 @@ class Rule < ActiveRecord::Base
   end
 
   def supported?
-      self.property == '_allowance' or self.property == '_gift' or  self.property == 'birthday' or  self.property == 'chores'or  self.property == 'achievement' or self.property == 'retailer' or  self.property == 'esrb_rating' or self.property == 'pegi_rating' or self.property == 'under' or self.property == 'over'
+      self.property == '_allowance' or self.property == '_gift' or  self.property == 'birthday' or  self.property == 'chores'or  self.property == 'achievement' or self.property == 'retailer' or  self.property == 'esrb_rating' or self.property == 'pegi_rating' or self.property == 'category' or self.property == 'title' or self.property == 'under' or self.property == 'over'
   end
 
   def self.new_allowance_rule(last_allowance_rule)
@@ -85,7 +85,7 @@ class Rule < ActiveRecord::Base
   ####  Change if needed      ####
   scope :monetary,    where("category = ?", "how much")
   scope :thresholds,  where("category = ?", "thresholds")
-  scope :what,        where("category = ?", "what")
+  scope :what,        where("category = ? and status != ?", "what", "reset")
   scope :time,        where("category = ?", "when")
   scope :location,    where("category = ?", "where")
   
@@ -405,7 +405,7 @@ class Rule < ActiveRecord::Base
 
   def self.set!(params) 
 
-#    rule = self.where(params.except[:authenticity_token]).first_or_initialize    # as of Rails 3.2.1
+#   rule = self.where(params.except[:authenticity_token]).first_or_initialize    # as of Rails 3.2.1
     rule = self.find_or_initialize_by_consumer_id_and_property_and_value(
       :consumer_id => params[:consumer_id],
       :property => params[:property],

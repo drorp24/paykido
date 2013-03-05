@@ -31,6 +31,7 @@ Paykido::Application.routes.draw do
 #  end
 
   resources :consumers do
+    resources :consumers
     resources :rules
     resources :allowances
     resources :purchases do

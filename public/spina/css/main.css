@@ -894,7 +894,7 @@ select {
 
 /* Buttons */
 
-input.button, .button {
+.action_bar .button {
   background: url(../img/buttongray_bg.png) repeat-x #ebebeb;
   border: 1px solid #c4c4c4;
   border-radius: 3px;

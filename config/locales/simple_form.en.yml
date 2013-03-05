@@ -2,7 +2,7 @@ en:
   simple_form:
     arrays:
       weekday: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-      day_of_month: ['month end', '', 'first day of the month']
+      day_of_month: ["month's end", '', "month's start"]
     labels:
       amount: Amount
       period: Period

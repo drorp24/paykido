@@ -7,6 +7,22 @@ body {
 }
 
 
+.rule_line .rule_description {
+    text-align: center;
+}
+
+.rule {
+    margin-top: 10px;
+}
+
+.rule p:first-child {
+    margin-top: 20px;
+}
+
+.purchase_line td:first-child {
+    margin-left: 10px;
+}
+
 .popover-content p.popover_instructions {
     margin-bottom: 10px;
 }
@@ -60,6 +76,10 @@ body {
 .btn i {
     float: left;
     margin-top: 2px;
+}
+
+#approval_buttons .btn i {
+    margin-top: 3px;
 }
 
 .btn-small.action_button [class^="icon-"] {
@@ -365,7 +385,7 @@ button#decline {
         
 }
 .content-header p {
-        
+   margin-top: 15px;     
 }
 
 .alert.alert-block .alert-heading {
@@ -854,9 +874,11 @@ body#paykido  a {
 
 
 .actions {
-    width: 11em;
+    float: right;
+    margin-right: 43px;
+    margin-top: 10px;
 }
-
+/*
 .actions #whitelist {
     float: right;
 }
@@ -864,6 +886,7 @@ body#paykido  a {
 .actions #blacklist {
     margin-left: 1.5em;
 }
+*/
 .rule.name, .rules_title {
     color: #4C82B3;
 }
@@ -1053,6 +1076,7 @@ tr:hover {
 }
 table.purchase_info {
     max-width: 97%;
+    margin-left: 19px;
 }
 .approval.button {
 }
@@ -1080,9 +1104,11 @@ tr:hover .approval_buttons p a{
 }
 
 .sectiontitle {
-    font-size: 26px;
-    color: #000;
+    font-size: 20px;
+    font-weight: 100;
+    color: #888;
     margin-bottom: -12px;
+    margin-left: 19px;
     text-shadow: 0 1px 0 #FFFFFF;
 }
 

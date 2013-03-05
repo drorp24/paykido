@@ -26,7 +26,7 @@
 <nav id="primary">
 	<ul>
 	    <li class="menu" id="people_menu" >
-	      	<%= link_to consumers_path, 'data-skip-pjax' => true do%>
+	      	<%= link_to @consumer ? consumer_consumers_path(@consumer) : consumers_path, 'data-skip-pjax' => true do%>
 	        	<span class="icon32 group"></span>
 	        	Family
 	      	<% end %>
@@ -39,13 +39,13 @@
 	      	<% end %>
 	    </li>
 	    <li class="menu" id="rules_menu" >
-     		<%= link_to rules_path, 'data-skip-pjax' => true do %>
+     		<%= link_to @consumer ? consumer_rules_path(@consumer) : rules_path , 'data-skip-pjax' => true do %>
 	        	<span class="icon32 tools"></span>
 	        	Rules
 	      	<% end %>
 	    </li>
     	<li class="menu" id="dashboard_menu" >
-      		<%= link_to purchases_path, 'data-skip-pjax' => true do %>
+      		<%= link_to @consumer ? consumer_purchases_path(@consumer) : purchases_path, 'data-skip-pjax' => true do %>
 		        <span class="icon32 cart"></span>
 		        Purchases
 	      	<% end %>

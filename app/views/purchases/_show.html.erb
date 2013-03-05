@@ -38,27 +38,12 @@
             <p><div class="progress"><span style="width: 70%;"></span></div></p>
 
 			<% if @purchase.requires_approval? %>
-<!--  			
-				<button class="btn btn-success">
-					<%= link_to approve_purchase_path(@purchase) do %>
-					<i class="bigicon-tick-black"></i>	
-					Approve
-					<% end %>			
-				</button>
-				<button class="btn btn-danger">
-					<i class="bigicon-cross-black"></i>
-					Decline
-				</button>
--->
-
-				<div id="approval_buttons">
-				    <%= link_to approve_purchase_path(@purchase), :class => "small blue approval button", 'data-skip-pjax' => true do %>
-				        <span class="icon16 tick"></span>
-				        Approve
+				<div id="approval_buttons" class="btn-group">
+				    <%= link_to approve_purchase_path(@purchase), :class => "btn", 'data-skip-pjax' => true do %>
+				        <i class="icon-thumbs-up"></i> &nbsp;&nbsp;<%= t 'Approve' %>
 				    <% end %>
-				    <%= link_to decline_purchase_path(@purchase), :class => "small blue decline button", 'data-skip-pjax' => true do %>
-				        <span class="icon16 delete"></span>
-				        Decline
+				    <%= link_to decline_purchase_path(@purchase), :class => "btn", 'data-skip-pjax' => true do %>
+				        <i class="icon-thumbs-down"></i> &nbsp;&nbsp;<%= t 'Decline' %>
 				    <% end %>
 				</div>
 
@@ -86,12 +71,23 @@
                     </td>
                     <td class="actions">
                     <% if value != nil %>
-                        <a data-toggle="modal" id="blacklist" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="blacklisted" data-property="<%= property %>" data-value="<%= value %>" class="small button rule <%= (@purchase.consumer.blacklisted?(property,value)) ?'blue' :'regular greyedOut' %>">
-                            <span class="icon16 blacklist"></span>NO
-                        </a>
-                        <a data-toggle="modal" id="whitelist" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="whitelisted" data-property="<%= property %>" data-value="<%= value %>" class="small button rule <%= (@purchase.consumer.whitelisted?(property,value)) ?'blue' :'regular greyedOut' %>">
-                            <span class="icon16 whitelist"></span>OK
-                        </a>
+                    	<div class="btn-group">
+                    		<% blacklisted = whitelisted = false %>
+                    		<% if @purchase.consumer.blacklisted?(property,value) %>
+                    			<% blacklisted = true %>
+                			<% elsif @purchase.consumer.whitelisted?(property,value) %>
+                				<% whitelisted = true %>
+            				<% end %>
+	                        <a data-toggle="modal" id="blacklist" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="blacklisted" data-property="<%= property %>" data-value="<%= value %>" class="btn rule button <%= (@purchase.consumer.blacklisted?(property,value)) ?'btn-danger' :'' %>">
+	                            <i class="icon-thumbs-down <%= blacklisted ? 'icon-white' : ''%>"></i>
+	                        </a>
+	                        <a data-toggle="modal" id="reset" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="reset" data-property="<%= property %>" data-value="<%= value %>" class="btn rule button">
+	                            <i class="icon-stop"></i>
+	                        </a>
+	                        <a data-toggle="modal" id="whitelist" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="whitelisted" data-property="<%= property %>" data-value="<%= value %>" class="btn rule button <%= (@purchase.consumer.whitelisted?(property,value)) ?'btn-success' :'' %>">
+	                            <i class="icon-thumbs-up <%= whitelisted ? 'icon-white' : ''%>"></i>
+	                        </a>
+                        </div>
 					<% end %>
                     </td>
                     <td>
@@ -160,14 +156,24 @@ $('document').ready(function() {
        var value =      $(this).attr('data-value');
        var name =    	$(this).attr('data-name');       
        $('.action').html(function () {
-       		if 		(rule_status == 'whitelisted') {return 'approve'}
-       		else if (rule_status == 'blacklisted') {return 'decline'} 
-       		else if (rule_status = '') {return 'ask about'}
+       		if 		(rule_status == 'whitelisted') {return 'Approve'}
+       		else if (rule_status == 'blacklisted') {return 'Decline'} 
+       		else if (rule_status = 'reset') {return 'Reset'}
        });
+       if  (rule_status == 'reset') {
+       		$('#rule_reset').show();
+       		$('#rule_set').hide();
+       		$('#create_rule').html('Reset');
+	   } 
+	   else {
+       		$('#rule_reset').hide();
+       		$('#rule_set').show();
+       		$('#create_rule').html('Activate');
+	   }
        $('.property').html(property);
        $('.value').html(value);
        $('.name').html(name);
-       $('#create_rule').attr('data-href', '/rules?payer_id=' + payer + '&purchase_id=' + purchase + '&consumer_id=' + consumer + '&property=' + property + '&value=' + value + '&rule_status=' + rule_status);
+       $('#create_rule').attr('href', '/rules?payer_id=' + payer + '&purchase_id=' + purchase + '&consumer_id=' + consumer + '&property=' + property + '&value=' + value + '&rule_status=' + rule_status);
        
     });  
     
