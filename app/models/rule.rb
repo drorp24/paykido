@@ -195,7 +195,7 @@ class Rule < ActiveRecord::Base
   end
 
   def self.birthday_rule_of(consumer)
-    self.rule_of(consumer, 'birthdayt')
+    self.rule_of(consumer, 'birthday')
   end
 
   def self.chores_rule_of(consumer)
@@ -292,6 +292,7 @@ class Rule < ActiveRecord::Base
   
   def date=(newdate)
     newdate = newdate.to_datetime.in_time_zone
+    newdate = Time.now if newdate < Time.now    # Otherwise, if rule was set to today, it will get midnight time and won't be effective i ncase parent just registered
     schedule = IceCube::Schedule.new
     schedule.add_recurrence_time(newdate)
     self.schedule = schedule

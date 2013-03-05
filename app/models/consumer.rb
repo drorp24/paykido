@@ -56,10 +56,45 @@ class Consumer < ActiveRecord::Base
     @facebook_user 
   end 
   
+##  Balance
+
   def balance(given_datetime = Time.now)
     self.monetary_sum(given_datetime) - self.purchase_sum(given_datetime)
   end
     
+  def monetary_sum(given_datetime = Time.now)
+    
+    start_datetime = self.payer.registration_date
+
+    @monetary_sum = 0
+    for monetary_rule in self.rules.monetary do 
+      @monetary_sum += monetary_rule.schedule.occurrences_between(start_datetime, given_datetime).count * monetary_rule.value.to_d if monetary_rule.schedule
+    end
+    @monetary_sum
+  end
+
+  def purchase_sum(given_datetime)
+
+    start_datetime = self.payer.registration_date
+
+    if given_datetime
+      self.purchases.approved.where("date > ? and date <= ?", start_datetime, given_datetime).sum("amount")
+    else
+      self.purchases.approved.sum("amount")
+    end
+
+  end
+  
+  def spent 
+    self.purchase_sum(Time.now)
+  end
+  
+  def got
+    self.monetary_sum(Time.now)
+  end
+  
+##  Balance
+
   def allowance_rule
     Rule.allowance_rule_of(self)
   end
@@ -88,29 +123,6 @@ class Consumer < ActiveRecord::Base
     Rule.allowance_of(self)
   end
 
-  def monetary_sum(given_datetime = Time.now)
-
-    @monetary_sum = 0
-    for monetary_rule in self.rules.monetary do 
-      @monetary_sum += monetary_rule.schedule.occurrences(given_datetime).count * monetary_rule.value.to_d if monetary_rule.schedule
-    end
-    @monetary_sum
-  end
-
-  def purchase_sum(given_datetime)
-
-    if given_datetime
-      self.purchases.approved.where("date <= ?", given_datetime).sum("amount")
-    else
-      self.purchases.approved.sum("amount")
-    end
-
-  end
-  
-  def spent 
-    self.purchase_sum
-  end
-  
 # allowance.schedule.add_recurrence_time(DateTime.new(params[:year],params[:month],params[:day]))
 
   def set_rules!

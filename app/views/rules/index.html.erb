@@ -99,11 +99,20 @@
 		</p>
 		<% at_least_one_line_was_included = true %>
 	<% end %>
-	<% if rule = @consumer.request_rule and !rule.initialized? %>
+	<% if rule = @consumer.chores_rule and !rule.initialized? %>
 		<p class="new_rule_line">
 			<span><i class="bigicon-cleaning"></i></span>
 			<span>
 				<%= link_to "Chores", new_consumer_rule_path(@consumer, :property => "chores"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
+			</span>
+		</p>
+		<% at_least_one_line_was_included = true %>
+	<% end %>
+	<% if rule = @consumer.request_rule and !rule.initialized? %>
+		<p class="new_rule_line">
+			<span><i class="bigicon-cleaning"></i></span>
+			<span>
+				<%= link_to "Request", new_consumer_rule_path(@consumer, :property => "request"), :data => {:target => "#rule_modal", :toggle => "modal"} %>
 			</span>
 		</p>
 		<% at_least_one_line_was_included = true %>

@@ -122,16 +122,20 @@ class Payer < ActiveRecord::Base
     
   end
 
-  def registered?  #ToDo: set an instance variable for performance
-    self.tokens.any?
-  end
-  
   def rules_require_registration
     Paykido::Application.config.rules_require_registration and !self.registered?
   end
   
+  def registered?  #ToDo: set an instance variable for performance
+    self.tokens.any?
+  end
+  
   def token
-    self.tokens.first if self.tokens.any?
+    self.tokens.last if self.tokens.any?
+  end
+  
+  def registration_date
+    @registration_date ||= Token.where("payer_id = ?", self.id).first.created_at if Token.where("payer_id = ?", self.id).first
   end
   
   def request_confirmation(consumer)     
