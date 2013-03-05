@@ -84,6 +84,8 @@
 $(document).ready(function() {
 
 
+	$('.purchase_row .icon32.large').tooltip({placement: 'right'});
+
 	//  Trigger the approval popover
 	// the 2 last lines should be removed once popover acts as it should 
 	<% if params[:activity] == 'approval' and @pendings_count > 0 %>
