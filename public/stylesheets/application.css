@@ -3,9 +3,74 @@ body {
     background:url("/spina/img/bg.png");
     font-family:"Segoe UI", Helvetica, Arial;
     font-size:14px;
+    font-weight: 100;
     line-height:21px;
 }
 
+.purchase_info {
+
+  min-height: 20px;
+  padding: 19px;
+  margin-bottom: 20px;
+  background-color: #f5f5f5;
+  border: 1px solid #e3e3e3;
+  border-collapse: inherit;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+#purchases tr.active  {
+  background-color: #497eac;
+  background-color: #F5F5F5;
+  background-color: #FFF;
+  border-bottom: 1px solid #F3F3F3;
+  border-top: 1px solid #F3F3F3;
+
+/*
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(107, 160, 206)), to(rgb(73, 126, 172)));
+  background-image: -webkit-linear-gradient(top, rgb(107, 160, 206), rgb(73, 126, 172));
+  background-image: -moz-linear-gradient(top, rgb(107, 160, 206), rgb(73, 126, 172));
+  background-image: -o-linear-gradient(top, rgb(107, 160, 206), rgb(73, 126, 172));
+  background-image: -ms-linear-gradient(top, rgb(107, 160, 206), rgb(73, 126, 172));
+  background-image: linear-gradient(top, rgb(107, 160, 206), rgb(73, 126, 172));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#6ba0ce', EndColorStr='#497eac');
+/*  border-bottom: 1px solid #467cad; */
+/*  border-top: 1px solid #699fd0; */
+/*  color: #fff;
+  text-shadow: 0 1px 0 #104266; */
+}
+
+.sectiontitle {
+    color: #888;
+    font-weight: 100;
+    text-shadow: 0 1px 0 #FFFFFF;
+    font-size: 18px;
+    margin-bottom: -12px;
+    margin-left: 10px;
+    margin-top: 24px;
+    text-transform: uppercase; 
+}
+
+
+.purchase_title {
+    font-weight: 100;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.purchase_text {
+    text-align: center;
+}
+
+.coming_soon {
+    position: relative;
+    margin-left: 30px;
+    bottom: 3px;
+}
 
 .rule_line .rule_description {
     text-align: center;
@@ -745,21 +810,6 @@ table.navigation {
     z-index: 10000;    
 }
 
-#purchases tr.active  {
-  background-color: #497eac;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(107, 160, 206)), to(rgb(73, 126, 172)));
-  background-image: -webkit-linear-gradient(top, rgb(107, 160, 206), rgb(73, 126, 172));
-  background-image: -moz-linear-gradient(top, rgb(107, 160, 206), rgb(73, 126, 172));
-  background-image: -o-linear-gradient(top, rgb(107, 160, 206), rgb(73, 126, 172));
-  background-image: -ms-linear-gradient(top, rgb(107, 160, 206), rgb(73, 126, 172));
-  background-image: linear-gradient(top, rgb(107, 160, 206), rgb(73, 126, 172));
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#6ba0ce', EndColorStr='#497eac');
-/*  border-bottom: 1px solid #467cad; */
-/*  border-top: 1px solid #699fd0; */
-  color: #fff;
-  text-shadow: 0 1px 0 #104266;
-}
-
 #purchases tr.active .icon32 {    
     background-position: 100% center;
 }
@@ -776,6 +826,7 @@ label.list {
 }
 td.purchase_details {
 	width: 265px;
+	font-weight: 100;
 }
 
 #purchases tr.purchase_row td.purchase_price {
@@ -860,23 +911,23 @@ body#paykido  a {
     float: left;
 }
 
-.purchase_line .actions a.regular {
+.purchase_line .actions a {
     visibility: hidden;
 }
 
-.purchase_line:hover .actions a.regular {
+.purchase_line:hover .actions a {
     visibility: visible;
 }
 
-.purchase_line .actions a.blue {
+.purchase_line .actions a.btn-danger, .purchase_line .actions a.btn-success {
     visibility: visible;
 }
 
 
 .actions {
     float: right;
-    margin-right: 43px;
-    margin-top: 10px;
+    margin-right: 25px;
+    margin-top: 3px;
 }
 /*
 .actions #whitelist {
@@ -1074,10 +1125,7 @@ tr:hover {
 #approval_buttons {
     margin-top: 16px;   
 }
-table.purchase_info {
-    max-width: 97%;
-    margin-left: 19px;
-}
+
 .approval.button {
 }
 .decline.button {
@@ -1103,15 +1151,6 @@ tr:hover .approval_buttons p a{
     margin-left: 20%;
 }
 
-.sectiontitle {
-    font-size: 20px;
-    font-weight: 100;
-    color: #888;
-    margin-bottom: -12px;
-    margin-left: 19px;
-    text-shadow: 0 1px 0 #FFFFFF;
-}
-
 .purchase_value {
     margin-left: 5%;
     font-size: 20px;
@@ -1119,10 +1158,8 @@ tr:hover .approval_buttons p a{
     font-stretch:
 }
 
-.purchase_title {
+td.purchase_logo {
 
-    font-size: 14px;
-/*    font-weight: bold; */
 }
 
 .purchase_line {
@@ -1269,7 +1306,6 @@ td.approval_buttons {
 .price {
     font-size: 22px;
     text-shadow: 0 1px 0 #FFFFFF;
-    font-weight: bold;
 /*    color: #4E83B3; */
  /*   color: #5186B4; */
 /*    color: #778899; */
@@ -1281,6 +1317,7 @@ td.approval_buttons {
     text-shadow: 0 1px 0 #FFFFFF;
 }
 .product {
+    font-size: 18px;
 }
 .formtitle {
     font-variant: small-caps;

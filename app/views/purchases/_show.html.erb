@@ -19,11 +19,10 @@
 
     <div class="header clearfix well">
         <div class="grid_6 content-header relative clearfix">
-            <p class="retailer">                    
+            <p class="retailer text-info">                    
 					<%= @purchase.retailer.name %>   
-					<%= @purchase.id %>
 			</p>
-			<p class="product"><%= @purchase.product %></p>
+			<p class="product text-warning"><%= @purchase.product %></p>
             <p class="price"><%= "#{@purchase.amount} #{@purchase.currency}" %></p>
         </div>
         <div id="purchase_header_right" class="grid_5 content-header relative">
@@ -61,31 +60,34 @@
             <% if @purchase.properties %>    
             <% @purchase.properties.sort.each do |property, value| %>
                 <tr class="purchase_line">
-                    <td class="purchase_title"><%= t property %>:</td>
-                    <td class="purchase_logo">
-                        <% if info = Info.find_by_key_and_value(property, value) and info.logo %>
+                    <td class="rule_status">
+                		<% if @purchase.consumer.blacklisted?(property,value) %>
+                			<i class="bigicon-thumbs-down"></i>
+            			<% elsif @purchase.consumer.whitelisted?(property,value) %>
+            				<i class="bigicon-thumbs-up"></i>
+        				<% end %>
+                    </td>    	
+                    <td class="purchase_title text-info"><%= t property %>:</td>
+                    <% if info = Info.find_by_key_and_value(property, value) and info.logo %>
+	                    <td class="purchase_logo">
                             <%= image_tag info.logo, {:rel => "popover", :title => info.title, :data => {:content => info.description}} %>
-                        <% else %>
-                            <%= value %>
-                        <% end %>
-                    </td>
+                        </td>
+                    <% else %>
+                        <td class="purchase_text">
+                        	<%= value %></span>
+                    	</td>
+                    <% end %>
                     <td class="actions">
                     <% if value != nil %>
                     	<div class="btn-group">
-                    		<% blacklisted = whitelisted = false %>
-                    		<% if @purchase.consumer.blacklisted?(property,value) %>
-                    			<% blacklisted = true %>
-                			<% elsif @purchase.consumer.whitelisted?(property,value) %>
-                				<% whitelisted = true %>
-            				<% end %>
-	                        <a data-toggle="modal" id="blacklist" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="blacklisted" data-property="<%= property %>" data-value="<%= value %>" class="btn rule button <%= (@purchase.consumer.blacklisted?(property,value)) ?'btn-danger' :'' %>">
-	                            <i class="icon-thumbs-down <%= blacklisted ? 'icon-white' : ''%>"></i>
+ 	                        <a data-toggle="modal" id="blacklist" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="blacklisted" data-property="<%= property %>" data-value="<%= value %>" class="btn rule button">
+	                            <i class="icon-thumbs-down"></i>
 	                        </a>
 	                        <a data-toggle="modal" id="reset" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="reset" data-property="<%= property %>" data-value="<%= value %>" class="btn rule button">
 	                            <i class="icon-stop"></i>
 	                        </a>
-	                        <a data-toggle="modal" id="whitelist" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="whitelisted" data-property="<%= property %>" data-value="<%= value %>" class="btn rule button <%= (@purchase.consumer.whitelisted?(property,value)) ?'btn-success' :'' %>">
-	                            <i class="icon-thumbs-up <%= whitelisted ? 'icon-white' : ''%>"></i>
+	                        <a data-toggle="modal" id="whitelist" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="whitelisted" data-property="<%= property %>" data-value="<%= value %>" class="btn rule button">
+	                            <i class="icon-thumbs-up"></i>
 	                        </a>
                         </div>
 					<% end %>

@@ -57,10 +57,9 @@
             </td>
             <td class="purchase_details">
                 <p class="purchase_top_line">
-                    <span><%= purchase.product  %></span>
+                    <span class="text-warning"><%= purchase.product  %></span>
                     <span>by</span>
-                    <span><%= purchase.retailer.name %></span>
-                    <span><%= purchase.id %></span>
+                    <span class="text-info"><%= purchase.retailer.name %></span>
                 </p>
                 <p class="purchase_bottom_line">
                     <span class="cell_date"><%= purchase.date.strftime("%a, %b %d") %></span>
