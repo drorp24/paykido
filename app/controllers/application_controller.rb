@@ -35,17 +35,12 @@ class ApplicationController < ActionController::Base
   
   def find_scope
     
-    # Find if scope is one consumer (@consumer) or entire payer 
- 
-    if params[:consumer_id] and @consumer = Consumer.find_by_id(params[:consumer_id])
-      @name = @consumer.name
-#    elsif current_payer and current_payer.name
-#      @name = current_payer.name
-    elsif current_payer and current_payer.consumers.count > 1
-      @name = "the entire family"
-    else
-      @name = "All"
+    if params[:consumer_id]
+      @consumer = Consumer.find_by_id(params[:consumer_id])
+    elsif params[:controller] == "consumers" and params[:id]
+      @consumer = Consumer.find_by_id(params[:id])
     end
+
   end
 
   def set_long_expiry_headers

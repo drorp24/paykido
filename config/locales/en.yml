@@ -2,6 +2,11 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  page_names:
+    tokens: settings
+    purchases: purchases
+    rules: rules
+    consumers: dashboard
   rule:
     register_first:
       title: Register to Set Rules

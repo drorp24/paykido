@@ -118,7 +118,14 @@ $(document).ready(function() {
 	// Filtering - replace later with tabs
 	
 	//	Set the default filter to either be pending or all	
-	pTable.fnFilter( 'PendingPayer' , 1, true, false, false);
+	// NOTE: if the following dataTables query is empty, the script below that attempts to ajax the first row purchase brings the entire page which causes dataTable to alert something
+	<% if @pendings_count > 0  %>
+		pTable.fnFilter( 'PendingPayer' , 1, true, false, false);
+	<% else %>
+        $('.navbar li').removeClass('active');
+        $('#authorized-button').addClass('active');
+		pTable.fnFilter('Whitelisted|Approved|Authorized|Always|Under', 1, true, false, false );
+	<% end %>
         
 
 	//	Filtering is currently silly (based on 'authorization_type' column) - should be replaced by 'authorized' column.
