@@ -8,6 +8,8 @@ Paykido::Application.routes.draw do
     end
   end 
 
+  resources :statistics
+
   resources :tokens
   
   resources :allowances
@@ -33,7 +35,7 @@ Paykido::Application.routes.draw do
   resources :consumers do
     resources :consumers
     resources :rules
-    resources :allowances
+    resources :statistics
     resources :purchases do
       resources :transactions
     end

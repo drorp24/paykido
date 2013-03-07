@@ -6,7 +6,8 @@ en:
     tokens: settings
     purchases: purchases
     rules: rules
-    consumers: dashboard
+    consumers: info
+    statistics: dashboard
   rule:
     register_first:
       title: Register to Set Rules

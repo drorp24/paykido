@@ -93,16 +93,16 @@
 	
 $(document).ready(function () {
 	$('.menu').removeClass('active');
-	<% if params[:controller] == 'purchases' %>
-		$('#dashboard_menu').addClass('active');
-	<% elsif params[:controller] == 'consumers' %>
-		$('#people_menu').addClass('active');
+	<% if params[:controller] == 'consumers' %>
+		$('#consumers_menu').addClass('active');
+	<% elsif params[:controller] == 'statistics' %>
+		$('#statistics_menu').addClass('active');
 	<% elsif params[:controller] == 'rules' %>
 		$('#rules_menu').addClass('active');
-	<% elsif params[:controller] == 'transactions' %>
-		$('#dashboard_menu').addClass('active');
-	<% elsif params[:controller] == 'allowances' %>
-		$('#allowances_menu').addClass('active');
+	<% elsif params[:controller] == 'purchases' %>
+		$('#purchases_menu').addClass('active');
+	<% elsif params[:controller] == 'tokens' %>
+		$('#tokens_menu').addClass('active');
 	<% end %>	
 })	
 	
