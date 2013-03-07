@@ -9,7 +9,7 @@
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Cancelled at your request</h4>
 	<span><%= "Would you like to try again?" %>
-    <span><%= button_to "Register", tokens_path, :class => "btn btn-primary inline" %></span>
+    <span><%= button_to "Register", tokens_path, :class => "btn btn-info inline" %></span>
 </div>
 <% end %>
 
@@ -17,7 +17,7 @@
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Unregistered!</h4>
     This registration is cancelled. You can register again at any time.
-	<%= button_to "Register again", tokens_path, :class => "btn btn-primary inline" %>
+	<%= button_to "Register again", tokens_path, :class => "btn btn-info inline" %>
 </div>
 
 <div id="registration_failure" class="alert alert-block" style="display:none">
@@ -25,7 +25,7 @@
     <h4 class="alert-heading">Something is missing</h4>
     <%= "We\'re unable to check your credit card. " %>
 	<%= "Could be something you keyed." %>
-	<%= button_to "Try again", tokens_path, :class => "btn btn-primary inline" %>
+	<%= button_to "Try again", tokens_path, :class => "btn btn-info inline" %>
 </div>
 
 <% if params[:purchase] %>
@@ -35,7 +35,7 @@
     <%= "We\'re unable to process the payment. " %>
 	<% if params[:manual] %>
 		<%= "Could be something you keyed." %>
-    	<%= button_to "Try again", approve_purchase_path(params[:purchase]),:method => :get, :class => "btn btn-primary inline" %>
+    	<%= button_to "Try again", approve_purchase_path(params[:purchase]),:method => :get, :class => "btn btn-info inline" %>
 	<% else %>
 		<%= "Please contact Paykido Support for help." %>
 	<% end %>
@@ -49,14 +49,14 @@
 	<% retailer = purchase.retailer.name %>
 	<% times = purchase.approval_counter('retailer') %>
     <% if times > Paykido::Application.config.offer_rule_or_registration_after.to_i %>
-    	<h4 class="alert-heading"><%= "Suggested Rule: Always Approve #{retailer}" %></h4>
-    	<span><%= "You approved #{retailer} already #{times} times." %></span>
+    	<h4 class="alert-heading"><%= "Would you like Paykido to always approve purchases from #{retailer}?" %></h4>
+    	<span><%= "You approved #{retailer} #{times} times already." %></span>
     	<% if current_payer.registered_or_waived %>
-    		<span><%= "Set a rule to have Paykido approve this merchant for you going forward." %></span>
-    		<%= button_to "Always approve #{retailer}", rules_path(:payer_id => current_payer.id, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :rule_status => 'whitelisted', :purchase_id => purchase.id), :method => :post, :class => "btn btn-primary inline rule_set" %>
+    		<span><%= "Set a rule to have Paykido approve this merchant for you going forward!" %></span>
+    		<%= button_to "Always approve #{retailer}", rules_path(:payer_id => current_payer.id, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :rule_status => 'whitelisted', :purchase_id => purchase.id), :method => :post, :class => "btn btn-info inline rule_set" %>
 		<% else %>
-    		<%= "Register and have Paykido do that for you going forward." %>
-    		<%= button_to "Register Now", new_token_path,:method => :get, :class => "btn btn-primary inline" %>
+    		<%= "Register and have Paykido do that for you going forward!" %>
+    		<%= button_to "Register Now", new_token_path,:method => :get, :class => "btn btn-info inline" %>
 		<% end %>
 	<% else %>
     	<h4 class="alert-heading">Purchase Approved!</h4>	
@@ -69,7 +69,7 @@
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Cancelled at your request</h4>
 	<span><%= "Would you like to try again?" %>
-    <span><%= button_to "Approve", approve_purchase_path(params[:purchase]),:method => :get, :class => "btn btn-primary inline" %></span>
+    <span><%= button_to "Approve", approve_purchase_path(params[:purchase]),:method => :get, :class => "btn btn-info inline" %></span>
 </div>
 <% end %>
 
@@ -81,13 +81,13 @@
 	<% times = purchase.denial_counter('retailer') %>
     <% if times > Paykido::Application.config.offer_rule_or_registration_after.to_i %>
     	<h4 class="alert-heading"><%= "Suggested Rule: Always Decline #{retailer}" %></h4>
-    	<span><%= "You declined #{retailer} already #{times} times." %></span> 
+    	<span><%= "You declined #{retailer} #{times} times already." %></span> 
     	<% if current_payer.registered_or_waived %>
     		<span><%= "Set a rule to have Paykido decline this merchant for you going forward." %></span>
-    		<%= button_to "Always decline #{retailer}", rules_path(:payer_id => current_payer.id, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :rule_status => 'blacklisted', :purchase_id => purchase.id), :method => :post, :class => "btn btn-primary inline rule_set"%>
+    		<%= button_to "Always decline #{retailer}", rules_path(:payer_id => current_payer.id, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :rule_status => 'blacklisted', :purchase_id => purchase.id), :method => :post, :class => "btn btn-info inline rule_set"%>
 		<% else %>
     		<%= "Register and have Paykido do that for you going forward." %>
-    		<%= button_to "Register Now", new_token_url,:method => :get, :class => "btn btn-primary inline" %>
+    		<%= button_to "Register Now", new_token_url,:method => :get, :class => "btn btn-info inline" %>
 		<% end %>
 	<% else %>
     	<h4 class="alert-heading">Purchase Declined!</h4>	
@@ -134,7 +134,7 @@
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Consumer Confirmed!</h4>
     <%= "From now on, we'll watch every purchsae #{params[:name]} attempts. When ready, register your credit card to make things even safer!" %> &nbsp &nbsp
-    <span><%= button_to "Register now", tokens_path, :class => "btn btn-primary inline" %></span>
+    <span><%= button_to "Register now", tokens_path, :class => "btn btn-info inline" %></span>
 </div>
 
 <script type="text/javascript">

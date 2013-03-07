@@ -3,26 +3,22 @@
     <h1><%= t 'Purchases' %></h1> 
 </div>
 
-<div class="action_bar filters">
-    <a class="small button" id="pending-button">
-        <span class="icon16 question"></span>
-        Pending
-        <span class="message-count"><%= @pendings_count %></span>
-    </a>
-    <a class="small button" id="authorized-button">
-        <span class="icon16 tick"></span>
-        Approved
-    </a>
-    <a class="small button" id="blocked-button">
-        <span class="icon16 delete"></span>
-        Declined
-    </a>
-    <a class="small button" id="all-button">
-        <span class="icon16 refresh"></span>
-        All
-    </a>
-</div> 
-  
+<div class="navbar">
+	<div class="navbar-inner">
+		<ul class="nav">
+			<li  id="pending-button" class="active">
+		    	<a href="#" data-skip-pjax="true">Pending <span class="badge badge-info"><%= @pendings_count %></span></a>
+		    </li>
+		    <li id="authorized-button">
+		    	<a href="#" data-skip-pjax="true">Approved</a>
+			</li>
+		    <li id="blocked-button">
+		    	<a href="#" data-skip-pjax="true">Declined</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
 <table id="purchases"> 
     <thead> 
         <tr> 
@@ -42,17 +38,17 @@
             <td><%= purchase.authorized %></td>
             <td class="status">
             <% if purchase.requires_approval? %>
-                <span class="icon32 question large" title="Requires your manual approval"></span>
+                <i class="bigicon-thumbs-right" data-placement="right" title="Referred to you for manual approval"></i>
             <% elsif purchase.approved? %> 
-                <span class="icon32 tick2 large" title="Manually approved"></span>
+                <i class="bigicon-thumbs-up" data-placement="right" title="Manually approved"></i>
             <% elsif purchase.declined? %> 
-                <span class="icon32 cross large" title="Manually declined"></span>
+                <i class="bigicon-thumbs-down" data-placement="right" title="Manually declined"></i>
             <% elsif purchase.authorized? %> 
-                <span class="icon32 plus2 large" title="<%= "Authorized according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></span>
+                <i class="bigicon-tick-in-a-circle" data-placement="right" title="<%= "Authorized according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></i>
             <% elsif purchase.unauthorized? %> 
-                <span class="icon32 minus large" title="<%= "Unauthorized according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></span>
+                <i class="bigicon-no-entry-in-a-circle" data-placement="right" title="<%= "This purchase was blocked according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></i>
             <% else %> 
-                <span class="icon32 alert large" title="Well this was not supposed to happen"></span>
+                <span class="icon32 alert large" data-placement="right" title="Well this was not supposed to happen"></span>
             <% end %>
             </td>
             <td class="purchase_details">
@@ -83,7 +79,7 @@
 $(document).ready(function() {
 
 
-	$('.purchase_row .icon32.large').tooltip({placement: 'right'});
+    $('[title]').not('[rel="popover"]').tooltip({placement: 'right'});
 
 	//  Trigger the approval popover
 	// the 2 last lines should be removed once popover acts as it should 
@@ -122,29 +118,39 @@ $(document).ready(function() {
 	// Filtering - replace later with tabs
 	
 	//	Set the default filter to either be pending or all	
-	$('.action_bar.filters a').removeClass('blue');        
-	<% if @pendings_count > 0  %>
-    	$('#pending-button').addClass('blue');
-    	pTable.fnFilter( 'PendingPayer' , 1, true, false, false);
-	<% else %>
-    	$('#all-button').addClass('blue');
-    	pTable.fnFilter( '', 1, true, false, false );
-	<% end %>            
+	pTable.fnFilter( 'PendingPayer' , 1, true, false, false);
         
 
 	//	Filtering is currently silly (based on 'authorization_type' column) - should be replaced by 'authorized' column.
 
     $('#pending-button').click(function () {
-            $('.action_bar.filters a').removeClass('blue');
-            $(this).addClass('blue');
+            $('.navbar li').removeClass('active');
+            $(this).addClass('active');
              pTable.fnFilter( 'PendingPayer' , 1, true, false, false);
     });
 
     $('#authorized-button').click(function () {
-            $('.action_bar.filters a').removeClass('blue');
-            $(this).addClass('blue');
+            $('.navbar li').removeClass('active');
+            $(this).addClass('active');
             pTable.fnFilter('Whitelisted|Approved|Authorized|Always|Under', 1, true, false, false );
 //          	pTable.fnFilter(true, 2, false, false, false );
+
+
+    $('#blocked-button').click(function () {
+            $('.navbar li').removeClass('active');
+            $(this).addClass('active');
+            pTable.fnFilter('Blacklisted|Low|High|Unauthorized|Unqualified|Declined|Denied|Zero|insufficient|Over', 1, true, false, false);
+    });
+
+/*
+     $('#all-button').click(function () {
+            $('.navbar li').removeClass('active');
+            $(this).addClass('active');
+            pTable.fnFilter( '', 1, true, false, false );
+    });
+*/    
+
+
     $('#purchases tr').click(function() {
     	$('#purchases tr').removeClass('active');
     	$(this).addClass('active');
@@ -152,19 +158,6 @@ $(document).ready(function() {
 
  
     });
-
-    $('#blocked-button').click(function () {
-            $('.action_bar.filters a').removeClass('blue');
-            $(this).addClass('blue');
-            pTable.fnFilter('Blacklisted|Low|High|Unauthorized|Unqualified|Declined|Denied|Zero|insufficient|Over', 1, true, false, false);
-    });
-
-     $('#all-button').click(function () {
-            $('.action_bar.filters a').removeClass('blue');
-            $(this).addClass('blue');
-            pTable.fnFilter( '', 1, true, false, false );
-    });
-    
 	// Purchase row + detail selection
 
 	//ajax the href/data-href content when clicked into specified container

@@ -640,8 +640,8 @@ thead {
 
 .dataTables_filter {
   position: absolute;
-  right: 2.5em;
-  top: -86px;
+  right: 12px;
+  top: -32px;
   background-color: #F0F0F0;
   -o-border-radius: 16px;
   -ms-border-radius: 16px;
@@ -665,17 +665,18 @@ thead {
     box-shadow: none;
 }
 .dataTables_filter label input {
-    color: #999;
-    font-size: 1.1em;
+    font-size: 14px;
     background: transparent;
     border: none;
     position: relative;
-    top: 5px;
+    top: 4px;
     box-shadow: none;
+/*
   -webkit-transition: width .3s linear;
   -moz-transition: width .3s linear;
   transition: width .3s linear;
-  width: 75px;
+*/
+  width: 55px;
 }
 
 .dataTables_filter label .icon {
@@ -690,17 +691,21 @@ thead {
   border: none;
   border-radius: 2px;
   color: #666;
-  font-family: "Aller", "Lucida Grande", sans-serif;
+  font-family: "Segoe UI", Helvetica, Arial;
   margin-top: -13px;
+/*
   -webkit-transition: width .3s linear;
   -moz-transition: width .3s linear;
   transition: width .3s linear;
+*/
   width: 75px;
 }
 
+/*
 .dataTables_filter input:focus {
   width: 150px;
 }
+*/
 
 .dataTables_filter input::-webkit-input-placeholder, .dataTables_filter input::-moz-placeholder {
   color: #999;

@@ -58,7 +58,7 @@
         <tbody>
         <%= form_tag do %>
             <% if @purchase.properties %>    
-            <% @purchase.properties.sort.each do |property, value| %>
+            <% @purchase.properties.each do |property, value| %>
                 <tr class="purchase_line">
                     <td class="rule_status">
                 		<% if @purchase.consumer.blacklisted?(property,value) %>
