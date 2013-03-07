@@ -43,16 +43,16 @@
         </li>
     	<% current_payer.consumers.each do |consumer| %>
 	        <li class="consumer <%= "active" if (@consumer and @consumer.id == consumer.id) %>">
-				<% if params[:controller] == 'purchases' %>
-					<% path = consumer_purchases_path(consumer)  %>
-				<% elsif params[:controller] == 'consumers' or params[:controller] == 'payers' %>
-					<% path = consumer_path(consumer)  %>
+				<% if params[:controller] == 'consumers'  %>
+					<% path = consumer_consumers_path(consumer)  %>
+				<% elsif params[:controller] == 'statistics' %>
+					<% path = consumer_statistics_path(consumer)  %>
 				<% elsif params[:controller] == 'rules' %>
 					<% path = consumer_rules_path(consumer)  %>
-				<% elsif params[:controller] == 'transactions' %>
-					<% path = consumer_purchase_transactions_path(consumer, @purchase)  %>
-				<% elsif params[:controller] == 'allowances' %>
-					<% path = consumer_allowances_path(consumer)  %>
+				<% elsif params[:controller] == 'purchases' %>
+					<% path = consumer_purchases_path(consumer)  %>
+				<% elsif params[:controller] == 'tokens' %>
+					<% path = tokens_path(consumer)  %>
 				<% end %>	
 				<a href="<%= path %>" data-skip-pjax>
 		            <table class="navigation">

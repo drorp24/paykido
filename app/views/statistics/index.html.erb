@@ -8,8 +8,42 @@
 
 	<div class="box-content container_12">			
 		<div class="box grid_12" > 	
-
+			
+			<div id="balance_info" class="hero-unit">
+			    <% got = @consumer.got %>
+			    <dl class="dl-horizontal">
+				    <dt>Allowance</dt>
+				    <dd><%= number_to_currency @consumer.allowance[:amount] %> every <%= @consumer.allowance[:weekly] ? @consumer.allowance[:weekly_occurrence] :@consumer.allowance[:monthly_occurrence] %></dd>
+				    <dt>Next Grant</dt>
+				    <dd><%= l @consumer.allowance[:next_occurrence], :format => :medium %></dd>
+					<dt>Number of grants</dt>
+					<dd><%= @consumer.allowance[:number_of_grants] %></dd>
+				    <dt>Allowance sum</dt>
+				    <dd><%= number_to_currency @consumer.allowance[:so_far_accumulated] %></dd>
+				    <dt>Gifts and Awards</dt>
+				    <dd><%= number_to_currency(got - @consumer.allowance[:so_far_accumulated]) %></dd>
+				    <dt>Got so far</dt>
+				    <dd><%= number_to_currency got %></dd>
+					<dt>Spent</dt>
+					<dd><%= number_to_currency @consumer.spent %></dd>
+					<dt>Balance</dt>
+					<dd><%= number_to_currency @consumer.balance %></dd>				    
+			    </dl>
+			</div>
+			<div id="balance_gauge"  class="hero-unit">
+				<canvas id="cvs" height="250" width="250">[No canvas support]</canvas>			
+			</div>
 		</div>
 	</div>
 
 </section>
+<script>
+	window.onload = function ()
+	{
+		var gauge = new RGraph.Gauge('cvs', 0, <%= @max_value %>, <%= @needle_value %>);
+		//gauge.Set('chart.shadow', false);
+//		gauge.Draw();
+		RGraph.Effects.Gauge.Grow(gauge);		
+	}
+
+</script>

@@ -5,7 +5,19 @@ class StatisticsController < ApplicationController
   # GET /consumers
   # GET /consumers.json
   def index
-    @consumers = current_payer.consumers
+    return unless @consumer
+    
+    allowance = @consumer.allowance[:amount] unless @consumer.allowance[:so_far_accumulated] == 0
+    balance = @consumer.balance.to_i 
+
+    if allowance and balance < allowance
+      @needle_value = allowance - balance
+      @max_value = allowance
+    else
+      @needle_value = 0
+      @max_value = balance
+    end
+
   end
 
   # GET /consumers/1

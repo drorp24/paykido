@@ -59,46 +59,53 @@ class Consumer < ActiveRecord::Base
 ##  Balance
 
   def balance(given_datetime = Time.now)
-    self.monetary_sum(given_datetime) - self.purchase_sum(given_datetime)
+    @balance ||= self.monetary_sum(given_datetime) - self.purchase_sum(given_datetime)
   end
     
   def monetary_sum(given_datetime = Time.now)
     
-    start_datetime = self.payer.registration_date
+    return @monetary_sum if @monetary_sum
 
     @monetary_sum = 0
     for monetary_rule in self.rules.monetary do 
-      @monetary_sum += monetary_rule.schedule.occurrences_between(start_datetime, given_datetime).count * monetary_rule.value.to_d if monetary_rule.schedule
+      @monetary_sum += monetary_rule.effective_occurrences(given_datetime) * monetary_rule.value.to_d if monetary_rule.schedule
     end
     @monetary_sum
   end
 
   def purchase_sum(given_datetime)
 
+    return @purchase_sum if @purchase_sum
+
     start_datetime = self.payer.registration_date
 
     if given_datetime
-      self.purchases.approved.where("date > ? and date <= ?", start_datetime, given_datetime).sum("amount")
+      @purchase_sum = self.purchases.approved.where("date > ? and date <= ?", start_datetime, given_datetime).sum("amount")
     else
-      self.purchases.approved.sum("amount")
+      @purchase_sum = self.purchases.approved.sum("amount")
     end
 
   end
   
   def spent 
-    self.purchase_sum(Time.now)
+    @spent ||= self.purchase_sum(Time.now)
   end
   
   def got
-    self.monetary_sum(Time.now)
+    @got ||= self.monetary_sum(Time.now)
   end
   
 ##  Balance
 
   def allowance_rule
-    Rule.allowance_rule_of(self)
+    @allowance_rule ||= Rule.allowance_rule_of(self)
   end
   
+  def allowance
+    Rule.allowance_of(self)
+  end
+
+
   def gift_rule
     Rule.gift_rule_of(self)
   end
@@ -119,10 +126,6 @@ class Consumer < ActiveRecord::Base
     Rule.request_rule_of(self)
   end
   
-  def allowance
-    Rule.allowance_of(self)
-  end
-
 # allowance.schedule.add_recurrence_time(DateTime.new(params[:year],params[:month],params[:day]))
 
   def set_rules!

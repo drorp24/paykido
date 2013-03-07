@@ -6,6 +6,23 @@ body {
     line-height:21px;
 }
 
+.dl-horizontal dt, .dl-horizontal dd {
+    margin-bottom: 10px;
+}
+
+#balance_gauge {
+   float: right;
+   margin: 20px;
+   padding-left: 75px;
+}
+
+#balance_info {
+    float: left;
+    margin: 20px;
+    padding: 50px 70px 50px 50px;
+}
+
+
 tr.purchase_line:hover {
     background-color: transparent;
 }

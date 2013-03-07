@@ -218,18 +218,24 @@ class Rule < ActiveRecord::Base
 
   # ToDo: DELETE. Use only the rule object, dont create a special hash, just reducndant.
   def self.allowance_of(consumer)
+
     applicable_rules = self.where("consumer_id = ? and property = ?", consumer.id, '_allowance')
     if applicable_rules.any?
       allowance_rule = applicable_rules.last          # ToDo: think!
+
+      @allowance_of = 
       { :amount => val = allowance_rule.value.to_i, 
         :period => allowance_rule.period,
+        :weekly => allowance_rule.weekly?,
+        :monthly => allowance_rule.monthly?,
         :weekly_occurrence => allowance_rule.weekly_occurrence,
         :monthly_occurrence => allowance_rule.monthly_occurrence,
+        :next_occurrence => allowance_rule.schedule.next_occurrence(),
         :start_date => allowance_rule.schedule.start_date,
-        :number_of_grants => grants = allowance_rule.schedule.occurrences(Time.now).count,
+        :number_of_grants => grants = allowance_rule.effective_occurrences,
         :so_far_accumulated => grants * val }
     else
-      nil
+      @allowance_of = nil
     end
   end
   
@@ -374,6 +380,11 @@ class Rule < ActiveRecord::Base
   
   def self.day_of_month_collection
     [:"-1", :"1"]
+  end
+  
+  def effective_occurrences(given_datetime = Time.now)
+    start_datetime = self.consumer.payer.registration_date
+    self.schedule.occurrences_between(start_datetime, given_datetime).count
   end
 
 
