@@ -9,8 +9,9 @@
 			<div class="span1">
 				<i class="icon rule_icon <%= rule.icon %>"></i>
 			</div>
-			<div class="span1" rel="<%= (rule.info) ? "popover" : "" %>"  title="<%= rule.title %>" data-content="<%= rule.description %>">
+			<div class="span1plus">
 				<%= rule.title || rule.property %>
+				<i class="icon-info-sign" rel="<%= (rule.info) ? "popover" : "" %>"  title="<%= rule.title %>" data-content="<%= rule.description %>"></i>
 			</div>
 			<div class="span2">
 				<%= render 'rule_description', :rule => rule %>
@@ -23,7 +24,7 @@
 				<% end %>
 			</div>
 			<div class="span1">
-    			<%= link_to 'Details', "#" if !rule.value.blank? %>
+    			<%= link_to 'Details', "#" if !rule.initialized? %>
 			</div>
 			<div class="action_link span1">
 				<% if @consumer and rule.supported? %>

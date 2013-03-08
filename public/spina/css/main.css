@@ -111,7 +111,7 @@ nav#secondary ul li a:hover {
 
 nav#secondary ul li.active a {
   background-color: #FFF;
-  /*
+/*
   background-color: #497eac;
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(107, 160, 206)), to(rgb(73, 126, 172)));
   background-image: -webkit-linear-gradient(top, rgb(107, 160, 206), rgb(73, 126, 172));

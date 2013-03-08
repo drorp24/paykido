@@ -59,8 +59,12 @@ class ConsumerController < ApplicationController
       end
 
       @consumer = Consumer.find_by_facebook_id(facebook_params_user_id) 
+
       unless @consumer
         @consumer = Consumer.create!(:facebook_id => facebook_params_user_id)
+      end
+
+      unless @consumer.rules.any?
         @consumer.set_rules!
       end
 

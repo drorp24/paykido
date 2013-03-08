@@ -43,7 +43,8 @@
 {
 	display: inline;
 	float: left;
-	margin-left: 1%;
+/*	margin-left: 1%; */
+    margin-left: 1.5%; /* Dror */
 	margin-right: 1%;
 }
 

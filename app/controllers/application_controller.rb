@@ -11,9 +11,9 @@ class ApplicationController < ActionController::Base
       Rails.logger.debug("entered after_sign_in_path")  
       Rails.logger.debug("current_payer.id: " + current_payer.id.to_s)  
 
-    if current_payer.purchases.any?
-      Rails.logger.debug("there are purchases")  
-      return purchases_path
+    if current_payer.consumers.any?
+      consumer = current_payer.consumers.first
+      return consumer_statistics_path(consumer)
     elsif current_payer.registered?
       Rails.logger.debug("current payer is registered")  
       return tokens_path

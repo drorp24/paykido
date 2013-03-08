@@ -18,8 +18,6 @@
 				every <%= rule.monthly_occurrence %>
 			<% elsif rule.nonrecurring? %>
 				on <%= l rule.date, :format => :medium %>
-			<% elsif rule.schedule and rule.schedule.start_date %>
-				on <%= l rule.schedule.start_date, :format => :medium %>
 			<% end %>
 		</span>
 	<% elsif rule.thresholds? %>

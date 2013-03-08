@@ -13,9 +13,9 @@
 			    <% got = @consumer.got %>
 			    <dl class="dl-horizontal">
 				    <dt>Allowance</dt>
-				    <dd><%= number_to_currency @consumer.allowance[:amount] %> every <%= @consumer.allowance[:weekly] ? @consumer.allowance[:weekly_occurrence] :@consumer.allowance[:monthly_occurrence] %></dd>
+				    <dd><%= number_to_currency @consumer.allowance[:amount] %> <%= @consumer.allowance[:amount] == 0 ? '' :'every' %> <%= @consumer.allowance[:weekly] ? @consumer.allowance[:weekly_occurrence] :@consumer.allowance[:monthly_occurrence] %></dd>
 				    <dt>Next Grant</dt>
-				    <dd><%= l @consumer.allowance[:next_occurrence], :format => :medium %></dd>
+				    <dd><%= (@consumer.allowance[:next_occurrence].nil?) ?'Not scheduled yet' :(l @consumer.allowance[:next_occurrence], :format => :medium) %></dd>
 					<dt>Number of grants</dt>
 					<dd><%= @consumer.allowance[:number_of_grants] %></dd>
 				    <dt>Allowance sum</dt>

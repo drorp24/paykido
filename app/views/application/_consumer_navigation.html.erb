@@ -23,19 +23,19 @@
 	            <table class="navigation">
 	            	<tbody>
 	            		<tr id="noWhite">
+	        				<td>
+	        					<i class="bigicon-parents fr"></i>
+	        				</td>
+	            			<td>
+	            				<span class="secondary_name"><%= "Family" %></span>	
+	        				</td>
 	            			<td class="navigation_icon" id="registration_popover">
 	            				<% if current_payer.registered? %>
-	            					<i class="bigicon-shield"></i>
+	            					<i class="bigicon-shield" title="Parent is registered to Paykido"></i>
             					<% else %>
             						<i class="bigicon-placeholder"></i>
 	        					<% end %>
 	            			</td>
-	            			<td>
-	            				<span class="secondary_name"><%= "Family" %></span>	
-	        				</td>
-	        				<td>
-	        					<i class="bigicon-parents fr"></i>
-	        				</td>
 	            		</tr>
 	            	</tbody>
 	            </table>
@@ -58,16 +58,6 @@
 		            <table class="navigation">
 		            	<tbody>
 		            		<tr id="noWhite">
-		            			<td class="navigation_icon">
-		            				<% if consumer.confirmed %>
-		            					<i class="bigicon-seal"></i>
-	            					<% else %>
-	            						<i class="bigicon-placeholder"></i>
-		        					<% end %>
-		            			</td>
-		            			<td>
-					            	<span class="secondary_name"><%= consumer.name %></span>
-				            	</td>
 				            	<td>			            		
 					            	<% if consumer.tinypic %>
 					            		<span class="avatar fr"><%= image_tag consumer.tinypic %></span>
@@ -75,6 +65,16 @@
 					            		<i class="bigicon-user fr"></i>
 					            	<% end %>
 				            	</td>
+		            			<td>
+					            	<span class="secondary_name"><%= consumer.name %></span>
+				            	</td>
+		            			<td class="navigation_icon">
+		            				<% if consumer.confirmed %>
+		            					<i class="bigicon-tick-in-a-circle" title="Consumer is confirmed"></i>
+	            					<% else %>
+	            						<i class="bigicon-placeholder"></i>
+		        					<% end %>
+		            			</td>
 			            	</tr>
 		            	</tbody>
 	            	</table>           	

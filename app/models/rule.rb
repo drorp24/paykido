@@ -92,7 +92,7 @@ class Rule < ActiveRecord::Base
   scope :of_allowance,   where("property = ?", "_allowance")
   
   def initialized?
-    self.value.blank?
+    self.value.blank? or self.value == '0'
   end
 
   def monetary?
@@ -125,7 +125,8 @@ class Rule < ActiveRecord::Base
 
 
   def self.allowance
-    {:property => '_allowance', :category => "how much"}
+    schedule = IceCube::Schedule.new
+    {:property => '_allowance', :category => "how much", :schedule => schedule, :value => 0}
   end
   def self.gift
     {:property => '_gift', :category => "how much"}
@@ -289,7 +290,7 @@ class Rule < ActiveRecord::Base
   end
   
   def nonrecurring?
-    self.schedule and !self.schedule.recurrence_rules.any? and self.schedule.recurrence_times[0]
+    !self.recurring? and self.schedule and !self.schedule.recurrence_rules.any? and self.schedule.recurrence_times[0]
   end
   
   def date

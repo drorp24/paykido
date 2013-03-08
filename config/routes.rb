@@ -40,7 +40,6 @@ Paykido::Application.routes.draw do
       resources :transactions
     end
     member do
-      get 'confirm', 'confirmed'
       post 'confirm'
     end
   end

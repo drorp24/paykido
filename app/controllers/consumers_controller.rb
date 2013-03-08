@@ -3,15 +3,11 @@ class ConsumersController < ApplicationController
   before_filter :authenticate_payer!
   before_filter :find_consumer  
 
-  def confirm      
-    render :index    
-  end
-  
-  def confirmed
+  def confirm
 
     @consumer.confirm!
 
-    redirect_to consumers_path(:notify => 'confirmation', :status => "success", :name => @consumer.name, :_pjax => true)  
+    redirect_to consumer_statistics_path(:consumer_id => @consumer.id, :notify => 'confirmation', :status => "success", :name => @consumer.name, :_pjax => true)  
 
   end
 

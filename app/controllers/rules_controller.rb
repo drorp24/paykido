@@ -7,7 +7,15 @@ class RulesController < ApplicationController
   # GET /rules
   # GET /rules.json
   def index
+
     @rules = (@consumer) ? @consumer.rules : current_payer.rules
+
+    if !current_payer.registered?
+      @constraint = 'registration' 
+    elsif !@consumer
+      @constraint = 'consumer_level'
+    end      
+
   end
 
   # GET /rules/1

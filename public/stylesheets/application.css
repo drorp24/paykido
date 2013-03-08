@@ -6,6 +6,24 @@ body {
     line-height:21px;
 }
 
+.span1plus {
+    width: 88px;
+}
+
+.span1plus i {
+    margin-top: 4px;
+    margin-left: 5px;
+}
+
+.alert.alert-block span {
+    position: relative;
+    top: 5px;
+}
+
+#rules.container_12 .grid_12 {
+    width: 100%
+}
+
 .dl-horizontal dt, .dl-horizontal dd {
     margin-bottom: 10px;
 }
@@ -697,7 +715,7 @@ form.button_to {
 .alert.alert-block {
     top: 66px;
     margin-left: 5px;
-    width: 65.7%;
+    width: 66.1%;
 }
 
 .alert {
