@@ -384,6 +384,7 @@ class Rule < ActiveRecord::Base
   end
   
   def effective_occurrences(given_datetime = Time.now)
+    return 0 unless self.consumer.payer.registered?
     start_datetime = self.consumer.payer.registration_date
     self.schedule.occurrences_between(start_datetime, given_datetime).count
   end
