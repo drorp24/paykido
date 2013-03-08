@@ -142,7 +142,7 @@ nav#secondary ul li:first-child a {
 /* Main section */
 
 section#maincontainer {
-  height: 100%;
+  height: 105%;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   padding-left: 18px;

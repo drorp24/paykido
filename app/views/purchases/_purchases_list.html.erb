@@ -79,7 +79,17 @@
 $(document).ready(function() {
 
 
-    $('[title]').not('[rel="popover"]').tooltip({placement: 'right'});
+	<% if params[:activity] == 'approval' %>
+	$('#approval_buttons').popover({
+		title: "For your approval", 
+		content: "<p>Click 'Approve' or 'Decline' for every purchase pending your approval.</p><p>If you wish Paykido to watch your rules for you and pay on your behalf, please register.</p>", 
+		placement: 'top', 
+		html: true
+		})
+		$('#approval_buttons').popover('show')
+	<% end %>
+
+//    $('[title]').not('[rel="popover"]').tooltip({placement: 'right'});
 
 	//  Trigger the approval popover
 	// the 2 last lines should be removed once popover acts as it should 
