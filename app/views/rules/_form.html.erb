@@ -23,6 +23,7 @@
 		    <%= f.input :donator, :label => (t 'simple_form.labels.donator') %>
 		    <%= f.input :date, :label => (t 'simple_form.labels.date'), :input_html => {:class => 'datepicker', :data => {'date-format' => "dd M yyyy"}, :required => ""}  %>
 		<% end %>
+		<%= f.input :note, :as => :text, :input_html => {:rows => 1}, :label => "Let #{@consumer.name} know why" %>
 		<%= f.button :submit, "Activate Rule", :class => "btn-primary modal_submit" %>
 	</div>
 	

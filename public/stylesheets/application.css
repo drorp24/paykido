@@ -275,7 +275,7 @@ tr.purchase_line:hover {
     width: 244px;
 }
 
-#rule_occasion, #rule_donator, #rule_date {
+#rule_occasion, #rule_donator, #rule_date, #rule_note {
     width: 234px;
 }
 

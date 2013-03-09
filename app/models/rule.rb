@@ -81,6 +81,14 @@ class Rule < ActiveRecord::Base
   def previous_rule_id=(rule_id)
     @previous_rule_id = rule_id
   end
+  
+  def note
+    
+  end
+  
+  def note=(note)
+    
+  end
 
   ####  Change if needed      ####
   scope :monetary,    where("category = ?", "how much")
