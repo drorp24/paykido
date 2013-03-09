@@ -23,7 +23,18 @@ class StatisticsController < ApplicationController
       @max_value = balance
     end
     
-    @no_allowance_defined = true unless allowance
+#    starring this is meant to make the payer go to rule page where he will get a similar message
+#    if current_payer.rules_require_registration
+#      @allowance_for_unregistered = true        # can also happen if registration was cancelled
+#      return
+#    end
+
+    @allowance_rule = @consumer.allowance_rule
+    if current_payer.rules_require_registration or @allowance_rule.nil? or @allowance_rule.initialized? # remove the first if I unstar above
+      @no_allowance_defined = true
+    elsif @allowance_rule.effective_occurrences == 0
+      @allowance_not_effective_yet = true
+    end
 
   end
 

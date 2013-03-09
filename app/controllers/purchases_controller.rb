@@ -8,26 +8,30 @@ class PurchasesController < ApplicationController
   # Otherwise, 2. all purchases of given consumers, or 3. payer
   def find_purchases
     
-    @purchases = Purchase.with_info(current_payer.id, params[:consumer_id], params[:id]) 
+    if params[:id] 
+      purchase = Purchase.find_by_id(params[:id])
+      @consumer_id = purchase.consumer_id if purchase
+    elsif params[:consumer_id] 
+      @consumer_id = params[:consumer_id]
+    else
+      @consumer_id = nil
+    end
+
+    @purchases = Purchase.with_info(current_payer.id, @consumer_id) 
     @pendings = @purchases.pending 
-    @pendings_count = @pendings.count 
+    @pendings_count = @pendings.count
         
   end
   
   def index    
-Rails.logger.info("entered index")  
     find_purchases
-Rails.logger.info("after find_purchases")  
-
     unless @purchases.any?
       if current_payer.purchases.any?
-        redirect_to purchases_path
+        redirect_to purchases_path(:notify => 'no_purchases', :consumer_number => @consumer_id)
       elsif current_payer.registered?
-Rails.logger.info("current_payer is registered")  
-        redirect_to tokens_path
+        redirect_to tokens_path(:notify => 'no_purchases', :consumer_number => @consumer_id, :_pjax => "data-pjax-container")
       else  
-Rails.logger.info("current_payer is not registered")  
-        redirect_to new_token_path
+        redirect_to new_token_path(:notify => 'no_purchases', :consumer_number => @consumer_id, :_pjax => "data-pjax-container")
       end
     end
   end

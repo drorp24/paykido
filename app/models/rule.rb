@@ -220,24 +220,42 @@ class Rule < ActiveRecord::Base
   # ToDo: DELETE. Use only the rule object, dont create a special hash, just reducndant.
   def self.allowance_of(consumer)
 
-    applicable_rules = self.where("consumer_id = ? and property = ?", consumer.id, '_allowance')
-    if applicable_rules.any?
-      allowance_rule = applicable_rules.last          # ToDo: think!
+    unless consumer.payer.rules_require_registration
 
-      @allowance_of = 
-      { :amount => val = allowance_rule.value.to_i, 
-        :period => allowance_rule.period,
-        :weekly => allowance_rule.weekly?,
-        :monthly => allowance_rule.monthly?,
-        :weekly_occurrence => allowance_rule.weekly_occurrence,
-        :monthly_occurrence => allowance_rule.monthly_occurrence,
-        :next_occurrence => allowance_rule.schedule.next_occurrence(),
-        :start_date => allowance_rule.schedule.start_date,
-        :number_of_grants => grants = allowance_rule.effective_occurrences,
-        :so_far_accumulated => grants * val }
+      applicable_rules = self.where("consumer_id = ? and property = ?", consumer.id, '_allowance')
+        if applicable_rules.any?
+          allowance_rule = applicable_rules.last          # ToDo: think!
+    
+          @allowance_of = 
+          { :amount => val = allowance_rule.value.to_i, 
+            :period => allowance_rule.period,
+            :weekly => allowance_rule.weekly?,
+            :monthly => allowance_rule.monthly?,
+            :weekly_occurrence => allowance_rule.weekly_occurrence,
+            :monthly_occurrence => allowance_rule.monthly_occurrence,
+            :next_occurrence => allowance_rule.schedule.next_occurrence,
+            :start_date => allowance_rule.schedule.start_date,
+            :number_of_grants => grants = allowance_rule.effective_occurrences,
+            :so_far_accumulated => grants * val }
+        else
+          @allowance_of = nil
+        end
+
     else
-      @allowance_of = nil
-    end
+
+        @allowance_of = 
+        { :amount => 0, 
+          :period => "",
+          :weekly => false,
+          :monthly => false,
+          :weekly_occurrence => nil,
+          :monthly_occurrence => nil,
+          :next_occurrence => nil,
+          :start_date => nil,
+          :number_of_grants => 0,
+          :so_far_accumulated => 0 }
+    end      
+
   end
   
   def self.under_rule_of(consumer)
@@ -386,7 +404,11 @@ class Rule < ActiveRecord::Base
   def effective_occurrences(given_datetime = Time.now)
     return 0 unless self.consumer.payer.registered?
     start_datetime = self.consumer.payer.registration_date
-    self.schedule.occurrences_between(start_datetime, given_datetime).count
+    if start_datetime
+      self.schedule.occurrences_between(start_datetime, given_datetime).count
+    else
+      0
+    end
   end
 
 

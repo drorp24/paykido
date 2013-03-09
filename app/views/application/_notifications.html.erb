@@ -1,22 +1,53 @@
-<% if @no_allowance_defined %>
-<div id="rules_constraint" class="alert alert-block">
+<% if params[:notify] and params[:notify] == 'no_purchases' %>
+<div id="no_purchases" class="alert alert-block">
 	<a class="close" data-dismiss="alert" href="#">×</a>
-    <h4 class="alert-heading">No allowance defined yet...</h4>
-	<span>Click the button if you'd like to set one now</span>
-	<span><%= link_to "Set allowance", consumer_rules_path(@consumer.id), :class => "btn btn-info inline" %></span>
+    <h4 class="alert-heading">No purchases found</h4>
+	<% consumer = Consumer.find_by_id(params[:consumer_number]) %>
+	<span><%= (consumer and consumer.name) ? consumer.name : "Family" %> has no purchases yet.</span>
 </div>
 <% end %>
 
+<% if @allowance_for_unregistered %>
+<div id="allowance_for_unregistered" class="alert alert-block">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Register to define your allowance</h4>
+	<span><%= "To define an allowance for #{@consumer.name}, you must register first. You can register by clicking this button." %></span>
+    <span><%= button_to "Register", tokens_path, :class => "btn btn-info inline" %></span>
+</div>
+<% end %>
+
+<% if @no_allowance_defined %>
+<div id="no_allowance_defined" class="alert alert-block">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">No allowance defined</h4>
+	<span>Click the button if you'd like to set one now</span>
+	<span><%= link_to "Set allowance", consumer_rules_path(@consumer.id), :class => "btn btn-info inline", 'data-skip-pjax' => true %></span>
+</div>
+<% end %>
+
+<% if @allowance_not_effective_yet %>
+<div id="allowance_not_effective_yet" class="alert alert-block">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Allowance is not effective yet</h4>
+    <% schedule_date = @allowance_rule.schedule.next_occurrence %>
+    <% if schedule_date %>
+		<span><%= "First allowance grant is scheduled to #{l @allowance_rule.schedule.next_occurrence, :format => :medium}." %></span>
+	<% else %>
+		<span>Allowance is not yet scheduled, or stopped.</span>
+	<% end %>
+</div>
+<% end %>
 
 <% if @constraint %>
 <div id="rules_constraint" class="alert alert-block">
 	<a class="close" data-dismiss="alert" href="#">×</a>
-    <h4 class="alert-heading">Setting rules</h4>
 	<% if @constraint == 'registration' %>
-		<span>To start setting rules, you need to register to Paykido first.</span>
+    <h4 class="alert-heading">Registration required</h4>
+		<span>You need to register to Paykido in order to set rules.</span>
     	<span><%= button_to "Register", tokens_path, :class => "btn btn-info inline" %></span>
 	<% elsif @constraint == 'consumer_level' %>
-    	<span>To set your rules, click on the consumer for whom you want to set rules.</span>
+    <h4 class="alert-heading">Select a consumer</h4>
+    	<span>To set rules, click on the consumer you want to set rules for.</span>
 	<% end %>
 </div>
 <% end %>
@@ -84,7 +115,7 @@
     	<h4 class="alert-heading"><%= "Would you like Paykido to always approve purchases from #{retailer}?" %></h4>
     	<span><%= "You approved #{retailer} #{times} times already." %></span>
     	<% if current_payer.registered_or_waived %>
-    		<span><%= "Set a rule to have Paykido approve this merchant for you going forward!" %></span>
+    		<span>Set a rule to have Paykido <strong>automatically </strong>approve this merchant for you going forward!</span>
     		<span><%= button_to "Always approve #{retailer}", rules_path(:payer_id => current_payer.id, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :rule_status => 'whitelisted', :purchase_id => purchase.id), :method => :post, :class => "btn btn-info inline rule_set" %></span>
 		<% else %>
     		<span><%= "Register and have Paykido do that for you going forward!" %></span>
@@ -115,7 +146,7 @@
     	<h4 class="alert-heading"><%= "Suggested Rule: Always Decline #{retailer}" %></h4>
     	<span><%= "You declined #{retailer} #{times} times already." %></span> 
     	<% if current_payer.registered_or_waived %>
-    		<span><%= "Set a rule to have Paykido decline this merchant for you going forward." %></span>
+    		<span>Set a rule to have Paykido <strong>automatically </strong>decline this merchant next time!</span>
     		<span><%= button_to "Always decline #{retailer}", rules_path(:payer_id => current_payer.id, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :rule_status => 'blacklisted', :purchase_id => purchase.id), :method => :post, :class => "btn btn-info inline rule_set"%></span>
 		<% else %>
     		<span><%= "Register and have Paykido do that for you going forward." %></span>

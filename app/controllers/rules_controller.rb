@@ -10,8 +10,7 @@ class RulesController < ApplicationController
 
     @rules = (@consumer) ? @consumer.rules : current_payer.rules
 
-    if !current_payer.registered?
-      @unregistered = true
+    if current_payer.rules_require_registration
       @constraint = 'registration' 
     elsif !@consumer
       @constraint = 'consumer_level'

@@ -1,20 +1,19 @@
 <div class="box-header">
-    <span class="icon16 cart"></span>
     <h1><%= t 'Purchases' %></h1> 
 </div>
 
 <div class="navbar">
 	<div class="navbar-inner">
 		<ul class="nav">
-			<li  id="pending-button" class="active">
-		    	<a href="#" data-skip-pjax="true">Pending <span class="badge badge-info"><%= @pendings_count %></span></a>
-		    </li>
 		    <li id="authorized-button">
 		    	<a href="#" data-skip-pjax="true">Approved</a>
 			</li>
 		    <li id="blocked-button">
 		    	<a href="#" data-skip-pjax="true">Declined</a>
 			</li>
+			<li  id="pending-button" class="active">
+		    	<a href="#" data-skip-pjax="true">Pending <span class="badge badge-info"><%= @pendings_count %></span></a>
+		    </li>
 		</ul>
 	</div>
 </div>
@@ -130,11 +129,21 @@ $(document).ready(function() {
 	//	Set the default filter to either be pending or all	
 	// NOTE: if the following dataTables query is empty, the script below that attempts to ajax the first row purchase brings the entire page which causes dataTable to alert something
 	<% if @pendings_count > 0  %>
+        $('.navbar li').removeClass('active');
+        $('#pending-button').addClass('active');
 		pTable.fnFilter( 'PendingPayer' , 1, true, false, false);
-	<% else %>
+	<% elsif @purchases.approved.any? %>
         $('.navbar li').removeClass('active');
         $('#authorized-button').addClass('active');
 		pTable.fnFilter('Whitelisted|Approved|Authorized|Always|Under', 1, true, false, false );
+	<% elsif @purchases.declined.any? %>
+        $('.navbar li').removeClass('active');
+        $('#blocked-button').addClass('active');
+        pTable.fnFilter('Blacklisted|Low|High|Unauthorized|Unqualified|Declined|Denied|Zero|insufficient|Over', 1, true, false, false);
+	<% else %>
+        $('.navbar li').removeClass('active');
+        $('#pending-button').addClass('active');
+		pTable.fnFilter( 'PendingPayer' , 1, true, false, false);
 	<% end %>
         
 
@@ -151,6 +160,7 @@ $(document).ready(function() {
             $(this).addClass('active');
             pTable.fnFilter('Whitelisted|Approved|Authorized|Always|Under', 1, true, false, false );
 //          	pTable.fnFilter(true, 2, false, false, false );
+    });
 
 
     $('#blocked-button').click(function () {
@@ -173,8 +183,6 @@ $(document).ready(function() {
     	$(this).addClass('active');
     })           
 
- 
-    });
 	// Purchase row + detail selection
 
 	//ajax the href/data-href content when clicked into specified container
@@ -188,23 +196,35 @@ $(document).ready(function() {
 
 	// INIT - highlight the proper purchase line and show the purchase details pane 
 
-	// 1. select proper purchase: either the one in the parameter or the first one in the screen
-	<% if params[:id] %>
-    	proper_tr = $('#purchases tr[data-purchase=<%= params[:id] %>]')
-	<% else %>
-		proper_tr = $('#purchases tbody tr:first')
-	<% end %>
 
-	//2. Highlight the proper purchase
-    $('#purchases tr').removeClass('active');
-    proper_tr.addClass('active');
+	// 0. Select proper consumer secondary navigation
+	<% if @consumer_id %>
+    	$('nav#secondary li[data-consumer-id]').removeClass('active')
+    	$('nav#secondary li[data-consumer-id=<%= @consumer_id %>]').addClass('active')
+	<% else %>	
+    	$('nav#secondary li[data-consumer-id]').removeClass('active')
+    	$('nav#secondary li.payer').addClass('active')
+	<% end %>	
+
+	<% if @purchases.any? %>
+		// 1. select proper purchase: either the one in the parameter or the first one in the screen
+		<% if params[:id] %>
+	    	proper_tr = $('#purchases tr[data-purchase=<%= params[:id] %>]')
+		<% else %>
+			proper_tr = $('#purchases tbody tr:first')
+		<% end %>
 	
-	//3. programmatically pjax the proper purchase to the right pane
-	<% unless params[:id] %>
-		$.pjax({                              
-		  url: proper_tr.attr('data-href'),
-		  container: '#dashboard_right'
-		})
+		//2. Highlight the proper purchase
+	    $('#purchases tr').removeClass('active');
+	    proper_tr.addClass('active');
+		
+		//3. programmatically pjax the proper purchase to the right pane
+		<% unless params[:id] %>
+			$.pjax({                              
+			  url: proper_tr.attr('data-href'),
+			  container: '#dashboard_right'
+			})
+		<% end %>
 	<% end %>
 
 });

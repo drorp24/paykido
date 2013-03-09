@@ -5,7 +5,7 @@
 		<% if @consumer %>
 			<li class="payer">
 		<% else %>
-			<li class="payer active" rel="popover">
+			<li class="payer active" data-consumer-id=''  rel="popover">
 		<% end %>
 			<% if params[:controller] == 'purchases' %>
 				<% path = purchases_path  %>
@@ -13,10 +13,10 @@
 				<% path = consumers_path %>
 			<% elsif params[:controller] == 'rules' %>
 				<% path = rules_path  %>
-			<% elsif params[:controller] == 'transactions' %>
-				<% path = purchase_transactions_path(@purchase)  %>
-			<% elsif params[:controller] == 'allowances' %>
-				<% path = allowances_path  %>
+			<% elsif params[:controller] == 'statistics' %>
+				<% path = statistics_path(@purchase)  %>
+			<% elsif params[:controller] == 'tokens' %>
+				<% path = tokens_path  %>
 			<% end %>	
 
             <a href="<%= path %>" data-skip-pjax>
@@ -42,7 +42,7 @@
         	</a>
         </li>
     	<% current_payer.consumers.each do |consumer| %>
-	        <li class="consumer <%= "active" if (@consumer and @consumer.id == consumer.id) %>">
+	        <li class="consumer <%= "active" if (@consumer and @consumer.id == consumer.id) %>" data-consumer-id=<%= consumer.id %> >
 				<% if params[:controller] == 'consumers'  %>
 					<% path = consumer_consumers_path(consumer)  %>
 				<% elsif params[:controller] == 'statistics' %>

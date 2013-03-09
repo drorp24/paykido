@@ -5169,7 +5169,7 @@ div.navbar-inner:not(.dark) {
 }
 
 .modal-body {
-  position: relative;
+/*  position: relative; */ /* Dror */
   max-height: 400px;
   padding: 15px;
   overflow-y: auto;

@@ -32,8 +32,9 @@ class Purchase < ActiveRecord::Base
   has_many    :notifications
   has_many    :payments
   
-  scope :pending,   where(:authorization_type => 'PendingPayer')
-  scope :approved,  where(:authorized => true)
+  scope :pending,   where("authorization_type = ?", 'PendingPayer')
+  scope :approved,  where("authorized = ?", true)
+  scope :declined,  where("authorized = ? AND authorization_type != ?", false, "PendingPayer")
 
   def create_transaction!(params)    
 
@@ -73,10 +74,9 @@ class Purchase < ActiveRecord::Base
   end
 
 
-  def self.with_info(payer_id, consumer_id, purchase_id)
-    if purchase_id and !consumer_id and !payer_id
-      Purchase.where("consumer_id = ?", Purchase.find(purchase_id).consumer_id).order('created_at DESC').includes(:consumer, :retailer)      
-    elsif consumer_id
+  def self.with_info(payer_id, consumer_id)
+
+    if consumer_id
       Purchase.where("consumer_id = ?", consumer_id).order('created_at DESC').includes(:consumer, :retailer)
     else
       Purchase.where("payer_id = ?", payer_id).order('created_at DESC').includes(:consumer, :retailer)
