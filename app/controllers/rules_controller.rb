@@ -11,6 +11,7 @@ class RulesController < ApplicationController
     @rules = (@consumer) ? @consumer.rules : current_payer.rules
 
     if !current_payer.registered?
+      @unregistered = true
       @constraint = 'registration' 
     elsif !@consumer
       @constraint = 'consumer_level'
@@ -151,10 +152,11 @@ class RulesController < ApplicationController
   # DELETE /rules/1.json
   def destroy
     @rule = Rule.find(params[:id])
+    consumer = @rule.consumer
     @rule.destroy
 
     redirect_to consumer_rules_path(
-      @rule.consumer_id,
+      consumer.id,
       :notify => 'update_rule', 
       :status => 'success', 
       :update => 'removed')

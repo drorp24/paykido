@@ -11,10 +11,10 @@
 			<div class="rule_background">			
 				<h1 class="rule_heading"><%= "How much" %></h1>
 				<% if @consumer %>
-					<button id="newrule" href="#" class="btn btn-info inline-submit" data-trigger="click">
+					<a id="newrule" href="#" class="btn btn-info inline-submit">
 						<i class="icon-plus icon-white"></i>
 						<span class="rule_button_text"> Add</span>
-					</button>
+					</a>
 				<% end %>
 			</div>
 			
@@ -137,14 +137,24 @@
 
 $('document').ready(function() {
 
-
-	$('#newrule').popover({
-		placement:	"bottom",
-		html: 		true,
-		content: 	function() { return $('#newrule_content').html();},
-		title:	 	function() { return $('#newrule_title').html();}
-	});
-
+	<% if @unregistered %>
+		
+		$('#rules a').addClass("disabled")
+		$('#rules a').click(function(e){
+			return false;
+		});
+	
+	<% else %>
+	
+		$('#newrule').popover({
+			placement:	"bottom",
+			html: 		true,
+			trigger:	'click',
+			content: 	function() { return $('#newrule_content').html();},
+			title:	 	function() { return $('#newrule_title').html();}
+		});
+	
+	<% end %>
 })
 
 </script>

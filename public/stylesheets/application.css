@@ -6,6 +6,10 @@ body {
     line-height:21px;
 }
 
+.hero-unit p { 
+    margin-top: 5px;
+}
+
 .span1plus {
     width: 103px;
 }
@@ -226,7 +230,7 @@ tr.purchase_line:hover {
     margin-right: 20px;
 }
 #newrule {
-    width: 80px;
+    width: 55px;
 }
 
 .btn i {
