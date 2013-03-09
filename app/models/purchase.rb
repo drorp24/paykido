@@ -599,7 +599,6 @@ class Purchase < ActiveRecord::Base
   end
 
   def account_for!   
-    self.consumer.deduct!(self.amount) if self.payer.registered? 
   end
   
   def response(status)

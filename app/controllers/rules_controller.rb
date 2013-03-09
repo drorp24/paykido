@@ -68,10 +68,11 @@ class RulesController < ApplicationController
         :rule_status => params[:rule_status]) 
     else 
       occurrence = (params[:rule][:period] == 'weekly') ? @rule.weekly_occurrence : @rule.monthly_occurrence  
-      redirect_to consumer_rules_path(
+      redirect_to consumer_statistics_path(
         params[:rule][:consumer_id],
         :notify => 'new_rule', 
         :status => 'success', 
+        :date => params[:rule][:date],
         :property => params[:rule][:property],
         :value => params[:rule][:value],
         :period => params[:rule][:period],
@@ -96,7 +97,7 @@ class RulesController < ApplicationController
       status = 'failure'
     end
 
-    redirect_to consumer_rules_path(
+    redirect_to consumer_statistics_path(
       params[:rule][:consumer_id],
       :notify => 'update_rule', 
       :status => status, 

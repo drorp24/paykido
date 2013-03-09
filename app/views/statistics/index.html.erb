@@ -9,34 +9,44 @@
 	<div class="box-content container_12">			
 		<div class="box grid_12" > 	
 			
-			<div id="balance_info" class="hero-unit">
-			    <% got = @consumer.got %>
-			    <dl class="dl-horizontal">
-				    <dt>Allowance</dt>
-				    <dd><%= number_to_currency @allowance[:amount] %></dd>
-				    <dt>Schedule</dt>
-				    <dd>
-				    	<span><%= @allowance[:weekly] ? @allowance[:weekly_occurrence] :@allowance[:monthly_occurrence] %>s</span>
-						<span>(</span>
-				    	<span><%= (@allowance[:next_occurrence].nil?) ?'Not scheduled yet' :(l @allowance[:next_occurrence], :format => :medium) %></span>				    		
-						<span>)</span>
-			    	</dd>
-					<dt>Granted</dt>
-					<dd><%= @allowance[:number_of_grants] %> times</dd>
-				    <dt>Old allowance</dt>
-				    <dd><%= number_to_currency @allowance[:prev_allowance_acc] %></dd>
-				    <dt>Gifts & Awards</dt>
-				    <dd><%= number_to_currency(got - @allowance[:so_far_accumulated] - @allowance[:prev_allowance_acc]) %></dd>
-				    <dt>Got so far</dt>
-				    <dd><%= number_to_currency got %></dd>
-					<dt>Spent</dt>
-					<dd><%= number_to_currency @consumer.spent %></dd>
-					<dt>Balance</dt>
-					<dd><%= number_to_currency @consumer.balance %></dd>				    
-			    </dl>
-			</div>
-			<div id="balance_gauge"  class="hero-unit">
-				<canvas id="cvs" height="250" width="250">[No canvas support]</canvas>			
+			<div id="balance" class="hero-unit clearfix">
+				<div id="balance_info">
+				    <% got = @consumer.got %>
+				    <% grants = got - @allowance[:so_far_accumulated] - @allowance[:prev_allowance_acc] %>
+				    <dl class="dl-horizontal">
+					    <dt>Allowance</dt>
+					    <dd><%= number_to_currency @allowance[:amount] %></dd>
+					    <dt>Schedule</dt>
+					    <dd>
+					    	<span><%= @allowance[:weekly] ? @allowance[:weekly_occurrence] :@allowance[:monthly_occurrence] %>s</span>
+							<span>(</span>
+					    	<span><%= (@allowance[:next_occurrence].nil?) ?'Not scheduled yet' :(l @allowance[:next_occurrence], :format => :medium) %></span>				    		
+							<span>)</span>
+				    	</dd>
+						<dt>Granted</dt>
+						<dd><%= pluralize(@allowance[:number_of_grants], 'time') %></dd>
+					    <dt>Old allowance</dt>
+					    <dd><%= number_to_currency @allowance[:prev_allowance_acc] %></dd>
+					    <dt>Gifts & Awards</dt>
+					    <dd><%= number_to_currency grants %></dd>
+					    <dt>Total granted</dt>
+					    <dd><%= number_to_currency got %></dd>
+						<dt>Total spent</dt>
+						<dd><%= number_to_currency @consumer.spent %></dd>
+						<dt>Balance</dt>
+						<dd><%= number_to_currency @consumer.balance %></dd>				    
+				    </dl>
+				</div>
+				<div class="gauges">
+					<div id="grant_and_caption">
+						<canvas id="grants_gauge" height="225" width="225">[No canvas support]</canvas>
+						<p class="caption">Gifts & Awards</p> 
+					</div>	
+					<div id="balance_and_caption">		
+						<canvas id="balance_gauge" height="225" width="225">[No canvas support]</canvas>
+						<p class="caption">Balance</p>
+					</div>			
+				</div>
 			</div>
 		</div>
 	</div>
@@ -45,10 +55,14 @@
 <script>
 	window.onload = function ()
 	{
-		var gauge = new RGraph.Gauge('cvs', 0, <%= @max_value %>, <%= @needle_value %>);
+		var grants = new RGraph.Gauge('grants_gauge', 0, <%= grants %>, <%= grants %> );
 		//gauge.Set('chart.shadow', false);
 //		gauge.Draw();
-		RGraph.Effects.Gauge.Grow(gauge);		
+		RGraph.Effects.Gauge.Grow(grants);		
+		var balance = new RGraph.Gauge('balance_gauge', 0, <%= @max_value %>, <%= @needle_value %>);
+		//gauge.Set('chart.shadow', false);
+//		gauge.Draw();
+		RGraph.Effects.Gauge.Grow(balance);		
 	}
 
 </script>

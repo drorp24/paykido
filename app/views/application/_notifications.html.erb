@@ -1,9 +1,9 @@
 <% if params[:notify] and params[:notify] == 'no_purchases' %>
 <div id="no_purchases" class="alert alert-block">
 	<a class="close" data-dismiss="alert" href="#">×</a>
-    <h4 class="alert-heading">No purchases found</h4>
+    <h4 class="alert-heading">No purchases</h4>
 	<% consumer = Consumer.find_by_id(params[:consumer_number]) %>
-	<span><%= (consumer and consumer.name) ? consumer.name : "Family" %> has no purchases yet.</span>
+	<span><%= (consumer and consumer.name) ? consumer.name : "Family" %> has not purchased anything yet.</span>
 </div>
 <% end %>
 
@@ -31,9 +31,12 @@
     <h4 class="alert-heading">Allowance is not effective yet</h4>
     <% schedule_date = @allowance_rule.schedule.next_occurrence %>
     <% if schedule_date %>
-		<span><%= "First allowance grant is scheduled to #{l @allowance_rule.schedule.next_occurrence, :format => :medium}." %></span>
+		<span><%= "First grant of new allowance is scheduled to #{l @allowance_rule.schedule.next_occurrence, :format => :medium}." %></span>
 	<% else %>
 		<span>Allowance is not yet scheduled, or stopped.</span>
+	<% end %>
+	<% unless params[:controller] == 'rules' %>
+		<span><%= link_to "Set more rules", consumer_rules_path(@consumer.id), :class => "btn btn-info inline", 'data-skip-pjax' => true %></span>
 	<% end %>
 </div>
 <% end %>
@@ -115,7 +118,7 @@
     	<h4 class="alert-heading"><%= "Would you like Paykido to always approve purchases from #{retailer}?" %></h4>
     	<span><%= "You approved #{retailer} #{times} times already." %></span>
     	<% if current_payer.registered_or_waived %>
-    		<span>Set a rule to have Paykido <strong>automatically </strong>approve this merchant for you going forward!</span>
+    		<span>Let Paykido <strong>automatically </strong>approve this merchant for you next time!</span>
     		<span><%= button_to "Always approve #{retailer}", rules_path(:payer_id => current_payer.id, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :rule_status => 'whitelisted', :purchase_id => purchase.id), :method => :post, :class => "btn btn-info inline rule_set" %></span>
 		<% else %>
     		<span><%= "Register and have Paykido do that for you going forward!" %></span>
@@ -174,8 +177,14 @@
     <h4 class="alert-heading">Rule created!</h4>    
 	<% if params[:property] == "_allowance" %>
 		<span><%= "Allowance was set to #{number_to_currency params[:value]} every #{params[:occurrence]}" %></span>
-	<% else %> 
+	<% elsif params[:date] %> 
+		<span><%= "#{number_to_currency params[:value]} granted as of #{l params[:date].to_datetime, :format => :medium} "%></span>
+		<span><%= "on behalf of #{params[:donator]}" if !params[:donator].blank? %></span>
+	<% else %>
     	<span><%= "Rule successfully set!" %></span>
+	<% end %>
+	<% unless params[:controller] == 'rules' %>
+		<span><%= link_to "Set more rules", consumer_rules_path(@consumer.id), :class => "btn btn-info inline", 'data-skip-pjax' => true %></span>
 	<% end %>
 </div>
 <% end %>
@@ -185,10 +194,13 @@
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading"><%= "Rule #{params[:update]}!" %></h4>    
 	<% if params[:date] %>
-		<span><%= "#{number_to_currency params[:value]} will be granted on #{l params[:date].to_datetime, :format => :medium} "%></span>
+		<span><%= "#{number_to_currency params[:value]} granted as of #{l params[:date].to_datetime, :format => :medium} "%></span>
 		<span><%= "on behalf of #{params[:donator]}" if !params[:donator].blank? %></span>
 	<% else %>
 		<span><%= "Rule was succesfully #{params[:update]}!" %></span>
+	<% end %>
+	<% unless params[:controller] == 'rules' %>
+		<span><%= link_to "Set more rules", consumer_rules_path(@consumer.id), :class => "btn btn-info inline", 'data-skip-pjax' => true %></span>
 	<% end %>
 </div>
 <% end %>

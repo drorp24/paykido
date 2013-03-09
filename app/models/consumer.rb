@@ -33,11 +33,6 @@ class Consumer < ActiveRecord::Base
     Rule.set?(:consumer_id => self.id, :property => property, :value => value, :status => 'whitelisted')
   end
   
-  def deduct!(amount)
-    self.purchases_since_acd += amount
-    self.save!
-  end
-  
   def confirm!            
     self.confirmed = true
     self.confirmed_at = Time.now

@@ -6,6 +6,50 @@ body {
     line-height:21px;
 }
 
+.alert.alert-block a {
+    
+}
+
+.gauges {
+    float: right; 
+    margin-top: 15px;  
+}
+
+.grants {
+}
+
+#grants_gauge, #balance_gauge {
+    width: 225px;
+}
+
+#grant_and_caption, #balance_and_caption {
+    width: 225px;
+}
+
+#grant_and_caption {
+    float: left;
+}
+
+#balance_and_caption {
+    float: right;
+}
+
+#balance_gauge {
+    
+}
+
+#balance {
+    margin: 20px;
+    padding: 30px 7px 30px 30px;
+    
+}
+
+.hero-unit p.caption {
+    text-align: center;
+    font-size: 14px; 
+    font-weight: bold; 
+    margin-top: -5px;  
+}
 #why_register.hero-unit {
     margin-bottom: 5px;
 }
@@ -47,16 +91,9 @@ body {
     margin-bottom: 10px;
 }
 
-#balance_gauge {
-   float: right;
-   margin: 20px;
-   padding-left: 75px;
-}
-
 #balance_info {
     float: left;
-    margin: 20px;
-    padding: 50px 50px 50px 30px;
+    margin: 20px -10px 20px 20px;
     max-width: 390px;
 }
 
@@ -259,7 +296,7 @@ tr.purchase_line:hover {
 }
 
 .btn-small.action_button [class^="icon-"] {
-    margin-top: 1px;
+    margin-top: 3px;
 }
 
 .action_link {
@@ -486,7 +523,9 @@ label.select.optional.control-label {
 
 
 .alert.alert-block .btn.inline {
-    float: right
+    float: right;
+    margin-bottom: -5px;
+    margin-top: -4px;
 
 }
 
