@@ -70,8 +70,25 @@ class Consumer < ActiveRecord::Base
     for monetary_rule in self.rules.monetary do 
       @monetary_sum += monetary_rule.effective_occurrences(given_datetime) * monetary_rule.value.to_d if monetary_rule.schedule
     end
+
     @monetary_sum
+
   end
+
+  def prev_allowance_sum(given_datetime = Time.now)
+    
+    return @allowance_sum if @allowance_sum
+
+    @allowance_sum = 0
+    for allowance_rule in self.rules.of_allowance do 
+      next unless allowance_rule.stopped?
+      @allowance_sum += allowance_rule.effective_occurrences(given_datetime) * allowance_rule.value.to_d if allowance_rule.schedule
+    end
+
+    @allowance_sum
+
+  end
+
 
   def purchase_sum(given_datetime)
 

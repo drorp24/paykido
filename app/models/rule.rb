@@ -234,6 +234,7 @@ class Rule < ActiveRecord::Base
             :weekly_occurrence => allowance_rule.weekly_occurrence,
             :monthly_occurrence => allowance_rule.monthly_occurrence,
             :next_occurrence => allowance_rule.schedule.next_occurrence,
+            :prev_allowance_acc => consumer.prev_allowance_sum.to_i,
             :start_date => allowance_rule.schedule.start_date,
             :number_of_grants => grants = allowance_rule.effective_occurrences,
             :so_far_accumulated => grants * val }
@@ -305,6 +306,10 @@ class Rule < ActiveRecord::Base
   
   def expired?
     self.recurring? and !self.schedule.end_time.nil?
+  end
+  
+  def stopped?        # same thing, only does fewer cheks for allowance only
+    !self.schedule.end_time.nil?
   end
   
   def nonrecurring?
@@ -403,6 +408,7 @@ class Rule < ActiveRecord::Base
   
   def effective_occurrences(given_datetime = Time.now)
     return 0 unless self.consumer.payer.registered?
+    return 0 unless self.schedule
     start_datetime = self.consumer.payer.registration_date
     if start_datetime
       self.schedule.occurrences_between(start_datetime, given_datetime).count

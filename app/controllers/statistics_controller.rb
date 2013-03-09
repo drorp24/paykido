@@ -11,8 +11,10 @@ class StatisticsController < ApplicationController
     elsif !@consumer
       @consumer = current_payer.consumers.first
     end
-    
-    allowance = @consumer.allowance[:amount] unless @consumer.allowance[:so_far_accumulated] == 0
+        
+    @allowance = @consumer.allowance
+
+    allowance = @allowance[:amount] unless @allowance[:so_far_accumulated] == 0
     balance = @consumer.balance.to_i 
 
     if allowance and balance < allowance

@@ -56,7 +56,8 @@ body {
 #balance_info {
     float: left;
     margin: 20px;
-    padding: 50px;
+    padding: 50px 50px 50px 30px;
+    max-width: 390px;
 }
 
 

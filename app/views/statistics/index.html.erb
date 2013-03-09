@@ -13,15 +13,20 @@
 			    <% got = @consumer.got %>
 			    <dl class="dl-horizontal">
 				    <dt>Allowance</dt>
-				    <dd><%= number_to_currency @consumer.allowance[:amount] %> <%= @consumer.allowance[:amount] == 0 ? '' :'every' %> <%= @consumer.allowance[:weekly] ? @consumer.allowance[:weekly_occurrence] :@consumer.allowance[:monthly_occurrence] %></dd>
-				    <dt>Next Grant</dt>
-				    <dd><%= (@consumer.allowance[:next_occurrence].nil?) ?'Not scheduled yet' :(l @consumer.allowance[:next_occurrence], :format => :medium) %></dd>
-					<dt>Number of grants</dt>
-					<dd><%= @consumer.allowance[:number_of_grants] %></dd>
-				    <dt>Allowance sum</dt>
-				    <dd><%= number_to_currency @consumer.allowance[:so_far_accumulated] %></dd>
-				    <dt>Gifts and Awards</dt>
-				    <dd><%= number_to_currency(got - @consumer.allowance[:so_far_accumulated]) %></dd>
+				    <dd><%= number_to_currency @allowance[:amount] %></dd>
+				    <dt>Schedule</dt>
+				    <dd>
+				    	<span><%= @allowance[:weekly] ? @allowance[:weekly_occurrence] :@allowance[:monthly_occurrence] %>s</span>
+						<span>(</span>
+				    	<span><%= (@allowance[:next_occurrence].nil?) ?'Not scheduled yet' :(l @allowance[:next_occurrence], :format => :medium) %></span>				    		
+						<span>)</span>
+			    	</dd>
+					<dt>Granted</dt>
+					<dd><%= @allowance[:number_of_grants] %> times</dd>
+				    <dt>Old allowance</dt>
+				    <dd><%= number_to_currency @allowance[:prev_allowance_acc] %></dd>
+				    <dt>Gifts & Awards</dt>
+				    <dd><%= number_to_currency(got - @allowance[:so_far_accumulated] - @allowance[:prev_allowance_acc]) %></dd>
 				    <dt>Got so far</dt>
 				    <dd><%= number_to_currency got %></dd>
 					<dt>Spent</dt>

@@ -143,7 +143,7 @@ class Payer < ActiveRecord::Base
   end
   
   def registration_date
-    @registration_date ||= Token.where("payer_id = ?", self.id).first.created_at if Token.where("payer_id = ?", self.id).first
+    @registration_date ||= self.token.created_at
   end
   
   def request_confirmation(consumer)     
