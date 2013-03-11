@@ -31,7 +31,7 @@
     <h4 class="alert-heading">Allowance is not effective yet</h4>
     <% schedule_date = @allowance_rule.schedule.next_occurrence %>
     <% if schedule_date %>
-		<span><%= "First grant of new allowance is scheduled to #{l @allowance_rule.schedule.next_occurrence, :format => :medium}." %></span>
+		<span><%= "First grant of new allowance is scheduled for #{l @allowance_rule.schedule.next_occurrence, :format => :medium}." %></span>
 	<% else %>
 		<span>Allowance is not yet scheduled, or stopped.</span>
 	<% end %>

@@ -1,16 +1,15 @@
+<%= render 'primary_navigation'  %>
+<%= render 'consumer_navigation' %>
+<%= render 'notifications' %>
+
 <% unless params[:notify]  %>
 	<div id="registration_optional" class="alert alert-block">
 		<a class="close" data-dismiss="alert" href="#">×</a>
-	    <h4 class="alert-heading">Registration is not manadatory</h4>
-	    <span>Paykido doesn't need your credit card to operate. </span>
-	    <span>Once in the payment page, <strong>only you and the merchant know </strong>what credit card you're using. </span>
-	    <span>But as soon as you're ready to submit your card details - this is when we can offer you all the protection - and your kids all the fun!</span>
+	    <h4 class="alert-heading">Registration</h4>
+	    <span>Paykido <strong>doesn't </strong>store your credit card. </span>
+	    <span>As soon as you're ready to register, you can set your rules and Paykido can protect your kid!</span>
 	</div>
 <% end %>
-
-<%= render 'primary_navigation'  %>
-<%= render 'setting_navigation' %>
-<%= render 'notifications' %>
 
 <section id="maincontainer">
 

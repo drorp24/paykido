@@ -21,7 +21,6 @@ class TokensController < ApplicationController
   # GET /tokens/new
   # GET /tokens/new.json
   def new
-Rails.logger.info("entered /tokens/new")  
     @token = Token.new
     redirect_to tokens_path if current_payer.tokens.any?
   end
@@ -32,7 +31,13 @@ Rails.logger.info("entered /tokens/new")
   end
   
   def create
-    redirect_to current_payer.g2spp(params) 
+    if Paykido::Application.config.environment == 'beta'
+      redirect_to current_payer.g2spp(params)
+    else
+      current_payer.tokens.create!(:CCToken => "DummyToken")
+      redirect_to tokens_url(:notify => 'registration', :status => 'success')
+    end
+ 
   end
 
   # POST /tokens

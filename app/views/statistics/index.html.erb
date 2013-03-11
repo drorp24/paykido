@@ -18,9 +18,15 @@
 					    <dd><%= number_to_currency @allowance[:amount] %></dd>
 					    <dt>Schedule</dt>
 					    <dd>
-					    	<span><%= @allowance[:weekly] ? @allowance[:weekly_occurrence] :@allowance[:monthly_occurrence] %>s</span>
+					    	<span>
+					    		<% if @allowance[:weekly] %>
+					    		 	<%= "#{@allowance[:weekly_occurrence]}s" %>
+					    		 <% elsif @allowance[:monthly] %>
+					    		 	<%= "#{@allowance[:monthly_occurrence]}s" %>
+				    		 	<% end %> 
+							</span>
 							<span>(</span>
-					    	<span><%= (@allowance[:next_occurrence].nil?) ?'Not scheduled yet' :(l @allowance[:next_occurrence], :format => :medium) %></span>				    		
+					    	<span><%= (@allowance[:next_occurrence].nil?) ?'None' :(l @allowance[:next_occurrence], :format => :medium) %></span>				    		
 							<span>)</span>
 				    	</dd>
 						<dt>Granted</dt>

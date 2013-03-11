@@ -260,6 +260,7 @@ class Rule < ActiveRecord::Base
           :weekly_occurrence => nil,
           :monthly_occurrence => nil,
           :next_occurrence => nil,
+          :prev_allowance_acc => 0,
           :start_date => nil,
           :number_of_grants => 0,
           :so_far_accumulated => 0 }

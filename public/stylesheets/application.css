@@ -6,6 +6,12 @@ body {
     line-height:21px;
 }
 
+.ys_kid {
+    position: absolute;
+    bottom:  80px;
+    left: 137px;  
+}
+
 .alert.alert-block a {
     
 }
@@ -721,15 +727,6 @@ a:focus {
    margin-top: 20px;
 }
 
-#unregistration_success {
-    width: 860px;    
-}
-
-#registration_optional.alert-block {
-    padding-bottom: 4px;
-     width: 860px;     
-}
-
 
 button i.bigicon-tick-black {
     
@@ -800,8 +797,8 @@ form.button_to {
 }   
 .registration_form {
     float: right;
-    margin-right: 83px;
-    width: 270px;
+    margin-right: 44px;
+    width: 310px;
 }
 
 .features {
@@ -849,7 +846,7 @@ label, input {
     font-weight: 100;
     font-family: ubuntu;
     margin-left: -17px;
-    width: 266px;
+    width: 305px;
 }
 .content-box {
     clear: both;
