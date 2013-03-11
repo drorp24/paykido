@@ -35,7 +35,8 @@ class TokensController < ApplicationController
       redirect_to current_payer.g2spp(params)
     else
       current_payer.tokens.create!(:CCToken => "DummyToken")
-      redirect_to tokens_url(:notify => 'registration', :status => 'success')
+      consumer = current_payer.consumers.first
+      redirect_to consumer_rules_url(:consumer_id => consumer.id, :notify => 'registration', :status => 'success')
     end
  
   end

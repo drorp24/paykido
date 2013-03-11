@@ -209,7 +209,7 @@
 <div id="confirmation_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Consumer Confirmed!</h4>
-    <span><%= "From now on, we'll watch every purchsae #{params[:name]} attempts. You can set your rules as soon as you register your credit card!" %> &nbsp &nbsp</span>
+    <span><%= "From now on, we'll watch every purchsae #{params[:name]} attempts to make. You can set your rules once you register your credit card." %> &nbsp &nbsp</span>
     <span><%= button_to "Register now", tokens_path, :class => "btn btn-info inline" %></span>
 </div>
 <% end %>
@@ -339,13 +339,22 @@ $(document).ready(function() {
 	<% end %>
 <% end %>
 
-})
-
-$(document).ready(function() {
-
 	if ($('#notifications a').length == 0) {
 		$('#notifications').prepend('<a href="#">Show all notifications</a>');
 	}	
+
+
+	<% if params[:notify] == 'confirmation_request' %>
+	name = $('li.consumer.active .secondary_name').html();
+	$('li.consumer.active').popover({
+		title: "Confirm " + name, 
+		content: name + " wants you to know Paykido. Please confirm you are " + name + "'s parent.", 
+		placement: 'top', 
+		html: true
+		})
+		$('li.consumer.active').popover('show')
+	<% end %>
+
 
 })
 

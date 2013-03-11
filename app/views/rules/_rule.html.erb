@@ -29,7 +29,7 @@
 			<div class="action_link span1">
 				<% if @consumer and rule.supported? %>
 					<% if rule.initialized? or rule.thresholds? %>
-						<%= link_to rule, :data => {:target => '#rule_modal', :toggle => 'modal'}, :class => 'btn btn-small action_button' do %>
+						<%= link_to rule, :data => {:target => '#rule_modal', :toggle => 'modal', 'skip-pjax' => true}, :class => 'btn btn-small action_button' do %>
 							<i class="icon-wrench "></i> <%= rule.initialized? ? "Set" : "Change" %>
 						<% end %>
 			    	<% elsif rule.recurring? and !rule.expired? %>
