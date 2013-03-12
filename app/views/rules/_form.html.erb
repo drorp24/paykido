@@ -7,7 +7,6 @@
 	    <%= f.hidden_field :previous_rule_id, :value => @rule.previous_rule_id %>
 	    <% if @rule.monetary? or @rule.thresholds?%>
 		    <div class="input-prepend input-append rule_value_wrapper">
-		    	<p><%= t 'simple_form.labels.amount' %></p>
 			    <span class="add-on"><%= t "number.currency.format.unit" %></span>
 			    <%= f.input :value, :label => false, :input_html => {:class => 'numeric rule_value', :required => ""}, :autofocus => true %>
 			    <span class="add-on">.00</span>

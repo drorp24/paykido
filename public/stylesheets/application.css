@@ -6,6 +6,10 @@ body {
     line-height:21px;
 }
 
+#rule_form {
+    margin-top: 10px;
+}
+
 .ys_kid {
     position: absolute;
     bottom:  80px;
@@ -235,7 +239,7 @@ tr.purchase_line:hover {
 }
 
 .rule p:first-child {
-    margin-top: 20px;
+/*    margin-top: 20px; */
 }
 
 .purchase_line td:first-child {
@@ -255,13 +259,13 @@ tr.purchase_line:hover {
 }
 
 .rule_form_part {
-    margin-top: 18px;
+    margin-top: 0px;
     width: 46%;
     float: left;
 }
 
 .rule_message_part {
-    margin-top: 47px;
+    margin-top: 9px;
     width: 40%;
     float: right;
     height: 105px;
@@ -408,9 +412,6 @@ h3.popover-title {
 }
 
 .rule_line .form-actions {
-    
-}
-.rule_form {
     
 }
 
