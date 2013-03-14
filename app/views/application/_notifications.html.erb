@@ -62,8 +62,8 @@
 <div id="confirmation_request" class="alert alert-block">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Welcome to Paykido!</h4>
-	<span>Paykido is a <strong>free</strong> service <%= " that watches everything #{@consumer.name} buys for you. Confirm you are #{@consumer.name}'s parent and start protecting your kid." %></span>
-    <span><%= button_to "Confirm", confirm_consumer_path(@consumer), :class => "btn btn-info inline" %></span>
+	<span>Paykido protects kids from bad purchases. Here you can define your <strong>rules</strong> and Paykido will watch them for you!</span>
+    <span><%= button_to "Confirm #{@consumer.name}", confirm_consumer_path(@consumer), :class => "btn btn-info inline" %></span>
 </div>
 <% end %>
 
@@ -358,8 +358,8 @@ $(document).ready(function() {
 	<% if params[:notify] == 'confirmation_request' %>
 	name = $('li.consumer.active .secondary_name').html();
 	$('li.consumer.active').popover({
-		title: "Confirm " + name, 
-		content: name + " wants you to know Paykido. Please confirm you are " + name + "'s parent.", 
+		title: name +  " asks you to use Paykido", 
+		content: "<p>Use Paykido to protect " + name + " from bad purchases.</p>", 
 		placement: 'top', 
 		html: true
 		})
