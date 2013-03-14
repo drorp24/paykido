@@ -8,6 +8,76 @@ body {
     line-height:21px;
 }
 
+.span2minus {
+    width: 160px;
+}
+
+.exagerated {
+    font-family: 'Oswald', sans-serif;
+    font-size: 66px;
+    line-height: 80px;
+    text-align: center;    
+    letter-spacing: 2px;
+    text-shadow: 0px 1px 0px #FFFFFF;
+    text-shadow: 2px 1px 2px #888;
+    text-transform: uppercase;
+    color: #888;
+    margin-left: -55px;
+    margin-top: 40px;
+}
+
+#landing_text_part.landing.marketial.hero-unit.semi_transparent_bg {
+   margin-left: -14px;
+   height: 260px;
+   width: 400px;
+  -webkit-border-radius: 0px;
+     -moz-border-radius: 0px;
+          border-radius: 0px;
+    padding: 60px 40px 40px 40px;
+
+/* Fallback for web browsers that doesn't support RGBa */
+background: rgb(0, 0, 0) transparent;
+/* RGBa with 0.3 opacity */
+background: rgba(0, 0, 0, 0.15);
+/* For IE 5.5 - 7*/
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+/* For IE 8*/
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+}
+
+#landing_text_part h1 {
+   font-weight: 100;
+   text-shadow: 0px 1px 0px #FFFFFF;
+   font-size: 45px;
+   margin-bottom: 30px;
+
+}
+
+#landing_text_part h2 {
+   font-weight: 100;
+   font-size: 18px;
+   line-height: 28px;
+   color: #000;
+
+}
+
+#landing_text_part p {
+    margin-top: 56px;
+}
+.box.grid_6.home_image {
+    width: 47%;
+}
+
+.home_image {
+    margin-left: 7px;
+}
+
+img#parents {
+    height: 360px;
+    width: 473px;
+    float: right;
+    margin-right: 0;
+}
 .spanicon {
     width: 16px;
 }

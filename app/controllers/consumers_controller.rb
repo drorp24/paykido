@@ -3,6 +3,10 @@ class ConsumersController < ApplicationController
   before_filter :authenticate_payer!
   before_filter :find_consumer  
 
+  def welcome
+    
+  end
+
   def confirm
 
     @consumer.confirm!
