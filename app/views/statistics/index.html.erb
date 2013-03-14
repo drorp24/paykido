@@ -65,7 +65,7 @@
 		//gauge.Set('chart.shadow', false);
 //		gauge.Draw();
 		RGraph.Effects.Gauge.Grow(grants);		
-		var balance = new RGraph.Gauge('balance_gauge', 0, <%= @max_value %>, <%= @needle_value %>);
+		var balance = new RGraph.Gauge('balance_gauge', <%= @min_value %>, <%= @max_value %>, <%= @needle_value %>);
 		//gauge.Set('chart.shadow', false);
 //		gauge.Draw();
 		RGraph.Effects.Gauge.Grow(balance);		

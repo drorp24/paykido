@@ -487,7 +487,7 @@ class Purchase < ActiveRecord::Base
     
     return false unless property == 'retailer'
     
-    Purchase.where("payer_id = ? and retailer_id = ? and authorization_type = ? and id != ?", self.payer_id, self.retailer_id, "Approved", self.id).count
+    Purchase.where("payer_id = ? and retailer_id = ? and authorization_type = ?", self.payer_id, self.retailer_id, "Approved").count
       
   end
 

@@ -62,7 +62,7 @@
 <div id="confirmation_request" class="alert alert-block">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Welcome to Paykido!</h4>
-	<span>Paykido protects kids from bad purchases. Here you can define your <strong>rules</strong> and Paykido will watch them for you!</span>
+	<span>Paykido is a revolutionary new service. It lets you define <strong>what</strong> your kids can buy - and watches it for you!</span>
     <span><%= button_to "Confirm #{@consumer.name}", confirm_consumer_path(@consumer), :class => "btn btn-info inline" %></span>
 </div>
 <% end %>
@@ -117,11 +117,11 @@
 	<% purchase = Purchase.find(params[:purchase]) %>
 	<% retailer = purchase.retailer.name %>
 	<% times = purchase.approval_counter('retailer') %>
-    <% if times > Paykido::Application.config.offer_rule_or_registration_after.to_i %>
+    <% if times >= Paykido::Application.config.offer_rule_or_registration_after.to_i %>
     	<h4 class="alert-heading"><%= "Would you like Paykido to always approve purchases from #{retailer}?" %></h4>
-    	<span><%= "You approved #{retailer} #{times} times already." %></span>
+    	<span><%= "You approved #{retailer} #{pluralize(times, 'time')} already." %></span>
     	<% if current_payer.registered_or_waived %>
-    		<span>Let Paykido <strong>automatically </strong>approve this merchant for you next time!</span>
+    		<span>Like to let Paykido approve this merchant for you next times?</span>
     		<span><%= button_to "Always approve #{retailer}", rules_path(:payer_id => current_payer.id, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :rule_status => 'whitelisted', :purchase_id => purchase.id), :method => :post, :class => "btn btn-info inline rule_set" %></span>
 		<% else %>
     		<span><%= "Register and have Paykido do that for you going forward!" %></span>

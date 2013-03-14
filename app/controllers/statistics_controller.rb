@@ -14,15 +14,27 @@ class StatisticsController < ApplicationController
         
     @allowance = @consumer.allowance
 
-    allowance = @allowance[:amount] unless @allowance[:so_far_accumulated] == 0
+    allowance = @allowance[:so_far_accumulated] + @allowance[:prev_allowance_acc] 
     balance = @consumer.balance.to_i 
 
-    if allowance and balance < allowance
-      @needle_value = allowance - balance
-      @max_value = allowance
-    else
-      @needle_value = 0
-      @max_value = balance
+    @min_value = 0
+    if allowance > 0
+      if balance < allowance
+        @needle_value = balance
+        @max_value = allowance
+      else
+        @needle_value = balance
+        @max_value = balance
+      end        
+    elsif allowance == 0
+      if balance > 0                      # gifts etc
+        @needle_value = balance
+        @max_value = balance
+      else                                # tests only (should be accounted as old allowance)
+        @needle_value = balance
+        @min_value = balance
+        @max_value = 0
+      end        
     end
     
 #    starring this is meant to make the payer go to rule page where he will get a similar message
