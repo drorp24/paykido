@@ -183,7 +183,9 @@ class PurchasesController < ApplicationController
         redirect_to :controller => "home", :action => "routing_error"
         return
       end 
-    end           
+    end
+    
+    @consumer ||= @purchase ? @purchase.consumer : Consumer.find_by_id(params[:consumer_id])           
 
   end
 

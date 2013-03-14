@@ -31,12 +31,21 @@ class TokensController < ApplicationController
   end
   
   def create
+
     if Paykido::Application.config.environment == 'beta'
       redirect_to current_payer.g2spp(params)
     else
       current_payer.tokens.create!(:CCToken => "DummyToken")
-      consumer = current_payer.consumers.first
-      redirect_to consumer_rules_url(:consumer_id => consumer.id, :notify => 'registration', :status => 'success')
+
+      pending = current_payer.purchases.pending
+      if pending.any?
+        purchase = pending.first
+        redirect_to purchase_path(purchase.id, :activity => 'approval', :notify => 'registration', :status => 'success')
+      else
+        consumer = current_payer.consumers.first
+        redirect_to consumer_rules_url(:consumer_id => consumer.id, :notify => 'registration', :status => 'success')
+      end
+
     end
  
   end

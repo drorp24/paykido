@@ -47,6 +47,9 @@
 	<% if @constraint == 'registration' %>
     <h4 class="alert-heading">Registration required</h4>
 		<span>You need to register to Paykido in order to set rules.</span>
+ 		<% if @consumer.no_allowance? %>
+ 			<span>(In Paykido, allowance is also a rule).</span>
+		<% end %>
     	<span><%= button_to "Register", tokens_path, :class => "btn btn-info inline" %></span>
 	<% elsif @constraint == 'consumer_level' %>
     <h4 class="alert-heading">Select a consumer</h4>
@@ -67,7 +70,10 @@
 <div id="registration_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Registration Complete!</h4>
-    <span>You can now place rules, have Paykido automatically block bad purchases and automatically pay for complying ones.</span>
+    <span>You can now have Paykido block bad purchases for you and pay on your behalf.</span>
+	<% if @consumer and @consumer.no_allowance? %>
+		<span>&nbsp;&nbsp;<%= "Start by setting an allowance for #{@consumer.name}." %></span>
+	<% end %>
 </div>
 
 <% if params[:notify] and params[:notify] == 'registration' and params[:ppp_status] and params[:ppp_status] == 'CANCEL'%>
@@ -126,6 +132,15 @@
 		<% end %>
 	<% else %>
     	<h4 class="alert-heading">Purchase Approved!</h4>	
+    	<% if current_payer.registered_or_waived %>
+    		<% if @consumer and @consumer.no_allowance? %>
+	    		<span><%= "#{@consumer.name} has no allowance defined yet. Would you like to set it now?" %></span>
+				<span><%= link_to "Set allowance", consumer_rules_path(@consumer.id), :class => "btn btn-info inline", 'data-skip-pjax' => true %></span>
+			<% else %>
+	    		<span>You can have <strong>Paykido</strong> do the approval and payment for you.</span>
+	    		<span>Simply hover ABOUT THE PURCHASE and tell Paykido what to approve or decline. </span>
+    		<% end %>
+		<% end %>
 	<% end %>    		
 </div>
 <% end %>

@@ -31,13 +31,15 @@ class G2sController < ApplicationController
           @purchase.notify_consumer('manual', 'registered')
         end
 
-        redirect_to new_token_url(
-          :notify => 'registration', 
-          :status => params[:status],
-          :ppp_status => params[:ppp_status],
-          :message => params[:message]
-        )
-                    
+        pending = current_payer.purchases.pending
+        if pending.any?
+          purchase = pending.first
+          redirect_to purchase_path(purchase.id, :activity => 'approval', :notify => 'registration', :status => params[:status])
+        else
+          consumer = current_payer.consumers.first
+          redirect_to consumer_rules_url(:consumer_id => consumer.id, :notify => 'registration', :status => params[:status])
+        end
+
     elsif params[:status] == 'back'     # when back is clicked, that's the only parameter G2S returns
           redirect_to purchases_url
     else

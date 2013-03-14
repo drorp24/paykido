@@ -63,7 +63,7 @@ class Consumer < ActiveRecord::Base
 
     @monetary_sum = 0
     for monetary_rule in self.rules.monetary do 
-      @monetary_sum += monetary_rule.effective_occurrences(given_datetime) * monetary_rule.value.to_d if monetary_rule.schedule
+      @monetary_sum += monetary_rule.effective_occurrences(given_datetime) * monetary_rule.value.to_i if monetary_rule.schedule
     end
 
     @monetary_sum
@@ -115,6 +115,11 @@ class Consumer < ActiveRecord::Base
   
   def allowance
     Rule.allowance_of(self)
+  end
+  
+  def no_allowance?
+    allowance_rule = self.allowance_rule
+    allowance_rule.nil? || allowance_rule.initialized?
   end
 
 

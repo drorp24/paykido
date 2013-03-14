@@ -134,10 +134,11 @@ class Rule < ActiveRecord::Base
 
   def self.allowance
     schedule = IceCube::Schedule.new
-    {:property => '_allowance', :category => "how much", :schedule => schedule, :value => 0}
+    {:property => '_allowance', :category => "how much", :schedule => schedule, :value => nil}
   end
   def self.gift
     {:property => '_gift', :category => "how much"}
+#   {:property => '_gift', :category => "how much", :value => "10", :date => Time.now, :donator => "Paykido", :occasion => "Welcome Gift"}
   end
   def self.birthday
     {:property => 'birthday', :category => "how much"}

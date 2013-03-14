@@ -81,9 +81,22 @@ $(document).ready(function() {
 	<% if params[:activity] == 'approval' %>
 	$('#approval_buttons').popover({
 		title: "For your approval", 
-		content: "<p>Click 'Approve' or 'Decline'.</p><p>If you wish Paykido to do that for you and pay on your behalf, hover below and set your rules!</p>", 
+		trigger: 'manual',
+		content: 
+			"<p>Click 'Approve' or 'Decline'.</p>" + 
+			<% if current_payer.registered? %>
+				"<p>If you approve, Paykido will pay on your behalf.</p>" 
+			<% else %>
+				"<p>If you wish Paykido to do the approvals for you and pay on your behalf too, please register.</p>" +
+    			'<p><%= button_to "Register", tokens_path, :class => "btn btn-info inline" %></p>'
+ 			<% end %>
+				, 
 		placement: 'top', 
-		html: true
+		html: true,
+		template: '<div class="popover" onmouseover="$(this).mouseleave(function() {$(this).hide(); });"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
+
+            }).mouseenter(function(e) {
+                $(this).popover('show');
 		})
 		$('#approval_buttons').popover('show')
 	<% end %>
