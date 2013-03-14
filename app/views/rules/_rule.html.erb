@@ -9,10 +9,12 @@
 			<div class="span1">
 				<i class="icon rule_icon <%= rule.icon %>"></i>
 			</div>
-			<div class="span1plus">
+			<div class="span1">
 				<%= rule.title || rule.property %>
-				<i class="icon-info-sign" rel="<%= (rule.info) ? "popover" : "" %>"  title="<%= rule.title %>" data-content="<%= rule.description %>"></i>
 			</div>
+			<div class="spanicon">
+				<i class="icon-info-sign" rel="<%= (rule.info) ? "popover" : "" %>"  title="<%= rule.title %>" data-content="<%= rule.description %>"></i>
+			</div>	
 			<div class="span2">
 				<%= render 'rule_description', :rule => rule %>
 			</div>
@@ -29,23 +31,23 @@
 			<div class="action_link span1">
 				<% if @consumer and rule.supported? %>
 					<% if rule.initialized? or rule.thresholds? %>
-						<%= link_to rule, :data => {:target => '#rule_modal', :toggle => 'modal', 'skip-pjax' => true}, :class => 'btn btn-small action_button' do %>
+						<%= link_to rule, :data => {:target => '#rule_modal', :toggle => 'modal', 'skip-pjax' => true, :property => rule.property}, :class => 'btn btn-small action_button' do %>
 							<i class="icon-wrench "></i> <%= rule.initialized? ? "Set" : "Change" %>
 						<% end %>
 			    	<% elsif rule.recurring? and !rule.expired? %>
-			    		<%= link_to stop_rule_path(rule.id), confirm: 'Are you sure you want to stop this rule?', method: :put, 'data-skip-pjax' => true, class: 'btn btn-small action_button' do %>
+			    		<%= link_to stop_rule_path(rule.id), confirm: 'Are you sure you want to stop this rule?', method: :put, 'data-skip-pjax' => true, 'data-property' => rule.property, class: 'btn btn-small action_button' do %>
 							<i class="icon-stop "></i> Stop
 						<% end %>
 					<% elsif rule.recurring? and rule.expired? %>
-			    		<%= link_to restart_rule_path(rule.id), confirm: 'Are you sure you want to restart this rule?', method: :put, 'data-skip-pjax' => true, class: 'btn btn-small action_button' do %>
+			    		<%= link_to restart_rule_path(rule.id), confirm: 'Are you sure you want to restart this rule?', method: :put, 'data-skip-pjax' => true, 'data-property' => rule.property, class: 'btn btn-small action_button' do %>
 							<i class="icon-play"></i> Restart
 						<% end %>
 		    		<% elsif rule.nonrecurring? and !rule.passed? %>
-			    		<%= link_to rule, confirm: 'Are you sure you want to remove this rule?', method: :delete, 'data-skip-pjax' => true, class: 'btn btn-small action_button' do %>
+			    		<%= link_to rule, confirm: 'Are you sure you want to remove this rule?', method: :delete, 'data-skip-pjax' => true, 'data-property' => rule.property, class: 'btn btn-small action_button' do %>
 							<i class="icon-remove-sign"></i> Remove
 						<% end %>
 		    		<% elsif !rule.schedule %>
-			    		<%= link_to rule, confirm: 'Are you sure you want to remove this rule?', method: :delete, 'data-skip-pjax' => true, class: 'btn btn-small action_button' do %>
+			    		<%= link_to rule, confirm: 'Are you sure you want to remove this rule?', method: :delete, 'data-skip-pjax' => true, 'data-property' => rule.property, class: 'btn btn-small action_button' do %>
 							<i class="icon-remove-sign"></i> Remove
 						<% end %>
 					<% end %>

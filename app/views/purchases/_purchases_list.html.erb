@@ -43,9 +43,9 @@
             <% elsif purchase.declined? %> 
                 <i class="bigicon-thumbs-down" data-placement="right" title="Manually declined"></i>
             <% elsif purchase.authorized? %> 
-                <i class="bigicon-tick-in-a-circle" data-placement="right" title="<%= "Authorized according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></i>
+                <i class="bigicon-tick-in-a-circle" data-placement="right" title="<%= "Approved according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></i>
             <% elsif purchase.unauthorized? %> 
-                <i class="bigicon-no-entry-in-a-circle" data-placement="right" title="<%= "This purchase was blocked according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></i>
+                <i class="bigicon-no-entry-in-a-circle" data-placement="right" title="<%= "Declined according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></i>
             <% else %> 
                 <span class="icon32 alert large" data-placement="right" title="Well this was not supposed to happen"></span>
             <% end %>

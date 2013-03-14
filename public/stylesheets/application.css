@@ -1,9 +1,15 @@
+/* Paykido color: #0088CC */
+
 body {   
     height: 600px;
     background:url("/spina/img/bg.png");
     font-family:"Segoe UI", Helvetica, Arial;
     font-size:14px;
     line-height:21px;
+}
+
+.spanicon {
+    width: 16px;
 }
 
 #rule_form {
@@ -94,7 +100,7 @@ body {
 }
 
 #rules.container_12 .grid_12 {
-    width: 100%
+    width: 100.5%
 }
 
 .dl-horizontal dt, .dl-horizontal dd {
@@ -252,6 +258,10 @@ tr.purchase_line:hover {
 
 .initialized_rule {
     color: #888;  
+}
+
+.initialized_rule .popover {
+    color: #333;  
 }
 
 .initialized_rule i.rule_icon {
@@ -845,7 +855,6 @@ label, input {
     height: 50px;
     font-size: 26px;
     font-weight: 100;
-    font-family: ubuntu;
     margin-left: -17px;
     width: 305px;
 }
@@ -884,9 +893,8 @@ label, input {
 
 .feature_text {
     display: inline;
-    font-size: 16px;
+    font-size: 20px;
     text-shadow: 0 1px 0 #FFFFFF;
-    font-weight: bold;
 }
 
 

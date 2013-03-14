@@ -1,6 +1,14 @@
 <%= render 'primary_navigation' %>
 <%= render 'consumer_navigation' %>
 
+<% if !(params[:notify] == 'confirmation_request') and @consumer and @consumer.no_allowance? %>
+<div id="no_allowance" class="alert alert-block">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading"><%= "Define #{@consumer.name}'s allowance"%></h4>
+	<span>Paykido doesn't work by taking your money in advance. Instead, simply define your allowance rule.</span>
+</div>
+<% end %>
+
 <section id="maincontainer">
 
 	<%= render 'page_head' %>
@@ -155,6 +163,19 @@ $('document').ready(function() {
 		});
 	
 	<% end %>
+	
+	<% if !(params[:notify] == 'confirmation_request') and current_payer.registered? and @consumer and @consumer.no_allowance? %>
+	
+		$("#rules .action_button[data-property='_allowance']").popover({
+			placement:	"top",
+			title:	 	"Start here",
+			content: 	'<%= "Click to define an allowance rule for #{@consumer.name}." %>'
+		});
+		$("#rules .action_button[data-property='_allowance']").popover('show');
+
+		
+	<% end %>
+		
 })
 
 </script>

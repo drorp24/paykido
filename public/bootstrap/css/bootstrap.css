@@ -1047,12 +1047,13 @@ textarea {
   line-height: 20px;
 }
 
+/* Dror
 input,
 button,
 select,
 textarea {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
+} */
 
 label {
   display: block;
@@ -3835,16 +3836,18 @@ input[type="submit"].btn.btn-mini {
 
 /* Dror */
 .alert {
-    color: #000;
+    color: #333;
 }
 
 .alert h4 {
-  color: #c09853; 
+/*  color: #c09853; */
+    color: #333; /* Dror */ 
 }
 /* Dror */
 .alert h4 {
   margin: 0;
-  font-size: 16px; /* Dror */
+  font-size: 18px; /* Dror */
+  font-weight: 100; /* Dror */
 }
 
 .alert .close {

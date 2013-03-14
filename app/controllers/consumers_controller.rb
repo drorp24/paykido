@@ -7,7 +7,7 @@ class ConsumersController < ApplicationController
 
     @consumer.confirm!
 
-    redirect_to consumer_statistics_path(:consumer_id => @consumer.id, :notify => 'confirmation', :status => "success", :name => @consumer.name, :_pjax => true)  
+    redirect_to consumer_rules_path(:consumer_id => @consumer.id, :notify => 'confirmation', :status => "success", :name => @consumer.name, :_pjax => true)  
 
   end
 
