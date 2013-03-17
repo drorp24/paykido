@@ -43,9 +43,9 @@
             <% elsif purchase.declined? %> 
                 <i class="bigicon-thumbs-down" data-placement="right" title="Manually declined"></i>
             <% elsif purchase.authorized? %> 
-                <i class="bigicon-tick-in-a-circle" data-placement="right" title="<%= "Approved according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></i>
+                <i class="bigicon-thumbs-up" data-placement="right" title="<%= "Approved according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></i>
             <% elsif purchase.unauthorized? %> 
-                <i class="bigicon-no-entry-in-a-circle" data-placement="right" title="<%= "Declined according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></i>
+                <i class="bigicon-thumbs-down" data-placement="right" title="<%= "Declined according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></i>
             <% else %> 
                 <span class="icon32 alert large" data-placement="right" title="Well this was not supposed to happen"></span>
             <% end %>
@@ -166,6 +166,7 @@ $(document).ready(function() {
             $('.navbar li').removeClass('active');
             $(this).addClass('active');
              pTable.fnFilter( 'PendingPayer' , 1, true, false, false);
+			ajax_first_row()
     });
 
     $('#authorized-button').click(function () {
@@ -173,6 +174,7 @@ $(document).ready(function() {
             $(this).addClass('active');
             pTable.fnFilter('Whitelisted|Approved|Authorized|Always|Under', 1, true, false, false );
 //          	pTable.fnFilter(true, 2, false, false, false );
+			ajax_first_row()
     });
 
 
@@ -180,7 +182,22 @@ $(document).ready(function() {
             $('.navbar li').removeClass('active');
             $(this).addClass('active');
             pTable.fnFilter('Blacklisted|Low|High|Unauthorized|Unqualified|Declined|Denied|Zero|insufficient|Over', 1, true, false, false);
+			ajax_first_row()
     });
+
+
+	function ajax_first_row() {
+
+			proper_tr = $('#purchases tbody tr:first')
+	    	if (proper_tr) {
+		    	proper_tr.addClass('active');
+				$.pjax({                              
+				  url: proper_tr.attr('data-href'),
+				  container: '#dashboard_right'	    		
+	    		})
+			}
+
+	}
 
 /*
      $('#all-button').click(function () {
@@ -191,21 +208,10 @@ $(document).ready(function() {
 */    
 
 
-    $('#purchases tr').click(function() {
-    	$('#purchases tr').removeClass('active');
-    	$(this).addClass('active');
-    })           
-
 	// Purchase row + detail selection
 
 	//ajax the href/data-href content when clicked into specified container
 	$('.purchase_row').sp_pjax("#dashboard_right");  // have .purchase_row (tr, not a) behave as a/pjax/data-href
-
-    //indicte active tr line
-    $('#purchases tr').click(function() {
-    	$('#purchases tr').removeClass('active');
-    	$(this).addClass('active');
-    })           
 
 	// INIT - highlight the proper purchase line and show the purchase details pane 
 

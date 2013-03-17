@@ -8,6 +8,29 @@ body {
     line-height:21px;
 }
 
+.paykido {
+    color: #0088CC;
+}
+
+.why {
+    font-size: 12px;
+    color: #888;
+}
+
+#approval_buttons .btn {
+    width: 44%;   
+}
+
+#approval_status {
+    margin-left: -12px;
+    margin-top: -12px;
+}
+
+#approval_status span {
+    line-height: 52px; 
+    font-weight: 100;  
+}
+
 #why_register.hero-unit h1 {
     font-weight: 100;
     text-shadow: 0px 1px 0px #FFFFFF;
@@ -1356,7 +1379,7 @@ tr:hover {
 }
 
 #approval_buttons {
-    margin-top: 16px;   
+    margin-top: 0px;   
 }
 
 .approval.button {
@@ -1418,7 +1441,8 @@ td.purchase_logo {
 }
 
 #purchase_header_right {
-    width: 46%;
+    width: 220px;
+    margin-left: -50px;
 }
 
 td.approval_buttons {
