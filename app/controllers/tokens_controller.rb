@@ -72,7 +72,13 @@ class TokensController < ApplicationController
   # DELETE /tokens/1
   # DELETE /tokens/1.json
   def destroy
+
     @token.destroy
+
+    for consumer in current_payer.consumers
+      consumer.allowance_rule.expire if consumer.allowance_rule
+    end
+
     redirect_to new_token_path(
       :notify => "unregistration", 
       :status => "success", 

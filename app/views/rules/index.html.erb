@@ -147,8 +147,8 @@ $('document').ready(function() {
 
 	<% if @constraint == 'registration' %>
 		
-		$('#rules a').addClass("disabled")
-		$('#rules a').click(function(e){
+		$('#rules a:not(.details)').addClass("disabled")
+		$('#rules a:not(.details)').click(function(e){
 			return false;
 		});
 	
