@@ -14,7 +14,7 @@
 	    <% end %>
 	    <% if @rule.allowance? %>
 		    <%= f.input :period, :label => (t 'simple_form.labels.period'), :collection => Rule.period_collection, :include_blank => false, :input_html => {:class => 'rule_period', :required => ""}, :selected => rule.period %>
-		    <%= f.input :weekly_occurrence, :label => (t 'simple_form.labels.occurrence'), :wrapper_html => {:class => "weekly_allowance"}, :input_html => {:class => 'rule_occurrence', :required => ""}, :collection => Rule.weekday_collection, :selected => rule.occurrence.to_s, :include_blank => false %>
+		    <%= f.input :weekly_occurrence, :label => (t 'simple_form.labels.occurrence'), :wrapper_html => {:class => "weekly_allowance"}, :input_html => {:class => 'rule_occurrence', :required => ""}, :collection => Rule.weekday_collection, :selected => (rule.initialized? ? Date.today.wday.to_s : rule.occurrence.to_s), :include_blank => false %>
 		    <%= f.input :monthly_occurrence, :label => (t 'simple_form.labels.occurrence'), :wrapper_html => {:class => "monthly_allowance"}, :input_html => {:class => 'rule_occurrence', :required => ""}, :collection => Rule.day_of_month_collection, :selected => rule.occurrence.to_s, :include_blank => false %>
 		<% end %>
 		<% if @rule.monetary? and !@rule.allowance? %>

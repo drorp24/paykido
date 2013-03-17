@@ -14,7 +14,7 @@ class StatisticsController < ApplicationController
         
     @allowance = @consumer.allowance
 
-    allowance = @allowance[:so_far_accumulated] + @allowance[:prev_allowance_acc] 
+    allowance = @allowance[:so_far_accumulated].to_i + @allowance[:prev_allowance_acc].to_i 
     balance = @consumer.balance.to_i 
 
     @min_value = 0

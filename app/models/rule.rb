@@ -248,8 +248,19 @@ class Rule < ActiveRecord::Base
             :number_of_grants => grants = allowance_rule.effective_occurrences,
             :so_far_accumulated => grants * val }
         else
-          @allowance_of = nil
-        end
+          @allowance_of = 
+          { :amount => 0, 
+            :period => "",
+            :weekly => false,
+            :monthly => false,
+            :weekly_occurrence => nil,
+            :monthly_occurrence => nil,
+            :next_occurrence => nil,
+            :prev_allowance_acc => 0,
+            :start_date => nil,
+            :number_of_grants => 0,
+            :so_far_accumulated => 0 }
+          end
 
     else
 

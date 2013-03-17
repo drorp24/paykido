@@ -62,16 +62,19 @@
 <div id="confirmation_request" class="alert alert-block">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Welcome to Paykido!</h4>
-	<span>Paykido is a revolutionary new service. It lets you define <strong>what</strong> your kids can buy - and watches it for you!</span>
+	<span>Paykido is the only service that lets you control <strong>what</strong> your kid can buy. </span>		
+	<span><%= "Please confirm you are #{@consumer.name}'s parent now." %></span>
     <span><%= button_to "Confirm #{@consumer.name}", confirm_consumer_path(@consumer), :class => "btn btn-info inline" %></span>
 </div>
 <% end %>
 
+<% if params[:notify] and params[:notify] == 'registration'  and params[:status] == 'success' %>
 <div id="registration_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Registration Complete!</h4>
-    <span>You can now have Paykido block bad purchases for you and pay on your behalf. You do that by setting your rules.</span>
+    <span><%= "You can now have Paykido block bad purchases for you and pay on your behalf. Start by setting #{@consumer.name}'s allowance." %></span>
 </div>
+<% end %>
 
 <% if params[:notify] and params[:notify] == 'registration' and params[:ppp_status] and params[:ppp_status] == 'CANCEL'%>
 <div id="registration_CANCEL" class="alert alert-block alert-error" style="display:none">
@@ -82,13 +85,16 @@
 </div>
 <% end %>
 
+<% if params[:notify] and params[:notify] == 'unregistration' and params[:status] == 'success' %>
 <div id="unregistration_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Unregistered!</h4>
     <span>This registration is cancelled. You can register again at any time.</span>
 	<span><%= button_to "Register again", tokens_path, :class => "btn btn-info inline" %></span>
 </div>
+<% end %>
 
+<% if params[:notify] and params[:notify] == 'registration' and params[:status] != 'success' %>
 <div id="registration_failure" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Something is missing</h4>
@@ -96,6 +102,7 @@
 	<span><%= "Could be something you keyed." %></span>
 	<span><%= button_to "Try again", tokens_path, :class => "btn btn-info inline" %></span>
 </div>
+<% end %>
 
 <% if params[:purchase] %>
 <div id="approval_failure" class="alert alert-block alert-error" style="display:none">
@@ -173,6 +180,7 @@
 </div>
 <% end %>
 
+<% if params[:notify] and params[:notify] == 'rule_setting' and params[:status] == 'success'  %>
 <div id="rule_setting_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Rule <%= params[:rule_status] == 'reset' ? 'reset' : 'created' %></h4>
@@ -182,6 +190,7 @@
 		<span>Paykido has succesfully reset the rule</span>
 	<% end %>
 </div>
+<% end %>
 
 <% if params[:notify] and params[:notify] == 'new_rule' %>
 <div id="new_rule_success" class="alert alert-block" style="display:none">
