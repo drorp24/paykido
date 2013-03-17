@@ -65,6 +65,8 @@
                 			<i class="bigicon-thumbs-down"></i>
             			<% elsif @purchase.consumer.whitelisted?(property,value) %>
             				<i class="bigicon-thumbs-up"></i>
+        				<% else %>
+            				<i class="bigicon-placeholder"></i>
         				<% end %>
                     </td>    	
                     <td class="purchase_title text-info"><%= t property %>:</td>
