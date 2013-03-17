@@ -12,7 +12,9 @@
 			<%= number_to_currency(rule.value.to_i) %>
 		</span>
 		<span>
-			<% if rule.weekly? %>
+			<% if rule.stopped? %>
+				(stopped)
+			<% elsif rule.weekly? %>
 				every <%= rule.weekly_occurrence %>
 			<% elsif rule.monthly? %>
 				every <%= rule.monthly_occurrence %>

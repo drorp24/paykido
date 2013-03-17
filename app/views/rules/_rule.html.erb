@@ -1,7 +1,7 @@
 <div class="accordion-group rule_line clearfix">
 
 	<div class="accordion-heading row">
-		<div class="accordion-toggle <%= rule.initialized? ? 'initialized_rule' : '' %>" data-toggle="collapse" href=<%= "#ruleEdit_#{rule.id}" %> data-parent="#rules"> 
+		<div class="accordion-toggle <%= (rule.initialized? or !current_payer.registered?) ? 'initialized_rule' : '' %>" data-toggle="collapse" href=<%= "#ruleEdit_#{rule.id}" %> data-parent="#rules"> 
 	
 			<div class="span1">
 				<%= rule.consumer.name %>
