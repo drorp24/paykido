@@ -4,7 +4,7 @@ Paykido::Application.configure do
   # Environment
   config.hostname = 'www.paykido.com'
   config.environment = 'beta'
-  onfig.use_delayed_job = true
+  config.use_delayed_job = true
   
   # Facebook (for server-side facebooker, make identical changes at facebooker.yml)
   config.app_id = '402586589783096'
