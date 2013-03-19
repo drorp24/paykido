@@ -26,7 +26,7 @@
 <nav id="primary">
 	<ul>
 	    <li class="menu" id="consumers_menu" >
-	      	<%= link_to @consumer ? consumer_consumers_path(@consumer) : consumers_path, 'data-skip-pjax' => true do%>
+	      	<%= link_to @consumer ? welcome_consumer_path(@consumer) : consumers_welcome_path, 'data-skip-pjax' => true do%>
 	        	<span class="icon32 group"></span>
 	        	Family
 	      	<% end %>

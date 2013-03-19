@@ -10,7 +10,7 @@
 			<% if params[:controller] == 'purchases' %>
 				<% path = purchases_path  %>
 			<% elsif params[:controller] == 'consumers' %>
-				<% path = consumers_path %>
+				<% path = consumers_welcome_path %>
 			<% elsif params[:controller] == 'rules' %>
 				<% path = rules_path  %>
 			<% elsif params[:controller] == 'statistics' %>
@@ -44,7 +44,7 @@
     	<% current_payer.consumers.each do |consumer| %>
 	        <li class="consumer <%= "active" if (@consumer and @consumer.id == consumer.id) %>" data-consumer-id=<%= consumer.id %> >
 				<% if params[:controller] == 'consumers'  %>
-					<% path = consumer_consumers_path(consumer)  %>
+					<% path = welcome_consumer_path(consumer)  %>
 				<% elsif params[:controller] == 'statistics' %>
 					<% path = consumer_statistics_path(consumer)  %>
 				<% elsif params[:controller] == 'rules' %>

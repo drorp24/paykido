@@ -32,8 +32,8 @@ Paykido::Application.routes.draw do
 #    resources :tokens
 #  end
 
+  match 'consumers/welcome' => 'consumers#welcome'
   resources :consumers do
-    resources :consumers
     resources :rules
     resources :statistics
     resources :purchases do
@@ -44,6 +44,7 @@ Paykido::Application.routes.draw do
       post  'confirm'
     end
   end
+
 
   match 'g2s/ppp/:status' => 'g2s#ppp_callback'
   match 'g2s/dmn/:status' => 'g2s#dmn'
