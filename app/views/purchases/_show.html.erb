@@ -1,77 +1,57 @@
-<div class="box-header">
-    <td class="icon16 user"></td>     
-    <h1><%= t 'Purchase' %></h1>   
-<!--
-	<div id="manual_approval_buttons">
-	    <button id="approve" class="btn btn-success">
-	    	<i class="icon-thumbs-up icon-white"></i>
-	    	Approve
-		</button>
-	    <button id="decline" class="btn btn-danger">
-	    	<i class="icon-thumbs-down icon-white"></i>
-	    	Decline
-		</button>
-	</div>
--->
-</div>
-    
 <div class="box-content">
 
-    <div class="header clearfix well">
-        <div class="grid_6 content-header relative clearfix">
-            <p class="retailer text-info">                    
-					<%= @purchase.retailer.name %> 
-					<%= @purchase.id %>  
-			</p>
-			<p class="product text-warning"><%= @purchase.product %></p>
-            <p class="price"><%= "#{@purchase.amount} #{@purchase.currency}" %></p>
-        </div>
-        <div id="purchase_header_right" class="grid_5 content-header relative">
-            <p class="retailer_info">
-                <span class="star_rating"></span>
-                <span>
-                    <a href="#" class="small button">
-                        <span class="like" title="74% of our users recommended this merchant">74%</span>
-                    </a>
-                </span>            
-            </p>
-            <p><div class="progress"><span style="width: 70%;"></span></div></p>
+    <p class="sectiontitle">About the purchase</p>
 
-			<% if @purchase.requires_approval? %>
-				<div id="approval_buttons" class="btn-group">
-				    <%= link_to approve_purchase_path(@purchase), :class => "btn", 'data-skip-pjax' => true do %>
-				        <i class="icon-thumbs-up"></i> &nbsp;&nbsp;<%= t 'Approve' %>
-				    <% end %>
-				    <%= link_to decline_purchase_path(@purchase), :class => "btn", 'data-skip-pjax' => true do %>
-				        <i class="icon-thumbs-down"></i> &nbsp;&nbsp;<%= t 'Decline' %>
-				    <% end %>
+        <div class="purchase_info well">
+        	<div id="purchase_data">
+		    	<p>
+					<span class="retailer_text text-info"><%= @purchase.retailer.name %></span> 
+					<span class="approved_by">Approved by 74% of Paykido users</span>            		
+		    	</p>                   
+				<div class="progress progress-info">
+					<div class="bar" style="width: 20%"></div>
 				</div>
+				<div id="product_and_price">
+					<span class="product text-warning"><%= @purchase.product %></span>
+			        <span class="price"><%= number_to_currency @purchase.amount %></span>
+		        </div>
+	        </div>
 
-			<% else %>
-				<div id="approval_status">
-					<% if @purchase.authorized %>
-						<i class="bigicon-thumbs-up"></i>
-						<span>Approved by </span>
-					<% else %>
-						<i class="bigicon-thumbs-down"></i>
-						<span>Declined by </span>
-					<% end %>
-					<% if @purchase.manually_handled? %>
-						<span> Parent</span>
-					<% else %>
-						<span class="paykido"> Paykido</span>
-						<abbr class="why" title="<%= "#{@purchase.authorization_property} #{@purchase.authorization_value} was #{@purchase.authorization_type}" %>"> (why?)</abbr>
-					<% end %>
-				</div>
-			<% end %>     
-
-        </div>
-
+			<div id="status_or_approval_buttons">
+				<% if @purchase.requires_approval? %>
+					<div id="approval_buttons" class="btn-group">
+					    <%= link_to approve_purchase_path(@purchase), :class => "btn", 'data-skip-pjax' => true do %>
+					        <i class="icon-thumbs-up"></i> &nbsp;&nbsp;<%= t 'Approve' %>
+					    <% end %>
+					    <%= link_to decline_purchase_path(@purchase), :class => "btn", 'data-skip-pjax' => true do %>
+					        <i class="icon-thumbs-down"></i> &nbsp;&nbsp;<%= t 'Decline' %>
+					    <% end %>
+					</div>
+		
+				<% else %>
+					<div id="approval_status">
+						<% if @purchase.authorized %>
+							<i class="bigicon-thumbs-up"></i>
+							<span>Approved by </span>
+						<% else %>
+							<i class="bigicon-thumbs-down"></i>
+							<span>Declined by </span>
+						<% end %>
+						<% if @purchase.manually_handled? %>
+							<span> Parent</span>
+						<% else %>
+							<span class="paykido"> Paykido</span>
+							<abbr class="why" title="<%= "#{@purchase.authorization_property} #{@purchase.authorization_value} was #{@purchase.authorization_type}" %>"> (why?)</abbr>
+						<% end %>
+					</div>
+				<% end %> 
+			</div>    
     </div>
 
 
-    <p class="sectiontitle">About the purchase</p>
-    <table class="purchase_info">
+
+    <p class="sectiontitle">What would you like Paykido to do</p>
+   	<table class="purchase_info well">
         <tbody>
         <%= form_tag do %>
             <% if @purchase.properties %>    
@@ -100,13 +80,13 @@
                     <% if value != nil %>
                     	<div class="btn-group">
  	                        <a data-toggle="modal" id="blacklist" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="blacklisted" data-property="<%= property %>" data-value="<%= value %>" class="btn rule button">
-	                            <i class="icon-thumbs-down"></i>
+	                            <i class="icon-thumbs-down" data-toggle="tooltip" title="Decline"></i>
 	                        </a>
 	                        <a data-toggle="modal" id="reset" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="reset" data-property="<%= property %>" data-value="<%= value %>" class="btn rule button">
 	                            <i class="icon-stop"></i>
 	                        </a>
 	                        <a data-toggle="modal" id="whitelist" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="whitelisted" data-property="<%= property %>" data-value="<%= value %>" class="btn rule button">
-	                            <i class="icon-thumbs-up"></i>
+	                            <i class="icon-thumbs-up" data-toggle="tooltip" title="Approve"></i>
 	                        </a>
                         </div>
 					<% end %>
@@ -131,12 +111,6 @@
     	<p><%= link_to 'Transaction details', purchase_transaction_path(@purchase, transaction) %></p>
     <% end %>
 
-<!--  
-	<p class="sectiontitle">Purchase Status</p> 
-    <div class="approval_info">
-        <p>Approve by... at... reason:....</p>
-    </div>
--->
 <script type="text/javascript">
 
 $('document').ready(function() {

@@ -12,18 +12,125 @@ body {
     color: #0088CC;
 }
 
+.sectiontitle {
+    color: #888;
+    font-weight: 100;
+    text-shadow: 0 1px 0 #FFFFFF;
+    font-size: 18px;
+    margin-left: 10px;
+    text-transform: uppercase; 
+}
+
+#status_or_approval_buttons, #purchase_data {
+    display: inline;
+}
+
+#status_or_approval_buttons {
+    float: right;
+}
+
+#product_and_price {
+    display: inline;
+    line-height: 34px;
+}
+
+#purchase_header_left {
+    float: left;   
+}
+
+.retailer {
+    display: inline;
+}
+
+.approved_by {
+    float: right;
+    font-weight: 100;
+    line-height: 30px;
+}
+
+.progress.progress-info {
+ }
+
+.retailer_text {
+    font-size: 28px;
+    font-weight: 100;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+
+
+.price {
+    font-size: 18px;
+    text-shadow: 0 1px 0 #FFFFFF;
+    display: inline;
+    color: #888;
+/*    color: #4E83B3; */
+ /*   color: #5186B4; */
+/*    color: #778899; */
+
+}
+
+.product {
+    font-size: 18px;
+}
+
+.purchase_info {
+/*    border: 1px solid red; */
+}
+
+#purchase_header_right {
+    float: right;
+}
+
+#purchase_header_right img {
+
+    height: 91px;
+    width: 80px;
+    margin-top: 20px;
+    width: 68px;
+}
+
+#purchase_header_middle {
+}
+
+#rating {
+   float: left;
+   padding-top: 20px; 
+}
+
+
+#approval_rate {
+    float: right;
+    text-align: center;
+}
+
+#approval_rate #approved_by {
+}
+
+#approval_rate #rate {
+    font-weight: bold;
+    font-size: 48px;
+}
+
+#approval_rate #after_rate {
+}
+
+#approval_rate #tip {
+}
+
+#approval_buttons {
+}
+
 .why {
     font-size: 12px;
     color: #888;
 }
 
 #approval_buttons .btn {
-    width: 44%;   
 }
 
 #approval_status {
     margin-left: -12px;
-    margin-top: -12px;
+    margin-top: -10px;
 }
 
 #approval_status span {
@@ -268,22 +375,6 @@ tr.purchase_line:hover {
 #purchases_wrapper  {
     top: -20px;
 }
-.purchase_info {
-
-  min-height: 20px;
-  padding: 19px;
-  margin-bottom: 20px;
-  background-color: #f5f5f5;
-/*  background-color: #FFF; */
-  border: 1px solid #e3e3e3;
-  border-collapse: inherit;
-  -webkit-border-radius: 4px;
-     -moz-border-radius: 4px;
-          border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-}
 
 #purchases tr.active  {
   background-color: #497eac;
@@ -305,18 +396,6 @@ tr.purchase_line:hover {
 /*  color: #fff;
   text-shadow: 0 1px 0 #104266; */
 }
-
-.sectiontitle {
-    color: #888;
-    font-weight: 100;
-    text-shadow: 0 1px 0 #FFFFFF;
-    font-size: 18px;
-    margin-bottom: -12px;
-    margin-left: 10px;
-    margin-top: 24px;
-    text-transform: uppercase; 
-}
-
 
 .purchase_title {
     font-weight: 100;
@@ -716,7 +795,7 @@ button#decline {
         
 }
 .content-header p {
-   margin-top: 15px;     
+/*   margin-top: 15px; */     
 }
 
 .alert.alert-block .alert-heading {
@@ -1184,6 +1263,7 @@ body#paykido  a {
 .actions {
     float: right;
     margin-top: 3px;
+    margin-right: 20px;
 }
 /*
 .actions #whitelist {
@@ -1324,7 +1404,8 @@ body#paykido .tooltip.large {
 
 
 .purchase_logo img{
-    max-height: 26px;
+    max-height: 52px;
+    max-width: 100px;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -1378,10 +1459,6 @@ tr:hover {
     padding: 0px 6px; 
 }
 
-#approval_buttons {
-    margin-top: 0px;   
-}
-
 .approval.button {
 }
 .decline.button {
@@ -1419,30 +1496,14 @@ td.purchase_logo {
 }
 
 .purchase_line {
-    height: 50px;
+    height: 58px;
 }
 
-.purchase_info {
-    margin-top: 5%;    
-}
-
-/*
-.purchase_info tr {
-    border-bottom: 1px solid #FFFFFF;
-    border-top: 1px solid #FFFFFF;
-    
-}
-*/
 .purchase_info tbody tr:nth-child(2n+1) td {
     background: none;
 /*    border-bottom: 1px solid #FFFFF;
     border-top: 1px solid #FFFFFF; */
 
-}
-
-#purchase_header_right {
-    width: 220px;
-    margin-left: -50px;
 }
 
 td.approval_buttons {
@@ -1553,29 +1614,6 @@ td.approval_buttons {
     width: 20%;
 }
 
-.retailer {
-    font-size: 22px;
-    text-shadow: 0 1px 0 #FFFFFF;
-    margin-top: 7%;
-
-
-}
-.price {
-    font-size: 22px;
-    text-shadow: 0 1px 0 #FFFFFF;
-/*    color: #4E83B3; */
- /*   color: #5186B4; */
-/*    color: #778899; */
-
-}
-
-.retailer {
-    font-size: 18px;
-    text-shadow: 0 1px 0 #FFFFFF;
-}
-.product {
-    font-size: 18px;
-}
 .formtitle {
     font-variant: small-caps;
     margin-bottom: 0px;
