@@ -5,10 +5,11 @@
 	<div class="span2">
 		From <%= rule.donator.blank? ? current_payer.name : rule.donator %>
 	</div>
+	<div class="spanicon">&nbsp;</div>
 	<div class="span2">
 		<%= render 'rule_description', :rule => rule %>
 	</div>
-	<div class="span3">
+	<div class="span3minus">
 		<% if !rule.occasion.blank? %>
 			<%= "#{rule.occasion}" %>
 		<% else %>

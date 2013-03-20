@@ -1,7 +1,7 @@
 /* Paykido color: #0088CC */
 
 body {   
-    height: 600px;
+/*    height: 600px; */
     background:url("/spina/img/bg.png");
     font-family:"Segoe UI", Helvetica, Arial;
     font-size:14px;
@@ -10,6 +10,10 @@ body {
 
 .paykido {
     color: #0088CC;
+}
+
+.span3minus {
+    width: 245px;
 }
 
 .sectiontitle {
@@ -21,17 +25,39 @@ body {
     text-transform: uppercase; 
 }
 
+.rule_status i {
+    margin-left: 5px;
+}
+
+#purchase_data #first_line {
+    
+}
+
+#star_rating {
+    float: right;
+}
+
+#purchase_data #second_line {
+    margin-top: 35px;
+    margin-bottom: -8px;
+}
+
+#approval_status i {
+    margin-top: -14px;
+    margin-bottom: -14px;    
+}
+
 #status_or_approval_buttons, #purchase_data {
     display: inline;
 }
 
 #status_or_approval_buttons {
-    float: right;
 }
 
 #product_and_price {
-    display: inline;
-    line-height: 34px;
+    text-shadow: 0 1px 0 #FFFFFF;
+    color: #888;
+    margin-left: 5px;
 }
 
 #purchase_header_left {
@@ -43,7 +69,6 @@ body {
 }
 
 .approved_by {
-    float: right;
     font-weight: 100;
     line-height: 30px;
 }
@@ -57,21 +82,6 @@ body {
     text-shadow: 0 1px 0 #FFFFFF;
 }
 
-
-.price {
-    font-size: 18px;
-    text-shadow: 0 1px 0 #FFFFFF;
-    display: inline;
-    color: #888;
-/*    color: #4E83B3; */
- /*   color: #5186B4; */
-/*    color: #778899; */
-
-}
-
-.product {
-    font-size: 18px;
-}
 
 .purchase_info {
 /*    border: 1px solid red; */
@@ -118,6 +128,7 @@ body {
 }
 
 #approval_buttons {
+    float: right;
 }
 
 .why {
@@ -126,6 +137,8 @@ body {
 }
 
 #approval_buttons .btn {
+    padding-left: 6px;
+    padding-right: 10px;
 }
 
 #approval_status {
@@ -133,8 +146,13 @@ body {
     margin-top: -10px;
 }
 
+.purchase_text {
+    font-size: 18px;
+    font-weight: 100;
+}
+
 #approval_status span {
-    line-height: 52px; 
+    line-height: 25px; 
     font-weight: 100;  
 }
 
@@ -399,8 +417,11 @@ tr.purchase_line:hover {
 
 .purchase_title {
     font-weight: 100;
-    font-size: 14px;
+    font-size: 12px;
     text-transform: uppercase;
+    text-align: end;
+    color: #666;
+    width: 105px;
 }
 
 .purchase_text {
@@ -1404,7 +1425,7 @@ body#paykido .tooltip.large {
 
 
 .purchase_logo img{
-    max-height: 52px;
+    max-height: 60px;
     max-width: 100px;
     display: block;
     margin-left: auto;
@@ -1496,7 +1517,7 @@ td.purchase_logo {
 }
 
 .purchase_line {
-    height: 58px;
+    height: 65px;
 }
 
 .purchase_info tbody tr:nth-child(2n+1) td {
@@ -1539,7 +1560,7 @@ td.approval_buttons {
 }
 
 .purchase_height {
-    height: 939px;
+    height: 555px;
 }
 
 .allowance.date_picker {

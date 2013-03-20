@@ -17,7 +17,7 @@
 	<div class="box grid_12" > 	
 		
 			<div class="rule_background">			
-				<h1 class="rule_heading"><%= "How much" %></h1>
+				<h1 class="rule_heading"><%= "How much, why, when" %></h1>
 				<% if @consumer %>
 					<a id="newrule" href="#" class="btn btn-info inline-submit" data-skip-pjax="true">
 						<i class="icon-plus icon-white"></i>
@@ -31,7 +31,7 @@
 				<%= render :partial => 'rule', :locals => {:rule => rule} unless (rule.singular? and singular_rule_already_included) %>
 				<% singular_rule_already_included = true if rule.singular? %> 
 			<% end %>
-			
+				
 			<div class="rule_background">
 				<h1 class="rule_heading">What</h1>			
 			</div>
@@ -40,15 +40,6 @@
 				<%= render 'rule', :rule => rule %> 
 			<% end %>
 			
-			<div class="rule_background">
-				<h1 class="rule_heading">When</h1>
-				<span class="label label-important coming_soon">Coming Soon!</span>
-			</div>
-			
-			<% for rule in @rules.time %>
-				<%= render 'rule', :rule => rule %> 
-			<% end %>
-	
 			<div class="rule_background">
 				<h1 class="rule_heading">Where</h1>
 				<span class="label label-important coming_soon">Coming Soon!</span>
@@ -59,20 +50,28 @@
 			<% end %>
 	
 			<div class="rule_background">
-				<h1 class="rule_heading">How much per purchase</h1>
+				<h1 class="rule_heading">At what time</h1>
+				<span class="label label-important coming_soon">Coming Soon!</span>
 			</div>
 			
+			<% for rule in @rules.time %>
+				<%= render 'rule', :rule => rule %> 
+			<% end %>
+			<div class="rule_background">
+				<h1 class="rule_heading">Per purchase</h1>
+			</div>
+
 			<% for rule in @rules.thresholds %>
 				<%= render 'rule', :rule => rule %> 
-			<% end %>		
-		
+			<% end %>				
+
 	</div>
 	</div>
 
 </section>
 
 <% if @consumer %>
-<div id="newrule_content">
+<div id="newrule_content" style="display: none">
 	<% if rule = @consumer.allowance_rule and !rule.initialized? %>
 		<p class="new_rule_line">
 			<span><i class="bigicon-calendar"></i></span>
@@ -132,7 +131,7 @@
 		<p class="popover_instructions">Then <strong>Add</strong> as many as you like with this button.</p>
 	<% end %>
 </div>
-<div id="newrule_title">
+<div id="newrule_title" style="display: none">
 	<%= "How much - and why" %>
 	<p class="popover-title sub-title">Use Paykido to tell kids what they did to deserve their allowance!</p>
 </div>

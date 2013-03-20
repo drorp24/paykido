@@ -1,7 +1,8 @@
+<% rule_expired = true if rule.expired? %>
 <div class="accordion-group rule_line clearfix">
 
 	<div class="accordion-heading row">
-		<div class="accordion-toggle <%= (rule.initialized? or !current_payer.registered?) ? 'initialized_rule' : '' %>" data-toggle="collapse" href=<%= "#ruleEdit_#{rule.id}" %> data-parent="#rules"> 
+		<div class="accordion-toggle <%= (!current_payer.registered? or rule.initialized? or rule_expired) ? 'initialized_rule' : '' %>" data-toggle="collapse" href=<%= "#ruleEdit_#{rule.id}" %> data-parent="#rules"> 
 	
 			<div class="span1">
 				<%= rule.consumer.name %>
@@ -38,7 +39,7 @@
 			    		<%= link_to stop_rule_path(rule.id), confirm: 'Are you sure you want to stop this rule?', method: :put, 'data-skip-pjax' => true, 'data-property' => rule.property, class: 'btn btn-small action_button' do %>
 							<i class="icon-stop "></i> Stop
 						<% end %>
-					<% elsif rule.recurring? and rule.expired? %>
+					<% elsif rule_expired %>
 			    		<%= link_to restart_rule_path(rule.id), confirm: 'Are you sure you want to restart this rule?', method: :put, 'data-skip-pjax' => true, 'data-property' => rule.property, class: 'btn btn-small action_button' do %>
 							<i class="icon-play"></i> Restart
 						<% end %>

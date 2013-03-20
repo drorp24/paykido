@@ -28,7 +28,7 @@ body#login {
 nav#primary {
   background: url(../img/nav_bg.png);
   float: left;
-  height: 105%;
+  min-height: 100%;
   width: 100px;
 }
 
@@ -83,7 +83,7 @@ nav#primary ul li a:hover .icon32, nav#primary ul li.active a .icon32 {
 nav#secondary {
   background: url(../img/nav_secondary_bg.png);
   float: left;
-  height: 105%;
+  min-height: 100%;
   width: 254px;
 }
 
@@ -142,9 +142,9 @@ nav#secondary ul li:first-child a {
 /* Main section */
 
 section#maincontainer {
-  height: 105%;
+  height: 93%; 
   overflow: auto;
-  -webkit-overflow-scrolling: touch;
+/*  -webkit-overflow-scrolling: touch; */
   padding-left: 18px;
 }
 

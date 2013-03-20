@@ -48,7 +48,7 @@
             </td>
             <td class="purchase_details">
                 <p class="purchase_top_line">
-                    <span class="text-warning"><%= purchase.product  %></span>
+                    <span><%= purchase.product  %></span>
                     <span>by</span>
                     <span class="text-info"><%= purchase.retailer.name %></span>
                 </p>
@@ -113,6 +113,7 @@ $(document).ready(function() {
 	// DataTables (http://datatables.net/)
 	pTable = $('#purchases').dataTable( {
         "sPaginationType": "full_numbers",
+        "iDisplayLength": 6,
         "aoColumnDefs": [
 	        { "bVisible": false, "aTargets": [ 0,1,2 ] },
 	        { "sWidth": "0%", "aTargets": [ 3]},

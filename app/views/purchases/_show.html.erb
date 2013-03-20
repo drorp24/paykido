@@ -4,53 +4,53 @@
 
         <div class="purchase_info well">
         	<div id="purchase_data">
-		    	<p>
+		    	<p id="first_line" class="clearfix">
 					<span class="retailer_text text-info"><%= @purchase.retailer.name %></span> 
-					<span class="approved_by">Approved by 74% of Paykido users</span>            		
-		    	</p>                   
-				<div class="progress progress-info">
-					<div class="bar" style="width: 20%"></div>
-				</div>
-				<div id="product_and_price">
-					<span class="product text-warning"><%= @purchase.product %></span>
-			        <span class="price"><%= number_to_currency @purchase.amount %></span>
-		        </div>
-	        </div>
-
-			<div id="status_or_approval_buttons">
-				<% if @purchase.requires_approval? %>
-					<div id="approval_buttons" class="btn-group">
-					    <%= link_to approve_purchase_path(@purchase), :class => "btn", 'data-skip-pjax' => true do %>
-					        <i class="icon-thumbs-up"></i> &nbsp;&nbsp;<%= t 'Approve' %>
-					    <% end %>
-					    <%= link_to decline_purchase_path(@purchase), :class => "btn", 'data-skip-pjax' => true do %>
-					        <i class="icon-thumbs-down"></i> &nbsp;&nbsp;<%= t 'Decline' %>
-					    <% end %>
-					</div>
-		
-				<% else %>
-					<div id="approval_status">
-						<% if @purchase.authorized %>
-							<i class="bigicon-thumbs-up"></i>
-							<span>Approved by </span>
+					<span id="product_and_price">
+						<span class="product"><%= @purchase.product %></span>
+				        <span class="price"><%= number_to_currency @purchase.amount %></span>
+			        </span>
+		        </p>
+		        <p id="second_line">
+					<span id="status_or_approval_buttons">
+						<% if @purchase.requires_approval? %>
+							<span class="approved_by">
+								<span class="label label-inverse">74% </span> 
+								<span> of our users approved Zynga</span>
+							</span>            		
+							<span id="approval_buttons" class="btn-group">
+							    <%= link_to approve_purchase_path(@purchase), :class => "btn", 'data-skip-pjax' => true do %>
+							        <i class="icon-thumbs-up"></i> &nbsp;&nbsp;<%= t 'Approve' %>
+							    <% end %>
+							    <%= link_to decline_purchase_path(@purchase), :class => "btn", 'data-skip-pjax' => true do %>
+							        <i class="icon-thumbs-down"></i> &nbsp;&nbsp;<%= t 'Decline' %>
+							    <% end %>
+							</span>
+				
 						<% else %>
-							<i class="bigicon-thumbs-down"></i>
-							<span>Declined by </span>
-						<% end %>
-						<% if @purchase.manually_handled? %>
-							<span> Parent</span>
-						<% else %>
-							<span class="paykido"> Paykido</span>
-							<abbr class="why" title="<%= "#{@purchase.authorization_property} #{@purchase.authorization_value} was #{@purchase.authorization_type}" %>"> (why?)</abbr>
-						<% end %>
-					</div>
-				<% end %> 
-			</div>    
-    </div>
+							<span id="approval_status">
+								<% if @purchase.authorized %>
+									<i class="bigicon-thumbs-up"></i>
+									<span>Approved by </span>
+								<% else %>
+									<i class="bigicon-thumbs-down"></i>
+									<span>Declined by </span>
+								<% end %>
+								<% if @purchase.manually_handled? %>
+									<span> Parent</span>
+								<% else %>
+									<span class="paykido"> Paykido</span>
+									<abbr class="why" title="<%= "#{@purchase.authorization_property} #{@purchase.authorization_value} was #{@purchase.authorization_type}" %>"> (why?)</abbr>
+								<% end %>
+							</span>
+						<% end %> 
+					</span>    
+		    	</p>
+	    	</div>                   
+    	</div>
 
 
-
-    <p class="sectiontitle">What would you like Paykido to do</p>
+    <p class="sectiontitle">How should Paykido treat similar purchases</p>
    	<table class="purchase_info well">
         <tbody>
         <%= form_tag do %>
@@ -66,7 +66,7 @@
             				<i class="bigicon-placeholder"></i>
         				<% end %>
                     </td>    	
-                    <td class="purchase_title text-info"><%= t property %>:</td>
+                    <td class="purchase_title"><%= t property %>&nbsp;&nbsp;</td>
                     <% if info = Info.find_by_key_and_value(property, value) and info.logo %>
 	                    <td class="purchase_logo">
                             <%= image_tag info.logo, {:rel => "popover", :title => info.title, :data => {:content => info.description}} %>

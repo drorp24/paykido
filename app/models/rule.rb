@@ -219,7 +219,7 @@ class Rule < ActiveRecord::Base
   def self.rule_of(consumer, property)
     applicable_rules = self.where("consumer_id = ? and property = ?", consumer.id, property)
     if applicable_rules.any?
-      allowance_rule = applicable_rules.last          # ToDo: think!
+      applicable_rules.last          # ToDo: think!
     else
       nil
     end
@@ -229,13 +229,26 @@ class Rule < ActiveRecord::Base
   # ToDo: DELETE. Use only the rule object, dont create a special hash, just reducndant.
   def self.allowance_of(consumer)
 
+    @allowance = 
+    { :amount => 0, 
+      :period => "",
+      :weekly => false,
+      :monthly => false,
+      :weekly_occurrence => nil,
+      :monthly_occurrence => nil,
+      :next_occurrence => nil,
+      :start_date => nil,
+      :number_of_grants => 0,
+      :so_far_accumulated => 0,
+      :prev_allowance_acc => 0 }
+
     unless consumer.payer.rules_require_registration
 
-      applicable_rules = self.where("consumer_id = ? and property = ?", consumer.id, '_allowance')
-        if applicable_rules.any?
-          allowance_rule = applicable_rules.last          # ToDo: think!
-    
-          @allowance_of = 
+        allowance_rule = allowance_rule_of(consumer)          
+        prev_allowance_sum = consumer.prev_allowance_sum.to_i
+  
+        unless allowance_rule.expired?
+          @allowance = 
           { :amount => val = allowance_rule.value.to_i, 
             :period => allowance_rule.period,
             :weekly => allowance_rule.weekly?,
@@ -243,41 +256,18 @@ class Rule < ActiveRecord::Base
             :weekly_occurrence => allowance_rule.weekly_occurrence,
             :monthly_occurrence => allowance_rule.monthly_occurrence,
             :next_occurrence => allowance_rule.schedule.next_occurrence,
-            :prev_allowance_acc => consumer.prev_allowance_sum.to_i,
             :start_date => allowance_rule.schedule.start_date,
             :number_of_grants => grants = allowance_rule.effective_occurrences,
-            :so_far_accumulated => grants * val }
+            :so_far_accumulated => grants * val,
+            :prev_allowance_acc => prev_allowance_sum }
         else
-          @allowance_of = 
-          { :amount => 0, 
-            :period => "",
-            :weekly => false,
-            :monthly => false,
-            :weekly_occurrence => nil,
-            :monthly_occurrence => nil,
-            :next_occurrence => nil,
-            :prev_allowance_acc => 0,
-            :start_date => nil,
-            :number_of_grants => 0,
-            :so_far_accumulated => 0 }
-          end
-
-    else
-
-        @allowance_of = 
-        { :amount => 0, 
-          :period => "",
-          :weekly => false,
-          :monthly => false,
-          :weekly_occurrence => nil,
-          :monthly_occurrence => nil,
-          :next_occurrence => nil,
-          :prev_allowance_acc => 0,
-          :start_date => nil,
-          :number_of_grants => 0,
-          :so_far_accumulated => 0 }
+          @allowance[:prev_allowance_acc] = prev_allowance_sum 
+        end
+      
     end      
 
+    @allowance
+    
   end
   
   def self.under_rule_of(consumer)
