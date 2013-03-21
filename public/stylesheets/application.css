@@ -177,7 +177,8 @@ body {
 
 #approval_status span {
     line-height: 25px; 
-    font-weight: 100;  
+    font-weight: 100;
+    font-size: 12px;  
 }
 
 #why_register.hero-unit h1 {
