@@ -16,7 +16,7 @@ body {
 .approved_by .label {
     font-size: 22px;
     font-weight: 100;
-    padding: 12px;
+    padding: 9px;
     line-height: 30px;
     
 }
@@ -26,7 +26,7 @@ body {
 }
 
 #purchase_data {
-    width: 212px;
+    width: 218px;
 }
 
 #rating {
@@ -41,7 +41,8 @@ body {
     width: 100px;
     margin-left: 20px;
     margin-top: 15px;
-    width: 80px;
+    margin-right: -10px;
+    width: 85px;
     color: #888;
 }
 
