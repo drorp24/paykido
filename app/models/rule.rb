@@ -26,6 +26,13 @@ class Rule < ActiveRecord::Base
       self.property == '_allowance' or self.property == '_gift' or  self.property == 'birthday' or  self.property == 'chores'or  self.property == 'achievement' or self.property == 'retailer' or  self.property == 'esrb_rating' or self.property == 'pegi_rating' or self.property == 'category' or self.property == 'title' or self.property == 'under' or self.property == 'over'
   end
 
+  def self.whitelist_rate(property, value)
+    return @rate if @rate
+    whitelisting_payers_count = self.joins(:consumer).where("property = ? and value = ? and status = ?", property, value, "whitelisted").group('payer_id').count.count                                
+    payers_count = Payer.count
+    @rate = (whitelisting_payers_count.to_f / payers_count.to_f) * 100
+  end
+
   def self.new_allowance_rule(last_allowance_rule)
     rule = self.new
     rule.consumer_id =      last_allowance_rule.consumer_id,

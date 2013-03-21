@@ -12,6 +12,39 @@ body {
     color: #0088CC;
 }
 
+
+.approved_by .label {
+    font-size: 22px;
+    font-weight: 100;
+    padding: 12px;
+    line-height: 30px;
+    
+}
+
+#rating, #purchase_data {
+    display: inline-block;
+}
+
+#purchase_data {
+    width: 212px;
+}
+
+#rating {
+    position: relative;
+    bottom: -3px;
+    left: 21px;
+}
+
+#rating_text {
+    float: right;
+    font-size: 11px;
+    width: 100px;
+    margin-left: 20px;
+    margin-top: 15px;
+    width: 80px;
+    color: #888;
+}
+
 .span3minus {
     width: 245px;
 }
@@ -20,7 +53,7 @@ body {
     color: #888;
     font-weight: 100;
     text-shadow: 0 1px 0 #FFFFFF;
-    font-size: 18px;
+    font-size: 16px;
     margin-left: 10px;
     text-transform: uppercase; 
 }
@@ -38,8 +71,6 @@ body {
 }
 
 #purchase_data #second_line {
-    margin-top: 35px;
-    margin-bottom: -8px;
 }
 
 #approval_status i {
@@ -47,11 +78,9 @@ body {
     margin-bottom: -14px;    
 }
 
-#status_or_approval_buttons, #purchase_data {
-    display: inline;
-}
-
 #status_or_approval_buttons {
+    position: relative;
+    top: 10px;
 }
 
 #product_and_price {
@@ -85,6 +114,7 @@ body {
 
 .purchase_info {
 /*    border: 1px solid red; */
+    padding-bottom: 10px;
 }
 
 #purchase_header_right {
@@ -101,12 +131,6 @@ body {
 
 #purchase_header_middle {
 }
-
-#rating {
-   float: left;
-   padding-top: 20px; 
-}
-
 
 #approval_rate {
     float: right;
@@ -128,8 +152,7 @@ body {
 }
 
 #approval_buttons {
-    float: right;
-}
+ }
 
 .why {
     font-size: 12px;
@@ -137,13 +160,13 @@ body {
 }
 
 #approval_buttons .btn {
-    padding-left: 6px;
-    padding-right: 10px;
+    width: 80px;
 }
 
 #approval_status {
-    margin-left: -12px;
-    margin-top: -10px;
+   margin-left: -12px;
+   position: relative;
+   top: 5px;
 }
 
 .purchase_text {
@@ -1425,7 +1448,7 @@ body#paykido .tooltip.large {
 
 
 .purchase_logo img{
-    max-height: 60px;
+    max-height: 52px;
     max-width: 100px;
     display: block;
     margin-left: auto;
@@ -1517,7 +1540,7 @@ td.purchase_logo {
 }
 
 .purchase_line {
-    height: 65px;
+    height: 62px;
 }
 
 .purchase_info tbody tr:nth-child(2n+1) td {

@@ -1,10 +1,10 @@
 <div class="box-content">
 
-    <p class="sectiontitle">About the purchase</p>
+    <p class="sectiontitle">See what other users did</p>
 
         <div class="purchase_info well">
         	<div id="purchase_data">
-		    	<p id="first_line" class="clearfix">
+		    	<p id="first_line">
 					<span class="retailer_text text-info"><%= @purchase.retailer.name %></span> 
 					<span id="product_and_price">
 						<span class="product"><%= @purchase.product %></span>
@@ -14,10 +14,6 @@
 		        <p id="second_line">
 					<span id="status_or_approval_buttons">
 						<% if @purchase.requires_approval? %>
-							<span class="approved_by">
-								<span class="label label-inverse">74% </span> 
-								<span> of our users approved Zynga</span>
-							</span>            		
 							<span id="approval_buttons" class="btn-group">
 							    <%= link_to approve_purchase_path(@purchase), :class => "btn", 'data-skip-pjax' => true do %>
 							        <i class="icon-thumbs-up"></i> &nbsp;&nbsp;<%= t 'Approve' %>
@@ -46,11 +42,20 @@
 						<% end %> 
 					</span>    
 		    	</p>
-	    	</div>                   
+	    	</div>  
+			<% retailer_rating = Rule.whitelist_rate("retailer", @purchase.properties['retailer']) %>
+	    	<div id="rating"> 
+    			<span class="approved_by">
+					<p class="label label-info"><%= number_to_percentage(retailer_rating, :precision => 0) %></p> 
+				</span>            							
+            </div> 
+            <div id="rating_text">
+				<span> <%= number_to_percentage(retailer_rating, :precision => 0) %> of Paykido users approved that merchant</span>            	
+        	</div>  
     	</div>
 
 
-    <p class="sectiontitle">How should Paykido treat similar purchases</p>
+    <p class="sectiontitle">Tell Paykido what to do with similar purchases</p>
    	<table class="purchase_info well">
         <tbody>
         <%= form_tag do %>
