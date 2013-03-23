@@ -4,7 +4,6 @@
 	<% elsif rule.value.blank? and rule.supported? %>
 		(Click to set)
 	<% elsif rule.value.blank? and !rule.supported? %>
-		(Coming soon...)  
 	<% elsif rule.logo %>
 		<img src="<%= "/images/#{rule.logo}" %>" rel="<%= (rule.value_info) ? 'popover' : '' %>" title="<%= (rule.value_info) ? rule.value_info.title : '' %>" data-content="<%= (rule.value_info) ? rule.value_info.description : '' %>" />
 	<% elsif rule.monetary? %>

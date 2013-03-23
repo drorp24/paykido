@@ -17,13 +17,14 @@
 	<div class="box grid_12" > 	
 		
 			<div class="rule_background">			
-				<h1 class="rule_heading"><%= "How much, why, when" %></h1>
+				<h1 class="rule_heading"><%= "How much" %></h1>
 				<% if @consumer %>
 					<a id="newrule" href="#" class="btn btn-info inline-submit" data-skip-pjax="true">
 						<i class="icon-plus icon-white"></i>
 						<span class="rule_button_text"> Add</span>
 					</a>
 				<% end %>
+				<p class="rule_explanation">Let them know <b>what they did </b> to deserve it,</b> <b>who</b> gave them that and <b> when </b> they can they use each part.</p>			
 			</div>
 			
 			<% singular_rule_already_included = false %> 
@@ -33,16 +34,20 @@
 			<% end %>
 				
 			<div class="rule_background">
-				<h1 class="rule_heading">What</h1>			
+				<h1 class="rule_heading">What</h1>
+				<p class="rule_explanation">Define what can they buy - by <b>category</b>, <b>ESRB rating</b>, Paykido <b>users' score</b>, purchase <b>amount</b> and many more.</p>			
 			</div>
 			
 			<% for rule in @rules.what %>
 				<%= render 'rule', :rule => rule %> 
 			<% end %>
+			<% for rule in @rules.thresholds %>
+				<%= render 'rule', :rule => rule %> 
+			<% end %>				
 			
 			<div class="rule_background">
 				<h1 class="rule_heading">Where</h1>
-				<span class="label label-important coming_soon">Coming Soon!</span>
+				<p class="rule_explanation">Can they use their <b>mobile</b> to buy? Should they shop only at <b>home</b>? Define it here (coming soon).</p>			
 			</div>
 			
 			<% for rule in @rules.location %>
@@ -50,20 +55,13 @@
 			<% end %>
 	
 			<div class="rule_background">
-				<h1 class="rule_heading">At what time</h1>
-				<span class="label label-important coming_soon">Coming Soon!</span>
+				<h1 class="rule_heading">When</h1>
+				<p class="rule_explanation">Can they shop at <b>night</b>? During <b>school hours</b>? (coming soon).</p>			
 			</div>
 			
 			<% for rule in @rules.time %>
 				<%= render 'rule', :rule => rule %> 
 			<% end %>
-			<div class="rule_background">
-				<h1 class="rule_heading">Per purchase</h1>
-			</div>
-
-			<% for rule in @rules.thresholds %>
-				<%= render 'rule', :rule => rule %> 
-			<% end %>				
 
 	</div>
 	</div>
@@ -168,7 +166,7 @@ $('document').ready(function() {
 		$("#rules .action_button[data-property='_allowance']").popover({
 			placement:	"top",
 			title:	 	"Start here",
-			content: 	'<%= "Click to define an allowance rule for #{@consumer.name}." %>'
+			content: 	"<%= "Click to define an allowance for #{@consumer.name}" %>"
 		});
 		$("#rules .action_button[data-property='_allowance']").popover('show');
 

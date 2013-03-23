@@ -13,6 +13,30 @@ body {
 }
 
 
+.box-content .rule_background h1.rule_heading  {
+    display: inline;
+    line-height: 45px;
+    color: #0088CC;
+    color: #999;
+    font-weight: bold;
+    font-size: 32px;
+    margin-top: 12px;
+    margin-left: 22px;
+    text-shadow: 0 1px 0 #FFFFFF;
+    text-transform: uppercase;
+}
+
+.rule_explanation {
+    margin-top: -5px;
+    margin-left: 24px;
+    text-shadow: 0 1px 0 #FFFFFF;
+    color: #333;
+}
+
+.rule_explanation b {
+    color: #555;
+}
+
 .approved_by .label {
     font-size: 22px;
     font-weight: 100;
@@ -635,11 +659,6 @@ h3.popover-title {
 
 /* Additions of feature/rules that are not in master. Break the purchases page */
 
-.rule_background h1 {
-    display: inline;
-    line-height: 62px;
-}
-
 .inline-submit {
     float: right;
     margin-right: 40px;
@@ -744,16 +763,6 @@ label.select.optional.control-label {
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   height: 68px;
-}
-
-.rule_heading {
-    color: #0088CC;
-    font-weight: 100;
-    font-size: 26px;
-    margin-top: 12px;
-    margin-left: 22px;
-    text-shadow: 0 1px 0 #FFFFFF;
-
 }
 
 /* the following was added in feature/rules and breaks purchases query hence starred:
