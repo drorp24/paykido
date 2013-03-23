@@ -145,8 +145,8 @@ class Consumer < ActiveRecord::Base
   
 # allowance.schedule.add_recurrence_time(DateTime.new(params[:year],params[:month],params[:day]))
 
-  def set_rules!
-    Rule.set_for!(self)
+  def set_rules!(params)
+    Rule.set_for!(self, params)
   end
 
 

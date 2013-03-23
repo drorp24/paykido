@@ -25,8 +25,8 @@ class ConsumerController < ApplicationController
  
   #############################################
   
-  def register_callback  
-      
+  def register_callback 
+          
     find_or_create_consumer_and_payer  
 
     unless @payer.errors.any?   
@@ -65,7 +65,7 @@ class ConsumerController < ApplicationController
       end
 
       unless @consumer.rules.any?
-        @consumer.set_rules!
+        @consumer.set_rules!(params)
       end
 
     elsif current_facebook_user # probably never true 

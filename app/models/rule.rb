@@ -100,14 +100,14 @@ class Rule < ActiveRecord::Base
   ####  Change if needed      ####
   scope :monetary,    where("category = ?", "how much")
   scope :thresholds,  where("category = ?", "thresholds")
-  scope :what,        where("category = ? and status != ?", "what", "reset")
+  scope :what,        where("category = ? ", "what")
   scope :time,        where("category = ?", "when")
   scope :location,    where("category = ?", "where")
   
   scope :of_allowance,   where("property = ?", "_allowance")
   
   def initialized?
-    self.value.blank? or self.value == '0'
+    self.value.blank? or self.value == '0' or self.status == 'reset'
   end
 
   def monetary?
@@ -159,20 +159,26 @@ class Rule < ActiveRecord::Base
   def self.achievement
     {:property => 'achievement', :category => "how much"}
   end  
-  def self.retailer(consumer)
-    {:property => 'retailer', :category => "what", :status => 'whitelisted', :value => (consumer.purchases.any?) ? consumer.purchases.last.retailer.name : "Zynga" }
+  def self.retailer(retailer)
+    {:property => 'retailer', :category => "what", :value => retailer, :status => 'reset'}
   end  
-  def self.pegi_rating(consumer)
-    {:property => 'pegi_rating', :category => "what", :status => 'whitelisted', :value => (consumer.purchases.any?) ? consumer.purchases.last.properties['pegi_rating'] : "3" }
+  def self.title(title)
+    {:property => 'title', :category => "what", :value => title, :status => 'reset'}
   end  
-  def self.esrb_rating(consumer)
-    {:property => 'esrb_rating', :category => "what", :status => 'whitelisted', :value => (consumer.purchases.any?) ? consumer.purchases.last.properties['esrb_rating'] : "E" }
+  def self.pegi_rating(pegi_rating)
+    {:property => 'pegi_rating', :category => "what", :value => pegi_rating, :status => 'reset'}
+  end  
+  def self.esrb_rating(esrb_rating)
+    {:property => 'esrb_rating', :category => "what", :value => esrb_rating, :status => 'reset'}
+  end  
+  def self.category(category)
+    {:property => 'category', :category => "what", :value => category, :status => 'reset'}
   end  
   def self.time1
     {:property => 'time', :category => "when"}
   end  
   def self.location1
-    {:property => 'location', :category => "where", :value => "home"}
+    {:property => 'location', :category => "where"}
   end  
   def self.over
     {:property => 'over', :category => "thresholds"}
@@ -181,16 +187,18 @@ class Rule < ActiveRecord::Base
     {:property => 'under', :category => "thresholds"}
   end  
 
-  def self.set_for!(consumer)
+  def self.set_for!(consumer, params)
     consumer.rules.create!(self.allowance)
     consumer.rules.create!(self.gift)
     consumer.rules.create!(self.birthday)
     consumer.rules.create!(self.chores)
     consumer.rules.create!(self.request)
     consumer.rules.create!(self.achievement)
-#    consumer.rules.create!(self.retailer(consumer))
-#    consumer.rules.create!(self.pegi_rating(consumer))
-#    consumer.rules.create!(self.esrb_rating(consumer))
+    consumer.rules.create!(self.retailer(params[:merchant]))
+    consumer.rules.create!(self.title(params[:app]))
+    consumer.rules.create!(self.category(Title.category(params[:app])))
+#    consumer.rules.create!(self.pegi_rating(Title.pegi_rating(params[:app])))     # simply to not create too much template rules
+#    consumer.rules.create!(self.esrb_rating(Title.esrb_rating(params[:app])))
     consumer.rules.create!(self.time1)
     consumer.rules.create!(self.location1)
     consumer.rules.create!(self.over)

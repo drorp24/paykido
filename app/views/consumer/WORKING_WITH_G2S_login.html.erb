@@ -63,7 +63,7 @@
 	<fb:registration  
 		width="290" 
 		fb_register="true"
-		redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>&merchant=<%= params[:merchant] %>&app=<%= params[:app] %>"  
+		redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>"  
 		fields='[
 			{ "name":"name"},
 			{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
@@ -79,7 +79,7 @@
 	<fb:registration  
 		width="590" 
 		fb_register="true"
-		redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>&merchant=<%= params[:merchant] %>&app=<%= params[:app] %>"  
+		redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>"  
 		fields='[
 			{ "name":"name"},
 			{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
