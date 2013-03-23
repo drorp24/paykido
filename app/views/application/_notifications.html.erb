@@ -122,9 +122,10 @@
 <div id="approval_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
 	<% purchase = Purchase.find(params[:purchase]) %>
-	<% retailer = purchase.retailer.name %>
-	<% times = purchase.approval_counter('retailer') %>
-    <% if times >= Paykido::Application.config.offer_rule_or_registration_after.to_i %>
+	<% retailer = purchase.properties['retailer'] %>
+	<% rule_exists = purchase.consumer.whitelisted?('retailer', retailer) or purchase.consumer.blacklisted?('retailer', retailer) %>
+	<% times = purchase.approval_counter('retailer') unless rule_exists %>
+    <% if !rule_exists and times >= Paykido::Application.config.offer_rule_or_registration_after.to_i %>
     	<h4 class="alert-heading"><%= "Would you like Paykido to always approve purchases from #{retailer}?" %></h4>
     	<span><%= "You approved #{retailer} #{pluralize(times, 'time')} already." %></span>
     	<% if current_payer.registered_or_waived %>
@@ -140,10 +141,15 @@
     		<% if @consumer and @consumer.no_allowance? %>
 	    		<span><%= "#{@consumer.name} has no allowance defined yet. Would you like to set it now?" %></span>
 				<span><%= link_to "Set allowance", consumer_rules_path(@consumer.id), :class => "btn btn-info inline", 'data-skip-pjax' => true %></span>
+			<% elsif !rule_exists %>
+	    		<span>Have <strong>Paykido</strong> do the approval and payment for you next time!</span>
+	    		<span>Simply hover below and let Paykido know what to approve or decline. </span>
 			<% else %>
-	    		<span>You can have <strong>Paykido</strong> do the approval and payment for you.</span>
-	    		<span>Simply hover ABOUT THE PURCHASE and tell Paykido what to approve or decline. </span>
+	    		<span>You have succesfully approved the purchase.</span>
     		<% end %>
+   		<% else %>
+    		<span><%= "Register and have Paykido do that for you going forward!" %></span>
+    		<span><%= button_to "Register Now", new_token_path,:method => :get, :class => "btn btn-info inline" %></span>
 		<% end %>
 	<% end %>    		
 </div>
