@@ -1,7 +1,7 @@
 require 'clickatell' 
 class Sms < ActiveRecord::Base
 
-  def notify_consumer (consumer, activity, status, purchase=nil, mode=nil)
+  def self.notify_consumer (consumer, activity, status, purchase=nil, mode=nil)
       
     if    activity == 'confirmation'
       if status == 'request'
