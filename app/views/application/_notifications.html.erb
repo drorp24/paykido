@@ -202,7 +202,7 @@
 <div id="new_rule_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Rule created!</h4>    
-	<% if params[:property] == "_allowance" %>
+	<% if params[:property] == "allowance" %>
 		<span><%= "Allowance set to #{number_to_currency params[:value]} every #{params[:occurrence]}." %></span>
 	<% elsif params[:date] %> 
 		<span><%= "#{number_to_currency params[:value]} granted as of #{l params[:date].to_datetime, :format => :medium} "%></span>

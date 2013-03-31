@@ -74,7 +74,7 @@
 		<p class="new_rule_line">
 			<span><i class="bigicon-calendar"></i></span>
 			<span>
-				<%= link_to "Allowance", new_consumer_rule_path(@consumer, :property => "_allowance"), :data => {:target => "#rule_modal", :toggle => "modal", 'skip-pjax' => "true"} %>			
+				<%= link_to "Allowance", new_consumer_rule_path(@consumer, :property => "allowance"), :data => {:target => "#rule_modal", :toggle => "modal", 'skip-pjax' => "true"} %>			
 			</span>
 		</p>
 		<% at_least_one_line_was_included = true %>
@@ -82,7 +82,7 @@
 	<% if rule = @consumer.gift_rule and !rule.initialized? %>
 		<p class="new_rule_line">
 			<span><i class="bigicon-bag"></i></span>
-				<%= link_to "Gift", new_consumer_rule_path(@consumer, :property => "_gift"), :data => {:target => "#rule_modal", :toggle => "modal", 'skip-pjax' => "true"} %>
+				<%= link_to "Gift", new_consumer_rule_path(@consumer, :property => "gift"), :data => {:target => "#rule_modal", :toggle => "modal", 'skip-pjax' => "true"} %>
 			<span>
 			</span>
 		</p>
@@ -92,7 +92,7 @@
 		<p class="new_rule_line">
 			<span><i class="bigicon-achievment"></i></span>
 			<span>
-				<%= link_to "Achievement", new_consumer_rule_path(@consumer, :property => "achievement"), :data => {:target => "#rule_modal", :toggle => "modal", 'skip-pjax' => "true"} %>
+				<%= link_to "Achievement", new_consumer_rule_path(@consumer, :property => "_achievement"), :data => {:target => "#rule_modal", :toggle => "modal", 'skip-pjax' => "true"} %>
 			</span>
 		</p>
 		<% at_least_one_line_was_included = true %>
@@ -163,12 +163,12 @@ $('document').ready(function() {
 	
 	<% if !(params[:notify] == 'confirmation_request') and current_payer.registered? and @consumer and @consumer.no_allowance? %>
 	
-		$("#rules .action_button[data-property='_allowance']").popover({
+		$("#rules .action_button[data-property='allowance']").popover({
 			placement:	"top",
 			title:	 	"Start here",
 			content: 	"<%= "Click to define an allowance for #{@consumer.name}" %>"
 		});
-		$("#rules .action_button[data-property='_allowance']").popover('show');
+		$("#rules .action_button[data-property='allowance']").popover('show');
 
 		
 	<% end %>

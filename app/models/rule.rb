@@ -6,7 +6,7 @@ class Rule < ActiveRecord::Base
   after_initialize :init
   def init
 
-    if    self.property == '_allowance' or self.property == '_gift' or  self.property == 'birthday' or  self.property == 'chores'or  self.property == 'achievement' or  self.property == 'request'   
+    if    self.property == 'allowance' or self.property == 'gift' or  self.property == 'birthday' or  self.property == 'chores'or  self.property == '_achievement' or  self.property == 'request'   
           self.category = 'how much'
     elsif self.property == 'retailer' or  self.property == 'esrb_rating' or self.property == 'pegi_rating' or self.property == 'title' or self.property == 'category'   
           self.category = 'what'
@@ -23,7 +23,7 @@ class Rule < ActiveRecord::Base
   end
 
   def supported?
-      self.property == '_allowance' or self.property == '_gift' or  self.property == 'birthday' or  self.property == 'chores'or  self.property == 'achievement' or self.property == 'retailer' or  self.property == 'esrb_rating' or self.property == 'pegi_rating' or self.property == 'category' or self.property == 'title' or self.property == 'under' or self.property == 'over'
+      self.property == 'allowance' or self.property == 'gift' or  self.property == 'birthday' or  self.property == 'chores'or  self.property == '_achievement' or self.property == 'retailer' or  self.property == 'esrb_rating' or self.property == 'pegi_rating' or self.property == 'category' or self.property == 'title' or self.property == 'under' or self.property == 'over'
   end
 
   def self.whitelist_rate(property, value)
@@ -104,7 +104,7 @@ class Rule < ActiveRecord::Base
   scope :time,        where("category = ?", "when")
   scope :location,    where("category = ?", "where")
   
-  scope :of_allowance,   where("property = ?", "_allowance")
+  scope :of_allowance,   where("property = ?", "allowance")
   
   def initialized?
     self.value.blank? or self.value == '0' or self.status == 'reset'
@@ -123,7 +123,7 @@ class Rule < ActiveRecord::Base
   end 
  
   def allowance?
-    self.property == "_allowance"
+    self.property == "allowance"
   end
   
   def over?
@@ -141,11 +141,11 @@ class Rule < ActiveRecord::Base
 
   def self.allowance
     schedule = IceCube::Schedule.new
-    {:property => '_allowance', :category => "how much", :schedule => schedule, :value => nil}
+    {:property => 'allowance', :category => "how much", :schedule => schedule, :value => nil}
   end
   def self.gift
-    {:property => '_gift', :category => "how much"}
-#   {:property => '_gift', :category => "how much", :value => "10", :date => Time.now, :donator => "Paykido", :occasion => "Welcome Gift"}
+    {:property => 'gift', :category => "how much"}
+#   {:property => 'gift', :category => "how much", :value => "10", :date => Time.now, :donator => "Paykido", :occasion => "Welcome Gift"}
   end
   def self.birthday
     {:property => 'birthday', :category => "how much"}
@@ -157,7 +157,7 @@ class Rule < ActiveRecord::Base
     {:property => 'request', :category => "how much"}
   end  
   def self.achievement
-    {:property => 'achievement', :category => "how much"}
+    {:property => '_achievement', :category => "how much"}
   end  
   def self.retailer(retailer)
     {:property => 'retailer', :category => "what", :value => retailer, :status => 'reset'}
@@ -208,15 +208,15 @@ class Rule < ActiveRecord::Base
   ####  Change if needed      ####  
 
   def self.allowance_rule_of(consumer)
-    self.rule_of(consumer, '_allowance')
+    self.rule_of(consumer, 'allowance')
   end
   
   def self.gift_rule_of(consumer)
-    self.rule_of(consumer, '_gift')
+    self.rule_of(consumer, 'gift')
   end
 
   def self.achievement_rule_of(consumer)
-    self.rule_of(consumer, 'achievement')
+    self.rule_of(consumer, '_achievement')
   end
 
   def self.birthday_rule_of(consumer)

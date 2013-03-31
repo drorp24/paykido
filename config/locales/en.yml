@@ -16,9 +16,9 @@ en:
       content3_html: Define allowance, give gifts, award for achievements and compensate for chores.
       content4_html: You credeit card will <strong>never</strong> be exposed to anyone, not even Paykido!
     property:
-      _allowance: Allowance
-      _gift: Gift
-      achievement: Achievement
+      allowance: Allowance
+      gift: Gift
+      _achievement: Achievement
       birthday: Birthday
       chores: Chores
       request: Request
