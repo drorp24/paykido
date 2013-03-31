@@ -516,44 +516,6 @@ class Purchase < ActiveRecord::Base
         
   end
   
-  def notify_consumer (mode, status)
-    
-    return false unless mode and status
-    
-    if mode == 'manual'
-      if      status == 'registered'
-        message = "Congrats, #{self.consumer.name}! Your parent has just registered to Paykido!"
-      elsif      status == 'approved'
-        message = "Congrats, #{self.consumer.name}! Your parent has just approved your purchase request (#{self.id}). The item is yours!"
-      elsif    status == 'declined'  
-        message = "We are sorry. Your parent has just declined your purchase request (#{self.id})."
-      elsif   status == 'failed'  
-        message = "We are sorry. Something went wrong while trying to approve your purchase (#{self.id}). Please contact Paykido help desk for details"  
-      else
-        return false  
-      end 
-    else
-      if      status == 'approved' 
-        message = "Congrats, #{self.consumer.name}! Paykido just approved your purchase request (#{self.id}). The item is yours!"
-      elsif   status == 'declined'   
-        message = "We are sorry. This purchase (#{self.id}) is not compliant with you parents rules!"
-      elsif   status == 'failed'  
-        message = "We are sorry. Something went wrong while trying to approve your purchase (#{self.id}). Please contact Paykido help desk for details"  
-      elsif   status == 'pending'  
-        message = "Wait... This purchase (#{self.id}) requires manual approved. We'll notify you once it gets approved!"  
-      else
-        return false  
-      end 
-    end    
-    
-    begin
-      Sms.send(self.consumer.billing_phone, message) 
-    rescue
-      return false
-    end
- 
-  end     
-  
   def approved?
     self.authorization_type == "Approved"
   end
@@ -596,13 +558,8 @@ class Purchase < ActiveRecord::Base
       return false
     end
 
-    begin
-      message = "We have asked your parent to approve #{self.product}. Once your parent registers, approvals can be automatic!"
-      Sms.send(self.consumer.billing_phone, message) 
-    rescue
-      return false
-    end
-     
+    Sms.notify_consumer(self.consumer, 'approval', 'request', self)
+    
   end
 
   def account_for!   

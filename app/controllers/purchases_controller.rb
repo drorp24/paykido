@@ -71,8 +71,9 @@ class PurchasesController < ApplicationController
 
     unless status == 'failed'
       @purchase.notify_merchant(status, 'approval')
-      @purchase.notify_consumer('manual', status)   
     end
+
+    Sms.notify_consumer(@purchase.consumer, 'approval', status, @purchase, 'manual')   
 
     redirect_to purchase_path(
       @purchase,
@@ -88,7 +89,7 @@ class PurchasesController < ApplicationController
     
     @purchase.decline!
     @purchase.notify_merchant('declined', 'denial')
-    @purchase.notify_consumer('manual', 'declined')
+    Sms.notify_consumer(@purchase.consumer, 'approval', 'declined', @purchase, 'manual')
 
     redirect_to purchase_path(
       @purchase,

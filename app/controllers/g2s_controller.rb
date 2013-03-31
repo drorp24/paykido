@@ -5,30 +5,42 @@ class G2sController < ApplicationController
   def ppp_callback    ## /ppp/<status>
 
     if params[:customField1] == 'payment'
-        # Mark purchase approved already upon ppp_callback so the purchase will be marked approved and disappear from the screen
-        # When DMN returns, it will be marked approved again, a transaction will be created and the purchase will be accounted for
-        if params[:ppp_status] == 'OK'
-          @purchase = Purchase.find(params[:customField3].to_i)
-          @purchase.approve!
-          @purchase.notify_consumer('manual', 'approved') if @purchase.approved?
+
+      # Mark purchase approved already upon ppp_callback so the purchase will be marked approved and disappear from the screen
+      # When DMN returns, it will be marked approved again, a transaction will be created and the purchase will be accounted for
+
+      @purchase = Purchase.find(params[:customField3].to_i)
+
+      if params[:ppp_status] == 'OK' and @purchase
+        @purchase.approve!
+        if @purchase.approved?
+          Sms.notify_consumer(@purchase.consumer, 'approval', 'approved', @purchase, 'manual')
+        else 
+          Sms.notify_consumer(@purchase.consumer, 'approval', 'failed', @purchase, 'manual')
         end
-        redirect_to purchase_url(
-          params[:customField3].to_i,
-          :notify => 'approval', 
-          :status => params[:status],
-          :ppp_status => params[:ppp_status],
-          :purchase => params[:customField3],
-          :ErrCode => params[:ErrCode],
-          :ExErrCode => params[:ExErrCode],
-          :manual => 'true',
-          :_pjax => "data-pjax-container"
-        )
+      else
+        Sms.notify_consumer(@purchase.consumer, 'approval', 'failed', @purchase, 'manual')          
+      end
+
+      redirect_to purchase_url(
+        params[:customField3].to_i,
+        :notify => 'approval', 
+        :status => params[:status],
+        :ppp_status => params[:ppp_status],
+        :purchase => params[:customField3],
+        :ErrCode => params[:ErrCode],
+        :ExErrCode => params[:ExErrCode],
+        :manual => 'true',
+        :_pjax => "data-pjax-container"
+      )
+
     elsif params[:customField1] == 'registration'
           
         # A temporary token is created immediately after PPP and consumer notified here, to enable kid to buy instantly
         if params[:ppp_status] == 'OK' and params[:Status] == 'APPROVED'
           @payer.create_temporary_token!(params)
-          @purchase.notify_consumer('manual', 'registered')
+          consumer = @payer.consumers.first
+          Sms.notify_consumer(consumer, 'registration', 'done') if consumer
         end
 
         pending = current_payer.purchases.pending

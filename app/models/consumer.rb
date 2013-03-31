@@ -37,6 +37,9 @@ class Consumer < ActiveRecord::Base
     self.confirmed = true
     self.confirmed_at = Time.now
     self.save!
+    
+    Sms.notify_consumer(self, 'confirmation', 'done')
+
   end
   
   def confirmed?
