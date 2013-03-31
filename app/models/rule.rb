@@ -6,7 +6,7 @@ class Rule < ActiveRecord::Base
   after_initialize :init
   def init
 
-    if    self.property == 'allowance' or self.property == 'gift' or  self.property == 'birthday' or  self.property == 'chores'or  self.property == '_achievement' or  self.property == 'request'   
+    if    self.property == 'allowance' or self.property == 'gift' or  self.property == 'birthday' or  self.property == 'chores'or  self.property == 'bachievement' or  self.property == 'request'   
           self.category = 'how much'
     elsif self.property == 'retailer' or  self.property == 'esrb_rating' or self.property == 'pegi_rating' or self.property == 'title' or self.property == 'category'   
           self.category = 'what'
@@ -23,7 +23,7 @@ class Rule < ActiveRecord::Base
   end
 
   def supported?
-      self.property == 'allowance' or self.property == 'gift' or  self.property == 'birthday' or  self.property == 'chores'or  self.property == '_achievement' or self.property == 'retailer' or  self.property == 'esrb_rating' or self.property == 'pegi_rating' or self.property == 'category' or self.property == 'title' or self.property == 'under' or self.property == 'over'
+      self.property == 'allowance' or self.property == 'gift' or  self.property == 'birthday' or  self.property == 'chores'or  self.property == 'bachievement' or self.property == 'retailer' or  self.property == 'esrb_rating' or self.property == 'pegi_rating' or self.property == 'category' or self.property == 'title' or self.property == 'under' or self.property == 'over'
   end
 
   def self.whitelist_rate(property, value)
@@ -157,7 +157,7 @@ class Rule < ActiveRecord::Base
     {:property => 'request', :category => "how much"}
   end  
   def self.achievement
-    {:property => '_achievement', :category => "how much"}
+    {:property => 'bachievement', :category => "how much"}
   end  
   def self.retailer(retailer)
     {:property => 'retailer', :category => "what", :value => retailer, :status => 'reset'}
@@ -216,7 +216,7 @@ class Rule < ActiveRecord::Base
   end
 
   def self.achievement_rule_of(consumer)
-    self.rule_of(consumer, '_achievement')
+    self.rule_of(consumer, 'bachievement')
   end
 
   def self.birthday_rule_of(consumer)
