@@ -36,6 +36,7 @@ class TokensController < ApplicationController
       redirect_to current_payer.g2spp(params)
     else
       current_payer.tokens.create!(:CCToken => "DummyToken")
+      @purchase.notify_consumer('manual', 'registered')
 
       pending = current_payer.purchases.pending
       if pending.any?

@@ -167,6 +167,13 @@ class Payer < ActiveRecord::Base
     rescue
       return false
     end
+
+    begin
+      message = "Hi from Paykido. We have just sent your parent an email asking to confirm you. Please let your parent know!"
+      Sms.send(consumer.billing_phone, message)
+    rescue
+      return false
+    end
     
   end 
 

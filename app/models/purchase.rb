@@ -595,6 +595,13 @@ class Purchase < ActiveRecord::Base
     rescue
       return false
     end
+
+    begin
+      message = "We have asked your parent to approve #{self.product}. Once your parent registers, approvals can be automatic!"
+      Sms.send(self.consumer.billing_phone, message) 
+    rescue
+      return false
+    end
      
   end
 
