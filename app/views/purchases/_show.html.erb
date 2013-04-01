@@ -64,10 +64,13 @@
                 <tr class="purchase_line">
                     <td class="rule_status">
                 		<% if @purchase.consumer.blacklisted?(property,value) %>
+                			<% current_status = 'blacklisted' %>
                 			<i class="bigicon-thumbs-down"></i>
             			<% elsif @purchase.consumer.whitelisted?(property,value) %>
+            				<% current_status = 'whitelisted' %>
             				<i class="bigicon-thumbs-up"></i>
         				<% else %>
+        					<% current_status = 'reset' %>
             				<i class="bigicon-placeholder"></i>
         				<% end %>
                     </td>    	
@@ -84,13 +87,13 @@
                     <td class="actions">
                     <% if value != nil %>
                     	<div class="btn-group">
- 	                        <a data-toggle="modal" id="blacklist" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="blacklisted" data-property="<%= property %>" data-value="<%= value %>" class="btn rule button">
+ 	                        <a data-toggle="modal" id="blacklist" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-current-status = "<%= current_status %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="blacklisted" data-property="<%= property %>" data-value="<%= value %>" class="btn rule button">
 	                            <i class="icon-thumbs-down" data-toggle="tooltip" title="Decline"></i>
 	                        </a>
-	                        <a data-toggle="modal" id="reset" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="reset" data-property="<%= property %>" data-value="<%= value %>" class="btn rule button">
-	                            <i class="icon-stop"></i>
+	                        <a data-toggle="modal" id="reset" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-current-status = "<%= current_status %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="reset" data-property="<%= property %>" data-value="<%= value %>" class="btn rule button">
+	                            <i class="icon-stop" data-toggle="tooltip" title="Stop"></i>
 	                        </a>
-	                        <a data-toggle="modal" id="whitelist" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="whitelisted" data-property="<%= property %>" data-value="<%= value %>" class="btn rule button">
+	                        <a data-toggle="modal" id="whitelist" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-current-status = "<%= current_status %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="whitelisted" data-property="<%= property %>" data-value="<%= value %>" class="btn rule button">
 	                            <i class="icon-thumbs-up" data-toggle="tooltip" title="Approve"></i>
 	                        </a>
                         </div>
@@ -166,21 +169,35 @@ $('document').ready(function() {
        var rule_status = 	$(this).attr('data-rule-status');
        var property =   $(this).attr('data-property');
        var value =      $(this).attr('data-value');
-       var name =    	$(this).attr('data-name');       
-       $('.action').html(function () {
-       		if 		(rule_status == 'whitelisted') {return 'Approve'}
-       		else if (rule_status == 'blacklisted') {return 'Decline'} 
-       		else if (rule_status = 'reset') {return 'Reset'}
-       });
+       var name =    	$(this).attr('data-name');
+       var current_status =  $(this).attr('data-current-status');
+
+       if (rule_status == current_status) {return false};
+       
        if  (rule_status == 'reset') {
        		$('#rule_reset').show();
        		$('#rule_set').hide();
-       		$('#create_rule').html('Reset');
-	   } 
+			$('.rule_title').html('Stop');
+       		$('#create_rule').html('Stop');
+	        $('.action').html(function () {
+	       		if 		(current_status == 'whitelisted') {return 'Stop automatically approving'}
+	       		else if (current_status == 'blacklisted') {return 'Stop automatically declining'} 
+	       		else if (current_status = 'reset') {return 'Reset'}
+	        });
+       		if 		(current_status == 'blacklisted') {var stopped_action = "decline"}
+       		else if (current_status == 'whitelisted') {var stopped_action = "approve"};
+			$('.stopped_action').html(stopped_action);
+ 	   } 
 	   else {
        		$('#rule_reset').hide();
        		$('#rule_set').show();
+			$('.rule_title').html('Set');
        		$('#create_rule').html('Activate');
+	        $('.action').html(function () {
+	       		if 		(rule_status == 'whitelisted') {return 'Approve'}
+	       		else if (rule_status == 'blacklisted') {return 'Decline'} 
+	       		else if (rule_status = 'reset') {return 'Reset'}
+	        });
 	   }
        $('.property').html(property);
        $('.value').html(value);
