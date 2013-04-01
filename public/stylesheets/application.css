@@ -624,7 +624,7 @@ tr.purchase_line:hover {
 }
 */
 .rule_background .popover-inner {
-    width: 250px;
+ /*   width: 250px; */
 }
 
 h3.popover-title {

@@ -24,7 +24,7 @@
 						<span class="rule_button_text"> Add</span>
 					</a>
 				<% end %>
-				<p class="rule_explanation">Let them know <b>what they did </b> to deserve it,</b> <b>who</b> gave them that and <b> when </b> they can they use each part.</p>			
+				<p class="rule_explanation">Set allowance, reward chores, give holiday gifts. Set the <b>date</b>, <b>occasion</b>, <b>amount</b> and <b>donator</b> for each. Paykido will do the rest.</p>			
 			</div>
 			
 			<% singular_rule_already_included = false %> 
@@ -35,7 +35,7 @@
 				
 			<div class="rule_background">
 				<h1 class="rule_heading">What</h1>
-				<p class="rule_explanation">Define what can they buy - by <b>category</b>, <b>ESRB rating</b>, Paykido <b>users' score</b>, purchase <b>amount</b> and many more.</p>			
+				<p class="rule_explanation">Define <b>what </b>they can buy. You can filter by <b>category</b>, <b>ESRB rating</b>, purchase <b>amount</b> and many more.</p>			
 			</div>
 			
 			<% for rule in @rules.what %>
@@ -47,7 +47,7 @@
 			
 			<div class="rule_background">
 				<h1 class="rule_heading">Where</h1>
-				<p class="rule_explanation">Can they use their <b>mobile</b> to buy? Should they shop only at <b>home</b>? Define it here (coming soon).</p>			
+				<p class="rule_explanation">Define <b>where </b>they can buy. Can they use their <b>mobile</b> to buy? Can they shop at <b>home</b> or anywhere? (coming soon).</p>			
 			</div>
 			
 			<% for rule in @rules.location %>
@@ -56,7 +56,7 @@
 	
 			<div class="rule_background">
 				<h1 class="rule_heading">When</h1>
-				<p class="rule_explanation">Can they shop at <b>night</b>? During <b>school hours</b>? (coming soon).</p>			
+				<p class="rule_explanation"><b> When </b> can they buy. Can they shop at <b>night</b>? During <b>school hours</b>? (coming soon).</p>			
 			</div>
 			
 			<% for rule in @rules.time %>
@@ -126,12 +126,12 @@
 	<% end %>
 	<% unless at_least_one_line_was_included %>
 		<p class="popover_instructions">Use the <strong>Set</strong> buttons to define how much your kid can buy and why.</p>
-		<p class="popover_instructions">Then <strong>Add</strong> as many as you like with this button.</p>
+		<p class="popover_instructions">Then use this button to add as many more rules as you need. </p>
 	<% end %>
 </div>
 <div id="newrule_title" style="display: none">
-	<%= "How much - and why" %>
-	<p class="popover-title sub-title">Use Paykido to tell kids what they did to deserve their allowance!</p>
+	<%= "Add more rules" %>
+	<p class="popover-title sub-title">Use this button to add as many Achievement, Birthdays, Chores and Gifts as you need.</p>
 </div>
 <% end %>
 
