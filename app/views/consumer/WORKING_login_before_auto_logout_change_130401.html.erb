@@ -104,8 +104,6 @@ $(document).ready(function (){
 
   	window.fbAsyncInit = function() {
 
-	var not_first_time = false;
-
     FB.init({
       appId      : '<%= Paykido::Application.config.app_id %>', // App ID
       status     : true, // check login status
@@ -122,9 +120,7 @@ $(document).ready(function (){
 			if (data.status == 'confirmed') {
 				confirmed(userid, accessToken)
 			} else {
-				FB.logout(function(response) { });
-	    		unknown();
-/*				not_confirmed(); */
+				not_confirmed();
 			}
 		})
 	  } else if (response.status === 'not_authorized') {
@@ -142,11 +138,7 @@ $(document).ready(function (){
 			if (data.status == 'confirmed') {
 				confirmed(userid, accessToken)
 			} else {
-				if (not_first_time) {
-					not_confirmed();
-				} else {
-					not_first_time = true
-				}
+				not_confirmed();
 			}
 		})
 	  } else if (response.status === 'not_authorized') {
