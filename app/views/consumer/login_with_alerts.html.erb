@@ -114,8 +114,10 @@ $(document).ready(function (){
 	
 	var user_already_forced_to_logout = false
 	var paykido_confirmed = 'unknown'
+alert('user_already_forced_to_logout has just been initialized to: ' + user_already_forced_to_logout)
 	
 	FB.getLoginStatus(function(response) {
+alert('getLoginStatus')
 	  if (response.status === 'connected') {
 	    userid = response.authResponse.userID;
 	    accessToken = response.authResponse.accessToken;
@@ -124,6 +126,7 @@ $(document).ready(function (){
 				paykido_confirmed = 'true'
 				confirmed(userid, accessToken)
 			} else {
+alert('getLoginStatus: connected - forcing logout')
 				paykido_confirmed = 'false'
 				FB.logout(function(response) { });
 				user_already_forced_to_logout = true
@@ -132,6 +135,7 @@ $(document).ready(function (){
 			}
 		})
 	  } else if (response.status === 'not_authorized') {
+alert('getLoginStatus: not_authorized - cannot force logout, just going to unknown')
     		unknown();
 		/*	not_confirmed();  */
 	  } else {
@@ -140,6 +144,7 @@ $(document).ready(function (){
 	});
 
 	FB.Event.subscribe('auth.login', function(response) {
+alert('event subscribe login, response.status: ' + response.status)
 	  if (response.status === 'connected') {
 	    userid = response.authResponse.userID;
 	    accessToken = response.authResponse.accessToken;
@@ -148,16 +153,21 @@ $(document).ready(function (){
 				paykido_confirmed = 'true'
 				confirmed(userid, accessToken)
 			} else {
+alert('still at event subscribe login. user_already_forced_to_logout currently is: ' + user_already_forced_to_logout)
 				paykido_confirmed = 'false'
 				if (user_already_forced_to_logout) {
+alert('event subscribe login: conncted. user_already_forced_to_logout, therefore going to not_confirmed')
 					not_confirmed();
 				} else {
+alert('event subscribe login: connected. user_*not* yet forced to logout - doing nothing')
 				}
 			}
 		})
 	  } else if (response.status === 'not_authorized') {
+alert('at event subscribe login: not_authorized. no need to check if user_already_forced_to_logout. Going directly to not_confirmed')
 					not_confirmed();
 	  } else {
+alert('event subscribe login: status: unknown. Going to unknown')
 	    unknown();
 	  }
 	});
@@ -172,16 +182,18 @@ $(document).ready(function (){
 	// In that case he's just sent to unknown at getLoginStatus above although he is logged into FB already
 	// When he then clicks the FB login button, it does *not* trigger the auth.login. Only auth.statusChange is triggered.
 	FB.Event.subscribe('auth.statusChange', function(response) {
+		alert('status has just changed! response.status: ' + response.status)
 		if (response.status === 'connected' && paykido_confirmed != 'true') {
-			not_confirmed();			
+alert('auth.statusChange: conncted *and* paykido_confirmed is not true - going to not_confirmed')	
+					not_confirmed();			
 		} else {
+alert('auth.statusChange. response.status is: ' + response.status+ '. paykido_confirmed is: ' + paykido_confirmed + '. Doing nothing.')			
 		}
 	});
 
 
 	function confirmed(userid, accessToken){
 
-		$('.modal-body').show();
 		$('#login_button').hide();
 		if ($.urlParam('mode') == 'M') {$('#test_registration').hide()} else {$('#registration').hide()}
 		$('.modal-header h3').html('Buy with Paykido')
@@ -204,6 +216,7 @@ $(document).ready(function (){
 	}
 
 	function not_confirmed(){
+alert('reached not confirmed')
 		$('.modal-header h3').html('Join Paykido')
 		$('.modal-body').hide();
 	   	$('.modal-footer').remove();
@@ -215,6 +228,7 @@ $(document).ready(function (){
 	}
 
 	function unknown(userid, accessToken){
+alert('reached unknown')
 		$('.modal-body').show();
 		$('#login_button').show();
 		if ($.urlParam('mode') == 'M') {$('#test_registration').hide()} else {$('#registration').hide()}
@@ -240,6 +254,12 @@ $(document).ready(function (){
      js.src = "//connect.facebook.net/en_US/all.js";
      ref.parentNode.insertBefore(js, ref);
    }(document));
+
+	$('#login_button').click(function() {
+		not_first_time = true;
+		alert('clicked')
+	})
+
 
 
 
