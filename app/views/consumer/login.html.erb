@@ -15,7 +15,7 @@
 		<span id="pic">
 			<%= image_tag "face_placeholder_small.png", :id => 'profile_picture', :style => 'display: none' %>
 		</span>
-		<span id="login_button" class="text">
+		<span id="login_button" class="text" style="display: none">
 			<fb:login-button></fb:login-button>
  		</span>
 	</div>
@@ -93,6 +93,7 @@
 
 <script type="text/javascript">
 $(document).ready(function (){ 
+
 	$.urlParam = function(name){
 	    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
 	    return results[1] || 0;
@@ -102,6 +103,7 @@ $(document).ready(function (){
 		window.parent.postMessage('close', "*");
 	})		
 
+		$('#login_button').hide();
 
   	window.fbAsyncInit = function() {
 
@@ -204,28 +206,37 @@ $(document).ready(function (){
 	}
 
 	function not_confirmed(){
-		$('.modal-header h3').html('Join Paykido')
-		$('.modal-body').hide();
-	   	$('.modal-footer').remove();
-		if ($.urlParam('mode') == 'M') {$('#test_registration').show()} else {$('#registration').show()}
-	   	FB.XFBML.parse();
-	   	$('.clear.uiCloseButton.uiCloseButtonSmall').css('display', 'none');
-		$('#buy_button').attr("disabled", "disabled");
-	   $('#paykido.modal').css("margin", "-115px 0 0 -171px");
+		if (
+			($('#test_registration').css('display') == 'none' && $('#registration').css('display') == 'none') ||
+			(typeof $('#test_registration').css('display') == 'undefined' && typeof $('#registration').css('display') == 'undefined')
+			)
+		 {
+			$('.modal-header h3').html('Join Paykido')
+			$('.modal-body').hide();
+			$('#login_button').hide();
+		   	$('.modal-footer').remove();
+			if ($.urlParam('mode') == 'M') {$('#test_registration').show()} else {$('#registration').show()}
+		   	FB.XFBML.parse();
+		   	$('.clear.uiCloseButton.uiCloseButtonSmall').css('display', 'none');
+			$('#buy_button').attr("disabled", "disabled");
+		    $('#paykido.modal').css("margin", "-115px 0 0 -171px");			
+		}
 	}
 
 	function unknown(userid, accessToken){
-		$('.modal-body').show();
-		$('#login_button').show();
-		if ($.urlParam('mode') == 'M') {$('#test_registration').hide()} else {$('#registration').hide()}
-		$('.modal-header h3').html('Pay with Paykido')
-		$('#invite').hide();
- 	   	FB.XFBML.parse(); 
-     	$('#salutation').html('Hello!');
-      	$('#profile_picture').hide();
-      	$('#iop1').html('Click Log In to start using Paykido');
-      	$('#buy_button').attr("disabled", "disabled");
-	   $('#paykido.modal').css("margin", "-220px 0 0 -171px");
+		if ($('#login_button').css('display') == 'none'|| typeof $('#login_button').css('display') === "undefined") { 
+			$('.modal-body').show();
+			$('#login_button').show();
+			if ($.urlParam('mode') == 'M') {$('#test_registration').hide()} else {$('#registration').hide()}
+			$('.modal-header h3').html('Pay with Paykido')
+			$('#invite').hide();
+	 	   	FB.XFBML.parse(); 
+	     	$('#salutation').html('Hello!');
+	      	$('#profile_picture').hide();
+	      	$('#iop1').html('Click Log In to start using Paykido');
+	      	$('#buy_button').attr("disabled", "disabled");
+		    $('#paykido.modal').css("margin", "-220px 0 0 -171px");			
+		}
 
 	}
 
