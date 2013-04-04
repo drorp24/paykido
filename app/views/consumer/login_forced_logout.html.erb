@@ -15,7 +15,7 @@
 		<span id="pic">
 			<%= image_tag "face_placeholder_small.png", :id => 'profile_picture', :style => 'display: none' %>
 		</span>
-		<span id="login_button" class="text">
+		<span id="login_button" class="text" style="display: none">
 			<fb:login-button></fb:login-button>
  		</span>
 	</div>
@@ -93,6 +93,7 @@
 
 <script type="text/javascript">
 $(document).ready(function (){ 
+
 	$.urlParam = function(name){
 	    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
 	    return results[1] || 0;
@@ -101,6 +102,8 @@ $(document).ready(function (){
 	$('[data-dismiss="modal"]').click(function() {
 		window.parent.postMessage('close', "*");
 	})		
+
+		$('#login_button').hide();
 
   	window.fbAsyncInit = function() {
 
@@ -111,22 +114,30 @@ $(document).ready(function (){
       xfbml      : true  // parse XFBML
     });
 	
-
+	var user_already_forced_to_logout = false
+	var paykido_confirmed = 'unknown'
+	
 	FB.getLoginStatus(function(response) {
 	  if (response.status === 'connected') {
 	    userid = response.authResponse.userID;
 	    accessToken = response.authResponse.accessToken;
 		$.getJSON('/consumer/confirmed?facebook_id=' + userid, function(data) {
 			if (data.status == 'confirmed') {
+				paykido_confirmed = 'true'
 				confirmed(userid, accessToken)
 			} else {
-				not_confirmed();
+				paykido_confirmed = 'false'
+				FB.logout(function(response) { });
+				user_already_forced_to_logout = true
+	    		unknown();
+			/*	not_confirmed(); */
 			}
 		})
 	  } else if (response.status === 'not_authorized') {
-	    not_confirmed();
+    		unknown();
+		/*	not_confirmed();  */
 	  } else {
-	    unknown();
+	    	unknown();
 	  }
 	});
 
@@ -136,13 +147,18 @@ $(document).ready(function (){
 	    accessToken = response.authResponse.accessToken;
 		$.getJSON('/consumer/confirmed?facebook_id=' + userid, function(data) {
 			if (data.status == 'confirmed') {
+				paykido_confirmed = 'true'
 				confirmed(userid, accessToken)
 			} else {
-				not_confirmed();
+				paykido_confirmed = 'false'
+				if (user_already_forced_to_logout) {
+					not_confirmed();
+				} else {
+				}
 			}
 		})
 	  } else if (response.status === 'not_authorized') {
-	    not_confirmed();
+					not_confirmed();
 	  } else {
 	    unknown();
 	  }
@@ -150,12 +166,24 @@ $(document).ready(function (){
 
 
 	FB.Event.subscribe('auth.logout', function(response) {
-		window.parent.postMessage('close', "*");
+//		window.parent.postMessage('close', "*");
+	});
+
+
+	// When user is not_authorized upon entry (hasnt approved Paykido in FB yet) he can't be forcefully logged out;
+	// In that case he's just sent to unknown at getLoginStatus above although he is logged into FB already
+	// When he then clicks the FB login button, it does *not* trigger the auth.login. Only auth.statusChange is triggered.
+	FB.Event.subscribe('auth.statusChange', function(response) {
+		if (response.status === 'connected' && paykido_confirmed != 'true') {
+			not_confirmed();			
+		} else {
+		}
 	});
 
 
 	function confirmed(userid, accessToken){
 
+		$('.modal-body').show();
 		$('#login_button').hide();
 		if ($.urlParam('mode') == 'M') {$('#test_registration').hide()} else {$('#registration').hide()}
 		$('.modal-header h3').html('Buy with Paykido')
@@ -178,27 +206,37 @@ $(document).ready(function (){
 	}
 
 	function not_confirmed(){
-		$('.modal-header h3').html('Join Paykido')
-		$('.modal-body').empty();
-	   	$('.modal-footer').remove();
-		if ($.urlParam('mode') == 'M') {$('#test_registration').show()} else {$('#registration').show()}
-	   	FB.XFBML.parse();
-	   	$('.clear.uiCloseButton.uiCloseButtonSmall').css('display', 'none');
-		$('#buy_button').attr("disabled", "disabled");
-	   $('#paykido.modal').css("margin", "-115px 0 0 -171px");
+		if (
+			($('#test_registration').css('display') == 'none' && $('#registration').css('display') == 'none') ||
+			(typeof $('#test_registration').css('display') == 'undefined' && typeof $('#registration').css('display') == 'undefined')
+			)
+		 {
+			$('.modal-header h3').html('Join Paykido')
+			$('.modal-body').hide();
+			$('#login_button').hide();
+		   	$('.modal-footer').remove();
+			if ($.urlParam('mode') == 'M') {$('#test_registration').show()} else {$('#registration').show()}
+		   	FB.XFBML.parse();
+		   	$('.clear.uiCloseButton.uiCloseButtonSmall').css('display', 'none');
+			$('#buy_button').attr("disabled", "disabled");
+		    $('#paykido.modal').css("margin", "-115px 0 0 -171px");			
+		}
 	}
 
 	function unknown(userid, accessToken){
-		$('#login_button').show();
-		if ($.urlParam('mode') == 'M') {$('#test_registration').hide()} else {$('#registration').hide()}
-		$('.modal-header h3').html('Pay with Paykido')
-		$('#invite').hide();
- 	   	FB.XFBML.parse(); 
-     	$('#salutation').html('Hello!');
-      	$('#profile_picture').hide();
-      	$('#iop1').html('Click Log In to start using Paykido');
-      	$('#buy_button').attr("disabled", "disabled");
-	   $('#paykido.modal').css("margin", "-220px 0 0 -171px");
+		if ($('#login_button').css('display') == 'none'|| typeof $('#login_button').css('display') === "undefined") { 
+			$('.modal-body').show();
+			$('#login_button').show();
+			if ($.urlParam('mode') == 'M') {$('#test_registration').hide()} else {$('#registration').hide()}
+			$('.modal-header h3').html('Pay with Paykido')
+			$('#invite').hide();
+	 	   	FB.XFBML.parse(); 
+	     	$('#salutation').html('Hello!');
+	      	$('#profile_picture').hide();
+	      	$('#iop1').html('Click Log In to start using Paykido');
+	      	$('#buy_button').attr("disabled", "disabled");
+		    $('#paykido.modal').css("margin", "-220px 0 0 -171px");			
+		}
 
 	}
 
@@ -213,9 +251,6 @@ $(document).ready(function (){
      js.src = "//connect.facebook.net/en_US/all.js";
      ref.parentNode.insertBefore(js, ref);
    }(document));
-
-
-
 
 
 
