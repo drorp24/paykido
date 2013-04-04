@@ -9,6 +9,9 @@
 	<div class="unconfirmed" style="display: none">
     	<h3>Unconfirmed</h3>
 	</div>
+	<div class="registering" style="display: none">
+    	<h3>Registering</h3>
+	</div>
 	<div class="confirmed" style="display: none">
     	<h3>Confirmed</h3>
 	</div>
@@ -20,7 +23,7 @@
 	<div class="unknown" style="display: none">
 
 		<div class="hero-unit" id="why_register">
-			<h1>Paykido lets teens buy.</h1>
+			<h1>A whole new way to buy.</h1>
 			<h2>No cards, surveys or offers.</h2>
 			<h2>No risk. No parents around.</h2>
 			<h2>Buy with a click.</h2>
@@ -36,7 +39,7 @@
 	<div class="unconfirmed" style="display: none">
 
 		<div class="hero-unit" id="why_register">
-			<h1>Paykido lets teens buy.</h1>
+			<h1>A whole new way to buy.</h1>
 			<h2>No cards, surveys or offers.</h2>
 			<h2>No risk. No parents around.</h2>
 			<h2>Buy with a click.</h2>
@@ -49,6 +52,49 @@
 
 	</div>
 
+	<div class="registering" style="display: none">
+
+	<% if params[:mode] == 'M' %> 
+
+		<div id="test_registration">
+			<fb:registration  
+				width="290" 
+				fb_register="true"
+				redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>&merchant=<%= params[:merchant] %>&app=<%= params[:app] %>"  
+				fields='[
+					{ "name":"name"},
+					{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
+					{ "name":"payer_name",     "description":"Your parent name",  "type":"text"},
+					{ "name":"payer_phone",     "description":"Your parent mobile # (e.g., 2131234567)",  "type":"text"},
+					{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
+				]' 
+				>
+			</fb:registration>
+		</div>
+		
+	<% else %>
+
+		<div id="registration">
+			<fb:registration  
+				width="590" 
+				fb_register="true"
+				redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>&merchant=<%= params[:merchant] %>&app=<%= params[:app] %>"  
+				fields='[
+					{ "name":"name"},
+					{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
+					{ "name":"payer_name",     "description":"Your parent name",  "type":"text"},
+					{ "name":"payer_phone",     "description":"Your parent mobile # (e.g., 2131234567)",  "type":"text"},
+					{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
+				]' 
+				>
+			</fb:registration>
+		</div>
+		
+	<% end %>
+
+	</div>
+
+
 	<div class="confirmed" style="display: none">
 
 		<div class="line clearfix">
@@ -59,8 +105,8 @@
 		</div>
 	
 		<div class="line" id="instruction_or_product">
-			<p id="iop1" class="text"></p>	
-			<p id="iop2" class="text"></p>	
+			<p id="iop1" class="text">You are using Paykido to buy</p>	
+			<p id="iop2" class="text"><%= "#{params[:product]} (#{params[:amount]} #{params[:currency]})" %></p>	
 		</div>
 	
 	<!-- <div class="title text line">Join your friends</div>  -->
@@ -112,7 +158,7 @@
 										 :hash		=> params[:hash],
 										 :referrer	=> params[:referrer] 
 										 }, :html => {:id => "buy_form"} do |f| %>
-			<%= submit_tag "Buy with Paykido", :class => "buy btn btn-primary", :id => "buy_button" %>
+			<%= submit_tag "Buy", :class => "buy btn btn-primary", :id => "buy_button" %>
 		<% end %>
 	
 		<a href="#" class="btn" data-dismiss="modal">Close</a>
@@ -120,37 +166,6 @@
 	
 </div>
 	
-<div id="test_registration" style="display: none;">
-	<fb:registration  
-		width="290" 
-		fb_register="true"
-		redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>&merchant=<%= params[:merchant] %>&app=<%= params[:app] %>"  
-		fields='[
-			{ "name":"name"},
-			{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
-			{ "name":"payer_name",     "description":"Your parent name",  "type":"text"},
-			{ "name":"payer_phone",     "description":"Your parent mobile # (e.g., 2131234567)",  "type":"text"},
-			{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
-		]' 
-		>
-	</fb:registration>
-</div>
-
-<div id="registration" style="display: none;">
-	<fb:registration  
-		width="590" 
-		fb_register="true"
-		redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>&merchant=<%= params[:merchant] %>&app=<%= params[:app] %>"  
-		fields='[
-			{ "name":"name"},
-			{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
-			{ "name":"payer_name",     "description":"Your parent name",  "type":"text"},
-			{ "name":"payer_phone",     "description":"Your parent mobile # (e.g., 2131234567)",  "type":"text"},
-			{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
-		]' 
-		>
-	</fb:registration>
-</div>
 
 <script type="text/javascript">
 $(document).ready(function (){ 
@@ -227,16 +242,8 @@ alert('auth.login triggered: unknown(logged out)')
 
 		$('.unknown').hide();
 		$('.unconfirmed').hide();
+		$('.registering').hide();
 		$('.confirmed').show();
-		$('.not_authorized_or_confirmed').show();
-		$('#login_button').hide();
-		if ($.urlParam('mode') == 'M') {$('#test_registration').hide()} else {$('#registration').hide()}
-		$('.modal-header h3').html('Buy with Paykido')
-	   	FB.XFBML.parse(); 
-  		$('#iop1').html('<%= "You are using Paykido to buy" %>');
-  		$('#iop2').html('<%= "#{params[:product]} (#{params[:amount]} #{params[:currency]})" %>');
-		$('#buy_button').removeAttr("disabled");
-		$('#invite').show();
 	   	FB.api('/me', {fields: "id,first_name,picture"}, function(response) {    // works only if included within AsyncInit
 	      $('#salutation').html('Hi '+response.first_name + "!");
 	      $('#profile_picture').attr("src", 'http://graph.facebook.com/' + response.id + '/picture');
@@ -247,12 +254,22 @@ alert('auth.login triggered: unknown(logged out)')
 		  				'&pic=' + 'http://graph.facebook.com/' + response.id + '/picture';
 		  $('#buy_form').attr('action', action);
 	   });
+/*
+		$('.not_authorized_or_confirmed').show();
+		$('#login_button').hide();
+		if ($.urlParam('mode') == 'M') {$('#test_registration').hide()} else {$('#registration').hide()}
+		$('.modal-header h3').html('Buy with Paykido')
+	   	FB.XFBML.parse(); 
+		$('#buy_button').removeAttr("disabled");
+		$('#invite').show();
 	   $('#paykido.modal').css("margin", "-220px 0 0 -171px");
+*/
 	}
 
 	function unconfirmed(){
 		$('.unknown').hide();
 		$('.unconfirmed').show();
+		$('.registering').hide();
 		$('.confirmed').hide();
 /*
 		$('.modal-header h3').html('Join Paykido')
@@ -266,12 +283,36 @@ alert('auth.login triggered: unknown(logged out)')
 */
 	}
 
+	$('#register').click(function() {
+		registering();
+	})
+	
+	function registering() {
+		$('.unknown').hide();
+		$('.unconfirmed').hide();
+		$('.registering').show();
+		$('.confirmed').hide();
+		$('.modal-body').css('height', '500px')
+	   	FB.XFBML.parse(); 
+ /*
+		$('.modal-body').hide();
+	   	$('.modal-footer').remove();
+		if ($.urlParam('mode') == 'M') {$('#test_registration').show()} else {$('#registration').show()}
+	   	FB.XFBML.parse();
+	   	$('.clear.uiCloseButton.uiCloseButtonSmall').css('display', 'none');
+		$('#buy_button').attr("disabled", "disabled");
+	   $('#paykido.modal').css("margin", "-115px 0 0 -171px");		
+*/
+	}
+	
 	function unknown(userid, accessToken){
 		$('.unknown').show();
 		$('.unconfirmed').hide();
+		$('.registering').hide();
 		$('.confirmed').hide();
+/*
 		$('#login_button').show();
-		if ($.urlParam('mode') == 'M') {$('#test_registration').hide()} else {$('#registration').hide()}
+//		if ($.urlParam('mode') == 'M') {$('#test_registration').hide()} else {$('#registration').hide()}
 		$('.modal-header h3').html('Pay with Paykido')
 		$('#invite').hide();
  	   	FB.XFBML.parse(); 
@@ -280,23 +321,8 @@ alert('auth.login triggered: unknown(logged out)')
       	$('#iop1').html('Click Log In to start using Paykido');
       	$('#buy_button').attr("disabled", "disabled");
 	   $('#paykido.modal').css("margin", "-220px 0 0 -171px");
-
+*/
 	}
-	
-	function show_registration() {
-		$('.modal-body').hide();
-	   	$('.modal-footer').remove();
-		if ($.urlParam('mode') == 'M') {$('#test_registration').show()} else {$('#registration').show()}
-	   	FB.XFBML.parse();
-	   	$('.clear.uiCloseButton.uiCloseButtonSmall').css('display', 'none');
-		$('#buy_button').attr("disabled", "disabled");
-	   $('#paykido.modal').css("margin", "-115px 0 0 -171px");		
-	}
-	
-	$('#register').click(function() {
-		show_registration();
-	})
-
   };	// end of fbAsyncInit
 	
 
