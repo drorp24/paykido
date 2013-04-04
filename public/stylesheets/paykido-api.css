@@ -1,8 +1,8 @@
 body {
     font-family:"Segoe UI", Helvetica, Arial;
     font-weight: 100;
-    text-shadow: 0 1px 0 #FFFFFF;
     font-size: 15px;
+    background:url("/home/img/background/pattern.png");
 }
 
 #main {
@@ -22,6 +22,45 @@ body {
               
   text-shadow: 0 1px 0 #FFFFFF;
 
+}
+
+#why_register {
+
+    /* Fallback for web browsers that doesn't support RGBa */
+    background: rgb(0, 0, 0) transparent;
+    /* RGBa with 0.3 opacity */
+    background: rgba(0, 0, 0, 0.2);
+    /* For IE 5.5 - 7*/
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+    /* For IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+    padding: 30px 30px 10px 30px;
+    margin: 30px;
+    color: #094958;
+}
+
+#why_register h1 {
+    
+    font-weight: 100;
+    text-shadow: 0 1px 0 #FFFFFF;
+    font-size: 42px;
+    margin-bottom: 25px;
+    color: #000;
+}
+
+#why_register h2{
+    font-weight: 400;
+    font-size: 16px;
+}
+
+#why_register p{
+    font-size: 16px;
+    margin-top: 12px;
+    margin-bottom: 0;
+}
+
+#why_register a {
+    font-weight: 400;
 }
 
 .ys_kid {
@@ -69,9 +108,14 @@ body .modal-body {
 }
 */
 #login_button {
+/*
     float: right;
     margin-top: 36px;
     margin-right: 60px;
+*/
+    position: relative;
+    right: 15px;
+    top: 5px;
 }
 
 .modal-header h3 {
@@ -95,10 +139,6 @@ body .modal-body {
     margin-top: 45px;
     font-size: 16px;
     margin-left: -10px;
-}
-
-#salutation_and_pic_or_login {
- 
 }
 
 #invite .text {
@@ -4417,6 +4457,8 @@ input[type="submit"].btn.btn-mini {
   height: 440px; /* Dror: Originally: max-height: 400px; */
 /*  padding: 15px; */
   overflow-y: auto;
+    background:url("/home/img/background/header.png") repeat-x;
+
 }
 
 .modal-form {
