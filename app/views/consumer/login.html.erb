@@ -12,6 +12,9 @@
 	<div class="registering" style="display: none">
     	<h3>Registering</h3>
 	</div>
+	<div class="help" style="display: none">
+    	<h3>How do I join Paykido</h3>
+	</div>
 	<div class="confirmed" style="display: none">
     	<h3>Confirmed</h3>
 	</div>
@@ -27,7 +30,7 @@
 			<h2>No cards, surveys or offers.</h2>
 			<h2>No risk. No parents around.</h2>
 			<h2>Buy with a click.</h2>
-			<p><%= link_to "How do I join Paykido?", "#" %></p>
+			<p><%= link_to "Log into Facebook to buy", "#" %></p>
 		</div>
 
 		<div id="logo">
@@ -39,11 +42,11 @@
 	<div class="unconfirmed" style="display: none">
 
 		<div class="hero-unit" id="why_register">
-			<h1>A whole new way to buy.</h1>
-			<h2>No cards, surveys or offers.</h2>
-			<h2>No risk. No parents around.</h2>
-			<h2>Buy with a click.</h2>
-			<p><%= link_to "How do I join Paykido?", "#" %></p>
+			<h1>Join Paykido</h1>
+			<h2>Safe and free to use.</h2>
+			<h2>Joining in takes few seconds.</h2>
+			<h2>Another marketial pitch.</h2>
+			<p><%= link_to "How do I join Paykido?", "#", :id => "how_do_i_join" %></p>
 		</div>
 
 		<div id="logo">
@@ -94,6 +97,20 @@
 
 	</div>
 
+	<div class="help" style="display: none">
+
+		<div class="hero-unit" id="why_register">
+			<h1>Join Paykido</h1>
+			<h2>1. Click 'Join Paykido'</h2>
+			<h2>2. Fill-in parent email & phone</h2>
+			<h2>3. Ask parent to confirm you</h2>
+			<h2>4. Start buying!</h2>
+		</div>
+
+		<div id="logo">
+			<%= image_tag "yellowshirt_kid.png", :class => "ys_kid" %>
+		</div>
+	</div>
 
 	<div class="confirmed" style="display: none">
 
@@ -144,6 +161,11 @@
 		<a href="#" class="btn" data-dismiss="modal">Close</a>
 	</div>
 
+	<div class="help" style="display: none">
+		<a href="#" class="btn btn-primary" id="register1">Join Paykido</a>		
+		<a href="#" class="btn" data-dismiss="modal">Close</a>
+	</div>
+
 	<div class="confirmed" style="display: none">
 		<%= form_for :consumer, :url => {:action => :buy, 
 										 :merchant 	=> params[:merchant],
@@ -169,6 +191,7 @@
 
 <script type="text/javascript">
 $(document).ready(function (){ 
+
 	$.urlParam = function(name){
 	    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
 	    return results[1] || 0;
@@ -194,19 +217,15 @@ $(document).ready(function (){
 	    accessToken = response.authResponse.accessToken;
 		$.getJSON('/consumer/confirmed?facebook_id=' + userid, function(data) {
 			if (data.status == 'confirmed') {
-alert('getLoginStatus: confirmed')
 				confirmed(userid, accessToken)
 			} else {
-alert('getLoginStatus: unconfirmed')
 				unconfirmed();
 			}
 		})
 	  } else if (response.status === 'not_authorized') {
-alert('getLoginStatus: not_authorized: going to unconfirmed')
-	    unconfirmed();
+	    		unconfirmed();
 	  } else {
-alert('getLoginStatus: unknown (logged out)')
-	    unknown();
+	    		unknown();
 	  }
 	});
 
@@ -216,19 +235,15 @@ alert('getLoginStatus: unknown (logged out)')
 	    accessToken = response.authResponse.accessToken;
 		$.getJSON('/consumer/confirmed?facebook_id=' + userid, function(data) {
 			if (data.status == 'confirmed') {
-alert('auth.login triggered: confirmed')
 				confirmed(userid, accessToken)
 			} else {
-alert('auth.login triggered: unconfirmed')
 				unconfirmed();
 			}
 		})
 	  } else if (response.status === 'not_authorized') {
-alert('auth.login triggered: not_authorized. Going to unconfirmed')
-	    unconfirmed();
+	    		unconfirmed();
 	  } else {
-alert('auth.login triggered: unknown(logged out)')
-	    unknown();
+	    		unknown();
 	  }
 	});
 
@@ -243,6 +258,7 @@ alert('auth.login triggered: unknown(logged out)')
 		$('.unknown').hide();
 		$('.unconfirmed').hide();
 		$('.registering').hide();
+		$('.help').hide();
 		$('.confirmed').show();
 	   	FB.api('/me', {fields: "id,first_name,picture"}, function(response) {    // works only if included within AsyncInit
 	      $('#salutation').html('Hi '+response.first_name + "!");
@@ -254,55 +270,32 @@ alert('auth.login triggered: unknown(logged out)')
 		  				'&pic=' + 'http://graph.facebook.com/' + response.id + '/picture';
 		  $('#buy_form').attr('action', action);
 	   });
-/*
-		$('.not_authorized_or_confirmed').show();
-		$('#login_button').hide();
-		if ($.urlParam('mode') == 'M') {$('#test_registration').hide()} else {$('#registration').hide()}
-		$('.modal-header h3').html('Buy with Paykido')
-	   	FB.XFBML.parse(); 
-		$('#buy_button').removeAttr("disabled");
-		$('#invite').show();
-	   $('#paykido.modal').css("margin", "-220px 0 0 -171px");
-*/
 	}
 
 	function unconfirmed(){
 		$('.unknown').hide();
 		$('.unconfirmed').show();
 		$('.registering').hide();
+		$('.help').hide();
 		$('.confirmed').hide();
-/*
-		$('.modal-header h3').html('Join Paykido')
-		$('.modal-body').hide();
-	   	$('.modal-footer').remove();
-		if ($.urlParam('mode') == 'M') {$('#test_registration').show()} else {$('#registration').show()}
-	   	FB.XFBML.parse();
-	   	$('.clear.uiCloseButton.uiCloseButtonSmall').css('display', 'none');
-		$('#buy_button').attr("disabled", "disabled");
-	   $('#paykido.modal').css("margin", "-115px 0 0 -171px");
-*/
 	}
-
-	$('#register').click(function() {
-		registering();
-	})
 	
 	function registering() {
 		$('.unknown').hide();
 		$('.unconfirmed').hide();
 		$('.registering').show();
+		$('.help').hide();
 		$('.confirmed').hide();
 		$('.modal-body').css('height', '500px')
 	   	FB.XFBML.parse(); 
- /*
-		$('.modal-body').hide();
-	   	$('.modal-footer').remove();
-		if ($.urlParam('mode') == 'M') {$('#test_registration').show()} else {$('#registration').show()}
-	   	FB.XFBML.parse();
-	   	$('.clear.uiCloseButton.uiCloseButtonSmall').css('display', 'none');
-		$('#buy_button').attr("disabled", "disabled");
-	   $('#paykido.modal').css("margin", "-115px 0 0 -171px");		
-*/
+	}
+	
+	function help() {
+		$('.unknown').hide();
+		$('.unconfirmed').hide();
+		$('.registering').hide();
+		$('.help').show();	
+		$('.confirmed').hide();
 	}
 	
 	function unknown(userid, accessToken){
@@ -310,19 +303,19 @@ alert('auth.login triggered: unknown(logged out)')
 		$('.unconfirmed').hide();
 		$('.registering').hide();
 		$('.confirmed').hide();
-/*
-		$('#login_button').show();
-//		if ($.urlParam('mode') == 'M') {$('#test_registration').hide()} else {$('#registration').hide()}
-		$('.modal-header h3').html('Pay with Paykido')
-		$('#invite').hide();
- 	   	FB.XFBML.parse(); 
-     	$('#salutation').html('Hello!');
-      	$('#profile_picture').hide();
-      	$('#iop1').html('Click Log In to start using Paykido');
-      	$('#buy_button').attr("disabled", "disabled");
-	   $('#paykido.modal').css("margin", "-220px 0 0 -171px");
-*/
 	}
+
+	$('#register').click(function() {
+		registering();
+	})
+	$('#register1').click(function() {
+		registering();
+	})
+	
+	$('#how_do_i_join').click(function() {
+		help();
+	})
+
   };	// end of fbAsyncInit
 	
 
