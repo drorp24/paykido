@@ -23,6 +23,10 @@
 		<span class="help" style="display: none">
 	    	How do I join Paykido
 		</span>
+		<span class="confirmed" style="display: none">
+			Hello
+			<span class="name"></span>!
+    	</span>
 	</div>		
 
     <button type="button" class="close" data-dismiss="modal">×</button>
@@ -261,6 +265,7 @@ $(document).ready(function (){
 		$('.registering').hide();
 		$('.help').hide();
 		$('.confirmed').show();
+	   	FB.XFBML.parse(); 
 	   	FB.api('/me', {fields: "id,first_name,picture"}, function(response) {    // works only if included within AsyncInit
 	      $('.name').html(response.first_name);
 	      $('#profile_picture').attr("src", 'http://graph.facebook.com/' + response.id + '/picture');
@@ -278,6 +283,7 @@ $(document).ready(function (){
 		$('.registering').hide();
 		$('.help').hide();
 		$('.confirmed').hide();
+	   	FB.XFBML.parse(); 
 		if (userid != null && accessToken != null) {					
 		   	FB.api('/me', {fields: "id,first_name,picture"}, function(response) {    // works only if included within AsyncInit
 		      $('.name').html(response.first_name);
@@ -307,6 +313,7 @@ $(document).ready(function (){
 		$('.registering').hide();
 		$('.help').show();	
 		$('.confirmed').hide();
+	   	FB.XFBML.parse(); 
 	}
 	
 	function unknown(userid, accessToken){
@@ -314,6 +321,7 @@ $(document).ready(function (){
 		$('.unconfirmed').hide();
 		$('.registering').hide();
 		$('.confirmed').hide();
+	   	FB.XFBML.parse(); 
 	}
 
 	$('#register').click(function() {
