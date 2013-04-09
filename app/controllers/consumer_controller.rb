@@ -31,7 +31,14 @@ class ConsumerController < ApplicationController
 
     unless @payer.errors.any?   
       @payer.request_confirmation(@consumer) 
-      redirect_to params[:referrer]  + '?status=registering'
+      create_purchase
+      @purchase.require_approval!
+      if params[:mode] == 'M'
+        redirect_to params[:referrer]  + '?status=registering'
+      else
+        @response = @purchase.response('registering')       
+        render :layout => false 
+      end
     else
       Rails.logger.debug("@payer.errors is: " + @payer.errors.inspect.to_s)  
       flash[:error] = @payer.errors.inspect.to_s

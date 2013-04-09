@@ -451,6 +451,10 @@ class Purchase < ActiveRecord::Base
 
   def require_approval!
     self.update_attributes!(
+      :authorized => false,
+      :authorization_date => Time.now,
+      :authorization_property => "Approval",
+      :authorization_value => "required",
       :authorization_type => "PendingPayer")
   end
   
@@ -572,10 +576,12 @@ class Purchase < ActiveRecord::Base
     @response[:value]         = self.authorization_value.to_s 
     @response[:type]          = self.authorization_type.to_s 
     @response[:orderid]       = self.PP_TransactionID
-    if status == 'approved'
-      @response[:message]     = 'Purchase is approved'
+    if status == 'registering'
+      @response[:message]      = "Parent contacted to confirm consumer"
     elsif status == 'pending'
       @response[:message]     = 'Purchase requires manual approval'
+    elsif status == 'approved'
+      @response[:message]     = 'Purchase is approved'
     elsif status == 'declined' 
       @response[:message]     = "Purchase is declined. #{self.authorization_property} #{self.authorization_value.to_s} is #{self.authorization_type}"
     elsif status == 'unregistered' 
