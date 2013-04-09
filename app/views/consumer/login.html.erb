@@ -133,8 +133,22 @@
 	
 	<!-- <div class="title text line">Join your friends</div>  -->
 	
-		<div class="line" id="invite">
-			Spread the word, earn points.	
+		<div id="invite"class="hero-unit" >
+			<h2>Spread the word</h2>
+			<p>
+				<span>You sent</span>
+				<span id="invites"></span>
+				<span> invites. </span>
+				<span><a id="invite_href" href="#">Send</a></span>
+				<span> more!</span>
+			</p>	
+			<p id="top_inviter">
+				<span>Top inviter: </span>
+				<span id="inviter_name"></span>
+				<span> with </span>
+				<span id="inviter_count"></span>
+				<span> invites</span>
+			</p>	
 		</div>
 	
 		<div id="facepile">
@@ -206,6 +220,8 @@ $(document).ready(function (){
 		window.parent.postMessage('close', "*");
 	})		
 
+	var userid = 0;
+
   	window.fbAsyncInit = function() {
 
     FB.init({
@@ -220,9 +236,9 @@ $(document).ready(function (){
 	  if (response.status === 'connected') {
 	    userid = response.authResponse.userID;
 	    accessToken = response.authResponse.accessToken;
-		$.getJSON('/consumer/confirmed?facebook_id=' + userid, function(data) {
+		$.getJSON('/consumer/status?facebook_id=' + userid, function(data) {
 			if (data.status == 'confirmed') {
-				confirmed(userid, accessToken)
+				confirmed(userid, accessToken, data.invites, data.highest)
 			} else {
 				unconfirmed(userid, accessToken);
 			}
@@ -238,9 +254,9 @@ $(document).ready(function (){
 	  if (response.status === 'connected') {
 	    userid = response.authResponse.userID;
 	    accessToken = response.authResponse.accessToken;
-		$.getJSON('/consumer/confirmed?facebook_id=' + userid, function(data) {
+		$.getJSON('/consumer/status?facebook_id=' + userid, function(data) {
 			if (data.status == 'confirmed') {
-				confirmed(userid, accessToken)
+				confirmed(userid, accessToken, data.invites, data.highest)
 			} else {
 				unconfirmed(userid, accessToken);
 			}
@@ -258,13 +274,16 @@ $(document).ready(function (){
 	});
 
 
-	function confirmed(userid, accessToken){
+	function confirmed(userid, accessToken, invites, highest){
 
 		$('.unknown').hide();
 		$('.unconfirmed').hide();
 		$('.registering').hide();
 		$('.help').hide();
 		$('.confirmed').show();
+		$('#invites').html(invites);
+		$('#inviter_name').html(highest.name);
+		$('#inviter_count').html(highest.count);
 	   	FB.XFBML.parse(); 
 	   	FB.api('/me', {fields: "id,first_name,picture"}, function(response) {    // works only if included within AsyncInit
 	      $('.name').html(response.first_name);
@@ -348,28 +367,28 @@ $(document).ready(function (){
    }(document));
 
 
-
-
-
-
 //	INVITE
 
-
-	$('#invite').click(function() {
+	$('#invite_href').click(function() {
 		sendRequestViaMultiFriendSelector();
+		return false;
 	});
 
 	function sendRequestViaMultiFriendSelector() {
         FB.ui({method: 'apprequests',
           message: 'Hi! Paykido is a super-cool service that lets kids buy with a click!',
-          data: 'dror',
+          data: 'x',
+          filters: ['app_non_users'],
           display: 'popup',
           title:'Spread the word and earn credits!'
         }, 
         function(response)  {
           if (response.request)  {
           	invites = response.to.length
-        	alert('Thanks! ' + invites + ' requests were sent!')
+          	highest = {}
+        	$.post("/consumer/invites_increase", { facebook_id: userid, invites: invites}, function(data) {
+				alert('Way to go! You have sent so far ' + data.invites_count + ' invites!');
+			})
           }
       	}
 		);

@@ -9,18 +9,35 @@ class ConsumerController < ApplicationController
     
   end
   
-  def confirmed
+  def status
 
   respond_to do |format|
     
     consumer = Consumer.where("facebook_id = ?", params[:facebook_id])
     if consumer.exists? and consumer.first.confirmed?
-      format.json { render json: {:status => 'confirmed'} }
+      highest_inviter = Consumer.order("balance_on_acd DESC").first
+      highest = {}
+      highest[:name] = highest_inviter.name
+      highest[:count] = highest_inviter.invites
+      format.json { render json: {:status => 'confirmed', :invites => consumer.first.invites, :highest => highest} }
     else
-      format.json { render json: {:status => 'not confirmed'} }
+      format.json { render json: {:status => 'not confirmed', :invites => 0, :highest => 0} }
     end
   end
 
+  end
+  
+  def invites_increase
+
+    respond_to do |format|
+  
+      consumer = Consumer.where("facebook_id = ?", params[:facebook_id]).first
+      if consumer
+        consumer.invites_increase(params[:invites])
+        format.json { render json: {:invites_count => consumer.invites} }
+      end
+      
+    end
   end
  
   #############################################

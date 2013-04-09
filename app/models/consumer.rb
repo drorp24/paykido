@@ -7,6 +7,16 @@ class Consumer < ActiveRecord::Base
   
   
       
+  def invites
+    self.balance_on_acd.to_i || 0
+  end
+  
+  def invites_increase(invites)
+    self.balance_on_acd ||= 0
+    self.balance_on_acd += invites.to_i
+    self.save
+  end
+
   def under_threshold
     rule = Rule.under_rule_of(self)
     if rule and !rule.value.blank?

@@ -9,6 +9,60 @@ body, #returnedMessage {
     overflow: hidden;
 }
 
+.hero-unit {
+  padding: 60px;
+  margin-bottom: 30px;
+    /* Fallback for web browsers that doesn't support RGBa */
+    background: rgb(0, 0, 0) transparent;
+    /* RGBa with 0.3 opacity */
+    background: rgba(0, 0, 0, 0.1);
+    /* For IE 5.5 - 7*/
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+    /* For IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+    padding: 30px 30px 10px 30px;
+    margin: 30px;
+    color: #094958;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+}
+
+#invite {
+    text-align: center;
+    width: 73%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px;
+    color: #000;
+}
+
+#invite.hero-unit h2 {
+    font-size: 18px;
+    font-weight: 100;
+    text-transform: uppercase;
+    color: #000;
+    text-shadow: 0 1px 0 #FFFFFF;
+    margin-bottom: 10px;
+}
+
+#invite.hero-unit p {
+    line-height: 16px;
+}
+
+
+#invite.hero-unit span {
+font-size: 16px;
+}
+
+#invite.hero-unit #top_inviter span{
+    font-size: 14px;
+}
+
+#inviter_count, #inviter_name {
+    color: #bd362f;    
+}
+
 #main .modal-header {
   height: 33px;
   padding: 18px 15px 15px;
@@ -113,7 +167,7 @@ img {
     position: absolute;
     bottom: 28px;
     left: 21px;
-    width: 120px;
+    width: 95px;
     z-index: 1000;
 }
 
@@ -182,9 +236,10 @@ body .modal-body {
 }
 
 #invite {
-    margin-top: 45px;
+    margin-top: 35px;
+    margin-bottom: 10px;
     font-size: 16px;
-    margin-left: -10px;
+/*    margin-left: -10px; */
 }
 
 #invite .text {
@@ -200,7 +255,6 @@ body .modal-body {
 
 #instruction_or_product {
     margin-top: 45px;  
-    height: 65px;  
 }
 
 #iop1 {
@@ -210,8 +264,7 @@ body .modal-body {
 
 #iop2 {
     font-size: 24px;
-    font-weight: bold;
-    line-height: 50px;
+    line-height: 0;
     margin-left: -10px;
 }
 #invite.line .text {
@@ -225,12 +278,10 @@ body .modal-body {
 }
 
 #facepile {
-    margin-left: 30px;
-    height: 100px;
-    position: absolute;
-    top: 324px;
-    z-index: -1; 
-    
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    margin-top: 25px;   
 }
 
 #loadingZone {
@@ -5196,15 +5247,6 @@ a.badge:hover {
 .carousel-caption h4,
 .carousel-caption p {
   color: #ffffff;
-}
-
-.hero-unit {
-  padding: 60px;
-  margin-bottom: 30px;
-  background-color: #eeeeee;
-  -webkit-border-radius: 6px;
-     -moz-border-radius: 6px;
-          border-radius: 6px;
 }
 
 .hero-unit h1 {
