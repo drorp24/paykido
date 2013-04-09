@@ -387,6 +387,7 @@ $(document).ready(function (){
           	invites = response.to.length
           	highest = {}
         	$.post("/consumer/invites_increase", { facebook_id: userid, invites: invites}, function(data) {
+				$('#invites').html(data.invites_count);
 				alert('Way to go! You have sent so far ' + data.invites_count + ' invites!');
 			})
           }
