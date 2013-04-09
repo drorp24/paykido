@@ -30,7 +30,7 @@ class ConsumerController < ApplicationController
     find_or_create_consumer_and_payer  
 
     unless @payer.errors.any?   
-      @payer.request_confirmation(@consumer)    
+      @payer.request_confirmation(@consumer) 
       redirect_to params[:referrer]  + '?status=registering'
     else
       Rails.logger.debug("@payer.errors is: " + @payer.errors.inspect.to_s)  

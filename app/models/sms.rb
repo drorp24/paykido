@@ -5,7 +5,7 @@ class Sms < ActiveRecord::Base
       
     if    activity == 'confirmation'
       if status == 'request'
-        message = "Hi from Paykido. We have just sent your parent an email asking to confirm you. Please let your parent know!"
+        message = "Hi #{consumer.name}. We just sent your parent an email asking to confirm you. Once confirmed, click Paykido again and start buying!"
       elsif status == 'done'
         message = "Congrats! Your parent has just confirmed you. Go ahead and click to buy!"
       end

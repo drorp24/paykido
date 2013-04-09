@@ -65,7 +65,8 @@
 		</p>
 		<p class="pending_purchase" style="display: none">Hold on...</p>
 		<p class="pending_purchase" style="display: none">Parental approval is required.</p>
-		<p class="pending_purchase" style="display: none">Parent was contacted.</p>
+		<p class="pending_purchase" style="display: none">You will get a text message </p>
+		<p class="pending_purchase" style="display: none">once your parent approves.</p>
 		<p class="failed_purchase" style="display: none">We are sorry. Something went wrong.</p>
 		<p class="failed_purchase" style="display: none">
 			<span class="value" id="property"></span>
@@ -162,6 +163,10 @@ $(document).ready(function () {
 		$('#returnedMessage').show()
 	    $('#paykido.modal').modal('show')
 	<% end %>
+	
+    $('#paykido.modal').on('hidden', function () {
+    	window.location.assign("/play")
+    })
 
 	// Emulate product selection (here: product radio button) 
 	//	initial value
