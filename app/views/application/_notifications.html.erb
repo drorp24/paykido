@@ -235,9 +235,10 @@
 <% if params[:notify] and params[:notify] == 'confirmation' and params[:status] == 'success' and !@no_allowance_defined %>
 <div id="confirmation_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
-    <h4 class="alert-heading">Consumer Confirmed</h4>
-    <span><%= "From now on, we'll watch every purchase #{params[:name]} attempts to make." %></span>
-	<% if !current_payer.registered? %>
+    <h4 class="alert-heading">Consumer confirmed!</h4>
+	<% if params[:pending] == 'exist' %>
+    	<span><%= "#{@consumer.name} also asked you to approve a purchase" %>.</span>
+	<% elsif !current_payer.registered? %>
     	<span>You can set your rules once you register your credit card.</span>
     	<span><%= button_to "Register now", tokens_path, :class => "btn btn-info inline" %></span>
 	<% elsif @consumer and @consumer.no_allowance? %>
@@ -290,6 +291,28 @@ $(document).ready(function() {
 		$('.consumer.active').addClass('confirmed');
 	<% else %>
 	    notification('<%= "Failed to confirm consumer" %>', false, 'icon-exclamation-sign', true)
+	<% end %>
+	<% if params[:pending] == 'exist' %>
+		$('#approval_buttons').popover({
+			title: "For your approval", 
+			trigger: 'manual',
+			content: 
+				"<p>Click 'Approve' or 'Decline'.</p>" + 
+				<% if current_payer.registered? %>
+					"<p>If you approve, Paykido will pay on your behalf.</p>" 
+				<% else %>
+					"<p>If you wish Paykido to do the approvals for you and pay on your behalf too, please register.</p>" +
+	    			'<%= button_to "Register", tokens_path, :class => "btn btn-info inline" %>'
+	 			<% end %>
+					, 
+			placement: 'top', 
+			html: true,
+			template: '<div class="popover" onmouseover="$(this).mouseleave(function() {$(this).hide(); });"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
+	
+	            }).mouseenter(function(e) {
+	                $(this).popover('show');
+			})
+			$('#approval_buttons').popover('show')		
 	<% end %>
 <% end %>
 

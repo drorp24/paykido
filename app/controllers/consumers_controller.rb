@@ -11,7 +11,12 @@ class ConsumersController < ApplicationController
 
     @consumer.confirm!
 
-    redirect_to consumer_rules_path(:consumer_id => @consumer.id, :notify => 'confirmation', :status => "success", :name => @consumer.name, :_pjax => true)  
+    if @consumer.purchases.pending.any?
+      purchase = @consumer.purchases.pending.first
+      redirect_to consumer_purchase_path(:consumer_id => @consumer.id, :id => purchase.id, :notify =>'confirmation', :status => 'success', :pending => 'exist', :name => @consumer.name, :_pjax => true)
+    else
+      redirect_to consumer_rules_path(:consumer_id => @consumer.id, :notify => 'confirmation', :status => "success", :name => @consumer.name, :_pjax => true)  
+    end
 
   end
 
