@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head> 
@@ -42,7 +43,7 @@
 			  
 			  <li><a href="<%= request.protocol + request.host + ':' + request.port.to_s if params[:action] != "index" %>#section2">merchants</a></li>
 			  <li><a href="<%= request.protocol + request.host + ':' + request.port.to_s if params[:action] != "index" %>#section3">parents</a></li>
-			  <li><a href="<%= request.protocol + request.host + ':' + request.port.to_s if params[:action] != "index" %>#section4">kids</a></li>
+			  <li><a href="<%= request.protocol + request.host + ':' + request.port.to_s if params[:action] != "index" %>#section4">teens</a></li>
 			
 			 </ul>
 	
@@ -91,14 +92,6 @@
 
     <%= yield :layout %>
 </div>
-	
-</div>
+
 </body>
 </html>
-<script>
-
-$(document).ready(function() {
-	    $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]')
-
-})
-</script>
