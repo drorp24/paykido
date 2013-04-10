@@ -9,10 +9,14 @@ body {
 }
 
 .paykido {
-    color: #0088CC;
 }
 
-
+.paykido_name {
+    color: #FFF;
+}
+.paykido_parents {
+    color: #0088CC;
+}    
 .box-content .rule_background h1.rule_heading  {
     display: inline;
     line-height: 45px;

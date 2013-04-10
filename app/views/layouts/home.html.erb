@@ -36,6 +36,9 @@
 			  <div id="temp_logo">
 			  	<%= link_to root_path do %>
 			  		<h1>Paykido</h1>
+			  		<% if devise_controller? %>
+			  			<span class="logo_parents">Parents</span>
+		  			<% end %>
 			  		<span class="environment label label-important"><%= Paykido::Application.config.environment %></span>
 			  		<span class="version" style="display: none">0.6.5</span>
 		  		<% end %>
