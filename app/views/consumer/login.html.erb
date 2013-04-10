@@ -236,7 +236,7 @@ $(document).ready(function (){
 	  if (response.status === 'connected') {
 	    userid = response.authResponse.userID;
 	    accessToken = response.authResponse.accessToken;
-		$.getJSON('/consumer/status?facebook_id=' + userid, function(data) {
+		$.getJSON('/consumer/confirmed?facebook_id=' + userid, function(data) {
 			if (data.status == 'confirmed') {
 				confirmed(userid, accessToken, data.invites, data.highest)
 			} else {
@@ -254,7 +254,7 @@ $(document).ready(function (){
 	  if (response.status === 'connected') {
 	    userid = response.authResponse.userID;
 	    accessToken = response.authResponse.accessToken;
-		$.getJSON('/consumer/status?facebook_id=' + userid, function(data) {
+		$.getJSON('/consumer/confirmed?facebook_id=' + userid, function(data) {
 			if (data.status == 'confirmed') {
 				confirmed(userid, accessToken, data.invites, data.highest)
 			} else {

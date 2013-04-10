@@ -453,7 +453,7 @@ class Purchase < ActiveRecord::Base
     self.update_attributes!(
       :authorized => false,
       :authorization_date => Time.now,
-      :authorization_property => "Approval",
+      :authorization_property => "Confirmation",
       :authorization_value => "required",
       :authorization_type => "PendingPayer")
   end

@@ -9,7 +9,7 @@ class ConsumerController < ApplicationController
     
   end
   
-  def status
+  def confirmed
 
   respond_to do |format|
     
@@ -277,7 +277,7 @@ class ConsumerController < ApplicationController
                          params[:amount], 
                          params[:currency], 
                          params[:PP_TransactionID],
-                         params)    
+                         params.except(:signed_request))    
 
   end
 
