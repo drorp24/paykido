@@ -125,7 +125,7 @@ $(document).ready(function () {
 	function receiveMessage(event)
 	{
 	
-	    $('#paykido.modal').modal('hide')
+//	    $('#paykido.modal').modal('hide')
 	    if (event.data == 'close') {return}
 		obj = jQuery.parseJSON(event.data)
 //	    alert('the message is: ' + obj.status + '\n' + "property:" + obj.property + "\n" + "value:" + obj.value + "\n" + "type:" + obj.type)
@@ -164,6 +164,7 @@ $(document).ready(function () {
 	    $('#paykido.modal').modal('show')
 	<% end %>
 	
+
     $('#paykido.modal').on('hidden', function () {
     	window.location.assign("/play")
     })

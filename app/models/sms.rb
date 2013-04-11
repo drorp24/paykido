@@ -18,7 +18,7 @@ class Sms < ActiveRecord::Base
         source = 'Paykido'
       end
       if status == 'request'
-        message = "We have asked your parent to approve #{purchase.product}. Once your parent registers, approvals can be automatic!"
+        message = "We have asked your parent to approve #{purchase.product}. You will get a text message once your parent approves."
       elsif      status == 'approved'
         message = "Congrats, #{consumer.name}! #{source} has just approved your purchase request (#{purchase.id}). The item is yours!"
       elsif    status == 'declined'  
