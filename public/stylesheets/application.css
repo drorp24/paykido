@@ -1491,7 +1491,8 @@ body#paykido .tooltip.large {
 .rule.actions {
     margin-top: 16px; 
     font-size: 14px;
-    width: 100%;      
+    width: 100%; 
+    float: left;     
 }
 
 .rule.name {
