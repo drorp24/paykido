@@ -119,3 +119,10 @@ seventeen:
   title: "EVERYONE"
   description: "Titles rated E (Everyone) have content that may be suitable for ages 6 and older. Titles in this category may contain minimal cartoon, fantasy or mild violence and/or infrequent use of mild language."
   logo: "e.PNG"
+  
+eighteen:
+  key: "test"
+  value: "T"
+  title: "TEST"
+  description: "tEST dESCRIPTION"
+  logo: ""
