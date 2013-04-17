@@ -1,39 +1,53 @@
 <%= render 'primary_navigation' %>
 <%= render 'consumer_navigation' %>
 
+<% if !(params[:notify] == 'confirmation_request') and @consumer and @consumer.no_allowance? %>
+<div id="no_allowance" class="alert alert-block">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading"><%= "Define #{@consumer.name}'s allowance"%></h4>
+	<span>Paykido doesn't work by taking your money in advance. Instead, simply define your allowance rule.</span>
+</div>
+<% end %>
+
 <section id="maincontainer">
 
-	<%= render :partial => 'page_head', :locals => {:title => "Rules for #{@name}"} %>
+	<%= render 'page_head' %>
 		
-	<div id="rules" class="box-content container_12 accordion">			
-	<div class="box grid_12 accordion-group" > 	
+	<div class="accordion box-content container_12" id="rules">			
+	<div class="box grid_12" > 	
 		
 			<div class="rule_background">			
-				<h1 class="rule_heading">How much</h1>
+				<h1 class="rule_heading"><%= "How much" %></h1>
+				<% if @consumer %>
+					<a id="newrule" href="#" class="btn btn-info inline-submit" data-skip-pjax="true">
+						<i class="icon-plus icon-white"></i>
+						<span class="rule_button_text"> Add</span>
+					</a>
+				<% end %>
+				<p class="rule_explanation">Set allowance, reward chores, give holiday gifts. Set the <b>date</b>, <b>occasion</b>, <b>amount</b> and <b>donator</b> for each. Paykido will do the rest.</p>			
 			</div>
 			
-			<% for rule in @rules.monetary.sort_by {|rule| rule.property} %>
-				<%= render 'rule', :rule => rule %> 
+			<% singular_rule_already_included = false %> 
+			<% for rule in @rules.monetary.order("property, id DESC") %>
+				<%= render :partial => 'rule', :locals => {:rule => rule} unless (rule.singular? and singular_rule_already_included) %>
+				<% singular_rule_already_included = true if rule.singular? %> 
 			<% end %>
-			
+				
 			<div class="rule_background">
-				<h1 class="rule_heading">What</h1>			
+				<h1 class="rule_heading">What</h1>
+				<p class="rule_explanation">Define <b>what </b>they can buy. You can filter by <b>category</b>, <b>ESRB rating</b>, purchase <b>amount</b> and many more.</p>			
 			</div>
 			
 			<% for rule in @rules.what %>
 				<%= render 'rule', :rule => rule %> 
 			<% end %>
-			
-			<div class="rule_background">
-				<h1 class="rule_heading">When</h1>
-			</div>
-			
-			<% for rule in @rules.time %>
+			<% for rule in @rules.thresholds %>
 				<%= render 'rule', :rule => rule %> 
-			<% end %>
-	
+			<% end %>				
+			
 			<div class="rule_background">
 				<h1 class="rule_heading">Where</h1>
+				<p class="rule_explanation">Define <b>where </b>they can buy. Can they use their <b>mobile</b> to buy? Can they shop at <b>home</b> or anywhere? (coming soon).</p>			
 			</div>
 			
 			<% for rule in @rules.location %>
@@ -41,25 +55,124 @@
 			<% end %>
 	
 			<div class="rule_background">
-				<h1 class="rule_heading">How</h1>
+				<h1 class="rule_heading">When</h1>
+				<p class="rule_explanation"><b> When </b> can they buy. Can they shop at <b>night</b>? During <b>school hours</b>? (coming soon).</p>			
 			</div>
 			
-			<% for rule in @rules.thresholds %>
+			<% for rule in @rules.time %>
 				<%= render 'rule', :rule => rule %> 
-			<% end %>		
-		
+			<% end %>
+
 	</div>
 	</div>
 
 </section>
 
+<% if @consumer %>
+<div id="newrule_content" style="display: none">
+	<% if rule = @consumer.allowance_rule and !rule.initialized? %>
+		<p class="new_rule_line">
+			<span><i class="bigicon-calendar"></i></span>
+			<span>
+				<%= link_to "Allowance", new_consumer_rule_path(@consumer, :property => "allowance"), :data => {:target => "#rule_modal", :toggle => "modal", 'skip-pjax' => "true"} %>			
+			</span>
+		</p>
+		<% at_least_one_line_was_included = true %>
+	<% end %>
+	<% if rule = @consumer.gift_rule and !rule.initialized? %>
+		<p class="new_rule_line">
+			<span><i class="bigicon-bag"></i></span>
+				<%= link_to "Gift", new_consumer_rule_path(@consumer, :property => "gift"), :data => {:target => "#rule_modal", :toggle => "modal", 'skip-pjax' => "true"} %>
+			<span>
+			</span>
+		</p>
+		<% at_least_one_line_was_included = true %>
+	<% end %>
+	<% if rule = @consumer.achievement_rule and !rule.initialized? %>
+		<p class="new_rule_line">
+			<span><i class="bigicon-achievment"></i></span>
+			<span>
+				<%= link_to "Achievement", new_consumer_rule_path(@consumer, :property => "bachievement"), :data => {:target => "#rule_modal", :toggle => "modal", 'skip-pjax' => "true"} %>
+			</span>
+		</p>
+		<% at_least_one_line_was_included = true %>
+	<% end %>
+	<% if rule = @consumer.birthday_rule and !rule.initialized? %>
+		<p class="new_rule_line">
+			<span><i class="bigicon-birthday"></i></span>
+			<span>
+				<%= link_to "Birthday", new_consumer_rule_path(@consumer, :property => "birthday"), :data => {:target => "#rule_modal", :toggle => "modal", 'skip-pjax' => "true"} %>
+			</span>
+		</p>
+		<% at_least_one_line_was_included = true %>
+	<% end %>
+	<% if rule = @consumer.chores_rule and !rule.initialized? %>
+		<p class="new_rule_line">
+			<span><i class="bigicon-cleaning"></i></span>
+			<span>
+				<%= link_to "Chores", new_consumer_rule_path(@consumer, :property => "chores"), :data => {:target => "#rule_modal", :toggle => "modal", 'skip-pjax' => "true"} %>
+			</span>
+		</p>
+		<% at_least_one_line_was_included = true %>
+	<% end %>
+	<% if rule = @consumer.request_rule and !rule.initialized? %>
+		<p class="new_rule_line">
+			<span><i class="bigicon-cleaning"></i></span>
+			<span>
+				<%= link_to "Request", new_consumer_rule_path(@consumer, :property => "request"), :data => {:target => "#rule_modal", :toggle => "modal", 'skip-pjax' => "true"} %>
+			</span>
+		</p>
+		<% at_least_one_line_was_included = true %>
+	<% end %>
+	<% unless at_least_one_line_was_included %>
+		<p class="popover_instructions">Use the <strong>Set</strong> buttons to define how much your kid can buy and why.</p>
+		<p class="popover_instructions">Then use this button to add as many more rules as you need. </p>
+	<% end %>
+</div>
+<div id="newrule_title" style="display: none">
+	<%= "Add more rules" %>
+	<p class="popover-title sub-title">Use this button to add as many Achievement, Birthdays, Chores and Gifts as you need.</p>
+</div>
+<% end %>
+
 <%= render 'notifications' %>
+<%= render 'modals' if @consumer %>
+
 <script type="text/javascript">
 
 $('document').ready(function() {
 
-		$('[rel="popover"]').popover({placement: "left"});
+	<% if @constraint == 'registration' %>
+		
+		$('#rules a:not(.details)').addClass("disabled")
+		$('#rules a:not(.details)').click(function(e){
+			return false;
+		});
+	
+	<% else %>
+	
+		$('#newrule').popover({
+			placement:	"bottom",
+			html: 		true,
+			trigger:	'click',
+			content: 	function() { return $('#newrule_content').html();},
+			title:	 	function() { return $('#newrule_title').html();}
+		});
+	
+	<% end %>
+	
+	<% if !(params[:notify] == 'confirmation_request') and current_payer.registered? and @consumer and @consumer.no_allowance? %>
+	
+		$("#rules .action_button[data-property='allowance']").popover({
+			placement:	"top",
+			title:	 	"Start here",
+			content: 	"<%= "Click to define an allowance for #{@consumer.name}" %>"
+		});
+		$("#rules .action_button[data-property='allowance']").popover('show');
 
+		
+	<% end %>
+		
 })
 
 </script>

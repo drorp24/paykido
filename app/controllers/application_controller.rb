@@ -11,9 +11,9 @@ class ApplicationController < ActionController::Base
       Rails.logger.debug("entered after_sign_in_path")  
       Rails.logger.debug("current_payer.id: " + current_payer.id.to_s)  
 
-    if current_payer.purchases.any?
-      Rails.logger.debug("there are purchases")  
-      return purchases_path
+    if current_payer.consumers.any?
+      consumer = current_payer.consumers.first
+      return consumer_statistics_path(consumer)
     elsif current_payer.registered?
       Rails.logger.debug("current payer is registered")  
       return tokens_path
@@ -35,17 +35,12 @@ class ApplicationController < ActionController::Base
   
   def find_scope
     
-    # Find if scope is one consumer (@consumer) or entire payer 
- 
-    if params[:consumer_id] and @consumer = Consumer.find_by_id(params[:consumer_id])
-      @name = @consumer.name
-#    elsif current_payer and current_payer.name
-#      @name = current_payer.name
-    elsif current_payer and current_payer.consumers.count > 1
-      @name = "the entire family"
-    else
-      @name = "All"
+    if params[:consumer_id]
+      @consumer = Consumer.find_by_id(params[:consumer_id])
+    elsif params[:controller] == "consumers" and params[:id]
+      @consumer = Consumer.find_by_id(params[:id])
     end
+
   end
 
   def set_long_expiry_headers
@@ -54,7 +49,7 @@ class ApplicationController < ActionController::Base
                
   def set_layout
 
-    if request.headers['X-PJAX']
+    if request.headers['X-PJAX'] or request.xhr?
       false
     elsif devise_controller?
       "home"

@@ -1,9 +1,10 @@
 Paykido::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
-  # General
+  # Environment
   config.hostname = 'localhost:3000'
   config.environment = 'dev'
+  config.use_delayed_job = false
 
   # Facebook (for server-side facebooker, make identical changes at facebooker.yml)
   config.app_id = '232989173487232'

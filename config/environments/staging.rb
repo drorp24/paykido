@@ -1,9 +1,10 @@
 Paykido::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
-  # General
+  # Environment
   config.hostname = 'paykido-staging.herokuapp.com'
   config.environment = 'staging'
+  config.use_delayed_job = false
 
   # Facebook (for server-side facebooker, make identical changes at facebooker.yml)
   config.app_id = '294773230578790'
@@ -12,14 +13,14 @@ Paykido::Application.configure do
 
   # Policy
   config.send_sms = true
-  config.rules_require_registration = false
+  config.rules_require_registration = true
   config.always_pay_manually = false
   config.offer_rule_or_registration_after = 1
 
   # G2S Integration
-  config.merchant_id = '136515662095334027'
-  config.merchant_site_id = '79871'
-  config.secret_key = 'lDovmOBmoHSCvCXxOSDNmJmjaKuTKcuFU767pi1p9yKXfVJb6FKquxrcVVMv7gh1' 
+  config.merchant_id = '5230109925932974239'
+  config.merchant_site_id = '82371'
+  config.secret_key = 'u5ITi630fQnjgyZiCcsLF77D63yoAJRbOsDvsvGxBtVGjYaXxwaDBUn2Fc6pqqJb' 
   config.return_secret_key = 'AEA524A224D49B00803D499166E0561045CAF0AF30DC418D39F05F5318352222'
   config.check_hash = false
   config.version = '3.0.0'

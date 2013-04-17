@@ -1,3 +1,52 @@
+.logo_parents {
+    color: #0088CC;
+    float: left;
+    margin-left: -29px;
+    margin-top: 19px;
+    font-size: 22px;
+}
+
+#sign_in_hero, #form_box {
+    height: 429px;
+    margin-left: 115px;    
+}
+
+#sign_in_hero {
+    padding-top: 60px;
+}
+
+
+#sign_in_hero .marketial {
+}
+
+#sign_in_hero .marketial h1 {
+    font-size: 57px;
+    font-weight: 100;
+    text-shadow: 0 1px 0 #FFFFFF;
+    color: #000;
+    margin-bottom: 54px;    
+}
+
+#sign_in_hero .marketial h2 {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 60px;
+}
+
+#sign_in_parents {
+    max-width: none;
+}
+
+#form_box {
+    position: absolute;
+    right: 38px;
+}
+
+
+.sign_in_image {
+    
+}
+
 img#in-app {
 
     height: 391px;    
@@ -96,15 +145,14 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 
 .environment {
     float: left;
-    position: relative;
-    right: 63px;
-    top: -6px;
 }
-#temp_logo h1 {
+body#paykido #temp_logo h1 {
     float: left;
     display: inline;
-    line-height: 50px;
+    line-height: 34px;
     margin-right: 33px;
+    font-size: 30px;
+    font-weight: 100;
 }
 
 :focus {
@@ -113,11 +161,6 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 
 #temp_logo a {
     color: inherit;   
-}
-#form_box {
-    height: 429px;
-    position: absolute;
-    right: 38px;
 }
 
 .form_bottom {
@@ -469,7 +512,7 @@ left: -150px;
 		list-style:none;
 		float:left;
 		background:url("/home/img/background/menu_button.png");
-		margin-left:28px; /* Spacing between menu items */
+		margin-left:70px; /* Spacing between menu items */
 	}
 		#menu li.current {
 			background-position: 0px -51px;

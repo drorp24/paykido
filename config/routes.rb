@@ -2,7 +2,13 @@ Paykido::Application.routes.draw do
 
   devise_for :payers
 
-  resources :rules 
+  resources :rules do
+    member do
+      put 'stop', 'restart'
+    end
+  end 
+
+  resources :statistics
 
   resources :tokens
   
@@ -26,17 +32,19 @@ Paykido::Application.routes.draw do
 #    resources :tokens
 #  end
 
+  match 'consumers/welcome' => 'consumers#welcome'
   resources :consumers do
     resources :rules
-    resources :allowances
+    resources :statistics
     resources :purchases do
       resources :transactions
     end
     member do
-      get 'confirm', 'confirmed'
-      post 'confirm'
+      get   'welcome'
+      post  'confirm'
     end
   end
+
 
   match 'g2s/ppp/:status' => 'g2s#ppp_callback'
   match 'g2s/dmn/:status' => 'g2s#dmn'

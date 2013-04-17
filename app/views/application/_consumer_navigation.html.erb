@@ -5,69 +5,59 @@
 		<% if @consumer %>
 			<li class="payer">
 		<% else %>
-			<li class="payer active" rel="popover">
+			<li class="payer active" data-consumer-id=''  rel="popover">
 		<% end %>
 			<% if params[:controller] == 'purchases' %>
 				<% path = purchases_path  %>
 			<% elsif params[:controller] == 'consumers' %>
-				<% path = consumers_path %>
+				<% path = consumers_welcome_path %>
 			<% elsif params[:controller] == 'rules' %>
 				<% path = rules_path  %>
-			<% elsif params[:controller] == 'transactions' %>
-				<% path = purchase_transactions_path(@purchase)  %>
-			<% elsif params[:controller] == 'allowances' %>
-				<% path = allowances_path  %>
+			<% elsif params[:controller] == 'statistics' %>
+				<% path = statistics_path(@purchase)  %>
+			<% elsif params[:controller] == 'tokens' %>
+				<% path = tokens_path  %>
 			<% end %>	
 
             <a href="<%= path %>" data-skip-pjax>
 	            <table class="navigation">
 	            	<tbody>
 	            		<tr id="noWhite">
+	        				<td>
+	        					<i class="bigicon-parents fr"></i>
+	        				</td>
+	            			<td>
+	            				<span class="secondary_name"><%= "Family" %></span>	
+	        				</td>
 	            			<td class="navigation_icon" id="registration_popover">
 	            				<% if current_payer.registered? %>
-	            					<i class="bigicon-shield"></i>
+	            					<i class="bigicon-shield" title="Parent is registered to Paykido"></i>
             					<% else %>
             						<i class="bigicon-placeholder"></i>
 	        					<% end %>
 	            			</td>
-	            			<td>
-	            				<span class="secondary_name"><%= "Family" %></span>	
-	        				</td>
-	        				<td>
-	        					<i class="bigicon-parents fr"></i>
-	        				</td>
 	            		</tr>
 	            	</tbody>
 	            </table>
         	</a>
         </li>
     	<% current_payer.consumers.each do |consumer| %>
-	        <li class="consumer <%= "active" if (@consumer and @consumer.id == consumer.id) %>">
-				<% if params[:controller] == 'purchases' %>
-					<% path = consumer_purchases_path(consumer)  %>
-				<% elsif params[:controller] == 'consumers' or params[:controller] == 'payers' %>
-					<% path = consumer_path(consumer)  %>
+	        <li class="consumer <%= "active" if (@consumer and @consumer.id == consumer.id) %>" data-consumer-id=<%= consumer.id %> >
+				<% if params[:controller] == 'consumers'  %>
+					<% path = welcome_consumer_path(consumer)  %>
+				<% elsif params[:controller] == 'statistics' %>
+					<% path = consumer_statistics_path(consumer)  %>
 				<% elsif params[:controller] == 'rules' %>
 					<% path = consumer_rules_path(consumer)  %>
-				<% elsif params[:controller] == 'transactions' %>
-					<% path = consumer_purchase_transactions_path(consumer, @purchase)  %>
-				<% elsif params[:controller] == 'allowances' %>
-					<% path = consumer_allowances_path(consumer)  %>
+				<% elsif params[:controller] == 'purchases' %>
+					<% path = consumer_purchases_path(consumer)  %>
+				<% elsif params[:controller] == 'tokens' %>
+					<% path = tokens_path(consumer)  %>
 				<% end %>	
 				<a href="<%= path %>" data-skip-pjax>
 		            <table class="navigation">
 		            	<tbody>
 		            		<tr id="noWhite">
-		            			<td class="navigation_icon">
-		            				<% if consumer.confirmed %>
-		            					<i class="bigicon-seal"></i>
-	            					<% else %>
-	            						<i class="bigicon-placeholder"></i>
-		        					<% end %>
-		            			</td>
-		            			<td>
-					            	<span class="secondary_name"><%= consumer.name %></span>
-				            	</td>
 				            	<td>			            		
 					            	<% if consumer.tinypic %>
 					            		<span class="avatar fr"><%= image_tag consumer.tinypic %></span>
@@ -75,6 +65,16 @@
 					            		<i class="bigicon-user fr"></i>
 					            	<% end %>
 				            	</td>
+		            			<td>
+					            	<span class="secondary_name"><%= consumer.name %></span>
+				            	</td>
+		            			<td class="navigation_icon">
+		            				<% if consumer.confirmed %>
+		            					<i class="bigicon-tick-in-a-circle" title="Consumer is confirmed"></i>
+	            					<% else %>
+	            						<i class="bigicon-placeholder"></i>
+		        					<% end %>
+		            			</td>
 			            	</tr>
 		            	</tbody>
 	            	</table>           	
@@ -93,16 +93,16 @@
 	
 $(document).ready(function () {
 	$('.menu').removeClass('active');
-	<% if params[:controller] == 'purchases' %>
-		$('#dashboard_menu').addClass('active');
-	<% elsif params[:controller] == 'consumers' %>
-		$('#people_menu').addClass('active');
+	<% if params[:controller] == 'consumers' %>
+		$('#consumers_menu').addClass('active');
+	<% elsif params[:controller] == 'statistics' %>
+		$('#statistics_menu').addClass('active');
 	<% elsif params[:controller] == 'rules' %>
 		$('#rules_menu').addClass('active');
-	<% elsif params[:controller] == 'transactions' %>
-		$('#dashboard_menu').addClass('active');
-	<% elsif params[:controller] == 'allowances' %>
-		$('#allowances_menu').addClass('active');
+	<% elsif params[:controller] == 'purchases' %>
+		$('#purchases_menu').addClass('active');
+	<% elsif params[:controller] == 'tokens' %>
+		$('#tokens_menu').addClass('active');
 	<% end %>	
 })	
 	

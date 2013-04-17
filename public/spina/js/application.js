@@ -236,7 +236,7 @@ $('document').ready(function() {
       Tooltips
     ***********/
     
-    $('.tooltip').tipsy({gravity: 's'});
+/*    $('.tooltip').tipsy({gravity: 's'}); */
   
     /******************
       Form Validation

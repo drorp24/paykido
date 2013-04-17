@@ -1,12 +1,66 @@
-body {
+body, #returnedMessage {
     font-family:"Segoe UI", Helvetica, Arial;
     font-weight: 100;
-    text-shadow: 0 1px 0 #FFFFFF;
     font-size: 15px;
+    background:url("/home/img/background/pattern.png");
 }
 
 #main {
     overflow: hidden;
+}
+
+.hero-unit {
+  padding: 60px;
+  margin-bottom: 30px;
+    /* Fallback for web browsers that doesn't support RGBa */
+    background: rgb(0, 0, 0) transparent;
+    /* RGBa with 0.3 opacity */
+    background: rgba(0, 0, 0, 0.1);
+    /* For IE 5.5 - 7*/
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+    /* For IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+    padding: 30px 30px 10px 30px;
+    margin: 30px;
+    color: #094958;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+}
+
+#invite {
+    text-align: center;
+    width: 73%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px;
+    color: #000;
+}
+
+#invite.hero-unit h2 {
+    font-size: 18px;
+    font-weight: 100;
+    text-transform: uppercase;
+    color: #000;
+    text-shadow: 0 1px 0 #FFFFFF;
+    margin-bottom: 10px;
+}
+
+#invite.hero-unit p {
+    line-height: 16px;
+}
+
+
+#invite.hero-unit span {
+font-size: 16px;
+}
+
+#invite.hero-unit #top_inviter span{
+    font-size: 14px;
+}
+
+#inviter_count, #inviter_name {
+    color: #bd362f;    
 }
 
 #main .modal-header {
@@ -24,11 +78,96 @@ body {
 
 }
 
+img {
+  max-width: 100%;
+}
+
+.modal-header .close {
+  position: absolute;
+  right: 20px;
+  top: 25px;
+}
+
+#pic {
+    position: absolute;
+    margin-top: -9px;
+    margin-left: -5px;
+}
+
+#pic img{
+    height: 50px;
+    width: 50px;
+    border-radius: 5px;
+}
+
+#salutation {
+    line-height: 33px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.btn {
+    font-weight: 400;
+}
+
+#text_logo {
+    position: absolute;
+    bottom: 4px;
+    left: 46px;    
+}
+.logo_text {
+    
+}
+#why_register {
+
+    /* Fallback for web browsers that doesn't support RGBa */
+    background: rgb(0, 0, 0) transparent;
+    /* RGBa with 0.3 opacity */
+    background: rgba(0, 0, 0, 0.2);
+    /* For IE 5.5 - 7*/
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+    /* For IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+    padding: 30px 30px 10px 30px;
+    margin: 30px;
+    color: #094958;
+}
+
+#why_register h1 {
+    
+    font-weight: 100;
+    text-shadow: 0 1px 0 #FFFFFF;
+    font-size: 40px;
+    margin-bottom: 25px;
+    color: #000;
+}
+
+#why_register h2{
+    font-weight: 400;
+    font-size: 16px;
+}
+
+#why_register p{
+    font-size: 16px;
+    margin-top: 12px;
+    margin-bottom: 0;
+}
+
+#why_register a {
+    font-weight: 400;
+}
+
+#why_register .explanation {
+    color: #000;
+    font-size: 12px;
+    margin-top: 20px;
+}
 .ys_kid {
     position: absolute;
-    bottom: 7px;
+    bottom: 28px;
     left: 21px;
-    width: 120px;
+    width: 95px;
     z-index: 1000;
 }
 
@@ -69,9 +208,14 @@ body .modal-body {
 }
 */
 #login_button {
+/*
     float: right;
     margin-top: 36px;
     margin-right: 60px;
+*/
+    position: relative;
+    right: 15px;
+    top: 5px;
 }
 
 .modal-header h3 {
@@ -92,13 +236,10 @@ body .modal-body {
 }
 
 #invite {
-    margin-top: 45px;
+    margin-top: 35px;
+    margin-bottom: 10px;
     font-size: 16px;
-    margin-left: -10px;
-}
-
-#salutation_and_pic_or_login {
- 
+/*    margin-left: -10px; */
 }
 
 #invite .text {
@@ -112,41 +253,18 @@ body .modal-body {
     
 }
 
-#salutation {
-    float: left;
-    font-size: 18px;
-    margin-left: 59px;
-    margin-top: 20px;
-
-}
-
-#pic {
-    float: right;
-    margin-right: 42px;
-}
-
-#pic img {
-    border-radius: 5px;
-    position: absolute;
-    left: 9px;
-    top:9px;
-}
-
 #instruction_or_product {
     margin-top: 45px;  
-    height: 65px;  
 }
 
 #iop1 {
-    margin-top: -38px;
     margin-left: -16px;
     font-size: 16px;  
 }
 
 #iop2 {
     font-size: 24px;
-    font-weight: bold;
-    line-height: 50px;
+    line-height: 0;
     margin-left: -10px;
 }
 #invite.line .text {
@@ -160,12 +278,10 @@ body .modal-body {
 }
 
 #facepile {
-    margin-left: 30px;
-    height: 100px;
-    position: absolute;
-    top: 324px;
-    z-index: -1; 
-    
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    margin-top: 25px;   
 }
 
 #loadingZone {
@@ -176,12 +292,12 @@ body .modal-body {
 }
 
 #registration {
-    margin: -425px auto 0;
+    margin: 13px auto 0;
     width: 590px;
 }
 
 #test_registration {
-    margin: -425px auto 0;
+    margin: 13px auto 0;
     width: 290px;
 }
 
@@ -248,13 +364,6 @@ sup {
 
 sub {
   bottom: -0.25em;
-}
-
-img {
-  max-width: 100%;
-  vertical-align: middle;
-  border: 0;
-  -ms-interpolation-mode: bicubic;
 }
 
 #map_canvas img {
@@ -4409,14 +4518,13 @@ input[type="submit"].btn.btn-mini {
           border-radius: 6px 6px 0 0; 
 }
 
-.modal-header .close {
-  margin-top: 2px;
-}
-
 .modal-body {
   height: 440px; /* Dror: Originally: max-height: 400px; */
 /*  padding: 15px; */
-  overflow-y: auto;
+/*  overflow-y: auto; */
+    background:url("/home/img/background/header.png") repeat-x;
+    overflow-y: hidden;
+
 }
 
 .modal-form {
@@ -4436,6 +4544,7 @@ input[type="submit"].btn.btn-mini {
   -webkit-box-shadow: inset 0 1px 0 #ffffff;
      -moz-box-shadow: inset 0 1px 0 #ffffff;
           box-shadow: inset 0 1px 0 #ffffff;
+  height: 25px;
 }
 
 .modal-footer:before,
@@ -5138,15 +5247,6 @@ a.badge:hover {
 .carousel-caption h4,
 .carousel-caption p {
   color: #ffffff;
-}
-
-.hero-unit {
-  padding: 60px;
-  margin-bottom: 30px;
-  background-color: #eeeeee;
-  -webkit-border-radius: 6px;
-     -moz-border-radius: 6px;
-          border-radius: 6px;
 }
 
 .hero-unit h1 {

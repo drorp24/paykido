@@ -1,32 +1,108 @@
+<% if params[:notify] and params[:notify] == 'no_purchases' %>
+<div id="no_purchases" class="alert alert-block">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">No purchases</h4>
+	<% consumer = Consumer.find_by_id(params[:consumer_number]) %>
+	<span><%= (consumer and consumer.name) ? consumer.name : "Family" %> has not purchased anything yet.</span>
+</div>
+<% end %>
+
+<% if @allowance_for_unregistered %>
+<div id="allowance_for_unregistered" class="alert alert-block">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Register to define your allowance</h4>
+	<span><%= "To define an allowance for #{@consumer.name}, you must register first. You can register by clicking this button." %></span>
+    <span><%= button_to "Register", tokens_path, :class => "btn btn-info inline" %></span>
+</div>
+<% end %>
+
+<% if @no_allowance_defined %>
+<div id="no_allowance_defined" class="alert alert-block">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">No allowance defined</h4>
+	<span>Click the button if you'd like to set one now</span>
+	<span><%= link_to "Set allowance", consumer_rules_path(@consumer.id), :class => "btn btn-info inline", 'data-skip-pjax' => true %></span>
+</div>
+<% end %>
+
+<% if @allowance_not_effective_yet %>
+<div id="allowance_not_effective_yet" class="alert alert-block">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Allowance is not effective yet</h4>
+    <% schedule_date = @allowance_rule.schedule.next_occurrence %>
+    <% if schedule_date %>
+		<span><%= "First grant of new allowance is scheduled for #{l @allowance_rule.schedule.next_occurrence, :format => :medium}." %></span>
+	<% else %>
+		<span>Allowance is not yet scheduled, or stopped.</span>
+	<% end %>
+	<% unless params[:controller] == 'rules' %>
+		<span><%= link_to "Set more rules", consumer_rules_path(@consumer.id), :class => "btn btn-info inline", 'data-skip-pjax' => true %></span>
+	<% end %>
+</div>
+<% end %>
+
+<% if @constraint %>
+<div id="rules_constraint" class="alert alert-block">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+	<% if @constraint == 'registration' %>
+    <h4 class="alert-heading">Registration required</h4>
+		<span>You need to register to Paykido in order to set rules.</span>
+ 		<% if @consumer and @consumer.no_allowance? %>
+ 			<span>(In Paykido, allowance is also a rule).</span>
+		<% end %>
+    	<span><%= button_to "Register", tokens_path, :class => "btn btn-info inline" %></span>
+	<% elsif @constraint == 'consumer_level' %>
+    <h4 class="alert-heading">Select a consumer</h4>
+    	<span>To set rules, click on the consumer you want to set rules for.</span>
+	<% end %>
+</div>
+<% end %>
+
+<% if params[:notify] and params[:notify] == 'confirmation_request' and @consumer %>
+<div id="confirmation_request" class="alert alert-block">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Welcome to Paykido!</h4>
+	<span>Paykido is the only service that lets you control <strong>what</strong> your kid can buy. </span>		
+	<span><%= "Please confirm you are #{@consumer.name}'s parent now." %></span>
+    <span><%= button_to "Confirm #{@consumer.name}", confirm_consumer_path(@consumer), :class => "btn btn-info inline" %></span>
+</div>
+<% end %>
+
+<% if params[:notify] and params[:notify] == 'registration'  and params[:status] == 'success' %>
 <div id="registration_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Registration Complete!</h4>
-    You can now place rules, have Paykido automatically block bad purchases and automatically pay for complying ones.
+    <span><%= "You can now have Paykido block bad purchases for you and pay on your behalf. Start by setting #{@consumer.name}'s allowance." %></span>
 </div>
+<% end %>
 
 <% if params[:notify] and params[:notify] == 'registration' and params[:ppp_status] and params[:ppp_status] == 'CANCEL'%>
 <div id="registration_CANCEL" class="alert alert-block alert-error" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Cancelled at your request</h4>
 	<span><%= "Would you like to try again?" %>
-    <span><%= button_to "Register", tokens_path, :class => "btn btn-primary inline" %></span>
+    <span><%= button_to "Register", tokens_path, :class => "btn btn-info inline" %></span>
 </div>
 <% end %>
 
+<% if params[:notify] and params[:notify] == 'unregistration' and params[:status] == 'success' %>
 <div id="unregistration_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Unregistered!</h4>
-    This registration is cancelled. You can register again at any time.
-	<%= button_to "Register again", tokens_path, :class => "btn btn-primary inline" %>
+    <span>This registration is cancelled. All allowances were reset. You can register again any time.</span>
+	<span><%= button_to "Register again", tokens_path, :class => "btn btn-info inline" %></span>
 </div>
+<% end %>
 
+<% if params[:notify] and params[:notify] == 'registration' and params[:status] != 'success' %>
 <div id="registration_failure" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Something is missing</h4>
-    <%= "We\'re unable to check your credit card. " %>
-	<%= "Could be something you keyed." %>
-	<%= button_to "Try again", tokens_path, :class => "btn btn-primary inline" %>
+    <span><%= "We\'re unable to check your credit card. " %></span>
+	<span><%= "Could be something you keyed." %></span>
+	<span><%= button_to "Try again", tokens_path, :class => "btn btn-info inline" %></span>
 </div>
+<% end %>
 
 <% if params[:purchase] %>
 <div id="approval_failure" class="alert alert-block alert-error" style="display:none">
@@ -34,10 +110,10 @@
     <h4 class="alert-heading">Something is missing</h4>
     <%= "We\'re unable to process the payment. " %>
 	<% if params[:manual] %>
-		<%= "Could be something you keyed." %>
-    	<%= button_to "Try again", approve_purchase_path(params[:purchase]),:method => :get, :class => "btn btn-primary inline" %>
+		<span><%= "Could be something you keyed." %></span>
+    	<span><%= button_to "Try again", approve_purchase_path(params[:purchase]),:method => :get, :class => "btn btn-info inline" %></span>
 	<% else %>
-		<%= "Please contact Paykido Support for help." %>
+		<span><%= "Please contact Paykido Support for help." %></span>
 	<% end %>
 </div>
 <% end %>
@@ -46,20 +122,35 @@
 <div id="approval_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
 	<% purchase = Purchase.find(params[:purchase]) %>
-	<% retailer = purchase.retailer.name %>
-	<% times = purchase.approval_counter('retailer') %>
-    <% if times > Paykido::Application.config.offer_rule_or_registration_after.to_i %>
-    	<h4 class="alert-heading"><%= "Suggested Rule: Always Approve #{retailer}" %></h4>
-    	<span><%= "You approved #{retailer} already #{times} times." %></span>
+	<% retailer = purchase.properties['retailer'] %>
+	<% rule_exists = purchase.consumer.whitelisted?('retailer', retailer) or purchase.consumer.blacklisted?('retailer', retailer) %>
+	<% times = purchase.approval_counter('retailer') unless rule_exists %>
+    <% if !rule_exists and times >= Paykido::Application.config.offer_rule_or_registration_after.to_i %>
+    	<h4 class="alert-heading"><%= "Would you like Paykido to always approve purchases from #{retailer}?" %></h4>
+    	<span><%= "You approved #{retailer} #{pluralize(times, 'time')} already." %></span>
     	<% if current_payer.registered_or_waived %>
-    		<span><%= "Set a rule to have Paykido approve this merchant for you going forward." %></span>
-    		<%= button_to "Always approve #{retailer}", rules_path(:payer_id => current_payer.id, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :rule_status => 'whitelisted', :purchase_id => purchase.id), :method => :post, :class => "btn btn-primary inline rule_set" %>
+    		<span>Like to let Paykido approve this merchant for you next times?</span>
+    		<span><%= button_to "Always approve #{retailer}", rules_path(:payer_id => current_payer.id, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :rule_status => 'whitelisted', :purchase_id => purchase.id), :method => :post, :class => "btn btn-info inline rule_set" %></span>
 		<% else %>
-    		<%= "Register and have Paykido do that for you going forward." %>
-    		<%= button_to "Register Now", new_token_path,:method => :get, :class => "btn btn-primary inline" %>
+    		<span><%= "Register and have Paykido do that for you going forward!" %></span>
+    		<span><%= button_to "Register Now", new_token_path,:method => :get, :class => "btn btn-info inline" %></span>
 		<% end %>
 	<% else %>
-    	<h4 class="alert-heading">Purchase Approved!</h4>	
+    	<h4 class="alert-heading">Purchase Approved</h4>	
+    	<% if current_payer.registered_or_waived %>
+    		<% if @consumer and @consumer.no_allowance? %>
+	    		<span><%= "#{@consumer.name} has no allowance defined yet. Would you like to set it now?" %></span>
+				<span><%= link_to "Set allowance", consumer_rules_path(@consumer.id), :class => "btn btn-info inline", 'data-skip-pjax' => true %></span>
+			<% elsif !rule_exists %>
+	    		<span>Have <strong>Paykido</strong> do the approval and payment for you next time!</span>
+	    		<span>Simply hover below and let Paykido know what to approve or decline. </span>
+			<% else %>
+	    		<span>You have succesfully approved the purchase.</span>
+    		<% end %>
+   		<% else %>
+    		<span><%= "Register and have Paykido do that for you going forward!" %></span>
+    		<span><%= button_to "Register Now", new_token_path,:method => :get, :class => "btn btn-info inline" %></span>
+		<% end %>
 	<% end %>    		
 </div>
 <% end %>
@@ -69,7 +160,7 @@
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Cancelled at your request</h4>
 	<span><%= "Would you like to try again?" %>
-    <span><%= button_to "Approve", approve_purchase_path(params[:purchase]),:method => :get, :class => "btn btn-primary inline" %></span>
+    <span><%= button_to "Approve", approve_purchase_path(params[:purchase]),:method => :get, :class => "btn btn-info inline" %></span>
 </div>
 <% end %>
 
@@ -81,13 +172,13 @@
 	<% times = purchase.denial_counter('retailer') %>
     <% if times > Paykido::Application.config.offer_rule_or_registration_after.to_i %>
     	<h4 class="alert-heading"><%= "Suggested Rule: Always Decline #{retailer}" %></h4>
-    	<span><%= "You declined #{retailer} already #{times} times." %></span> 
+    	<span><%= "You declined #{retailer} #{times} times already." %></span> 
     	<% if current_payer.registered_or_waived %>
-    		<span><%= "Set a rule to have Paykido decline this merchant for you going forward." %></span>
-    		<%= button_to "Always decline #{retailer}", rules_path(:payer_id => current_payer.id, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :rule_status => 'blacklisted', :purchase_id => purchase.id), :method => :post, :class => "btn btn-primary inline rule_set"%>
+    		<span>Set a rule to have Paykido <strong>automatically </strong>decline this merchant next time!</span>
+    		<span><%= button_to "Always decline #{retailer}", rules_path(:payer_id => current_payer.id, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :rule_status => 'blacklisted', :purchase_id => purchase.id), :method => :post, :class => "btn btn-info inline rule_set"%></span>
 		<% else %>
-    		<%= "Register and have Paykido do that for you going forward." %>
-    		<%= button_to "Register Now", new_token_url,:method => :get, :class => "btn btn-primary inline" %>
+    		<span><%= "Register and have Paykido do that for you going forward." %></span>
+    		<span><%= button_to "Register Now", new_token_url,:method => :get, :class => "btn btn-info inline" %></span>
 		<% end %>
 	<% else %>
     	<h4 class="alert-heading">Purchase Declined!</h4>	
@@ -95,18 +186,66 @@
 </div>
 <% end %>
 
+<% if params[:notify] and params[:notify] == 'rule_setting' and params[:status] == 'success'  %>
 <div id="rule_setting_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
-    <h4 class="alert-heading">Rule created</h4>    
-    <%= "Paykido will automatically #{(params[:rule_status] == 'whitelisted') ? 'approve' : 'decline'} purchases whose #{t params[:property]} is #{params[:value]}. No need to #{(params[:rule_status] == 'whitelisted') ? 'approve' : 'decline'} them manually anymore." %>
+    <h4 class="alert-heading">Rule <%= params[:rule_status] == 'reset' ? 'reset' : 'created' %></h4>
+    <% unless params[:rule_status] == 'reset' %>    
+    	<span><%= "Paykido will automatically #{(params[:rule_status] == 'whitelisted') ? 'approve' : 'decline'} purchases whose #{t params[:property]} is #{params[:value]}. No need to #{(params[:rule_status] == 'whitelisted') ? 'approve' : 'decline'} them manually anymore." %></span>
+	<% else %>
+		<span>Paykido has succesfully reset the rule</span>
+	<% end %>
 </div>
+<% end %>
 
+<% if params[:notify] and params[:notify] == 'new_rule' %>
+<div id="new_rule_success" class="alert alert-block" style="display:none">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Rule created!</h4>    
+	<% if params[:property] == "allowance" %>
+		<span><%= "Allowance set to #{number_to_currency params[:value]} every #{params[:occurrence]}." %></span>
+	<% elsif params[:date] %> 
+		<span><%= "#{number_to_currency params[:value]} granted as of #{l params[:date].to_datetime, :format => :medium} "%></span>
+		<span><%= "on behalf of #{params[:donator]}" if !params[:donator].blank? %></span>
+	<% else %>
+    	<span><%= "Rule successfully set!" %></span>
+	<% end %>
+	<% unless params[:controller] == 'rules' %>
+		<span><%= link_to "Set more rules", consumer_rules_path(@consumer.id), :class => "btn btn-info inline", 'data-skip-pjax' => true %></span>
+	<% end %>
+</div>
+<% end %>
+
+<% if params[:notify] and params[:notify] == 'update_rule' %>
+<div id="update_rule_success" class="alert alert-block" style="display:none">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading"><%= "Rule #{params[:update]}!" %></h4>    
+	<% if params[:date] %>
+		<span><%= "#{number_to_currency params[:value]} granted as of #{l params[:date].to_datetime, :format => :medium} "%></span>
+		<span><%= "on behalf of #{params[:donator]}" if !params[:donator].blank? %></span>
+	<% else %>
+		<span><%= "Rule was succesfully #{params[:update]}!" %></span>
+	<% end %>
+	<% unless params[:controller] == 'rules' %>
+		<span><%= link_to "Set more rules", consumer_rules_path(@consumer.id), :class => "btn btn-info inline", 'data-skip-pjax' => true %></span>
+	<% end %>
+</div>
+<% end %>
+
+<% if params[:notify] and params[:notify] == 'confirmation' and params[:status] == 'success' and !@no_allowance_defined %>
 <div id="confirmation_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
-    <h4 class="alert-heading">Consumer Confirmed!</h4>
-    <%= "From now on, we'll watch every purchsae #{params[:name]} attempts. When ready, register your credit card to make things even safer!" %> &nbsp &nbsp
-    <span><%= button_to "Register now", tokens_path, :class => "btn btn-primary inline" %></span>
+    <h4 class="alert-heading">Consumer confirmed!</h4>
+	<% if params[:pending] == 'exist' %>
+    	<span><%= "#{@consumer.name} also asked you to approve a purchase" %>.</span>
+	<% elsif !current_payer.registered? %>
+    	<span>You can set your rules once you register your credit card.</span>
+    	<span><%= button_to "Register now", tokens_path, :class => "btn btn-info inline" %></span>
+	<% elsif @consumer and @consumer.no_allowance? %>
+    	<span><%= "You can now set an allowance for #{@consumer.name}." %></span>
+	<% end %>
 </div>
+<% end %>
 
 <script type="text/javascript">
 
@@ -126,12 +265,6 @@ $(document).ready(function() {
 	    notification("<%= "Successfully registered!"%>", false, 'icon-eye-open', true)
 		$('#registration_success').show();
 		$("#registration_popover i").removeClass('bigicon-placeholder').addClass('bigicon-shield');
-		$("#registration_popover").popover({
-			title: "Registration Sign" ,
-			content: "Shield icon says your account is registered",
-			placement: "bottom"
-			}).popover('show');
-			window.setTimeout("$('#registration_popover').popover('hide')", 5000);
 	<% elsif params[:ppp_status] and params[:ppp_status] == 'CANCEL' %>
 		$('#registration_CANCEL').show();
 	<% else %>
@@ -158,6 +291,27 @@ $(document).ready(function() {
 		$('.consumer.active').addClass('confirmed');
 	<% else %>
 	    notification('<%= "Failed to confirm consumer" %>', false, 'icon-exclamation-sign', true)
+	<% end %>
+	<% if params[:pending] == 'exist' %>
+		$('#approval_buttons').popover({
+			title: "For your approval", 
+			trigger: 'manual',
+			content: 
+				<% if current_payer.registered? %>
+					"<p>If you approve, Paykido will pay on your behalf.</p>" 
+				<% else %>
+					"<p>If you wish Paykido to do the approvals for you and pay on your behalf too, please register.</p>" +
+	    			'<%= button_to "Register", tokens_path, :class => "btn btn-info inline" %>'
+	 			<% end %>
+					, 
+			placement: 'top', 
+			html: true,
+			template: '<div class="popover" onmouseover="$(this).mouseleave(function() {$(this).hide(); });"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
+	
+	            }).mouseenter(function(e) {
+	                $(this).popover('show');
+			})
+			$('#approval_buttons').popover('show')		
 	<% end %>
 <% end %>
 
@@ -215,13 +369,40 @@ $(document).ready(function() {
 	<% end %>
 <% end %>
 
-})
+<% if params[:notify] and params[:notify] == 'new_rule' %>
+	<% if params[:status] == 'success'  %>
+	    notification("<%= "#{current_payer.name} created a new rule"%>", false, 'icon-wrench', true)
+		$('#new_rule_success').show();
+	<% else %>
+	    notification('<%= "Rule setting failed" %>', false, 'icon-exclamation-sign', true)
+	<% end %>
+<% end %>
 
-$(document).ready(function() {
+<% if params[:notify] and params[:notify] == 'update_rule' %>
+	<% if params[:status] == 'success'  %>
+	    notification("<%= "#{current_payer.name} updated a rule"%>", false, 'icon-wrench', true)
+		$('#update_rule_success').show();
+	<% else %>
+	    notification('<%= "Rule update failed" %>', false, 'icon-exclamation-sign', true)
+	<% end %>
+<% end %>
 
 	if ($('#notifications a').length == 0) {
 		$('#notifications').prepend('<a href="#">Show all notifications</a>');
 	}	
+
+
+	<% if params[:notify] == 'confirmation_request' %>
+	name = $('li.consumer.active .secondary_name').html();
+	$('li.consumer.active').popover({
+		title: name +  " asks you to use Paykido", 
+		content: "<p>Use Paykido to protect " + name + " from bad purchases.</p>", 
+		placement: 'top', 
+		html: true
+		})
+		$('li.consumer.active').popover('show')
+	<% end %>
+
 
 })
 

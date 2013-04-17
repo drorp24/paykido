@@ -2,6 +2,6 @@
 	<% if defined? icon %>
 		<i class=<%= icon %>></i>
 	<% end %>
-	<h1><%= title %></h1>
+	<h1><%= @consumer ? "#{@consumer.name}'s" : "Family"%> <%= t params[:controller], :scope => :page_names %></h1>
 	<%= link_to 'Back', backPath, 'data-skip-pjax' => true if defined? backPath %>
 </div>

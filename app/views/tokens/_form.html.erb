@@ -4,13 +4,13 @@
 
 	<p id="space_before_registration_form"></p>
   	<div class="form-inputs">
-	    <%= f.input :FirstName, :autofocus => true %>
-	    <%= f.input :LastName %>
+	    <%= f.input :FirstName, :label => "First Name", :autofocus => true %>
+	    <%= f.input :LastName, :label => "Last Name" %>
 	    <%= f.input :Phone %>
 	    <%= f.input :Email %>
 	</div>
 
 	<div class="form-actions">
-    	<%= f.button :submit, "Register, it's free!", :class => "btn-primary" %>
+    	<%= f.button :submit, "Register, it's free!", :class => "btn-info" %>
   	</div>
 <% end %>

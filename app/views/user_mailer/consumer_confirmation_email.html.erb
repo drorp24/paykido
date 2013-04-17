@@ -430,7 +430,7 @@
 								<div  align="left" style="text-align:left;" ><img id="customHeaderImage" src="http://i2.createsend3.com/ti/j/90/9C5/BD0/223803/images/arca_logo.133517.png" class="w640"  align="top" border="0" style="display:inline;height:auto;line-height:100%;outline-style:none;text-decoration:none;" />
 			    <p style="margin-left: 200px"><span style="font-size: 16px"><strong>Dear <%= @payer.name %></strong></span>, <%= @consumer.name %> asked us to tell you about 
                                                                          <%= link_to "Paykido",
-                            confirm_consumer_url(@consumer,:email => @payer.email, :auth_token => @payer.authentication_token) %>
+                            welcome_consumer_url(@consumer.id,:email => @payer.email, :auth_token => @payer.authentication_token, :notify => 'confirmation_request') %>
 
                 		 </p>
 					</div></td>
@@ -603,7 +603,7 @@
 																	</p>
 																	<div class="article-content" align="left" style="font-size:13px;line-height:18px;color:#444444;margin-top:0px;margin-bottom:18px;font-family:Helvetica Neue, Arial, Helvetica, Geneva, sans-serif;" >
 																		<p style="margin-bottom:15px;" >
-																			Pay nothing in advance!&nbsp; Paykido charges you after a purchase is made, and only if you approved it. Paykido is much different than any other payment or control service you have ever encountered.
+																			Pay nothing in advance!&nbsp; Paykido charges you after a purchase is made, and only if you approved it. Paykido is very different than any other payment or control service you have ever encountered.
 																		</p>
 																	</div></td>
 																</tr>
@@ -637,7 +637,7 @@
 																		<p style="margin-bottom:15px;" >
 																			Click
 																			<%= link_to "Discover Paykido",
-                                        confirm_consumer_url(@consumer,:email => @payer.email, :auth_token => @payer.authentication_token) %>
+                                        welcome_consumer_url(@consumer.id,:email => @payer.email, :auth_token => @payer.authentication_token, :notify => 'confirmation_request') %>
 																			and start controlling what your kids buy.
 																		</p>
 																		<p>Or visit www.paykido.com and sign-in using your email and "1" as your temporary password (you can always change it).

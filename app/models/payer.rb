@@ -122,10 +122,14 @@ class Payer < ActiveRecord::Base
     
   end
 
+  def rules_require_registration
+    Paykido::Application.config.rules_require_registration and !self.registered?
+  end
+  
   def registered?  #ToDo: set an instance variable for performance
     self.tokens.any?
   end
-  
+
   def registered_or_waived
     unless Paykido::Application.config.rules_require_registration
       true
@@ -133,15 +137,26 @@ class Payer < ActiveRecord::Base
       self.registered?
     end
   end
-  
+    
   def token
-    self.tokens.first if self.tokens.any?
+    self.tokens.last if self.tokens.any?
+  end
+  
+  def registration_date
+    return @registration_date if @registration_date
+    if token = self.token
+      token.created_at
+    end
   end
   
   def request_confirmation(consumer)     
 
     begin
-      UserMailer.delay.consumer_confirmation_email(self, consumer)
+      if Paykido::Application.config.use_delayed_job
+        UserMailer.delay.consumer_confirmation_email(self, consumer)
+      else
+        UserMailer.consumer_confirmation_email(self, consumer).deliver
+      end
     rescue
       return false
     end
@@ -152,6 +167,8 @@ class Payer < ActiveRecord::Base
     rescue
       return false
     end
+
+    Sms.notify_consumer(consumer, 'confirmation', 'request')
     
   end 
 

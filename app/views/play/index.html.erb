@@ -65,7 +65,8 @@
 		</p>
 		<p class="pending_purchase" style="display: none">Hold on...</p>
 		<p class="pending_purchase" style="display: none">Parental approval is required.</p>
-		<p class="pending_purchase" style="display: none">Parent was contacted.</p>
+		<p class="pending_purchase" style="display: none">You will get a text message </p>
+		<p class="pending_purchase" style="display: none">once your parent approves.</p>
 		<p class="failed_purchase" style="display: none">We are sorry. Something went wrong.</p>
 		<p class="failed_purchase" style="display: none">
 			<span class="value" id="property"></span>
@@ -76,7 +77,6 @@
 		<%= image_tag "yellowshirt_kid.png", :class => "ys_kid" %>
 	</div>
 	<div class="modal-footer">
-		<a href="#" class="btn btn-primary">Why is this?</a>
 		<a href="#" class="btn" data-dismiss="modal">Close</a>
 	</div>
 </div>
@@ -85,23 +85,51 @@
 <script type="text/javascript">
 
 $(document).ready(function () {
-	
-	// Emulate displaying Paykido's returned message
 
+	$.urlParam = function(name){
+	    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+	    return results[1] || 0;
+	}
+	
+/*
+	$('#paykido_button').on("click", (function() {
+		if ($('#returnedMessage').css('display') == 'block') {
+			alert('yes it is populated')
+			alert("paykido html at the beginning: " + $('#paykido').html())
+
+			$('#returnedMessage').remove();
+			alert("paykido html after removal of returnedMessage: " + $('#paykido').html())
+
+			$('#iframe').attr('src', $('#iframe').attr('src'));
+			alert("paykido html after hack: " + $('#paykido').html())
+			alert('after I was supposed to show modal')
+		}
+	}))
+
+*/
+
+/*
+	$('#paykido_button').on("click", (function() {
+		if ( $.urlParam('status') == 'registering' ) {
+			alert("paykido html before hack: " + $('#paykido').html())
+			$('#returnedMessage').remove()
+			$('#iframe').show()	
+			$('#iframe').attr('src', $('#iframe').attr('src'));
+			alert("paykido html after hack: " + $('#paykido').html())
+			$('#paykido.modal').modal('show')	
+		}
+	}))
+*/	
 	window.addEventListener("message", receiveMessage, false);
 	 
 	function receiveMessage(event)
 	{
 	
-/*
-	    if (event.origin !== "http://localhost:3000")
-	        return;
-*/	 
-	    $('#paykido.modal').modal('hide')
+//	    $('#paykido.modal').modal('hide')
 	    if (event.data == 'close') {return}
 		obj = jQuery.parseJSON(event.data)
 //	    alert('the message is: ' + obj.status + '\n' + "property:" + obj.property + "\n" + "value:" + obj.value + "\n" + "type:" + obj.type)
-	    $('#paykido.modal').empty()
+	    $('#paykido.modal #iframe').hide()
 		$('#returnedMessage #return_status').html(obj.status)
 		if (obj.status == 'approved') {
 			$('.approved_purchase').show();
@@ -127,7 +155,7 @@ $(document).ready(function () {
 	}
 
 	<% if params[:status] and params[:status] == 'registering' %>
-	    $('#paykido.modal').empty()
+ 	    $('#paykido.modal #iframe').hide()
 		$('.status_icon').removeClass('bigicon-thumbs-up').addClass('bigicon-thumbs-right')			
 	    $('#paykido.modal').append($('#returnedMessage'))
 		$('#returnedMessage .modal-header h3').html('Confirmation')
@@ -135,6 +163,11 @@ $(document).ready(function () {
 		$('#returnedMessage').show()
 	    $('#paykido.modal').modal('show')
 	<% end %>
+	
+
+    $('#paykido.modal').on('hidden', function () {
+    	window.location.assign("/play")
+    })
 
 	// Emulate product selection (here: product radio button) 
 	//	initial value

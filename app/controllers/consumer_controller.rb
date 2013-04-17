@@ -15,23 +15,47 @@ class ConsumerController < ApplicationController
     
     consumer = Consumer.where("facebook_id = ?", params[:facebook_id])
     if consumer.exists? and consumer.first.confirmed?
-      format.json { render json: {:status => 'confirmed'} }
+      highest_inviter = Consumer.order("balance_on_acd DESC").first
+      highest = {}
+      highest[:name] = highest_inviter.name
+      highest[:count] = highest_inviter.invites
+      format.json { render json: {:status => 'confirmed', :invites => consumer.first.invites, :highest => highest} }
     else
-      format.json { render json: {:status => 'not confirmed'} }
+      format.json { render json: {:status => 'not confirmed', :invites => 0, :highest => 0} }
     end
   end
 
   end
+  
+  def invites_increase
+
+    respond_to do |format|
+  
+      consumer = Consumer.where("facebook_id = ?", params[:facebook_id]).first
+      if consumer
+        consumer.invites_increase(params[:invites])
+        format.json { render json: {:invites_count => consumer.invites} }
+      end
+      
+    end
+  end
  
   #############################################
   
-  def register_callback  
-      
+  def register_callback 
+          
     find_or_create_consumer_and_payer  
 
     unless @payer.errors.any?   
-      @payer.request_confirmation(@consumer)    
-      redirect_to params[:referrer]  + '?status=registering'
+      @payer.request_confirmation(@consumer) 
+      create_purchase
+      @purchase.require_approval!
+      if params[:mode] == 'M'
+        redirect_to params[:referrer]  + '?status=registering'
+      else
+        @response = @purchase.response('registering')       
+        render :layout => false 
+      end
     else
       Rails.logger.debug("@payer.errors is: " + @payer.errors.inspect.to_s)  
       flash[:error] = @payer.errors.inspect.to_s
@@ -58,19 +82,21 @@ class ConsumerController < ApplicationController
         Rails.logger.debug("No consumer currently exists with that facebook id. Initialized record created")
       end
 
-      @consumer = Consumer.find_or_initialize_by_facebook_id(facebook_params_user_id) 
+      @consumer = Consumer.find_by_facebook_id(facebook_params_user_id) 
+
+      unless @consumer
+        @consumer = Consumer.create!(:facebook_id => facebook_params_user_id)
+      end
+
+      unless @consumer.rules.any?
+        @consumer.set_rules!(params)
+      end
 
     elsif current_facebook_user # probably never true 
 
       Rails.logger.debug("Facebook params (signed request/facebooker) passed no facebook user id, but current_Facebook_user exists")  
 
       @consumer = Consumer.find_or_initialize_by_facebook_id(current_facebook_user.id)
-
-    else                        # this is actually an error 
-
-      Rails.logger.debug("Facebook params (signed request/facebooker) passed no facebook user id. No current_Facebook_user")  
-
-      @consumer = session[:consumer] || Consumer.new
 
     end 
     
@@ -113,9 +139,6 @@ class ConsumerController < ApplicationController
     Rails.logger.debug("The payer_id inserted into the consumer is: " + @consumer.payer_id.to_s)
     Rails.logger.debug("Consumer created_at got: " + @consumer.created_at.to_s)
 
-    session[:consumer] = @consumer
-    session[:payer] =    @payer
-    
     Rails.logger.debug("EXITS REGISTER CALLBACK")  
     
   end 
@@ -233,9 +256,7 @@ class ConsumerController < ApplicationController
 
     Rails.logger.debug("Updated consumer name and pic. Its id is: " + @consumer.id.to_s)      
     
-    # ToDo: no session needed - delete
-    session[:consumer] = @consumer
-    @payer = session[:payer] = @consumer.payer unless @consumer.nil?
+    @payer = @consumer.payer unless @consumer.nil?
     
     Rails.logger.debug("The payer Im using is the consumer payer. Its id is: " + @payer.id.to_s) if @payer     
 
@@ -247,7 +268,7 @@ class ConsumerController < ApplicationController
     # note it depends on the kid staying in the same session
     # it would be better and provide better BI if purchase were created upon login, like consumer
      
-    @purchase = session[:purchase] = 
+    @purchase = 
     Purchase.create_new!(@payer, 
                          @consumer, 
                          params[:merchant], 
@@ -256,7 +277,7 @@ class ConsumerController < ApplicationController
                          params[:amount], 
                          params[:currency], 
                          params[:PP_TransactionID],
-                         params)    
+                         params.except(:signed_request))    
 
   end
 

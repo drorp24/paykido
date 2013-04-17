@@ -32,7 +32,9 @@ class Purchase < ActiveRecord::Base
   has_many    :notifications
   has_many    :payments
   
-  scope :pending, where(:authorization_type => 'PendingPayer')
+  scope :pending,   where("authorization_type = ?", 'PendingPayer')
+  scope :approved,  where("authorized = ?", true)
+  scope :declined,  where("authorized = ? AND authorization_type != ?", false, "PendingPayer")
 
   def create_transaction!(params)    
 
@@ -72,10 +74,9 @@ class Purchase < ActiveRecord::Base
   end
 
 
-  def self.with_info(payer_id, consumer_id, purchase_id)
-    if purchase_id and !consumer_id and !payer_id
-      Purchase.where("consumer_id = ?", Purchase.find(purchase_id).consumer_id).order('created_at DESC').includes(:consumer, :retailer)      
-    elsif consumer_id
+  def self.with_info(payer_id, consumer_id)
+
+    if consumer_id
       Purchase.where("consumer_id = ?", consumer_id).order('created_at DESC').includes(:consumer, :retailer)
     else
       Purchase.where("payer_id = ?", payer_id).order('created_at DESC').includes(:consumer, :retailer)
@@ -410,12 +411,12 @@ class Purchase < ActiveRecord::Base
       self.authorization_property = "Balance"
       self.authorization_value = self.consumer.balance
       self.authorization_type = "insufficient"
-    elsif self.amount <= self.consumer.auto_authorize_under
+    elsif self.consumer.under_threshold and self.amount <= self.consumer.under_threshold
       self.authorization_property = "Amount"
       self.authorization_value = self.amount
       self.authorization_type = "Under Threshold"
       self.authorized = true
-    elsif self.amount > self.consumer.auto_deny_over
+    elsif self.consumer.over_threshold and self.amount > self.consumer.over_threshold
       self.authorization_property = "Amount"
       self.authorization_value = self.amount
       self.authorization_type = "Too High"
@@ -450,6 +451,10 @@ class Purchase < ActiveRecord::Base
 
   def require_approval!
     self.update_attributes!(
+      :authorized => false,
+      :authorization_date => Time.now,
+      :authorization_property => "Confirmation",
+      :authorization_value => "required",
       :authorization_type => "PendingPayer")
   end
   
@@ -486,7 +491,7 @@ class Purchase < ActiveRecord::Base
     
     return false unless property == 'retailer'
     
-    Purchase.where("payer_id = ? and retailer_id = ? and authorization_type = ? and id != ?", self.payer_id, self.retailer_id, "Approved", self.id).count
+    Purchase.where("payer_id = ? and retailer_id = ? and authorization_type = ?", self.payer_id, self.retailer_id, "Approved").count
       
   end
 
@@ -515,42 +520,6 @@ class Purchase < ActiveRecord::Base
         
   end
   
-  def notify_consumer (mode, status)
-    
-    return false unless mode and status
-    
-    if mode == 'manual'
-      if      status == 'approved'
-        message = "Congrats, #{self.consumer.name}! Your parent has just approved your purchase request (#{self.id}). The item is yours!"
-      elsif    status == 'declined'  
-        message = "We are sorry. Your parent has just declined your purchase request (#{self.id})."
-      elsif   status == 'failed'  
-        message = "We are sorry. Something went wrong while trying to approve your purchase (#{self.id}). Please contact Paykido help desk for details"  
-      else
-        return false  
-      end 
-    else
-      if      status == 'approved' 
-        message = "Congrats, #{self.consumer.name}! Paykido just approved your purchase request (#{self.id}). The item is yours!"
-      elsif   status == 'declined'   
-        message = "We are sorry. This purchase (#{self.id}) is not compliant with you parents rules!"
-      elsif   status == 'failed'  
-        message = "We are sorry. Something went wrong while trying to approve your purchase (#{self.id}). Please contact Paykido help desk for details"  
-      elsif   status == 'pending'  
-        message = "Wait... This purchase (#{self.id}) requires manual approved. We'll notify you once it gets approved!"  
-      else
-        return false  
-      end 
-    end    
-    
-    begin
-      Sms.send(self.consumer.billing_phone, message) 
-    rescue
-      return false
-    end
- 
-  end     
-  
   def approved?
     self.authorization_type == "Approved"
   end
@@ -577,7 +546,11 @@ class Purchase < ActiveRecord::Base
   def request_approval
     
     begin
-      UserMailer.delay.purchase_approval_email(self)
+      if Paykido::Application.config.use_delayed_job
+        UserMailer.delay.purchase_approval_email(self)
+      else
+        UserMailer.purchase_approval_email(self).deliver
+      end
     rescue
       return false
     end
@@ -588,11 +561,12 @@ class Purchase < ActiveRecord::Base
     rescue
       return false
     end
-     
+
+    Sms.notify_consumer(self.consumer, 'approval', 'request', self)
+    
   end
 
   def account_for!   
-    self.consumer.deduct!(self.amount) if self.payer.registered? 
   end
   
   def response(status)
@@ -602,10 +576,12 @@ class Purchase < ActiveRecord::Base
     @response[:value]         = self.authorization_value.to_s 
     @response[:type]          = self.authorization_type.to_s 
     @response[:orderid]       = self.PP_TransactionID
-    if status == 'approved'
-      @response[:message]     = 'Purchase is approved'
+    if status == 'registering'
+      @response[:message]      = "Parent contacted to confirm consumer"
     elsif status == 'pending'
       @response[:message]     = 'Purchase requires manual approval'
+    elsif status == 'approved'
+      @response[:message]     = 'Purchase is approved'
     elsif status == 'declined' 
       @response[:message]     = "Purchase is declined. #{self.authorization_property} #{self.authorization_value.to_s} is #{self.authorization_type}"
     elsif status == 'unregistered' 

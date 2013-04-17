@@ -64,6 +64,9 @@ li.active [class^="sprite-"],
 .bigicon-thumbs-up { background-position: -133px -1619px }
 .bigicon-thumbs-down { background-position: -181px -1619px }
 .bigicon-thumbs-right { background-position: -229px -1619px }
+.bigicon-info { background-position: -229px -899px; }
+.bigicon-question { background-position: -181px -899px; }
+.bigicon-tick { background-position: -133px -899px; }
 
 /*
 .bigicon-parents { background-position: 45% 9.75%}

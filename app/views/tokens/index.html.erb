@@ -1,9 +1,9 @@
 <%= render 'primary_navigation' %>
-<%= render 'setting_navigation' %>
+<%= render 'consumer_navigation' %>
 
 <section id="maincontainer">
 
-	<%= render :partial => 'page_head', :locals => {:title => 'Credit Card Registration'} %>
+	<%= render 'page_head' %>
 	
 	<table>
 		<tbody>
@@ -12,7 +12,7 @@
 			    <td><%= token.NameOnCard %></td>
 			    <td>Credit card registered</td>
 			    <td><%= link_to 'Details', token %></td>
-			    <td><%=  button_to 'Cancel registration',  token, confirm: 'Are you sure you want to cancel your registration?', method: :delete, :class => "btn btn-primary inline"  %></td>
+			    <td><%=  button_to 'Cancel registration',  token, confirm: 'This will reset all allowances. Are you sure you want to cancel your registration?', method: :delete, :class => "btn btn-primary inline"  %></td>
 			  </tr>
 			<% end %>
 		</tbody>

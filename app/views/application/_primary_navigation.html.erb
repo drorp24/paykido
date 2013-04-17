@@ -1,5 +1,5 @@
-    <div class="navbar">
-	    <div class="navbar-inner">
+    <div class="navbar dark">
+	    <div class="navbar-inner dark">
 		    <div class="container">
 		     
 		    <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
@@ -10,7 +10,10 @@
 		    </a>
 		     
 		    <!-- Be sure to leave the brand out there if you want it shown -->
-		    <a class="brand" href="#">Paykido</a>
+		    <a class="brand" href="#">
+		    	<span class="paykido_name">Paykido</span>
+		    	<span class="paykido_parents">Parents</span>
+	    	</a>
 		     
 		    <!-- Everything you want hidden at 940px or less, place within here -->
 		    <div class="nav-collapse">
@@ -25,32 +28,32 @@
 <!-- Primary navigation -->
 <nav id="primary">
 	<ul>
-	    <li class="menu" id="people_menu" >
-	      	<%= link_to consumers_path, 'data-skip-pjax' => true do%>
+	    <li class="menu" id="consumers_menu" >
+	      	<%= link_to @consumer ? welcome_consumer_path(@consumer) : consumers_welcome_path, 'data-skip-pjax' => true do%>
 	        	<span class="icon32 group"></span>
 	        	Family
 	      	<% end %>
 	    </li>
 
-    	<li class="menu" id="allowances_menu" >
-      		<%= link_to "#", 'data-skip-pjax' => true do %>
+    	<li class="menu" id="statistics_menu" >
+      		<%= link_to @consumer ? consumer_statistics_path(@consumer) : statistics_path, 'data-skip-pjax' => true do %>
 		        <span class="icon32 dashboard"></span>
 		        Dashboard
 	      	<% end %>
 	    </li>
 	    <li class="menu" id="rules_menu" >
-     		<%= link_to rules_path, 'data-skip-pjax' => true do %>
+     		<%= link_to @consumer ? consumer_rules_path(@consumer) : rules_path , 'data-skip-pjax' => true do %>
 	        	<span class="icon32 tools"></span>
 	        	Rules
 	      	<% end %>
 	    </li>
-    	<li class="menu" id="dashboard_menu" >
-      		<%= link_to purchases_path, 'data-skip-pjax' => true do %>
+    	<li class="menu" id="purchases_menu" >
+      		<%= link_to @consumer ? consumer_purchases_path(@consumer) : purchases_path, 'data-skip-pjax' => true do %>
 		        <span class="icon32 cart"></span>
 		        Purchases
 	      	<% end %>
 	    </li>
-	    <li class="menu" id="setting_menu" >
+	    <li class="menu" id="tokens_menu" >
 	    	<% path = tokens_path %>
 	      	<%= link_to path, 'data-skip-pjax' => true do%>
 	        	<span class="icon32 cog"></span>
