@@ -53,6 +53,9 @@
 		<p class="error" style="display: none">You have previously specified</p>
 		<p class="error" style="display: none">a different email for your parent</p>
 		<p class="error" style="display: none">Please try again</p>
+		<p class="wrong_params" style="display: none">Oops...</p>
+		<p class="wrong_params" style="display: none">Wrong parameters!</p>
+		<p class="wrong_params" style="display: none">Please try again</p>
 		<p class="registering" style="display: none">Almost there...</p>
 		<p class="registering" style="display: none">Confirmation email sent.</p>
 		<p class="registering" style="display: none">Let your parent know!</p>
@@ -174,6 +177,16 @@ $(document).ready(function () {
 	    $('#paykido.modal').append($('#returnedMessage'))
 		$('#returnedMessage .modal-header h3').html('Error')
 		$('.error').show();	
+		$('#returnedMessage').show()
+	    $('#paykido.modal').modal('show')
+	<% end %>
+
+	<% if params[:status] and params[:status] == 'wrong_params' %>
+ 	    $('#paykido.modal #iframe').hide()
+		$('.status_icon').removeClass('bigicon-thumbs-up').addClass('bigicon-thumbs-right')			
+	    $('#paykido.modal').append($('#returnedMessage'))
+		$('#returnedMessage .modal-header h3').html('Error')
+		$('.wrong_params').show();	
 		$('#returnedMessage').show()
 	    $('#paykido.modal').modal('show')
 	<% end %>

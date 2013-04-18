@@ -44,13 +44,27 @@ class ConsumerController < ApplicationController
   
   def register_callback 
           
+    unless correct(params)
+      logger.debug("Wrong params")
+      if 1  == 1  # originally: if params[:mode] == 'M'
+        redirect_to params[:referrer]  + '?status=wrong_params'
+      else
+        @response                 = {}
+        @response[:status]        =    'failed' 
+        @response[:property]      =  'parameters'
+        @response[:value]         =    'wrong'
+        render :layout => false 
+      end      
+      return      
+    end
+
     find_or_create_consumer_and_payer  
 
     unless @payer.errors.any?   
       @payer.request_confirmation(@consumer) 
       create_purchase
       @purchase.require_approval!
-      if params[:mode] == 'M'
+      if 1 == 1
         redirect_to params[:referrer]  + '?status=registering'
       else
         @response = @purchase.response('registering')       
@@ -65,6 +79,12 @@ class ConsumerController < ApplicationController
 
   end  
   
+  def correct(params)
+    unless params[:amount]
+      return false
+    end
+  end
+
   def find_or_create_consumer_and_payer
     
     # A consumer instance may exist already (e.g., he once authorized Paykido and then unauthorized it)
