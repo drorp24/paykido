@@ -45,9 +45,8 @@ class ConsumerController < ApplicationController
   def register_callback 
           
     unless correct(params)
-      logger.debug("Wrong params")
-      if 1  == 1  # originally: if params[:mode] == 'M'
-        redirect_to params[:referrer]  + '?status=wrong_params'
+      if params[:mode] == 'M'
+         redirect_to "/play?status=wrong_params"
       else
         @response                 = {}
         @response[:status]        =    'failed' 
@@ -60,27 +59,37 @@ class ConsumerController < ApplicationController
 
     find_or_create_consumer_and_payer  
 
-    unless @payer.errors.any?   
+    if @payer.errors.any?   
+      Rails.logger.debug("@payer.errors is: " + @payer.errors.inspect.to_s)  
+      flash[:error] = @payer.errors.inspect.to_s
+      @payer.errors.clear 
+      if params[:mode] == 'M'
+        redirect_to params[:referrer]  + '?status=error'
+      else
+        @response                 = {}
+        @response[:status]        =    'failed' 
+        @response[:property]      =  'parent email'
+        @response[:value]         =    'taken'
+        render :layout => false
+      end
+    else
       @payer.request_confirmation(@consumer) 
       create_purchase
       @purchase.require_approval!
-      if 1 == 1
+      if params[:mode] == 'M'
         redirect_to params[:referrer]  + '?status=registering'
       else
         @response = @purchase.response('registering')       
         render :layout => false 
       end
-    else
-      Rails.logger.debug("@payer.errors is: " + @payer.errors.inspect.to_s)  
-      flash[:error] = @payer.errors.inspect.to_s
-      @payer.errors.clear 
-      redirect_to params[:referrer]  + '?status=error' 
     end   
 
   end  
   
   def correct(params)
-    unless params[:amount]
+    if !params[:amount].blank? && !params[:merchant].blank? && !params[:product].blank? && !params[:currency].blank? && !params[:mode].blank? && !params[:PP_TransactionID].blank? && !params[:referrer].blank?
+      return true
+    else
       return false
     end
   end
@@ -171,8 +180,8 @@ class ConsumerController < ApplicationController
       Rails.logger.debug("No facebook_id in parameters")
       @response                 = {}
       @response[:status]        =    'failed' 
-      @response[:property]      =  'facebook'
-      @response[:value]         =    'down'
+      @response[:property]      =  'facebook id'
+      @response[:value]         =    'not supplied'
       render :layout => false       
       return
     end

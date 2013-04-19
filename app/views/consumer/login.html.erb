@@ -250,7 +250,9 @@ $(document).ready(function (){
 	  }
 	});
 
+
 	FB.Event.subscribe('auth.login', function(response) {
+alert('auth.logout triggered')
 	  if (response.status === 'connected') {
 	    userid = response.authResponse.userID;
 	    accessToken = response.authResponse.accessToken;
@@ -269,10 +271,23 @@ $(document).ready(function (){
 	});
 
 
+
 	FB.Event.subscribe('auth.logout', function(response) {
+alert('auth.logout triggered')
 		window.parent.postMessage('close', "*");
 	});
 
+	FB.Event.subscribe('auth.authResponseChange', function(response) {
+alert('auth.authResponseChange triggered, response.status = ' + response.status)		
+	});
+
+	FB.Event.subscribe('auth.statusChange', function(response) {
+alert('auth.statusChange triggered, response.status = ' + response.status)		
+	});
+
+	FB.Event.subscribe('auth.prompt', function(response) {
+alert('auth.prompt triggered, response = ' + response)		
+	});
 
 	function confirmed(userid, accessToken, invites, highest){
 
@@ -302,7 +317,6 @@ $(document).ready(function (){
 		$('.registering').hide();
 		$('.help').hide();
 		$('.confirmed').hide();
-	   	FB.XFBML.parse(); 
 		if (userid != null && accessToken != null) {					
 		   	FB.api('/me', {fields: "id,first_name,picture"}, function(response) {    // works only if included within AsyncInit
 		      $('.name').html(response.first_name);
@@ -314,6 +328,7 @@ $(document).ready(function (){
 			$('.unconfirmed.connected').hide();
 			$('.unconfirmed.not_authorized').show();
 		}
+	   	FB.XFBML.parse(); 
 	}
 	
 	function registering() {
