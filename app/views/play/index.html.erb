@@ -132,7 +132,9 @@ $(document).ready(function () {
 	{
 	
 //	    $('#paykido.modal').modal('hide')
-	    if (event.data == 'close') {return}
+	    if (event.data == 'close') {
+    		window.location.assign("/play")
+	    }
 		obj = jQuery.parseJSON(event.data)
 //	    alert('the message is: ' + obj.status + '\n' + "property:" + obj.property + "\n" + "value:" + obj.value + "\n" + "type:" + obj.type)
 	    $('#paykido.modal #iframe').hide()

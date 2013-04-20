@@ -252,7 +252,6 @@ $(document).ready(function (){
 
 
 	FB.Event.subscribe('auth.login', function(response) {
-alert('auth.logout triggered')
 	  if (response.status === 'connected') {
 	    userid = response.authResponse.userID;
 	    accessToken = response.authResponse.accessToken;
@@ -273,21 +272,12 @@ alert('auth.logout triggered')
 
 
 	FB.Event.subscribe('auth.logout', function(response) {
-alert('auth.logout triggered')
+		FB.logout(function(response) {    // for some reason the postMessage command prevents the logout so I do it manually
+		  // user is now logged out
+		});
 		window.parent.postMessage('close', "*");
 	});
 
-	FB.Event.subscribe('auth.authResponseChange', function(response) {
-alert('auth.authResponseChange triggered, response.status = ' + response.status)		
-	});
-
-	FB.Event.subscribe('auth.statusChange', function(response) {
-alert('auth.statusChange triggered, response.status = ' + response.status)		
-	});
-
-	FB.Event.subscribe('auth.prompt', function(response) {
-alert('auth.prompt triggered, response = ' + response)		
-	});
 
 	function confirmed(userid, accessToken, invites, highest){
 
