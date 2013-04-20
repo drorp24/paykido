@@ -42,7 +42,7 @@
 			<h2>No cards, surveys or offers.</h2>
 			<h2>No risk. No parents around.</h2>
 			<h2>Buy with a click.</h2>
-			<p><%= link_to "Log into Facebook to buy", "#" %></p>
+			<h2>Log into Facebook to buy</h2>
 		</div>
 
 		<div id="logo">
@@ -75,7 +75,7 @@
 			<fb:registration  
 				width="290" 
 				fb_register="true"
-				redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>&merchant=<%= params[:merchant] %>&app=<%= params[:app] %>&product=<%= params[:product] %>&amount=<%= params[:amount] %>&currency=<%= params[:currency] %>&PP_TransactionID=<%= params[:PP_TransactionID] %>&mode=<%= params[:mode] %>"  
+				redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>&merchant=<%= params[:merchant] %>&app=<%= params[:app] %>&product=<%= params[:product] %>&amount=<%= params[:amount] %>&currency=<%= params[:currency] %>&PP_TransactionID=<%= params[:PP_TransactionID] %>&mode=<%= params[:mode] %>&merchant_url=<%= params[:merchant_url] %>"  
 				fields='[
 					{ "name":"name"},
 					{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
@@ -93,7 +93,7 @@
 			<fb:registration  
 				width="590" 
 				fb_register="true"
-				redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>&merchant=<%= params[:merchant] %>&app=<%= params[:app] %>&product=<%= params[:product] %>&amount=<%= params[:amount] %>&currency=<%= params[:currency] %>&PP_TransactionID=<%= params[:PP_TransactionID] %>&mode=<%= params[:mode] %>"  
+				redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>&merchant=<%= params[:merchant] %>&app=<%= params[:app] %>&product=<%= params[:product] %>&amount=<%= params[:amount] %>&currency=<%= params[:currency] %>&PP_TransactionID=<%= params[:PP_TransactionID] %>&mode=<%= params[:mode] %>&merchant_url=<%= params[:merchant_url] %>"  
 				fields='[
 					{ "name":"name"},
 					{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},

@@ -17,6 +17,11 @@ body {
 .paykido_parents {
     color: #0088CC;
 }    
+
+.span55 {
+    width: 540px;
+}
+
 .box-content .rule_background h1.rule_heading  {
     display: inline;
     line-height: 45px;

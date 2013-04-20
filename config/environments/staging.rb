@@ -22,7 +22,7 @@ Paykido::Application.configure do
   config.merchant_site_id = '82371'
   config.secret_key = 'u5ITi630fQnjgyZiCcsLF77D63yoAJRbOsDvsvGxBtVGjYaXxwaDBUn2Fc6pqqJb' 
   config.return_secret_key = 'AEA524A224D49B00803D499166E0561045CAF0AF30DC418D39F05F5318352222'
-  config.check_hash = false
+  config.check_hash = true
   config.version = '3.0.0'
   config.token_gateway = 'https://test.safecharge.com/service.asmx/Process?'
   config.sg_VendorID = '75381'

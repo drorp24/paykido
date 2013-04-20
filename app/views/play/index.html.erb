@@ -36,7 +36,8 @@
 		mode=M&
 		PP_TransactionID=12345&
 		hash=04c43c270624bf4a7d6604a3cadf8303&
-		referrer=<%= request.protocol + Paykido::Application.config.hostname %>/play">
+		referrer=<%= request.protocol + Paykido::Application.config.hostname %>/play&
+		merchant_url=<%= request.protocol + Paykido::Application.config.hostname %>/play">
 	</iframe>	
 
 </div>
@@ -73,12 +74,12 @@
 		<p class="pending_purchase" style="display: none">Parental approval is required.</p>
 		<p class="pending_purchase" style="display: none">You will get a text message </p>
 		<p class="pending_purchase" style="display: none">once your parent approves.</p>
-		<p class="failed_purchase" style="display: none">We are sorry. Something went wrong.</p>
+		<p class="failed_purchase" style="display: none">Something went wrong.</p>
 		<p class="failed_purchase" style="display: none">
 			<span class="value" id="property"></span>
 			<span class="value" id="value"></span>
 			<span> is </span>
-			<span class="value" id="type"></span>
+			<span class="value" id="type"></span>.
 		</p>
 		<%= image_tag "yellowshirt_kid.png", :class => "ys_kid" %>
 	</div>

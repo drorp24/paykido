@@ -2,7 +2,7 @@ require 'digest/md5'
 class ConsumerController < ApplicationController
     
   def login
-
+    redirect_to error_path and return unless required(params)
   end
   
   def register
@@ -44,49 +44,35 @@ class ConsumerController < ApplicationController
   
   def register_callback 
           
-    unless correct(params)
-      if params[:mode] == 'M'
-         redirect_to "/play?status=wrong_params"
-      else
-        @response                 = {}
-        @response[:status]        =    'failed' 
-        @response[:property]      =  'parameters'
-        @response[:value]         =    'wrong'
-        render :layout => false 
-      end      
-      return      
+    @back_url = !params[:merchant_url].blank? ? params[:merchant_url] : params[:referrer]
+    
+    unless required(params)
+      property     =  'At least one'
+      value        =  'parameter'
+      type         =  'missing'
+      redirect_to root_path(:anchor => "teens", :notify => 'confirmation', :status => 'error', :property => property, :value => value, :type => type, :back_url => @back_url)
+      return
     end
 
     find_or_create_consumer_and_payer  
 
     if @payer.errors.any?   
-      Rails.logger.debug("@payer.errors is: " + @payer.errors.inspect.to_s)  
-      flash[:error] = @payer.errors.inspect.to_s
-      @payer.errors.clear 
-      if params[:mode] == 'M'
-        redirect_to params[:referrer]  + '?status=error'
-      else
-        @response                 = {}
-        @response[:status]        =    'failed' 
-        @response[:property]      =  'parent email'
-        @response[:value]         =    'taken'
-        render :layout => false
-      end
+      property     =  'The email you already'
+      value        =  'specified for your parent'
+      type         =  'different'
+      redirect_to root_path(:anchor => "teens", :notify => 'confirmation', :status => 'error', :property => property, :value => value, :type => type, :back_url => @back_url)
+      return
     else
       @payer.request_confirmation(@consumer) 
       create_purchase
-      @purchase.require_approval!
-      if params[:mode] == 'M'
-        redirect_to params[:referrer]  + '?status=registering'
-      else
-        @response = @purchase.response('registering')       
-        render :layout => false 
-      end
+      @purchase.require_approval!     
     end   
+
+    redirect_to root_path(:anchor => "teens", :notify => 'confirmation', :status => 'pending', :back_url => @back_url)
 
   end  
   
-  def correct(params)
+  def required(params)
     if !params[:amount].blank? && !params[:merchant].blank? && !params[:product].blank? && !params[:currency].blank? && !params[:mode].blank? && !params[:PP_TransactionID].blank? && !params[:referrer].blank?
       return true
     else
@@ -176,12 +162,24 @@ class ConsumerController < ApplicationController
     
   def buy
                                               
+    unless required(params)
+      Rails.logger.debug("Missing required paramters")
+      @response                 = {}
+      @response[:status]        =    'failed' 
+      @response[:property]      =  'a'
+      @response[:value]         =    'parameter'
+      @response[:type]         =    'missing'
+      render :layout => false       
+      return
+    end
+
     unless params[:facebook_id]
       Rails.logger.debug("No facebook_id in parameters")
       @response                 = {}
       @response[:status]        =    'failed' 
-      @response[:property]      =  'facebook id'
-      @response[:value]         =    'not supplied'
+      @response[:property]      =  'facebook'
+      @response[:value]         =    'api'
+      @response[:type]         =    'down'
       render :layout => false       
       return
     end
@@ -189,9 +187,10 @@ class ConsumerController < ApplicationController
     unless correct_hash(params)
       Rails.logger.debug("Wrong checksum")
       @response                 = {}
-      @response[:status]        =    'failed' 
-      @response[:property]      =  'checksum'
-      @response[:value]         =    'wrong'
+      @response[:status]        =   'failed' 
+      @response[:property]      =   'checksum'
+      @response[:value]         =   'value'
+      @response[:type]          =   'wrong'
       render :layout => false       
       return      
     end
