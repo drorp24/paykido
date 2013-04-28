@@ -362,7 +362,7 @@ class Purchase < ActiveRecord::Base
    Rails.logger.debug("EXIT send_notification") 
 
   end
-  handle_asynchronously :send_notification
+#  handle_asynchronously :send_notification
 
   
   def set_rules!(params)
