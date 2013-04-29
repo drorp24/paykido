@@ -115,9 +115,14 @@
         </tbody>
     </table>
     <br />
-    <% for transaction in @purchase.transactions %>
-    	<p><%= link_to 'Transaction details', purchase_transaction_path(@purchase, transaction) %></p>
-    <% end %>
+    <p class="transactions_and_notifications">
+	    <% if @purchase.transactions.any? %>
+	    	<span><%= link_to 'Transactions', consumer_purchase_transactions_path(@consumer, @purchase) %></span>
+	    <% end %>
+	    <% if @purchase.notifications.any? %>
+	    	<span><%= link_to 'Notifications', consumer_purchase_notifications_path(@consumer, @purchase) %></span>
+	    <% end %>
+    </p>
 
 <script type="text/javascript">
 

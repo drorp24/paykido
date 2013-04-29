@@ -81,28 +81,13 @@ class G2sController < ApplicationController
     
     if params[:customField1] == 'payment'
 
-      # CHECK IF DMN IS NEEDED AFTER PAYMENT. CURRENTLY EVERYTHING (INCL. NOTIFICATION) IS DONE ALREADY AFTER PPP_CALLBACK
-      return
-
+      # CURRENTLY DMN ONLY WRITE TRANSACTION. EVERYTHING ELSE (INCL. NOTIFICATION) IS DONE ALREADY AFTER PPP_CALLBACK
       @purchase.create_transaction!(params)
-      if params[:Status] == 'APPROVED'
-        status = 'approved' 
-        @purchase.approve!
-        @purchase.account_for!
-      else
-        status = 'failed'
-      end   
-
-      unless status == 'failed'
-        @purchase.notify_merchant(status, 'payment')
-      end
 
     elsif params[:customField1] == 'registration'
       
       @payer.create_token!(params)                      #ToDo: it looks like it needs to verify the status is OK like above
     
-    else
-      return render(:nothing => true)  
     end
     
     render :nothing => true
