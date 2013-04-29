@@ -2,7 +2,7 @@ require 'digest/md5'
 require 'uri'
 
 class TokenAPI
-  include HTTParty
+  include ProximoParty
   format :xml
   base_uri 'https://test.safecharge.com'
 end
@@ -14,7 +14,7 @@ class PPP
 end
 
 class Listener
-  include HTTParty
+  include ProximoParty
   format :html
   base_uri Paykido::Application.config.listener_base_uri
 end
@@ -370,7 +370,6 @@ class Purchase < ActiveRecord::Base
 
   end
 #  handle_asynchronously :send_notification if Paykido::Application.config.use_delayed_job
-
   
   def set_rules!(params)
     # implement the rules parent has set while manually approving the purchase
