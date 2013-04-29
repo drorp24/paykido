@@ -14,7 +14,14 @@ class G2sController < ApplicationController
       if params[:ppp_status] == 'OK' and @purchase
         @purchase.approve!
         if @purchase.approved?
-          Sms.notify_consumer(@purchase.consumer, 'approval', 'approved', @purchase, 'manual')
+          notification_status = @purchase.notify_merchant(status, 'buy')
+          if notification_status == "OK"
+            @purchase.account_for!
+            status = 'approved'
+          else
+            status = 'failed'
+          end
+          Sms.notify_consumer(@purchase.consumer, 'approval', status, @purchase, 'manual')
         else 
           Sms.notify_consumer(@purchase.consumer, 'approval', 'failed', @purchase, 'manual')
         end
@@ -61,7 +68,7 @@ class G2sController < ApplicationController
         
   end
   
-  def dmn
+  def dmn   
     # read dmn and store the properties in either a. registration or b. transaction
     # do not count on session to include anything to 'remind' of the context
     # instead, use the custom field to 'remind' the server what the context is
@@ -72,6 +79,9 @@ class G2sController < ApplicationController
     return render(:nothing => true) if @local_test or @error
     
     if params[:customField1] == 'payment'
+
+      # CHECK IF DMN IS NEEDED AFTER PAYMENT. CURRENTLY EVERYTHING (INCL. NOTIFICATION) IS DONE ALREADY AFTER PPP_CALLBACK
+      return
 
       @purchase.create_transaction!(params)
       if params[:Status] == 'APPROVED'

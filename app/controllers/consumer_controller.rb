@@ -229,11 +229,18 @@ class ConsumerController < ApplicationController
     
     unless status == 'failed'
       notification_status = @purchase.notify_merchant(status, 'buy')
-      status = 'failed' unless notification_status 
+      if notification_status == "OK"
+        @response = @purchase.response(status)
+      else
+        @response                 = {}
+        @response[:status]        =   'failed' 
+        @response[:property]      =   'merchant response'
+        @response[:value]         =   notification_status
+        @response[:type]          =   'wrong'
+        status = 'failed' 
+      end       
     end
-    
-    @response = @purchase.response(status)
-       
+
     render :layout => false 
     
   end

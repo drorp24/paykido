@@ -70,7 +70,8 @@ class PurchasesController < ApplicationController
     end
 
     unless status == 'failed'
-      @purchase.notify_merchant(status, 'approval')
+      notification_status = @purchase.notify_merchant(status, 'approval')
+      status = 'failed' unless notification_status == "OK"
     end
 
     Sms.notify_consumer(@purchase.consumer, 'approval', status, @purchase, 'manual')   
