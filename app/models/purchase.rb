@@ -362,7 +362,7 @@ class Purchase < ActiveRecord::Base
       elsif listener_response.parsed_response == "ORDERNOTFOUND"
         Rails.logger.info("NotificationListener ORDERNOTFOUND raised")
 #        raise "NotificationListener ORDERNOTFOUND"
-        notification_status = istener_response.parsed_response
+        notification_status = listener_response.parsed_response
       else
         Rails.logger.info("Nothing raised. Successfully completed")
         notification_status = "OK"        
