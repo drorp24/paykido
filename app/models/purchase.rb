@@ -585,7 +585,7 @@ class Purchase < ActiveRecord::Base
     self.authorized = false
     self.authorization_type =     'PendingPayer'
     self.authorization_property = 'Notification'
-    self.authorization_type =     'failed'
+    self.authorization_value =    'failed'
     self.authorization_date =     Time.now
     self.save!
   end
