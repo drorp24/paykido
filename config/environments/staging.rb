@@ -18,10 +18,8 @@ Paykido::Application.configure do
   config.offer_rule_or_registration_after = 1
 
   # G2S Integration
-#  config.listener_base_uri = 'http://91.220.189.4'
-#  config.listener_path     = '/lilippp/paykidoNotificationListener'
-  config.listener_base_uri = 'https://secure.safecharge.com'
-  config.listener_path     = '/ppp/paykidoNotificationListener'
+  config.listener_base_uri = 'http://91.220.189.4'
+  config.listener_path     = '/lilippp/paykidoNotificationListener'
   config.merchant_id = '5230109925932974239'
   config.merchant_site_id = '82371'
   config.secret_key = 'u5ITi630fQnjgyZiCcsLF77D63yoAJRbOsDvsvGxBtVGjYaXxwaDBUn2Fc6pqqJb' 
