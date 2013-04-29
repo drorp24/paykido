@@ -12,12 +12,16 @@ Paykido::Application.configure do
   config.api_key = '294773230578790'
 
   # Policy
-  config.send_sms = true
+  config.send_sms = false
   config.rules_require_registration = true
   config.always_pay_manually = false
   config.offer_rule_or_registration_after = 1
 
   # G2S Integration
+#  config.listener_base_uri = 'http://91.220.189.4'
+#  config.listener_path     = '/lilippp/paykidoNotificationListener'
+  config.listener_base_uri = 'https://secure.safecharge.com'
+  config.listener_path     = '/ppp/paykidoNotificationListener'
   config.merchant_id = '5230109925932974239'
   config.merchant_site_id = '82371'
   config.secret_key = 'u5ITi630fQnjgyZiCcsLF77D63yoAJRbOsDvsvGxBtVGjYaXxwaDBUn2Fc6pqqJb' 

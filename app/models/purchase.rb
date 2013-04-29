@@ -16,7 +16,7 @@ end
 class Listener
   include HTTParty
   format :html
-  base_uri 'https://secure.safecharge.com'
+  base_uri Paykido::Application.config.listener_base_uri
 end
 
 
@@ -322,7 +322,7 @@ class Purchase < ActiveRecord::Base
     )
 
     begin
-    listener_response  = Listener.get('/ppp/paykidoNotificationListener', :query => {
+    listener_response  = Listener.get(Paykido::Application.config.listener_path, :query => {
       :orderid  =>  self.PP_TransactionID    ,  
       :status  => status, 
       :amount  => self.amount,
@@ -332,27 +332,34 @@ class Purchase < ActiveRecord::Base
       :checksum  => hash
     })
     rescue => e
+
       Rails.logger.info("Notification Listener was rescued. Following is the error:")
       Rails.logger.info(e)
       @notification.response = "Unreachable"
       raise "NotificationListener Unreachable"
+
     else
+
       Rails.logger.info("Following is the full response (listener_response)")
       Rails.logger.info(listener_response.inspect)
-      Rails.logger.info("Following is listener_response.parse_response")
+      Rails.logger.info("Following is listener_response.parsed_response")
       Rails.logger.info(listener_response.parsed_response)
       Rails.logger.info('Following is the code:')
       Rails.logger.info(listener_response.code)
+
+      @notification.response = listener_response.parsed_response
+      @notification.reason = "code: " + listener_response.code.to_s
+
       if listener_response.code != 200
         Rails.logger.info("NotificationListener Unauthorized raised")
-        @notification.response = listener_response.code.to_s
         raise "NotificationListener Unauthorized"
       elsif listener_response.parsed_response == "ERROR"
         Rails.logger.info("NotificationListener ERROR raised")
-        @notification.response = "ERROR"
         raise "NotificationListener ERROR"
+      elsif listener_response.parsed_response == "ORDERNOTFOUND"
+        Rails.logger.info("NotificationListener ORDERNOTFOUND raised")
+        raise "NotificationListener ORDERNOTFOUND"
       else
-        @notification.response = "OK"
         Rails.logger.info("Nothing raised. Successfully completed")        
       end
    end
@@ -362,7 +369,7 @@ class Purchase < ActiveRecord::Base
    Rails.logger.debug("EXIT send_notification") 
 
   end
-  handle_asynchronously :send_notification
+#  handle_asynchronously :send_notification if Paykido::Application.config.use_delayed_job
 
   
   def set_rules!(params)
