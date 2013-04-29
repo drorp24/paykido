@@ -336,7 +336,7 @@ class Purchase < ActiveRecord::Base
       Rails.logger.info("Notification Listener was rescued. Following is the error:")
       Rails.logger.info(e)
       @notification.response = "Unreachable"
-      return "Unreachable"
+      notification_status = "Unreachable"
 #      raise "NotificationListener Unreachable"
 
     else
@@ -354,24 +354,25 @@ class Purchase < ActiveRecord::Base
       if listener_response.code != 200
         Rails.logger.info("NotificationListener Unauthorized raised")
 #        raise "NotificationListener Unauthorized"
-        return "code: " + listener_response.code.to_s
+        notification_status = "code: " + listener_response.code.to_s
       elsif listener_response.parsed_response == "ERROR"
         Rails.logger.info("NotificationListener ERROR raised")
 #        raise "NotificationListener ERROR"
-        return listener_response.parsed_response
+        notification_status = listener_response.parsed_response
       elsif listener_response.parsed_response == "ORDERNOTFOUND"
         Rails.logger.info("NotificationListener ORDERNOTFOUND raised")
 #        raise "NotificationListener ORDERNOTFOUND"
-        return listener_response.parsed_response
+        notification_status = istener_response.parsed_response
       else
         Rails.logger.info("Nothing raised. Successfully completed")
-        return "OK"        
+        notification_status = "OK"        
       end
    end
    
    @notification.save!
 
    Rails.logger.debug("EXIT send_notification") 
+   return notification_status
 
   end
 #  handle_asynchronously :send_notification if Paykido::Application.config.use_delayed_job
