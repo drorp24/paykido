@@ -2,7 +2,7 @@ require 'digest/md5'
 require 'uri'
 
 class TokenAPI
-  include HTTParty
+  include ProximoParty
   format :xml
   base_uri 'https://test.safecharge.com'
 end
@@ -14,7 +14,7 @@ class PPP
 end
 
 class Listener
-  include HTTParty
+  include ProximoParty
   format :html
   base_uri 'https://secure.safecharge.com'
 end
