@@ -581,6 +581,15 @@ class Purchase < ActiveRecord::Base
   def account_for!   
   end
   
+  def notification_failed!
+    self.authorized = false
+    self.authorization_status =   'PendingPayer'
+    self.authorization_property = 'Notification'
+    self.authorization_type =     'failed'
+    self.authorization_date =     Time.now
+    self.save!
+  end
+  
   def response(status)
     @response                 = {}
     @response[:status]        = status

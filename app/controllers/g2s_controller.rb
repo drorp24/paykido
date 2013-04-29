@@ -19,6 +19,7 @@ class G2sController < ApplicationController
             @purchase.account_for!
             status = 'approved'
           else
+            @purchase.notification_failed!
             status = 'failed'
           end
           Sms.notify_consumer(@purchase.consumer, 'approval', status, @purchase, 'manual')

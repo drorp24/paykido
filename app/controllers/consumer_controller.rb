@@ -232,6 +232,7 @@ class ConsumerController < ApplicationController
       if notification_status == "OK"
         @response = @purchase.response(status)
       else
+        @purchase.notification_failed!
         @response                 = {}
         @response[:status]        =   'failed' 
         @response[:property]      =   'merchant response'
