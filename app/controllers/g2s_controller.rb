@@ -98,10 +98,10 @@ class G2sController < ApplicationController
     Rails.logger.info ""
     Rails.logger.info "TestPaykidoNotificationListener called."
     Rails.logger.info ""
-    Rails.logger.info "request IP: #{request.remote_ip}"
-    Rails.logger.info "orderid: #{params[:orderid]}"
-    Rails.logger.info "status:  #{params[:status]}"
-    Rails.logger.info "event:   #{params[:event]}"
+    Rails.logger.info "request IP:    #{request.remote_ip}"
+    Rails.logger.info "orderid:       #{params[:orderid]}"
+    Rails.logger.info "status:        #{params[:status]}"
+    Rails.logger.info "purchase_id:   #{params[:purchase_id]}"
     Rails.logger.info ""
 
     render :nothing => true
