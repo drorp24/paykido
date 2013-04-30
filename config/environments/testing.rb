@@ -21,7 +21,7 @@ Paykido::Application.configure do
   config.use_test_listener = true
   config.test_listener_base_uri = 'http://paykido-testing.herokuapp.com'
   config.test_listener_path     = '/g2s/TestPaykidoNotificationListener'
-  config.redirect_after_registration = false
+  config.redirect_after_registration = true
   config.listener_base_uri = 'http://91.220.189.4'
   config.listener_path     = '/lilippp/paykidoNotificationListener'
   config.merchant_id = '136515662095334027'

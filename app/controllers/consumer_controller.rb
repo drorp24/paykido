@@ -47,7 +47,7 @@ class ConsumerController < ApplicationController
     @back_url = !params[:merchant_url].blank? ? params[:merchant_url] : params[:referrer]
     
     unless required(params)
-      if Paykido::Application.config.redirect_after_registration or params[:mode] == 'M'
+      if Paykido::Application.config.redirect_after_registration or params[:mode] == 'R'
         property     =  'At least one'
         value        =  'parameter'
         type         =  'missing'
@@ -68,7 +68,7 @@ class ConsumerController < ApplicationController
     find_or_create_consumer_and_payer  
 
     if @payer.errors.any?   
-      if Paykido::Application.config.redirect_after_registration or params[:mode] == 'M'
+      if Paykido::Application.config.redirect_after_registration or params[:mode] == 'R'
         property     =  'The email you already'
         value        =  'specified for your parent'
         type         =  'different'
@@ -90,7 +90,7 @@ class ConsumerController < ApplicationController
       @payer.request_confirmation(@consumer) 
     end   
 
-    if Paykido::Application.config.redirect_after_registration or params[:mode] == 'M'
+    if Paykido::Application.config.redirect_after_registration or params[:mode] == 'R'
       redirect_to root_path(:anchor => "teens", :notify => 'confirmation', :status => 'pending', :back_url => @back_url)
     else
       @response                 = {}
