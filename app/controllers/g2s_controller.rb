@@ -95,14 +95,14 @@ class G2sController < ApplicationController
   end
 
   def TestPaykidoNotificationListener
-    logger.debug ""
-    logger.debug "TestPaykidoNotificationListener called."
-    logger.debug ""
-    logger.debug "request IP: #{request.remote_ip}"
-    logger.debug "orderid: #{params[:orderid]}"
-    logger.debug "status:  #{params[:status]}"
-    logger.debug "event:   #{params[:event]}"
-    logger.debug ""
+    logger.info ""
+    logger.info "TestPaykidoNotificationListener called."
+    logger.info ""
+    logger.info "request IP: #{request.remote_ip}"
+    logger.info "orderid: #{params[:orderid]}"
+    logger.info "status:  #{params[:status]}"
+    logger.info "event:   #{params[:event]}"
+    logger.info ""
 
     render :nothing => true
   end
@@ -128,18 +128,18 @@ class G2sController < ApplicationController
 
       if params[:customField1] and params[:customField1] == 'registration'
         unless @payer =    Payer.find_by_id(params[:customField2].to_i)
-          Rails.logger.debug("Payer whose id is #{params[:customField2]} was not found")
+          Rails.logger.info("Payer whose id is #{params[:customField2]} was not found")
           @error = true
         end
       end
       
       if params[:customField1] and params[:customField1] == 'payment'
         unless @payer =    Payer.find_by_id(params[:customField2].to_i)
-          Rails.logger.debug("Payer whose id is #{params[:customField2]} was not found")
+          Rails.logger.info("Payer whose id is #{params[:customField2]} was not found")
           @error = true
         end
         unless @purchase = Purchase.find_by_id(params[:customField3].to_i)
-          Rails.logger.debug("Purchase whose id is #{params[:customField3]} was not found")
+          Rails.logger.info("Purchase whose id is #{params[:customField3]} was not found")
           @error = true
         end
       end

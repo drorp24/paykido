@@ -307,14 +307,14 @@ class Purchase < ActiveRecord::Base
           
     hash = Digest::MD5.hexdigest(str)          
 
-    Rails.logger.debug("About to send_notification with: orderid=#{self.PP_TransactionID}&status=#{status}&amount=#{self.amount.to_s}&currency=#{self.currency}&reason=&purchase_id=#{id.to_s}&checksum=#{hash}") 
+    Rails.logger.info("About to send_notification with: orderid=#{self.PP_TransactionID}&status=#{status}&amount=#{self.amount.to_s}&currency=#{self.currency}&reason=&purchase_id=#{id.to_s}&checksum=#{hash}") 
     send_notification(status, hash, event)
 
   end
 
   def send_notification(status, hash, event)
 
-    Rails.logger.debug("ENTER send_notification") 
+    Rails.logger.info("ENTER send_notification") 
 
     @notification = self.notifications.create(
       :orderid => self.PP_TransactionID.to_s,
@@ -387,14 +387,14 @@ class Purchase < ActiveRecord::Base
         :purchase_id => self.id,
         :checksum  => hash})
         
-      logger.debug ""
-      logger.debug("Test listener response (listener_response)")
-      logger.debug(test_listener_response.inspect)
-      logger.debug ""
+      logger.info ""
+      logger.info("Test listener response (listener_response)")
+      logger.info(test_listener_response.inspect)
+      logger.info ""
      
    end
 
-   Rails.logger.debug("EXIT send_notification") 
+   Rails.logger.info("EXIT send_notification") 
    return notification_status
 
   end
