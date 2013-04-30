@@ -103,6 +103,8 @@ class G2sController < ApplicationController
     logger.debug "status:  #{params[:status]}"
     logger.debug "event:   #{params[:event]}"
     logger.debug ""
+
+    render :nothing => true
   end
 
   private
