@@ -387,10 +387,10 @@ class Purchase < ActiveRecord::Base
         :purchase_id => self.id,
         :checksum  => hash})
         
-      logger.info ""
-      logger.info("Test listener response (listener_response)")
-      logger.info(test_listener_response.inspect)
-      logger.info ""
+      Rails.logger.info ""
+      Rails.logger.info("Test listener response (listener_response)")
+      Rails.logger.info(test_listener_response.inspect)
+      Rails.logger.info ""
      
    end
 
