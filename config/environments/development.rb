@@ -18,6 +18,9 @@ Paykido::Application.configure do
   config.offer_rule_or_registration_after = 1
 
   # G2S Integration
+  config.use_test_listener = false
+  config.test_listener_base_uri = 'http://localhost:3000'
+  config.test_listener_path     = '/g2s/TestPaykidoNotificationListener'
   config.redirect_after_registration = true
   config.listener_base_uri = 'http://91.220.189.4'
   config.listener_path     = '/lilippp/paykidoNotificationListener'

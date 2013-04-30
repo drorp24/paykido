@@ -19,6 +19,11 @@ class Listener
   base_uri Paykido::Application.config.listener_base_uri
 end
 
+class TestListener
+  include ProximoParty
+  format :html
+  base_uri Paykido::Application.config.test_listener_base_uri
+end
 
 class Purchase < ActiveRecord::Base
 
@@ -370,6 +375,24 @@ class Purchase < ActiveRecord::Base
    end
    
    @notification.save!
+   
+   if Paykido::Application.config.use_test_listener
+
+      test_listener_response  = TestListener.get(Paykido::Application.config.test_listener_path, :query => {
+        :orderid  =>  self.PP_TransactionID    ,  
+        :status  => status, 
+        :amount  => self.amount,
+        :currency  => self.currency , 
+        :reason  => '' ,
+        :purchase_id => self.id,
+        :checksum  => hash})
+        
+      logger.debug ""
+      logger.debug("Test listener response (listener_response)")
+      logger.debug(test_listener_response.inspect)
+      logger.debug ""
+     
+   end
 
    Rails.logger.debug("EXIT send_notification") 
    return notification_status

@@ -94,6 +94,16 @@ class G2sController < ApplicationController
 
   end
 
+  def TestPaykidoNotificationListener
+    logger.debug ""
+    logger.debug "TestPaykidoNotificationListener called."
+    logger.debug ""
+    logger.debug "request IP: #{request.remote_ip}"
+    logger.debug "orderid: #{params[:orderid]}"
+    logger.debug "status:  #{params[:status]}"
+    logger.debug "event:   #{params[:event]}"
+    logger.debug ""
+  end
 
   private
   

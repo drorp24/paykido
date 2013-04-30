@@ -18,6 +18,9 @@ Paykido::Application.configure do
   config.offer_rule_or_registration_after = 1
 
   # G2S Integration
+  config.use_test_listener = true
+  config.test_listener_base_uri = 'http://www.paykido.com'
+  config.test_listener_path     = '/g2s/TestPaykidoNotificationListener'
   config.redirect_after_registration = false
   config.listener_base_uri = 'https://secure.safecharge.com'
   config.listener_path     = '/ppp/paykidoNotificationListener'
