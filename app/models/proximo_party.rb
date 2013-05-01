@@ -6,7 +6,7 @@ module ProximoParty
 
   def self.included(base)
     base.send(:include, HTTParty)
-    base.http_proxy(PROXIMO.host, 80, PROXIMO.user, PROXIMO.password)
+    base.http_proxy(PROXIMO.host, 80, PROXIMO.user, PROXIMO.password) if Paykido::Application.config.use_proximo
   end
 
 end

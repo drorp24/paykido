@@ -5,6 +5,7 @@ Paykido::Application.configure do
   config.hostname = 'www.paykido.com'
   config.environment = 'beta'
   config.use_delayed_job = true
+  config.use_proximo = false
   
   # Facebook (for server-side facebooker, make identical changes at facebooker.yml)
   config.app_id = '402586589783096'

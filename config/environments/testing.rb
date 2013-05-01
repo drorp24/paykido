@@ -5,6 +5,7 @@ Paykido::Application.configure do
   config.hostname = 'paykido-testing.herokuapp.com'
   config.environment = 'testing'
   config.use_delayed_job = false
+  config.use_proximo = true
 
   # Facebook (for server-side facebooker, make identical changes at facebooker.yml)
   config.app_id = '366301316802347'
