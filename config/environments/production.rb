@@ -19,10 +19,11 @@ Paykido::Application.configure do
   config.offer_rule_or_registration_after = 1
 
   # G2S Integration
+  config.g2spp = 'https://secure.gate2shop.com/ppp/purchase.do'
   config.use_test_listener = true
   config.test_listener_base_uri = 'http://www.paykido.com'
   config.test_listener_path     = '/g2s/TestPaykidoNotificationListener'
-  config.redirect_after_registration = false
+  config.redirect_after_registration = true
   config.listener_base_uri = 'https://secure.safecharge.com'
   config.listener_path     = '/ppp/paykidoNotificationListener'
   config.merchant_id = '136515662095334027'
