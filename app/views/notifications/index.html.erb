@@ -9,10 +9,10 @@
 		<tbody>
 			<% @notifications.each do |notification| %>
 			  <tr>
-			    <td><%= notification.created_at %></td>
+			    <td><%= notification.created_at.strftime("%a, %b %d") %></td>
+			    <td><%= notification.created_at.strftime("%I:%M %p") %></td>
 			    <td><%= notification.orderid %></td>
 			    <td><%= notification.status %></td>
-			    <td><%= notification.response %></td>
 			    <td><%= link_to 'Details', consumer_purchase_notification_path(@consumer, @purchase, notification) %></td>
 			  </tr>
 			<% end %>

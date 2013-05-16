@@ -316,16 +316,6 @@ class Purchase < ActiveRecord::Base
 
     Rails.logger.info("ENTER send_notification") 
 
-    @notification = self.notifications.create(
-      :orderid => self.PP_TransactionID.to_s,
-      :status  => status, 
-      :amount  => self.amount,
-      :currency  => self.currency , 
-      :reason  => '' ,
-      :checksum  => hash.to_s,
-      :event =>   event     
-    )
-
     begin
     listener_response  = Listener.get(Paykido::Application.config.listener_path, :query => {
       :orderid  =>  self.PP_TransactionID    ,  
@@ -340,7 +330,7 @@ class Purchase < ActiveRecord::Base
 
       Rails.logger.info("Notification Listener was rescued. Following is the error:")
       Rails.logger.info(e)
-      @notification.response = "Unreachable"
+      notification_response = "Unreachable"
       notification_status = "Unreachable"
 #      raise "NotificationListener Unreachable"
 
@@ -353,8 +343,7 @@ class Purchase < ActiveRecord::Base
       Rails.logger.info('Following is the code:')
       Rails.logger.info(listener_response.code)
 
-      @notification.response = listener_response.parsed_response
-      @notification.reason = "code: " + listener_response.code.to_s
+      notification_response = listener_response.parsed_response
 
       if listener_response.code != 200
         Rails.logger.info("NotificationListener Unauthorized raised")
@@ -374,7 +363,16 @@ class Purchase < ActiveRecord::Base
       end
    end
    
-   @notification.save!
+   @notification = self.notifications.create(
+      :orderid =>   self.PP_TransactionID.to_s,
+      :status  =>   notification_status, 
+      :response =>  notification_response,
+      :amount  =>   self.amount,
+      :currency =>  self.currency , 
+      :reason  =>   "code: " + listener_response.code.to_s,
+      :checksum  => hash.to_s,
+      :event =>     event     
+    )
    
    if Paykido::Application.config.use_test_listener
 
