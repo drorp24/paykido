@@ -116,11 +116,12 @@
     </table>
     <br />
     <p class="transactions_and_notifications">
+    	<span class="purchase_id"><%= @purchase.id %></span>
 	    <% if @purchase.transactions.any? %>
-	    	<span><%= link_to 'Transactions', consumer_purchase_transactions_path(@consumer, @purchase) %></span>
+	    	<span class="transactions"><%= link_to 'Transactions', consumer_purchase_transactions_path(@consumer, @purchase) %></span>
 	    <% end %>
 	    <% if @purchase.notifications.any? %>
-	    	<span><%= link_to 'Notifications', consumer_purchase_notifications_path(@consumer, @purchase) %></span>
+	    	<span class="notifications"><%= link_to 'Notifications', consumer_purchase_notifications_path(@consumer, @purchase) %></span>
 	    <% end %>
     </p>
 

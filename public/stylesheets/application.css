@@ -18,11 +18,20 @@ body {
     color: #0088CC;
 }    
 
+
 .transactions_and_notifications {
     margin-top: -31px;
-    float: right;   
 }
 
+.transactions, .notifications {
+    float: right;
+}
+
+.purchase_id {
+    float: left;
+    margin-left: 5px;
+    color: #888;
+}
 .transactions_and_notifications a{
     margin-right: 20px;
 }

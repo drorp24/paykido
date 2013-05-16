@@ -132,7 +132,7 @@ class Purchase < ActiveRecord::Base
     time_stamp = Time.now.strftime('%Y-%m-%d %H:%M:%S')
        
       URI.escape(
-      Paykido::Application.config.g2spp +
+      Paykido::Application.config.g2spp + "?" +
       "merchant_id=" + Paykido::Application.config.merchant_id + "&" +
       "merchant_site_id=" + Paykido::Application.config.merchant_site_id + "&" +
       "total_amount=" + amount.to_s + "&" +
