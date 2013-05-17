@@ -9,6 +9,10 @@ body, #returnedMessage {
     overflow: hidden;
 }
 
+#paykido .pluginFaviconButtonIcon.img.sp_login-button.sx_login-button_ {
+    height: 10px;
+}
+
 .hero-unit {
   padding: 60px;
   margin-bottom: 30px;

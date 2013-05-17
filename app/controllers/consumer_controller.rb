@@ -258,7 +258,7 @@ class ConsumerController < ApplicationController
     
     unless status == 'failed'
       notification_status = @purchase.notify_merchant(status, 'buy')
-      if notification_status == "OK"
+      if notification_status == "OK" or (notification_status == 'ORDERNOTFOUND' and Paykido::Application.config.listener_can_return_ordernotfound)
         @response = @purchase.response(status)
       else
         @purchase.notification_failed!

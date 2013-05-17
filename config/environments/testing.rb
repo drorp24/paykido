@@ -26,6 +26,7 @@ Paykido::Application.configure do
   config.redirect_after_registration = true
   config.listener_base_uri = 'http://91.220.189.4'
   config.listener_path     = '/lilippp/paykidoNotificationListener'
+  config.listener_can_return_ordernotfound = true
   config.merchant_id = '136515662095334027'
   config.merchant_site_id = '79871'
   config.secret_key = 'lDovmOBmoHSCvCXxOSDNmJmjaKuTKcuFU767pi1p9yKXfVJb6FKquxrcVVMv7gh1' 
