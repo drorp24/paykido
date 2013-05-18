@@ -141,7 +141,6 @@ class ConsumerController < ApplicationController
           :name => facebook_params['registration']['payer_name'], 
           :email => facebook_params['registration']['payer_email'], 
           :phone => facebook_params['registration']['payer_phone'])
-    @payer.password= "1"     # TEMP: till devise does it properly, payer's hashed_password is used as access token   
     
     return unless @payer.save
 

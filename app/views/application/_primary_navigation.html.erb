@@ -18,9 +18,9 @@
 			<div class="login_bar pull-right">
 		    	<span class='hi'>Hi</span>
 		    	<span class='user'><%= current_payer.name %></span>
-	      		<%= link_to edit_payer_registration_path(:logged_in => true), 'data-skip-pjax' => true, :class => 'nohover' do %>
+	      		<%= link_to edit_payer_registration_path(:logged_in => true), 'data-skip-pjax' => true, :class => 'nohover', :id => 'change_password' do %>
 	        		<span class="icon32 lock"></span>
-	        		Change Password
+	        		<%= current_payer.encrypted_password.blank? ? 'Set Password' : 'Change Password' %>
 	      		<% end %>
 	      		<%= link_to destroy_payer_session_path, :method => :delete, 'data-skip-pjax' => true, :class => 'nohover' do %>
 	        		<span class="icon32 quit"></span>

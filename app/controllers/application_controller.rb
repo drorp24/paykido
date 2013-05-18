@@ -28,8 +28,8 @@ class ApplicationController < ActionController::Base
     
   end
   
-  def after_update_path_for(payer, notify=nil)
-    Rails.logger.debug("entered after_update_path")  
+  def signed_in_root_path(payer, notify=nil)
+    Rails.logger.debug("entered signed_in_root_path")  
 
     if current_payer.consumers.any?
       consumer = current_payer.consumers.first
@@ -41,6 +41,8 @@ class ApplicationController < ActionController::Base
     end
     
   end
+
+    
 
   private
 
