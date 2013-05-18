@@ -1,3 +1,8 @@
+.alert.form {
+    position: fixed;
+    width: 218px;
+    margin-top: -5px;
+}
 .button_to {
     display: inline;
     position: relative;
@@ -1064,9 +1069,6 @@ html ul.tabs li.current a, html ul.tabs li.current a:hover  { /* Displays backgr
             background:url("/home/img/form/send_reset_hover.png");
         }
 
-    .message {
-        display:none;
-    }
     .contact ul {
         list-style-type:none;
     }
