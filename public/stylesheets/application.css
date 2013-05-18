@@ -18,6 +18,31 @@ body {
     color: #0088CC;
 }    
 
+.login_bar {
+    color: #FFF;
+    font-size: 18px;
+    font-weight: 100;
+    line-height: 36px;
+    margin-right: 60px;
+}
+.user {
+    font-weight: bold;
+    margin-right: 20px;
+}
+.login_activities {
+}
+
+.login_bar .icon32 {
+    position: relative;
+    bottom: 3px;
+    padding-bottom: 6px;
+    margin-right: 5px;
+}
+
+.login_bar a:hover .icon32 {
+    background-position: 100% center;    
+}
+
 .transactions_and_notifications {
     margin-top: -31px;
 }

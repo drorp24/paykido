@@ -1,8 +1,26 @@
+.why_we_dont_need_curr_pwd {
+    margin-top: -8px;
+    font-size: 12px;
+    color: #888;
+}
+.update_password_botton {
+    position: absolute;
+    top: 526px;
+}
+
+#form_box.password_form_box h1{
+    margin-top: -8px;  
+}
 .alert.form {
     position: fixed;
     width: 218px;
     margin-top: -5px;
 }
+
+#messages {
+    display: none;
+}
+
 .button_to {
     display: inline;
     position: relative;

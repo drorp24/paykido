@@ -1,3 +1,11 @@
+<% if params[:notify] and params[:notify] == 'password_update' %>
+<div id="general_update" class="alert alert-block">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Thank you!</h4>
+	<span>We have succesfully updated your password.</span>
+</div>
+<% end %>
+
 <% if params[:notify] and params[:notify] == 'no_purchases' %>
 <div id="no_purchases" class="alert alert-block">
 	<a class="close" data-dismiss="alert" href="#">×</a>

@@ -21,6 +21,15 @@ class Payer < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :phone
 
 
+# bypasses Devise's requirement to re-enter current password to edit
+def update_with_password(params={}) 
+  if params[:password].blank? 
+    params.delete(:password) 
+    params.delete(:password_confirmation) if params[:password_confirmation].blank? 
+  end 
+  update_attributes(params) 
+end
+
   def g2spp(params)
     # return the url to redirect to for manual payment including all parameters
 
