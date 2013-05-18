@@ -75,8 +75,10 @@
 	<div id="confirmation_pending" class="alert alert-block">
 		<a class="close" data-dismiss="alert" href="#">×</a>
 	    <h4 class="alert-heading">Welcome to Paykido!</h4>
-		<span>Please tell your parent to look for our email and confirm you. Once confirmed, click Paykido and start buying!</span>
-    	<span><%= link_to "Back to website", params[:back_url], :class => "btn btn-info btn-large inline" %></span>
+		<span>Please tell your parent to look for our email and confirm you. Once confirmed, return to merchant, click Paykido and buy!</span>
+		<% if !params[:back_url].blank? %>
+    		<span><%= link_to "return to merchant", params[:back_url], :class => "btn btn-info btn-large inline" %></span>
+		<% end %>
 	</div>
 	<% end %>
 	<% if params[:notify] and params[:notify] == 'confirmation' and params[:status] == 'error' %>
@@ -84,7 +86,9 @@
 		<a class="close" data-dismiss="alert" href="#">×</a>
 	    <h4 class="alert-heading">Please try again</h4>
 		<span><%= "#{params[:property]} #{params[:value]} is #{params[:type]}. Please try again." %></span>
-    	<span><%= link_to "Back to website", params[:back_url], :class => "btn btn-info btn-large inline" %></span>
+		<% if !params[:back_url].blank? %>
+    		<span><%= link_to "Back to website", params[:back_url], :class => "btn btn-info btn-large inline" %></span>
+		<% end %>
 	</div>
 	<% end %>
 

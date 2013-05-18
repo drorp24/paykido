@@ -2,7 +2,15 @@ require 'digest/md5'
 class ConsumerController < ApplicationController
     
   def login
-    redirect_to error_path and return unless required(params)
+    unless required(params)
+      @response                 = {}
+      @response[:status]        =    'failed' 
+      @response[:property]      =  'a'
+      @response[:value]         =    'parameter'
+      @response[:type]         =    'missing'
+      render :buy, :layout => false       
+      return
+    end
   end
   
   def register
@@ -44,60 +52,29 @@ class ConsumerController < ApplicationController
   
   def register_callback 
           
-    @back_url = !params[:merchant_url].blank? ? params[:merchant_url] : params[:referrer]
-    
     unless required(params)
-      if Paykido::Application.config.redirect_after_registration or params[:mode] == 'R'
-        property     =  'At least one'
-        value        =  'parameter'
-        type         =  'missing'
-        redirect_to root_path(:anchor => "teens", :notify => 'confirmation', :status => 'error', :property => property, :value => value, :type => type, :back_url => @back_url)
-        return
-      else
-        @response                 = {}
-        @response[:status]        =    'failed' 
-        @response[:property]      =  'a'
-        @response[:value]         =    'parameter'
-        @response[:type]         =    'missing'
-        render :layout => false       
-        return
-      end
-
+      property     =  'At least one'
+      value        =  'parameter'
+      type         =  'missing'
+      redirect_to root_path(:anchor => "teens", :notify => 'confirmation', :status => 'error', :property => property, :value => value, :type => type, :back_url => params[:merchant_url])
+      return
     end
 
     find_or_create_consumer_and_payer  
 
     if @payer.errors.any?   
-      if Paykido::Application.config.redirect_after_registration or params[:mode] == 'R'
-        property     =  'The email you already'
-        value        =  'specified for your parent'
-        type         =  'different'
-        redirect_to root_path(:anchor => "teens", :notify => 'confirmation', :status => 'error', :property => property, :value => value, :type => type, :back_url => @back_url)
-        return
-      else
-        @response                 = {}
-        @response[:status]        =    'failed' 
-        @response[:property]      =  'payer email'
-        @response[:value]         =    facebook_params['registration']['payer_email']
-        @response[:type]         =    'already taken'
-        render :layout => false       
-        return
-      end
-        
+      property     =  'The email you already'
+      value        =  'specified for your parent'
+      type         =  'different'
+      redirect_to root_path(:anchor => "teens", :notify => 'confirmation', :status => 'error', :property => property, :value => value, :type => type, :back_url => params[:merchant_url])
+      return        
     else
       create_purchase
       @purchase.require_approval!     
       @payer.request_confirmation(@consumer) 
     end   
 
-    if Paykido::Application.config.redirect_after_registration or params[:mode] == 'R'
-      redirect_to root_path(:anchor => "teens", :notify => 'confirmation', :status => 'pending', :back_url => @back_url)
-    else
-      @response                 = {}
-      @response[:status]        = 'registering' 
-      render :layout => false       
-      return
-    end
+    redirect_to root_path(:anchor => "teens", :notify => 'confirmation', :status => 'pending', :back_url => params[:merchant_url])
 
   end  
   
