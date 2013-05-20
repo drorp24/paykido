@@ -393,7 +393,7 @@ class Purchase < ActiveRecord::Base
    return notification_status
 
   end
-#  handle_asynchronously :send_notification if Paykido::Application.config.use_delayed_job
+  handle_asynchronously :send_notification if Paykido::Application.config.use_delayed_job
   
   def set_rules!(params)
     # implement the rules parent has set while manually approving the purchase
