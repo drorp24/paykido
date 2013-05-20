@@ -31,6 +31,11 @@ a.nohover:hover {
     line-height: 36px;
     margin-right: 60px;
 }
+.login_bar .popover-content {
+    color: #999;
+    font-size: 14px;
+    line-height: 14px;
+}
 .user {
     font-weight: bold;
     margin-right: 20px;
@@ -686,6 +691,7 @@ tr.purchase_line:hover {
 
 h3.popover-title {
     font-size: 16px;
+    color: #666;
 }
 .popover-title.sub-title {
     font-size: 14px;

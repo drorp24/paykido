@@ -116,7 +116,7 @@
 <div id="approval_failure" class="alert alert-block alert-error" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Something is missing</h4>
-    <%= "We\'re unable to process the payment. " %>
+    <span><%= "We\'re unable to process the payment. " %></span>
 	<% if params[:manual] %>
 		<span><%= "Could be something you keyed." %></span>
     	<span><%= button_to "Try again", approve_purchase_path(params[:purchase]),:method => :get, :class => "btn btn-info inline" %></span>
@@ -258,6 +258,18 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
+
+	<% if current_payer.encrypted_password.blank? %>
+		if ($('.alert').length == 0) {
+			$('#change_password').popover({
+				title: "Time to set your password!", 
+				content: "Click above to set your password.", 
+				placement: 'bottom'
+				})
+			$('#change_password').popover('show')
+		}
+	<% end %>
+	
 
 <% if flash[:alert] %>
 	$('#alert').show();

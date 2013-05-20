@@ -1,3 +1,7 @@
+<% if params[:notify] and params[:notify] == 'password_reset' %>
+	<% flash[:notice] = 'Email with instructions was sent'%>
+<% end %>
+
 <div class="row hm_container">
 
 	<%= image_tag "/home/img/ys_kid_tp2.png", :id => "yellowshirt_kid" %>

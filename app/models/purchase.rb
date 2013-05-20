@@ -292,10 +292,7 @@ class Purchase < ActiveRecord::Base
   
   def notify_merchant(status, event)
     
-#    unless Paykido::Application.config.environment == 'beta'
-#      return true
-#    end  
-
+    return "OK" if Paykido::Application.config.environment == 'dev'
 
     str = Paykido::Application.config.return_secret_key +
           self.PP_TransactionID.to_s +

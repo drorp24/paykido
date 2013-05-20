@@ -42,7 +42,9 @@ class ApplicationController < ActionController::Base
     
   end
 
-    
+  def after_sending_reset_password_instructions_path_for(payer)
+    return new_session_path(payer, :notify => 'password_reset')
+  end   
 
   private
 
