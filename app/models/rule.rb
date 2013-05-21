@@ -347,11 +347,17 @@ class Rule < ActiveRecord::Base
   end
   
   def date=(newdate)
-    newdate = newdate.to_datetime.in_time_zone(new_zone = 'GMT')
-    newdate = Time.now if newdate < Time.now    # Otherwise, if rule was set to today, it will get midnight time and won't be effective i ncase parent just registered
-    schedule = IceCube::Schedule.new
+
+    if newdate.is_a? String
+      newdate = newdate.to_datetime.end_of_day.to_time_in_current_zone
+    elsif newdate.is_a? Date
+      newdate = newdate.end_of_day.to_time_in_current_zone 
+    end
+    newdate = Time.zone.now if newdate < Time.zone.now    # Otherwise, if rule was set to today, it will get midnight time and won't be effective i ncase parent just registered
+    schedule = IceCube::Schedule.new(newdate)
     schedule.add_recurrence_time(newdate)
     self.schedule = schedule
+
   end
   
   def passed?
