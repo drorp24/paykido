@@ -6,22 +6,45 @@ class ApplicationController < ActionController::Base
 
   layout :set_layout
 
-  def after_sign_in_path_for(payer)
+  def after_sign_in_path_for(payer, notify=nil)
 
-      Rails.logger.debug("entered after_sign_in_path")  
-      Rails.logger.debug("current_payer.id: " + current_payer.id.to_s)  
+    Rails.logger.debug("entered after_sign_in_path")  
 
     if current_payer.consumers.any?
       consumer = current_payer.consumers.first
-      return consumer_statistics_path(consumer)
+      return consumer_statistics_path(consumer, :notify => notify)
     elsif current_payer.registered?
-      Rails.logger.debug("current payer is registered")  
-      return tokens_path
+      return tokens_path(:notify => notify)
     else
-      Rails.logger.debug("current payer is not registered")  
-      return new_token_path
+      return new_token_path(:notify => notify)
     end
   end
+  
+  def after_sending_reset_password_instructions_path_for(payer)
+
+    Rails.logger.debug("entered after_sending_reset_password_instructions_path")  
+
+  return root_path(:anchor => "teens", :notify => 'confirmation')
+    
+  end
+  
+  def signed_in_root_path(payer, notify=nil)
+    Rails.logger.debug("entered signed_in_root_path")  
+
+    if current_payer.consumers.any?
+      consumer = current_payer.consumers.first
+      return consumer_statistics_path(consumer, :notify => notify)
+    elsif current_payer.registered?
+      return tokens_path(:notify => notify)
+    else
+      return new_token_path(:notify => notify)
+    end
+    
+  end
+
+  def after_sending_reset_password_instructions_path_for(payer)
+    return new_session_path(payer, :notify => 'password_reset')
+  end   
 
   private
 

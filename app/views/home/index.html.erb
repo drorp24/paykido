@@ -4,7 +4,7 @@
 
 
 <div class="clear"></div>
-<div class="hm_container" id="section2">
+<div class="hm_container" id="merchants">
 
 	<div class="grid_8">
 	    <div class="grid_4 marketial section_title">
@@ -25,7 +25,6 @@
 				<h2>Enable kids to buy in-app features & products.</h2>
 				<h2>Become a recognized kids-safe merchant.</h2>
 				<h2>Boost sales and minimize chargebacks.</h2>
-				<p><%= link_to "Tell me more", "#" %></p>
 			</div>
  		</div>
 
@@ -38,7 +37,7 @@
 
 
 <div class="clear"></div>
-<div class="hm_container" id="section3">
+<div class="hm_container" id="parents">
   
 	<div class="grid_8">
 	    <div class="grid_4 marketial section_title">
@@ -59,7 +58,6 @@
 				<h2>No risky offers, improper products, bill shocks.</h2>
 				<h2>Paykido watches what your kids buy 24 by 7.</h2>
 				<h2>You decide when and how to pay.</h2>
-				<p><%= link_to "Tell me more", "#" %></p>
 			</div>
  		</div>
 
@@ -71,8 +69,29 @@
 
 
 <div class="clear"></div>
-<div class="hm_container" id="section4">
+<div class="hm_container" id="teens">
   
+	<% if params[:notify] and params[:notify] == 'confirmation' and params[:status] == 'pending' %>
+	<div id="confirmation_pending" class="alert alert-block">
+		<a class="close" data-dismiss="alert" href="#">×</a>
+	    <h4 class="alert-heading">Welcome to Paykido!</h4>
+		<span>Please tell your parent to look for our email and confirm you. Once confirmed, return to merchant, click Paykido and buy!</span>
+		<% if !params[:back_url].blank? %>
+    		<span><%= link_to "return to merchant", params[:back_url], :class => "btn btn-info btn-large inline" %></span>
+		<% end %>
+	</div>
+	<% end %>
+	<% if params[:notify] and params[:notify] == 'confirmation' and params[:status] == 'error' %>
+	<div id="confirmation_pending" class="alert alert-block">
+		<a class="close" data-dismiss="alert" href="#">×</a>
+	    <h4 class="alert-heading">Please try again</h4>
+		<span><%= "#{params[:property]} #{params[:value]} is #{params[:type]}. Please try again." %></span>
+		<% if !params[:back_url].blank? %>
+    		<span><%= link_to "Back to website", params[:back_url], :class => "btn btn-info btn-large inline" %></span>
+		<% end %>
+	</div>
+	<% end %>
+
 	<div class="grid_8">
 	    <div class="grid_4 marketial section_title">
 	    	<h1>Teens</h1>
@@ -92,7 +111,6 @@
 				<h2>Get what you want - when you want it.</h2>
 				<h2>No cards to buy, surveys to do, offers to take.</h2>
 				<h2>Buy with a click, no parents around.</h2>
-				<p><%= link_to "Tell me more", "#" %></p>
 			</div>
  		</div>
 
@@ -105,7 +123,6 @@
 
 
 <div class="clear"></div>
-
 
 <!--
 

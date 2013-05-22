@@ -36,6 +36,7 @@
 		mode=M&
 		PP_TransactionID=12345&
 		hash=04c43c270624bf4a7d6604a3cadf8303&
+		merchant_url=<%= request.protocol + Paykido::Application.config.hostname + '/play' %>&
 		referrer=<%= request.protocol + Paykido::Application.config.hostname %>/play">
 	</iframe>	
 
@@ -49,6 +50,12 @@
 	</div>
 	<div class="modal-body">
 		<p id="space"></p>
+		<p class="error" style="display: none">Oops...</p>
+		<p class="error" style="display: none">You have previously specified</p>
+		<p class="error" style="display: none">a different email for your parent</p>
+		<p class="error" style="display: none">Please try again</p>
+		<p class="wrong_params" style="display: none">Wrong parameters!</p>
+		<p class="wrong_params" style="display: none">Please fix and try again</p>
 		<p class="registering" style="display: none">Almost there...</p>
 		<p class="registering" style="display: none">Confirmation email sent.</p>
 		<p class="registering" style="display: none">Let your parent know!</p>
@@ -67,12 +74,12 @@
 		<p class="pending_purchase" style="display: none">Parental approval is required.</p>
 		<p class="pending_purchase" style="display: none">You will get a text message </p>
 		<p class="pending_purchase" style="display: none">once your parent approves.</p>
-		<p class="failed_purchase" style="display: none">We are sorry. Something went wrong.</p>
+		<p class="failed_purchase" style="display: none">Something went wrong.</p>
 		<p class="failed_purchase" style="display: none">
 			<span class="value" id="property"></span>
 			<span class="value" id="value"></span>
 			<span> is </span>
-			<span class="value" id="type"></span>
+			<span class="value" id="type"></span>.
 		</p>
 		<%= image_tag "yellowshirt_kid.png", :class => "ys_kid" %>
 	</div>
@@ -126,7 +133,9 @@ $(document).ready(function () {
 	{
 	
 //	    $('#paykido.modal').modal('hide')
-	    if (event.data == 'close') {return}
+	    if (event.data == 'close') {
+    		window.location.assign("/play")
+	    }
 		obj = jQuery.parseJSON(event.data)
 //	    alert('the message is: ' + obj.status + '\n' + "property:" + obj.property + "\n" + "value:" + obj.value + "\n" + "type:" + obj.type)
 	    $('#paykido.modal #iframe').hide()
@@ -160,6 +169,26 @@ $(document).ready(function () {
 	    $('#paykido.modal').append($('#returnedMessage'))
 		$('#returnedMessage .modal-header h3').html('Confirmation')
 		$('.registering').show();	
+		$('#returnedMessage').show()
+	    $('#paykido.modal').modal('show')
+	<% end %>
+	
+	<% if params[:status] and params[:status] == 'error' %>
+ 	    $('#paykido.modal #iframe').hide()
+		$('.status_icon').removeClass('bigicon-thumbs-up').addClass('bigicon-thumbs-right')			
+	    $('#paykido.modal').append($('#returnedMessage'))
+		$('#returnedMessage .modal-header h3').html('Error')
+		$('.error').show();	
+		$('#returnedMessage').show()
+	    $('#paykido.modal').modal('show')
+	<% end %>
+
+	<% if params[:status] and params[:status] == 'wrong_params' %>
+ 	    $('#paykido.modal #iframe').hide()
+		$('.status_icon').removeClass('bigicon-thumbs-up').addClass('bigicon-thumbs-right')			
+	    $('#paykido.modal').append($('#returnedMessage'))
+		$('#returnedMessage .modal-header h3').html('Error')
+		$('.wrong_params').show();	
 		$('#returnedMessage').show()
 	    $('#paykido.modal').modal('show')
 	<% end %>

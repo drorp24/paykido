@@ -3,7 +3,7 @@
 
 <section id="maincontainer">
 
-	<%= render 'page_head' %>
+	<%= render 'page_head', :page_title => "Purchase Transactions", :backPath => consumer_purchase_path(@consumer, @purchase) %>
 	
 	<table>
 		<tbody>
@@ -11,7 +11,7 @@
 			  <tr>
 			    <td><%= transaction.trx_type %></td>
 			    <td><%= transaction.created_at %></td>
-			    <td><%= link_to 'Details', purchase_transaction_path(@purchase, transaction) %></td>
+			    <td><%= link_to 'Details', consumer_purchase_transaction_path(@consumer, @purchase, transaction) %></td>
 			  </tr>
 			<% end %>
 		</tbody>

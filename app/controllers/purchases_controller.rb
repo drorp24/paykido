@@ -64,13 +64,18 @@ class PurchasesController < ApplicationController
     if @purchase.paid_by_token?
       status = 'approved'
       @purchase.approve!
-      @purchase.account_for! 
     else
       status = 'failed'
     end
 
     unless status == 'failed'
-      @purchase.notify_merchant(status, 'approval')
+      notification_status = @purchase.notify_merchant(status, 'approval')
+      if notification_status == "OK"
+        @purchase.account_for! if status == 'approved'
+      else
+        @purchase.notification_failed!
+        status = 'failed'
+      end
     end
 
     Sms.notify_consumer(@purchase.consumer, 'approval', status, @purchase, 'manual')   
@@ -88,13 +93,19 @@ class PurchasesController < ApplicationController
   def decline
     
     @purchase.decline!
-    @purchase.notify_merchant('declined', 'denial')
+    notification_status = @purchase.notify_merchant('declined', 'denial')
+    if notification_status == "OK"
+      status = 'success'
+    else
+      @purchase.notification_failed!
+      status = 'failed'
+    end
     Sms.notify_consumer(@purchase.consumer, 'approval', 'declined', @purchase, 'manual')
 
     redirect_to purchase_path(
       @purchase,
       :notify => 'denial', 
-      :status => 'success',
+      :status => status,
       :purchase => @purchase.id, 
       :_pjax => "data-pjax-container"
     )  

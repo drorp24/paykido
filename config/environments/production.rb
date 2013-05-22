@@ -5,6 +5,7 @@ Paykido::Application.configure do
   config.hostname = 'www.paykido.com'
   config.environment = 'beta'
   config.use_delayed_job = true
+  config.use_proximo = false
   
   # Facebook (for server-side facebooker, make identical changes at facebooker.yml)
   config.app_id = '402586589783096'
@@ -18,6 +19,14 @@ Paykido::Application.configure do
   config.offer_rule_or_registration_after = 1
 
   # G2S Integration
+  config.g2spp = 'https://secure.gate2shop.com/ppp/purchase.do'
+  config.use_test_listener = true
+  config.test_listener_base_uri = 'http://www.paykido.com'
+  config.test_listener_path     = '/g2s/TestPaykidoNotificationListener'
+  config.redirect_after_registration = true
+  config.listener_base_uri = 'https://secure.safecharge.com'
+  config.listener_path     = '/ppp/paykidoNotificationListener'
+  config.listener_can_return_ordernotfound = false
   config.merchant_id = '136515662095334027'
   config.merchant_site_id = '79871'
   config.secret_key = 'lDovmOBmoHSCvCXxOSDNmJmjaKuTKcuFU767pi1p9yKXfVJb6FKquxrcVVMv7gh1'

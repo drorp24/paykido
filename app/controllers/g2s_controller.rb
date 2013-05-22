@@ -14,7 +14,15 @@ class G2sController < ApplicationController
       if params[:ppp_status] == 'OK' and @purchase
         @purchase.approve!
         if @purchase.approved?
-          Sms.notify_consumer(@purchase.consumer, 'approval', 'approved', @purchase, 'manual')
+          notification_status = @purchase.notify_merchant(status, 'buy')
+          if notification_status == "OK"
+            @purchase.account_for!
+            status = 'approved'
+          else
+            @purchase.notification_failed!
+            status = 'failed'
+          end
+          Sms.notify_consumer(@purchase.consumer, 'approval', status, @purchase, 'manual')
         else 
           Sms.notify_consumer(@purchase.consumer, 'approval', 'failed', @purchase, 'manual')
         end
@@ -61,7 +69,7 @@ class G2sController < ApplicationController
         
   end
   
-  def dmn
+  def dmn   
     # read dmn and store the properties in either a. registration or b. transaction
     # do not count on session to include anything to 'remind' of the context
     # instead, use the custom field to 'remind' the server what the context is
@@ -73,31 +81,31 @@ class G2sController < ApplicationController
     
     if params[:customField1] == 'payment'
 
+      # CURRENTLY DMN ONLY WRITE TRANSACTION. EVERYTHING ELSE (INCL. NOTIFICATION) IS DONE ALREADY AFTER PPP_CALLBACK
       @purchase.create_transaction!(params)
-      if params[:Status] == 'APPROVED'
-        status = 'approved' 
-        @purchase.approve!
-        @purchase.account_for!
-      else
-        status = 'failed'
-      end   
-
-      unless status == 'failed'
-        @purchase.notify_merchant(status, 'payment')
-      end
 
     elsif params[:customField1] == 'registration'
       
       @payer.create_token!(params)                      #ToDo: it looks like it needs to verify the status is OK like above
     
-    else
-      return render(:nothing => true)  
     end
     
     render :nothing => true
 
   end
 
+  def TestPaykidoNotificationListener
+    Rails.logger.info ""
+    Rails.logger.info "TestPaykidoNotificationListener called."
+    Rails.logger.info ""
+    Rails.logger.info "request IP:    #{request.remote_ip}"
+    Rails.logger.info "orderid:       #{params[:orderid]}"
+    Rails.logger.info "status:        #{params[:status]}"
+    Rails.logger.info "purchase_id:   #{params[:purchase_id]}"
+    Rails.logger.info ""
+
+    render :nothing => true
+  end
 
   private
   
@@ -120,18 +128,18 @@ class G2sController < ApplicationController
 
       if params[:customField1] and params[:customField1] == 'registration'
         unless @payer =    Payer.find_by_id(params[:customField2].to_i)
-          Rails.logger.debug("Payer whose id is #{params[:customField2]} was not found")
+          Rails.logger.info("Payer whose id is #{params[:customField2]} was not found")
           @error = true
         end
       end
       
       if params[:customField1] and params[:customField1] == 'payment'
         unless @payer =    Payer.find_by_id(params[:customField2].to_i)
-          Rails.logger.debug("Payer whose id is #{params[:customField2]} was not found")
+          Rails.logger.info("Payer whose id is #{params[:customField2]} was not found")
           @error = true
         end
         unless @purchase = Purchase.find_by_id(params[:customField3].to_i)
-          Rails.logger.debug("Purchase whose id is #{params[:customField3]} was not found")
+          Rails.logger.info("Purchase whose id is #{params[:customField3]} was not found")
           @error = true
         end
       end

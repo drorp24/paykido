@@ -2,7 +2,15 @@ require 'digest/md5'
 class ConsumerController < ApplicationController
     
   def login
-
+    unless required(params)
+      @response                 = {}
+      @response[:status]        =    'failed' 
+      @response[:property]      =  'a'
+      @response[:value]         =    'parameter'
+      @response[:type]         =    'missing'
+      render :buy, :layout => false       
+      return
+    end
   end
   
   def register
@@ -44,27 +52,40 @@ class ConsumerController < ApplicationController
   
   def register_callback 
           
+    unless required(params)
+      property     =  'At least one'
+      value        =  'parameter'
+      type         =  'missing'
+      redirect_to root_path(:anchor => "teens", :notify => 'confirmation', :status => 'error', :property => property, :value => value, :type => type, :back_url => params[:merchant_url])
+      return
+    end
+
     find_or_create_consumer_and_payer  
 
-    unless @payer.errors.any?   
-      @payer.request_confirmation(@consumer) 
-      create_purchase
-      @purchase.require_approval!
-      if params[:mode] == 'M'
-        redirect_to params[:referrer]  + '?status=registering'
-      else
-        @response = @purchase.response('registering')       
-        render :layout => false 
-      end
+    if @payer.errors.any?   
+      property     =  'The email you already'
+      value        =  'specified for your parent'
+      type         =  'different'
+      redirect_to root_path(:anchor => "teens", :notify => 'confirmation', :status => 'error', :property => property, :value => value, :type => type, :back_url => params[:merchant_url])
+      return        
     else
-      Rails.logger.debug("@payer.errors is: " + @payer.errors.inspect.to_s)  
-      flash[:error] = @payer.errors.inspect.to_s
-      @payer.errors.clear 
-      redirect_to params[:referrer]  + '?status=error' 
+      create_purchase
+      @purchase.require_approval!     
+      @payer.request_confirmation(@consumer) 
     end   
+
+    redirect_to root_path(:anchor => "teens", :notify => 'confirmation', :status => 'pending', :back_url => params[:merchant_url])
 
   end  
   
+  def required(params)
+    if !params[:amount].blank? && !params[:merchant].blank? && !params[:product].blank? && !params[:currency].blank? && !params[:mode].blank? && !params[:PP_TransactionID].blank? && !params[:referrer].blank?
+      return true
+    else
+      return false
+    end
+  end
+
   def find_or_create_consumer_and_payer
     
     # A consumer instance may exist already (e.g., he once authorized Paykido and then unauthorized it)
@@ -120,7 +141,6 @@ class ConsumerController < ApplicationController
           :name => facebook_params['registration']['payer_name'], 
           :email => facebook_params['registration']['payer_email'], 
           :phone => facebook_params['registration']['payer_phone'])
-    @payer.password= "1"     # TEMP: till devise does it properly, payer's hashed_password is used as access token   
     
     return unless @payer.save
 
@@ -147,12 +167,24 @@ class ConsumerController < ApplicationController
     
   def buy
                                               
+    unless required(params)
+      Rails.logger.debug("Missing required paramters")
+      @response                 = {}
+      @response[:status]        =    'failed' 
+      @response[:property]      =  'a'
+      @response[:value]         =    'parameter'
+      @response[:type]         =    'missing'
+      render :layout => false       
+      return
+    end
+
     unless params[:facebook_id]
       Rails.logger.debug("No facebook_id in parameters")
       @response                 = {}
       @response[:status]        =    'failed' 
       @response[:property]      =  'facebook'
-      @response[:value]         =    'down'
+      @response[:value]         =    'api'
+      @response[:type]         =    'down'
       render :layout => false       
       return
     end
@@ -160,9 +192,10 @@ class ConsumerController < ApplicationController
     unless correct_hash(params)
       Rails.logger.debug("Wrong checksum")
       @response                 = {}
-      @response[:status]        =    'failed' 
-      @response[:property]      =  'checksum'
-      @response[:value]         =    'wrong'
+      @response[:status]        =   'failed' 
+      @response[:property]      =   'checksum'
+      @response[:value]         =   'value'
+      @response[:type]          =   'wrong'
       render :layout => false       
       return      
     end
@@ -201,11 +234,19 @@ class ConsumerController < ApplicationController
     
     unless status == 'failed'
       notification_status = @purchase.notify_merchant(status, 'buy')
-      status = 'failed' unless notification_status 
+      if notification_status == "OK" or (notification_status == 'ORDERNOTFOUND' and Paykido::Application.config.listener_can_return_ordernotfound)
+        @response = @purchase.response(status)
+      else
+        @purchase.notification_failed!
+        @response                 = {}
+        @response[:status]        =   'failed' 
+        @response[:property]      =   'merchant response'
+        @response[:value]         =   notification_status
+        @response[:type]          =   'wrong'
+        status = 'failed' 
+      end       
     end
-    
-    @response = @purchase.response(status)
-       
+
     render :layout => false 
     
   end

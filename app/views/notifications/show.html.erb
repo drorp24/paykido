@@ -1,30 +1,22 @@
-<p id="notice"><%= notice %></p>
+<%= render 'primary_navigation'  %>
+<%= render 'consumer_navigation' %>
 
-<p>
-  <b>Payer:</b>
-  <%= @notification.payer_id %>
-</p>
+<section id="maincontainer">
 
-<p>
-  <b>Event:</b>
-  <%= @notification.event %>
-</p>
+	<%= render 'page_head', :page_title => 'Notification Details', :backPath => consumer_purchase_path(@consumer, @purchase) %>
+	
+	<table>
+		<tbody>
+			<% @notification.attributes.each do |name, value| %>
+			  <% next if name == 'id' or !value %>
+			  <tr>
+			    <td><%= name %></td>
+			    <td><%= value %></td>
+			  </tr>
+			<% end %>
+		</tbody>
+	</table>
 
-<p>
-  <b>Medium:</b>
-  <%= @notification.medium %>
-</p>
+	<br />
 
-<p>
-  <b>Data:</b>
-  <%= @notification.data %>
-</p>
-
-<p>
-  <b>Frequency:</b>
-  <%= @notification.frequency %>
-</p>
-
-
-<%= link_to 'Edit', edit_notification_path(@notification) %> |
-<%= link_to 'Back', notifications_path %>
+</section>

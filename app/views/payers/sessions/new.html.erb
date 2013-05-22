@@ -1,3 +1,7 @@
+<% if params[:notify] and params[:notify] == 'password_reset' %>
+	<% flash[:notice] = 'Email with instructions was sent'%>
+<% end %>
+
 <div class="row hm_container">
 
 	<%= image_tag "/home/img/ys_kid_tp2.png", :id => "yellowshirt_kid" %>
@@ -7,6 +11,13 @@
 	</div>
 
 	<div id="form_box" class="span3 well ">
+
+	<% flash.each do |key, value| %>
+	   <div class="alert form">
+			<a class="close" data-dismiss="alert" href="#">×</a>
+		    <center><strong><%= value %></strong></center>
+	  </div>
+	<% end %>		
 		<h1>Sign In</h1>
 		<%= render "form" %>
 		<div class="form_bottom">

@@ -17,6 +17,64 @@ body {
 .paykido_parents {
     color: #0088CC;
 }    
+
+a.nohover {
+    margin-right: 20px;
+}
+a.nohover:hover {
+    color: #0088CC;
+}
+.login_bar {
+    color: #FFF;
+    font-size: 20px;
+    font-weight: 100;
+    line-height: 36px;
+    margin-right: 60px;
+}
+.login_bar .popover-content {
+    color: #999;
+    font-size: 14px;
+    line-height: 14px;
+}
+.user {
+    font-weight: bold;
+    margin-right: 20px;
+}
+.login_activities {
+}
+
+.login_bar .icon32 {
+    position: relative;
+    bottom: 1px;
+    padding-bottom: 6px;
+    margin-right: 5px;
+}
+
+.login_bar a:hover .icon32 {
+    background-position: 100% center;    
+}
+
+.transactions_and_notifications {
+    margin-top: -31px;
+}
+
+.transactions, .notifications {
+    float: right;
+}
+
+.purchase_id {
+    float: left;
+    margin-left: 5px;
+    color: #888;
+}
+.transactions_and_notifications a{
+    margin-right: 20px;
+}
+
+.span55 {
+    width: 540px;
+}
+
 .box-content .rule_background h1.rule_heading  {
     display: inline;
     line-height: 45px;
@@ -633,6 +691,7 @@ tr.purchase_line:hover {
 
 h3.popover-title {
     font-size: 16px;
+    color: #666;
 }
 .popover-title.sub-title {
     font-size: 14px;
@@ -1194,9 +1253,10 @@ table.navigation {
 }
 .page_head a {
     float: right;
-    font-size: 16px;
-    line-height: 23px;
-    margin-right: 2%;
+    font-size: 20px;
+    line-height: 56px;
+    margin-right: 4%;
+    font-weight: 100;
 }
 
 #callback {

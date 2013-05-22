@@ -2,7 +2,7 @@ require 'digest/md5'
 require 'uri'
 
 class TokenAPI
-  include HTTParty
+  include ProximoParty
   format :xml
   base_uri 'https://test.safecharge.com'
 end
@@ -14,11 +14,16 @@ class PPP
 end
 
 class Listener
-  include HTTParty
+  include ProximoParty
   format :html
-  base_uri 'https://secure.safecharge.com'
+  base_uri Paykido::Application.config.listener_base_uri
 end
 
+class TestListener
+  include ProximoParty
+  format :html
+  base_uri Paykido::Application.config.test_listener_base_uri
+end
 
 class Purchase < ActiveRecord::Base
 
@@ -127,7 +132,7 @@ class Purchase < ActiveRecord::Base
     time_stamp = Time.now.strftime('%Y-%m-%d %H:%M:%S')
        
       URI.escape(
-      "https://secure.Gate2Shop.com/ppp/purchase.do?" +
+      Paykido::Application.config.g2spp + "?" +
       "merchant_id=" + Paykido::Application.config.merchant_id + "&" +
       "merchant_site_id=" + Paykido::Application.config.merchant_site_id + "&" +
       "total_amount=" + amount.to_s + "&" +
@@ -287,10 +292,7 @@ class Purchase < ActiveRecord::Base
   
   def notify_merchant(status, event)
     
-#    unless Paykido::Application.config.environment == 'beta'
-#      return true
-#    end  
-
+    return "OK" if Paykido::Application.config.environment == 'dev'
 
     str = Paykido::Application.config.return_secret_key +
           self.PP_TransactionID.to_s +
@@ -302,27 +304,17 @@ class Purchase < ActiveRecord::Base
           
     hash = Digest::MD5.hexdigest(str)          
 
-    Rails.logger.debug("About to send_notification with: orderid=#{self.PP_TransactionID}&status=#{status}&amount=#{self.amount.to_s}&currency=#{self.currency}&reason=&purchase_id=#{id.to_s}&checksum=#{hash}") 
+    Rails.logger.info("About to send_notification with: orderid=#{self.PP_TransactionID}&status=#{status}&amount=#{self.amount.to_s}&currency=#{self.currency}&reason=&purchase_id=#{id.to_s}&checksum=#{hash}") 
     send_notification(status, hash, event)
 
   end
 
   def send_notification(status, hash, event)
 
-    Rails.logger.debug("ENTER send_notification") 
-
-    @notification = self.notifications.create(
-      :orderid => self.PP_TransactionID.to_s,
-      :status  => status, 
-      :amount  => self.amount,
-      :currency  => self.currency , 
-      :reason  => '' ,
-      :checksum  => hash.to_s,
-      :event =>   event     
-    )
+    Rails.logger.info("ENTER send_notification") 
 
     begin
-    listener_response  = Listener.get('/ppp/paykidoNotificationListener', :query => {
+    listener_response  = Listener.get(Paykido::Application.config.listener_path, :query => {
       :orderid  =>  self.PP_TransactionID    ,  
       :status  => status, 
       :amount  => self.amount,
@@ -332,38 +324,76 @@ class Purchase < ActiveRecord::Base
       :checksum  => hash
     })
     rescue => e
+
       Rails.logger.info("Notification Listener was rescued. Following is the error:")
       Rails.logger.info(e)
-      @notification.response = "Unreachable"
-      raise "NotificationListener Unreachable"
+      notification_response = "Unreachable"
+      notification_status = "Unreachable"
+#      raise "NotificationListener Unreachable"
+
     else
+
       Rails.logger.info("Following is the full response (listener_response)")
       Rails.logger.info(listener_response.inspect)
-      Rails.logger.info("Following is listener_response.parse_response")
+      Rails.logger.info("Following is listener_response.parsed_response")
       Rails.logger.info(listener_response.parsed_response)
       Rails.logger.info('Following is the code:')
       Rails.logger.info(listener_response.code)
+
+      notification_response = listener_response.parsed_response
+
       if listener_response.code != 200
         Rails.logger.info("NotificationListener Unauthorized raised")
-        @notification.response = listener_response.code.to_s
-        raise "NotificationListener Unauthorized"
+#        raise "NotificationListener Unauthorized"
+        notification_status = "code: " + listener_response.code.to_s
       elsif listener_response.parsed_response == "ERROR"
         Rails.logger.info("NotificationListener ERROR raised")
-        @notification.response = "ERROR"
-        raise "NotificationListener ERROR"
+#        raise "NotificationListener ERROR"
+        notification_status = listener_response.parsed_response
+      elsif listener_response.parsed_response == "ORDERNOTFOUND"
+        Rails.logger.info("NotificationListener ORDERNOTFOUND raised")
+#        raise "NotificationListener ORDERNOTFOUND"
+        notification_status = listener_response.parsed_response
       else
-        @notification.response = "OK"
-        Rails.logger.info("Nothing raised. Successfully completed")        
+        Rails.logger.info("Nothing raised. Successfully completed")
+        notification_status = "OK"        
       end
    end
    
-   @notification.save!
+   @notification = self.notifications.create(
+      :orderid =>   self.PP_TransactionID.to_s,
+      :status  =>   notification_status, 
+      :response =>  notification_response,
+      :amount  =>   self.amount,
+      :currency =>  self.currency , 
+      :reason  =>   "code: " + listener_response.code.to_s,
+      :checksum  => hash.to_s,
+      :event =>     event     
+    )
+   
+   if Paykido::Application.config.use_test_listener
 
-   Rails.logger.debug("EXIT send_notification") 
+      test_listener_response  = TestListener.get(Paykido::Application.config.test_listener_path, :query => {
+        :orderid  =>  self.PP_TransactionID    ,  
+        :status  => status, 
+        :amount  => self.amount,
+        :currency  => self.currency , 
+        :reason  => '' ,
+        :purchase_id => self.id,
+        :checksum  => hash})
+        
+      Rails.logger.info ""
+      Rails.logger.info("Test listener response (listener_response)")
+      Rails.logger.info(test_listener_response.inspect)
+      Rails.logger.info ""
+     
+   end
+
+   Rails.logger.info("EXIT send_notification") 
+   return notification_status
 
   end
-  handle_asynchronously :send_notification
-
+  handle_asynchronously :send_notification if Paykido::Application.config.use_delayed_job
   
   def set_rules!(params)
     # implement the rules parent has set while manually approving the purchase
@@ -567,6 +597,15 @@ class Purchase < ActiveRecord::Base
   end
 
   def account_for!   
+  end
+  
+  def notification_failed!
+    self.authorized = false
+    self.authorization_type =     'PendingPayer'
+    self.authorization_property = 'Notification'
+    self.authorization_value =    'failed'
+    self.authorization_date =     Time.now
+    self.save!
   end
   
   def response(status)

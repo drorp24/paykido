@@ -5,6 +5,7 @@ Paykido::Application.configure do
   config.hostname = 'paykido-staging.herokuapp.com'
   config.environment = 'staging'
   config.use_delayed_job = false
+  config.use_proximo = true
 
   # Facebook (for server-side facebooker, make identical changes at facebooker.yml)
   config.app_id = '294773230578790'
@@ -12,17 +13,25 @@ Paykido::Application.configure do
   config.api_key = '294773230578790'
 
   # Policy
-  config.send_sms = true
+  config.send_sms = false
   config.rules_require_registration = true
   config.always_pay_manually = false
   config.offer_rule_or_registration_after = 1
 
   # G2S Integration
+  config.g2spp = 'http://91.220.189.4/lilippp/purchase.do'
+  config.use_test_listener = true
+  config.test_listener_base_uri = 'http://paykido-staging.herokuapp.com'
+  config.test_listener_path     = '/g2s/TestPaykidoNotificationListener'
+  config.redirect_after_registration = true
+  config.listener_base_uri = 'http://91.220.189.4'
+  config.listener_path     = '/lilippp/paykidoNotificationListener'
+  config.listener_can_return_ordernotfound = true
   config.merchant_id = '5230109925932974239'
   config.merchant_site_id = '82371'
   config.secret_key = 'u5ITi630fQnjgyZiCcsLF77D63yoAJRbOsDvsvGxBtVGjYaXxwaDBUn2Fc6pqqJb' 
   config.return_secret_key = 'AEA524A224D49B00803D499166E0561045CAF0AF30DC418D39F05F5318352222'
-  config.check_hash = false
+  config.check_hash = true
   config.version = '3.0.0'
   config.token_gateway = 'https://test.safecharge.com/service.asmx/Process?'
   config.sg_VendorID = '75381'

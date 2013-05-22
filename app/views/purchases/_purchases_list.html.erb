@@ -33,7 +33,11 @@
             <td><%= purchase.authorized %></td>
             <td class="status">
             <% if purchase.requires_approval? %>
-                <i class="bigicon-thumbs-right" data-placement="right" title="Referred to you for manual approval"></i>
+            	<% if purchase.authorization_value == 'failed' and purchase.authorization_property == 'Notification' %>
+                	<i class="bigicon-hazard" data-placement="right" title="Merchant notification failed. Please call us for assistance."></i>
+            	<% else %>
+                	<i class="bigicon-thumbs-right" data-placement="right" title="Referred to you for manual approval"></i>
+                <% end %>
             <% elsif purchase.approved? %> 
                 <i class="bigicon-thumbs-up" data-placement="right" title="Manually approved"></i>
             <% elsif purchase.declined? %> 
