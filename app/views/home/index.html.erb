@@ -91,6 +91,14 @@
 		<% end %>
 	</div>
 	<% end %>
+	<% if params[:notify] and params[:notify] == 'no_rules_set' %>
+	<div id="general_update" class="alert alert-block">
+		<a class="close" data-dismiss="alert" href="#">×</a>
+	    <h4 class="alert-heading">Old Test Account</h4>
+		<span>This test account was left from the old release and needs to be cancelled. Please contact Paykido for help.</span>
+	</div>
+	<% end %>
+
 
 	<div class="grid_8">
 	    <div class="grid_4 marketial section_title">
