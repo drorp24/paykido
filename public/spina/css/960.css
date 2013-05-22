@@ -18,6 +18,12 @@
 /* =Grid >> Global
 --------------------------------------------------------------------------------*/
 
+/* Dror */
+#maincontainer .grid_12 {
+    margin-left: -15px;
+}
+
+/* Dror */
 .grid_1,
 .grid_2,
 .grid_3,
@@ -37,7 +43,8 @@
 {
 	display: inline;
 	float: left;
-	margin-left: 1%;
+/*	margin-left: 1%; */
+    margin-left: 1.5%; /* Dror */
 	margin-right: 1%;
 }
 

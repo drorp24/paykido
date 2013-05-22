@@ -1,28 +1,19 @@
-<div class="box-header">
-    <span class="icon16 cart"></span>
-    <h1><%= t 'Purchases' %></h1> 
+<div class="navbar">
+	<div class="navbar-inner">
+		<ul class="nav">
+		    <li id="authorized-button">
+		    	<a href="#" data-skip-pjax="true">Approved</a>
+			</li>
+		    <li id="blocked-button">
+		    	<a href="#" data-skip-pjax="true">Declined</a>
+			</li>
+			<li  id="pending-button" class="active">
+		    	<a href="#" data-skip-pjax="true">Pending <span class="badge badge-info"><%= @pendings_count %></span></a>
+		    </li>
+		</ul>
+	</div>
 </div>
 
-<div class="action_bar filters">
-    <a class="small button" id="pending-button">
-        <span class="icon16 question"></span>
-        Pending
-        <span class="message-count"><%= @pendings_count %></span>
-    </a>
-    <a class="small button" id="authorized-button">
-        <span class="icon16 tick"></span>
-        Approved
-    </a>
-    <a class="small button" id="blocked-button">
-        <span class="icon16 delete"></span>
-        Declined
-    </a>
-    <a class="small button" id="all-button">
-        <span class="icon16 refresh"></span>
-        All
-    </a>
-</div> 
-  
 <table id="purchases"> 
     <thead> 
         <tr> 
@@ -42,25 +33,28 @@
             <td><%= purchase.authorized %></td>
             <td class="status">
             <% if purchase.requires_approval? %>
-                <span class="icon32 question large" title="Requires your manual approval"></span>
+            	<% if purchase.authorization_value == 'failed' and purchase.authorization_property == 'Notification' %>
+                	<i class="bigicon-hazard" data-placement="right" title="Merchant notification failed. Please call us for assistance."></i>
+            	<% else %>
+                	<i class="bigicon-thumbs-right" data-placement="right" title="Referred to you for manual approval"></i>
+                <% end %>
             <% elsif purchase.approved? %> 
-                <span class="icon32 tick2 large" title="Manually approved"></span>
+                <i class="bigicon-thumbs-up" data-placement="right" title="Manually approved"></i>
             <% elsif purchase.declined? %> 
-                <span class="icon32 cross large" title="Manually declined"></span>
+                <i class="bigicon-thumbs-down" data-placement="right" title="Manually declined"></i>
             <% elsif purchase.authorized? %> 
-                <span class="icon32 plus2 large" title="<%= "Authorized according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></span>
+                <i class="bigicon-thumbs-up" data-placement="right" title="<%= "Approved according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></i>
             <% elsif purchase.unauthorized? %> 
-                <span class="icon32 minus large" title="<%= "Unauthorized according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></span>
+                <i class="bigicon-thumbs-down" data-placement="right" title="<%= "Declined according to your rules: #{purchase.authorization_property}: #{purchase.authorization_value} was #{purchase.authorization_type}"%>"></i>
             <% else %> 
-                <span class="icon32 alert large" title="Well this was not supposed to happen"></span>
+                <span class="icon32 alert large" data-placement="right" title="Well this was not supposed to happen"></span>
             <% end %>
             </td>
             <td class="purchase_details">
                 <p class="purchase_top_line">
                     <span><%= purchase.product  %></span>
                     <span>by</span>
-                    <span><%= purchase.retailer.name %></span>
-                    <span><%= purchase.id %></span>
+                    <span class="text-info"><%= purchase.retailer.name %></span>
                 </p>
                 <p class="purchase_bottom_line">
                     <span class="cell_date"><%= purchase.date.strftime("%a, %b %d") %></span>
@@ -84,6 +78,30 @@
 $(document).ready(function() {
 
 
+	<% if params[:activity] == 'approval' %>
+	$('#approval_buttons').popover({
+		title: "For your approval", 
+		trigger: 'manual',
+		content: 
+			<% if current_payer.registered? %>
+				"<p>If you approve, Paykido will pay on your behalf.</p>" 
+			<% else %>
+				"<p>If you wish Paykido to do the approvals for you and pay on your behalf too, please register.</p>" +
+    			'<p><%= button_to "Register", tokens_path, :class => "btn btn-info inline" %></p>'
+ 			<% end %>
+				, 
+		placement: 'top', 
+		html: true,
+		template: '<div class="popover" onmouseover="$(this).mouseleave(function() {$(this).hide(); });"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
+
+            }).mouseenter(function(e) {
+                $(this).popover('show');
+		})
+		$('#approval_buttons').popover('show')
+	<% end %>
+
+//    $('[title]').not('[rel="popover"]').tooltip({placement: 'right'});
+
 	//  Trigger the approval popover
 	// the 2 last lines should be removed once popover acts as it should 
 	<% if params[:activity] == 'approval' and @pendings_count > 0 %>
@@ -98,6 +116,7 @@ $(document).ready(function() {
 	// DataTables (http://datatables.net/)
 	pTable = $('#purchases').dataTable( {
         "sPaginationType": "full_numbers",
+        "iDisplayLength": 6,
         "aoColumnDefs": [
 	        { "bVisible": false, "aTargets": [ 0,1,2 ] },
 	        { "sWidth": "0%", "aTargets": [ 3]},
@@ -121,79 +140,110 @@ $(document).ready(function() {
 	// Filtering - replace later with tabs
 	
 	//	Set the default filter to either be pending or all	
-	$('.action_bar.filters a').removeClass('blue');        
+	// NOTE: if the following dataTables query is empty, the script below that attempts to ajax the first row purchase brings the entire page which causes dataTable to alert something
 	<% if @pendings_count > 0  %>
-    	$('#pending-button').addClass('blue');
-    	pTable.fnFilter( 'PendingPayer' , 1, true, false, false);
+        $('.navbar li').removeClass('active');
+        $('#pending-button').addClass('active');
+		pTable.fnFilter( 'PendingPayer' , 1, true, false, false);
+	<% elsif @purchases.approved.any? %>
+        $('.navbar li').removeClass('active');
+        $('#authorized-button').addClass('active');
+		pTable.fnFilter('Whitelisted|Approved|Authorized|Always|Under', 1, true, false, false );
+	<% elsif @purchases.declined.any? %>
+        $('.navbar li').removeClass('active');
+        $('#blocked-button').addClass('active');
+        pTable.fnFilter('Blacklisted|Low|High|Unauthorized|Unqualified|Declined|Denied|Zero|insufficient|Over', 1, true, false, false);
 	<% else %>
-    	$('#all-button').addClass('blue');
-    	pTable.fnFilter( '', 1, true, false, false );
-	<% end %>            
+        $('.navbar li').removeClass('active');
+        $('#pending-button').addClass('active');
+		pTable.fnFilter( 'PendingPayer' , 1, true, false, false);
+	<% end %>
         
 
 	//	Filtering is currently silly (based on 'authorization_type' column) - should be replaced by 'authorized' column.
 
     $('#pending-button').click(function () {
-            $('.action_bar.filters a').removeClass('blue');
-            $(this).addClass('blue');
+            $('.navbar li').removeClass('active');
+            $(this).addClass('active');
              pTable.fnFilter( 'PendingPayer' , 1, true, false, false);
+			ajax_first_row()
     });
 
     $('#authorized-button').click(function () {
-            $('.action_bar.filters a').removeClass('blue');
-            $(this).addClass('blue');
+            $('.navbar li').removeClass('active');
+            $(this).addClass('active');
             pTable.fnFilter('Whitelisted|Approved|Authorized|Always|Under', 1, true, false, false );
 //          	pTable.fnFilter(true, 2, false, false, false );
-    $('#purchases tr').click(function() {
-    	$('#purchases tr').removeClass('active');
-    	$(this).addClass('active');
-    })           
-
- 
+			ajax_first_row()
     });
+
 
     $('#blocked-button').click(function () {
-            $('.action_bar.filters a').removeClass('blue');
-            $(this).addClass('blue');
+            $('.navbar li').removeClass('active');
+            $(this).addClass('active');
             pTable.fnFilter('Blacklisted|Low|High|Unauthorized|Unqualified|Declined|Denied|Zero|insufficient|Over', 1, true, false, false);
+			ajax_first_row()
     });
 
+
+	function ajax_first_row() {
+
+			proper_tr = $('#purchases tbody tr:first')
+	    	if (proper_tr) {
+		    	proper_tr.addClass('active');
+				$.pjax({                              
+				  url: proper_tr.attr('data-href'),
+				  container: '#dashboard_right'	    		
+	    		})
+			}
+
+	}
+
+/*
      $('#all-button').click(function () {
-            $('.action_bar.filters a').removeClass('blue');
-            $(this).addClass('blue');
+            $('.navbar li').removeClass('active');
+            $(this).addClass('active');
             pTable.fnFilter( '', 1, true, false, false );
     });
-    
+*/    
+
+
 	// Purchase row + detail selection
 
 	//ajax the href/data-href content when clicked into specified container
 	$('.purchase_row').sp_pjax("#dashboard_right");  // have .purchase_row (tr, not a) behave as a/pjax/data-href
 
-    //indicte active tr line
-    $('#purchases tr').click(function() {
-    	$('#purchases tr').removeClass('active');
-    	$(this).addClass('active');
-    })           
-
 	// INIT - highlight the proper purchase line and show the purchase details pane 
 
-	// 1. select proper purchase: either the one in the parameter or the first one in the screen
-	<% if params[:id] %>
-    	proper_tr = $('#purchases tr[data-purchase=<%= params[:id] %>]')
-	<% else %>
-		proper_tr = $('#purchases tbody tr:first')
-	<% end %>
 
-	//2. Highlight the proper purchase
-    $('#purchases tr').removeClass('active');
-    proper_tr.addClass('active');
+	// 0. Select proper consumer secondary navigation
+	<% if @consumer_id %>
+    	$('nav#secondary li[data-consumer-id]').removeClass('active')
+    	$('nav#secondary li[data-consumer-id=<%= @consumer_id %>]').addClass('active')
+	<% else %>	
+    	$('nav#secondary li[data-consumer-id]').removeClass('active')
+    	$('nav#secondary li.payer').addClass('active')
+	<% end %>	
+
+	<% if @purchases.any? %>
+		// 1. select proper purchase: either the one in the parameter or the first one in the screen
+		<% if params[:id] %>
+	    	proper_tr = $('#purchases tr[data-purchase=<%= params[:id] %>]')
+		<% else %>
+			proper_tr = $('#purchases tbody tr:first')
+		<% end %>
 	
-	//3. programmatically pjax the proper purchase to the right pane
-	<% unless params[:id] %>
-		$.pjax({                              
-		  url: proper_tr.attr('data-href'),
-		  container: '#dashboard_right'
-		})
+		//2. Highlight the proper purchase
+	    $('#purchases tr').removeClass('active');
+	    proper_tr.addClass('active');
+		
+		//3. programmatically pjax the proper purchase to the right pane
+		<% unless params[:id] %>
+			$.pjax({                              
+			  url: proper_tr.attr('data-href'),
+			  container: '#dashboard_right'
+			})
+		<% end %>
 	<% end %>
 
 });

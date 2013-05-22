@@ -28,7 +28,7 @@ body#login {
 nav#primary {
   background: url(../img/nav_bg.png);
   float: left;
-  height: 105%;
+  min-height: 100%;
   width: 100px;
 }
 
@@ -83,7 +83,7 @@ nav#primary ul li a:hover .icon32, nav#primary ul li.active a .icon32 {
 nav#secondary {
   background: url(../img/nav_secondary_bg.png);
   float: left;
-  height: 105%;
+  min-height: 100%;
   width: 254px;
 }
 
@@ -97,7 +97,6 @@ nav#secondary ul li a {
   border-top: 1px solid #fff;
   color: #8a8a8a;
   display: block;
-  font-family: "Tahoma", "Lucida Grande", sans-serif;
   font-size: 11px;
   font-weight: bold;
   line-height: 18px;
@@ -111,6 +110,8 @@ nav#secondary ul li a:hover {
 }
 
 nav#secondary ul li.active a {
+  background-color: #FFF;
+/*
   background-color: #497eac;
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(107, 160, 206)), to(rgb(73, 126, 172)));
   background-image: -webkit-linear-gradient(top, rgb(107, 160, 206), rgb(73, 126, 172));
@@ -123,6 +124,7 @@ nav#secondary ul li.active a {
   border-top: 1px solid #699fd0;
   color: #fff;
   text-shadow: 0 1px 0 #104266;
+*/
 }
 
 nav#secondary ul li.active .icon32 {
@@ -140,9 +142,9 @@ nav#secondary ul li:first-child a {
 /* Main section */
 
 section#maincontainer {
-  height: 100%;
+  height: 93%; 
   overflow: auto;
-  -webkit-overflow-scrolling: touch;
+/*  -webkit-overflow-scrolling: touch; */
   padding-left: 18px;
 }
 
@@ -638,8 +640,8 @@ thead {
 
 .dataTables_filter {
   position: absolute;
-  right: 2.5em;
-  top: -86px;
+  right: 12px;
+  top: -32px;
   background-color: #F0F0F0;
   -o-border-radius: 16px;
   -ms-border-radius: 16px;
@@ -663,17 +665,18 @@ thead {
     box-shadow: none;
 }
 .dataTables_filter label input {
-    color: #999;
-    font-size: 1.1em;
+    font-size: 14px;
     background: transparent;
     border: none;
     position: relative;
-    top: 5px;
+    top: 4px;
     box-shadow: none;
+/*
   -webkit-transition: width .3s linear;
   -moz-transition: width .3s linear;
   transition: width .3s linear;
-  width: 75px;
+*/
+  width: 55px;
 }
 
 .dataTables_filter label .icon {
@@ -688,17 +691,21 @@ thead {
   border: none;
   border-radius: 2px;
   color: #666;
-  font-family: "Aller", "Lucida Grande", sans-serif;
+  font-family: "Segoe UI", Helvetica, Arial;
   margin-top: -13px;
+/*
   -webkit-transition: width .3s linear;
   -moz-transition: width .3s linear;
   transition: width .3s linear;
+*/
   width: 75px;
 }
 
+/*
 .dataTables_filter input:focus {
   width: 150px;
 }
+*/
 
 .dataTables_filter input::-webkit-input-placeholder, .dataTables_filter input::-moz-placeholder {
   color: #999;
@@ -894,7 +901,7 @@ select {
 
 /* Buttons */
 
-input.button, .button {
+.action_bar .button {
   background: url(../img/buttongray_bg.png) repeat-x #ebebeb;
   border: 1px solid #c4c4c4;
   border-radius: 3px;

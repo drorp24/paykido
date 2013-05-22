@@ -1,31 +1,24 @@
-<h1>Listing notifications</h1>
+<%= render 'primary_navigation' %>
+<%= render 'consumer_navigation' %>
 
-<table>
-  <tr>
-    <th>Payer</th>
-    <th>Event</th>
-    <th>Medium</th>
-    <th>Data</th>
-    <th>Frequency</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<section id="maincontainer">
 
-<% @notifications.each do |notification| %>
-  <tr>
-    <td><%= notification.payer_id %></td>
-    <td><%= notification.event %></td>
-    <td><%= notification.medium %></td>
-    <td><%= notification.data %></td>
-    <td><%= notification.frequency %></td>
-    <td><%= link_to 'Show', notification %></td>
-    <td><%= link_to 'Edit', edit_notification_path(notification) %></td>
-    <td><%= link_to 'Destroy', notification, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
+	<%= render 'page_head', :page_title => "Purchase Notifications", :backPath => consumer_purchase_path(@consumer, @purchase) %>
+	
+	<table>
+		<tbody>
+			<% @notifications.each do |notification| %>
+			  <tr>
+			    <td><%= notification.created_at.strftime("%a, %b %d") %></td>
+			    <td><%= notification.created_at.strftime("%I:%M %p") %></td>
+			    <td><%= notification.orderid %></td>
+			    <td><%= notification.status %></td>
+			    <td><%= link_to 'Details', consumer_purchase_notification_path(@consumer, @purchase, notification) %></td>
+			  </tr>
+			<% end %>
+		</tbody>
+	</table>
+	
+	<br />
 
-<br />
-
-<%= link_to 'New Notification', new_notification_path %>
+</section>

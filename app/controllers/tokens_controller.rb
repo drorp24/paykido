@@ -21,7 +21,6 @@ class TokensController < ApplicationController
   # GET /tokens/new
   # GET /tokens/new.json
   def new
-Rails.logger.info("entered /tokens/new")  
     @token = Token.new
     redirect_to tokens_path if current_payer.tokens.any?
   end
@@ -32,7 +31,25 @@ Rails.logger.info("entered /tokens/new")
   end
   
   def create
-    redirect_to current_payer.g2spp(params) 
+
+    if Paykido::Application.config.environment == 'beta'
+      redirect_to current_payer.g2spp(params)
+    else
+      current_payer.tokens.create!(:CCToken => "DummyToken")
+      consumer = current_payer.consumers.first
+
+      Sms.notify_consumer(consumer, 'registration', 'done') if consumer
+
+      pending = current_payer.purchases.pending
+      if pending.any?
+        purchase = pending.first
+        redirect_to purchase_path(purchase.id, :activity => 'approval', :notify => 'registration', :status => 'success')
+      else
+        redirect_to consumer_rules_url(:consumer_id => consumer.id, :notify => 'registration', :status => 'success')
+      end
+
+    end
+ 
   end
 
   # POST /tokens
@@ -57,7 +74,13 @@ Rails.logger.info("entered /tokens/new")
   # DELETE /tokens/1
   # DELETE /tokens/1.json
   def destroy
+
     @token.destroy
+
+    for consumer in current_payer.consumers
+      consumer.allowance_rule.expire if consumer.allowance_rule
+    end
+
     redirect_to new_token_path(
       :notify => "unregistration", 
       :status => "success", 

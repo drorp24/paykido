@@ -49,6 +49,10 @@ module Paykido
     # insert content length into header for post requests (g2s token)
     config.middleware.use Rack::ContentLength
     
+    # added on 19.2.13 following the strange Devise sign_out error according to https://github.com/plataformatec/devise/issues/2065 
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
+
     config.middleware.use Rack::Cors do
       allow do
         origins '*'

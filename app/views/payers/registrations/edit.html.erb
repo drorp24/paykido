@@ -1,22 +1,44 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="row hm_container">
 
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-horizontal' }) do |f| %>
-  <%= f.error_notification %>
+	<%= image_tag "/home/img/ys_kid_tp2.png", :id => "yellowshirt_kid" %>
 
-  <div class="form-inputs">
-    <%= f.input :email, :required => true, :autofocus => true %>
-    <%= f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false %>
-    <%= f.input :password_confirmation, :required => false %>
-    <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
-  </div>
+	<div  id="sign_in_hero" class="span9">
+		<%= render "payers/shared/hero" %>
+	</div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
-  </div>
-<% end %>
+	<div id="form_box" class="span3 well password_form_box">
 
-<h3>Cancel my account</h3>
+		<% flash.each do |key, value| %>
+			<% unless value == 'reenter' %>
+			   <div class="alert form">
+					<a class="close" data-dismiss="alert" href="#">×</a>
+				    <center><strong><%= value %></strong></center>
+			  </div>
+		  <% end %>
+		<% end %>		
 
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
+		<h1><%= current_payer.encrypted_password.blank? ? 'Set Password' : 'Change Password' %></h1>
 
-<%= link_to "Back", :back %>
+		<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f| %>
+
+		  	<%= f.error_notification %>
+		
+		  	<div class="form-inputs">
+			    <%= f.input :email, :required => true, :autofocus => true %>
+			    <%= f.input :password, :label => 'New Password', :autocomplete => "off" %>
+			    <%= f.input :password_confirmation, :required => false %>
+			    <% if params[:logged_in] == 'true' %>
+			    	<p class="why_we_dont_need_curr_pwd">We dont need your current password since you are already logged in.</p>
+		    	<% elsif flash[:notice] != 'reenter' %>
+			    	<%= f.input :current_password, :required => true %>
+			    <% end %>
+		  	</div>
+		
+			<div class="update_password_botton">
+				<%= f.button :submit, "Update password", :class => "btn-large" %>
+			</div>
+
+		<% end %>
+	</div>
+
+</div>

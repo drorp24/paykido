@@ -14,6 +14,8 @@ gem 'devise'
 
 gem 'simple_form'
 
+gem 'ice_cube'
+
 group :production do
   # gems specifically for Heroku go here
   gem "pg"

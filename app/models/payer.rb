@@ -5,9 +5,11 @@ class Payer < ActiveRecord::Base
 
   has_many  :consumers
   has_many  :purchases
-  has_many  :rules                              # family-default rules (as opposed to consumer rules)
   has_many  :tokens
   has_many  :notifications
+  has_many  :allowances, :through => :consumers
+  has_many  :rules, :through => :consumers
+  
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
@@ -18,6 +20,15 @@ class Payer < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :phone
 
+
+# bypasses Devise's requirement to re-enter current password to edit
+def update_with_password(params={}) 
+  if params[:password].blank? 
+    params.delete(:password) 
+    params.delete(:password_confirmation) if params[:password_confirmation].blank? 
+  end 
+  update_attributes(params) 
+end
 
   def g2spp(params)
     # return the url to redirect to for manual payment including all parameters
@@ -120,10 +131,14 @@ class Payer < ActiveRecord::Base
     
   end
 
+  def rules_require_registration
+    Paykido::Application.config.rules_require_registration and !self.registered?
+  end
+  
   def registered?  #ToDo: set an instance variable for performance
     self.tokens.any?
   end
-  
+
   def registered_or_waived
     unless Paykido::Application.config.rules_require_registration
       true
@@ -131,15 +146,22 @@ class Payer < ActiveRecord::Base
       self.registered?
     end
   end
-  
+    
   def token
-    self.tokens.first if self.tokens.any?
+    self.tokens.last if self.tokens.any?
+  end
+  
+  def registration_date
+    return @registration_date if @registration_date
+    if token = self.token
+      token.created_at
+    end
   end
   
   def request_confirmation(consumer)     
 
     begin
-      if Paykido::Application.config.queue_jobs
+      if Paykido::Application.config.use_delayed_job
         UserMailer.delay.consumer_confirmation_email(self, consumer)
       else
         UserMailer.consumer_confirmation_email(self, consumer).deliver
@@ -154,6 +176,8 @@ class Payer < ActiveRecord::Base
     rescue
       return false
     end
+
+    Sms.notify_consumer(consumer, 'confirmation', 'request')
     
   end 
 

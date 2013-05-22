@@ -1,0 +1,73 @@
+<% rule_expired = true if rule.expired? %>
+<div class="accordion-group rule_line clearfix">
+
+	<div class="accordion-heading row">
+		<div class="accordion-toggle <%= (!current_payer.registered? or rule.initialized? or rule_expired) ? 'initialized_rule' : '' %>" data-toggle="collapse" href=<%= "#ruleEdit_#{rule.id}" %> data-parent="#rules"> 
+	
+			<div class="span1">
+				<%= rule.consumer.name %>
+			</div>
+			<div class="span1">
+				<i class="icon rule_icon <%= rule.icon %>"></i>
+			</div>
+			<div class="span1">
+				<%= rule.title || rule.property %>
+			</div>
+			<div class="spanicon">
+				<i class="icon-info-sign" rel="<%= (rule.info) ? "popover" : "" %>"  title="<%= rule.title %>" data-content="<%= rule.description %>"></i>
+			</div>	
+			<div class="span2">
+				<%= render 'rule_description', :rule => rule %>
+			</div>
+			<div class="span2minus">
+				<% if !rule.occasion.blank? %>
+					<%= "#{rule.occasion}" %>
+				<% else %>
+					&nbsp;
+				<% end %>
+			</div>
+			<div class="span1">
+    			<%= link_to 'Details', "#", :class => 'details' if !rule.initialized? %>
+			</div>
+			<div class="action_link span1">
+				<% if @consumer and rule.supported? and !rule.what? %>
+					<% if rule.initialized? or rule.thresholds? %>
+						<%= link_to rule, :data => {:target => '#rule_modal', :toggle => 'modal', 'skip-pjax' => true, :property => rule.property}, :class => 'btn btn-small action_button' do %>
+							<i class="icon-wrench "></i> <%= rule.initialized? ? "Set" : "Change" %>
+						<% end %>
+			    	<% elsif rule.recurring? and !rule.expired? %>
+			    		<%= link_to stop_rule_path(rule.id), confirm: 'Are you sure you want to stop this rule?', method: :put, 'data-skip-pjax' => true, 'data-property' => rule.property, class: 'btn btn-small action_button' do %>
+							<i class="icon-stop "></i> Stop
+						<% end %>
+					<% elsif rule_expired %>
+			    		<%= link_to restart_rule_path(rule.id), confirm: 'Are you sure you want to restart this rule?', method: :put, 'data-skip-pjax' => true, 'data-property' => rule.property, class: 'btn btn-small action_button' do %>
+							<i class="icon-play"></i> Restart
+						<% end %>
+		    		<% elsif rule.nonrecurring? and !rule.passed? %>
+			    		<%= link_to rule, confirm: 'Are you sure you want to remove this rule?', method: :delete, 'data-skip-pjax' => true, 'data-property' => rule.property, class: 'btn btn-small action_button' do %>
+							<i class="icon-remove-sign"></i> Remove
+						<% end %>
+		    		<% elsif !rule.schedule %>
+			    		<%= link_to rule, confirm: 'Are you sure you want to remove this rule?', method: :delete, 'data-skip-pjax' => true, 'data-property' => rule.property, class: 'btn btn-small action_button' do %>
+							<i class="icon-remove-sign"></i> Remove
+						<% end %>
+					<% end %>
+				<% end %>
+			</div>
+			
+		</div>
+	</div>
+
+	<div class="accordion-body collapse row"  id="<%= "ruleEdit_#{rule.id}" %>"> 
+		<div class="accordion-inner">
+			<% if rule.singular? %>
+				<% for rule in @rules.where("property = ?", rule.property).order("id DESC") %>
+					<%= render 'rule_details', :rule => rule %>
+				<% end %>
+			<% else %>
+				<%= render 'rule_details', :rule => rule %>
+			<% end %>
+		</div>
+	</div>
+
+</div>

@@ -2,6 +2,33 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  page_names:
+    tokens: settings
+    purchases: purchases
+    rules: rules
+    consumers: info
+    statistics: dashboard
+  rule:
+    register_first:
+      title: Register to Set Rules
+      content1_html: Start protecting your kid's purchases!
+      content2_html: Specify <em>how much</em> your kid can spend and on <em>what</em>.
+      content3_html: Define allowance, give gifts, award for achievements and compensate for chores.
+      content4_html: You credeit card will <strong>never</strong> be exposed to anyone, not even Paykido!
+    property:
+      allowance: Allowance
+      gift: Gift
+      bachievement: Achievement
+      birthday: Birthday
+      chores: Chores
+      request: Request
+      retailer: Merchant
+      esrb_rating: ESRB Rating
+      pegi_rating: PEGI Rating
+      time: Time
+      location: Location
+      over: Decline Anything Over
+      under: Approve Anything Under
   retailer: merchant
   whitelisted: Always approve
   blacklisted: Always decline
@@ -72,8 +99,10 @@ en:
   Zero: Zero
   Zero Balance: Zero Balance
   Under: Under
+  under: under
   Under Threshold: Under Threshold
   Over: Over
+  over: over
   Over Threshold: Over Threshold
   ManuallyAuthorized: Manually Authorized
   Action: Action
@@ -110,10 +139,11 @@ en:
     formats:
       default: "%d-%m-%Y"
       short: "%d %b"
+      medium: "%d %b %y"
+      longer: "%d %b %Y"
       long: "%d %B, %Y"
       weekday: "%a, %d %b"
       slash: "%m/%d/%Y"
-
     day_names:
       - Sunday
       - Monday

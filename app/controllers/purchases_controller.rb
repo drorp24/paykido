@@ -8,24 +8,30 @@ class PurchasesController < ApplicationController
   # Otherwise, 2. all purchases of given consumers, or 3. payer
   def find_purchases
     
-    @purchases = Purchase.with_info(current_payer.id, params[:consumer_id], params[:id]) 
+    if params[:id] 
+      purchase = Purchase.find_by_id(params[:id])
+      @consumer_id = purchase.consumer_id if purchase
+    elsif params[:consumer_id] 
+      @consumer_id = params[:consumer_id]
+    else
+      @consumer_id = nil
+    end
+
+    @purchases = Purchase.with_info(current_payer.id, @consumer_id) 
     @pendings = @purchases.pending 
-    @pendings_count = @pendings.count 
+    @pendings_count = @pendings.count
         
   end
   
   def index    
-Rails.logger.info("entered index")  
     find_purchases
-Rails.logger.info("after find_purchases")  
-
     unless @purchases.any?
-      if current_payer.registered?
-Rails.logger.info("current_payer is registered")  
-        redirect_to tokens_path
+      if current_payer.purchases.any?
+        redirect_to purchases_path(:notify => 'no_purchases', :consumer_number => @consumer_id)
+      elsif current_payer.registered?
+        redirect_to tokens_path(:notify => 'no_purchases', :consumer_number => @consumer_id, :_pjax => "data-pjax-container")
       else  
-Rails.logger.info("current_payer is not registered")  
-        redirect_to new_token_path
+        redirect_to new_token_path(:notify => 'no_purchases', :consumer_number => @consumer_id, :_pjax => "data-pjax-container")
       end
     end
   end
@@ -58,15 +64,21 @@ Rails.logger.info("current_payer is not registered")
     if @purchase.paid_by_token?
       status = 'approved'
       @purchase.approve!
-      @purchase.account_for! 
     else
       status = 'failed'
     end
 
     unless status == 'failed'
-      @purchase.notify_merchant(status, 'approval')
-      @purchase.notify_consumer('manual', status)   
+      notification_status = @purchase.notify_merchant(status, 'approval')
+      if notification_status == "OK"
+        @purchase.account_for! if status == 'approved'
+      else
+        @purchase.notification_failed!
+        status = 'failed'
+      end
     end
+
+    Sms.notify_consumer(@purchase.consumer, 'approval', status, @purchase, 'manual')   
 
     redirect_to purchase_path(
       @purchase,
@@ -81,13 +93,19 @@ Rails.logger.info("current_payer is not registered")
   def decline
     
     @purchase.decline!
-    @purchase.notify_merchant('declined', 'denial')
-    @purchase.notify_consumer('manual', 'declined')
+    notification_status = @purchase.notify_merchant('declined', 'denial')
+    if notification_status == "OK"
+      status = 'success'
+    else
+      @purchase.notification_failed!
+      status = 'failed'
+    end
+    Sms.notify_consumer(@purchase.consumer, 'approval', 'declined', @purchase, 'manual')
 
     redirect_to purchase_path(
       @purchase,
       :notify => 'denial', 
-      :status => 'success',
+      :status => status,
       :purchase => @purchase.id, 
       :_pjax => "data-pjax-container"
     )  
@@ -177,7 +195,9 @@ Rails.logger.info("current_payer is not registered")
         redirect_to :controller => "home", :action => "routing_error"
         return
       end 
-    end           
+    end
+    
+    @consumer ||= @purchase ? @purchase.consumer : Consumer.find_by_id(params[:consumer_id])           
 
   end
 

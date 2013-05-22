@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head> 
@@ -35,14 +36,17 @@
 			  <div id="temp_logo">
 			  	<%= link_to root_path do %>
 			  		<h1>Paykido</h1>
+			  		<% if devise_controller? %>
+			  			<span class="logo_parents">Parents</span>
+		  			<% end %>
 			  		<span class="environment label label-important"><%= Paykido::Application.config.environment %></span>
 			  		<span class="version" style="display: none">0.6.5</span>
 		  		<% end %>
 			  </div>
 			  
-			  <li><a href="<%= request.protocol + request.host + ':' + request.port.to_s if params[:action] != "index" %>#section2">merchants</a></li>
-			  <li><a href="<%= request.protocol + request.host + ':' + request.port.to_s if params[:action] != "index" %>#section3">parents</a></li>
-			  <li><a href="<%= request.protocol + request.host + ':' + request.port.to_s if params[:action] != "index" %>#section4">kids</a></li>
+			  <li><a href="<%= request.protocol + request.host + ':' + request.port.to_s if params[:action] != "index" %>#merchants">merchants</a></li>
+			  <li><a href="<%= request.protocol + request.host + ':' + request.port.to_s if params[:action] != "index" %>#parents">parents</a></li>
+			  <li><a href="<%= request.protocol + request.host + ':' + request.port.to_s if params[:action] != "index" %>#teens">teens</a></li>
 			
 			 </ul>
 	
@@ -50,55 +54,26 @@
 	  	
 	  	<div class="grid_4 fr">
 	  		<%= link_to "Sign In", new_payer_session_path , :class => "login", :id => "signin" if params[:action] == "index" or params[:action] == "routing_error" %> 
-	  		<%= link_to "Sign Up", new_payer_registration_path , :class => "login", :id => "signup" if params[:action] == "index"  or params[:action] == "routing_error"%> 
 		</div>
 	 </div>
 </div>
 
 <div id="rest_of_page" data-pjax-container="">
-		<div id="messages" class="row"> 
 
 
-			<% flash.each do |key, value| %>
-			<div class="message">
-			   <div class="alert-message <%= key %> fade in">
-			    <a class="close" href="#">&times</a>
+	<div id="messages" class="row"> 		
+		<% flash.each do |key, value| %>
+		   <div class="alert alert-block">
+				<a class="close" data-dismiss="alert" href="#">×</a>
 			    <center><strong><%= value %></strong></center>
-			  </div>
-			</div>
-			<% end %>
+		  </div>
+		<% end %>		
+	</div>
 
-			<% if notice %>
-			    <div class="alert notice fade in">
-			    	<div class="alert-inner">
-					    <button class="close" data-dismiss="alert">×</button>
-					    <%= notice %>
-				    </div>
-			    </div>
-		    <% end %>
-		
-			<% if alert %>
-			    <div class="alert alert-error fade in">
-			    	<div class="alert-inner">
-					    <button class="close" data-dismiss="alert">×</button>
-					    <strong>Notice:</strong>  <%= alert %>
-				    </div>
-			    </div>
-		    <% end %>
-		
-		</div>
- 
 
     <%= yield :layout %>
+
 </div>
-	
-</div>
+
 </body>
 </html>
-<script>
-
-$(document).ready(function() {
-	    $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('[data-pjax-container]')
-
-})
-</script>

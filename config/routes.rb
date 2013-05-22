@@ -2,12 +2,21 @@ Paykido::Application.routes.draw do
 
   devise_for :payers
 
-  resources :rules 
+  resources :rules do
+    member do
+      put 'stop', 'restart'
+    end
+  end 
+
+  resources :statistics
 
   resources :tokens
+  
+  resources :allowances
 
 
   resources :purchases do
+    resources :notifications
     resources :transactions
     member do
       get 'approve', 'decline'
@@ -24,16 +33,20 @@ Paykido::Application.routes.draw do
 #    resources :tokens
 #  end
 
+  match 'consumers/welcome' => 'consumers#welcome'
   resources :consumers do
     resources :rules
+    resources :statistics
     resources :purchases do
       resources :transactions
+      resources :notifications
     end
     member do
-      get 'confirm', 'confirmed'
-      post 'confirm'
+      get   'welcome'
+      post  'confirm'
     end
   end
+
 
   match 'g2s/ppp/:status' => 'g2s#ppp_callback'
   match 'g2s/dmn/:status' => 'g2s#dmn'
@@ -92,8 +105,10 @@ Paykido::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
    root :to => 'home#index'
-   
-     match "*a", :to => "home#routing_error", :as => "routing_error"
+  
+   match 'error' => 'home#error', :as => :error
+      
+   match "*a", :to => "home#routing_error", :as => "routing_error"
 
 
   # See how all your routes lay out with "rake routes"

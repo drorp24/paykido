@@ -7,7 +7,7 @@
 	    <meta name="viewport" content="width=1024px, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<title>Paykido protects your kids from bad purchases</title>
-
+		<link href='http://fonts.googleapis.com/css?family=Oswald:700' rel='stylesheet' type='text/css'>
 	    <!-- 
 	    <link rel="stylesheet" href="/spina/css/formalize.css" /> 
 	    <link rel="stylesheet" href="/spina/css/checkboxes.css" />
@@ -25,6 +25,7 @@
 	    <link rel="stylesheet" href="/spina/css/main.css" /> 
 	    <link rel="stylesheet" href="/spina/css/jquery.popover.css" />
 	    <link rel="stylesheet" href="/spina/css/icons.css" />
+	    <link rel="stylesheet" href="/bootstrap-datepicker/css/datepicker.css" />
 	    
  	    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css" />
  	    <style type="text/css">
@@ -60,50 +61,31 @@
 	   	<script src="/javascripts/jquery.sp_pjax.js"></script>
 	    <script src="/spina/js/jquery.datatables.js"></script>
 	    <script src="/spina/js/jquery.popover.js"></script>
-	    <script src="/spina/js/jquery.tipsy.js"></script>
+<!--	    <script src="/spina/js/jquery.tipsy.js"></script> -->
 	   	<script src="/spina/js/application.js"></script>
 
 	   	<script src="/javascripts/jquery_ujs.js"></script>  
 	   	<script src="/bootstrap/js/bootstrap.js"></script>
+	   	<script src="/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	   	<script src="/javascripts/jquery.pjax.js"></script>
 	   	<script src="/javascripts/application.js"></script>
+	   	<script src="/rgraph/js/RGraph.common.core.js"></script>
+	   	<script src="/rgraph/js/RGraph.gauge.js"></script>
+	   	<script src="/rgraph/js/RGraph.common.effects.js"></script>
 		<%= csrf_meta_tag %> 		
   	</head>
 
 	<body id="paykido" data-pjax-container>
 
-		<div id="messages" class="row"> 
-
-<!--
+		<div id="messages" class="row"> 		
 			<% flash.each do |key, value| %>
-			<div class="message">
-			   <div class="alert-message <%= key %> fade in">
-			    <a class="close" href="#">&times</a>
-			    <center><strong><%= value %></strong></center>
+			   <div class="alert alert-block">
+					<a class="close" data-dismiss="alert" href="#">×</a>
+				    <center><strong><%= value %></strong></center>
 			  </div>
-			</div>
-			<% end %>
--->
-			<% if notice %>
-			    <div class="alert notice fade in">
-			    	<div class="alert-inner">
-					    <button class="close" data-dismiss="alert">×</button>
-					    <%= notice %>
-				    </div>
-			    </div>
-		    <% end %>
-		
-			<% if alert %>
-			    <div class="alert alert-error fade in">
-			    	<div class="alert-inner">
-					    <button class="close" data-dismiss="alert">×</button>
-					    <strong>Notice:</strong>  <%= alert %>
-				    </div>
-			    </div>
-		    <% end %>
-		
+			<% end %>		
 		</div>
- 
+	 
 		<%= yield :layout %>
 
    	</body>

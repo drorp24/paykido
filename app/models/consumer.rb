@@ -3,114 +3,53 @@ class Consumer < ActiveRecord::Base
   belongs_to  :payer
   has_many    :purchases
   has_many    :rules
+  has_many    :allowances
+  
+  
       
-  after_initialize :init
-  def init
-      self.allowance  ||= 50          
-      self.allowance_period ||= 'Weekly'
-      self.allowance_change_date ||= Time.now
-      self.balance_on_acd ||= 0
-      self.purchases_since_acd ||= 0
-      self.auto_authorize_under ||= 5
-      self.auto_deny_over ||= 35
-  end
-
-
-  def blacklist!(property, value)
-    rule = Rule.set!(self.payer_id, self.id, property, value, 'blacklist')
+  def invites
+    self.balance_on_acd.to_i || 0
   end
   
-  def blacklisted?(property, value)
-    Rule.set?(:payer_id => self.payer_id, :consumer_id => self.id, :property => property, :value => value, :status => 'blacklisted')
+  def invites_increase(invites)
+    self.balance_on_acd ||= 0
+    self.balance_on_acd += invites.to_i
+    self.save
   end
 
-  def whitelist!(property, value)
-    rule = Rule.set!(self.payer_id, self.id, property, value, 'whitelist')
-  end
-  
-  def whitelisted?(property, value)
-    Rule.set?(:payer_id => self.payer_id, :consumer_id => self.id, :property => property, :value => value, :status => 'whitelisted')
-  end
-  
-  def reset!(property, value)
-    rule = Rule.set!(self.payer_id, self.id, property, value, '')
-  end
-
-  
-  def allowance_day_of_week
-    self.allowance_every || 0
-  end
-  
-  def allowance_day_of_week=(value)
-    self.allowance_every = value
-  end
-  
-  def self.allowance_days_of_month
-    [["1st of month", 1]]
-  end
-
-  def next_allowance_date
-
-    if self.allowance_period == 'Weekly'
-      @next_allowance_date = Date.today.beginning_of_week.advance(:days => self.allowance_day_of_week.to_i || 0)
-      @next_allowance_date = @next_allowance_date.advance(:weeks => 1) if @next_allowance_date < Date.today
-    elsif self.allowance_period == 'Monthly'
-      @next_allowance_date = Time.now.next_month.change(:day => self.allowance_every.to_i || 0)
+  def under_threshold
+    rule = Rule.under_rule_of(self)
+    if rule and !rule.value.blank?
+      rule.value.to_i
     else
-      @next_allowance_date = nil
-    end 
-    @next_allowance_date   
-  end
- 
-  def balance
-
-    self.balance_on_acd        ||= 0
-    self.allowance             ||= 0
-    self.purchases_since_acd   ||= 0
-    self.allowance_change_date ||= self.created_at
-
-    @balance = self.balance_on_acd + self.periods_since_acd *  self.allowance - self.purchases_since_acd
-    if @balance < 0
-      return 0
-    else
-      return @balance
+      nil
     end
- 
   end
 
-  def periods_since_acd                     # ToDo: correct calculation by allowance_day_of_week/month            
-    if allowance_period == 'Weekly'         
-      (Time.now.strftime("%Y").to_i * 52 + Time.now.strftime("%W").to_i) - (allowance_change_date.strftime("%Y").to_i * 52 + allowance_change_date.strftime("%W").to_i) + 1
-    elsif allowance_period == 'Monthly'
-      (Time.now.strftime("%Y").to_i * 12 + Time.now.strftime("%m").to_i) - (allowance_change_date.strftime("%Y").to_i * 12 + allowance_change_date.strftime("%m").to_i) + 1
+  def over_threshold
+    rule = Rule.over_rule_of(self)
+    if rule and !rule.value.blank?
+      rule.value.to_i
     else
-      nil 
-    end           
-  end
-    
-  def allowance_change!(params)
-
-      return if params[:allowance] == self.allowance and params[:allowance_period] == self.allowance_period    
-          
-      self.allowance =            params[:allowance]
-      self.allowance_period =     params[:allowance_period]
-      self.allowance_every =     (params[:allowance_period] == 'Weekly') ?0 :1     #ToDo: have the default day-of-week locale-dependent (yml)
-      self.balance_on_acd =       self.balance
-      self.purchases_since_acd =  0
-      self.allowance_change_date= Time.now
-      self.save!
-
+      nil
+    end
   end
 
-  def deduct!(amount)
-    self.purchases_since_acd += amount
-    self.save!
+  def blacklisted?(property, value)
+    Rule.set?(:consumer_id => self.id, :property => property, :value => value, :status => 'blacklisted')
+  end
+
+  def whitelisted?(property, value)
+    Rule.set?(:consumer_id => self.id, :property => property, :value => value, :status => 'whitelisted')
   end
   
   def confirm!            
     self.confirmed = true
     self.confirmed_at = Time.now
     self.save!
+    
+    Sms.notify_consumer(self, 'confirmation', 'done')
+
   end
   
   def confirmed?
@@ -125,26 +64,103 @@ class Consumer < ActiveRecord::Base
     @facebook_user 
   end 
   
-  def allowance_display
-    
+##  Balance
+
+  def balance(given_datetime = Time.now)
+    @balance ||= self.monetary_sum(given_datetime) - self.purchase_sum(given_datetime)
   end
-  def allowance_display=(value)
     
-  end
-  
-  def auto_deny_over_display
+  def monetary_sum(given_datetime = Time.now)
     
-  end
-  def auto_deny_over_display=(value)
-    
-  end
-  
-  def auto_authorize_under_display
-    
-  end
-  def auto_authorize_under_display=(value)
-    
+    return @monetary_sum if @monetary_sum
+
+    @monetary_sum = 0
+    for monetary_rule in self.rules.monetary do 
+      @monetary_sum += monetary_rule.effective_occurrences(given_datetime) * monetary_rule.value.to_i if monetary_rule.schedule
+    end
+
+    @monetary_sum
+
   end
 
+  def prev_allowance_sum(given_datetime = Time.now)
+    
+    return @allowance_sum if @allowance_sum
+
+    @allowance_sum = 0
+    for allowance_rule in self.rules.of_allowance do 
+      next unless allowance_rule.stopped?
+      @allowance_sum += allowance_rule.effective_occurrences(given_datetime) * allowance_rule.value.to_d if allowance_rule.schedule
+    end
+
+    @allowance_sum
+
+  end
+
+
+  def purchase_sum(given_datetime)
+
+    return @purchase_sum if @purchase_sum
+
+    start_datetime = self.payer.registration_date
+
+    if given_datetime
+      @purchase_sum = self.purchases.approved.where("created_at > ? and created_at <= ?", start_datetime, given_datetime).sum("amount")
+    else
+      @purchase_sum = self.purchases.approved.sum("amount")
+    end
+
+  end
   
+  def spent 
+    @spent ||= self.purchase_sum(Time.now)
+  end
+  
+  def got
+    @got ||= self.monetary_sum(Time.now)
+  end
+  
+##  Balance
+
+  def allowance_rule
+    @allowance_rule ||= Rule.allowance_rule_of(self)
+  end
+  
+  def allowance
+    Rule.allowance_of(self)
+  end
+  
+  def no_allowance?
+    allowance_rule = self.allowance_rule
+    allowance_rule.nil? || allowance_rule.initialized?
+  end
+
+
+  def gift_rule
+    Rule.gift_rule_of(self)
+  end
+  
+  def achievement_rule
+    Rule.achievement_rule_of(self)
+  end
+  
+  def birthday_rule
+    Rule.birthday_rule_of(self)
+  end
+  
+  def chores_rule
+    Rule.chores_rule_of(self)
+  end
+  
+  def request_rule
+    Rule.request_rule_of(self)
+  end
+  
+# allowance.schedule.add_recurrence_time(DateTime.new(params[:year],params[:month],params[:day]))
+
+  def set_rules!(params)
+    Rule.set_for!(self, params)
+  end
+
+
 end

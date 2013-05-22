@@ -1,98 +1,216 @@
 <div id="fb-root"></div>
+
 <div class="modal-header">
+
+	<div id="pic">
+		<%= image_tag "face_placeholder_small.png", :id => 'profile_picture' %>
+	</div>
+
+	<div id="salutation">
+		<span class="unknown" style="display: none">
+	    	Welcome to Paykido
+		</span>
+		<span class="unconfirmed connected" style="display: none">
+			Hello
+			<span class="name"></span>!
+    	</span>
+		<span class="unconfirmed not_authorized" style="display: none">
+			Join Paykido
+    	</span>
+		<span class="registering" style="display: none">
+	    	Joining Paykido
+		</span>
+		<span class="help" style="display: none">
+	    	How do I join Paykido
+		</span>
+		<span class="confirmed" style="display: none">
+			Hello
+			<span class="name"></span>!
+    	</span>
+	</div>		
+
     <button type="button" class="close" data-dismiss="modal">×</button>
-    <h3></h3>
+
 </div>
 
 <div class="modal-body">
 
-	<div id="logo">
-		<%= image_tag "yellowshirt_kid.png", :class => "ys_kid" %>
+	<div class="unknown" style="display: none">
+
+		<div class="hero-unit" id="why_register">
+			<h1>A whole new way to buy.</h1>
+			<h2>No cards, surveys or offers.</h2>
+			<h2>No risk. No parents around.</h2>
+			<h2>Buy with a click.</h2>
+			<h2>Log into Facebook to buy</h2>
+		</div>
+
+		<div id="logo">
+			<%= render 'logo' %>
+		</div>
+
 	</div>
+
+	<div class="unconfirmed" style="display: none">
+
+		<div class="hero-unit" id="why_register">
+			<h1>Join Paykido</h1>
+			<h2>Safe and free to use.</h2>
+			<h2>Joining in takes few seconds.</h2>
+			<h2>Join us now and start buying.</h2>
+			<p><%= link_to "How do I join Paykido?", "#", :id => "how_do_i_join" %></p>
+		</div>
+
+		<div id="logo">
+			<%= render 'logo' %>
+		</div>
+
+	</div>
+
+	<div class="registering" style="display: none">
+
+	<% if params[:mode] == 'M' or params[:mode] == 'R' %> 
+
+		<div id="test_registration">
+			<fb:registration  
+				width="290" 
+				fb_register="true"
+				redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>&merchant=<%= params[:merchant] %>&app=<%= params[:app] %>&product=<%= params[:product] %>&amount=<%= params[:amount] %>&currency=<%= params[:currency] %>&PP_TransactionID=<%= params[:PP_TransactionID] %>&mode=<%= params[:mode] %>&merchant_url=<%= params[:merchant_url] %>"  
+				fields='[
+					{ "name":"name"},
+					{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
+					{ "name":"payer_name",     "description":"Your parent name",  "type":"text"},
+					{ "name":"payer_phone",     "description":"Your parent mobile # (e.g., 2131234567)",  "type":"text"},
+					{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
+				]' 
+				>
+			</fb:registration>
+		</div>
+		
+	<% else %>
+
+		<div id="registration">
+			<fb:registration  
+				width="590" 
+				fb_register="true"
+				redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>&merchant=<%= params[:merchant] %>&app=<%= params[:app] %>&product=<%= params[:product] %>&amount=<%= params[:amount] %>&currency=<%= params[:currency] %>&PP_TransactionID=<%= params[:PP_TransactionID] %>&mode=<%= params[:mode] %>&merchant_url=<%= params[:merchant_url] %>"  
+				fields='[
+					{ "name":"name"},
+					{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
+					{ "name":"payer_name",     "description":"Your parent name",  "type":"text"},
+					{ "name":"payer_phone",     "description":"Your parent mobile # (e.g., 2131234567)",  "type":"text"},
+					{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
+				]' 
+				>
+			</fb:registration>
+		</div>
+		
+	<% end %>
+
+	</div>
+
+	<div class="help" style="display: none">
+
+		<div class="hero-unit" id="why_register">
+			<h1>Join Paykido</h1>
+			<h2>1. Click 'Join Us!'</h2>
+			<h2>2. Fill-in parent email & phone</h2>
+			<h2>3. Ask parent to confirm you</h2>
+			<h2>4. Start buying!</h2>
+		</div>
+
+		<div id="logo">
+			<%= render 'logo' %>
+		</div>
+	</div>
+
+	<div class="confirmed" style="display: none">
 	
-	<div class="line clearfix" id="salutation_and_pic_or_login">
-		<span id="salutation" class="text"></span>		
-		<span id="pic">
-			<%= image_tag "face_placeholder_small.png", :id => 'profile_picture', :style => 'display: none' %>
-		</span>
-		<span id="login_button" class="text">
-			<fb:login-button></fb:login-button>
- 		</span>
+		<div class="line" id="instruction_or_product">
+			<p id="iop1" class="text">You are using Paykido to buy</p>	
+			<p id="iop2" class="text"><%= "#{params[:product]} (#{params[:amount]} #{params[:currency]})" %></p>	
+		</div>
+	
+	<!-- <div class="title text line">Join your friends</div>  -->
+	
+		<div id="invite"class="hero-unit" >
+			<h2>Spread the word</h2>
+			<p>
+				<span>You sent</span>
+				<span id="invites"></span>
+				<span> invites. </span>
+				<span><a id="invite_href" href="#">Send</a></span>
+				<span> more!</span>
+			</p>	
+			<p id="top_inviter">
+				<span>Top inviter: </span>
+				<span id="inviter_name"></span>
+				<span> with </span>
+				<span id="inviter_count"></span>
+				<span> invites</span>
+			</p>	
+		</div>
+	
+		<div id="facepile">
+			<fb:facepile app_id="<%= Paykido::Application.config.app_id %>"  max_rows="2" width="300"></fb:facepile>
+		</div>
+	
+		<div id="loadingZone"></div>
+		
+		<div id="logo">
+			<%= render 'logo' %>
+		</div>
+		
 	</div>
 
-	<div class="line" id="instruction_or_product">
-		<p id="iop1" class="text"></p>	
-		<p id="iop2" class="text"></p>	
-	</div>
-
-<!-- <div class="title text line">Join your friends</div>  -->
-
-	<div class="line" id="invite">
-		Spread the word, earn points.	
-	</div>
-
-	<div id="facepile">
-		<fb:facepile app_id="<%= Paykido::Application.config.app_id %>"  max_rows="2" width="300"></fb:facepile>
-	</div>
-
-	<div id="loadingZone"></div>
 </div>
 		
 <div class="modal-footer">
-	<%= form_for :consumer, :url => {:action => :buy, 
-									 :merchant 	=> params[:merchant],
-									 :app       => params[:app],
-									 :product	=> params[:product],
-									 :app 		=> params[:app],
-									 :amount   	=> params[:amount],
-									 :currency 	=> params[:currency],
-									 :userid   	=> params[:userid],
-									 :mode      => params[:mode],
-									 :PP_TransactionID => params[:PP_TransactionID],
-									 :hash		=> params[:hash],
-									 :referrer	=> params[:referrer] 
-									 }, :html => {:id => "buy_form"} do |f| %>
-		<%= submit_tag "Pay with Paykido", :class => "buy btn btn-primary", :id => "buy_button" %>
-	<% end %>
 
-	<a href="#" class="btn" data-dismiss="modal">Close</a>
+	<div class="unknown" style="display: none">
+		<span id="login_button" class="text">
+			<fb:login-button size="large"></fb:login-button>
+ 		</span>
 
+		<a href="#" class="btn" data-dismiss="modal">Close</a>
+	</div>
+	
+	<div class="unconfirmed" style="display: none">
+		<a href="#" class="btn btn-primary" id="register">Join Us!</a>		
+		<a href="#" class="btn" data-dismiss="modal">Close</a>
+	</div>
+
+	<div class="help" style="display: none">
+		<a href="#" class="btn btn-primary" id="register1">Join Us!</a>		
+		<a href="#" class="btn" data-dismiss="modal">Close</a>
+	</div>
+
+	<div class="confirmed" style="display: none">
+		<%= form_for :consumer, :url => {:action => :buy, 
+										 :merchant 	=> params[:merchant],
+										 :app       => params[:app],
+										 :product	=> params[:product],
+										 :app 		=> params[:app],
+										 :amount   	=> params[:amount],
+										 :currency 	=> params[:currency],
+										 :userid   	=> params[:userid],
+										 :mode      => params[:mode],
+										 :PP_TransactionID => params[:PP_TransactionID],
+										 :hash		=> params[:hash],
+										 :referrer	=> params[:referrer] 
+										 }, :html => {:id => "buy_form"} do |f| %>
+			<%= submit_tag "Buy", :class => "buy btn btn-primary", :id => "buy_button" %>
+		<% end %>
+	
+		<a href="#" class="btn" data-dismiss="modal">Close</a>
+	</div>
+	
 </div>
 	
-<div id="test_registration" style="display: none;">
-	<fb:registration  
-		width="290" 
-		fb_register="true"
-		redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>"  
-		fields='[
-			{ "name":"name"},
-			{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
-			{ "name":"payer_name",     "description":"Your parent name",  "type":"text"},
-			{ "name":"payer_phone",     "description":"Your parent mobile # (e.g., 2131234567)",  "type":"text"},
-			{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
-		]' 
-		>
-	</fb:registration>
-</div>
-
-<div id="registration" style="display: none;">
-	<fb:registration  
-		width="590" 
-		fb_register="true"
-		redirect-uri="<%= request.protocol + request.host + ':' + request.port.to_s %>/consumer/register_callback?referrer=<%= params[:referrer] %>"  
-		fields='[
-			{ "name":"name"},
-			{ "name":"consumer_phone",  "description":"Your own mobile # (e.g., 2131234567)",  		"type":"text"},
-			{ "name":"payer_name",     "description":"Your parent name",  "type":"text"},
-			{ "name":"payer_phone",     "description":"Your parent mobile # (e.g., 2131234567)",  "type":"text"},
-			{ "name":"payer_email",     "description":"Your parent email address",    			"type":"text"},
-		]' 
-		>
-	</fb:registration>
-</div>
 
 <script type="text/javascript">
 $(document).ready(function (){ 
+
 	$.urlParam = function(name){
 	    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
 	    return results[1] || 0;
@@ -101,6 +219,8 @@ $(document).ready(function (){
 	$('[data-dismiss="modal"]').click(function() {
 		window.parent.postMessage('close', "*");
 	})		
+
+	var userid = 0;
 
   	window.fbAsyncInit = function() {
 
@@ -118,17 +238,18 @@ $(document).ready(function (){
 	    accessToken = response.authResponse.accessToken;
 		$.getJSON('/consumer/confirmed?facebook_id=' + userid, function(data) {
 			if (data.status == 'confirmed') {
-				confirmed(userid, accessToken)
+				confirmed(userid, accessToken, data.invites, data.highest)
 			} else {
-				not_confirmed();
+				unconfirmed(userid, accessToken);
 			}
 		})
 	  } else if (response.status === 'not_authorized') {
-	    not_confirmed();
+	    		unconfirmed(null, null);
 	  } else {
-	    unknown();
+	    		unknown();
 	  }
 	});
+
 
 	FB.Event.subscribe('auth.login', function(response) {
 	  if (response.status === 'connected') {
@@ -136,71 +257,107 @@ $(document).ready(function (){
 	    accessToken = response.authResponse.accessToken;
 		$.getJSON('/consumer/confirmed?facebook_id=' + userid, function(data) {
 			if (data.status == 'confirmed') {
-				confirmed(userid, accessToken)
+				confirmed(userid, accessToken, data.invites, data.highest)
 			} else {
-				not_confirmed();
+				unconfirmed(userid, accessToken);
 			}
 		})
 	  } else if (response.status === 'not_authorized') {
-	    not_confirmed();
+	    		unconfirmed(null, null);
 	  } else {
-	    unknown();
+	    		unknown();
 	  }
 	});
 
 
+
 	FB.Event.subscribe('auth.logout', function(response) {
+		FB.logout(function(response) {    // for some reason the postMessage command prevents the logout so I do it manually
+		  // user is now logged out
+		});
 		window.parent.postMessage('close', "*");
 	});
 
 
-	function confirmed(userid, accessToken){
+	function confirmed(userid, accessToken, invites, highest){
 
-		$('#login_button').hide();
-		if ($.urlParam('mode') == 'M') {$('#test_registration').hide()} else {$('#registration').hide()}
-		$('.modal-header h3').html('Pay with Paykido')
+		$('.unknown').hide();
+		$('.unconfirmed').hide();
+		$('.registering').hide();
+		$('.help').hide();
+		$('.confirmed').show();
+		$('#invites').html(invites);
+		$('#inviter_name').html(highest.name);
+		$('#inviter_count').html(highest.count);
 	   	FB.XFBML.parse(); 
-  		$('#iop1').html('<%= "You are using Paykido to buy" %>');
-  		$('#iop2').html('<%= "#{params[:product]} (#{params[:amount]} #{params[:currency]})" %>');
-		$('#buy_button').removeAttr("disabled");
-		$('#invite').show();
 	   	FB.api('/me', {fields: "id,first_name,picture"}, function(response) {    // works only if included within AsyncInit
-	      $('#salutation').html('Hi '+response.first_name + "!");
+	      $('.name').html(response.first_name);
 	      $('#profile_picture').attr("src", 'http://graph.facebook.com/' + response.id + '/picture');
-	      $('#profile_picture').show();
 		  var action = $('#buy_form').attr('action') +
 		  				'&facebook_id=' + userid + 
 		  				'&name=' + response.first_name +
 		  				'&pic=' + 'http://graph.facebook.com/' + response.id + '/picture';
 		  $('#buy_form').attr('action', action);
 	   });
-	   $('#paykido.modal').css("margin", "-220px 0 0 -171px");
 	}
 
-	function not_confirmed(){
-		$('.modal-header h3').html('Join Paykido')
-		$('.modal-body').empty();
-	   	$('.modal-footer').remove();
-		if ($.urlParam('mode') == 'M') {$('#test_registration').show()} else {$('#registration').show()}
-	   	FB.XFBML.parse();
-	   	$('.clear.uiCloseButton.uiCloseButtonSmall').css('display', 'none');
-		$('#buy_button').attr("disabled", "disabled");
-	   $('#paykido.modal').css("margin", "-115px 0 0 -171px");
+	function unconfirmed(userid, accessToken){
+		$('.unknown').hide();
+		$('.unconfirmed').show();
+		$('.registering').hide();
+		$('.help').hide();
+		$('.confirmed').hide();
+		if (userid != null && accessToken != null) {					
+		   	FB.api('/me', {fields: "id,first_name,picture"}, function(response) {    // works only if included within AsyncInit
+		      $('.name').html(response.first_name);
+		      $('#profile_picture').attr("src", 'http://graph.facebook.com/' + response.id + '/picture');
+			})
+			$('.unconfirmed.connected').show();
+			$('.unconfirmed.not_authorized').hide();
+		} else {
+			$('.unconfirmed.connected').hide();
+			$('.unconfirmed.not_authorized').show();
+		}
+	   	FB.XFBML.parse(); 
 	}
-
+	
+	function registering() {
+		$('.unknown').hide();
+		$('.unconfirmed').hide();
+		$('.registering').show();
+		$('.help').hide();
+		$('.confirmed').hide();
+		$('.modal-body').css('height', '500px')
+	   	FB.XFBML.parse(); 
+	}
+	
+	function help() {
+		$('.unknown').hide();
+		$('.unconfirmed').hide();
+		$('.registering').hide();
+		$('.help').show();	
+		$('.confirmed').hide();
+	   	FB.XFBML.parse(); 
+	}
+	
 	function unknown(userid, accessToken){
-		$('#login_button').show();
-		if ($.urlParam('mode') == 'M') {$('#test_registration').hide()} else {$('#registration').hide()}
-		$('.modal-header h3').html('Pay with Paykido')
-		$('#invite').hide();
- 	   	FB.XFBML.parse(); 
-     	$('#salutation').html('Hello!');
-      	$('#profile_picture').hide();
-      	$('#iop1').html('Click Log In to start using Paykido');
-      	$('#buy_button').attr("disabled", "disabled");
-	   $('#paykido.modal').css("margin", "-220px 0 0 -171px");
-
+		$('.unknown').show();
+		$('.unconfirmed').hide();
+		$('.registering').hide();
+		$('.confirmed').hide();
+	   	FB.XFBML.parse(); 
 	}
+
+	$('#register').click(function() {
+		registering();
+	})
+	$('#register1').click(function() {
+		registering();
+	})
+	
+	$('#how_do_i_join').click(function() {
+		help();
+	})
 
   };	// end of fbAsyncInit
 	
@@ -215,31 +372,29 @@ $(document).ready(function (){
    }(document));
 
 
-
-
-
-
 //	INVITE
 
-/*
-	$('#invite').click(function() {
+	$('#invite_href').click(function() {
 		sendRequestViaMultiFriendSelector();
-
-		$('#paykido.modal.hide.in div#fb-root.fb_reset .fb_dialog.fb_dialog_advanced').css("top", "0");
-		$('.modal #fb-root .fb_dialog.fb_dialog_advanced').css("left", "0");
-
+		return false;
 	});
-*/
+
 	function sendRequestViaMultiFriendSelector() {
         FB.ui({method: 'apprequests',
           message: 'Hi! Paykido is a super-cool service that lets kids buy with a click!',
-          data: 'dror',
+          data: 'x',
+          filters: ['app_non_users'],
+          display: 'popup',
           title:'Spread the word and earn credits!'
         }, 
         function(response)  {
           if (response.request)  {
           	invites = response.to.length
-        	alert('Thanks! ' + invites + ' more points for you!')
+          	highest = {}
+        	$.post("/consumer/invites_increase", { facebook_id: userid, invites: invites}, function(data) {
+				$('#invites').html(data.invites_count);
+				alert('Way to go! You have sent so far ' + data.invites_count + ' invites!');
+			})
           }
       	}
 		);

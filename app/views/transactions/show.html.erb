@@ -3,7 +3,7 @@
 
 <section id="maincontainer">
 
-	<%= render :partial => 'page_head', :locals => {:title => 'Transaction Details', :backPath => purchase_path(@purchase)} %>
+	<%= render 'page_head', :page_title => 'Transaction Details', :backPath => consumer_purchase_path(@consumer, @purchase) %>
 	
 	<table>
 		<tbody>

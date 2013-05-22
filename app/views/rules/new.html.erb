@@ -1,5 +1,31 @@
-<h1>New rule</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', rules_path %>
+<div class="rule header">
+    <%= "Set #{t @rule.property, :scope => [:rule, :property]} rule for #{@consumer.name}" %>
+</div>
+<% if @rule.previous_rule_id %>
+	<div class="rule actions">
+		<p>
+			<span><%= "#{@consumer.name}'s currently defined #{t @rule.property, :scope => [:rule, :property]} is" %></span>
+			<span><%= (number_to_currency (@rule.value.to_i)) %>,
+			<span><%= @rule.period.downcase %></span>
+			<span> every </span> 
+			<span><%= @rule.weekly? ? @rule.weekly_occurrence : @rule.monthly_occurrence %>.</span>		
+		</p>
+		<p>
+			<%= "The new #{t @rule.property, :scope => [:rule, :property]} will add to #{@consumer.name}'s existing balance of #{number_to_currency @consumer.balance}." %>
+		</p>
+	</div>
+<% end %>
+<div class="rule_form_part">
+	<%= render 'form', :rule => @rule %>
+</div>
+<div class="rule_message_part hero-unit">
+	<% if @rule.info %>
+		<p><%= @rule.description %></p>
+	<% end %>	
+</div>
+<script>
+	$(document).ready(function() {
+		var height = $('.rule_form_part').height();
+		$('.rule_message_part').height(height -79)
+	})
+</script>

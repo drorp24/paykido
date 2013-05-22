@@ -1,97 +1,102 @@
-<div class="box-header">
-    <td class="icon16 user"></td>     
-    <h1><%= t 'Purchase' %></h1>   
-<!--
-	<div id="manual_approval_buttons">
-	    <button id="approve" class="btn btn-success">
-	    	<i class="icon-thumbs-up icon-white"></i>
-	    	Approve
-		</button>
-	    <button id="decline" class="btn btn-danger">
-	    	<i class="icon-thumbs-down icon-white"></i>
-	    	Decline
-		</button>
-	</div>
--->
-</div>
-    
 <div class="box-content">
 
-    <div class="header clearfix well">
-        <div class="grid_6 content-header relative clearfix">
-            <p class="retailer">                    
-					<%= @purchase.retailer.name %>   
-					<%= @purchase.id %>
-			</p>
-			<p class="product"><%= @purchase.product %></p>
-            <p class="price"><%= "#{@purchase.amount} #{@purchase.currency}" %></p>
-        </div>
-        <div id="purchase_header_right" class="grid_5 content-header relative">
-            <p class="retailer_info">
-                <span class="star_rating"></span>
-                <span>
-                    <a href="#" class="small button">
-                        <span class="like" title="74% of our users recommended this merchant">74%</span>
-                    </a>
-                </span>            
-            </p>
-            <p><div class="progress"><span style="width: 70%;"></span></div></p>
+    <p class="sectiontitle">See what other users did</p>
 
-			<% if @purchase.requires_approval? %>
-<!--  			
-				<button class="btn btn-success">
-					<%= link_to approve_purchase_path(@purchase) do %>
-					<i class="bigicon-tick-black"></i>	
-					Approve
-					<% end %>			
-				</button>
-				<button class="btn btn-danger">
-					<i class="bigicon-cross-black"></i>
-					Decline
-				</button>
--->
+        <div class="purchase_info well">
+        	<div id="purchase_data">
+		    	<p id="first_line">
+					<span class="retailer_text text-info"><%= @purchase.retailer.name %></span> 
+					<span id="product_and_price">
+						<span class="product"><%= @purchase.product %></span>
+				        <span class="price"><%= number_to_currency @purchase.amount %></span>
+			        </span>
+		        </p>
+		        <p id="second_line">
+					<span id="status_or_approval_buttons">
+						<% if @purchase.requires_approval? %>
+							<span id="approval_buttons" class="btn-group">
+							    <%= link_to approve_purchase_path(@purchase), :class => "btn", 'data-skip-pjax' => true do %>
+							        <i class="icon-thumbs-up"></i> &nbsp;&nbsp;<%= t 'Approve' %>
+							    <% end %>
+							    <%= link_to decline_purchase_path(@purchase), :class => "btn", 'data-skip-pjax' => true do %>
+							        <i class="icon-thumbs-down"></i> &nbsp;&nbsp;<%= t 'Decline' %>
+							    <% end %>
+							</span>
+				
+						<% else %>
+							<span id="approval_status">
+								<% if @purchase.authorized %>
+									<i class="bigicon-thumbs-up"></i>
+									<span>Approved by </span>
+								<% else %>
+									<i class="bigicon-thumbs-down"></i>
+									<span>Declined by </span>
+								<% end %>
+								<% if @purchase.manually_handled? %>
+									<span> Parent</span>
+								<% else %>
+									<span class="paykido"> Paykido</span>
+									<abbr class="why" title="<%= "#{@purchase.authorization_property} #{@purchase.authorization_value} was #{@purchase.authorization_type}" %>"> (why?)</abbr>
+								<% end %>
+							</span>
+						<% end %> 
+					</span>    
+		    	</p>
+	    	</div>  
+			<% retailer_rating = Rule.whitelist_rate("retailer", @purchase.properties['retailer']) %>
+	    	<div id="rating"> 
+    			<span class="approved_by">
+					<p class="label label-info"><%= number_to_percentage(retailer_rating, :precision => 0) %></p> 
+				</span>            							
+            </div> 
+            <div id="rating_text">
+				<span> <%= number_to_percentage(retailer_rating, :precision => 0) %> of Paykido users approved that merchant</span>            	
+        	</div>  
+    	</div>
 
-				<div id="approval_buttons">
-				    <%= link_to approve_purchase_path(@purchase), :class => "small blue approval button", 'data-skip-pjax' => true do %>
-				        <span class="icon16 tick"></span>
-				        Approve
-				    <% end %>
-				    <%= link_to decline_purchase_path(@purchase), :class => "small blue decline button", 'data-skip-pjax' => true do %>
-				        <span class="icon16 delete"></span>
-				        Decline
-				    <% end %>
-				</div>
 
-			<% end %>     
-
-        </div>
-
-    </div>
-
-
-    <p class="sectiontitle">About the purchase</p>
-    <table class="purchase_info">
+    <p class="sectiontitle">Tell Paykido what to do with similar purchases</p>
+   	<table class="purchase_info well">
         <tbody>
         <%= form_tag do %>
             <% if @purchase.properties %>    
-            <% @purchase.properties.sort.each do |property, value| %>
+            <% @purchase.properties.each do |property, value| %>
                 <tr class="purchase_line">
-                    <td class="purchase_title"><%= t property %>:</td>
-                    <td class="purchase_logo">
-                        <% if info = Info.find_by_key_and_value(property, value) and info.logo %>
+                    <td class="rule_status">
+                		<% if @purchase.consumer.blacklisted?(property,value) %>
+                			<% current_status = 'blacklisted' %>
+                			<i class="bigicon-thumbs-down"></i>
+            			<% elsif @purchase.consumer.whitelisted?(property,value) %>
+            				<% current_status = 'whitelisted' %>
+            				<i class="bigicon-thumbs-up"></i>
+        				<% else %>
+        					<% current_status = 'reset' %>
+            				<i class="bigicon-placeholder"></i>
+        				<% end %>
+                    </td>    	
+                    <td class="purchase_title"><%= t property %>&nbsp;&nbsp;</td>
+                    <% if info = Info.find_by_key_and_value(property, value) and info.logo %>
+	                    <td class="purchase_logo">
                             <%= image_tag info.logo, {:rel => "popover", :title => info.title, :data => {:content => info.description}} %>
-                        <% else %>
-                            <%= value %>
-                        <% end %>
-                    </td>
+                        </td>
+                    <% else %>
+                        <td class="purchase_text">
+                        	<%= value %></span>
+                    	</td>
+                    <% end %>
                     <td class="actions">
                     <% if value != nil %>
-                        <a data-toggle="modal" id="blacklist" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="blacklisted" data-property="<%= property %>" data-value="<%= value %>" class="small button rule <%= (@purchase.consumer.blacklisted?(property,value)) ?'blue' :'regular greyedOut' %>">
-                            <span class="icon16 blacklist"></span>NO
-                        </a>
-                        <a data-toggle="modal" id="whitelist" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="whitelisted" data-property="<%= property %>" data-value="<%= value %>" class="small button rule <%= (@purchase.consumer.whitelisted?(property,value)) ?'blue' :'regular greyedOut' %>">
-                            <span class="icon16 whitelist"></span>OK
-                        </a>
+                    	<div class="btn-group">
+ 	                        <a data-toggle="modal" id="blacklist" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-current-status = "<%= current_status %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="blacklisted" data-property="<%= property %>" data-value="<%= value %>" class="btn rule button">
+	                            <i class="icon-thumbs-down" data-toggle="tooltip" title="Decline"></i>
+	                        </a>
+	                        <a data-toggle="modal" id="reset" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-current-status = "<%= current_status %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="reset" data-property="<%= property %>" data-value="<%= value %>" class="btn rule button">
+	                            <i class="icon-stop" data-toggle="tooltip" title="Stop"></i>
+	                        </a>
+	                        <a data-toggle="modal" id="whitelist" href="#rule" role="button" data-purchase="<%= @purchase.id %>" data-payer="<%= current_payer.id %>" data-consumer="<%= @purchase.consumer_id %>" data-current-status = "<%= current_status %>" data-name="<%= @purchase.consumer.name %>" data-rule-status="whitelisted" data-property="<%= property %>" data-value="<%= value %>" class="btn rule button">
+	                            <i class="icon-thumbs-up" data-toggle="tooltip" title="Approve"></i>
+	                        </a>
+                        </div>
 					<% end %>
                     </td>
                     <td>
@@ -110,22 +115,34 @@
         </tbody>
     </table>
     <br />
-    <% for transaction in @purchase.transactions %>
-    	<p><%= link_to 'Transaction details', purchase_transaction_path(@purchase, transaction) %></p>
-    <% end %>
+    <p class="transactions_and_notifications">
+    	<span class="purchase_id"><%= @purchase.id %></span>
+	    <% if @purchase.transactions.any? %>
+	    	<span class="transactions"><%= link_to 'Transactions', consumer_purchase_transactions_path(@consumer, @purchase) %></span>
+	    <% end %>
+	    <% if @purchase.notifications.any? %>
+	    	<span class="notifications"><%= link_to 'Notifications', consumer_purchase_notifications_path(@consumer, @purchase) %></span>
+	    <% end %>
+    </p>
 
-<!--  
-	<p class="sectiontitle">Purchase Status</p> 
-    <div class="approval_info">
-        <p>Approve by... at... reason:....</p>
-    </div>
--->
 <script type="text/javascript">
 
 $('document').ready(function() {
 
-		$('[rel="popover"]').popover({placement: "left"});
+	<% if params[:id] %>
+    	proper_tr = $('#purchases tr[data-purchase=<%= params[:id] %>]')
+	<% else %>
+		proper_tr = $('#purchases tbody tr:first')
+	<% end %>
 
+	//2. Highlight the proper purchase
+	if (proper_tr) {
+	    $('#purchases tr').removeClass('active');
+	    proper_tr.addClass('active');		
+	}
+
+
+	$('[rel="popover"]').popover({placement: "left"});
 
 /// reconstruct unbound methods following the refresh of the purchase pane (find uniform way of doing this)
     $('a.modal').each(function() {
@@ -158,16 +175,40 @@ $('document').ready(function() {
        var rule_status = 	$(this).attr('data-rule-status');
        var property =   $(this).attr('data-property');
        var value =      $(this).attr('data-value');
-       var name =    	$(this).attr('data-name');       
-       $('.action').html(function () {
-       		if 		(rule_status == 'whitelisted') {return 'approve'}
-       		else if (rule_status == 'blacklisted') {return 'decline'} 
-       		else if (rule_status = '') {return 'ask about'}
-       });
+       var name =    	$(this).attr('data-name');
+       var current_status =  $(this).attr('data-current-status');
+
+       if (rule_status == current_status) {return false};
+       
+       if  (rule_status == 'reset') {
+       		$('#rule_reset').show();
+       		$('#rule_set').hide();
+			$('.rule_title').html('Stop');
+       		$('#create_rule').html('Stop');
+	        $('.action').html(function () {
+	       		if 		(current_status == 'whitelisted') {return 'Stop automatically approving'}
+	       		else if (current_status == 'blacklisted') {return 'Stop automatically declining'} 
+	       		else if (current_status = 'reset') {return 'Reset'}
+	        });
+       		if 		(current_status == 'blacklisted') {var stopped_action = "decline"}
+       		else if (current_status == 'whitelisted') {var stopped_action = "approve"};
+			$('.stopped_action').html(stopped_action);
+ 	   } 
+	   else {
+       		$('#rule_reset').hide();
+       		$('#rule_set').show();
+			$('.rule_title').html('Set');
+       		$('#create_rule').html('Activate');
+	        $('.action').html(function () {
+	       		if 		(rule_status == 'whitelisted') {return 'Approve'}
+	       		else if (rule_status == 'blacklisted') {return 'Decline'} 
+	       		else if (rule_status = 'reset') {return 'Reset'}
+	        });
+	   }
        $('.property').html(property);
        $('.value').html(value);
        $('.name').html(name);
-       $('#create_rule').attr('data-href', '/rules?payer_id=' + payer + '&purchase_id=' + purchase + '&consumer_id=' + consumer + '&property=' + property + '&value=' + value + '&rule_status=' + rule_status);
+       $('#create_rule').attr('href', '/rules?payer_id=' + payer + '&purchase_id=' + purchase + '&consumer_id=' + consumer + '&property=' + property + '&value=' + value + '&rule_status=' + rule_status);
        
     });  
     

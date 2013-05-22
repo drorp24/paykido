@@ -1,12 +1,11 @@
 Paykido::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
-  # General
+  # Environment
   config.hostname = 'localhost:3000'
   config.environment = 'dev'
-  
-  # Technical
-  config.queue_jobs = true
+  config.use_delayed_job = false
+  config.use_proximo = false
 
   # Facebook (for server-side facebooker, make identical changes at facebooker.yml)
   config.app_id = '232989173487232'
@@ -20,11 +19,19 @@ Paykido::Application.configure do
   config.offer_rule_or_registration_after = 1
 
   # G2S Integration
+  config.g2spp = 'http://91.220.189.4/lilippp/purchase.do'
+  config.use_test_listener = false
+  config.test_listener_base_uri = 'http://localhost:3000'
+  config.test_listener_path     = '/g2s/TestPaykidoNotificationListener'
+  config.redirect_after_registration = true
+  config.listener_base_uri = 'http://91.220.189.4'
+  config.listener_path     = '/lilippp/paykidoNotificationListener'
+  config.listener_can_return_ordernotfound = true
   config.merchant_id = '136515662095334027'
   config.merchant_site_id = '79871'
   config.secret_key = 'lDovmOBmoHSCvCXxOSDNmJmjaKuTKcuFU767pi1p9yKXfVJb6FKquxrcVVMv7gh1' 
   config.return_secret_key = 'AEA524A224D49B00803D499166E0561045CAF0AF30DC418D39F05F5318352222'
-  config.check_hash = true
+  config.check_hash = false
   config.version = '3.0.0'
   config.token_gateway = 'https://test.safecharge.com/service.asmx/Process?'
   config.sg_VendorID = '75381'
