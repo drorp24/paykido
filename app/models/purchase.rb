@@ -294,18 +294,26 @@ class Purchase < ActiveRecord::Base
     
     return "OK" if Paykido::Application.config.environment == 'dev'
 
-    str = Paykido::Application.config.return_secret_key +
-          self.PP_TransactionID.to_s +
-          status +
-          self.amount.to_s +
-          self.currency +
-          ""  +
-          self.id.to_s
-          
-    hash = Digest::MD5.hexdigest(str)          
+    begin
+      str = Paykido::Application.config.return_secret_key +
+            self.PP_TransactionID.to_s +
+            status +
+            self.amount.to_s +
+            self.currency +
+            ""  +
+            self.id.to_s
+            
+      hash = Digest::MD5.hexdigest(str)          
+  
+      Rails.logger.info("About to send_notification with: orderid=#{self.PP_TransactionID}&status=#{status}&amount=#{self.amount.to_s}&currency=#{self.currency}&reason=&purchase_id=#{id.to_s}&checksum=#{hash}") 
+      send_notification(status, hash, event)
+    rescue => e
 
-    Rails.logger.info("About to send_notification with: orderid=#{self.PP_TransactionID}&status=#{status}&amount=#{self.amount.to_s}&currency=#{self.currency}&reason=&purchase_id=#{id.to_s}&checksum=#{hash}") 
-    send_notification(status, hash, event)
+      Rails.logger.info("Notify merchant was rescued. Following is the error:")
+      Rails.logger.info(e)
+      notification_response = "HashFailed"
+      notification_status = "HashFailed"
+    end
 
   end
 
