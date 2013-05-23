@@ -53,7 +53,7 @@ eight:
   key: "rule"
   value: "blacklisted"
   title: "Decline"
-  description: "Paykido will decline purchases with these properties"
+  description: "Set this rule if you want Paykido to automatically decline purchases whose amount is higher than the amount you specify."
   logo: "bigicon-thumbs-down"
     
 nine:
