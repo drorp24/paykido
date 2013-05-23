@@ -85,6 +85,7 @@ class PurchasesController < ApplicationController
       :notify => 'approval', 
       :status => status,
       :purchase => @purchase.id,
+      :notification_status => notification_status,
       :_pjax => "data-pjax-container"
     )  
 

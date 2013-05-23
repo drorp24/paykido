@@ -126,7 +126,15 @@
 </div>
 <% end %>
 
-<% if params[:purchase] and params[:notify] == 'approval' and (params[:status] == 'success' or params[:status] == 'approved') %>
+<% if params[:purchase] and params[:notify] == 'approval' and (params[:status] == 'success' or params[:status] == 'approved') and params[:notification_status] != "OK" %>
+<div id="notification_failed" class="alert alert-block">
+	<a class="close" data-dismiss="alert" href="#">×</a>
+    <h4 class="alert-heading">Please call us</h4>
+	<span>We were not able to notify the merchant of your payment. Please call us so we can fix that.</span>
+</div>
+<% end %>
+
+<% if params[:purchase] and params[:notify] == 'approval' and (params[:status] == 'success' or params[:status] == 'approved') and params[:notification_status] == "OK" %>
 <div id="approval_success" class="alert alert-block" style="display:none">
 	<a class="close" data-dismiss="alert" href="#">×</a>
 	<% purchase = Purchase.find(params[:purchase]) %>

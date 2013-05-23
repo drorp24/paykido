@@ -39,6 +39,7 @@ class G2sController < ApplicationController
         :ErrCode => params[:ErrCode],
         :ExErrCode => params[:ExErrCode],
         :manual => 'true',
+        :notification_status => notification_status,
         :_pjax => "data-pjax-container"
       )
 
