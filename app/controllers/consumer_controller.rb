@@ -62,17 +62,25 @@ class ConsumerController < ApplicationController
 
     find_or_create_consumer_and_payer  
 
-    if @payer.errors.any?   
-      property     =  'The email you already'
-      value        =  'specified for your parent'
-      type         =  'different'
-      redirect_to root_path(:anchor => "teens", :notify => 'confirmation', :status => 'error', :property => property, :value => value, :type => type, :back_url => params[:merchant_url])
+    if @payer.errors.any?  
+      Rails.logger.debug ""
+      Rails.logger.debug "@payer.errors:  " 
+      Rails.logger.debug  @payer.errors.messages 
+      Rails.logger.debug ""
+      if @payer.errors.size > 1
+        property     =  'Something'
+        error        =  'went wrong'
+      else
+        property =  @payer.errors.messages.keys.first.to_s.capitalize
+        error =     @payer.errors.messages.values.first[0]
+      end
+      redirect_to root_path(:anchor => "teens", :notify => 'confirmation', :status => 'error', :property => property, :error => error, :back_url => params[:merchant_url])
       return        
-    else
-      create_purchase
-      @purchase.require_approval!     
-      @payer.request_confirmation(@consumer) 
-    end   
+    end
+    
+    create_purchase
+    @purchase.require_approval!     
+    @payer.request_confirmation(@consumer) 
 
     redirect_to root_path(:anchor => "teens", :notify => 'confirmation', :status => 'pending', :back_url => params[:merchant_url])
 
