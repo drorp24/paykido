@@ -311,8 +311,8 @@ class Purchase < ActiveRecord::Base
 
       Rails.logger.info("Notify merchant was rescued. Following is the error:")
       Rails.logger.info(e)
-      notification_response = "HashFailed"
-      notification_status = "HashFailed"
+      notification_response = e
+      notification_status = e
     end
 
   end
