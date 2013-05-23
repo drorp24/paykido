@@ -22,14 +22,19 @@ class Payer < ActiveRecord::Base
 
 
 # bypasses Devise's requirement to re-enter current password to edit
-def update_with_password(params={}) 
-  if params[:password].blank? 
-    params.delete(:password) 
-    params.delete(:password_confirmation) if params[:password_confirmation].blank? 
-  end 
-  update_attributes(params) 
-end
-
+  def update_with_password(params={}) 
+    if params[:password].blank? 
+      params.delete(:password) 
+      params.delete(:password_confirmation) if params[:password_confirmation].blank? 
+    end 
+    update_attributes(params) 
+  end
+  
+  def password=(new_password)
+    super
+    self.temporary_password = nil if self.sign_in_count > 0
+  end
+  
   def g2spp(params)
     # return the url to redirect to for manual payment including all parameters
 

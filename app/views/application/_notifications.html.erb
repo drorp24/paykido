@@ -259,7 +259,7 @@
 
 $(document).ready(function() {
 
-	<% if current_payer.encrypted_password.blank? %>
+	<% if current_payer.temporary_password %>
 		if ($('.alert').length == 0) {
 			$('#change_password').popover({
 				title: "Time to set your password!", 

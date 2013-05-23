@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121011172055) do
+ActiveRecord::Schema.define(:version => 20130523150925) do
 
   create_table "allowances", :force => true do |t|
     t.integer  "consumer_id"
@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(:version => 20121011172055) do
     t.string   "phone"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "temporary_password"
   end
 
   add_index "payers", ["authentication_token"], :name => "index_payers_on_authentication_token", :unique => true
@@ -176,10 +177,6 @@ ActiveRecord::Schema.define(:version => 20121011172055) do
   end
 
   create_table "rules", :force => true do |t|
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> develop
     t.integer  "consumer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -190,20 +187,6 @@ ActiveRecord::Schema.define(:version => 20121011172055) do
     t.string   "occasion"
     t.string   "donator"
     t.string   "category"
-<<<<<<< HEAD
-=======
-=======
-    t.integer   "payer_id"
-    t.integer   "consumer_id"
-    t.string    "entity"
-    t.integer   "entity_id"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.string    "property"
-    t.string    "value"
-    t.string    "status"
->>>>>>> master
->>>>>>> develop
   end
 
   create_table "sessions", :force => true do |t|

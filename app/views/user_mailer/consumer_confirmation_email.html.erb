@@ -640,7 +640,7 @@
                                         welcome_consumer_url(@consumer.id,:email => @payer.email, :auth_token => @payer.authentication_token, :notify => 'confirmation_request') %>
 																			and start controlling what your kids buy.
 																		</p>
-																		<p>Or visit www.paykido.com and sign-in using your email and "1" as your temporary password (you can always change it).
+																		<p><%= "Or visit www.paykido.com and sign-in using your email and #{@payer.temporary_password} as your temporary password (you can always change it)." %>
 																	</div></td>
 																</tr>
 																<tr style="border-collapse:collapse;" >
