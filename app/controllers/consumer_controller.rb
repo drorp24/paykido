@@ -143,8 +143,9 @@ class ConsumerController < ApplicationController
     end   
 
     @payer = @consumer.payer || Payer.find_or_initialize_by_email(facebook_params['registration']['payer_email'])
-
+Rails.logger.debug " @payer.encrypted_password.blank? before: " +  @payer.encrypted_password.to_s
     @payer.password = @payer.temporary_password = Devise.friendly_token.first(6) if @payer.encrypted_password.blank?
+Rails.logger.debug " @payer.encrypted_password.blank? after: " +  @payer.encrypted_password.to_s
     @payer.name =     facebook_params['registration']['payer_name']
     @payer.email =    facebook_params['registration']['payer_email'] 
     @payer.phone =    facebook_params['registration']['payer_phone']
