@@ -7,7 +7,7 @@
 	
 	<table>
 		<tbody>
-			<% @transactions.each do |transaction| %>
+			<% @transactions.each.order("created_at DESC") do |transaction| %>
 			  <tr>
 			    <td><%= transaction.trx_type %></td>
 			    <td><%= transaction.created_at %></td>
