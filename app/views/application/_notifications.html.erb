@@ -130,7 +130,7 @@
 <div id="notification_failed" class="alert alert-block">
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Please call us</h4>
-	<span>We were not able to notify the merchant of your payment. Please call us so we can fix that.</span>
+	<span><%= "We were unable to notify the merchant of your transaction (#{params[:notification_status]}). Please call us so we can fix that." %></span>
 </div>
 <% end %>
 

@@ -20,7 +20,7 @@ Paykido::Application.configure do
 
   # G2S Integration
   config.g2spp = 'https://secure.gate2shop.com/ppp/purchase.do'
-  config.use_test_listener = true
+  config.use_test_listener = false
   config.test_listener_base_uri = 'http://www.paykido.com'
   config.test_listener_path     = '/g2s/TestPaykidoNotificationListener'
   config.redirect_after_registration = true
