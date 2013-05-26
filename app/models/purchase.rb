@@ -294,7 +294,7 @@ class Purchase < ActiveRecord::Base
     
     return "OK" if Paykido::Application.config.environment == 'dev'
 
-#    begin
+    begin
       str = Paykido::Application.config.return_secret_key +
             self.PP_TransactionID.to_s +
             status +
@@ -307,13 +307,13 @@ class Purchase < ActiveRecord::Base
   
       Rails.logger.info("About to send_notification with: orderid=#{self.PP_TransactionID}&status=#{status}&amount=#{self.amount.to_s}&currency=#{self.currency}&reason=&purchase_id=#{id.to_s}&checksum=#{hash}") 
       send_notification(status, hash, event)
-#    rescue => e
+    rescue => e
 
-#      Rails.logger.info("Notify merchant was rescued. Following is the error:")
-#      Rails.logger.info(e)
-#      notification_response = e
-#      notification_status = e
-#    end
+      Rails.logger.info("Notify merchant was rescued. Following is the error:")
+      Rails.logger.info(e)
+      notification_response = e
+      notification_status = e
+    end
 
   end
 
@@ -401,7 +401,7 @@ class Purchase < ActiveRecord::Base
    return notification_status
 
   end
-  handle_asynchronously :send_notification if Paykido::Application.config.use_delayed_job
+#  handle_asynchronously :send_notification if Paykido::Application.config.use_delayed_job
   
   def set_rules!(params)
     # implement the rules parent has set while manually approving the purchase
