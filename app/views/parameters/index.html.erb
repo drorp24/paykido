@@ -8,7 +8,7 @@
 	<table>
 		<tbody>
 			<% @params.each do |key, value| %>
-			  <% next if key == 'controller' or key == 'action' %>
+			  <% next if ['controller', 'action', 'utf8','authenticity_token', 'commit'].include? key %>
 			  <tr>
 			    <td><%= key %></td>
 			    <td><%= value %></td>

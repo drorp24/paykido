@@ -84,7 +84,7 @@ class Purchase < ActiveRecord::Base
   def self.with_info(payer_id, consumer_id)
 
     if consumer_id
-      Purchase.where("consumer_id = ?", consumer_id).order('created_at DESC').includes(:consumer, :retailer)
+      Purchase.where("payer_id = ? and consumer_id = ?", payer_id, consumer_id).order('created_at DESC').includes(:consumer, :retailer)
     else
       Purchase.where("payer_id = ?", payer_id).order('created_at DESC').includes(:consumer, :retailer)
     end
