@@ -28,6 +28,7 @@ end
 class Purchase < ActiveRecord::Base
 
   serialize :properties               
+  serialize :params               
 
   belongs_to  :consumer
   belongs_to  :payer
