@@ -70,7 +70,7 @@ class PurchasesController < ApplicationController
 
     unless status == 'failed'
       notification_status = @purchase.notify_merchant(status, 'approval')
-      if notification_status == "OK"
+      if notification_status == "OK" or @purchsae.params[:mode] == 'M'
         @purchase.account_for! if status == 'approved'
       else
         @purchase.notification_failed!

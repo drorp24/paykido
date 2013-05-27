@@ -15,7 +15,7 @@ class G2sController < ApplicationController
         @purchase.approve!
         if @purchase.approved?
           notification_status = @purchase.notify_merchant('approved', 'buy')
-          if notification_status == "OK"
+          if notification_status == "OK" or @purchsae.params[:mode] == 'M'
             @purchase.account_for!
             status = 'approved'
           else
