@@ -365,7 +365,9 @@ class Purchase < ActiveRecord::Base
           notification_status = "OK"
         else   
           Rails.logger.info("NotificationListener ORDERNOTFOUND raised")
-  #       raise "NotificationListener ORDERNOTFOUND"
+          Rails.logger.info("self.params[:mode] is: " + self.params[:mode])
+          Rails.logger.info("self.id is: " + self.id.to_s)
+   #       raise "NotificationListener ORDERNOTFOUND"
           notification_status = listener_response.parsed_response
         end
       else
