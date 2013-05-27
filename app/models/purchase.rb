@@ -36,6 +36,7 @@ class Purchase < ActiveRecord::Base
   
   has_many    :transactions
   has_many    :notifications
+  has_many    :parameters
   has_many    :payments
   
   scope :pending,   where("authorization_type = ?", 'PendingPayer')
