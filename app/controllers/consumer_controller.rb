@@ -242,7 +242,7 @@ Rails.logger.debug " @payer.encrypted_password.blank? after: " +  @payer.encrypt
     
     unless status == 'failed'
       notification_status = @purchase.notify_merchant(status, 'buy')
-      if notification_status == "OK" or @purchsae.params[:mode] == 'M'
+      if notification_status == "OK" or @purchase.params[:mode] == 'M'
         @response = @purchase.response(status)
       else
         @purchase.notification_failed!
