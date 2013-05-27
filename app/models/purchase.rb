@@ -360,9 +360,14 @@ class Purchase < ActiveRecord::Base
 #        raise "NotificationListener ERROR"
         notification_status = listener_response.parsed_response
       elsif listener_response.parsed_response == "ORDERNOTFOUND"
-        Rails.logger.info("NotificationListener ORDERNOTFOUND raised")
-#        raise "NotificationListener ORDERNOTFOUND"
-        notification_status = listener_response.parsed_response
+        if self.params[:mode] == 'M'
+          Rails.logger.info("ORDERNOTFOUND but called with params[:mode] == 'M")
+          notification_status = "OK"
+        else   
+          Rails.logger.info("NotificationListener ORDERNOTFOUND raised")
+  #       raise "NotificationListener ORDERNOTFOUND"
+          notification_status = listener_response.parsed_response
+        end
       else
         Rails.logger.info("Nothing raised. Successfully completed")
         notification_status = "OK"        
