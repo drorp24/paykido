@@ -14,7 +14,7 @@ class G2sController < ApplicationController
       if params[:ppp_status] == 'OK' and @purchase
         @purchase.approve!
         if @purchase.approved?
-          notification_status = @purchase.notify_merchant(status, 'buy')
+          notification_status = @purchase.notify_merchant('approved', 'buy')
           if notification_status == "OK"
             @purchase.account_for!
             status = 'approved'
@@ -39,6 +39,7 @@ class G2sController < ApplicationController
         :ErrCode => params[:ErrCode],
         :ExErrCode => params[:ExErrCode],
         :manual => 'true',
+        :notification_status => notification_status,
         :_pjax => "data-pjax-container"
       )
 

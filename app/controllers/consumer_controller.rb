@@ -62,17 +62,25 @@ class ConsumerController < ApplicationController
 
     find_or_create_consumer_and_payer  
 
-    if @payer.errors.any?   
-      property     =  'The email you already'
-      value        =  'specified for your parent'
-      type         =  'different'
-      redirect_to root_path(:anchor => "teens", :notify => 'confirmation', :status => 'error', :property => property, :value => value, :type => type, :back_url => params[:merchant_url])
+    if @payer.errors.any?  
+      Rails.logger.debug ""
+      Rails.logger.debug "@payer.errors:  " 
+      Rails.logger.debug  @payer.errors.messages 
+      Rails.logger.debug ""
+      if @payer.errors.size > 1
+        property     =  'Something'
+        error        =  'went wrong'
+      else
+        property =  @payer.errors.messages.keys.first.to_s.capitalize
+        error =     @payer.errors.messages.values.first[0]
+      end
+      redirect_to root_path(:anchor => "teens", :notify => 'confirmation', :status => 'error', :property => property, :error => error, :back_url => params[:merchant_url])
       return        
-    else
-      create_purchase
-      @purchase.require_approval!     
-      @payer.request_confirmation(@consumer) 
-    end   
+    end
+    
+    create_purchase
+    @purchase.require_approval!     
+    @payer.request_confirmation(@consumer) 
 
     redirect_to root_path(:anchor => "teens", :notify => 'confirmation', :status => 'pending', :back_url => params[:merchant_url])
 
@@ -135,12 +143,12 @@ class ConsumerController < ApplicationController
     end   
 
     @payer = @consumer.payer || Payer.find_or_initialize_by_email(facebook_params['registration']['payer_email'])
-    
-
-    @payer.update_attributes(
-          :name => facebook_params['registration']['payer_name'], 
-          :email => facebook_params['registration']['payer_email'], 
-          :phone => facebook_params['registration']['payer_phone'])
+Rails.logger.debug " @payer.encrypted_password.blank? before: " +  @payer.encrypted_password.to_s
+    @payer.password = @payer.temporary_password = Devise.friendly_token.first(6) if @payer.encrypted_password.blank?
+Rails.logger.debug " @payer.encrypted_password.blank? after: " +  @payer.encrypted_password.to_s
+    @payer.name =     facebook_params['registration']['payer_name']
+    @payer.email =    facebook_params['registration']['payer_email'] 
+    @payer.phone =    facebook_params['registration']['payer_phone']
     
     return unless @payer.save
 
@@ -234,7 +242,7 @@ class ConsumerController < ApplicationController
     
     unless status == 'failed'
       notification_status = @purchase.notify_merchant(status, 'buy')
-      if notification_status == "OK" or (notification_status == 'ORDERNOTFOUND' and Paykido::Application.config.listener_can_return_ordernotfound)
+      if notification_status == "OK"
         @response = @purchase.response(status)
       else
         @purchase.notification_failed!
@@ -254,7 +262,7 @@ class ConsumerController < ApplicationController
 
   def correct_hash(params)
     
-    return true unless (Paykido::Application.config.check_hash and params[:mode] != 'M')
+    return true unless (Paykido::Application.config.check_hash and params[:mode] != 'N')
     
     str =
       Paykido::Application.config.return_secret_key +

@@ -85,12 +85,20 @@
 	<div id="confirmation_pending" class="alert alert-block">
 		<a class="close" data-dismiss="alert" href="#">×</a>
 	    <h4 class="alert-heading">Please try again</h4>
-		<span><%= "#{params[:property]} #{params[:value]} is #{params[:type]}. Please try again." %></span>
+		<span><%= "#{params[:property]} #{params[:error]}. Please try again, or call us for assistance." %></span>
 		<% if !params[:back_url].blank? %>
     		<span><%= link_to "Back to website", params[:back_url], :class => "btn btn-info btn-large inline" %></span>
 		<% end %>
 	</div>
 	<% end %>
+	<% if params[:notify] and params[:notify] == 'no_rules_set' %>
+	<div id="general_update" class="alert alert-block">
+		<a class="close" data-dismiss="alert" href="#">×</a>
+	    <h4 class="alert-heading">Old Test Account</h4>
+		<span>This test account was left from the old release and needs to be cancelled. Please contact Paykido for help.</span>
+	</div>
+	<% end %>
+
 
 	<div class="grid_8">
 	    <div class="grid_4 marketial section_title">

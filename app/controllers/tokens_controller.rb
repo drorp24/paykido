@@ -8,7 +8,7 @@ class TokensController < ApplicationController
   # GET /tokens.json
   def index
     @tokens = current_payer.tokens
-    redirect_to new_token_path unless @tokens.any?
+    redirect_to new_token_path(:notify => params[:notify]) unless @tokens.any?
   end
 
 
@@ -22,7 +22,7 @@ class TokensController < ApplicationController
   # GET /tokens/new.json
   def new
     @token = Token.new
-    redirect_to tokens_path if current_payer.tokens.any?
+    redirect_to tokens_path(:notify => params[:notify]) if current_payer.tokens.any?
   end
 
   # GET /tokens/1/edit

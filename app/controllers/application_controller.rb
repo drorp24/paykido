@@ -10,7 +10,9 @@ class ApplicationController < ActionController::Base
 
     Rails.logger.debug("entered after_sign_in_path")  
 
-    if current_payer.consumers.any?
+    if !current_payer.rules.any?   # Temp: old test accounts with no rule templates
+      return root_path(:notify => 'no_rules_set')
+    elsif current_payer.consumers.any?
       consumer = current_payer.consumers.first
       return consumer_statistics_path(consumer, :notify => notify)
     elsif current_payer.registered?

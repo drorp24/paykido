@@ -58,7 +58,7 @@ a.nohover:hover {
     margin-top: -31px;
 }
 
-.transactions, .notifications {
+.transactions, .notifications, .parameters {
     float: right;
 }
 

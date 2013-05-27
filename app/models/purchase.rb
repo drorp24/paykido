@@ -28,6 +28,7 @@ end
 class Purchase < ActiveRecord::Base
 
   serialize :properties               
+  serialize :params               
 
   belongs_to  :consumer
   belongs_to  :payer
@@ -35,6 +36,7 @@ class Purchase < ActiveRecord::Base
   
   has_many    :transactions
   has_many    :notifications
+  has_many    :parameters
   has_many    :payments
   
   scope :pending,   where("authorization_type = ?", 'PendingPayer')
@@ -82,7 +84,7 @@ class Purchase < ActiveRecord::Base
   def self.with_info(payer_id, consumer_id)
 
     if consumer_id
-      Purchase.where("consumer_id = ?", consumer_id).order('created_at DESC').includes(:consumer, :retailer)
+      Purchase.where("payer_id = ? and consumer_id = ?", payer_id, consumer_id).order('created_at DESC').includes(:consumer, :retailer)
     else
       Purchase.where("payer_id = ?", payer_id).order('created_at DESC').includes(:consumer, :retailer)
     end
@@ -294,18 +296,26 @@ class Purchase < ActiveRecord::Base
     
     return "OK" if Paykido::Application.config.environment == 'dev'
 
-    str = Paykido::Application.config.return_secret_key +
-          self.PP_TransactionID.to_s +
-          status +
-          self.amount.to_s +
-          self.currency +
-          ""  +
-          self.id.to_s
-          
-    hash = Digest::MD5.hexdigest(str)          
+    begin
+      str = Paykido::Application.config.return_secret_key +
+            self.PP_TransactionID.to_s +
+            status +
+            self.amount.to_s +
+            self.currency +
+            ""  +
+            self.id.to_s
+            
+      hash = Digest::MD5.hexdigest(str)          
+  
+      Rails.logger.info("About to send_notification with: orderid=#{self.PP_TransactionID}&status=#{status}&amount=#{self.amount.to_s}&currency=#{self.currency}&reason=&purchase_id=#{id.to_s}&checksum=#{hash}") 
+      send_notification(status, hash, event)
+    rescue => e
 
-    Rails.logger.info("About to send_notification with: orderid=#{self.PP_TransactionID}&status=#{status}&amount=#{self.amount.to_s}&currency=#{self.currency}&reason=&purchase_id=#{id.to_s}&checksum=#{hash}") 
-    send_notification(status, hash, event)
+      Rails.logger.info("Notify merchant was rescued. Following is the error:")
+      Rails.logger.info(e)
+      notification_response = e
+      notification_status = e
+    end
 
   end
 
@@ -351,9 +361,16 @@ class Purchase < ActiveRecord::Base
 #        raise "NotificationListener ERROR"
         notification_status = listener_response.parsed_response
       elsif listener_response.parsed_response == "ORDERNOTFOUND"
-        Rails.logger.info("NotificationListener ORDERNOTFOUND raised")
-#        raise "NotificationListener ORDERNOTFOUND"
-        notification_status = listener_response.parsed_response
+        if self.params[:mode] == 'M'
+          Rails.logger.info("ORDERNOTFOUND but called with params[:mode] == 'M")
+          notification_status = "OK"
+        else   
+          Rails.logger.info("NotificationListener ORDERNOTFOUND raised")
+          Rails.logger.info("self.params[:mode] is: " + self.params[:mode])
+          Rails.logger.info("self.id is: " + self.id.to_s)
+   #       raise "NotificationListener ORDERNOTFOUND"
+          notification_status = listener_response.parsed_response
+        end
       else
         Rails.logger.info("Nothing raised. Successfully completed")
         notification_status = "OK"        
@@ -393,7 +410,7 @@ class Purchase < ActiveRecord::Base
    return notification_status
 
   end
-  handle_asynchronously :send_notification if Paykido::Application.config.use_delayed_job
+#  handle_asynchronously :send_notification if Paykido::Application.config.use_delayed_job
   
   def set_rules!(params)
     # implement the rules parent has set while manually approving the purchase

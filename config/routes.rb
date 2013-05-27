@@ -18,6 +18,7 @@ Paykido::Application.routes.draw do
   resources :purchases do
     resources :notifications
     resources :transactions
+    resources :parameters
     member do
       get 'approve', 'decline'
     end
@@ -40,6 +41,7 @@ Paykido::Application.routes.draw do
     resources :purchases do
       resources :transactions
       resources :notifications
+      resources :parameters
     end
     member do
       get   'welcome'

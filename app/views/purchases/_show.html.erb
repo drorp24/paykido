@@ -117,6 +117,7 @@
     <br />
     <p class="transactions_and_notifications">
     	<span class="purchase_id"><%= @purchase.id %></span>
+	    	<span class="parameters"><%= link_to 'Parameters', consumer_purchase_parameters_path(@consumer, @purchase) %></span>
 	    <% if @purchase.transactions.any? %>
 	    	<span class="transactions"><%= link_to 'Transactions', consumer_purchase_transactions_path(@consumer, @purchase) %></span>
 	    <% end %>

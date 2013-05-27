@@ -7,7 +7,7 @@
 	
 	<table>
 		<tbody>
-			<% @notifications.each do |notification| %>
+			<% for notification in @notifications.order("created_at DESC")  %>
 			  <tr>
 			    <td><%= notification.created_at.strftime("%a, %b %d") %></td>
 			    <td><%= notification.created_at.strftime("%I:%M %p") %></td>
