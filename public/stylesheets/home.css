@@ -305,7 +305,7 @@ body#paykido #temp_logo h1 {
 
 #form_box .btn[type="submit"] {
     position: absolute;
-    bottom: 80px;
+    bottom: 40px;
 }
 #rest_of_page .hero-unit:not(.marketial) h1 {
 
