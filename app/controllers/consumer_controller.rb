@@ -218,6 +218,17 @@ Rails.logger.debug " @payer.encrypted_password.blank? after: " +  @payer.encrypt
       return
     end
 
+    unless correct_currency(params)
+      Rails.logger.debug("Wrong checksum")
+      @response                 = {}
+      @response[:status]        =   'failed' 
+      @response[:property]      =   'currency'
+      @response[:value]         =   params[:currency]
+      @response[:type]          =   "different than account currency (#{@payer.currency})"
+      render :layout => false       
+      return      
+    end
+
     create_purchase  
 
     @purchase.authorize!
@@ -259,6 +270,13 @@ Rails.logger.debug " @payer.encrypted_password.blank? after: " +  @payer.encrypt
     
   end
   
+  def correct_currency(params)
+    if currency = @payer.currency
+      params[:currency] == currency
+    else
+      true 
+    end
+  end
 
   def correct_hash(params)
     
