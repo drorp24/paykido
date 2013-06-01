@@ -1,14 +1,14 @@
 <div class="rule_description">
-	<% if rule.value.blank? and rule.supported? and rule.thresholds? %>
+	<% if rule.supported? and rule.thresholds? and rule.initialized? %>
 		<%= "Anything #{(rule.under?) ? (t 'under') : (t 'over')} ..." %>
-	<% elsif rule.value.blank? and rule.supported? %>
+	<% elsif rule.initialized? and rule.supported? %>
 		(Click to set)
-	<% elsif rule.value.blank? and !rule.supported? %>
+	<% elsif rule.initialized? and !rule.supported? %>
 	<% elsif rule.logo %>
 		<img src="<%= "/images/#{rule.logo}" %>" rel="<%= (rule.value_info) ? 'popover' : '' %>" title="<%= (rule.value_info) ? rule.value_info.title : '' %>" data-content="<%= (rule.value_info) ? rule.value_info.description : '' %>" />
 	<% elsif rule.monetary? %>
 		<span>
-			<%= number_to_currency(rule.value.to_i) %>
+			<%= humanized_money_with_symbol rule.amount %>
 		</span>
 		<span>
 			<% if rule.weekly? %>
@@ -20,7 +20,7 @@
 			<% end %>
 		</span>
 	<% elsif rule.thresholds? %>
-		<%= "Anything #{(rule.under?) ? (t 'under') : (t 'over')} #{number_to_currency rule.value.to_i}" %>
+		<%= "Anything #{(rule.under?) ? (t 'under') : (t 'over')} #{humanized_money_with_symbol rule.amount }" %>
 	<% elsif !rule.value.blank? %>
 		<%= rule.value %>
 	<% else %>

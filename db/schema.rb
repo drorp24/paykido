@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130601103919) do
+ActiveRecord::Schema.define(:version => 20130601143928) do
 
   create_table "allowances", :force => true do |t|
     t.integer  "consumer_id"
@@ -142,28 +142,28 @@ ActiveRecord::Schema.define(:version => 20130601103919) do
   end
 
   create_table "purchases", :force => true do |t|
-    t.integer   "payer_id",                                  :null => false
-    t.decimal   "amount",                                    :null => false
-    t.date      "date",                                      :null => false
-    t.timestamp "authorization_date"
-    t.string    "authorization_type"
-    t.timestamp "created_at"
-    t.timestamp "updated_at"
-    t.boolean   "authorized"
-    t.integer   "consumer_id"
-    t.integer   "category_id"
-    t.string    "properties"
-    t.integer   "title_id"
-    t.string    "product"
-    t.string    "title"
-    t.text      "params"
-    t.string    "authorization_property"
-    t.string    "authorization_value"
-    t.integer   "retailer_id"
-    t.integer   "PP_TransactionID"
-    t.string    "currency"
-    t.integer   "price_cents",            :default => 0,     :null => false
-    t.string    "price_currency",         :default => "USD", :null => false
+    t.integer  "payer_id",                               :null => false
+    t.decimal  "amount",                                 :null => false
+    t.date     "date",                                   :null => false
+    t.datetime "authorization_date"
+    t.string   "authorization_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "authorized"
+    t.integer  "consumer_id"
+    t.integer  "category_id"
+    t.string   "properties"
+    t.integer  "title_id"
+    t.string   "product"
+    t.string   "title"
+    t.text     "params"
+    t.string   "authorization_property"
+    t.string   "authorization_value"
+    t.integer  "retailer_id"
+    t.integer  "PP_TransactionID"
+    t.string   "currency"
+    t.integer  "price_cents",            :default => 0
+    t.string   "price_currency",         :default => ""
   end
 
   create_table "retailers", :force => true do |t|
@@ -189,8 +189,8 @@ ActiveRecord::Schema.define(:version => 20130601103919) do
     t.string   "occasion"
     t.string   "donator"
     t.string   "category"
-    t.integer  "amount_cents",    :default => 0,     :null => false
-    t.string   "amount_currency", :default => "USD", :null => false
+    t.integer  "amount_cents",    :default => 0
+    t.string   "amount_currency", :default => ""
   end
 
   create_table "sessions", :force => true do |t|

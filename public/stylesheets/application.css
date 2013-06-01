@@ -18,6 +18,18 @@ body {
     color: #0088CC;
 }    
 
+
+#rule_amount_currency {
+    width: 165px;
+    margin-top: -5px;
+    margin-left: -2px;
+    background-color: transparent;
+    border: none;
+}
+
+#rule_amount {
+    width: 59px;
+}
 a.nohover {
     margin-right: 20px;
 }

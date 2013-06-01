@@ -28,8 +28,9 @@ class Payer < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :phone
 
   def currency
+    return @currency if @currency
     if setting = self.settings.where(:property => "currency").first
-      setting.value
+      @currency = setting.value
     end
   end
   

@@ -19,8 +19,8 @@ class Consumer < ActiveRecord::Base
 
   def under_threshold
     rule = Rule.under_rule_of(self)
-    if rule and !rule.value.blank?
-      rule.value.to_i
+    if rule and !rule.amount.zero?
+      rule.amount
     else
       nil
     end
@@ -28,8 +28,8 @@ class Consumer < ActiveRecord::Base
 
   def over_threshold
     rule = Rule.over_rule_of(self)
-    if rule and !rule.value.blank?
-      rule.value.to_i
+    if rule and !rule.amount.zero?
+      rule.amount
     else
       nil
     end
@@ -67,6 +67,7 @@ class Consumer < ActiveRecord::Base
 ##  Balance
 
   def balance(given_datetime = Time.now)
+    return nil unless self.payer.currency
     @balance ||= self.monetary_sum(given_datetime) - self.purchase_sum(given_datetime)
   end
     
@@ -76,7 +77,7 @@ class Consumer < ActiveRecord::Base
 
     @monetary_sum = 0
     for monetary_rule in self.rules.monetary do 
-      @monetary_sum += monetary_rule.effective_occurrences(given_datetime) * monetary_rule.value.to_i if monetary_rule.schedule
+      @monetary_sum += monetary_rule.amount.amount * monetary_rule.effective_occurrences(given_datetime) if monetary_rule.schedule
     end
 
     @monetary_sum
@@ -90,7 +91,7 @@ class Consumer < ActiveRecord::Base
     @allowance_sum = 0
     for allowance_rule in self.rules.of_allowance do 
       next unless allowance_rule.stopped?
-      @allowance_sum += allowance_rule.effective_occurrences(given_datetime) * allowance_rule.value.to_d if allowance_rule.schedule
+      @allowance_sum += allowance_rule.amount.amount * allowance_rule.effective_occurrences(given_datetime) if allowance_rule.schedule
     end
 
     @allowance_sum

@@ -75,6 +75,7 @@ class RulesController < ApplicationController
         :date => params[:rule][:date],
         :property => params[:rule][:property],
         :value => params[:rule][:value],
+        :amount => params[:rule][:amount],
         :period => params[:rule][:period],
         :occurrence => occurrence) 
     end
@@ -104,6 +105,7 @@ class RulesController < ApplicationController
       :update => 'set',
       :property => params[:rule][:property],
       :value => params[:rule][:value],
+      :amount => params[:rule][:amount],
       :date => params[:rule][:date],
       :donator => params[:rule][:donator],
       :occasion => params[:rule][:occasion]) 

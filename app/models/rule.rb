@@ -39,7 +39,7 @@ class Rule < ActiveRecord::Base
       priority = attributes[:priority]
       if priority && priority < 10
         array[priority] ||= []
-        array[priority] << id
+        array[priority] << {:iso_code => attributes[:iso_code], :name => attributes[:name]}
       end
       array
     end.compact.flatten
@@ -68,6 +68,7 @@ class Rule < ActiveRecord::Base
     rule.consumer_id =      last_allowance_rule.consumer_id,
     rule.property =         last_allowance_rule.property,
     rule.value =            last_allowance_rule.value,
+    rule.amount =           last_allowance_rule.amount,
     rule.status =           last_allowance_rule.status,
     rule.schedule =         last_allowance_rule.schedule,
     rule.occasion =         last_allowance_rule.occasion,
@@ -137,7 +138,11 @@ class Rule < ActiveRecord::Base
   scope :of_allowance,   where("property = ?", "allowance")
   
   def initialized?
-    self.value.blank? or self.value == '0' or self.status == 'reset'
+    if self.monetary? or self.thresholds?
+      self.amount.zero?
+    else
+      self.value.blank? or self.status == 'reset'
+    end
   end
 
   def monetary?
@@ -171,11 +176,10 @@ class Rule < ActiveRecord::Base
 
   def self.allowance
     schedule = IceCube::Schedule.new
-    {:property => 'allowance', :category => "how much", :schedule => schedule, :value => nil}
+    {:property => 'allowance', :category => "how much", :schedule => schedule}
   end
   def self.gift
     {:property => 'gift', :category => "how much"}
-#   {:property => 'gift', :category => "how much", :value => "10", :date => Time.now, :donator => "Paykido", :occasion => "Welcome Gift"}
   end
   def self.birthday
     {:property => 'birthday', :category => "how much"}
@@ -290,11 +294,11 @@ class Rule < ActiveRecord::Base
     unless consumer.payer.rules_require_registration
 
         allowance_rule = allowance_rule_of(consumer)          
-        prev_allowance_sum = consumer.prev_allowance_sum.to_i
+        prev_allowance_sum = consumer.prev_allowance_sum
   
         unless allowance_rule.expired?
           @allowance = 
-          { :amount => val = allowance_rule.value.to_i, 
+          { :amount => amt = allowance_rule.amount.amount, 
             :period => allowance_rule.period,
             :weekly => allowance_rule.weekly?,
             :monthly => allowance_rule.monthly?,
@@ -303,7 +307,7 @@ class Rule < ActiveRecord::Base
             :next_occurrence => allowance_rule.schedule.next_occurrence,
             :start_date => allowance_rule.schedule.start_date,
             :number_of_grants => grants = allowance_rule.effective_occurrences,
-            :so_far_accumulated => grants * val,
+            :so_far_accumulated => grants * amt,
             :prev_allowance_acc => prev_allowance_sum }
         else
           @allowance[:prev_allowance_acc] = prev_allowance_sum 

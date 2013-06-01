@@ -82,6 +82,17 @@ MoneyRails.configure do |config|
      :thousands_separator => ",",
      :decimal_mark        => "."
    }
+   config.register_currency = {
+     :id                  => "aud",
+     :priority            => 11,
+     :iso_code            => "AUD"
+   }
+   config.register_currency = {
+     :id                  => "cad",
+     :priority            => 11,
+     :iso_code            => "CAD"
+   }
+
 
   # Set money formatted output globally.
   # Default value is nil meaning "ignore this option".

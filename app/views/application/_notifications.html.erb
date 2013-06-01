@@ -221,7 +221,7 @@
 	<% if params[:property] == "allowance" %>
 		<span><%= "Allowance set to #{number_to_currency params[:value]} every #{params[:occurrence]}." %></span>
 	<% elsif params[:date] %> 
-		<span><%= "#{number_to_currency params[:value]} granted as of #{l params[:date].to_datetime, :format => :medium} "%></span>
+		<span><%= "#{number_to_currency params[:amount]} granted as of #{l params[:date].to_datetime, :format => :medium} "%></span>
 		<span><%= "on behalf of #{params[:donator]}" if !params[:donator].blank? %></span>
 	<% else %>
     	<span><%= "Rule successfully set!" %></span>
@@ -237,7 +237,7 @@
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading"><%= "Rule #{params[:update]}!" %></h4>    
 	<% if params[:date] %>
-		<span><%= "#{number_to_currency params[:value]} granted as of #{l params[:date].to_datetime, :format => :medium} "%></span>
+		<span><%= "#{number_to_currency params[:amount]} granted as of #{l params[:date].to_datetime, :format => :medium} "%></span>
 		<span><%= "on behalf of #{params[:donator]}" if !params[:donator].blank? %></span>
 	<% else %>
 		<span><%= "Rule was succesfully #{params[:update]}!" %></span>
