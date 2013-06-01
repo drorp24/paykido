@@ -10,10 +10,15 @@
 		<tbody>
 			<% @tokens.each do |token| %>
 			  <tr>
-			    <td><%= token.NameOnCard %></td>
 			    <td>Credit card registered</td>
 			    <td><%= link_to 'Details', token %></td>
 			    <td><%=  button_to 'Cancel registration',  token, confirm: 'This will reset all allowances. Are you sure you want to cancel your registration?', method: :delete, :class => "btn btn-primary inline"  %></td>
+			  </tr>
+			<% end %>
+			<% for setting in current_payer.settings %>
+			  <tr>
+			    <td><%= t setting.property, :scope => :payer_properties  %></td>
+			    <td><%= setting.value %></td>
 			  </tr>
 			<% end %>
 		</tbody>

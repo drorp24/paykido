@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  payer_id: 1
+  property: MyString
+  value: MyString
+
+two:
+  payer_id: 1
+  property: MyString
+  value: MyString

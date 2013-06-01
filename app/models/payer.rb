@@ -9,17 +9,58 @@ class Payer < ActiveRecord::Base
   has_many  :notifications
   has_many  :allowances, :through => :consumers
   has_many  :rules, :through => :consumers
+  has_many  :settings
   
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :token_authenticatable
 
+  after_create :create_default_properties
+  def create_default_properties
+    self.settings.create!(:property => 'language', :value => Paykido::Application.config.default_language)
+    self.settings.create!(:property => 'time_zone', :value => Paykido::Application.config.time_zone)
+  end
+    
   before_save :reset_authentication_token
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :phone
 
+  def currency
+    if setting = self.settings.where(:property => "currency").first
+      setting.value
+    end
+  end
+  
+  def currency=(currency)
+    self.settings.create!(:property => "currency", :value => currency) unless self.currency
+  end
+  
+  def force_currency=(currency)
+    self.settings.where(:property => 'currency').delete_all
+    self.settings.create!(:property => "currency", :value => currency)
+  end  
+
+  def language
+    if setting = self.settings.where(:property => "language").first
+      setting.value
+    end
+  end
+
+  def language=(language)
+    self.settings.create!(:property => "language", :value => language) unless self.language
+  end
+
+  def time_zone
+    if setting = self.settings.where(:property => "time_zone").first
+      setting.value
+    end
+  end
+
+  def time_zone=(time_zone)
+    self.settings.create!(:property => "time_zone", :value => time_zone) unless self.time_zone
+  end
 
 # bypasses Devise's requirement to re-enter current password to edit
   def update_with_password(params={}) 

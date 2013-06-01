@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130523150925) do
+ActiveRecord::Schema.define(:version => 20130601103919) do
 
   create_table "allowances", :force => true do |t|
     t.integer  "consumer_id"
@@ -142,9 +142,9 @@ ActiveRecord::Schema.define(:version => 20130523150925) do
   end
 
   create_table "purchases", :force => true do |t|
-    t.integer   "payer_id",               :null => false
-    t.decimal   "amount",                 :null => false
-    t.date      "date",                   :null => false
+    t.integer   "payer_id",                                  :null => false
+    t.decimal   "amount",                                    :null => false
+    t.date      "date",                                      :null => false
     t.timestamp "authorization_date"
     t.string    "authorization_type"
     t.timestamp "created_at"
@@ -162,6 +162,8 @@ ActiveRecord::Schema.define(:version => 20130523150925) do
     t.integer   "retailer_id"
     t.integer   "PP_TransactionID"
     t.string    "currency"
+    t.integer   "price_cents",            :default => 0,     :null => false
+    t.string    "price_currency",         :default => "USD", :null => false
   end
 
   create_table "retailers", :force => true do |t|
@@ -187,6 +189,8 @@ ActiveRecord::Schema.define(:version => 20130523150925) do
     t.string   "occasion"
     t.string   "donator"
     t.string   "category"
+    t.integer  "amount_cents",    :default => 0,     :null => false
+    t.string   "amount_currency", :default => "USD", :null => false
   end
 
   create_table "sessions", :force => true do |t|
@@ -198,6 +202,14 @@ ActiveRecord::Schema.define(:version => 20130523150925) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
+  create_table "settings", :force => true do |t|
+    t.integer  "payer_id"
+    t.string   "property"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "titles", :force => true do |t|
     t.string    "name"

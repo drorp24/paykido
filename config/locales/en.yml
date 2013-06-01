@@ -2,6 +2,10 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  payer_properties:
+    currency: Currency
+    time_zone: Time Zone
+    language: Language
   page_names:
     tokens: settings
     purchases: purchases

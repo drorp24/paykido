@@ -39,6 +39,8 @@ class Purchase < ActiveRecord::Base
   has_many    :parameters
   has_many    :payments
   
+  monetize :price_cents, :allow_nil => true
+  
   scope :pending,   where("authorization_type = ?", 'PendingPayer')
   scope :approved,  where("authorized = ?", true)
   scope :declined,  where("authorized = ? AND authorization_type != ?", false, "PendingPayer")

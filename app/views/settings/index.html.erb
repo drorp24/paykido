@@ -1,0 +1,23 @@
+<%= render 'primary_navigation' %>
+<%= render 'consumer_navigation' %>
+
+<section id="maincontainer">
+
+	<%= render 'page_head', :page_title => "Account Settings", :backPath => tokens_path %>
+	
+	<table>
+		<tbody>
+			<% for setting in @settings %>
+			  <tr>
+			    <td><%= t setting.property, :scope => :payer_properties  %></td>
+			    <td><%= setting.value %></td>
+			  </tr>
+			<% end %>
+		</tbody>
+	</table>
+	
+	<br />
+
+</section>
+
+<%= render 'notifications' %>

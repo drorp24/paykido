@@ -13,6 +13,8 @@ Paykido::Application.routes.draw do
   resources :tokens
   
   resources :allowances
+  
+  resources :settings
 
 
   resources :purchases do

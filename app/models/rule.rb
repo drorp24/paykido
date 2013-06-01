@@ -3,6 +3,8 @@ class Rule < ActiveRecord::Base
 
   belongs_to  :consumer
 
+  monetize :amount_cents, :allow_nil => true
+
   after_initialize :init
   def init
 
@@ -21,6 +23,34 @@ class Rule < ActiveRecord::Base
     end
 
   end
+
+  #######  CURRENCIES  #########
+
+  def self.major_currencies
+    self.return_major_currencies(Money::Currency.table)
+  end
+  
+  def self.all_currencies
+    self.return_all_currencies(Money::Currency.table)
+  end
+
+  def self.return_major_currencies(hash)
+    hash.inject([]) do |array, (id, attributes)|
+      priority = attributes[:priority]
+      if priority && priority < 10
+        array[priority] ||= []
+        array[priority] << id
+      end
+      array
+    end.compact.flatten
+  end
+  
+  # Returns an array of all currency id
+  def self.return_all_currencies(hash)
+    hash.keys
+  end
+  
+  #######  CURRENCIES  #########
 
   def supported?
       self.property == 'allowance' or self.property == 'gift' or  self.property == 'birthday' or  self.property == 'chores'or  self.property == 'bachievement' or self.property == 'retailer' or  self.property == 'esrb_rating' or self.property == 'pegi_rating' or self.property == 'category' or self.property == 'title' or self.property == 'under' or self.property == 'over'

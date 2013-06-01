@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
 ruby "1.9.3"
+gem 'money-rails'
 gem 'delayed_job_active_record'
 gem 'daemons'
 #gem "delayed_job_web"
