@@ -8,7 +8,8 @@
 	    <% if @rule.monetary? or @rule.thresholds?%>
 		    <div class="input-prepend rule_value_wrapper">
 			    <span class="add-on">
-		    		<%= f.input :amount_currency, :label => false, :input_html => {:class => "", :required => true}, :autofocus => true, :collection => Rule.major_currencies, :label_method => lambda { |currency| currency[:name] }, :value_method => lambda { |currency| currency[:iso_code] }, :selected => Money.default_currency.iso_code, :include_blank => false %>
+			    	<% payer_currency = current_payer.currency %>
+		    		<%= f.input :currency, :readonly => !payer_currency.blank?, :label => false, :input_html => {:class => "", :required => payer_currency.blank?}, :autofocus => true, :collection => Rule.major_currencies, :label_method => lambda { |currency| currency[:name] }, :value_method => lambda { |currency| currency[:iso_code] },  :selected => !payer_currency.blank? ? payer_currency : Money.default_currency.iso_code, :include_blank => false %>
 		    	</span>
 			    <%= f.input :amount, :label => false, :input_html => {:class => 'numeric rule_value', :required => ""}, :autofocus => true %>
 		    </div>

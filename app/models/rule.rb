@@ -69,6 +69,7 @@ class Rule < ActiveRecord::Base
     rule.property =         last_allowance_rule.property,
     rule.value =            last_allowance_rule.value,
     rule.amount =           last_allowance_rule.amount,
+    rule.currency =         last_allowance_rule.currency,
     rule.status =           last_allowance_rule.status,
     rule.schedule =         last_allowance_rule.schedule,
     rule.occasion =         last_allowance_rule.occasion,
@@ -127,7 +128,7 @@ class Rule < ActiveRecord::Base
   def note=(note)
     
   end
-
+  
   ####  Change if needed      ####
   scope :monetary,    where("category = ?", "how much")
   scope :thresholds,  where("category = ?", "thresholds")

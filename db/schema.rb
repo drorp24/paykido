@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130601143928) do
+ActiveRecord::Schema.define(:version => 20130604172357) do
 
   create_table "allowances", :force => true do |t|
     t.integer  "consumer_id"
@@ -191,6 +191,7 @@ ActiveRecord::Schema.define(:version => 20130601143928) do
     t.string   "category"
     t.integer  "amount_cents",    :default => 0
     t.string   "amount_currency", :default => ""
+    t.string   "currency"
   end
 
   create_table "sessions", :force => true do |t|

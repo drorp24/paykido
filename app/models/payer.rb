@@ -25,7 +25,7 @@ class Payer < ActiveRecord::Base
   before_save :reset_authentication_token
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :phone
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :phone, :currency
 
   def currency
     return @currency if @currency
@@ -34,8 +34,22 @@ class Payer < ActiveRecord::Base
     end
   end
   
+  def currency?
+    !self.currency.blank?
+  end
+  
   def currency=(currency)
-    self.settings.create!(:property => "currency", :value => currency) unless self.currency
+
+    return false if self.currency
+    
+    currency_settings = self.settings.where("property = ?", "currency")
+    if currency_settings.any?
+      currency_setting = currency_settings.first
+      currency_setting.update_attributes!(:property => "currency", :value => currency)
+    else
+      self.settings.create!(:property => "currency", :value => currency)     
+    end
+    
   end
   
   def force_currency=(currency)

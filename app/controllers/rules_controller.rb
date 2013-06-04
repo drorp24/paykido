@@ -39,7 +39,8 @@ class RulesController < ApplicationController
     if params[:property] == 'allowance' and params[:consumer_id] and last_allowance_rule = @consumer.allowance_rule 
       @rule = Rule.new_allowance_rule(last_allowance_rule)
     else
-      @rule = Rule.new(:property => params[:property])
+      currency = current_payer.currency? ? current_payer.currency : Money.default_currency.iso_code
+      @rule = Rule.new(:property => params[:property], :consumer_id => @consumer.id, :currency => currency)
     end
   end
 
@@ -56,6 +57,10 @@ class RulesController < ApplicationController
       @rule = Rule.set!(params)
     else
      @rule = Rule.create_new!(params[:rule], params[:id])
+    end
+    
+    unless current_payer.currency?
+      current_payer.currency = params[:rule][:currency] unless params[:rule][:currency].blank?
     end
     
     if params[:purchase_id]
@@ -96,6 +101,10 @@ class RulesController < ApplicationController
       status = 'success'
     else
       status = 'failure'
+    end
+
+    unless current_payer.currency?
+      current_payer.currency = params[:rule][:currency] unless params[:rule][:currency].blank?
     end
 
     redirect_to consumer_statistics_path(

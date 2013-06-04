@@ -1,15 +1,12 @@
 module ApplicationHelper
 
-# refuses to work, tired of trying. 
-
-  def consumer_icon(consumer)
-    
-    if consumer.tinypic
-      raw "<span class='avatar fr'><%= image_tag consumer.tinypic %></span>"
-    else
-      raw "<span class='icon32 user fr'></span>"
-    end
-
+  # Note: This number_to_currency implementation assumes either global default currency or current_payer.currency
+  # For Money class items, that have embedded currency, use Money helper: humanized_money_with_symbol 
+  def number_to_currency(number, options = {})
+    return unless number
+    amount = number.to_d * 100
+    currency = current_payer.currency? ? current_payer.currency : Money.default_currency.iso_code
+    humanized_money_with_symbol Money.new(amount, currency)
   end
 
 end
