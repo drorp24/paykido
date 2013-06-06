@@ -92,6 +92,18 @@ MoneyRails.configure do |config|
      :priority            => 11,
      :iso_code            => "CAD"
    }
+   config.register_currency = {
+     :id                  => "ils",
+     :priority            => 9,
+     :iso_code            => "ILS",
+     :name                => "Israeli New Sheqel",
+     :symbol              => "₪",
+     :symbol_first        => true,
+     :subunit             => "Agora",
+     :subunit_to_unit     => 100,
+     :thousands_separator => ",",
+     :decimal_mark        => "."
+  }
 
 
   # Set money formatted output globally.

@@ -62,7 +62,7 @@
                     <span><%=  purchase.consumer.name  %></span>
                 </p>
             </td>
-            <td class="purchase_price"><%= "#{purchase.amount} #{purchase.currency}" %></td>
+            <td class="purchase_price"><%= humanized_money_with_symbol purchase.price %></td>
         </tr>
                       
     <% end %>

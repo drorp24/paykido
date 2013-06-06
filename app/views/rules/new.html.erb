@@ -1,6 +1,8 @@
+<!--
 <div class="rule header">
     <%= "Set #{t @rule.property, :scope => [:rule, :property]} rule for #{@consumer.name}" %>
 </div>
+-->
 <% if @rule.previous_rule_id %>
 	<div class="rule actions">
 		<p>
@@ -20,6 +22,10 @@
 </div>
 <div class="rule_message_part hero-unit">
 	<% if @rule.info %>
+		<div class="rule_form_heading">			
+			<i class="icon rule_icon <%= @rule.icon %>"></i>
+			<h2 class="rule_form_title"><%= @rule.title %></h2>			
+		</div>
 		<p><%= @rule.description %></p>
 	<% end %>	
 </div>

@@ -97,7 +97,7 @@ class Purchase < ActiveRecord::Base
     self.count{|purchase| purchase.authorization_type == 'PendingPayer'}
   end
 
-  def self.create_new!(payer, consumer, retailer, title, product, amount, currency, transactionID, params)
+  def self.create_new!(payer, consumer, retailer, title, product, price, currency, transactionID, params)
     
     retailer_id = Retailer.find_or_create_by_name(retailer).id
     title_rec =   Title.find_or_create_by_name(title)
@@ -107,7 +107,7 @@ class Purchase < ActiveRecord::Base
                  :retailer_id =>      retailer_id,
                  :title =>            title,    
                  :product =>          product,             
-                 :amount =>           amount,
+                 :price =>            price,
                  :currency =>         currency,
                  :PP_TransactionID => transactionID,
                  :date =>             Time.now,
@@ -142,7 +142,7 @@ class Purchase < ActiveRecord::Base
       "total_amount=" + amount.to_s + "&" +
       "currency=" + self.currency + "&" +
       "item_name_1=" + self.product + "&" +
-      "item_amount_1=" + self.amount.to_s + "&" +
+      "item_amount_1=" + self.price.amount.to_s + "&" +
       "item_quantity_1=" + "1" + "&" +
       "time_stamp=" + time_stamp + "&" +
       "version=" +   Paykido::Application.config.version + "&" +
@@ -174,9 +174,9 @@ class Purchase < ActiveRecord::Base
     str = Paykido::Application.config.secret_key +
           Paykido::Application.config.merchant_id +
           self.currency +
-          self.amount.to_s +
+          self.price.amount.to_s +
           self.product +
-          self.amount.to_s +
+          self.price.amount.to_s +
           "1" +
           time_stamp
           
@@ -208,7 +208,7 @@ class Purchase < ActiveRecord::Base
       :sg_ExpYear => token.ExpYear   || '13',           # ToDo: Temp                
       :sg_TransType => 'Sale' ,
       :sg_Currency  => self.currency ,
-      :sg_Amount  => self.amount ,
+      :sg_Amount  => self.price.amount ,
       :sg_TransactionID => token.TransactionID ,
       :sg_Rebill => "1",
       :sg_FirstName  => token.FirstName ,
@@ -277,7 +277,7 @@ class Purchase < ActiveRecord::Base
       "sg_ExpYear" + token.ExpYear + "&" + 
       "sg_TransType=Sale&" + 
       "sg_Currency=" + self.currency + "&" +
-      "sg_Amount=" + self.amount + "&" +
+      "sg_Amount=" + self.price.amount + "&" +
       "sg_TransactionID" + token.TransactionID + "&" +
       "sg_Rebill=1&" +
       "sg_FirstName=" + token.FirstName + "&" +
@@ -302,14 +302,14 @@ class Purchase < ActiveRecord::Base
       str = Paykido::Application.config.return_secret_key +
             self.PP_TransactionID.to_s +
             status +
-            self.amount.to_s +
+            self.price.amount.to_s +
             self.currency +
             ""  +
             self.id.to_s
             
       hash = Digest::MD5.hexdigest(str)          
   
-      Rails.logger.info("About to send_notification with: orderid=#{self.PP_TransactionID}&status=#{status}&amount=#{self.amount.to_s}&currency=#{self.currency}&reason=&purchase_id=#{id.to_s}&checksum=#{hash}") 
+      Rails.logger.info("About to send_notification with: orderid=#{self.PP_TransactionID}&status=#{status}&amount=#{self.price.amount.to_s}&currency=#{self.currency}&reason=&purchase_id=#{id.to_s}&checksum=#{hash}") 
       send_notification(status, hash, event)
     rescue => e
 
@@ -329,7 +329,7 @@ class Purchase < ActiveRecord::Base
     listener_response  = Listener.get(Paykido::Application.config.listener_path, :query => {
       :orderid  =>  self.PP_TransactionID    ,  
       :status  => status, 
-      :amount  => self.amount,
+      :amount  => self.price.amount,
       :currency  => self.currency , 
       :reason  => '' ,
       :purchase_id => self.id,
@@ -383,7 +383,7 @@ class Purchase < ActiveRecord::Base
       :orderid =>   self.PP_TransactionID.to_s,
       :status  =>   notification_status, 
       :response =>  notification_response,
-      :amount  =>   self.amount,
+      :amount  =>   self.price.amount,
       :currency =>  self.currency , 
       :reason  =>   "code: " + listener_response.code.to_s,
       :checksum  => hash.to_s,
@@ -395,7 +395,7 @@ class Purchase < ActiveRecord::Base
       test_listener_response  = TestListener.get(Paykido::Application.config.test_listener_path, :query => {
         :orderid  =>  self.PP_TransactionID    ,  
         :status  => status, 
-        :amount  => self.amount,
+        :amount  => self.price.amount,
         :currency  => self.currency , 
         :reason  => '' ,
         :purchase_id => self.id,
@@ -456,18 +456,18 @@ class Purchase < ActiveRecord::Base
       self.authorization_property = "Balance"
       self.authorization_value = self.consumer.balance
       self.authorization_type = "insufficient"  
-    elsif self.consumer.balance < self.amount
+    elsif self.consumer.balance < self.price.amount
       self.authorization_property = "Balance"
       self.authorization_value = self.consumer.balance
       self.authorization_type = "insufficient"
-    elsif self.consumer.under_threshold and self.amount <= self.consumer.under_threshold
+    elsif self.consumer.under_threshold and self.price.amount <= self.consumer.under_threshold
       self.authorization_property = "Amount"
-      self.authorization_value = self.amount
+      self.authorization_value = self.price.amount
       self.authorization_type = "Under Threshold"
       self.authorized = true
-    elsif self.consumer.over_threshold and self.amount > self.consumer.over_threshold
+    elsif self.consumer.over_threshold and self.price.amount > self.consumer.over_threshold
       self.authorization_property = "Amount"
-      self.authorization_value = self.amount
+      self.authorization_value = self.price.amount
       self.authorization_type = "Too High"
       
     else

@@ -18,17 +18,35 @@ body {
     color: #0088CC;
 }    
 
-
 #rule_currency {
-    width: 165px;
+    width: 160px;
     margin-top: -5px;
     margin-left: -2px;
     background-color: transparent;
     border: none;
 }
 
+#rule_currency_no_selection {
+
+}
+
+.input-prepend.rule_value_wrapper .add-on {
+/*    background-color: #FFF; */
+    width: 150px;
+}
 #rule_amount {
-    width: 59px;
+    width: 47px;
+}
+
+.rule_form_title {
+    display: inline;
+    vertical-align: middle;
+    text-shadow: 0 1px 0 #FFFFFF;
+    font-size: 24px;
+}
+
+.rule_form_heading {
+    margin-left: -14px;
 }
 a.nohover {
     margin-right: 20px;
@@ -361,7 +379,7 @@ img#parents {
 }
 
 #rule_form {
-    margin-top: 10px;
+    margin-left: 10px;
 }
 
 .ys_kid {
@@ -591,14 +609,17 @@ tr.purchase_line:hover {
     opacity: 0.7;
 }
 
+.rule_form_part, .rule_message_part {
+    margin-top: 30px;
+}
+
 .rule_form_part {
-    margin-top: 0px;
     width: 46%;
     float: left;
 }
 
 .rule_message_part {
-    margin-top: 9px;
+    margin-right: 10px;
     width: 40%;
     float: right;
     height: 105px;
@@ -606,20 +627,20 @@ tr.purchase_line:hover {
 }
 
 .rule_message_part p {
-    font-size: 14px;
+    font-size: 18px;
+    line-height: 30px;
 }
 
 .numeric.rule_value {
-    width: 170px;
     text-align: right;    
 }
 
 #rule_period, #rule_weekly_occurrence, #rule_monthly_occurrence {
-    width: 244px;
+/*    width: 244px; */
 }
 
 #rule_occasion, #rule_donator, #rule_date, #rule_note {
-    width: 234px;
+/*    width: 234px; */
 }
 
 #rule_period, #rule_weekly_occurrence, #rule_monthly_occurrence option {
@@ -1562,7 +1583,8 @@ body#paykido .tooltip.large {
 }
 .rule.actions {
     margin-top: 16px; 
-    font-size: 14px;
+    margin-left: 10px;
+    font-size: 16px;
     width: 100%; 
     float: left;     
 }
@@ -1582,6 +1604,7 @@ body#paykido .tooltip.large {
     font-size: 18px;
     font-weight: bold;
     color: #4C82B3;
+    margin-left: 10px;
  
 }
 

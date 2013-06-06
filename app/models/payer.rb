@@ -40,13 +40,12 @@ class Payer < ActiveRecord::Base
   
   def currency=(currency)
 
-    return false if self.currency
-    
+    return false if self.currency?
     currency_settings = self.settings.where("property = ?", "currency")
     if currency_settings.any?
       currency_setting = currency_settings.first
       currency_setting.update_attributes!(:property => "currency", :value => currency)
-    else
+   else
       self.settings.create!(:property => "currency", :value => currency)     
     end
     

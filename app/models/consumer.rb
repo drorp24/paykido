@@ -106,9 +106,9 @@ class Consumer < ActiveRecord::Base
     start_datetime = self.payer.registration_date
 
     if given_datetime
-      @purchase_sum = self.purchases.approved.where("created_at > ? and created_at <= ?", start_datetime, given_datetime).sum("amount")
+      @purchase_sum = self.purchases.approved.where("created_at > ? and created_at <= ?", start_datetime, given_datetime).sum("price_cents") / 100
     else
-      @purchase_sum = self.purchases.approved.sum("amount")
+      @purchase_sum = self.purchases.approved.sum("price_cents") / 100
     end
 
   end

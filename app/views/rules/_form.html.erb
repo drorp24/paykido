@@ -8,8 +8,11 @@
 	    <% if @rule.monetary? or @rule.thresholds?%>
 		    <div class="input-prepend rule_value_wrapper">
 			    <span class="add-on">
-			    	<% payer_currency = current_payer.currency %>
-		    		<%= f.input :currency, :readonly => !payer_currency.blank?, :label => false, :input_html => {:class => "", :required => payer_currency.blank?}, :autofocus => true, :collection => Rule.major_currencies, :label_method => lambda { |currency| currency[:name] }, :value_method => lambda { |currency| currency[:iso_code] },  :selected => !payer_currency.blank? ? payer_currency : Money.default_currency.iso_code, :include_blank => false %>
+			    	<% if current_payer.currency? %>
+			    		<span id="rule_currency_no_selection"><%= Money::Currency.new(current_payer.currency).name %></span>
+			    	<% else %>
+		    			<%= f.input :currency, :label => false, :input_html => {:class => "", :required => true}, :autofocus => true, :collection => Rule.major_currencies, :label_method => lambda { |currency| currency[:name] }, :value_method => lambda { |currency| currency[:iso_code] }, :selected => Money.default_currency.iso_code %>
+					<% end %>
 		    	</span>
 			    <%= f.input :amount, :label => false, :input_html => {:class => 'numeric rule_value', :required => ""}, :autofocus => true %>
 		    </div>
@@ -33,6 +36,12 @@
 
 <script>
 $(document).ready(function () {
+
+	$('#rule_currency').popover({
+		title: "Mind your currency", 
+		content: "You are setting your account currency for the first and last time", 
+		placement: 'top', 
+		})
 
 	var date = new Date();
 	date.setDate(date.getDate() - 1)

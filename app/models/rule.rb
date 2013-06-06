@@ -39,7 +39,7 @@ class Rule < ActiveRecord::Base
       priority = attributes[:priority]
       if priority && priority < 10
         array[priority] ||= []
-        array[priority] << {:iso_code => attributes[:iso_code], :name => attributes[:name]}
+        array[priority] << {:iso_code => attributes[:iso_code], :symbol => attributes[:symbol], :name => attributes[:name]}
       end
       array
     end.compact.flatten

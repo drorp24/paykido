@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130604172357) do
+ActiveRecord::Schema.define(:version => 20130604204740) do
 
   create_table "allowances", :force => true do |t|
     t.integer  "consumer_id"
@@ -143,7 +143,7 @@ ActiveRecord::Schema.define(:version => 20130604172357) do
 
   create_table "purchases", :force => true do |t|
     t.integer  "payer_id",                               :null => false
-    t.decimal  "amount",                                 :null => false
+    t.decimal  "amount"
     t.date     "date",                                   :null => false
     t.datetime "authorization_date"
     t.string   "authorization_type"
