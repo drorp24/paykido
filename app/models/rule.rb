@@ -23,7 +23,7 @@ class Rule < ActiveRecord::Base
     end
 
   end
-
+  
   #######  CURRENCIES  #########
 
   def self.major_currencies

@@ -20,7 +20,7 @@ class Consumer < ActiveRecord::Base
   def under_threshold
     rule = Rule.under_rule_of(self)
     if rule and !rule.amount.zero?
-      rule.amount
+      rule.amount.amount
     else
       nil
     end
@@ -29,7 +29,7 @@ class Consumer < ActiveRecord::Base
   def over_threshold
     rule = Rule.over_rule_of(self)
     if rule and !rule.amount.zero?
-      rule.amount
+      rule.amount.amount
     else
       nil
     end
