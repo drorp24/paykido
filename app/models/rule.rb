@@ -236,7 +236,7 @@ class Rule < ActiveRecord::Base
     consumer.rules.create!(self.achievement)
     consumer.rules.create!(self.retailer(params[:merchant]))
     consumer.rules.create!(self.title(params[:app]))
-    consumer.rules.create!(self.category(Title.category(params[:app])))
+#    consumer.rules.create!(self.category(Title.category(params[:app])))
 #    consumer.rules.create!(self.pegi_rating(Title.pegi_rating(params[:app])))     # simply to not create too much template rules
 #    consumer.rules.create!(self.esrb_rating(Title.esrb_rating(params[:app])))
     consumer.rules.create!(self.time1)

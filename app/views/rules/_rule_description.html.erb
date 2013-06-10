@@ -1,11 +1,11 @@
 <div class="rule_description">
 	<% if rule.supported? and rule.thresholds? and rule.initialized? %>
 		<%= "Anything #{(rule.under?) ? (t 'under') : (t 'over')} ..." %>
+	<% elsif rule.logo %>
+		<img src="<%= "/images/#{rule.logo}" %>" rel="<%= (rule.value_info) ? 'popover' : '' %>" title="<%= (rule.value_info) ? rule.value_info.title : '' %>" data-content="<%= (rule.value_info) ? rule.value_info.description : '' %>" />
 	<% elsif rule.initialized? and rule.supported? %>
 		(Click to set)
 	<% elsif rule.initialized? and !rule.supported? %>
-	<% elsif rule.logo %>
-		<img src="<%= "/images/#{rule.logo}" %>" rel="<%= (rule.value_info) ? 'popover' : '' %>" title="<%= (rule.value_info) ? rule.value_info.title : '' %>" data-content="<%= (rule.value_info) ? rule.value_info.description : '' %>" />
 	<% elsif rule.monetary? %>
 		<span>
 			<%= humanized_money_with_symbol rule.amount %>
