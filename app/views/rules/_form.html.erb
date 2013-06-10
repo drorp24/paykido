@@ -10,6 +10,7 @@
 			    <span class="add-on">
 			    	<% if current_payer.currency? %>
 			    		<span id="rule_currency_no_selection"><%= Money::Currency.new(current_payer.currency).name %></span>
+    					<%= f.hidden_field :currency, :value => current_payer.currency %>
 			    	<% else %>
 		    			<%= f.input :currency, :label => false, :input_html => {:class => "", :required => true}, :autofocus => true, :collection => Rule.major_currencies, :label_method => lambda { |currency| currency[:name] }, :value_method => lambda { |currency| currency[:iso_code] }, :selected => Money.default_currency.iso_code %>
 					<% end %>

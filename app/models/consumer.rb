@@ -76,7 +76,8 @@ class Consumer < ActiveRecord::Base
     return @monetary_sum if @monetary_sum
 
     @monetary_sum = 0
-    for monetary_rule in self.rules.monetary do 
+    for monetary_rule in self.rules.monetary do
+      next if monetary_rule.amount.nil?
       @monetary_sum += monetary_rule.amount.amount * monetary_rule.effective_occurrences(given_datetime) if monetary_rule.schedule
     end
 

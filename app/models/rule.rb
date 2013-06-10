@@ -24,6 +24,11 @@ class Rule < ActiveRecord::Base
 
   end
   
+  before_create :populate_nil_amount
+  def populate_nil_amount
+    self.amount = nil
+  end
+  
   #######  CURRENCIES  #########
 
   def self.major_currencies
@@ -140,7 +145,7 @@ class Rule < ActiveRecord::Base
   
   def initialized?
     if self.monetary? or self.thresholds?
-      self.amount.zero?
+      self.amount.nil? or self.amount.zero?
     else
       self.value.blank? or self.status == 'reset'
     end
@@ -279,6 +284,8 @@ class Rule < ActiveRecord::Base
   # ToDo: DELETE. Use only the rule object, dont create a special hash, just reducndant.
   def self.allowance_of(consumer)
 
+    return @allowance if @allowance
+    
     @allowance = 
     { :amount => 0, 
       :period => "",
@@ -299,7 +306,7 @@ class Rule < ActiveRecord::Base
   
         unless allowance_rule.expired?
           @allowance = 
-          { :amount => amt = allowance_rule.amount.amount, 
+          { :amount => amt = allowance_rule.amount.nil? ? 0 : allowance_rule.amount.amount, 
             :period => allowance_rule.period,
             :weekly => allowance_rule.weekly?,
             :monthly => allowance_rule.monthly?,
@@ -308,7 +315,7 @@ class Rule < ActiveRecord::Base
             :next_occurrence => allowance_rule.schedule.next_occurrence,
             :start_date => allowance_rule.schedule.start_date,
             :number_of_grants => grants = allowance_rule.effective_occurrences,
-            :so_far_accumulated => grants * amt,
+            :so_far_accumulated => amt.nil? ? 0 : grants * amt,
             :prev_allowance_acc => prev_allowance_sum }
         else
           @allowance[:prev_allowance_acc] = prev_allowance_sum 
