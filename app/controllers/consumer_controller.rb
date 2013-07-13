@@ -87,6 +87,9 @@ class ConsumerController < ApplicationController
   end  
   
   def required(params)
+    if params[:app].blank? and !params[:merchant].blank?
+      params[:app] = params[:merchant]
+    end
     if !params[:amount].blank? && !params[:merchant].blank? && !params[:product].blank? && !params[:currency].blank? && !params[:mode].blank? && !params[:PP_TransactionID].blank? && !params[:referrer].blank?
       return true
     else
