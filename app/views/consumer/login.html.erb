@@ -168,11 +168,11 @@
 <div class="modal-footer">
 
 	<div class="unknown" style="display: none">
-		<span id="login_button" class="text">
+		<span  >
 			<fb:login-button size="large"></fb:login-button>
  		</span>
 
-		<a href="#" class="btn" data-dismiss="modal">Close</a>
+		<a id="close_button" href="#" class="btn" data-dismiss="modal">Close</a>
 	</div>
 	
 	<div class="unconfirmed" style="display: none">
@@ -344,6 +344,7 @@ $(document).ready(function (){
 		$('.unknown').show();
 		$('.unconfirmed').hide();
 		$('.registering').hide();
+		$('.help').hide();	
 		$('.confirmed').hide();
 	   	FB.XFBML.parse(); 
 	}
