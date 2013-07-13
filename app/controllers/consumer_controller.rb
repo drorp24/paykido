@@ -270,7 +270,7 @@ Rails.logger.debug " @payer.encrypted_password.blank? after: " +  @payer.encrypt
     str =
       Paykido::Application.config.return_secret_key +
       params[:merchant] +
-      (params[:app] || "") +
+#      (params[:app] || "") +
       params[:product] +
       params[:amount] +
       params[:currency] +
