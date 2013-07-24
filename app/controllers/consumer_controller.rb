@@ -243,7 +243,13 @@ Rails.logger.debug " @payer.encrypted_password.blank? after: " +  @payer.encrypt
       status = 'unknown' 
     end
     
-    unless status == 'failed'
+    if status == 'failed'
+        @response                 = {}
+        @response[:status]        =   'failed' 
+        @response[:property]      =   'Token'
+        @response[:value]         =   ""
+        @response[:type]          =   'not accepted by Payment vendor'
+    else
       notification_status = @purchase.notify_merchant(status, 'buy')
       if notification_status == "OK"
         @response = @purchase.response(status)

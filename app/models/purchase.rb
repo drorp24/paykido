@@ -243,7 +243,7 @@ class Purchase < ActiveRecord::Base
       :Reason => response["Reason"],
       :ExErrCode => response["ExErrCode"],
       :ErrCode => response["ErrCode"],
-      :token => response["Token"]
+      :token => token.CCToken
     )                                                      
 
     @paid_by_token = response["Status"] == 'APPROVED'

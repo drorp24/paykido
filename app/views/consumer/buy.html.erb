@@ -5,7 +5,7 @@
         'property':     '<%= @response[:property] %>',
         'value':        '<%= @response[:value] %>',
         'type':       	'<%= @response[:type] %>',
-        'message':   	'<%= @response[:message] %>',
+        'message':   	'<%= @response[:message] || @response [:property] + " " + @response[:value] + " is " + @response[:type] %>',
         'orderid':   	'<%= @response[:orderid] %>',
         'purchase_id':  '<%= @response[:purchase_id] %>',
         'checksum':   	'<%= @response[:checksum] %>'
