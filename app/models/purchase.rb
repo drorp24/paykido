@@ -528,9 +528,9 @@ class Purchase < ActiveRecord::Base
 
     self.update_attributes!(
       :authorized => false,
-      :authorization_property => 'Payment by Token',
+      :authorization_property => 'Token',
       :authorization_value => 'failed',
-      :authorization_type => ((last_transaction) ? last_transaction.Reason : 'other'),
+      :authorization_type => 'PendingPayer',
       :authorization_date => Time.now)       
   end
   

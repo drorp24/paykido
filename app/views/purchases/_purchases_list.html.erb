@@ -35,6 +35,8 @@
             <% if purchase.requires_approval? %>
             	<% if purchase.authorization_value == 'failed' and purchase.authorization_property == 'Notification' %>
                 	<i class="bigicon-hazard" data-placement="right" title="Merchant notification failed. Please call us for assistance."></i>
+            	<% elsif purchase.authorization_value == 'failed' and purchase.authorization_property == 'Token' %>
+                	<i class="bigicon-hazard" data-placement="right" title="Payment vendor did not accept transaction. Please call us for assistance."></i>
             	<% else %>
                 	<i class="bigicon-thumbs-right" data-placement="right" title="Referred to you for manual approval"></i>
                 <% end %>
