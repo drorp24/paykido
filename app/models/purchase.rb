@@ -235,12 +235,14 @@ class Purchase < ActiveRecord::Base
    
     response = token_response.parsed_response["Response"]
  
+    reason = response["ReasonCodes"]["Reason"]["__content__"] if response["ReasonCodes"] and response["ReasonCodes"]["Reason"] and response["ReasonCodes"]["Reason"]["__content__"]
+
     self.transactions.create!( 
       :trx_type => 'Token',
       :TransactionID => response["TransactionID"],
       :status => response["Status"],
       :AuthCode => response["AuthCode"],
-      :Reason => response["Reason"],
+      :Reason => reason,
       :ExErrCode => response["ExErrCode"],
       :ErrCode => response["ErrCode"],
       :token => token.CCToken
