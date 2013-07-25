@@ -23,7 +23,7 @@ class Rule < ActiveRecord::Base
   end
   
   def initialize_rule
-    self.update_attributes!(:value => "0")
+    self.update_attributes!(:value => nil)
   end
   
   def remove
