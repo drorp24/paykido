@@ -153,7 +153,7 @@ class RulesController < ApplicationController
   def destroy
     @rule = Rule.find(params[:id])
     consumer = @rule.consumer
-    @rule.destroy
+    @rule.remove
 
     redirect_to consumer_rules_path(
       consumer.id,

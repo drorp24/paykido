@@ -21,6 +21,18 @@ class Rule < ActiveRecord::Base
     end
 
   end
+  
+  def initialize
+    self.update_attributes!(:value => "0")
+  end
+  
+  def remove
+    if self.category == 'thresholds'
+      self.initialize
+    else
+      self.destroy
+    end
+  end
 
   def supported?
       self.property == 'allowance' or self.property == 'gift' or  self.property == 'birthday' or  self.property == 'chores'or  self.property == 'bachievement' or self.property == 'retailer' or  self.property == 'esrb_rating' or self.property == 'pegi_rating' or self.property == 'category' or self.property == 'title' or self.property == 'under' or self.property == 'over'
