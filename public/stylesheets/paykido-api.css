@@ -13,6 +13,14 @@ body, #returnedMessage {
     height: 10px;
 }
 
+.modal-footer .unknown {
+    position: relative;
+    top: -10px;
+}
+
+#buy_button {
+    margin-right: 15px;
+}
 .hero-unit {
   padding: 60px;
   margin-bottom: 30px;
@@ -219,7 +227,7 @@ body .modal-body {
 */
     position: relative;
     right: 15px;
-    top: 5px;
+    top: 9px;
 }
 
 .modal-header h3 {
