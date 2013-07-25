@@ -22,13 +22,13 @@ class Rule < ActiveRecord::Base
 
   end
   
-  def initialize
+  def initialize_rule
     self.update_attributes!(:value => "0")
   end
   
   def remove
     if self.category == 'thresholds'
-      self.initialize
+      self.initialize_rule
     else
       self.destroy
     end
