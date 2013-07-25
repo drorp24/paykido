@@ -14,10 +14,10 @@ body, #returnedMessage {
 }
 
 .modal-footer .unknown {
-    margin-top: -16px;
+    margin-top: -19px;
 }
 .modal-footer .confirmed {
-    margin-top: -8px;
+    margin-top: -11px;
 }
 #buy_button {
     margin-right: 15px;
