@@ -169,10 +169,10 @@
 
 	<div class="unknown" style="display: none">
 		<span id="login_button" class="text">
-			<fb:login-button size="medium"></fb:login-button>
+			<fb:login-button size="large"></fb:login-button>
  		</span>
 
-		<a href="#" class="btn" data-dismiss="modal">Close</a>
+		<a href="#" class="btn btn-large" data-dismiss="modal">Close</a>
 	</div>
 	
 	<div class="unconfirmed" style="display: none">
@@ -199,10 +199,10 @@
 										 :hash		=> params[:hash],
 										 :referrer	=> params[:referrer] 
 										 }, :html => {:id => "buy_form"} do |f| %>
-			<%= submit_tag "Buy", :class => "buy btn btn-primary", :id => "buy_button" %>
+			<%= submit_tag "Buy", :class => "buy btn btn-primary btn-large", :id => "buy_button" %>
 		<% end %>
 	
-		<a href="#" class="btn" data-dismiss="modal">Close</a>
+		<a href="#" class="btn btn-large" data-dismiss="modal">Close</a>
 	</div>
 	
 </div>

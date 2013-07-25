@@ -14,12 +14,18 @@ body, #returnedMessage {
 }
 
 .modal-footer .unknown {
-    position: relative;
-    top: -10px;
+    margin-top: -16px;
 }
-
+.modal-footer .confirmed {
+    margin-top: -8px;
+}
 #buy_button {
     margin-right: 15px;
+}
+
+.modal-footer .btn {
+    margin-bottom: 16px;
+    
 }
 .hero-unit {
   padding: 60px;
