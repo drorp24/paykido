@@ -52,12 +52,12 @@ class G2sController < ApplicationController
           Sms.notify_consumer(consumer, 'registration', 'done') if consumer
         end
 
-        pending = current_payer.purchases.pending
+        pending = @payer.purchases.pending
         if pending.any?
           purchase = pending.first
           redirect_to purchase_path(purchase.id, :activity => 'approval', :notify => 'registration', :status => params[:status])
         else
-          consumer = current_payer.consumers.first
+          consumer = @payer.consumers.first
           redirect_to consumer_rules_url(:consumer_id => consumer.id, :notify => 'registration', :status => params[:status])
         end
 
