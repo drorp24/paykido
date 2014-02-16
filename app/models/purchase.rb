@@ -296,7 +296,7 @@ class Purchase < ActiveRecord::Base
   
   def notify_merchant(status, event)
     
-    return "OK" if Paykido::Application.config.environment == 'dev'
+    return "OK" if Paykido::Application.config.skip_g2s
 
     begin
       str = Paykido::Application.config.return_secret_key +
