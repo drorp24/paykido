@@ -143,10 +143,11 @@
 	<% rule_exists = purchase.consumer.whitelisted?('retailer', retailer) or purchase.consumer.blacklisted?('retailer', retailer) %>
 	<% times = purchase.approval_counter('retailer') unless rule_exists %>
     <% if !rule_exists and times >= Paykido::Application.config.offer_rule_or_registration_after.to_i %>
-    	<h4 class="alert-heading"><%= "Would you like Paykido to always approve purchases from #{retailer}?" %></h4>
+    	<h4 class="alert-heading"><%= "How about letting Paykido do that for you?" %></h4>
     	<span><%= "You approved #{retailer} #{pluralize(times, 'time')} already." %></span>
     	<% if current_payer.registered_or_waived %>
-    		<span>Like to let Paykido approve this merchant for you next times?</span>
+    		<span>Paykido can <bold>approve and pay</bold>on your behalf when merchant is </span>
+    		<span><%= retaile} %></span>
     		<span><%= button_to "Always approve #{retailer}", rules_path(:payer_id => current_payer.id, :consumer_id => purchase.consumer_id, :property => 'retailer', :value => retailer, :rule_status => 'whitelisted', :purchase_id => purchase.id), :method => :post, :class => "btn btn-info inline rule_set" %></span>
 		<% else %>
     		<span><%= "Register and have Paykido do that for you going forward!" %></span>
