@@ -58,7 +58,7 @@ gem 'rack-pjax'
 
 
 # Deploy with Capistrano
- gem 'capistrano'
+ gem 'capistrano', '~> 2.15'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
