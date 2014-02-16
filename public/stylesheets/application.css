@@ -922,6 +922,11 @@ button#decline {
     margin-top: -10px;
 }
 
+.alert.alert-block .alert-heading.new {
+    color: #49AFCD;
+    font-size: 24px;
+}
+
 .fieldWithErrors {
   display: inline;
 }
