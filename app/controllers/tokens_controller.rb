@@ -32,7 +32,7 @@ class TokensController < ApplicationController
   
   def create
 
-    if Paykido::Application.config.environment == 'beta'
+    unless Paykido::Application.config.skip_g2s
       redirect_to current_payer.g2spp(params)
     else
       current_payer.tokens.create!(:CCToken => "DummyToken")
