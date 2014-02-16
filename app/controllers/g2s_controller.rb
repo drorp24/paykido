@@ -12,7 +12,7 @@ class G2sController < ApplicationController
       @purchase = Purchase.find(params[:customField3].to_i)
 
       # remove in production
-      if Paykido::Application.config.skip_g2s
+      if Paykido::Application.config.ignore_g2s_status
         params[:ppp_status] = 'OK'
         params[:status] = 'success'
         params[:ErrCode] = '0'

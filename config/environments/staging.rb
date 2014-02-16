@@ -19,6 +19,7 @@ Paykido::Application.configure do
   config.offer_rule_or_registration_after = 1
 
   # G2S Integration
+  config.ignore_g2s_status = true # change to false in production (redirects to g2s but completely ignores return status)
   config.skip_g2s = true   # change to false in production (skips payer redirection to g2s page, and payment if registered already)
   config.g2spp = 'http://91.220.189.4/lilippp/purchase.do'
   config.use_test_listener = true
