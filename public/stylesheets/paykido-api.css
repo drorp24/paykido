@@ -24,7 +24,7 @@ body, #returnedMessage {
 }
 
 .modal-footer .btn {
-    margin-bottom: 16px;
+    margin-bottom: -2px;
     
 }
 .hero-unit {
