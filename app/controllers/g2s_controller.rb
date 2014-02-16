@@ -56,7 +56,7 @@ class G2sController < ApplicationController
         # A temporary token is created immediately after PPP and consumer notified here, to enable kid to buy instantly
         if params[:ppp_status] == 'OK' and params[:Status] == 'APPROVED'
           @payer.create_temporary_token!(params)
-          consumer = @payer.consumers.first
+          consumer = @payer.consumers.last
           Sms.notify_consumer(consumer, 'registration', 'done') if consumer
         end
 
@@ -65,7 +65,7 @@ class G2sController < ApplicationController
           purchase = pending.first
           redirect_to purchase_path(purchase.id, :activity => 'approval', :notify => 'registration', :status => params[:status])
         else
-          consumer = @payer.consumers.first
+          consumer = @payer.consumers.last
           redirect_to consumer_rules_url(:consumer_id => consumer.id, :notify => 'registration', :status => params[:status])
         end
 
