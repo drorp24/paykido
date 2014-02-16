@@ -81,6 +81,7 @@
 	<a class="close" data-dismiss="alert" href="#">×</a>
     <h4 class="alert-heading">Registration Complete!</h4>
     <span><%= "You can now have Paykido block bad purchases for you and pay on your behalf. Start by setting #{@consumer.name}'s allowance." %></span>
+	<span><%= link_to "Set allowance", consumer_rules_path(@consumer.id), :class => "btn btn-info inline", 'data-skip-pjax' => true %></span>
 </div>
 <% end %>
 
