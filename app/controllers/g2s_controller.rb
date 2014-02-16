@@ -11,7 +11,7 @@ class G2sController < ApplicationController
 
       @purchase = Purchase.find(params[:customField3].to_i)
 
-      if params[:ppp_status] == 'OK' and @purchase
+      if (params[:ppp_status] == 'OK' and @purchase) or Paykido::Application.config.skip_g2s
         @purchase.approve!
         if @purchase.approved?
           notification_status = @purchase.notify_merchant('approved', 'buy')
