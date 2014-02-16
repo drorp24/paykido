@@ -271,7 +271,7 @@ Rails.logger.debug " @payer.encrypted_password.blank? after: " +  @payer.encrypt
 
   def correct_hash(params)
     
-    return true unless (Paykido::Application.config.check_hash and params[:mode] != 'N')
+    return true unless Paykido::Application.config.check_hash
     
     str =
       Paykido::Application.config.return_secret_key +
