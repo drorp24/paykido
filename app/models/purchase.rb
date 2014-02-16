@@ -185,7 +185,7 @@ class Purchase < ActiveRecord::Base
     # call the token interface here with payer's saved Token and TransactionID (token)
 
     return false unless self.payer.registered?  
-    unless Paykido::Application.config.environment == 'beta'
+    if Paykido::Application.config.skip_g2s
       @paid_by_token = true
       return true
     end  

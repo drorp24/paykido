@@ -1,3 +1,4 @@
+  config.skip_g2s = true   # change to false in production (skips payer redirection to g2s page, and payment if registered already)
 Paykido::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -19,6 +20,7 @@ Paykido::Application.configure do
   config.offer_rule_or_registration_after = 1
 
   # G2S Integration
+  config.skip_g2s = true   # change to false in production (skips payer redirection to g2s page, and payment if registered already)
   config.g2spp = 'http://91.220.189.4/lilippp/purchase.do'
   config.use_test_listener = true
   config.test_listener_base_uri = 'http://paykido-testing.herokuapp.com'
