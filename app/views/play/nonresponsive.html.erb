@@ -1,0 +1,220 @@
+<!--  THIS IS  FAKE CHECKOUT PAGE -->
+
+<div id="merchant_notification" class="alert alert-block alert-success" style="display:none">
+    <h4 id="notification_title" class="alert-heading"></h4>
+    <p id="notification_text"></p>
+    <p id="notification_text1"></p>
+</div>
+
+<%= image_tag "/images/farmville1.png", :id => "farmville1" %>
+<%= image_tag "/images/farmville21.png", :id => "farmville2" %>
+<p id="environment"><%= Paykido::Application.config.environment %></p>
+
+<%= form_tag "some_path",  :id => "product_form" do %>
+	<div id="selection">
+		<%= radio_button_tag("product", "30.00", false, :class=> "option", :id=>"a") %>
+		<%= radio_button_tag("product", "24.00", false, :class=> "option", :id=>"b") %>
+		<%= radio_button_tag("product", "12.00", false, :class=> "option", :id=>"c") %>
+		<%= radio_button_tag("product", "6.00", false, :class=> "option", 	:id=>"d", :checked=>"checked") %>
+		<%= radio_button_tag("product", "3.00", false, :class=> "option", 	:id=>"e") %>		
+	</div>
+<% end %>
+
+<a href="#paykido" data-toggle="modal"> 
+	<img src="/images/paykido_button.png" id="paykido_button1" alt="paykido"/>
+</a>
+
+<div class="modal hide" id="paykido">
+	
+	<iframe scrolling="no" id="iframe" src="<%= request.protocol + Paykido::Application.config.hostname %>/consumer/login?
+		merchant=Zynga&
+		app=farmville&
+		product=Farm%20Cash&
+		amount=6.00&
+		currency=EUR&
+		userid=131827&
+		mode=M&
+		PP_TransactionID=12345&
+		hash=7dfe156303ff34a0546d1de774d440d5&
+		merchant_url=<%= request.protocol + Paykido::Application.config.hostname + '/play' %>&
+		referrer=<%= request.protocol + Paykido::Application.config.hostname %>/play">
+	</iframe>	
+
+</div>
+
+<div id="returnedMessage" style="display: none">
+	<div class="modal-header">
+		<i class="bigicon-thumbs-up status_icon"></i>
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3 id="return_status"></h3>
+	</div>
+	<div class="modal-body">
+		<p id="space"></p>
+		<p class="error" style="display: none">Oops...</p>
+		<p class="error" style="display: none">You have previously specified</p>
+		<p class="error" style="display: none">a different email for your parent</p>
+		<p class="error" style="display: none">Please try again</p>
+		<p class="wrong_params" style="display: none">Wrong parameters!</p>
+		<p class="wrong_params" style="display: none">Please fix and try again</p>
+		<p class="registering" style="display: none">Almost there...</p>
+		<p class="registering" style="display: none">Confirmation email sent.</p>
+		<p class="registering" style="display: none">Let your parent know!</p>
+		<p class="approved_purchase" style="display: none">Hurra!</p>
+		<p class="approved_purchase" style="display: none">Your purchase is approved.</p>
+		<p class="approved_purchase" style="display: none">The item is yours!</p>
+		<p class="declined_purchase" style="display: none">We are sorry.</p>
+		<p class="declined_purchase" style="display: none">Your purchase is declined.</p>
+		<p class="declined_purchase" style="display: none">
+			<span class="value" id="property"></span>
+			<span class="value" id="value"></span>
+			<span> is </span>
+			<span class="value" id="type"></span>
+		</p>
+		<p class="pending_purchase" style="display: none">Hold on...</p>
+		<p class="pending_purchase" style="display: none">Parental approval is required.</p>
+		<p class="pending_purchase" style="display: none">You will get a text message </p>
+		<p class="pending_purchase" style="display: none">once your parent approves.</p>
+		<p class="failed_purchase" style="display: none">Something went wrong.</p>
+		<p class="failed_purchase" style="display: none">
+			<span class="value" id="property"></span>
+			<span class="value" id="value"></span>
+			<span> is </span>
+			<span class="value" id="type"></span>.
+		</p>
+		<%= image_tag "yellowshirt_kid.png", :class => "ys_kid" %>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal">Close</a>
+	</div>
+</div>
+
+<div id="spinner_area"><%= image_tag "ajax-loader.gif", :style => "display: none" %></div>
+<script type="text/javascript">
+
+$(document).ready(function () {
+
+	$.urlParam = function(name){
+	    var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+	    return results[1] || 0;
+	}
+	
+/*
+	$('#paykido_button').on("click", (function() {
+		if ($('#returnedMessage').css('display') == 'block') {
+			alert('yes it is populated')
+			alert("paykido html at the beginning: " + $('#paykido').html())
+
+			$('#returnedMessage').remove();
+			alert("paykido html after removal of returnedMessage: " + $('#paykido').html())
+
+			$('#iframe').attr('src', $('#iframe').attr('src'));
+			alert("paykido html after hack: " + $('#paykido').html())
+			alert('after I was supposed to show modal')
+		}
+	}))
+
+*/
+
+/*
+	$('#paykido_button').on("click", (function() {
+		if ( $.urlParam('status') == 'registering' ) {
+			alert("paykido html before hack: " + $('#paykido').html())
+			$('#returnedMessage').remove()
+			$('#iframe').show()	
+			$('#iframe').attr('src', $('#iframe').attr('src'));
+			alert("paykido html after hack: " + $('#paykido').html())
+			$('#paykido.modal').modal('show')	
+		}
+	}))
+*/	
+	window.addEventListener("message", receiveMessage, false);
+	 
+	function receiveMessage(event)
+	{
+	
+//	    $('#paykido.modal').modal('hide')
+	    if (event.data == 'close') {
+    		window.location.assign("/play")
+	    }
+		obj = jQuery.parseJSON(event.data)
+//	    alert('the message is: ' + obj.status + '\n' + "property:" + obj.property + "\n" + "value:" + obj.value + "\n" + "type:" + obj.type)
+	    $('#paykido.modal #iframe').hide()
+		$('#returnedMessage #return_status').html(obj.status)
+		if (obj.status == 'approved') {
+			$('.approved_purchase').show();
+		}
+		else if (obj.status == 'declined') {
+			$('.status_icon').removeClass('bigicon-thumbs-up').addClass('bigicon-thumbs-down')
+			$('.declined_purchase').show();
+		}
+		else if (obj.status == 'pending') {
+			$('.status_icon').removeClass('bigicon-thumbs-up').addClass('bigicon-thumbs-right')			
+			$('.pending_purchase').show();			
+		}
+		else if (obj.status == 'failed' || obj.status == 'unregistered' ) {
+			$('.status_icon').removeClass('bigicon-thumbs-up').addClass('.bigicon-cross-black')
+			$('.failed_purchase').show();			
+		}
+		$('#returnedMessage #property').html(obj.property)
+		$('#returnedMessage #value').html(obj.value)
+		$('#returnedMessage #type').html(obj.type)
+	    $('#paykido.modal').append($('#returnedMessage'))
+		$('#returnedMessage').show()
+	    $('#paykido.modal').modal('show')
+	}
+
+	<% if params[:status] and params[:status] == 'registering' %>
+ 	    $('#paykido.modal #iframe').hide()
+		$('.status_icon').removeClass('bigicon-thumbs-up').addClass('bigicon-thumbs-right')			
+	    $('#paykido.modal').append($('#returnedMessage'))
+		$('#returnedMessage .modal-header h3').html('Confirmation')
+		$('.registering').show();	
+		$('#returnedMessage').show()
+	    $('#paykido.modal').modal('show')
+	<% end %>
+	
+	<% if params[:status] and params[:status] == 'error' %>
+ 	    $('#paykido.modal #iframe').hide()
+		$('.status_icon').removeClass('bigicon-thumbs-up').addClass('bigicon-thumbs-right')			
+	    $('#paykido.modal').append($('#returnedMessage'))
+		$('#returnedMessage .modal-header h3').html('Error')
+		$('.error').show();	
+		$('#returnedMessage').show()
+	    $('#paykido.modal').modal('show')
+	<% end %>
+
+	<% if params[:status] and params[:status] == 'wrong_params' %>
+ 	    $('#paykido.modal #iframe').hide()
+		$('.status_icon').removeClass('bigicon-thumbs-up').addClass('bigicon-thumbs-right')			
+	    $('#paykido.modal').append($('#returnedMessage'))
+		$('#returnedMessage .modal-header h3').html('Error')
+		$('.wrong_params').show();	
+		$('#returnedMessage').show()
+	    $('#paykido.modal').modal('show')
+	<% end %>
+	
+
+    $('#paykido.modal').on('hidden', function () {
+    	window.location.assign("/play")
+    })
+
+	// Emulate product selection (here: product radio button) 
+	//	initial value
+		var value = $("input:checked[name=product]").val();
+	    var ref = $("iframe").attr("src");
+		var par = "amount=" + value + '&';
+	    ref = ref.replace(/\amount.*?\&/, par);
+	    $("iframe").attr("src", ref);
+
+	// every time it changes
+	$("input:radio[name=product]").click(function() {
+	    var value = $(this).val();
+	    var ref = $("iframe").attr("src");
+		var par = "amount=" + value + '&';
+	    ref = ref.replace(/\amount.*?\&/, par);
+	    $("iframe").attr("src", ref);
+	});
+
+
+});
+</script>

@@ -85,8 +85,14 @@ body .modal-footer {
 	top:939px;
 	left:33%;
 	width: 12%;
-	height: 10.0%;
+    height: 59px;
+}
 
+#paykido_button1 {
+
+    position: absolute;
+    top:939px;
+    left:452px;
 }
 
 
