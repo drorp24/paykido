@@ -3,7 +3,7 @@ require "delayed/recipes"
 
 load "config/recipes/base"
 load "config/recipes/nginx"
-load "config/recipes/unicorn"
+load "config/recipes/No_unicorn"
 load "config/recipes/postgresql"
 load "config/recipes/nodejs"
 load "config/recipes/rbenv"
@@ -11,7 +11,7 @@ load "config/recipes/check"
 load "config/recipes/utils"
 load "config/recipes/rake"
 load "config/recipes/taps"
-load "config/recipes/monit"
+load "config/recipes/No_monit"
 
 server "50.116.63.241", :web, :app, :db, primary: true
 
